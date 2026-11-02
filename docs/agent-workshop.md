@@ -41,7 +41,7 @@ rights, tenant identity and revisions belong to the native operation. Read acces
 does not grant write or publication access. Private sandbox differences and
 publication also require the respective domain rights.
 
-![Actual connected knowledge workspace](assets/showcase/knowledge-gallery.webp)
+![Current product knowledge and curated catalogue relationships](assets/product-tour-20261102/knowledge-connections.jpg)
 
 Retrieval supplies eligible evidence; it does not train model weights. Sources,
 proposals and actions are distinct steps. See the [intelligence guide](cognitive-commerce.md)

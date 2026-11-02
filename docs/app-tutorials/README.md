@@ -1,6 +1,6 @@
-# Build five apps with VEYNDO
+# Build five apps with Veyndo Commerce
 
-These illustrated workshops follow the current App Studio: one visual designer,
+These workshops use App Studio: one visual designer,
 one Manifest, the same API/MCP gateway and an explicit staging/release workflow.
 Start with a working pattern or a guided assistant, then change its data and UI.
 No paid AI call is needed to follow the deterministic examples.
@@ -13,10 +13,13 @@ No paid AI call is needed to follow the deterministic examples.
 | [4. Daily review reminder](scheduled-review.md) | UTC schedule → event → graphical flow | Scheduled automation assistant | Only for optional Slack/email delivery |
 | [5. ERP order handoff](erp-handoff.md) | Managed mapping UI, order events and service action | ERP handoff pattern | Yes, for actual ERP synchronization |
 
-![Choose an app pattern or guided assistant in the actual Studio](../assets/app-tutorials/assistant.jpg)
+[Earlier worked example: Choose an app pattern or guided assistant in the actual Studio](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/assistant.jpg)
 
-*12 October 2026, English interface, synthetic local shop. The three patterns are
-real app-owned packages; the nine assistants create the same editable contract.*
+*The earlier worked-example links retain their October capture date. The inline workspace illustration above shows the current interface.*
+
+![Current App Studio entry with working patterns and AI description](../assets/product-tour-20261102/app-assistants.jpg)
+
+*Current shared workspace, captured 2 November 2026. The linked earlier worked examples preserve their original field definitions and outcomes.*
 
 ## Before you start
 
@@ -64,7 +67,7 @@ editor. Never paste a live or another shop's ID to bypass this boundary.
    operation and a denied operation. A visible tab alone does not prove its backend
    permissions or that a remote provider works.
 
-![Immutable versions and explicit staging installation](../assets/app-tutorials/versions.jpg)
+[Earlier worked example: Immutable versions and explicit staging installation](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/versions.jpg)
 
 *Actual saved versions from the local workshop. Installed versions, pending
 versions and package review are distinct; this capture is not a live release.*
@@ -82,7 +85,7 @@ development task**. Work in the app's own directory; import the returned Manifes
 using **Apply agent JSON to canvas**, review it and follow the same release loop.
 The browser does not launch an unrestricted coding shell.
 
-![Coding-agent task and Manifest import use the existing contract](../assets/app-tutorials/coding-agent.jpg)
+[Earlier worked example: Coding-agent task and Manifest import use the existing contract](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/coding-agent.jpg)
 
 All app implementation, UI, styles, translations, templates and app-local tests
 stay in `extensions/apps/<your-app>/` or an independent private repository.
@@ -109,9 +112,10 @@ supported. [Translation workflow](../localization.md).
 | Timer/service does nothing in staging | Expected: external delivery and schedules are disabled there; use a disposable live test shop plus local fixtures |
 | ERP service is unavailable | Operator service URL, approved package digest, server credential and service health |
 
-The images are unretouched browser captures from 12 October, not UI mockups.
-[Capture inventory](../assets/app-tutorials/README.md) records which views are
-draft/design views. The existing real PostgreSQL `app_assistants` suite covers
+The inline shared-workspace images were captured on 2 November. Exact earlier
+worked examples remain dated source links. [Current captures](../assets/product-tour-20261102/README.md) and
+[earlier workshop inventory](../assets/app-tutorials/README.md) distinguish
+draft/design views from saved records. The existing real PostgreSQL `app_assistants` suite covers
 installation, customer/order context, rights, public/MCP denial, service calls,
 signed webhooks, flows, cron and restart. The individual guides map to existing
 regressions. These checks do not certify an actual merchant ERP or paid provider.

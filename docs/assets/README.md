@@ -1,8 +1,9 @@
 # VEYNDO screenshots and recordings
 
-Current product illustrations use the approved Living V identity. The [new product films](../video-tours.md) were produced on 23 October from actual product captures dated 15–22 October 2026. Earlier workflow recordings retain their 13 October capture date. Local screenshots use isolated synthetic shops, accounts and records. Public deployment views are identified separately in the current release notes. No screenshot is evidence of a real payment, external provider delivery or continuous autonomous optimization.
+Current product illustrations use the approved Living V identity. The [product films](../video-tours.md) were refreshed on 30 October. The [current illustrated product tour](product-tour-20261102/README.md) was captured on 2 November from the compiled native product. Earlier recordings retain their original capture dates. Local screenshots use isolated synthetic shops, accounts and records. Public deployment views are identified separately in the current release notes. No screenshot is evidence of a real payment, external provider delivery or continuous autonomous optimization.
 
-- [New product films, editable sources and provenance](showcase/product-films-20261023/README.md)
+- [Current screenshots, animated workflows and capture details](product-tour-20261102/README.md)
+- [Current product films, editable sources and provenance](showcase/product-films-20261030/README.md)
 - [Earlier workflow video files, durations, source revisions and hashes](showcase/manifest.json)
 - [Video descriptions and demonstration limits](../video-tours.md)
 - [Additional current interface captures](additional-veyndo-captures.json)

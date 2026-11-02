@@ -14,6 +14,10 @@ check an app's connections in App Studio and try a saved private change with the
 [customer simulator](customer-scenarios.md). These entry points use the same
 native editors, current rights and selected publication path.
 
+![Current merchant assistant and catalogue intake](assets/product-tour-20261102/assistant.jpg)
+
+*Current interface, 2 November 2026, fictional local shop. Earlier outcome-specific examples below retain their original evidence links.*
+
 ## A connected conversation surface
 
 The merchant assistant keeps the welcome actions, working context, source tools
@@ -94,9 +98,9 @@ bounded metadata and schemas; data reads retain the app's current domain rights,
 MCP opt-out and knowledge declarations. Managed save metadata is reviewable,
 never executed by a read tool. App records use the existing shared storage.
 
-![Contextual assistance in the public synthetic Studio](assets/agent-workspace-20261020/public-context.png)
+![Current merchant assistant entry; this image makes no model call](assets/product-tour-20261102/assistant.jpg)
 
-![CSV, URL and described demo products keep the selected private target](assets/agent-workspace-20261020/public-intake.png)
+![Current CSV intake into an explicitly selected private sandbox](assets/product-tour-20261102/catalogue-source.jpg)
 
 ## 2. Approve a real sequence of work
 
@@ -109,7 +113,7 @@ app-data change. For example:
 > Deutsch in dieser privaten Umgebung an. Bereite beide zur Freigabe vor;
 > veröffentliche nichts.
 
-![Two approved actions completed in the public private workspace](assets/agent-workspace-20261020/public-work-completed.png)
+[Dated example from the earlier interface: Two approved actions completed in the public private workspace](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/agent-workspace-20261020/public-work-completed.png)
 
 The saved proposal lists every operation and its exact arguments. Category plans use
 the canonical native input contract and current configured language checks before
@@ -134,7 +138,7 @@ returns a real job link. The parent waits for ready drafts, stops on child failu
 and resumes only after explicit continuation. Draft review/apply and selected
 publication remain separate. See [the delivery tracker](connected-merchant-followups.md)
 for the actual source and [public collection acceptance](evidence/release-history-through-2026-10-21.md#21-october-connected-collection-preparation-runs-publicly).
-The workspace screenshots above retain their 20 October capture date.
+Current inline workspace illustrations were refreshed on 2 November. Earlier completed-work and provider-answer examples remain dated links to their 20 October source captures.
 
 ```mermaid
 flowchart TD
@@ -196,9 +200,9 @@ the package into the synthetic live shop; its private records stayed private.
 The central Apps panel then saved `region = EU`, retained after a full reload.
 Installed settings belong to the live app owner and are not copied from sandboxes.
 
-![Generated app used through its ordinary private Studio entry](assets/agent-workspace-20261020/public-native-app.png)
+![Current private native Product advisor preview with a saved synthetic record](assets/product-tour-20261102/app-preview-saved.jpg)
 
-![Central configuration of the selectively published synthetic app](assets/agent-workspace-20261020/public-app-settings.png)
+![Current App Studio settings definition; shown before adding configuration fields](assets/product-tour-20261102/app-settings.jpg)
 
 Immediate preview runs declarative native apps. Event-driven services, schedules
 and payments use reviewed staging and their existing service owners. Export/import
@@ -213,7 +217,7 @@ usual server-backed order grid. Filters remain editable by hand. Product and
 customer views use the same path, with current catalogue/customer/PII rights.
 The list opens only on a click and performs no commerce mutation.
 
-![A real public agent request opens the native product grid with its editable filter](assets/agent-workspace-20261020/public-grid.png)
+![Current shared product grid](assets/product-tour-20261102/products.jpg)
 
 Personal search terms remain in a short-lived in-memory handoff; pinned saved
 views retain their existing safe-criteria projection. Shop/account transitions
@@ -226,7 +230,7 @@ proposal does not replace those editors with a separate generated interface.
 
 ## 5. Work from current facts and remember explicit preferences
 
-![Real work suggestions in the synthetic merchant workspace](assets/agent-workspace-20261020/public-workspace.png)
+![Current personal merchant workspace](assets/product-tour-20261102/workspace.jpg)
 
 The personal workspace shows a bounded selection of actual work: sold-out products,
 the actor's failed/uncertain runs, prepared translations and failed jobs of active
@@ -244,7 +248,7 @@ shop-wide preferences as a private `guidance` source. For example:
 The next merchant task receives bounded current guidance with source ID, hash and
 revision, even when the task uses different search words.
 
-![The configured public model recalls explicit private guidance and the originating product](assets/agent-workspace-20261020/public-context-answer.png) Source history, editing
+[Dated example from the earlier interface: The configured public model recalls explicit private guidance and the originating product](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/agent-workspace-20261020/public-context-answer.png) Source history, editing
 and archiving use the ordinary knowledge owner. Archive to withdraw a preference;
 changed/withdrawn sources invalidate an in-flight saved evidence snapshot. Guidance
 cannot be published to shoppers and never grants permissions or bypasses approval.

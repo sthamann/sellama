@@ -134,7 +134,7 @@ Each opens its existing editor. The shared assistant can prepare concrete succes
 denial, retry and rollback tests. Counts do not claim that a test ran or a required
 secret was entered; installed secrets retain their existing live-only encrypted owner.
 
-![AI channels and inward imports in the synthetic local shop](assets/agentic-commerce-20261018/channels.jpg)
+![Current agent-commerce connection workspace](assets/product-tour-20261102/agent-commerce.jpg)
 
 ## Verification and external gates
 

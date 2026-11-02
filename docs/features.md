@@ -1,57 +1,24 @@
-# VEYNDO feature guide
+# Veyndo Commerce feature guide
 
-See the [connected AI workspace](agentic-workspace.md) for current editor context,
-reviewed private execution, complete app composition, real preview, editable list
-handoff and remembered merchant-guidance workflow. [Current status](status.md).
+Build a shop, work with an agent, design the storefront and create apps on the
+same native commerce foundation. This guide follows the storefront, Studio,
+App Studio and the separate operator console.
 
-**22 October connected release:** [private customer-agent scenarios](customer-scenarios.md),
-[catalogue language/image preparation](product-management.md#preparing-a-catalogue-together),
-[app connection diagnostics](app-system-status.md) and
-[editable visual shopper selections](ui-experience.md#standard-storefront-and-customer-account)
-are online. [Public screenshots and completed purchases](evidence/customer-scenarios-2026-10-22.md#public-acceptance-after-the-final-rollout).
+[Current status](status.md) · [Try a complete round](first-tour.md) ·
+[Watch the product films](video-tours.md) · [Build five apps](app-tutorials/README.md)
 
-**Catalogue-based test customers:** preview three editable fictional profiles from
-the selected private channel before starting a run. The public German-Studio /
-French-channel test produced an exact-budget refusal and two native simulated
-purchases with different destination totals. [Illustrated steps](customer-scenarios.md#start-from-the-selected-catalogue).
+**Interface media refreshed 2 November 2026.** The screenshots below show the
+current compiled Rust/Studio product in an isolated local shop with fictional
+people, products and orders. The animated examples are edited sequences of those
+actual browser screenshots, with reading holds. They are not response-time
+measurements. Purchases use simulated payments; the register sale uses fictional
+cash. The design and app-agent panels are shown without making a model call.
+[Capture details and static animation frames](assets/product-tour-20261102/README.md).
 
-**Personal workspace and standard-shop editor:** [Illustrated workflow, shared models, rights, history, forms and publication](personal-workspace-and-shop-design.md).
+Public provider acceptance and dated deployment evidence remain in
+[current status](status.md). Historical reports retain their original dates.
 
-**Admin workflow update:** grouped/searchable settings, native CRM creation and reviewed manual orders use the same Rust owners and current role/PII checks. [Step-by-step guide and current boundaries](admin-workflows.md).
-
-**Agentic grids:** shared order/product/customer directories, configurable columns,
-server filtering/sorting and reviewed natural-language criteria. Declarative app
-tables reuse the same visual shell. [How it works and precise scope](agentic-grids.md).
-
-**Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
-
-**13 October integration audit:** shared current rights, configuration versions,
-selective publication, native POS defaults, B2B history/staging and inherited visitor
-controls are mapped in the [connected feature guide](feature-integration.md).
-The [testing guide](testing.md) separates current source checks from dated hosted
-acceptance and real-provider prerequisites.
-
-
-**Visitor behavior intelligence:** consent-bound guest/customer observations, native
-orders and the current semantic product graph now meet in one channel report.
-Studio charts and private timelines use the same HTTP/MCP permissions.
-[Data flow, native owners, setup and verification](behavior-intelligence.md).
-
-**Native point of sale:** touch/scanner register as a channel type, shared checkout and documents, cash/change, provider reconciliation, flows and private app slots. [Full setup and scope](pos.md).
-
-**12 October workbench update:** editable app patterns, explicit AI/agent proposal review, native control generation, approved catalogue translation jobs and scoped personalization. [How to use it, ownership and verification boundaries](connected-workbench.md).
-
-**Build your first apps:** [five illustrated workshops](app-tutorials/README.md)
-cover product care advice, returns, customer preferences, scheduled review flows
-and ERP handoff using the same visual/coding-agent Manifest and version lifecycle.
-
-[Documentation home](documentation-site.md) · [Get started](quickstart.md) · [Exact Shopware scope](shopware-parity.md) · [Source map](source-map.md)
-
-**Baseline tour: 9 October 2026, merged Core `598bbec`; current entry links refreshed 22 October.** This guide follows the storefront, Studio workspaces and the separate platform console. The original connected intelligence, app ontology, source/consent fences and runtime hardening are described in the [dated change and acceptance record](release-acceptance-2026-10-09.md). The media captures retain their original provenance. Use [current status](status.md) for the newer connected workspace, app and public checkout outcomes.
-
-The baseline screenshots, twelve GIFs and films retain their VEYNDO capture date of 13 October 2026. The 22 October additions above link to their own current screenshots. They show actual UI with synthetic accounts and records; individual source revisions and editing boundaries are retained in the metadata. GIF timing is not a performance measurement. Commerce examples use simulated payments. Draft setup, disabled provider settings and completed local actions are identified separately. Earlier public acceptance captures remain dated archive links. [Current capture provenance](assets/README.md) · [Showcase files and limits](assets/showcase/README.md).
-
-![Current Nord Atelier storefront with the generated Harbor coat photograph](assets/feature-tour/storefront.jpg)
+![Current Nord Atelier storefront, captured 2 November 2026](assets/product-tour-20261102/storefront.jpg)
 
 ## Find your feature
 
@@ -86,7 +53,7 @@ New demo shops use **Nord Atelier**, a fictional capsule collection with **12 pa
 
 The collection includes a coat, knit, shirt, trousers, dress, blazer, T-shirt, jeans, skirt, sneakers, leather tote and scarf. Categories and product search use the actual catalog. Larger lists use bounded pages rather than downloading every product. Existing shop edits survive reseeding. The earlier furniture catalog remains an explicitly selected compatibility fixture; its mug/lamp screenshots are historical examples. [Catalog contents and seeding rules](fashion-demo.md).
 
-![Category navigation, real fashion product cards and authoritative prices](assets/feature-tour/collection.jpg)
+![Current catalogue navigation and product cards with native prices](assets/product-tour-20261102/collection.jpg)
 
 ### Product detail, variants and quantity
 
@@ -94,9 +61,9 @@ A product page combines its gallery, localized description, manufacturer/propert
 
 Quantity minimums, steps, maximums and customer-group tiers feed the same server calculator used by the cart. Configured list/regulation/reference prices and eligible discounts are product pricing features, rather than a second browser calculator. Consumers and authenticated business customers can receive different configured prices and tax display. Channel, country and customer context affect availability.
 
-![Size selection changes the actual SKU and stock before adding it to the bag](assets/feature-tour/variants-cart.gif)
+![Edited current UI sequence: wool coat size M, native size L and checkout](assets/product-tour-20261102/variants-cart.gif)
 
-*GIF: switch from M to L, inspect stock and add the selected SKU to the real cart. The cart opens with that exact variant.*
+*Edited UI sequence: size M, the real size L SKU and the resulting checkout. Static frames are linked in the capture inventory.*
 
 ### Reviews, recommendations and product questions
 
@@ -110,9 +77,9 @@ The bag opens one checkout containing guest/sign-in/account entry, contact, sepa
 
 **Review order** confirms the authoritative quote. **Place order** is a separate explicit action bound to its revision and amount. Concurrent retries use a stable idempotency key and return the original order; they cannot quietly charge a changed total. Checkout locks the selected inventory and stores immutable product, customer, address and method snapshots.
 
-![Choose delivery, review the server total and save a simulated order](assets/feature-tour/checkout.gif)
+![Edited current UI sequence: contact details, authoritative review and completed simulated purchase](assets/product-tour-20261102/checkout.gif)
 
-*GIF: choose Standard delivery, review the quote, then place the simulated order. Shipping can be free under the configured threshold rules. No real money is charged.*
+*Edited UI sequence: fictional contact details, authoritative quote review and the saved simulated order. Standard delivery is free for this configured order value. No real money is charged.*
 
 Demo payment simulates authorization; bank transfer/invoice use manual states and their configured eligibility. The native **PayPal Orders v2** adapter supports configured Sandbox/Live accounts, provider approval, durable capture/refund attempts and webhook verification. A verified approval queues capture automatically; a browser return alone is not proof of payment. Pending/uncertain outcomes require reconciliation, not a repeated purchase. The private Shopware Payments connector is still a separate requirement. [Checkout behavior and payment boundaries](checkout.md).
 
@@ -157,7 +124,7 @@ The dashboard reads actual commerce data: recorded orders/value, today's count, 
 
 The side preview has a **price playground** for quantity and consumer/business-group context. It calls the actual calculator without creating a cart, order or inventory mutation. The selected product can become context for a conversation. [Studio interface](studio-interface.md).
 
-![Real dashboard after the synthetic coat order; recorded value is explicitly simulated](assets/feature-tour/overview.jpg)
+![Current Studio overview of synthetic local orders and catalogue data](assets/product-tour-20261102/overview.jpg)
 
 ## Products and categories
 
@@ -165,7 +132,7 @@ The side preview has a **price playground** for quantity and consumer/business-g
 
 Search by name/product number and filter active status, category or low stock. The default page is 25 products with bounded cursor pagination. Create a unique product, maintain its price/stock and other fields, save and activate deliberately; new products start inactive. Tenant and revision checks apply to UI, HTTP and MCP writes alike. Stable validated import IDs are also admitted through the product-creation API; duplicate IDs conflict.
 
-![Search, status/category filters, actual prices, inventory and child-variant counts](assets/feature-tour/products.jpg)
+![Current product grid with search, configurable columns and native inventory](assets/product-tour-20261102/products.jpg)
 
 ### Eleven connected editor tabs
 
@@ -185,29 +152,29 @@ Search by name/product number and filter active status, category or low stock. T
 
 Each editor uses one **Content language**. Inherited values are distinguishable from explicit translations; a missing/null value inherits, while an intentional empty description remains empty. Saving binds the product revision and updates its relevant translations/associations atomically. [Full field contracts](product-management.md).
 
-![Recorded central product editor with one content-language selector; the current release also adds Safety & compliance](assets/feature-tour/product-editor.jpg)
+![Current compact product editor with one content-language selector](assets/product-tour-20261102/product-general.jpg)
 
 ### Pricing, quantities and inventory
 
 The price/stock tab combines current gross price, tax, inventory, purchase limits, quantity steps and optional list/regulation/reference prices. Tier rows can target a customer group and saved rule. Delivery and free-shipping fields feed checkout; changing a parent does not invent stock for its independently purchasable child SKUs. Save the reviewed revision to apply changes.
 
-![Price, tax, stock and quantity controls in the actual coat editor](assets/feature-tour/product-pricing.jpg)
+![Compact Prices & stock editor for the synthetic wool coat](assets/product-tour-20261102/product-pricing.jpg)
 
 ### Visual and Markdown descriptions
 
 The visual editor supports bold/italic/underline, headings, quotations, lists, links, safe image/video blocks, undo/redo and preview. It stores bounded typed document blocks, not executable HTML. Markdown edits the same description through an explicit **Apply Markdown** step; unapplied source changes block an accidental save. Some rich attributes/video/underline are outside the Markdown subset and are disclosed rather than silently discarded.
 
-![Switch between actual German/French/English content and the Markdown source editor](assets/feature-tour/product-languages.gif)
+![Edited current UI sequence: English, German and French product content](assets/product-tour-20261102/product-languages.gif)
 
-*GIF: the language selector hydrates saved translations; switching to Markdown exposes the real English source. Changing interface language and translating product content are separate actions.*
+*Edited UI sequence of actual current controls. See the capture inventory for the individual stills and the action scope.*
 
 ### Variant combination generator
 
 Add up to five option groups, enter comma-separated values and **Generate combinations**. Review up to 50 combinations, deselect unwanted rows and set each SKU, price and stock before creation. Existing variants remain independently editable. Creation reports individual failures and permits an explicit retry; newly created children start inactive. The parent's live stock is not a sum guessed from the browser table.
 
-![Generate two size combinations and inspect their proposed product numbers, prices and stock](assets/feature-tour/variant-generator.gif)
+![Current child variants and entry to the native variant generator](assets/product-tour-20261102/product-variants.jpg)
 
-*GIF: generate XL/XXL draft rows for the demo coat. This capture stops at review; it does not claim those variants were published.*
+*Edited UI sequence of actual current controls. See the capture inventory for the individual stills and the action scope.*
 
 ### Galleries and image drafts
 
@@ -215,7 +182,7 @@ Add PNG/JPEG/WebP files or an allowed image URL, preview a cover, reorder, set a
 
 **AI image studio** is optional: generation/edit jobs require enabled image capability, a configured independent image model and server-held credentials. Results are private review drafts with persisted job/revision state. They do not replace live media automatically. The supplied fashion photographs are checked-in artwork, not evidence of a live image-provider call during this tour. [Media and job behavior](settings-media.md).
 
-![Real saved coat gallery, cover controls and optional AI image workspace](assets/feature-tour/product-media.jpg)
+![Current gallery, cover selection and optional image preparation](assets/product-tour-20261102/product-media.jpg)
 
 ### Categories, specifications, SEO and digital assets
 
@@ -223,39 +190,39 @@ Categories form a translated parent/child tree. Page, folder and HTTPS link type
 
 Specifications expose localized merchant properties and dimensions; SEO stores translated title/description/slug information. Attachments use immutable bytes and deliberate publication. Product digital access and review moderation have their own tabs and rights. [Categories and product scope](product-management.md) · [Asset/purchase ownership](merchant-operations.md).
 
-![Actual translated category tree](assets/feature-tour/categories.jpg)
+![Category tree and translated category editor in the current Studio](assets/product-tour-20261102/categories.jpg)
 
 ### Category and channel assignment
 
 Assign one product to multiple categories and select its permitted sales channels. This connects category navigation to actual product visibility; the parent inclusion rule and each channel's navigation root remain explicit.
 
-![Category assignment in the native Categories & channels tab](assets/feature-tour/product-visibility.jpg)
+![Current category and sales-channel assignment for the wool coat](assets/product-tour-20261102/product-visibility.jpg)
 
 ### Specifications and physical properties
 
 Add translated specification rows and maintain named property/value entries such as the bundled Nord Atelier brand. Weight, width, height and length are independent physical fields used by the native product contract. Content-language changes follow the same inheritance rules as the description.
 
-![Localized specification rows and native property values](assets/feature-tour/product-specifications.jpg)
+![Current specification editor and product-page preview](assets/product-tour-20261102/product-specifications.jpg)
 
 ### SEO metadata
 
 Maintain the selected language's meta title, meta description and URL slug, with the product preview shown underneath. These fields are persisted product metadata; they do not claim automatic search-engine ranking or a complete CMS route generator.
 
-![Localized SEO metadata and slug controls](assets/feature-tour/product-seo.jpg)
+![Current SEO editor with its search-result preview](assets/product-tour-20261102/product-seo.jpg)
 
 ### Cross-selling
 
 Search the current shop's catalog and select the related products explicitly. The linked recommendations belong to this product and are separate from merchant-approved observed co-purchase relationships in Shop intelligence.
 
-![Cross-selling selects only current products from this shop](assets/feature-tour/product-cross-selling.jpg)
+![Current same-shop recommendation picker](assets/product-tour-20261102/product-cross-selling.jpg)
 
 ### Review moderation
 
 Open Reviews to inspect customer submissions and their status. Publish or hide actual submissions deliberately; only published reviews contribute to the public rating. The captured coat has no submitted reviews, so its moderation list is empty.
 
-![The actual empty Reviews tab for the synthetic coat](assets/feature-tour/product-reviews.jpg)
+![Current Reviews section; the synthetic coat has no reviews](assets/product-tour-20261102/product-reviews.jpg)
 
-![Product-specific files and downloads workspace](assets/feature-tour/product-downloads.jpg)
+![Current product attachments and downloads section](assets/product-tour-20261102/product-downloads.jpg)
 
 ## Customers, orders and documents
 
@@ -265,9 +232,9 @@ Search customers and maintain contact/company/VAT/phone/birthday fields, preferr
 
 Customer groups have translated names and configurable gross/net display. Rules and pricing can target them. Group/status changes revalidate authority and revoke stale customer sessions/cart privileges. Required groups and referenced shipping/payment definitions have dependency guards; an in-use object cannot simply be removed through the UI. New guest orders retain an explicit guest identity instead of acquiring account ownership by email. [CRM/history](entity-history.md) · [Operations](merchant-operations.md).
 
-![Customer detail with synthetic contact information and trusted group controls](assets/feature-tour/customer-detail.jpg)
+![Current customer editor and address book with fictional contact data](assets/product-tour-20261102/customer-detail.jpg)
 
-![Translated customer groups and their gross/net pricing configuration](assets/feature-tour/customer-groups.jpg)
+![Current customer-group settings and gross/net pricing controls](assets/product-tour-20261102/customer-groups.jpg)
 
 ### Order workflow and fulfillment
 
@@ -275,7 +242,7 @@ The bounded chronological order list opens immutable items, quote/addresses/cust
 
 The workflow definition can contain translated custom states/edges under validation. Invalid/unreachable transitions, removal of persisted states and illegal terminal/cyclic definitions fail. Order workflows are also selectable release units. Delivery stores tracking and internal dispatch/delivery state; a status change does not purchase a carrier label or prove physical delivery.
 
-![Actual saved coat order with eligible next actions, payment and immutable addresses](assets/feature-tour/order-detail.jpg)
+![Current native order view for the completed simulated coat purchase](assets/product-tour-20261102/order-detail.jpg)
 
 ### Payments and numbered PDFs
 
@@ -289,9 +256,9 @@ Supported histories cover products, categories, customers, orders, company/share
 
 Restoring a supported state requires an explicit confirmation and the current revision. It runs normal validation and creates a new revision. **Product stock is preserved**; customer credentials/identity provenance remain current; restored knowledge needs publication review again. Orders are inspectable and do not replay financial operations. Deleted objects are not generally resurrected by this control. [Exact entity-history boundary](entity-history.md).
 
-![Restore a saved product change through the explicit validated confirmation](assets/feature-tour/history-restore.gif)
+![Edited current UI sequence: product history, explicit restore confirmation and new revision](assets/product-tour-20261102/history-restore.gif)
 
-*GIF: confirm restoration of the real prior product state. This is content restoration, not inventory or order rollback.*
+*Edited UI sequence of actual current controls. See the capture inventory for the individual stills and the action scope.*
 
 ## Assistant and shop intelligence
 
@@ -301,7 +268,7 @@ The merchant assistant persists conversations, messages, verified context and pr
 
 Choose configured **Ollama**, **OpenAI Responses** or **Anthropic Messages** adapters. Cloud API credentials differ from consumer subscriptions; calls may incur provider charges. Missing configuration, malformed output and provider failures are reported without silent substitution. Conversation leases and process admission keep network calls outside database transactions. Remote app-service mutations are not made atomic by a model proposal. [Inference and app planning](intelligence-apps-payments.md) · [Provider setup](connectors.md).
 
-![Assistant and live product/price context; this capture makes no model call](assets/feature-tour/assistant.jpg)
+![Current merchant assistant with catalogue intake actions; no model call performed](assets/product-tour-20261102/assistant.jpg)
 
 ### Connected views of the knowledge workspace
 
@@ -319,19 +286,19 @@ Choose configured **Ollama**, **OpenAI Responses** or **Anthropic Messages** ada
 
 Catalog facts, curated demo relationships, private app evidence, observed purchases and merchant-approved recommendations remain distinguishable. Transactional event projection deduplicates repeated order/capture evidence. Publishing/dismissing a hypothesis changes eligibility for customer recommendations; marking an experiment does not run a randomized trial. Memory is durable shop evidence, not online model-weight training. [Knowledge workspace](knowledge-workspace.md).
 
-![Knowledge overview with real catalog totals and separate evidence categories](assets/feature-tour/knowledge.jpg)
+![Current Shop intelligence overview with grouped navigation](assets/product-tour-20261102/knowledge-overview.jpg)
 
 ### Private sources, explicit publication and real retrieval
 
 Add text, searchable PDF, TXT or Markdown up to 2 MiB; choose document/data sheet/manual/care guide/FAQ/shipping/returns/warranty/brand kind and whole-shop or product scope. Sources store fingerprints/chunks and start private. A customer publication decision is separate and revision-bound. Editing resets public approval, removes old embeddings and rebuilds chunks. Archive/restore retains the deliberate private review boundary. Scanned PDFs need prior OCR.
 
-![Review the source, open its publication decision and confirm customer eligibility](assets/feature-tour/knowledge-publication.gif)
+![Edited current UI sequence: private care guide, publication review and customer publication](assets/product-tour-20261102/knowledge-publication.gif)
 
-*GIF: publish a visibly fictional care guide in the isolated shop. Only the approved source becomes eligible for customer answers.*
+*Edited UI sequence of actual current controls. See the capture inventory for the individual stills and the action scope.*
 
 **Test & use** runs real lexical retrieval with no LLM call or write. It displays exact excerpts, source IDs/fingerprints and audience eligibility. Configured live answers can additionally use Qdrant semantic candidates, checked against current PostgreSQL state. Private Gmail/Analytics evidence informs authorized merchant planning, not public product answers. [Publication and retrieval details](knowledge-workspace.md).
 
-![Model-free test of the coat question and available source evidence](assets/feature-tour/knowledge-test.jpg)
+![Current evidence-test form; no inference performed in this capture](assets/product-tour-20261102/knowledge-test.jpg)
 
 ### AI translations and media jobs
 
@@ -347,21 +314,21 @@ New shops have a main channel, three starter rules and two order/payment note fl
 
 The registry binds 108 of 114 reviewed source-named condition types; six unsupported runtime types remain visibly disabled. This is a native subset with bounded comparison evidence, not full upstream Rule Builder parity or unrestricted PHP execution. [Condition inventory and lifecycle](automation.md).
 
-![Saved-rule editing, enablement and current revision](assets/feature-tour/rules.jpg)
+![Current saved-rule editor with native conditions and revision history](assets/product-tour-20261102/rules.jpg)
 
 ### Coupons and campaigns
 
 Create translated percent/fixed discounts, coupon codes or automatic campaigns and free-shipping effects. Configure priority, exclusivity, active windows, rule eligibility and global usage caps. Applying `TRY10` in the example uses actual tax-adjusted totals; concurrent redemption counts use transactional checks. Search/edit/enable/remove definitions through dependency-aware, revision-bound operations. [Campaign semantics](automation.md).
 
-![Actual TRY10 percentage campaign with rule and usage controls](assets/feature-tour/campaigns.jpg)
+![Current coupon and campaign editor; no promotion enabled in this capture](assets/product-tour-20261102/campaigns.jpg)
 
 ### Branches, actions, delays and execution traces
 
 The Flow canvas builds an acyclic graph of 1–100 steps: condition Yes/No branches, actions, delay and stop. Native actions include customer/order tags, custom fields, attribution, group/status changes, guarded order/payment/delivery transitions, documents and download access. Configured email, installed app actions and AI proposals add external/approval boundaries.
 
-![Select condition, delay and document steps in the real branching canvas](assets/feature-tour/flow-canvas.gif)
+![Edited current UI sequence: action selection and a branch in an unsaved Flow canvas draft](assets/product-tour-20261102/flow-canvas.gif)
 
-*GIF: navigate the six-step graph and inspect each step's controls. This is an editor walkthrough, not a claimed external delivery.*
+*Edited UI sequence of actual current controls. See the capture inventory for the individual stills and the action scope.*
 
 Delays up to 30 days persist as scheduled continuations. SQL leases/node receipts survive restarts and refresh current rights before actions. The workspace periodically refreshes actual branch decisions, steps, results and errors. Confirmed effects are not blindly repeated; ambiguous external effects need reconciliation. Events include catalog/order/payment/delivery, knowledge decisions and namespaced app events. [Runtime, actions and limitations](automation.md).
 
@@ -373,7 +340,7 @@ Maintain structured legal/company identity, address, contact, private bank field
 
 Company logos are bounded PNG/JPEG/WebP uploads normalized to PNG and private until linked. Storefront brand/logo/legal notice use an explicit public projection excluding private banking/domestic tax fields. Document issuer uses the order's channel and an immutable snapshot. [Company settings](company-settings.md).
 
-![Shared company identity with separate channel scope and structured fields](assets/feature-tour/company.jpg)
+![Current company editor with synthetic identity and address fields](assets/product-tour-20261102/company.jpg)
 
 ### Countries and destination taxes
 
@@ -381,7 +348,7 @@ The geography picker bundles 249 ISO-assigned country entries plus explicitly se
 
 Tax classes have country rates/fallbacks and prioritized destination rules for subdivisions, exact/prefix/range postcodes, UTC date windows and saved-rule conditions. The resolver uses authoritative pre-tax/pre-discount facts, avoids recursive quote conditions and preserves completed order snapshots. Shipping tax supports highest/proportional allocation. This is merchant configuration, not a live worldwide tax-law service. [International contracts](international-commerce.md).
 
-![Native tax classes and destination-rule workspace](assets/feature-tour/tax.jpg)
+![Current tax classes and destination-rule workspace](assets/product-tour-20261102/tax.jpg)
 
 ### Languages, shipping and payment settings
 
@@ -389,11 +356,11 @@ Shop-main and enabled content locales drive product/category/settings/app editor
 
 Shipping maintains fees, country/rule availability, delivery times and tax allocation; payment maintains manual/simulated/configured provider mode, country/customer eligibility and descriptions. A channel inherits checkout settings until an explicit field-level override. Switching a dirty scope asks for save/discard. Dependency checks protect referenced methods and preserve existing order snapshots. [Shared basis and overrides](settings-media.md).
 
-![Languages, main-language control and optional reviewed translation jobs](assets/feature-tour/languages.jpg)
+![Current content-language registry and catalogue translation controls](assets/product-tour-20261102/languages.jpg)
 
-![Shipping methods with current fees, scope and availability controls](assets/feature-tour/shipping.jpg)
+![Current shipping-method settings and eligibility controls](assets/product-tour-20261102/shipping.jpg)
 
-![Payment-method eligibility and the explicitly simulated demo method](assets/feature-tour/payments.jpg)
+![Current native payment-method settings with the demo method explicitly simulated](assets/product-tour-20261102/payments.jpg)
 
 ## Sales channels and connected experiences
 
@@ -403,11 +370,11 @@ A shop's persisted main storefront cannot be deleted or changed to headless. It 
 
 The creation assistant has **Basics → Catalog & languages → Review & create**. It supports searchable product selection and inherited settings; the final review is explicit. Separate SaaS shops have independent data/membership, whereas channels belong to one shop. Unused additional channels have revision/dependency-checked lifecycle operations. **Domains & experiences** displays each owned address, channel assignment and editor link. DNS/certificate provisioning for external domains remains an operator responsibility. [Channel creation](studio-api-and-channels.md#sales-channels) · [Management, domains and previews](channel-management.md).
 
-![Owned domain, channel assignment and existing Storyfront editor in one workspace](assets/showcase/channel-domains.png)
+![Current sales-channel directory; public DNS setup is not demonstrated by this local image](assets/product-tour-20261102/channels.jpg)
 
-![Choose channel languages and catalog root, then review the new storefront](assets/feature-tour/channel-wizard.gif)
+![Edited current UI sequence: channel type, catalogue and languages, then review](assets/product-tour-20261102/channel-wizard.gif)
 
-*GIF: configure the Autumn capsule channel and inspect the review step. Creation is a separate action.*
+*Edited UI sequence of actual current controls. See the capture inventory for the individual stills and the action scope.*
 
 ### Managed Storyfront experiences
 
@@ -433,7 +400,7 @@ A personal merchant can issue a **one-use 60-second Studio ticket**. Redeeming i
 
 These adapters are opt-in and disabled without operator configuration. Trusted inference has a durable 50-call allowance per verified email per UTC day; this is a prototype abuse boundary, not SaaS billing. The public private-service deployment and owned connection were observed in the latest release review; those observations do not certify Google/Apple OAuth, every email delivery or production scale. [Trust contract, routes and configuration](experience-integration.md).
 
-![Current source-derived API explorer with the identity exchange route; write execution is disabled](assets/feature-tour/identity-explorer-current.png)
+![Current API keys, grouped permissions and native endpoint explorer](assets/product-tour-20261102/api-integrations.jpg)
 
 ## Apps and App Studio
 
@@ -443,7 +410,7 @@ The library has **Installed** and **Discover**, search and categories, status fi
 
 The bundled catalog is not an external marketplace of arbitrary vetted services. Product Lab and custom packages can be installed from reviewed manifests separately. [Library and package lifecycle](app-library.md).
 
-![Current Discover catalog with native bundled app choices](assets/feature-tour/apps.jpg)
+![Current Discover catalogue in the Apps workspace](assets/product-tour-20261102/apps.jpg)
 
 ### The eight bundled apps
 
@@ -460,45 +427,45 @@ The bundled catalog is not an external marketplace of arbitrary vetted services.
 
 OAuth/token refresh and connector queues live in independent app services with their own encrypted configuration/storage. Imported content is evidence, never an instruction. Disconnect fences/removes its active planning sources. Order-event and equivalent Flow notifications are two distinct paths; intentionally choose one if only one message is wanted. [Connected apps](connected-apps.md) · [Email delivery](email-delivery.md).
 
-![Current native Email Delivery controls in the isolated VEYNDO demonstration](assets/feature-tour/email-workspace-current.png)
+![Current Email Delivery app configuration; no provider connected and no message sent](assets/product-tour-20261102/email.jpg)
 
-*Current capture: the local Rust connector is running, delivery remains disabled and no sender credentials or real provider calls are supplied.*
+*Current capture: delivery is disabled, no sender credentials are configured and no provider request is made.*
 
-### Nine guided app starting points
+### Guided app starting points
 
 **Developers → App Studio → New app** offers storefront, admin, connected experience, payment connector, shipping connector, ERP/external systems, event/Flow actions, incoming webhook and scheduled automation. Choose placement, translated fields and explicit exposure to create an ordinary editable manifest. A template is a contract starting point, not an implementation of every provider's business logic.
 
 Editor placements include an independent admin module, product-general section/new product submenu, customer/order fields, product-detail surface and storefront page. App data lives in namespaced records in four fixed shared tables with validated same-shop core references; the host binds the currently open product/customer/order. Missing context cannot cause an unfiltered private read. [Assistant types and mounts](app-assistants.md).
 
-![Current App Studio assistants and their explicit purpose](assets/feature-tour/app-assistants.jpg)
+![Current App Studio entry with AI description and working app patterns](assets/product-tour-20261102/app-assistants.jpg)
 
 ### Visual design and typed data models
 
 The palette contains text, forms, grids, cards, inputs, choices, dates, buttons, images, tabs/frames, metrics and charts. Drag/drop onto a snapping raster; resize, select several controls, align/distribute, set tab order and open properties/code-behind. Stacked/grid layouts remain available. Undo/redo edits the same manifest. One content-language selector serves localized view/field text. Public forms are rejected; explicit public reads remain separate from authenticated writes.
 
-![Add Text and Cards, then undo and redo in the actual canvas](assets/feature-tour/app-design.gif)
+![Edited current UI sequence: app placement overview, designer, elements and contextual agent](assets/product-tour-20261102/app-design.gif)
 
-*GIF: real draft layout changes. The design canvas labels its sample data; it is distinct from the working sandbox preview.*
+*Edited UI sequence of actual current controls. See the capture inventory for the individual stills and the action scope.*
 
-![Native form designer with snapping geometry and property inspector, captured 13 October in an isolated demo shop](assets/feature-tour/app-form-designer.png)
+![Current App Studio canvas with its compact component palette](assets/product-tour-20261102/app-elements.jpg)
 
 Data models include date/time, explicit-currency money, scaled decimals, private images/files, rich text and multiple relations alongside translated/JSON/scalar fields. Shared app record/reference/index tables enforce RLS, scoped relations, recursive validation, uniqueness and quotas. Explicit rename/remove/convert/fill migrations retain bounded recovery snapshots; arbitrary SQL is prohibited. [Manifest/storage contracts](app-platform.md).
 
-![Typed entries model with reference, translated fields and choice values](assets/feature-tour/app-data-models.jpg)
+![Current Product advisor model and its product relationship](assets/product-tour-20261102/app-data-models.jpg)
 
 ### Working preview, immutable versions and app data
 
 F5 runs the current autosaved draft in an actor-private, expiring sandbox without publishing a package. Changes hot-reload actual app records; schema edits reset the private preview. For publication, select a staging sandbox, save an immutable version, inspect changes/digest and approve installation. **Working sandbox preview** runs the actual native renderer with real managed records. For embedded forms, choose a real matching object, save, reopen and inspect persisted data/revision. Package publication and app-data publication are independent.
 
-![Private preview after saving and reloading a product-bound record, captured 13 October in an isolated demo shop](assets/feature-tour/app-private-preview.png)
+![Actual current private Product advisor preview after saving a coat-care record](assets/product-tour-20261102/app-preview-saved.jpg)
 
 Code-behind can validate a form, call its allowed gateway action, refresh the view
 and display a translated result. Breakpoints pause between bounded instructions.
-The 13 October recording below illustrates the separate staging path in an isolated demo shop.
+The sequence below shows the current private renderer saving a product-bound care record. Package publication remains a separate step.
 
-![Save a product-bound care record and observe it in the actual sandbox renderer](assets/feature-tour/app-preview.gif)
+![Edited current UI sequence: empty private preview and a saved product-bound care record](assets/product-tour-20261102/app-preview.gif)
 
-*GIF: persist a care record for the Harbor coat. It remains sandbox data when only the app package is released.*
+*Edited UI sequence of actual current controls. See the capture inventory for the individual stills and the action scope.*
 
 **My apps / Edit app** opens the same canvas for the next compatible version. App Studio Trash supports recoverable project archival; it does not erase installed versions or their records. Version bounds include 16 views, 32 blocks/view, 12 models, 16 fields/model and 24 actions/routes. [App Studio workflow](app-studio.md).
 
@@ -532,15 +499,15 @@ A personal identity can belong to multiple independent shops with owner/administ
 
 Invitations expire after 24 hours and are used once. Codes are shared manually; automatic invitation mail is not implemented. The local instance bootstrap token is privileged setup authority, not a merchant integration credential. Customer, merchant and platform sessions remain distinct. [Access rules](security.md) · [Operations permissions](merchant-operations.md).
 
-![Personal workspace membership, invitations and current session controls](assets/feature-tour/team.jpg)
+![Current team, roles, account security and session controls](assets/product-tour-20261102/team.jpg)
 
 ### Expired-session recovery and API/MCP keys
 
 Protected Studio links require sign-in before private content loads. An expired active session presents a blocking reauthentication dialog, preserving drafts and editor context. Only the same account/current membership can resume; failed writes are not replayed. Authorization/provider/network errors are distinguished from authentication expiry.
 
-Create named, hashed, scoped integration keys valid for **1–90 days**. They are shown once and are rechecked against the creator's current membership. The API explorer lists **280 static method/path pairs** in the 12 October 2026 review, with source and access metadata; installed app routes are discovered at runtime. Its live tester supports authorized GET and MCP `tools/list`, with a selected scoped key, without replacing Studio identity or exposing operator binary routes. [Sessions and explorer](studio-api-and-channels.md).
+Create named, hashed, scoped integration keys with **1–90 days** of validity. Eligible personal administrators can explicitly choose no expiry. Keys are shown once and are rechecked against the creator's current membership. The API explorer lists source-derived methods and paths with access metadata; installed app routes are discovered at runtime. Its live tester supports authorized GET and MCP `tools/list`, with a selected scoped key, without replacing Studio identity or exposing operator binary routes. [Sessions and explorer](studio-api-and-channels.md).
 
-![API/MCP permission selection and native endpoint explorer workspace](assets/feature-tour/api-integrations.jpg)
+![Current API keys, grouped permissions and native endpoint explorer](assets/product-tour-20261102/api-integrations.jpg)
 
 ### Private stages and selected publication
 
@@ -548,9 +515,9 @@ A sandbox clones catalog/translations/categories, settings/company, experience s
 
 **Review changes** compares stage content with its recorded live baseline. Select only the needed units: products, categories, apps, app data, assets/documents, rules, campaigns, flows, channels, settings, company/channel overrides, experience, order workflow and B2B company/unit policy/catalog selections. Each selected domain requires its own current rights. A release is atomic and rejects concurrent live baseline conflicts; there is no automatic conflict merge or universal rollback button. [Clone and release boundary](workbench.md#what-a-sandbox-contains).
 
-![Publish only the checked app package; its care-record data stays private](assets/feature-tour/selective-release.gif)
+![Edited current UI sequence: private product change, selection and recorded publication](assets/product-tour-20261102/selective-release.gif)
 
-*GIF: one selected package is released and entered in release history. The separate app-data change remains available in the sandbox.*
+*Edited UI sequence: a private product-content change, its explicit selection and recorded publication. This capture demonstrates product publication; app package and app-data publication use their own review units.*
 
 ## VEYNDO Platform
 
@@ -560,7 +527,7 @@ The public service hub at **admin.veyndo.ai** links merchant and platform entry 
 
 Metrics distinguish recorded gross order value, simulation and confirmed captures by currency. Captures are not net revenue after refunds/fees. Stored lifetime HTTP requests are not visitors. Daily buckets use the database/UTC calendar. [Metric definitions](platform.md).
 
-![Real isolated platform totals with order value and captures kept separate](assets/feature-tour/platform-overview.jpg)
+![Current local operator overview with synthetic orders and simulated value](assets/product-tour-20261102/platform-overview.jpg)
 
 ### Shop creation, addresses and inherited AI
 
@@ -568,15 +535,15 @@ Create an empty/sample shop with an optional existing owner. No shared-password 
 
 Global provider configuration has an enabled/default **Ollama/OpenAI/Anthropic** choice, provider models/endpoints and independent image capability/model. Shops inherit it or have an explicit override. Provider keys are write-only and encrypted with the runtime key; they are not returned to the browser. A configured status reports saved configuration, not provider health or a completed inference call. Disabling a provider denies use; there is no silent fallback. [AI and address controls](platform.md).
 
-![Real central provider settings and default selection; no inference request is made](assets/feature-tour/platform-ai.jpg)
+![Current central AI configuration; no provider credentials or model call used](assets/product-tour-20261102/platform-ai.jpg)
 
 ### Pause, trash and restore
 
 Pause requires a reason and current revision. It blocks new customer actions/AI/writes and defers queued automation across the shop and its stages; admitted merchant reads and existing payment reconciliation remain available. Already running work may finish. Move to Trash requires exact shop-ID confirmation and preserves records for recovery.
 
-![Pause, move the empty example shop to trash and restore it through normal controls](assets/feature-tour/shop-lifecycle.gif)
+![Current operator shop controls; no pause, trash or restore action performed for this image](assets/product-tour-20261102/platform-shop-controls.jpg)
 
-*GIF: the isolated `lifecycle-tour` shop moves through Paused → In trash → Active. No production shop is touched.*
+*The current operator view shows pause and recoverable trash controls. This screenshot does not perform either action.*
 
 Restore reactivates preserved records. Trash is not physical erasure/GDPR purge and does not refund orders, cancel external subscriptions or erase provider obligations. Platform activity records operator changes. [Lifecycle admission](platform.md#shop-lifecycle-and-dossier).
 
@@ -584,7 +551,7 @@ Restore reactivates preserved records. Trash is not physical erasure/GDPR purge 
 
 Infrastructure probes PostgreSQL version/size/connections, Qdrant readiness, Rust pool/cache/queue state and measured mean/maximum HTTP timings. Linux cgroups can expose current-process/container CPU/RAM with sufficient samples; unavailable values display a dash. These are current probes, not invented fleet utilization, p99 latency, capacity or guaranteed failover.
 
-![Actual PostgreSQL, Qdrant and Rust probes in the isolated Docker instance](assets/feature-tour/platform-infrastructure.jpg)
+![Actual local PostgreSQL and Rust diagnostics; Qdrant is not configured](assets/product-tour-20261102/platform-infrastructure.jpg)
 
 ## Shared APIs, storage and verification
 
@@ -602,7 +569,7 @@ ratified upstream commercial-negotiation capability or autonomous bargaining.
 
 A reachable HTTPS endpoint and account-side registration are still required for hosted ChatGPT/Claude clients. A custom UI connector requiring OAuth needs its own gateway; a scoped token alone does not implement an OAuth authorization server. [Connection instructions](connectors.md) · [API catalog](studio-api-and-channels.md) · [Protocol scope](shopware-parity.md).
 
-![Agent commerce distinguishes the shopping path, real adapter counters and client setup](assets/feature-tour/agent-commerce.jpg)
+![Current agent-commerce connections and native protocol entry points](assets/product-tour-20261102/agent-commerce.jpg)
 
 ### Durable state and independent workers
 

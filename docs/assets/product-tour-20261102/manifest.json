@@ -1,0 +1,1410 @@
+{
+  "capturedAt": "2026-11-02",
+  "environment": "Isolated local native Rust/PostgreSQL and compiled Studio, fictional data only",
+  "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+  "files": [
+    {
+      "file": "agent-commerce.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=agents#merchant",
+      "capturedAt": "2026-11-02T17:05:22.876Z",
+      "bytes": 151109,
+      "sha256": "4174cb1abc1629f73680fb7409747a844b7000621f14009fd55754aa45247c56"
+    },
+    {
+      "file": "api-integrations.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=developers#merchant",
+      "capturedAt": "2026-11-02T17:04:03.414Z",
+      "bytes": 133261,
+      "sha256": "1569f2f4047c042d95468c5a522755f76ac897ac73b3c2c90c87e5f86585c07f"
+    },
+    {
+      "file": "app-agent.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=developers#merchant",
+      "capturedAt": "2026-11-02T17:03:29.116Z",
+      "bytes": 174098,
+      "sha256": "e4a820428b4e803f8e5f2c1f311b963c42e3f802da76aed515bf24c474a0a6d1"
+    },
+    {
+      "file": "app-assistants.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=developers#merchant",
+      "capturedAt": "2026-11-02T17:03:04.162Z",
+      "bytes": 128543,
+      "sha256": "3dd0382e58d44dd5e1ab85dae8f64e68f997307473264128666b32c5596b88af"
+    },
+    {
+      "file": "app-connections.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=developers#merchant",
+      "capturedAt": "2026-11-02T17:03:29.236Z",
+      "bytes": 136628,
+      "sha256": "1a511834077e5fb48c95529d85e7741f4e916f08a176a16d5afa1b297adf6e30"
+    },
+    {
+      "file": "app-data-models.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=developers#merchant",
+      "capturedAt": "2026-11-02T17:03:29.171Z",
+      "bytes": 129306,
+      "sha256": "b56f9e8c7859a45550b27fb8819f78938c05ba705e26e8b582ad48740e7c9130"
+    },
+    {
+      "file": "app-design.gif",
+      "kind": "edited sequence of actual browser screenshots",
+      "capturedAt": "2026-11-02",
+      "frames": [
+        "app-overview.jpg",
+        "app-designer.jpg",
+        "app-elements.jpg",
+        "app-agent.jpg"
+      ],
+      "durationsMs": [
+        2400,
+        2400,
+        2400,
+        3400
+      ],
+      "bytes": 793103,
+      "sha256": "c05ec23350bf42ec155fdc5b55a705fce36253049dedc1c247acda8c2aacac5a"
+    },
+    {
+      "file": "app-designer.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=developers#merchant",
+      "capturedAt": "2026-11-02T17:03:19.648Z",
+      "bytes": 137919,
+      "sha256": "31db5c9840b129ee1aa9bed1776000bb279d01b7e103c41631be1792c91baba1"
+    },
+    {
+      "file": "app-elements.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=developers#merchant",
+      "capturedAt": "2026-11-02T17:03:28.767Z",
+      "bytes": 155427,
+      "sha256": "bc5bf01571fe36edd79641eb221eb8db9d74a1ce21c28bffc7523c50e08903eb"
+    },
+    {
+      "file": "app-overview.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=developers#merchant",
+      "capturedAt": "2026-11-02T17:03:19.300Z",
+      "bytes": 129760,
+      "sha256": "e78dc3ea899ba04bd45fae1fa42f7c39d76f76b2920c78871ab81bd3f2670f90"
+    },
+    {
+      "file": "app-preview-empty.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=developers#merchant",
+      "capturedAt": "2026-11-02T17:03:57.600Z",
+      "bytes": 132058,
+      "sha256": "d98e087316a400496872f3c7b4fbe552f898dc2ef37d0050a0be2e3400fc9844"
+    },
+    {
+      "file": "app-preview-saved.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=developers#merchant",
+      "capturedAt": "2026-11-02T17:04:03.034Z",
+      "bytes": 119197,
+      "sha256": "f83b0653ba408d33955353532a6505bd12cb98e0d3eb381a8693b40c11469118"
+    },
+    {
+      "file": "app-preview.gif",
+      "kind": "edited sequence of actual browser screenshots",
+      "capturedAt": "2026-11-02",
+      "frames": [
+        "app-preview-empty.jpg",
+        "app-preview-saved.jpg"
+      ],
+      "durationsMs": [
+        2400,
+        3400
+      ],
+      "bytes": 300221,
+      "sha256": "caf01d64745556d52775697b08cd2bf1310680b3df90f1d92722baa643dbb214"
+    },
+    {
+      "file": "app-settings.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=developers#merchant",
+      "capturedAt": "2026-11-02T17:03:29.280Z",
+      "bytes": 114477,
+      "sha256": "2a1d7294fe45f1a144a8628eba89c6d47d4797bb82ea31a199943f166f48303c"
+    },
+    {
+      "file": "apps.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=apps#merchant",
+      "capturedAt": "2026-11-02T17:02:58.321Z",
+      "bytes": 133941,
+      "sha256": "ec909b9cd6ec056ab87f310a23094fda98a1503f94af7a214a312c6f6ffefc29"
+    },
+    {
+      "file": "assistant.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=assistant#merchant",
+      "capturedAt": "2026-11-02T17:02:21.056Z",
+      "bytes": 106282,
+      "sha256": "935a594ee860d5f386c1badf5a88c3bd6f85760fe09e56b96f1363ce9c63d0b9"
+    },
+    {
+      "file": "b2b-settings.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=commerce#merchant",
+      "capturedAt": "2026-11-02T17:01:48.394Z",
+      "bytes": 177123,
+      "sha256": "7594b98b880bf59d18778c519094774084cb1f665344778abf3bf4fe31c3290d"
+    },
+    {
+      "file": "campaigns.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=automation#merchant",
+      "capturedAt": "2026-11-02T17:01:58.702Z",
+      "bytes": 134119,
+      "sha256": "61d93bd0f40fd50fc244ee0d70b7b7bb1aa9ac63929aa41ff393200846652fcb"
+    },
+    {
+      "file": "catalogue-mobile.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=assistant&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:19:12.455Z",
+      "bytes": 99039,
+      "sha256": "7f2f82ab5521b5e33d21b4d3e4df32ec9496b98d2ab137e8d203ea70c75b9c24"
+    },
+    {
+      "file": "catalogue-product.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&designChannel=default&entity=2600a8b2-4c3e-4af2-98f2-44981f919320#merchant",
+      "capturedAt": "2026-11-02T17:19:24.998Z",
+      "bytes": 139229,
+      "sha256": "dbcd0138d7f04cd1fb622290003e72df9934241688cd83f70e82c7c271cae047"
+    },
+    {
+      "file": "catalogue-source.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=assistant&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:19:12.415Z",
+      "bytes": 99039,
+      "sha256": "7f2f82ab5521b5e33d21b4d3e4df32ec9496b98d2ab137e8d203ea70c75b9c24"
+    },
+    {
+      "file": "categories.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData#merchant",
+      "capturedAt": "2026-11-02T17:05:22.325Z",
+      "bytes": 91777,
+      "sha256": "2b1bd93f4974d1fca5ac8a8fa377ace4497c7052167b47480e83846b85cc49ed"
+    },
+    {
+      "file": "channel-catalogue.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=channels#merchant",
+      "capturedAt": "2026-11-02T17:02:51.190Z",
+      "bytes": 111901,
+      "sha256": "123ecb2cdc1c7c2a155628e0dc92ed3fc4509308275e3f3471557c7380e049b5"
+    },
+    {
+      "file": "channel-review.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=channels#merchant",
+      "capturedAt": "2026-11-02T17:02:57.773Z",
+      "bytes": 113710,
+      "sha256": "e328752ede04182b560af440fa4d73ccb2d6431b1261d4e2b5013bddf7a29283"
+    },
+    {
+      "file": "channel-wizard.gif",
+      "kind": "edited sequence of actual browser screenshots",
+      "capturedAt": "2026-11-02",
+      "frames": [
+        "channel-wizard.jpg",
+        "channel-catalogue.jpg",
+        "channel-review.jpg"
+      ],
+      "durationsMs": [
+        2400,
+        2400,
+        3400
+      ],
+      "bytes": 421876,
+      "sha256": "727ad4d4799a983ed3b069b2e64906207f2a29d71473af91792ef97b885e8e5b"
+    },
+    {
+      "file": "channel-wizard.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=channels#merchant",
+      "capturedAt": "2026-11-02T17:02:38.104Z",
+      "bytes": 133913,
+      "sha256": "1e30d4d6e800c141949c554d76538c846943e67e0ebdf8be6a6466a6da8a8c5a"
+    },
+    {
+      "file": "channels.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=channels#merchant",
+      "capturedAt": "2026-11-02T17:02:37.783Z",
+      "bytes": 95551,
+      "sha256": "d8aa80d393c340a3d6acb58bc0f6980b5ed1be074936196d08195bc162d1c287"
+    },
+    {
+      "file": "checkout-complete.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        2545,
+        1160
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/products/coat-l?shop=media-tour&lang=en-GB&language=en-GB#order-confirmed",
+      "capturedAt": "2026-11-02T17:07:18.365Z",
+      "bytes": 115878,
+      "sha256": "2998be884543811db24559d736669bd2f6cc656fc9632232e5e8aed40dbc7734"
+    },
+    {
+      "file": "checkout-details.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        2545,
+        1160
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/products/coat-l?shop=media-tour&lang=en-GB&language=en-GB",
+      "capturedAt": "2026-11-02T17:07:01.339Z",
+      "bytes": 125416,
+      "sha256": "456221b73fd8ee7ef0bc8021bc4b1d934798b0d5041c93ec95a53bb0313bf80e"
+    },
+    {
+      "file": "checkout-mobile.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1425,
+        990
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/products/coat?shop=media-tour&lang=en-GB&language=en-GB",
+      "capturedAt": "2026-11-02T17:14:07.778Z",
+      "bytes": 91920,
+      "sha256": "1c084854626cc88cb0e20fd9a22abdbace3ddf1714cbdd48dd762801f41a39d6"
+    },
+    {
+      "file": "checkout-review.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        2545,
+        1160
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/products/coat-l?shop=media-tour&lang=en-GB&language=en-GB",
+      "capturedAt": "2026-11-02T17:07:06.915Z",
+      "bytes": 128746,
+      "sha256": "3bd73e8fb72c018b9ea31bb9074315a99ff4308b145ccd75178b491470139e3b"
+    },
+    {
+      "file": "checkout.gif",
+      "kind": "edited sequence of actual browser screenshots",
+      "capturedAt": "2026-11-02",
+      "frames": [
+        "checkout-details.jpg",
+        "checkout-review.jpg",
+        "checkout-complete.jpg"
+      ],
+      "durationsMs": [
+        2400,
+        2400,
+        3400
+      ],
+      "bytes": 166886,
+      "sha256": "2667046a879ca110b6f99ef3afb35e78c828d14305efc65eea065804b8dbbcfa"
+    },
+    {
+      "file": "collection.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1425,
+        990
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&lang=en-GB&language=en-GB#",
+      "capturedAt": "2026-11-02T17:12:11.464Z",
+      "bytes": 100468,
+      "sha256": "2a970e753f76dd05716798fabab8c37eeff5b33ad1059cb3354e37feb898aea9"
+    },
+    {
+      "file": "company.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=commerce#merchant",
+      "capturedAt": "2026-11-02T17:01:46.440Z",
+      "bytes": 124145,
+      "sha256": "c4691133b18b2abce25f6386db8ca381b1fa67a7f84e243dd0912dc2a72413c3"
+    },
+    {
+      "file": "countries.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=commerce&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:09:36.559Z",
+      "bytes": 147875,
+      "sha256": "264b614424fcb2f4a285f20a6628318cf1e745713f5602f5f7adde24e2d2448f"
+    },
+    {
+      "file": "currencies.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=commerce&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:09:36.882Z",
+      "bytes": 142430,
+      "sha256": "b11322e4008ef67971ea09bb627c8aad289c9fcdbdd421cbb4f180db111e68f2"
+    },
+    {
+      "file": "customer-detail.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=customers&entity=buyer%40example.test#merchant",
+      "capturedAt": "2026-11-02T17:06:05.734Z",
+      "bytes": 98808,
+      "sha256": "f0d3fb3d4829b9a3f970c16b8033d75f6d2fd9fe8bb54bc6dbd5d812cdfb8d71"
+    },
+    {
+      "file": "customer-groups.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=commerce#merchant",
+      "capturedAt": "2026-11-02T17:01:48.075Z",
+      "bytes": 143998,
+      "sha256": "38453a7635e5c90d1fc9c9dec743677e0b3e585f9303ab20f464c4a7fa9b9895"
+    },
+    {
+      "file": "customers.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=customers#merchant",
+      "capturedAt": "2026-11-02T17:05:21.798Z",
+      "bytes": 92620,
+      "sha256": "618a626f0d729216f23316bf7eb2eae950f6c56b09448a872e007521f0b668af"
+    },
+    {
+      "file": "email.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=apps&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:15:25.212Z",
+      "bytes": 110587,
+      "sha256": "26c5de86e0ea8e29b0fa6921608e29d341efff83b7316d2626c17d9b859da092"
+    },
+    {
+      "file": "flow-branch.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=automation#merchant",
+      "capturedAt": "2026-11-02T17:02:20.917Z",
+      "bytes": 133359,
+      "sha256": "e2d2daca8fbc5a969b1db5bd3dce9d9084a49ac3244e431d858372ef58a194d3"
+    },
+    {
+      "file": "flow-canvas.gif",
+      "kind": "edited sequence of actual browser screenshots",
+      "capturedAt": "2026-11-02",
+      "frames": [
+        "flow-canvas.jpg",
+        "flow-branch.jpg"
+      ],
+      "durationsMs": [
+        2400,
+        3400
+      ],
+      "bytes": 369476,
+      "sha256": "cde68ef53eae8e3c6984424da9f06ee37caec22cd80e2ca5cd933c5551d20423"
+    },
+    {
+      "file": "flow-canvas.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=automation#merchant",
+      "capturedAt": "2026-11-02T17:02:20.556Z",
+      "bytes": 135212,
+      "sha256": "5486af11d077bef27b77b5c3c284596ad830689dbea3887d2dadd4cea950c831"
+    },
+    {
+      "file": "grid-agent.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=orders&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:20:10.701Z",
+      "bytes": 107662,
+      "sha256": "edd2b3face50ad82c2753edfc7ea6e5c9b098dfe390c391f57134fee34f80c11"
+    },
+    {
+      "file": "grid-columns.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=orders&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:19:58.057Z",
+      "bytes": 113659,
+      "sha256": "5aa4828b7cb8238949b102e6a3e09e559a3b7b121090d7399035fa0a2fa5eb71"
+    },
+    {
+      "file": "history-restore.gif",
+      "kind": "edited sequence of actual browser screenshots",
+      "capturedAt": "2026-11-02",
+      "frames": [
+        "product-history.jpg",
+        "product-history-confirm.jpg",
+        "product-restored.jpg"
+      ],
+      "durationsMs": [
+        2400,
+        2400,
+        3400
+      ],
+      "bytes": 478027,
+      "sha256": "e14c094eb490b76c26c88e8eeefe252d6a74c9fd96c16a1aec80bb7d6ae77263"
+    },
+    {
+      "file": "knowledge-boundaries.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=knowledge#merchant",
+      "capturedAt": "2026-11-02T17:01:04.650Z",
+      "bytes": 121612,
+      "sha256": "b48071a3ca41c82d16d0eec68e557352535a3b7e18b0817242e14ac2be04f739"
+    },
+    {
+      "file": "knowledge-connections.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=knowledge&designChannel=default&posMode=focus#merchant",
+      "capturedAt": "2026-11-02T17:12:40.607Z",
+      "bytes": 151680,
+      "sha256": "1f67e2050d759d71c8978a08b62e5aae4f04cdb8cd8c87b5f9e7bd6f3c0cd86b"
+    },
+    {
+      "file": "knowledge-overview.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=knowledge#merchant",
+      "capturedAt": "2026-11-02T17:01:04.311Z",
+      "bytes": 149538,
+      "sha256": "2e6d985c3b10fed2f8ed7db4d23f42ef4eecc82d6b18c732fc29eaa750c97c67"
+    },
+    {
+      "file": "knowledge-private.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=knowledge&designChannel=default&posMode=focus#merchant",
+      "capturedAt": "2026-11-02T17:13:06.657Z",
+      "bytes": 144867,
+      "sha256": "3d5552fedd3486ce03650a99fbdd83cf2a542a7e35062da38c4c991e6c1b4ee8"
+    },
+    {
+      "file": "knowledge-publication.gif",
+      "kind": "edited sequence of actual browser screenshots",
+      "capturedAt": "2026-11-02",
+      "frames": [
+        "knowledge-private.jpg",
+        "knowledge-review.jpg",
+        "knowledge-published.jpg"
+      ],
+      "durationsMs": [
+        2400,
+        2400,
+        3400
+      ],
+      "bytes": 480216,
+      "sha256": "b3cff4d033e7e6a247017d832228a6562070e1bb8c544a36cc1bebd47f166fb1"
+    },
+    {
+      "file": "knowledge-published.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=knowledge&designChannel=default&posMode=focus#merchant",
+      "capturedAt": "2026-11-02T17:13:11.735Z",
+      "bytes": 130379,
+      "sha256": "4bd151ae05d17ec02988c01ce94cabd181d0f0fcd61b0d0e84f4cac46c371f3f"
+    },
+    {
+      "file": "knowledge-review.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=knowledge&designChannel=default&posMode=focus#merchant",
+      "capturedAt": "2026-11-02T17:13:11.426Z",
+      "bytes": 59472,
+      "sha256": "07cf07f6141b3011f6a60558c15fb684f4708e84f7a5040dd5e01d4e526d06f2"
+    },
+    {
+      "file": "knowledge-source-editor.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=knowledge&designChannel=default&posMode=focus#merchant",
+      "capturedAt": "2026-11-02T17:12:54.913Z",
+      "bytes": 131596,
+      "sha256": "4aec27ca8b7eefc7284f99f775e1900fde37d2d704db37ed758060465d12a766"
+    },
+    {
+      "file": "knowledge-test.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=knowledge#merchant",
+      "capturedAt": "2026-11-02T17:01:04.810Z",
+      "bytes": 149902,
+      "sha256": "ca3e95965d42786565c8779a3bd53d364960f81644d5af31eadda0192a52cdd1"
+    },
+    {
+      "file": "languages.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=commerce#merchant",
+      "capturedAt": "2026-11-02T17:01:47.078Z",
+      "bytes": 138290,
+      "sha256": "8d51c393ed7a7189ae99896e970329426ed26ceeaa3bb4950fbee500b8714f3c"
+    },
+    {
+      "file": "legal.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=commerce&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:09:37.215Z",
+      "bytes": 156410,
+      "sha256": "7585fd2d2436fb98906c4fe3d763a99aa9b3585800445347f55dff9f3c573b6f"
+    },
+    {
+      "file": "order-detail.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=orders&entity=e06eca896007407a81ae4003f4e05ddb#merchant",
+      "capturedAt": "2026-11-02T17:07:43.870Z",
+      "bytes": 119536,
+      "sha256": "124ad4fcd674be732fdf0467b9b0869465194423ca5d37c199cd2a34c7de8970"
+    },
+    {
+      "file": "orders.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=orders#merchant",
+      "capturedAt": "2026-11-02T17:07:34.242Z",
+      "bytes": 93124,
+      "sha256": "a7439d4efe5106622478f086d5823a71743d3512462e7c916abcbbab3422db4d"
+    },
+    {
+      "file": "overview.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=overview&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:21:04.303Z",
+      "bytes": 127422,
+      "sha256": "f0680adbbc5241c34eaa4ce6885694160d926c53f12c155d2dad21549d88d804"
+    },
+    {
+      "file": "payments.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=commerce#merchant",
+      "capturedAt": "2026-11-02T17:01:47.718Z",
+      "bytes": 143847,
+      "sha256": "925f8d57c572c75e87e6c0868b64fac504ddebae3d22327f81ce11b80257b888"
+    },
+    {
+      "file": "platform-ai.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        2545,
+        1160
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/#platform",
+      "capturedAt": "2026-11-02T17:08:03.052Z",
+      "bytes": 122274,
+      "sha256": "ed0aee1f64f1ce376743f1c6fd7ce3f18ed93f1e18750659b41018687cf9310b"
+    },
+    {
+      "file": "platform-infrastructure.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        2545,
+        1160
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/#platform",
+      "capturedAt": "2026-11-02T17:08:03.385Z",
+      "bytes": 154678,
+      "sha256": "15046ba2984fb5b2b02a7319f3adc8b8025d774058bcaa073905d208bf61e8a7"
+    },
+    {
+      "file": "platform-overview.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        2545,
+        1160
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/#platform",
+      "capturedAt": "2026-11-02T17:08:02.723Z",
+      "bytes": 126265,
+      "sha256": "a89377da72720beffbe4daaa534b02d2aeb808ea21fd58410aa113cec105f0fa"
+    },
+    {
+      "file": "platform-shop-controls.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        2545,
+        1160
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/#platform",
+      "capturedAt": "2026-11-02T17:08:24.162Z",
+      "bytes": 108137,
+      "sha256": "dc2e201d0ba1b892a9fe64ed447a6be246c801d9b81964deb616294de4a379f1"
+    },
+    {
+      "file": "pos-completion.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=pos&designChannel=default&posMode=focus#merchant",
+      "capturedAt": "2026-11-02T17:12:03.875Z",
+      "bytes": 63330,
+      "sha256": "ab7996c27959ac9cf91a2621109033bdf5e1dc24e1e79dd138131a2330294f07"
+    },
+    {
+      "file": "pos-focus.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=pos&designChannel=default&posMode=focus#merchant",
+      "capturedAt": "2026-11-02T17:11:44.680Z",
+      "bytes": 163172,
+      "sha256": "d260aabdd73db43188e839d74a071394e6abf80d4d6c5f5e59084266a7f4b054"
+    },
+    {
+      "file": "pos-mobile.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=pos&designChannel=default&posMode=focus#merchant",
+      "capturedAt": "2026-11-02T17:14:07.279Z",
+      "bytes": 162490,
+      "sha256": "4cea28bea6d4df89660a9cfb0ff6354783e73f31679d962bc2f4b09993999b21"
+    },
+    {
+      "file": "pos-order.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=orders&designChannel=default&posMode=focus&entity=78508d60d3994af0b8905533c2d4e442#merchant",
+      "capturedAt": "2026-11-02T17:12:04.089Z",
+      "bytes": 111889,
+      "sha256": "c06f95c1eead09173dc27508ae83d135942322033d444586669e2eb4d4b0cc58"
+    },
+    {
+      "file": "pos-variants.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=pos&designChannel=default&posMode=focus#merchant",
+      "capturedAt": "2026-11-02T17:14:06.937Z",
+      "bytes": 128352,
+      "sha256": "a0c0fbcb9db45d8c4c2f208cbb1858f0da7066e93de03d762e7e820130b38792"
+    },
+    {
+      "file": "private-product-change.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:05:03.682Z",
+      "bytes": 139271,
+      "sha256": "3e894ffd17a251c147ac366c60b0fafbba3f99da38774423f3deae9c6cec77c6"
+    },
+    {
+      "file": "product-cross-selling.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:43.753Z",
+      "bytes": 120930,
+      "sha256": "3c20382ab6f59400285f787c875d49c36aec89520049c9bd1093fab824d2285c"
+    },
+    {
+      "file": "product-detail.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        2545,
+        1160
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/products/coat?shop=media-tour&lang=en-GB&language=en-GB",
+      "capturedAt": "2026-11-02T17:06:47.928Z",
+      "bytes": 121556,
+      "sha256": "c30cd412d6bb5c44baf2017e9b9cc66e2ff9e225e11fce09814bc7f9ae837ecf"
+    },
+    {
+      "file": "product-downloads.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:44.442Z",
+      "bytes": 121378,
+      "sha256": "fbe653e1a27b0ff29854e30ec16256ceccc8d6b9fbaadec418ee61dd0a187e16"
+    },
+    {
+      "file": "product-general.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:41.384Z",
+      "bytes": 136667,
+      "sha256": "1a0bd067d34c86c669f29951ec927b7138ded1de38a94bd5591bcf2188ea7257"
+    },
+    {
+      "file": "product-history-confirm.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&designChannel=default&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:14:42.526Z",
+      "bytes": 60964,
+      "sha256": "bf382ec106f8818707100bbd2b00b1647fae3a445efb2bd881c58ee4c3079bf6"
+    },
+    {
+      "file": "product-history.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&designChannel=default&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:14:30.223Z",
+      "bytes": 133889,
+      "sha256": "d09a1ad9e6cd97fcf33d8e424a1569dd6e4ddf15edb3ce6e20e8319615dc39a8"
+    },
+    {
+      "file": "product-language-de.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:44.836Z",
+      "bytes": 143793,
+      "sha256": "5a9be7ba17f06b5645d194a2456ad7fbaf9e9395694d62af8407e83c522d27ce"
+    },
+    {
+      "file": "product-language-fr.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:44.906Z",
+      "bytes": 146255,
+      "sha256": "9fd684e50a604c376fc745f4acc8f7c0fb5123e73bd6acda38a11f5a3b995688"
+    },
+    {
+      "file": "product-languages.gif",
+      "kind": "edited sequence of actual browser screenshots",
+      "capturedAt": "2026-11-02",
+      "frames": [
+        "product-general.jpg",
+        "product-language-de.jpg",
+        "product-language-fr.jpg"
+      ],
+      "durationsMs": [
+        2400,
+        2400,
+        3400
+      ],
+      "bytes": 536162,
+      "sha256": "4fb459c24165c23f59c29a98b58ed78dcfb4bb38d2561730674fdc2933ad4ac3"
+    },
+    {
+      "file": "product-media.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:42.111Z",
+      "bytes": 140624,
+      "sha256": "2198837cef9a2279ac4d42baeab7b895920e5e6290fd4902dc99bae053597d45"
+    },
+    {
+      "file": "product-pricing.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:41.740Z",
+      "bytes": 134064,
+      "sha256": "81344d6761ab2dbd346ae196854eb1f4f8ac0948a7ae0848287832e9e401da5f"
+    },
+    {
+      "file": "product-restored.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&designChannel=default&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:14:42.872Z",
+      "bytes": 136813,
+      "sha256": "fec1ae9b4de9e2875d54f74e11544fcbf09ab0c97d69f253b785477d7c262b70"
+    },
+    {
+      "file": "product-reviews.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:44.101Z",
+      "bytes": 108509,
+      "sha256": "f276537b126a01bd92f36bc0b7e475715145b2f24721fb1940419f1197cc0d8d"
+    },
+    {
+      "file": "product-seo.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:43.422Z",
+      "bytes": 142293,
+      "sha256": "37ca8d0f559469109619b247eb9816f9098b3f3217781bf2c4ff38cc994e7e6f"
+    },
+    {
+      "file": "product-specifications.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:43.086Z",
+      "bytes": 144172,
+      "sha256": "be508a2166c47cd684a112e2392960f9df6b7a7add7019455b1832cdfd2d4807"
+    },
+    {
+      "file": "product-variant-l.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        2545,
+        1160
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/products/coat-l?shop=media-tour&lang=en-GB&language=en-GB",
+      "capturedAt": "2026-11-02T17:07:19.004Z",
+      "bytes": 123609,
+      "sha256": "e423f7260bedf9e1add17535879204c266804e5769aad77487f80424a9bb6ec9"
+    },
+    {
+      "file": "product-variants.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:42.438Z",
+      "bytes": 119372,
+      "sha256": "1176cdceb6c9cf9b2822c9994e6aaa0074a756cff5a352a03f067232b0b1469a"
+    },
+    {
+      "file": "product-visibility.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
+      "capturedAt": "2026-11-02T17:00:42.756Z",
+      "bytes": 136912,
+      "sha256": "024c93c51db879836bc9c7e7a901250f112285c6ae217eb8de6428bcb1543ac0"
+    },
+    {
+      "file": "products.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData#merchant",
+      "capturedAt": "2026-11-02T17:00:28.918Z",
+      "bytes": 127365,
+      "sha256": "727bedddfb66dd2aabc30b55f81128ed49f113b85cb35786c46917e6ed51c5c0"
+    },
+    {
+      "file": "release-history.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=environments#merchant",
+      "capturedAt": "2026-11-02T17:05:13.472Z",
+      "bytes": 131696,
+      "sha256": "374614db438cc40b0a644946d14e69383fa237349ae5280cfa9697ee19ecb5ee"
+    },
+    {
+      "file": "rules.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=automation#merchant",
+      "capturedAt": "2026-11-02T17:01:58.383Z",
+      "bytes": 142487,
+      "sha256": "d233f7302bd15ebf5e1048b25fcaad7fa8b50af1832d2ae6308d60b8186e4451"
+    },
+    {
+      "file": "selected-release.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=environments#merchant",
+      "capturedAt": "2026-11-02T17:05:07.887Z",
+      "bytes": 129708,
+      "sha256": "645b7b3bb696f9ccbd5982d4a86eaa0fa6140c39547bda39f8d7cb495830f6eb"
+    },
+    {
+      "file": "selective-release.gif",
+      "kind": "edited sequence of actual browser screenshots",
+      "capturedAt": "2026-11-02",
+      "frames": [
+        "private-product-change.jpg",
+        "selected-release.jpg",
+        "release-history.jpg"
+      ],
+      "durationsMs": [
+        2400,
+        2400,
+        3400
+      ],
+      "bytes": 450112,
+      "sha256": "6c7af7211a9a36071aa47ff3b43e4adab30b5486f38dfd3ff71fee0f6824f83d"
+    },
+    {
+      "file": "shipping.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=commerce#merchant",
+      "capturedAt": "2026-11-02T17:01:47.400Z",
+      "bytes": 143808,
+      "sha256": "9211c00e29b9dd5ad0e757a7790aa6769ea52d0e0134f714c343c9da38b01cf0"
+    },
+    {
+      "file": "shop-agent.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=design&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:09:35.425Z",
+      "bytes": 189247,
+      "sha256": "7e44ecf6cbfc525eed697d77eb24f384fa84eced20b8083796796eff1667b34a"
+    },
+    {
+      "file": "shop-editor.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=design&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:09:36.086Z",
+      "bytes": 154295,
+      "sha256": "287bd07593b1ade61d033716f5ac3a2b767b71821629857f5b0bd5dd3b443eb9"
+    },
+    {
+      "file": "shop-elements.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=design&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:09:35.753Z",
+      "bytes": 174072,
+      "sha256": "674146c0d26dc1c28857379d145a25044a2c3139f2b1aa2383810d27c9439f07"
+    },
+    {
+      "file": "shop-overview.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=design#merchant",
+      "capturedAt": "2026-11-02T17:08:46.061Z",
+      "bytes": 170920,
+      "sha256": "7d6232cb3686cc1f83f42e489c19e3a002f25af3a895f1f8da0a502e60b63134"
+    },
+    {
+      "file": "storefront.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1425,
+        990
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&lang=en-GB&language=en-GB#",
+      "capturedAt": "2026-11-02T17:12:11.154Z",
+      "bytes": 106048,
+      "sha256": "09afa7c804f007eae66756adf99f44d574a38993059dfa4d1ca53c568a8afab0"
+    },
+    {
+      "file": "tax.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=commerce#merchant",
+      "capturedAt": "2026-11-02T17:01:46.753Z",
+      "bytes": 143846,
+      "sha256": "3ff5646f17b15f754c651853348e7c78977140892f886da4799d85796821f005"
+    },
+    {
+      "file": "team.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=users#merchant",
+      "capturedAt": "2026-11-02T17:04:03.926Z",
+      "bytes": 102950,
+      "sha256": "a6cbc3a3f5413216b62162f5098c0f001e5ae215a8865a982411d876b248f6d8"
+    },
+    {
+      "file": "variants-cart.gif",
+      "kind": "edited sequence of actual browser screenshots",
+      "capturedAt": "2026-11-02",
+      "frames": [
+        "product-detail.jpg",
+        "product-variant-l.jpg",
+        "checkout-details.jpg"
+      ],
+      "durationsMs": [
+        2400,
+        2400,
+        3400
+      ],
+      "bytes": 185799,
+      "sha256": "b3d6a690ab6953c06fbaafafee1c02e6722f9a5df8cfe67a0fd7b0f5eb8e16df"
+    },
+    {
+      "file": "visitor-insights.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=knowledge&designChannel=default#merchant",
+      "capturedAt": "2026-11-02T17:22:34.468Z",
+      "bytes": 124070,
+      "sha256": "b1cc3a25e76dee68bf7f247b9536e872bba5b02b032e6969eaff89a8aa775507"
+    },
+    {
+      "file": "workspace.jpg",
+      "kind": "browser screenshot",
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+      "url": "http://127.0.0.1:8802/?shop=media-tour&studio=workspace#merchant",
+      "capturedAt": "2026-11-02T17:00:20.068Z",
+      "bytes": 114348,
+      "sha256": "aa5e59bec4b8529845cb29e45bc7e434f287514688a7ed7be049014232fb09ed"
+    }
+  ]
+}

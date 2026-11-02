@@ -23,7 +23,7 @@ explicit tax coverage, active shipping and an active consumer payment method.
 Countries, taxes, methods and languages share one revisioned draft across the
 settings navigation. Save the complete aggregate once; conflicting saves fail.
 
-![Current world country catalogue and delivery-country selection](assets/feature-tour/countries-current.png)
+![Current country catalogue and enabled delivery-country controls](assets/product-tour-20261102/countries.jpg)
 
 ## Tax classes and destination rules
 
@@ -56,7 +56,7 @@ available nowhere. Legacy empty lists without this flag retain their historical
 A subdivision is required when the destination definition has subdivisions; region
 codes from another country are rejected in registration, address book and checkout.
 
-![Tax classes and destination configuration](assets/feature-tour/tax.jpg)
+![Current tax classes and destination-rule workspace](assets/product-tour-20261102/tax.jpg)
 
 The bundled dataset contains geography, **not a worldwide tax-rate service**.
 Merchant-entered rates, thresholds, exemptions and Rule Builder choices need the

@@ -1,5 +1,8 @@
 # VEYNDO app tutorial capture inventory — 13 October 2026
 
+> Historical capture inventory. For the current product interface, use the [2 November screenshots and animated workflows](../product-tour-20261102/README.md). Original dates and checksums below are retained.
+
+
 Unretouched browser captures of the actual local VEYNDO workbench, with synthetic records and a private preview environment. The original rebrand capture set uses source `5b2ebb5`; the new customer, schedule and ERP PNGs use `3cea18a`. JPEG files contain JPEG bytes; current PNG files contain PNG bytes. No generated UI, provider credentials or real customer data are included.
 
 The six new tutorial captures are recorded in [individual provenance](../remaining-veyndo-captures.json). Draft configuration is not app installation, a scheduled tick or external delivery. Earlier acceptance remains in the [archived inventory](https://github.com/sthamann/veyndo/blob/ced4a3887086e8c6a943d774a78bc8cca5deb5dd/docs/assets/app-tutorials/README.md).

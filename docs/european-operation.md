@@ -7,7 +7,7 @@ customer type, product and national implementation. Sources below were checked
 on 6 October 2026. Have the applicable texts and classifications reviewed before
 opening real sales.
 
-![Live Studio legal/privacy workspace in an isolated demo shop](assets/feature-tour/studio-legal-current.png)
+![Current legal and privacy workspace in a synthetic local shop](assets/product-tour-20261102/legal.jpg)
 
 ## Configure one shop, inherit into its sales channels
 

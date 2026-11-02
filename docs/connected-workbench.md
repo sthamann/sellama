@@ -17,7 +17,7 @@ ERP handoff. Each opens an ordinary editable Manifest with translated labels.
 additional customer fields and scheduled Flow automation with current English
 captures, agent tasks and explicit preview/staging/live differences.
 
-![Working app patterns in the German App Studio](assets/feature-tour/app-workbench-patterns.jpg)
+![Current App Studio entry with AI description and working app patterns](assets/product-tour-20261102/app-assistants.jpg)
 
 This capture uses a synthetic local shop. Choose a pattern, edit its controls and
 data bindings, preview it in a private sandbox, then review the version before
@@ -175,7 +175,7 @@ workspace tab has a distinct semantic icon. The design preview performs no data
 calls; F5 still uses the original bounded actor-private runtime.
 [All-app ownership](plugin-ownership.md).
 
-![Current Product advisor form designer with semantic controls and translated schema labels](assets/feature-tour/app-form-designer.png)
+![Current App Studio canvas with its compact component palette](assets/product-tour-20261102/app-elements.jpg)
 
 Captured from the real local private sandbox on 12 October 2026. This is the passive design view with labelled sample controls; switch to the existing working preview to exercise actual app records.
 

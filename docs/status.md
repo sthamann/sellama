@@ -140,6 +140,15 @@ its packaged-runtime smoke check. [Cadence and exact scope](testing.md#daily-ful
 
 ## Current product films and screenshots
 
+The [feature guide](features.md) and current workspace/workshop guides now use the
+[2 November product screenshots and ten animated workflows](assets/product-tour-20261102/README.md).
+They show the compiled native product with fictional local data. The capture run
+completed a simulated coat purchase, a fictional cash sale, a saved private app
+record, CSV product creation, selected product publication and explicit product
+restoration. Animations are edited screenshot sequences with static frame links.
+Original dated public/provider evidence remains unchanged; these illustrations
+are not a new hosted-provider acceptance run.
+
 The four [product films](video-tours.md) were refreshed on 30 October with actual
 29 and 30 October interface captures. They cover the shared platform, current
 product editor, consultation app and contextual AI. English subtitles, silent

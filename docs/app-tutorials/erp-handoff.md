@@ -8,6 +8,10 @@ The pattern is not a ready-made integration for every ERP product.
 [Workshop setup and release steps](README.md) ·
 [Canonical starting package](../../extensions/apps/erp-handoff/manifest.json)
 
+![Current app entry includes the ERP handoff working pattern](../assets/product-tour-20261102/app-assistants.jpg)
+
+*Current shared workspace, captured 2 November 2026. The linked earlier worked examples preserve their original field definitions and outcomes.*
+
 ## 1. Open the contract and mapping UI
 
 Choose **Developers → New app → ERP handoff**. The pattern includes private
@@ -23,7 +27,7 @@ fills genuine owned order references before schema approval.
 
 ## 2. Inspect subscriptions, actions and rights
 
-![ERP order-event subscription, filters, batching and optional signed delivery](../assets/app-tutorials/erp-connections-current.png)
+[Earlier worked example: ERP order-event subscription, filters, batching and optional signed delivery](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/erp-connections-current.png)
 
 In **Connections → Automation contract**, inspect `order.placed`, permitted
 filters and **Events per delivery (1–25)**. An empty signed-webhook destination

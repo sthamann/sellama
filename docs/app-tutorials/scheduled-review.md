@@ -8,13 +8,17 @@ The schedule is not a browser timer or an automatically generated stock analysis
 [Workshop setup and release steps](README.md) ·
 [Installable scheduled example](../../extensions/apps/assistant-examples/scheduled.json)
 
+![Current app entry includes the Scheduled automation assistant](../assets/product-tour-20261102/app-assistants.jpg)
+
+*Current shared workspace, captured 2 November 2026. The linked earlier worked examples preserve their original field definitions and outcomes.*
+
 ## 1. Create the scheduled contract
 
 Open **Developers → New app → Scheduled automation**. Enter **Daily shop review**,
 technical ID `tutorial_review`, placement **Own admin module**, and cron
 `0 0 8 * * *`. Leave MCP off. Choose **Create editable draft**.
 
-![Daily shop review assistant with its explicit UTC schedule](../assets/app-tutorials/scheduled-assistant-current.png)
+[Earlier worked example: Daily shop review assistant with its explicit UTC schedule](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/scheduled-assistant-current.png)
 
 The six fields are **seconds, minutes, hours, day, month, weekday**. `0 0 8 * * *`
 means 08:00 UTC daily. It does not track a country's daylight-saving time.
@@ -28,7 +32,7 @@ declared emit action `received`. For this technical ID, the emitted event is
 `app.tutorial_review.received`. Changing the app ID changes this event name; use
 the actual installed ID in the Flow Builder.
 
-![The native schedule and event name in Connections](../assets/app-tutorials/scheduled-connections-current.png)
+[Earlier worked example: The native schedule and event name in Connections](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/scheduled-connections-current.png)
 
 The equivalent contract fragment is:
 

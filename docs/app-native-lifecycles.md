@@ -9,6 +9,10 @@ The [production-review example](../extensions/apps/production-review/manifest.js
 adds a quality check before order completion and a technical review before a
 merchant prepares an offer. Its business vocabulary belongs to the app package.
 
+![Current App Studio connection and workflow editor](assets/product-tour-20261102/app-connections.jpg)
+
+*Current interface, 2 November 2026, fictional local shop. Earlier outcome-specific examples below retain their original evidence links.*
+
 ## Build and try a workflow
 
 1. Open an app in **App Studio → Connections → Order & quote workflows**.
@@ -49,9 +53,9 @@ registered permission names from the same validator. Quote review has no native
 replacement edge and supports only the buyer-message guard; order checks remain
 payment/delivery facts. Refusals appear inside the assistant, preserving the prompt.
 
-![Native order in the app-owned Quality review step; completion remains blocked until delivery.](assets/native-lifecycles-20261017/quality-review.png)
+[Dated example from the earlier interface: Native order in the app-owned Quality review step; completion remains blocked until delivery.](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/native-lifecycles-20261017/quality-review.png)
 
-![The same native order completed after delivery and explicit review approval.](assets/native-lifecycles-20261017/quality-completed.png)
+[Dated example from the earlier interface: The same native order completed after delivery and explicit review approval.](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/native-lifecycles-20261017/quality-completed.png)
 
 These are unretouched local Chrome captures from 17 October, synthetic order
 `RAC-5025d580`, reference app version 1.0.3. The browser sent the real native

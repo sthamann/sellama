@@ -4,6 +4,16 @@ Updated 2 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
+## Current public release
+
+The public Core is running `f35024ada3239d6ca676d7962943fb03c2da9163`
+(2 November). Its source includes the shared canvas, localized media captions,
+guided shop setup, assistant layout and shared payment contract. Northflank
+reports one ready replica with no restarts after the latest rollout. Feature
+walkthroughs below retain their actual local or public acceptance scope. The
+separate Shopware Payments provider service is still pending provisioning; the
+17-method simulation contract is not a completed hosted-provider acceptance.
+
 ## Shared visual canvas (2 November 2026, publicly delivered)
 
 Shop design and App Studio share a zoomable overview with bounded mounted previews,
@@ -28,7 +38,7 @@ removed. Short actions preserve the original bounded prompts and access checks.
 Local Chrome checks cover desktop, tablet, phone, landscape, French labels,
 keyboard focus and draft handoff; 43 targeted UI tests pass.
 [Illustrated workflow and acceptance scope](agentic-workspace.md#a-connected-conversation-surface).
-Public runtime delivery is tracked separately.
+The current public Core includes this source. The responsive assistant walkthrough remains the local acceptance above.
 
 ## Shopware Payments acceptance (2 November 2026)
 
@@ -45,8 +55,7 @@ parity remain open.
 
 Version 1.2.0 adds an explicit hosted simulation mode and replaces the public
 placeholder with the 17-method contract. Local concurrent method, native checkout,
-refund, cancellation and restart checks pass. A local Chrome SEPA purchase also
-and a mobile card purchase
+refund, cancellation and restart checks pass. A local Chrome SEPA purchase and a mobile card purchase
 show payment confirmation, return and an empty native bag, followed by exact
 partial/full refunds. The new independent hosted service
 is being prepared; public delivery is not yet accepted. See the [shared service
@@ -62,7 +71,7 @@ shop languages. Product aggregate and app-document revision/sandbox owners remai
 unchanged. [Caption and Canvas workflow](visual-workspace-canvas.md) ·
 [acceptance evidence](evidence/media-captions-2026-11-02.md).
 The shared Canvas is now implemented and covered by the acceptance record above.
-Public runtime delivery and real-model wording quality remain separate checks.
+The current public Core includes these caption controls. The caption generation and localized save walkthrough remains local; real-model wording quality has its own acceptance.
 
 ## Guided shop setup, source and local acceptance (2 November 2026)
 
@@ -80,8 +89,7 @@ two independent controllers with stale progress/reload recovery and fresh layout
 preservation, and an actual browser company save, explicit step progression and
 pause/reopen.
 [Illustrated guide, source owners and precise verification scope](shop-setup.md).
-Public deployment of this addition has not been observed. Real provider acceptance
-and a completed purchase are separate from these setup checks. Historical public
+This source is included in the current public Core. The guided setup walkthrough above remains local; a fresh hosted walkthrough and real provider acceptance are separate checks. Historical public
 releases below retain their original scope and dates.
 
 ## Platform scope
@@ -123,13 +131,11 @@ Native and local browser checks also cover selected publication while retaining
 orders, stock and unselected changes. Automatic recorded customer-agent browser
 journeys remain open.
 
-The next source increment adds a native product preview to the page overview: gallery,
-prices and variants share storefront components and the selected home design.
-Product changes and mobile rendering have local component/browser checks.
-PR 251 is merged, but its Core release stopped before building because Northflank
-cannot synchronize its existing GitHub connection. GitHub installation access was
-checked and remains active for all repositories. Core remains on `d56d6633`; neither
-PR 251 nor this later product preview is counted as publicly deployed.
+The product preview increment and later shared Canvas are now included in the
+2 November public Core. The earlier PR 251 deployment stopped at Northflank's
+GitHub synchronization step on 30 October; that historical blocker does not
+describe the current running release. The dated acceptance records retain
+their original workflow scope.
 
 ## Verification cadence
 
@@ -149,14 +155,14 @@ restoration. Animations are edited screenshot sequences with static frame links.
 Original dated public/provider evidence remains unchanged; these illustrations
 are not a new hosted-provider acceptance run.
 
-The four [product films](video-tours.md) were refreshed on 30 October with actual
-29 and 30 October interface captures. They cover the shared platform, current
-product editor, consultation app and contextual AI. English subtitles, silent
-1080p output, downloadable captions and editable projects are shared by README,
-the documentation, the public website and the bilingual Team hub. The new gallery
-shows product editing, Shop intelligence and App Studio in the public private test
-shop. Saved customer results were reopened without another purchase or model call.
-[Media scope and publication checks](evidence/product-media-2026-10-30.md).
+The four [product films](video-tours.md) now use the same actual **2 November**
+interface captures. They cover the shared platform, product work, a saved product
+advisor app and contextual AI, including the new shared Canvas and Shop knowledge
+workspace. English subtitles, silent 1080p output, downloadable VTT/SRT captions
+and editable projects are shared by README, documentation, public website and
+the bilingual Team hub. Current galleries use the same dated source library.
+Earlier videos remain explicitly archived with their original capture dates.
+[Media sources, checks and publication](evidence/product-media-2026-11-02.md).
 
 ## Product editing improvements
 

@@ -134,10 +134,22 @@ def check():
     panels = [a for tag, a in elements if a.get('role') == 'tabpanel']
     videos = [a for tag, a in elements if tag == 'video']
     tracks = [a for tag, a in elements if tag == 'track']
-    assert len(tabs) == len(panels) == len(videos) == len(tracks) == len(showcase['clips']) + len(tours['clips'])
+    films = json.loads((ROOT / 'docs/assets/showcase/product-films-20261102/manifest.json').read_text())
+    archive_count = len(showcase['clips']) + len(tours['clips'])
+    assert len(tabs) == len(panels) == archive_count
+    assert len(videos) == len(tracks) == archive_count + len(films)
     assert {a['aria-controls'] for a in tabs} == {a['id'] for a in panels}
     assert {a['aria-labelledby'] for a in panels} == {a['id'] for a in tabs}
     assert all('autoplay' not in a and 'controls' in a and a.get('preload') == 'none' for a in videos)
+    for film in films:
+        folder = SITE / 'docs/assets/showcase/product-films-20261102'
+        file = folder / (film['name'] + '.mp4')
+        assert hashlib.sha256(file.read_bytes()).hexdigest() == film['sha256']
+        assert file.stat().st_size == film['sizeBytes']
+        assert film['fastStart'] and film['fullDecode'] == 'passed'
+        assert film['codec'] == 'h264' and film['pixelFormat'] == 'yuv420p'
+        assert film['audioStreams'] == 0 and film['captureWindow'] == '2026-11-02'
+        assert (folder / (film['name'] + '.en.vtt')).read_text().startswith('WEBVTT\n')
     for key, row in (showcase['clips'] | tours['clips']).items():
         file = SITE / f'docs/assets/showcase/{key}.mp4'
         assert hashlib.sha256(file.read_bytes()).hexdigest() == row['sha256'], key

@@ -138,3 +138,11 @@ h3 {
   font-size: 12px;
   color: var(--muted);
 }
+
+/* Current films remain readable, with on-demand playback and an explicit archive. */
+.current-film-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.current-film-grid video{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:14px;background:#fff}
+.current-film-grid h3{margin:0 0 8px}.current-film-grid p{max-width:70ch}
+.earlier-films>summary{cursor:pointer;font-size:1.1rem;font-weight:650;padding:12px 0}
+.earlier-films>summary:focus-visible{outline:2px solid #0068b5;outline-offset:4px}
+@media(max-width:740px){.current-film-grid{grid-template-columns:minmax(0,1fr)}}

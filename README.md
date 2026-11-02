@@ -39,13 +39,13 @@ public acceptance are recorded separately.
 | **Test before release** | Let fictional customers try private proposals with native baskets and simulated purchases. Review outcomes and configuration freshness, then open the interactive shop preview before publication. [Customer simulator](docs/customer-scenarios.md). |
 | **Stay in control** | Current roles, private sandboxes, immutable versions, saved-data upgrade checks and selected publication govern changes. [Security](docs/security.md). |
 
-[![Veyndo: AI commerce in 1:56](docs/assets/showcase/product-films-20261030/veyndo-ai-commerce.jpg)](https://www.veyndo.ai/docs/video-tours.html)
+[![Veyndo: AI commerce in 1:56](docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.jpg)](https://www.veyndo.ai/docs/video-tours.html)
 
-**Films:** [AI commerce · 1:56](docs/assets/showcase/product-films-20261030/veyndo-ai-commerce.mp4) · [Concept · 1:12](docs/assets/showcase/product-films-20261030/veyndo-concept.mp4) · [Product workspace · 1:36](docs/assets/showcase/product-films-20261030/veyndo-workspace.mp4) · [Consultation app · 1:24](docs/assets/showcase/product-films-20261030/veyndo-app-platform.mp4). English subtitles, no sound.
+**Films:** [AI commerce · 1:56](docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4) · [Concept · 1:12](docs/assets/showcase/product-films-20261102/veyndo-concept.mp4) · [Product workspace · 1:36](docs/assets/showcase/product-films-20261102/veyndo-workspace.mp4) · [Product advisor app · 1:24](docs/assets/showcase/product-films-20261102/veyndo-app-platform.mp4). English subtitles, no sound.
 
-Films were refreshed on 30 October with actual UI captures from 29 and 30 October,
+Films were refreshed on 2 November with actual UI captures from that day,
 English subtitles and no sound. Demo data and simulated payments; timing is editorial.
-[Latest public journey and screenshots](docs/status.md#current-product-films-and-screenshots) · [Film sources](docs/assets/showcase/product-films-20261030/README.md).
+[Latest public journey and screenshots](docs/status.md#current-product-films-and-screenshots) · [Film sources](docs/assets/showcase/product-films-20261102/README.md).
 
 ## Try one complete round
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2 November 2026: current films, gallery and status
+
+Refresh the four English silent product films with actual 2 November Studio captures, shared Canvas and current Shop knowledge/App Studio. Publish captions, editable sources and encoding metadata. Replace two incomplete loading-state screenshots, align status and app-system documentation, and separate archived films from the current gallery. The actual homepage and bilingual Team hub use the same source media.
+
 ## 2 November 2026 · Current interface media
 
 - Refresh the feature guide and shared workspace guides with actual current Studio, storefront, app, knowledge, settings, permissions, register and operator screenshots.

@@ -1,0 +1,275 @@
+[
+  {
+    "name": "veyndo-concept",
+    "durationSeconds": 72.0,
+    "frames": 2160,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "codec": "h264",
+    "profile": "High",
+    "level": 41,
+    "pixelFormat": "yuv420p",
+    "audioStreams": 0,
+    "sizeBytes": 1819572,
+    "sha256": "e224012c08b0fe9826fbaed7dac7fe21b597d8eb457ed9dbf9d2c0d981e431c0",
+    "fullDecode": "passed",
+    "fastStart": true,
+    "compositionCheck": "passed",
+    "captureWindow": "2026-11-02",
+    "productionDate": "2026-11-02",
+    "sourceMain": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+    "renderer": "HyperFrames 0.8.186 / GSAP 3.14.2",
+    "captions": "English burned-in plus VTT/SRT",
+    "format": "Editorial film using actual dated native UI captures",
+    "chapters": {
+      "name": "veyndo-concept",
+      "title": "Veyndo Commerce: Commerce that thinks and acts",
+      "purpose": "Follow one wool coat through native commerce, merchant tools, an app, visual design and a simulated order.",
+      "duration": 72,
+      "chapters": [
+        {
+          "id": "veyndo-concept-1",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-concept-2",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-concept-3",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-concept-4",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-concept-5",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-concept-6",
+          "duration": 12,
+          "kind": "actual UI"
+        }
+      ]
+    }
+  },
+  {
+    "name": "veyndo-workspace",
+    "durationSeconds": 96.0,
+    "frames": 2880,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "codec": "h264",
+    "profile": "High",
+    "level": 41,
+    "pixelFormat": "yuv420p",
+    "audioStreams": 0,
+    "sizeBytes": 2650768,
+    "sha256": "2e6dce46df1aa656d2eddb41079c93bfb6eb673311fd5b5ffd72d919067f9bf9",
+    "fullDecode": "passed",
+    "fastStart": true,
+    "compositionCheck": "passed",
+    "captureWindow": "2026-11-02",
+    "productionDate": "2026-11-02",
+    "sourceMain": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+    "renderer": "HyperFrames 0.8.186 / GSAP 3.14.2",
+    "captions": "English burned-in plus VTT/SRT",
+    "format": "Editorial film using actual dated native UI captures",
+    "chapters": {
+      "name": "veyndo-workspace",
+      "title": "Veyndo Commerce: From product work to a connected shop",
+      "purpose": "Prepare the wool coat, inspect its storefront, edit privately and publish selected content.",
+      "duration": 96,
+      "chapters": [
+        {
+          "id": "veyndo-workspace-1",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-workspace-2",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-workspace-3",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-workspace-4",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-workspace-5",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-workspace-6",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-workspace-7",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-workspace-8",
+          "duration": 12,
+          "kind": "actual UI"
+        }
+      ]
+    }
+  },
+  {
+    "name": "veyndo-app-platform",
+    "durationSeconds": 84.0,
+    "frames": 2520,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "codec": "h264",
+    "profile": "High",
+    "level": 41,
+    "pixelFormat": "yuv420p",
+    "audioStreams": 0,
+    "sizeBytes": 2188830,
+    "sha256": "bf2ea5e3a1fe27a6b006bdcc8a612b8ec64478cfc42c6e957ec594a629d0ce57",
+    "fullDecode": "passed",
+    "fastStart": true,
+    "compositionCheck": "passed",
+    "captureWindow": "2026-11-02",
+    "productionDate": "2026-11-02",
+    "sourceMain": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+    "renderer": "HyperFrames 0.8.186 / GSAP 3.14.2",
+    "captions": "English burned-in plus VTT/SRT",
+    "format": "Editorial film using actual dated native UI captures",
+    "chapters": {
+      "name": "veyndo-app-platform",
+      "title": "Veyndo Commerce: Build a product advisor app",
+      "purpose": "Follow the Product advisor through its placements, visual editor, assistant, settings, data and saved record.",
+      "duration": 84,
+      "chapters": [
+        {
+          "id": "veyndo-app-platform-1",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-app-platform-2",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-app-platform-3",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-app-platform-4",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-app-platform-5",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-app-platform-6",
+          "duration": 12,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-app-platform-7",
+          "duration": 12,
+          "kind": "actual UI"
+        }
+      ]
+    }
+  },
+  {
+    "name": "veyndo-ai-commerce",
+    "durationSeconds": 116.0,
+    "frames": 3480,
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "codec": "h264",
+    "profile": "High",
+    "level": 41,
+    "pixelFormat": "yuv420p",
+    "audioStreams": 0,
+    "sizeBytes": 3014812,
+    "sha256": "6355bad50f1ff9a9b4f5818e06fbcd301cc1c4bd80f27496427a19664404fa99",
+    "fullDecode": "passed",
+    "fastStart": true,
+    "compositionCheck": "passed",
+    "captureWindow": "2026-11-02",
+    "productionDate": "2026-11-02",
+    "sourceMain": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+    "renderer": "HyperFrames 0.8.186 / GSAP 3.14.2",
+    "captions": "English burned-in plus VTT/SRT",
+    "format": "Editorial film using actual dated native UI captures",
+    "chapters": {
+      "name": "veyndo-ai-commerce",
+      "title": "Veyndo Commerce: AI across the working shop",
+      "purpose": "Connect merchant intake, reviewed knowledge, design references, app assistance and fictional buyer setup.",
+      "duration": 116,
+      "chapters": [
+        {
+          "id": "veyndo-ai-commerce-1",
+          "duration": 14,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-ai-commerce-2",
+          "duration": 14,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-ai-commerce-3",
+          "duration": 14,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-ai-commerce-4",
+          "duration": 14,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-ai-commerce-5",
+          "duration": 14,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-ai-commerce-6",
+          "duration": 14,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-ai-commerce-7",
+          "duration": 14,
+          "kind": "actual UI"
+        },
+        {
+          "id": "veyndo-ai-commerce-8",
+          "duration": 18,
+          "kind": "actual UI"
+        }
+      ]
+    }
+  }
+]

@@ -15,6 +15,7 @@ frames are available below for readers who prefer them.
 
 ## Observed actions
 
+- Follow-up captures replace two loading states with fully loaded native product recommendations and AI boundary controls. Two complementary products were saved for the wool coat in a separate fictional shop.
 - Native wool-coat size selection and a completed simulated order
   `RAC-e06eca89`, followed by an empty bag.
 - A fictional cash register sale `RAC-78508d60` and its native saved order.

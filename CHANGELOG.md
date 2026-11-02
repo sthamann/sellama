@@ -1,5 +1,11 @@
 # Changelog
 
+## 2 November 2026 · Repository entry
+
+- Present the platform as Veyndo Commerce with direct shop, film, app tutorial and documentation links.
+- Use the current product films in the first tour and a shallow clone for that introductory path.
+- Align contribution guidance with targeted checks and the daily full verification workflow; route questions to Discussions.
+
 ## 2 November 2026 · Shared payment service
 
 - Replace the Shopware Payments placeholder with its 17-method versioned provider contract.

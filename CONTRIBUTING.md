@@ -1,6 +1,6 @@
-# Contributing to Veyndo
+# Contributing to Veyndo Commerce
 
-This is an experimental commerce and migration laboratory. Changes should keep
+Veyndo Commerce is an AI native commerce platform built in Rust. Changes should keep
 merchant authority, tenant isolation and deterministic commerce operations explicit.
 
 Pick a concrete [first contribution](docs/early-contributors.md) or share an
@@ -39,9 +39,12 @@ python3 scripts/build_site.py
 python3 scripts/check_site.py
 ```
 
-For frontend changes, run `npm ci`, `npm run format:check` and `npm run build`
-from `frontend/`. For Rust changes, use `cargo fmt --check`,
-`cargo clippy --locked --all-targets -- -D warnings` and `cargo test --locked`.
+For frontend changes, install dependencies with `npm ci`, run `npm run build`
+and the tests for the changed behavior from `frontend/`. Check formatting and
+localization for the affected files. For Rust changes, run `cargo fmt --check`,
+`cargo clippy --locked --all-targets -- -D warnings` and targeted tests for the
+changed modules. Full tests and coverage run daily through the existing workflow;
+ordinary commits do not wait for that full run.
 Run the relevant application suites from [the testing guide](docs/testing.md#repeatable-checks)
 against your own instance. Original Shopware ports require original-source
 comparisons described in [the migration workflow](docs/migration.md).
@@ -63,7 +66,10 @@ python3 scripts/formal.py
 Read the [Lean guide](docs/formal-verification.md) for installation and the
 precise boundary. Unproved modules remain unproved after hash review; only the
 specified extracted policies have Lean proofs. Pull requests must pass the
-required `verify` check, including the formal gate and real integration suites.
+required `verify` check. On ordinary changes it checks structure, reviewed source
+inputs, localization and documentation governance. Financial/policy changes also
+need their relevant native integration and formal checks locally. The daily full
+run and public acceptance remain separate evidence.
 
 ## Pull requests
 

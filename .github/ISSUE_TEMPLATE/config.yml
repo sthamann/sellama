@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and app ideas
+    url: https://github.com/sthamann/veyndo/discussions
+    about: Ask how something works or discuss an app before opening a feature request.
+  - name: Start a shop and try the local tour
+    url: https://www.veyndo.ai/docs/first-tour.html
+    about: Follow the current setup and complete a simulated purchase and private change.
+  - name: Current implementation and acceptance
+    url: https://www.veyndo.ai/docs/status.html
+    about: Check the current feature, test and public delivery status.

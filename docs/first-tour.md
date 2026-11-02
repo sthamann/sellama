@@ -1,19 +1,17 @@
-# Your first Veyndo round: change, review, publish
+# Your first Veyndo Commerce round: change, review, publish
 
 Explore one connected workflow before reading the complete feature list. This is
 a working prototype; use synthetic data and simulated payments.
 
 ## Watch without an account
 
-[Watch the 29-second Build and Automate recording](assets/showcase/build-and-automate.mp4)
-with [English captions](assets/showcase/build-and-automate.vtt).
-It shows actual UI in an isolated shop, edited for readability. It is a recording,
-not an interactive session or a latency measurement.
+[Watch the 1:56 AI commerce overview](assets/showcase/product-films-20261030/veyndo-ai-commerce.mp4)
+with [English captions](assets/showcase/product-films-20261030/veyndo-ai-commerce.en.vtt).
+It introduces the agent workspace, visual design and app platform with actual UI
+captures, synthetic data and simulated payments. The films have subtitles and no sound.
+[All product films and capture notes](video-tours.md).
 
-![Current blue App Studio, synthetic private draft](assets/launch-20261014/app-studio.jpg)
-
-[14 October capture notes](assets/launch-20261014/README.md). The video above
-retains its original capture date and may show earlier branding.
+[![Veyndo Commerce product workspace](assets/showcase/product-films-20261030/veyndo-workspace.jpg)](video-tours.md)
 
 ## Run your own local tour
 
@@ -21,7 +19,7 @@ The container path needs Git, Docker with Compose and OpenSSL. It does not requi
 Rust, Node, Python, a model download or provider credentials.
 
 ```sh
-git clone https://github.com/sthamann/veyndo.git
+git clone --depth 1 https://github.com/sthamann/veyndo.git
 cd veyndo
 ./scripts/try.sh
 ```

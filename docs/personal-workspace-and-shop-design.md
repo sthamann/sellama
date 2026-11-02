@@ -32,6 +32,16 @@ An agent-composed pin can reopen a native directory with embedded record editing
 and, for products, catalogue intake. It stores the component layout beside the
 same private filter preference. [Working views and a concrete example](agentic-workspace.md#open-a-working-view).
 
+## Review your shop setup
+
+**Set up your shop** opens an optional six step guide for basics, products, design,
+checkout, legal information and a test. Save company details directly through the
+native form, use the existing tools for the other areas and explicitly review each
+step. Pause and reopen at the same area; active setup also has a return banner in
+live shop views. Progress belongs to your personal account and live shop, alongside
+the existing workspace preference, revisions and history.
+[Illustrated guide, source owners and local acceptance](shop-setup.md).
+
 ## Work with the agent
 
 Add a goal, for example **Prepare the summer collection for our French shop**.

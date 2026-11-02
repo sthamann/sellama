@@ -961,6 +961,18 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/settings/company-types.ts](../frontend/src/admin/settings/company-types.ts) | Typed company metadata and sparse per-channel inheritance contract; statutory facts are never auto-translated. |
 | [frontend/src/admin/settings/useCompanyContext.ts](../frontend/src/admin/settings/useCompanyContext.ts) | Load enabled content languages, countries and channel choices without overwriting an edited draft on locale refresh. |
 | [frontend/src/admin/settings/useSettingsDraft.ts](../frontend/src/admin/settings/useSettingsDraft.ts) | Revisioned settings drafts survive locale refreshes, reject late loads and keep failed saves editable. |
+| [frontend/src/admin/setup/SetupBanner.tsx](../frontend/src/admin/setup/SetupBanner.tsx) | Keeps the setup return path visible while the merchant works in the actual native views. |
+| [frontend/src/admin/setup/SetupBasics.tsx](../frontend/src/admin/setup/SetupBasics.tsx) | A focused first company form reuses native fields, geography, revisioned settings and the shared save bar. |
+| [frontend/src/admin/setup/SetupEntry.tsx](../frontend/src/admin/setup/SetupEntry.tsx) | Route the first eligible live-shop visit to the optional welcome, preserving ordinary workspace navigation. |
+| [frontend/src/admin/setup/SetupProvider.tsx](../frontend/src/admin/setup/SetupProvider.tsx) | Personal, revisioned setup progress reuses the existing workspace store and session fences. |
+| [frontend/src/admin/setup/SetupWelcome.tsx](../frontend/src/admin/setup/SetupWelcome.tsx) | A short, optional welcome demonstrates the actual setup path before asking for any work. |
+| [frontend/src/admin/setup/SetupWizard.tsx](../frontend/src/admin/setup/SetupWizard.tsx) | Guided review links native setup owners and the existing agent without duplicating configuration or publication. |
+| [frontend/src/admin/setup/setup-i18n.ts](../frontend/src/admin/setup/setup-i18n.ts) | Shared EN/DE/FR/ES vocabulary for the welcome, guided steps and continuation rail. |
+| [frontend/src/admin/setup/setup-model.ts](../frontend/src/admin/setup/setup-model.ts) | Setup records contain personal guidance only; native settings remain the source of truth. |
+| [frontend/src/admin/setup/setup-responsive.css](../frontend/src/admin/setup/setup-responsive.css) | Structural adaptation of the setup path for narrow administration viewports. |
+| [frontend/src/admin/setup/setup.css](../frontend/src/admin/setup/setup.css) | A compact, responsive setup workspace extends the existing Studio colour and type system. |
+| [frontend/src/admin/setup/step-i18n.ts](../frontend/src/admin/setup/step-i18n.ts) | Concrete outcomes for each setup step in every supported interface language. |
+| [frontend/src/admin/setup/useSetupFacts.ts](../frontend/src/admin/setup/useSetupFacts.ts) | Read only current native setup data; unavailable sources never become successful checks. |
 | [frontend/src/admin/shell/AgentRunCard.tsx](../frontend/src/admin/shell/AgentRunCard.tsx) | Saved native run progress and explicit continuation share the conversation's permission-scoped request owner. |
 | [frontend/src/admin/shell/Merchant.tsx](../frontend/src/admin/shell/Merchant.tsx) | Studio composition root: layout, scoped controller and modular workspace views. |
 | [frontend/src/admin/shell/StudioComposer.tsx](../frontend/src/admin/shell/StudioComposer.tsx) | StudioComposer: focused Studio view; state and commands come from the session-scoped controller. |
@@ -1910,6 +1922,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/rule_history.py](../scripts/testing/rule_history.py) | Frozen comparison against real checkout/Flow snapshots; no current-data fallback or effects. |
 | [scripts/testing/runtime.py](../scripts/testing/runtime.py) | Owned synthetic server lifetime, child checks and loopback readiness for verification. |
 | [scripts/testing/scenario_source.py](../scripts/testing/scenario_source.py) | Native task ownership and applied-proposal admission for customer-test references. |
+| [scripts/testing/shop_setup_checks.py](../scripts/testing/shop_setup_checks.py) | Personal setup progression exercises the native HTTP/MCP workspace CAS and tenant boundaries. |
 | [scripts/testing/site_release.py](../scripts/testing/site_release.py) | Actual selective publication resolves page dependencies atomically; no provider calls. |
 | [scripts/testing/sitecustomize.py](../scripts/testing/sitecustomize.py) | Opt-in subprocess instrumentation for synthetic verification; never loaded by production. |
 | [scripts/testing/source_inventory.py](../scripts/testing/source_inventory.py) | Generate/check exact production and verification module inventory; listings are not coverage. |

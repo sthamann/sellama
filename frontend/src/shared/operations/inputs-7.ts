@@ -55,6 +55,7 @@ export interface Inputs7 {
       view:
         | "assistant"
         | "workspace"
+        | "setup"
         | "overview"
         | "knowledge"
         | "agents"
@@ -100,6 +101,7 @@ export interface Inputs7 {
       view:
         | "assistant"
         | "workspace"
+        | "setup"
         | "overview"
         | "knowledge"
         | "agents"
@@ -145,6 +147,7 @@ export interface Inputs7 {
       view:
         | "assistant"
         | "workspace"
+        | "setup"
         | "overview"
         | "knowledge"
         | "agents"
@@ -190,6 +193,7 @@ export interface Inputs7 {
       view:
         | "assistant"
         | "workspace"
+        | "setup"
         | "overview"
         | "knowledge"
         | "agents"

@@ -1,4 +1,5 @@
 /** Typed built-in Studio navigation and locale-specific labels. */
+import { useSetupText } from "../setup/setup-i18n";
 import { useB2BText } from "../../shared/i18n/b2b-i18n";
 import { usePosText } from "../pos/pos-i18n";
 import { useLocale } from "../../shared/i18n/i18n";
@@ -7,6 +8,7 @@ import { useWorkbenchText } from "../../shared/i18n/workbench-i18n";
 import { type IconName } from "../../shared/ui/Icon";
 import { useWorkspaceText } from "../workspace/workspace-i18n";
 export type Tab =
+  | "setup"
   | "workspace"
   | "design"
   | "assistant"
@@ -29,12 +31,14 @@ export type Tab =
 
 export function useStudioNavigation() {
   const { t } = useLocale();
+  const setup = useSetupText();
   const personal = useWorkspaceText();
   const p = usePosText();
   const b = useB2BText();
   const { w } = useWorkbenchText();
   const { o } = useOperationsText();
   const tabLabel = (id: Tab): string => {
+    if (id === "setup") return setup("title");
     if (id === "workspace") return personal("title");
     if (id === "design") return personal("design");
     if (id === "b2b") return b("title");
@@ -54,6 +58,7 @@ export function useStudioNavigation() {
   };
 
   const nav: { id: Tab; icon: IconName }[] = [
+    { id: "setup", icon: "check" },
     { id: "workspace", icon: "gauge" },
     { id: "design", icon: "palette" },
     { id: "assistant", icon: "chat" },

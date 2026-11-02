@@ -1,0 +1,87 @@
+/* Structural adaptation of the setup path for narrow administration viewports. */
+@media (max-width: 1100px) {
+  .setup-welcome {
+    gap: 28px;
+  }
+  .setup-layout {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 20px;
+  }
+  .setup-task {
+    padding: 22px;
+  }
+}
+@media (max-width: 760px) {
+  .setup-workspace {
+    padding: 22px 16px 36px;
+  }
+  .setup-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .setup-workspace h1 {
+    font-size: 1.75rem;
+  }
+  .setup-welcome {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    gap: 28px;
+  }
+  .setup-welcome-copy h1 {
+    font-size: 2.25rem;
+    max-width: 16ch;
+  }
+  .setup-route {
+    padding: 18px;
+  }
+  .setup-route li {
+    padding: 12px 0;
+  }
+  .setup-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .setup-steps ol {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .setup-steps li {
+    flex: 0 0 190px;
+    margin: 0;
+  }
+  .setup-steps button {
+    height: 100%;
+    padding: 10px;
+  }
+  .setup-task {
+    padding: 20px;
+  }
+  .setup-task h2 {
+    font-size: 1.375rem;
+  }
+  .setup-task-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .setup-task-footer button {
+    justify-content: center;
+  }
+  .setup-return {
+    padding: 10px 16px;
+    flex-wrap: wrap;
+  }
+  .setup-return > span {
+    min-width: 180px;
+  }
+  .setup-return button {
+    margin-left: 28px;
+  }
+}
+@media (max-width: 760px) {
+  .setup-basics-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

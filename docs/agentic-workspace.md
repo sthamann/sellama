@@ -14,6 +14,36 @@ check an app's connections in App Studio and try a saved private change with the
 [customer simulator](customer-scenarios.md). These entry points use the same
 native editors, current rights and selected publication path.
 
+## A connected conversation surface
+
+The merchant assistant keeps the welcome actions, working context, source tools
+and message input in one aligned column. **Review stock** and **Understand visitor
+behavior** start the existing bounded prompts. The full instructions remain in
+the agent request, while the buttons use short labels in EN/DE/FR/ES.
+
+Attach a CSV directly, enter a product/shop URL, describe sample products, add a
+private document or save instructions beside the message input. These are the
+existing permission-aware intake operations. Preview and approval still precede
+catalogue changes. The duplicate CSV control has been removed.
+
+An empty product context no longer reserves a blank sidebar. A selected product
+still uses the native context panel and its mobile dialog. On narrow screens the
+welcome and input scroll together; the compact **Ask Veyndo** drawer uses the
+same composer. Existing conversations retain their scrollable message region.
+
+![Merchant assistant with aligned actions and input](assets/assistant-layout-20261102/desktop.jpg)
+
+![The shared assistant inside Shop knowledge](assets/assistant-layout-20261102/copilot.jpg)
+
+[Mobile controls and message input](assets/assistant-layout-20261102/mobile.jpg).
+
+Local Chrome acceptance on 2 November covers personal sign-in, the assistant,
+source-URL dialog, draft preservation between the assistant and Shop knowledge,
+keyboard focus on Send, French tablet labels and responsive sizes 1440 × 900,
+1024 × 768, 390 × 844 and 844 × 390. The narrow and landscape views expose their
+controls without horizontal document overflow. This is UI acceptance; it does not
+certify a new model capability or public runtime deployment.
+
 ## Open a working view
 
 Ask, for example: **Show active products with low stock, their details and a CSV

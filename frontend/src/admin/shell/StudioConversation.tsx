@@ -15,6 +15,8 @@ import { openReviewedView } from "../../shared/grid/pinned-view";
 import ProposalCard from "../assistant/ProposalCard";
 import "../styles/operations.css";
 import "../styles/studio.css";
+import "../styles/assistant-layout.css";
+import { useAgentWorkspaceText } from "../../shared/i18n/agent-workspace-i18n";
 
 import { useStudio } from "./StudioContext";
 import AgentWorkSurface from "../workspace/AgentWorkSurface";
@@ -32,6 +34,7 @@ export default function StudioConversation({
 }) {
   const { u } = useExperienceUIText();
   const c = useCatalogIntakeText();
+  const aw = useAgentWorkspaceText();
   const runText = useAgentRunText();
   const {
     t,
@@ -77,7 +80,9 @@ export default function StudioConversation({
     return () => window.removeEventListener("veyndo-agent-progress", update);
   }, [busy]);
   return (
-    <section className="studio-conversation">
+    <section
+      className={`studio-conversation ${!compact && !messages.length && !pendingText ? "is-empty" : ""}`}
+    >
       <div className="conversation-topline">
         <span>
           <Icon name="spark" size={15} />
@@ -100,7 +105,6 @@ export default function StudioConversation({
             <div className="welcome-symbol">
               <Icon name="spark" size={32} />
             </div>
-            <span className="kicker">{t("studio")}</span>
             <h1>{t("welcome")}</h1>
             <p>{t("welcomeSub")}</p>
             {data && (
@@ -137,7 +141,9 @@ export default function StudioConversation({
                   <span>
                     {key === "merchantCatalogue"
                       ? c("title")
-                      : t(key as "promptRead")}
+                      : aw(
+                          key === "askStock" ? "reviewStock" : "reviewSignals",
+                        )}
                   </span>
                   <Icon name="arrow" size={16} />
                 </button>

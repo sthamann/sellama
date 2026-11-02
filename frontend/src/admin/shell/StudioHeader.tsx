@@ -38,6 +38,7 @@ export default function StudioHeader() {
     setMessages,
     environments,
     setPreviewOpen,
+    selected,
     x,
     setLocale,
     setTheme,
@@ -110,13 +111,15 @@ export default function StudioHeader() {
             ))}
           </select>
         )}
-        <button
-          className="icon-button mobile-preview-button"
-          aria-label={t("livePreview")}
-          onClick={() => setPreviewOpen(true)}
-        >
-          <Icon name="box" />
-        </button>
+        {selected && (
+          <button
+            className="icon-button mobile-preview-button"
+            aria-label={t("livePreview")}
+            onClick={() => setPreviewOpen(true)}
+          >
+            <Icon name="box" />
+          </button>
+        )}
         <span className="connection-state">
           <i className={connected ? "on" : ""} />
           {connected

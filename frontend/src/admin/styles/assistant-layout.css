@@ -1,0 +1,186 @@
+/* One reading column connects merchant context, conversation and intake in full Studio and the copilot. */
+.studio-main.view-assistant:not(.has-context),
+.studio-main.view-overview:not(.has-context) {
+  grid-template-columns: minmax(0, 1fr);
+}
+.studio-main,
+.studio-conversation {
+  min-width: 0;
+}
+.studio-conversation {
+  --conversation-width: 820px;
+  container-type: inline-size;
+}
+.studio-conversation .conversation-topline {
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.studio-conversation .conversation-topline button {
+  min-width: 0;
+  max-width: 100%;
+}
+.studio-conversation .studio-messages {
+  padding: 24px clamp(16px, 3vw, 40px);
+  overscroll-behavior: contain;
+}
+.studio-conversation .assistant-welcome,
+.studio-conversation .studio-message,
+.studio-conversation .studio-thinking,
+.studio-conversation .agent-run-card {
+  width: 100%;
+  max-width: var(--conversation-width);
+  margin-inline: auto;
+}
+.studio-conversation .assistant-welcome {
+  margin-block: clamp(8px, 3vh, 28px) 16px;
+}
+.studio-conversation.is-empty {
+  overflow: auto;
+}
+.studio-conversation.is-empty .studio-messages {
+  flex: 0 0 auto;
+  overflow: visible;
+}
+.studio-conversation.is-empty .composer-wrap {
+  padding-top: 0;
+}
+.studio-conversation .welcome-symbol {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  box-shadow: none;
+}
+.studio-conversation .welcome-symbol svg {
+  width: 24px;
+  height: 24px;
+}
+.studio-conversation .assistant-welcome h1 {
+  font-size: clamp(28px, 3vw, 38px);
+  letter-spacing: -0.03em;
+  max-width: 100%;
+  text-wrap: balance;
+}
+.studio-conversation .assistant-welcome > p {
+  margin-top: 12px;
+  max-width: 65ch;
+  line-height: 1.65;
+}
+.studio-conversation .welcome-pulse {
+  margin-block: 20px;
+}
+.studio-conversation .studio-prompts {
+  margin-top: 20px;
+  gap: 0;
+  border-block: 1px solid var(--border);
+}
+.studio-conversation .studio-prompts button {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 14px 4px;
+  min-height: 48px;
+}
+.studio-conversation .studio-prompts button + button {
+  border-top: 1px solid var(--border);
+}
+.studio-conversation .studio-prompts button:hover {
+  background: var(--hover);
+}
+.studio-conversation .composer-wrap {
+  padding: 12px clamp(16px, 3vw, 40px) 16px;
+}
+.composer-content {
+  width: 100%;
+  max-width: var(--conversation-width);
+  margin-inline: auto;
+}
+.composer-content > small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+  padding-block: 8px;
+  overflow-wrap: anywhere;
+}
+.composer-content > small:last-child {
+  text-align: center;
+  padding-bottom: 0;
+}
+.composer-content .merchant-catalog-actions {
+  display: inline-flex;
+  gap: 6px;
+  padding: 0 6px 8px 0;
+  max-width: 100%;
+}
+.composer-content .merchant-catalog-actions button,
+.composer-content .composer-file {
+  min-height: 36px;
+  text-align: left;
+  white-space: normal;
+}
+.composer-content .composer-file {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--text);
+}
+.studio-conversation .studio-composer {
+  max-width: none;
+  box-shadow: none;
+}
+.studio-conversation .studio-composer:focus-within {
+  border-color: var(--accent);
+}
+.studio-conversation .studio-composer textarea {
+  caret-color: var(--accent);
+}
+.studio-conversation .studio-composer > div > span {
+  min-width: 0;
+  flex: 1;
+  line-height: 1.5;
+}
+.studio-conversation .studio-composer .studio-primary {
+  flex-shrink: 0;
+}
+.studio-conversation ::selection {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+.studio-conversation ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.studio-conversation ::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 8px;
+}
+@container (max-width: 600px) {
+  .studio-messages {
+    padding: 16px;
+  }
+  .composer-wrap {
+    padding: 8px 16px 12px;
+  }
+  .composer-content > small:last-child {
+    display: none;
+  }
+  .composer-content .merchant-catalog-actions button,
+  .composer-content .composer-file {
+    font-size: 11px;
+    min-height: 44px;
+    padding: 6px 8px;
+  }
+}
+@media (max-height: 650px) {
+  .studio-content:has(> .studio-conversation) {
+    overflow: auto;
+  }
+  .studio-conversation {
+    flex: 0 0 auto;
+  }
+  .studio-conversation .studio-messages {
+    overflow: visible;
+  }
+}

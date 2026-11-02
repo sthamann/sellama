@@ -4,6 +4,16 @@ Updated 2 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
+## Merchant assistant layout (2 November 2026, local acceptance)
+
+Welcome, source actions and input share one column in full Studio and the
+contextual drawer. Empty product sidebars and the duplicate CSV control are
+removed. Short actions preserve the original bounded prompts and access checks.
+Local Chrome checks cover desktop, tablet, phone, landscape, French labels,
+keyboard focus and draft handoff; 43 targeted UI tests pass.
+[Illustrated workflow and acceptance scope](agentic-workspace.md#a-connected-conversation-surface).
+Public runtime delivery is tracked separately.
+
 ## Shopware Payments acceptance (2 November 2026)
 
 The private provider and current public Core pass local synthetic purchase,

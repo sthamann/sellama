@@ -75,101 +75,16 @@ export default function StudioComposer({ context }: { context?: string } = {}) {
         if (canImport && !busy) openIntake("csv", e.dataTransfer.files[0]);
       }}
     >
-      {workspaceContext && (
-        <small>
-          {aw("context")}:{" "}
-          {tabLabel(workspaceContext.view as Parameters<typeof tabLabel>[0])}
-          {workspaceContext.selected && ` · ${workspaceContext.selected.id}`}
-        </small>
-      )}
-      {canImport && (
-        <div className="merchant-catalog-actions">
-          {(
-            [
-              ["csv", "table"],
-              ["url", "link"],
-              ["demo", "spark"],
-            ] as const
-          ).map(([mode, icon]) => (
-            <button
-              type="button"
-              key={mode}
-              disabled={
-                busy || (mode !== "csv" && !access.includes("assistant.use"))
-              }
-              onClick={() => openIntake(mode)}
-            >
-              <Icon name={icon} size={15} />
-              {c(mode)}
-            </button>
-          ))}
-        </div>
-      )}
-      {connected && access.includes("knowledge.write") && (
-        <div className="merchant-catalog-actions">
-          {(["document", "guidance"] as const).map((kind) => (
-            <button
-              key={kind}
-              type="button"
-              disabled={busy}
-              onClick={() => setSource(kind)}
-            >
-              <Icon name={kind === "guidance" ? "spark" : "text"} size={15} />
-              {aw(kind === "guidance" ? "guidance" : "source")}
-            </button>
-          ))}
-        </div>
-      )}
-      {source && (
-        <MerchantSourceIntake
-          key={`${workspace}:${environment}:${locale}`}
-          request={request}
-          guidance={source === "guidance"}
-          onClose={() => setSource(undefined)}
-        />
-      )}
-      {intake && intake.scope === intakeScope && canImport && (
-        <Suspense fallback={null}>
-          <CatalogIntake
-            key={`${workspace}:${environment}:${locale}`}
-            initialMode={intake.mode}
-            initialSource={intake.source}
-            initialFile={intake.file}
-            onClose={() => setIntake(undefined)}
-          />
-        </Suspense>
-      )}
-      <form
-        className="studio-composer"
-        onSubmit={(e) => {
-          e.preventDefault();
-          void send(context);
-        }}
-      >
-        <label className="sr-only" htmlFor="studio-message">
-          {t("message")}
-        </label>
-        <textarea
-          maxLength={context ? Math.max(1, 4000 - context.length - 2) : 4000}
-          id="studio-message"
-          ref={composer}
-          rows={2}
-          value={draft}
-          onChange={(e) => setDraft(e.target.value)}
-          onKeyDown={(e) => {
-            if (
-              e.key === "Enter" &&
-              !e.shiftKey &&
-              !e.nativeEvent.isComposing
-            ) {
-              e.preventDefault();
-              void send(context);
-            }
-          }}
-          placeholder={t("placeholder")}
-        />
-        <div>
-          {canImport && (
+      <div className="composer-content">
+        {workspaceContext && (
+          <small>
+            {aw("context")}:{" "}
+            {tabLabel(workspaceContext.view as Parameters<typeof tabLabel>[0])}
+            {workspaceContext.selected && ` · ${workspaceContext.selected.id}`}
+          </small>
+        )}
+        {canImport && (
+          <div className="merchant-catalog-actions">
             <label className="composer-file" title={c("dropCsv")}>
               <Icon name="plus" size={18} />
               <span>{c("csv")}</span>
@@ -185,24 +100,106 @@ export default function StudioComposer({ context }: { context?: string } = {}) {
                 }}
               />
             </label>
-          )}
-          <span>
-            <Icon name="lock" size={13} />
-            {t("trust")}
-          </span>
-          <button
-            type="submit"
-            className="studio-primary"
-            disabled={!connected || busy || !draft.trim()}
-            aria-label={t("send")}
-          >
-            <Icon name="send" size={18} />
-          </button>
-        </div>
-      </form>
-      <small>
-        {t("currentLocale")}: {locales[locale]} · {t("savedLanguage")}
-      </small>
+            {(
+              [
+                ["url", "link"],
+                ["demo", "spark"],
+              ] as const
+            ).map(([mode, icon]) => (
+              <button
+                type="button"
+                key={mode}
+                disabled={busy || !access.includes("assistant.use")}
+                onClick={() => openIntake(mode)}
+              >
+                <Icon name={icon} size={15} />
+                {c(mode)}
+              </button>
+            ))}
+          </div>
+        )}
+        {connected && access.includes("knowledge.write") && (
+          <div className="merchant-catalog-actions">
+            {(["document", "guidance"] as const).map((kind) => (
+              <button
+                key={kind}
+                type="button"
+                disabled={busy}
+                onClick={() => setSource(kind)}
+              >
+                <Icon name={kind === "guidance" ? "spark" : "text"} size={15} />
+                {aw(kind === "guidance" ? "guidance" : "source")}
+              </button>
+            ))}
+          </div>
+        )}
+        {source && (
+          <MerchantSourceIntake
+            key={`${workspace}:${environment}:${locale}`}
+            request={request}
+            guidance={source === "guidance"}
+            onClose={() => setSource(undefined)}
+          />
+        )}
+        {intake && intake.scope === intakeScope && canImport && (
+          <Suspense fallback={null}>
+            <CatalogIntake
+              key={`${workspace}:${environment}:${locale}`}
+              initialMode={intake.mode}
+              initialSource={intake.source}
+              initialFile={intake.file}
+              onClose={() => setIntake(undefined)}
+            />
+          </Suspense>
+        )}
+        <form
+          className="studio-composer"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void send(context);
+          }}
+        >
+          <label className="sr-only" htmlFor="studio-message">
+            {t("message")}
+          </label>
+          <textarea
+            maxLength={context ? Math.max(1, 4000 - context.length - 2) : 4000}
+            id="studio-message"
+            ref={composer}
+            rows={2}
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            onKeyDown={(e) => {
+              if (
+                e.key === "Enter" &&
+                !e.shiftKey &&
+                !e.nativeEvent.isComposing
+              ) {
+                e.preventDefault();
+                void send(context);
+              }
+            }}
+            placeholder={t("placeholder")}
+          />
+          <div>
+            <span>
+              <Icon name="lock" size={13} />
+              {t("trust")}
+            </span>
+            <button
+              type="submit"
+              className="studio-primary"
+              disabled={!connected || busy || !draft.trim()}
+              aria-label={t("send")}
+            >
+              <Icon name="send" size={18} />
+            </button>
+          </div>
+        </form>
+        <small>
+          {t("currentLocale")}: {locales[locale]} · {t("savedLanguage")}
+        </small>
+      </div>
     </div>
   );
 }

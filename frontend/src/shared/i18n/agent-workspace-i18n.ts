@@ -1,6 +1,18 @@
 /** Contextual merchant work, private source intake and real editor handoffs share plain translated labels. */
 import { useLocale } from "./i18n";
 export const agentWorkspaceWords = {
+  reviewStock: [
+    "Review stock",
+    "Bestände prüfen",
+    "Vérifier les stocks",
+    "Revisar existencias",
+  ],
+  reviewSignals: [
+    "Understand visitor behavior",
+    "Besucherverhalten verstehen",
+    "Comprendre les visiteurs",
+    "Entender a los visitantes",
+  ],
   work: [
     "Your next steps",
     "Deine nächsten Schritte",

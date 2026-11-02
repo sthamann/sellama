@@ -1,38 +1,36 @@
 <p align="center">
-  <img src="docs/brand/veyndo-readme.svg?v=blue-20261014" alt="VEYNDO — Commerce that thinks and acts." width="100%">
+  <img src="docs/brand/veyndo-readme.svg?v=commerce-20261102" alt="Veyndo Commerce: build commerce with AI." width="100%">
 </p>
 
 <div align="center">
 
-# VEYNDO
+# Veyndo Commerce
 
-**Commerce, rebuilt for the AI era.**
+**An AI native ecommerce platform built in Rust.**
 
 [![Quick checks](https://github.com/sthamann/veyndo/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/sthamann/veyndo/actions/workflows/verify.yml)
 [![Documentation](https://github.com/sthamann/veyndo/actions/workflows/pages.yml/badge.svg?branch=main)](https://veyndo.ai/docs/)
 [![Working prototype](https://img.shields.io/badge/status-working_prototype-189EFF)](#current-boundaries)
 [![Sustainable Use License](https://img.shields.io/badge/license-Sustainable_Use-189EFF)](LICENSE)
 
-[Try one complete round](docs/first-tour.md) · [Watch the new product films](docs/video-tours.md) · [First contributions](docs/early-contributors.md) · [Feature guide](docs/features.md) · [Architecture](docs/platform-overview.md) · [Integrations](docs/service-integrations.md) · [Documentation](https://veyndo.ai/docs/)
+[Try a shop](https://start.veyndo.ai/start) · [Watch the overview](docs/video-tours.md) · [Build an app](docs/app-tutorials/README.md) · [Read the docs](https://www.veyndo.ai/docs/)
 
 </div>
 
-**A new Rust commerce platform with AI woven into the business itself.**
-
-Veyndo connects products, business knowledge, merchant work, agents, automation and
-apps on one Rust foundation. People and agents use the same native operations;
-prices, stock, permissions and revisions remain authoritative.
+Create a shop, design its storefront and build apps with a visual workspace and
+agents. Products, orders, business knowledge and automation share one commerce
+core. People and agents use the same native operations, permissions and versioned
+changes; prices and stock remain authoritative.
 
 **Start here: [current status, tested scope and open acceptance](docs/status.md).**
 This is a working prototype, built in public. Local implementation, CI results and
 public acceptance are recorded separately.
 
-## One idea, one connected business
+## What you can do
 
 | Work | What connects it |
 | --- | --- |
-| **Ask, review, act** | Describe work and open real records with native editing and private catalogue intake. Pin it; changes stay reviewed. [AI workspace](docs/agentic-workspace.md#a-connected-conversation-surface). |
-| **Prepare the catalogue** | Inspect each product's enabled-language coverage and saved image-job progress, then open its native editor to repair missing content. [Catalogue preparation](docs/product-management.md#preparing-a-catalogue-together). |
+| **Work with an agent** | Ask about your shop, open real records, prepare catalogue content and review changes before applying them. [AI workspace](docs/agentic-workspace.md#a-connected-conversation-surface), [catalogue](docs/product-management.md#preparing-a-catalogue-together). |
 | **Bring your shop** | The [Migration Assistant](docs/agentic-migration.md) connects versioned source profiles, saved background inspection, readable variant review and native imports into private previews. |
 | **Build the business** | Describe an app with forms, uploads, settings and views. Connect materials and dimensions to company approval, checkout and reorder. Visual editing and coding agents share one versioned definition. [App Studio](docs/app-studio.md), [configurator](docs/furniture-configurator.md), [object extensions](docs/app-core-extensions.md). |
 | **Shape the shop** | Design shop pages and app placements on one zoomable canvas. Drag elements, retain drafts and compare AI proposals. Add multilingual image captions. Storyfront powers Experiences. [Visual design](docs/personal-workspace-and-shop-design.md). |
@@ -59,7 +57,7 @@ External models, payment providers and mail require their own configuration.
 **Container tour:** Git, Docker Compose and OpenSSL; no local Rust/Node build.
 
 ```sh
-git clone https://github.com/sthamann/veyndo.git
+git clone --depth 1 https://github.com/sthamann/veyndo.git
 cd veyndo
 ./scripts/try.sh
 ```
@@ -97,7 +95,7 @@ each OAuth provider, disaster recovery and capacity require separate evidence. S
 pure policies, not the whole system. Source builds, app lifecycle completeness and
 operational controls are tracked explicitly in [the current status](docs/status.md).
 
-[Contribute](CONTRIBUTING.md) · [Discussions](https://github.com/sthamann/veyndo/discussions)
+[First contributions](docs/early-contributors.md) · [Contribute](CONTRIBUTING.md) · [Discussions](https://github.com/sthamann/veyndo/discussions)
 · [Report an issue](https://github.com/sthamann/veyndo/issues/new/choose) · [Changelog](CHANGELOG.md).
 
 ## License

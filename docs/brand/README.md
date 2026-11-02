@@ -14,3 +14,7 @@ use #189EFF with #06325F button text. Studio density styles must inherit the pal
 rather than declaring another theme. SVG copies remain byte-identical.
 
 The selected primary is documented in [Shopware's official brand guide](https://assets.shopware.com/media/website/press_materials/brochure/SW_CD_Design_Manual.pdf).
+
+The repository presents the platform as **Veyndo Commerce**, including its README
+lockup and introductory guides. The VEYNDO product mark, blue palette and stable
+source identifier `veyndo` continue to identify the same platform.

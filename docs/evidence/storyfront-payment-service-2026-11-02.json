@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-02T19:13:08.124Z",
+  "originalStoryfrontPin": "5d5f0e743b083a4154044f1ab26b778f1916dad2",
+  "orderId": "5bdd03cf98344ea8917c22a24fc02c1b",
+  "orderNumber": "RAC-5bdd03cf",
+  "amountMinor": 1250,
+  "currency": "EUR",
+  "payment": "simulated Shopware Payments SEPA",
+  "checks": [
+    "Original Storyfront handler maps native SKU and German checkout language",
+    "Single-use native handoff rejects replay",
+    "Actual private scoped approval settles through native ledger",
+    "Original Storyfront verifies exact native completed order",
+    "Repeated receipt verification remains safe",
+    "Changed quantity and foreign receipt rejected",
+    "One-minor-unit refund replay and exact remaining refund"
+  ],
+  "scope": "Original server handler and actual Rust services. No browser nested-iframe or public-hosting acceptance."
+}

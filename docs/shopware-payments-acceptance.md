@@ -27,6 +27,7 @@ responses and merchant are synthetic; no external payment network is contacted.
 | Hosted simulation contract | All 17 methods with 12 concurrent callers, native cancellation, exact partial/full refunds and durable replay across restart; zero PSP traffic |
 | Restricted service runtime | Separate migration bootstrap and non-owner runtime; owner runtime and runtime migration rejected |
 | Shipped simulated form | Actual scoped session and confirmation endpoint, German shop language over English browser default, readiness nonce and no bank inputs; native Chrome SEPA purchase, return and empty cart also pass |
+| Original Storyfront server integration | Real original checkout/completion handlers with native transfer, private simulated capture, exact proof rejection and complete refund; browser framing is separate |
 | Public Shopware Payments checkout | Not accepted: no dedicated private Payments service was present in the inspected Northflank project |
 
 The connector's 1.1.0 package widens PayPal/card currency declarations to its supported
@@ -93,6 +94,27 @@ Storyfront iframe remain separate acceptance steps.
 [Mobile card form](assets/payments-20261102/mobile-card-simulation.png) ·
 [Mobile payment confirmation](assets/payments-20261102/mobile-payment-confirmed.png) ·
 [Mobile empty bag](assets/payments-20261102/mobile-returned-empty-cart.png).
+
+## Original Storyfront server integration, 2 November 2026
+
+The original Storyfront handler at pin `5d5f0e743b083a4154044f1ab26b778f1916dad2`
+was called directly with an isolated fixture scope. It read a manifest generated
+from the real Core catalogue, mapped its product to the canonical SKU and issued
+the native single-use checkout handoff in German. The actual Core and private
+Rust payment service created order **RAC-5bdd03cf**, captured the simulated
+**EUR 12.50** SEPA payment and admitted the signed notification.
+
+The unchanged original completion handler then verified that exact native order.
+It accepted a repeated valid proof and rejected a changed quantity and a different
+order ID. Native refunds accepted one cent, replayed that request without another
+refund and completed the exact EUR 12.49 remainder.
+
+This is an integration check of the original server handler and actual Rust
+services. It does not replace the original browser's bag, nested iframe, return
+or public-hosting acceptance. The dedicated public service still awaits its
+creation and restricted database access. No PSP was contacted.
+
+[Machine-readable result](evidence/storyfront-payment-service-2026-11-02.json).
 
 ## Comparison with Shopware
 

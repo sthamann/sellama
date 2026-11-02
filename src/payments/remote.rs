@@ -22,7 +22,7 @@ pub(crate) fn validate_service(c: &Value, environment: &str) -> Result<()> {
     .map_err(|_| bad("Invalid payment service URL"))?;
     let fixture = url.scheme() == "http"
         && ["127.0.0.1", "localhost"].contains(&url.host_str().unwrap_or(""));
-    if !["sandbox", "live", "contract-fixture"].contains(&environment)
+    if !["sandbox", "live", "simulation", "contract-fixture"].contains(&environment)
         || (!fixture && url.scheme() != "https")
         || !url.username().is_empty()
         || url.password().is_some()

@@ -15,6 +15,7 @@ type Status = {
   job?: { state: string; operation: string } | null;
 };
 const terminal = new Set([
+  "authorized",
   "captured",
   "captured_late",
   "cancelled",
@@ -120,13 +121,15 @@ function PaymentStatus({ id, token, autoRedirect = false }: PaymentProps) {
       <h3>
         {paid
           ? x("paid")
-          : data && ["cancelled", "expired"].includes(data.state)
-            ? x("cancelled")
-            : x(
-                data?.state === "approved" || returned === "approved"
-                  ? "checking"
-                  : "pending",
-              )}
+          : data?.state === "authorized"
+            ? x("authorized")
+            : data && ["cancelled", "expired"].includes(data.state)
+              ? x("cancelled")
+              : x(
+                  data?.state === "approved" || returned === "approved"
+                    ? "checking"
+                    : "pending",
+                )}
       </h3>
       {data && (
         <strong>
@@ -146,6 +149,7 @@ function PaymentStatus({ id, token, autoRedirect = false }: PaymentProps) {
         </strong>
       )}
       {paid && <p>{x("paidHint")}</p>}
+      {data?.state === "authorized" && <p>{x("authorizedHint")}</p>}
       {data?.checkout === "embedded" && data.state === "ready" && !returned && (
         <EmbeddedPayment
           id={id}

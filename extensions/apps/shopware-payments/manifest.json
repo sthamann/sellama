@@ -1,30 +1,632 @@
 {
   "id": "shopware_payments",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "coreApi": "1",
   "runtime": "service",
+  "category": "payment",
   "name": {
-    "en": "Shopware Payments \u2014 connector contract pending",
-    "de": "Shopware Payments \u2014 connector contract pending",
-    "fr": "Shopware Payments \u2014 connector contract pending",
-    "es": "Shopware Payments \u2014 connector contract pending"
+    "en": "Shopware Payments",
+    "de": "Shopware Payments",
+    "fr": "Shopware Payments",
+    "es": "Shopware Payments"
   },
   "permissions": [
-    "admin.slot"
+    "payments.provider"
   ],
   "entities": [],
-  "slots": [
+  "slots": [],
+  "actions": [
     {
-      "location": "admin.apps",
-      "component": "payments",
-      "label": {
-        "en": "Shopware Payments \u2014 connector contract pending",
-        "de": "Shopware Payments \u2014 connector contract pending",
-        "fr": "Shopware Payments \u2014 connector contract pending",
-        "es": "Shopware Payments \u2014 connector contract pending"
+      "name": "onboarding",
+      "description": "Manage payment provider account",
+      "handler": "payment_onboarding",
+      "public": false,
+      "mcp": true,
+      "permission": "payments.manage",
+      "flowAllowed": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "type": "string",
+            "enum": [
+              "start",
+              "status",
+              "disconnect"
+            ]
+          },
+          "channel": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "requestKey": {
+            "type": "string"
+          },
+          "approve": {
+            "type": "boolean"
+          },
+          "environment": {
+            "type": "string",
+            "enum": [
+              "sandbox",
+              "live",
+              "contract-fixture",
+              "simulation"
+            ]
+          }
+        },
+        "required": [
+          "operation",
+          "requestKey"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "payment_command",
+      "description": "Queue provider payment operation",
+      "handler": "payment_command",
+      "public": false,
+      "permission": "payments.manage",
+      "mcp": true,
+      "flowAllowed": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "type": "string",
+            "enum": [
+              "capture",
+              "authorize",
+              "void",
+              "cancel",
+              "refund",
+              "reconcile"
+            ]
+          },
+          "attemptId": {
+            "type": "string"
+          },
+          "event": {
+            "type": "object"
+          },
+          "requestKey": {
+            "type": "string"
+          },
+          "approve": {
+            "type": "boolean"
+          },
+          "amountMinor": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "operation",
+          "requestKey",
+          "approve"
+        ],
+        "additionalProperties": false
       }
     }
   ],
-  "actions": [],
-  "events": []
+  "paymentProvider": {
+    "apiVersion": "1",
+    "methods": [
+      {
+        "id": "paypal",
+        "name": {
+          "en": "PayPal",
+          "de": "PayPal",
+          "fr": "PayPal",
+          "es": "PayPal"
+        },
+        "currencies": [
+          "AUD",
+          "BRL",
+          "CAD",
+          "CHF",
+          "CZK",
+          "DKK",
+          "EUR",
+          "GBP",
+          "HKD",
+          "HUF",
+          "ILS",
+          "JPY",
+          "MXN",
+          "NOK",
+          "NZD",
+          "PHP",
+          "PLN",
+          "SEK",
+          "SGD",
+          "THB",
+          "TWD",
+          "USD"
+        ],
+        "countries": [],
+        "capabilities": [
+          "capture",
+          "authorize",
+          "void",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "applepay",
+        "name": {
+          "en": "Apple Pay",
+          "de": "Apple Pay",
+          "fr": "Apple Pay",
+          "es": "Apple Pay"
+        },
+        "currencies": [
+          "AUD",
+          "BRL",
+          "CAD",
+          "CHF",
+          "CZK",
+          "DKK",
+          "EUR",
+          "GBP",
+          "HKD",
+          "HUF",
+          "ILS",
+          "JPY",
+          "MXN",
+          "NOK",
+          "NZD",
+          "PHP",
+          "PLN",
+          "SEK",
+          "SGD",
+          "THB",
+          "TWD",
+          "USD"
+        ],
+        "countries": [],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "googlepay",
+        "name": {
+          "en": "Google Pay",
+          "de": "Google Pay",
+          "fr": "Google Pay",
+          "es": "Google Pay"
+        },
+        "currencies": [
+          "AUD",
+          "BRL",
+          "CAD",
+          "CHF",
+          "CZK",
+          "DKK",
+          "EUR",
+          "GBP",
+          "HKD",
+          "HUF",
+          "ILS",
+          "JPY",
+          "MXN",
+          "NOK",
+          "NZD",
+          "PHP",
+          "PLN",
+          "SEK",
+          "SGD",
+          "THB",
+          "TWD",
+          "USD"
+        ],
+        "countries": [],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "venmo",
+        "name": {
+          "en": "Venmo",
+          "de": "Venmo",
+          "fr": "Venmo",
+          "es": "Venmo"
+        },
+        "currencies": [
+          "USD"
+        ],
+        "countries": [
+          "US"
+        ],
+        "capabilities": [
+          "capture",
+          "authorize",
+          "void",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "paylater",
+        "name": {
+          "en": "Pay later",
+          "de": "Sp\u00e4ter bezahlen",
+          "fr": "Payer plus tard",
+          "es": "Pagar despu\u00e9s"
+        },
+        "currencies": [
+          "USD",
+          "EUR",
+          "AUD",
+          "GBP",
+          "CAD"
+        ],
+        "countries": [
+          "AT",
+          "DE",
+          "FR",
+          "IT",
+          "ES",
+          "GB",
+          "US",
+          "CA",
+          "AU"
+        ],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "pui",
+        "name": {
+          "en": "Pay upon invoice",
+          "de": "Kauf auf Rechnung",
+          "fr": "Paiement sur facture",
+          "es": "Pago por factura"
+        },
+        "currencies": [
+          "EUR"
+        ],
+        "countries": [
+          "DE"
+        ],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "sepa",
+        "name": {
+          "en": "SEPA direct debit",
+          "de": "SEPA-Lastschrift",
+          "fr": "Pr\u00e9l\u00e8vement SEPA",
+          "es": "Domiciliaci\u00f3n SEPA"
+        },
+        "currencies": [
+          "EUR"
+        ],
+        "countries": [
+          "AT",
+          "BE",
+          "CY",
+          "EE",
+          "FR",
+          "DE",
+          "GR",
+          "IT",
+          "LV",
+          "LU",
+          "MT",
+          "NL",
+          "PT",
+          "SK",
+          "SI",
+          "ES"
+        ],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "bancontact",
+        "name": {
+          "en": "Bancontact",
+          "de": "Bancontact",
+          "fr": "Bancontact",
+          "es": "Bancontact"
+        },
+        "currencies": [
+          "EUR"
+        ],
+        "countries": [
+          "BE"
+        ],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "eps",
+        "name": {
+          "en": "EPS",
+          "de": "EPS",
+          "fr": "EPS",
+          "es": "EPS"
+        },
+        "currencies": [
+          "EUR"
+        ],
+        "countries": [
+          "AT"
+        ],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "blik",
+        "name": {
+          "en": "BLIK",
+          "de": "BLIK",
+          "fr": "BLIK",
+          "es": "BLIK"
+        },
+        "currencies": [
+          "PLN"
+        ],
+        "countries": [
+          "PL"
+        ],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "ideal",
+        "name": {
+          "en": "iDEAL",
+          "de": "iDEAL",
+          "fr": "iDEAL",
+          "es": "iDEAL"
+        },
+        "currencies": [
+          "EUR"
+        ],
+        "countries": [
+          "NL"
+        ],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "mybank",
+        "name": {
+          "en": "MyBank",
+          "de": "MyBank",
+          "fr": "MyBank",
+          "es": "MyBank"
+        },
+        "currencies": [
+          "EUR"
+        ],
+        "countries": [
+          "IT"
+        ],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "p24",
+        "name": {
+          "en": "Przelewy24",
+          "de": "Przelewy24",
+          "fr": "Przelewy24",
+          "es": "Przelewy24"
+        },
+        "currencies": [
+          "EUR",
+          "PLN"
+        ],
+        "countries": [
+          "PL"
+        ],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "card",
+        "name": {
+          "en": "Card",
+          "de": "Kredit- und Debitkarte",
+          "fr": "Carte bancaire",
+          "es": "Tarjeta"
+        },
+        "currencies": [
+          "AUD",
+          "BRL",
+          "CAD",
+          "CHF",
+          "CZK",
+          "DKK",
+          "EUR",
+          "GBP",
+          "HKD",
+          "HUF",
+          "ILS",
+          "JPY",
+          "MXN",
+          "NOK",
+          "NZD",
+          "PHP",
+          "PLN",
+          "SEK",
+          "SGD",
+          "THB",
+          "TWD",
+          "USD"
+        ],
+        "countries": [],
+        "capabilities": [
+          "capture",
+          "authorize",
+          "void",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "swish",
+        "name": {
+          "en": "Swish",
+          "de": "Swish",
+          "fr": "Swish",
+          "es": "Swish"
+        },
+        "currencies": [
+          "SEK"
+        ],
+        "countries": [
+          "SE"
+        ],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "afterpay",
+        "name": {
+          "en": "Afterpay",
+          "de": "Afterpay",
+          "fr": "Afterpay",
+          "es": "Afterpay"
+        },
+        "currencies": [
+          "USD",
+          "EUR",
+          "AUD",
+          "GBP",
+          "NZD",
+          "CAD"
+        ],
+        "countries": [
+          "AU",
+          "CA",
+          "ES",
+          "FR",
+          "GB",
+          "IT",
+          "NZ",
+          "US"
+        ],
+        "capabilities": [
+          "capture",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "capture"
+      },
+      {
+        "id": "klarna",
+        "name": {
+          "en": "Klarna",
+          "de": "Klarna",
+          "fr": "Klarna",
+          "es": "Klarna"
+        },
+        "currencies": [
+          "CZK",
+          "USD",
+          "CHF",
+          "DKK",
+          "EUR",
+          "AUD",
+          "GBP",
+          "NOK",
+          "PLN",
+          "NZD",
+          "SEK",
+          "CAD"
+        ],
+        "countries": [
+          "AT",
+          "AU",
+          "BE",
+          "CA",
+          "CH",
+          "CZ",
+          "DE",
+          "DK",
+          "ES",
+          "FI",
+          "FR",
+          "GB",
+          "GR",
+          "IE",
+          "IT",
+          "NL",
+          "NO",
+          "NZ",
+          "PL",
+          "PT",
+          "SE",
+          "US"
+        ],
+        "capabilities": [
+          "capture",
+          "authorize",
+          "void",
+          "refund"
+        ],
+        "checkout": "embedded",
+        "intent": "authorize"
+      }
+    ]
+  }
 }

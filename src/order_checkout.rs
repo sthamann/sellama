@@ -247,6 +247,7 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
     let id = uid();
     // Explicit simulated authorization: no external money is charged.
     let mut order = json!({"id":id,"orderNumber":format!("RAC-{}",&id[..8]),"cart":q,"state":"placed","channel":c.data.channel,"revision":1,"deliveries":q["deliveries"],"payment":{"method":q["paymentMethod"],"provider":if q["paymentMethod"]["mode"]=="simulated"{"simulated"}else{"manual"},"state":if q["paymentMethod"]["mode"]=="simulated"{"authorized"}else{"pending"},"realMoneyCharged":false},"customerGroup":c.data.group});
+    order["cart"]["locale"] = json!(locale_chain.first());
     apps::native_lifecycle::bind_order(&mut tx, &c.tenant, &mut order).await?;
     operations::admin_order(&c, &mut order);
     order["money"] = json!(money);

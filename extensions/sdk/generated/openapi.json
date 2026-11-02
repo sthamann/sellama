@@ -3788,6 +3788,7 @@
                                 "enum": [
                                   "sandbox",
                                   "live",
+                                  "simulation",
                                   "contract-fixture"
                                 ],
                                 "type": "string"

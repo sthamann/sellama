@@ -14,6 +14,25 @@ export const paymentProviderWords = {
     "Los nuevos pagos de este canal dejarán de usar esta cuenta. Los pagos existentes conservan su cuenta para reembolsos y conciliación.",
   ],
   environment: ["Environment", "Umgebung", "Environnement", "Entorno"],
+  simulation: ["Simulation", "Simulation", "Simulation", "Simulación"],
+  simulationHint: [
+    "Test all available methods without charges or bank details.",
+    "Teste alle verfügbaren Zahlungsarten ohne Abbuchung und ohne Bankdaten.",
+    "Testez les moyens disponibles sans débit ni coordonnées bancaires.",
+    "Prueba los métodos disponibles sin cargos ni datos bancarios.",
+  ],
+  fixture: [
+    "Local integration test",
+    "Lokaler Integrationstest",
+    "Test d’intégration local",
+    "Prueba de integración local",
+  ],
+  unconfigured: [
+    "Service not connected",
+    "Dienst nicht verbunden",
+    "Service non connecté",
+    "Servicio no conectado",
+  ],
   sandbox: ["Test account", "Testkonto", "Compte de test", "Cuenta de prueba"],
   live: ["Live account", "Live-Konto", "Compte réel", "Cuenta real"],
   title: [

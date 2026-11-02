@@ -1,6 +1,6 @@
 # Payment providers · API 1
 
-Payment apps declare their methods in the same versioned manifest edited in App Studio and produced by coding agents. The public core owns tenant/customer authorization, authoritative EUR-cent invoices, immutable attempts, reservations, durable jobs, refund admission, verified receipts and order events. An isolated provider owns onboarding, provider-specific conversion, credentials and PSP calls. Shopware Payments implementations and partner attribution live exclusively in the private connector repository.
+Payment apps declare their methods in the same versioned manifest edited in App Studio and produced by coding agents. The public core owns tenant/customer authorization, authoritative minor-unit invoices with explicit currency precision, immutable attempts, reservations, durable jobs, refund admission, verified receipts and order events. An isolated provider owns onboarding, provider-specific conversion, credentials and PSP calls. Shopware Payments implementations and partner attribution live exclusively in the private connector repository.
 
 ## Package and account lifecycle
 
@@ -84,3 +84,45 @@ Real HTTP/PostgreSQL tests cover the neutral provider, existing native PayPal be
 [Shopware Payments acceptance and remaining parity](shopware-payments-acceptance.md) are tracked separately. Private Shopware Payments tests additionally execute its Rust service with the public core, PayPal-shaped local wire responses, source-derived onboarding, hosted subdomain sessions, signed callback delivery, pending refund recovery and private process restart. These are **local synthetic contract tests**, not successful real PSP transactions. Merchant eligibility, partner credentials, wallet domain registration and observed Sandbox/Live outcomes are separate requirements. The public core now supports [multiple currencies](currencies.md), checks declared provider currency support, and exercises EUR/USD/JPY/KWD capture and refund with a local adapter fixture. Private provider support must be validated separately. General subscriptions/vaulting, multi-capture and every original provider management feature are not implied by this interface.
 
 Installed payment apps expose the same account setup in Apps → app details. The account controls are shared with App Studio, including channel/environment selection, status refresh and confirmed disconnect. Only the visual editor changes a provider draft.
+
+## Shared Shopware Payments service, version 1.2.0
+
+The bundled `shopware_payments` package now contains the public, language-neutral
+provider contract for PayPal, Apple Pay, Google Pay, Venmo, Pay Later, invoice,
+SEPA, Bancontact, EPS, BLIK, iDEAL, MyBank, Przelewy24, card, Swish, Afterpay and
+Klarna. The implementation, upstream source and partner attribution remain in
+the separate private Rust service. Klarna declares authorization before capture. Checkout shows authorization as an
+approved reservation rather than a captured payment or an endless loading state.
+Other methods retain their declared capture flow and their country/currency rules.
+
+Operators can configure `simulation` alongside `sandbox` and `live` in the existing
+`PAYMENT_SERVICES` version map. Set `defaultEnvironment` to a configured entry;
+startup rejects an unconfigured default. Hosted simulation requires HTTPS and a
+private RPC credential, just like hosted provider modes. HTTP remains limited to
+loopback `contract-fixture` tests. Migration 109 extends the existing account
+constraint without rewriting historical accounts, receipts or attempts.
+
+`GET /api/payment-providers` exposes configured environment names, their default,
+owned channel IDs and existing account status under `payments.read`. It never
+returns the service URL or token. The shared account panel uses this information,
+including existing connections, without requiring unrelated automation access.
+Account operations still require `payments.manage`; installing the package leaves
+methods inactive until the merchant connects and enables them.
+
+The immutable native order snapshot retains the resolved checkout language, so
+the provider document follows the shop language instead of the browser default.
+
+The private service's `SWP_MODE=simulation` uses the same authenticated RPC,
+immutable invoice, hosted session, durable signed notification and native Core
+ledger. Its page explicitly confirms or cancels a simulated payment without
+collecting bank/card data. Approval and its notification are committed together;
+server reconciliation alone establishes financial state. The mode rejects real
+Sandbox/Live requests and performs no PSP network call. A service restart retains
+simulated receipt and idempotency evidence in one fixed private table.
+
+Local acceptance exercises all 17 methods with 12 concurrent callers, native
+checkout/cancel/partial/full-refund paths, wrong tenant/nonce, replay, over-refund,
+and service restart. The original provider-shaped fixture also retains USD/JPY,
+SEPA mandate and historical version tests. These are simulation and contract
+checks. Actual wallet SDKs, bank mandates and live provider access retain their
+separate provider acceptance requirements.

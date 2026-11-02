@@ -248,4 +248,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "108-consent-continuation",
         include_str!("../../migrations/108-consent-continuation.sql"),
     ),
+    (
+        "109-payment-simulation",
+        include_str!("../../migrations/109-payment-simulation.sql"),
+    ),
 ];

@@ -43,6 +43,12 @@ provider browser acceptance, public service deployment and full original feature
 parity remain open.
 [Current journeys and concrete remaining work](shopware-payments-acceptance.md).
 
+Version 1.2.0 adds an explicit hosted simulation mode and replaces the public
+placeholder with the 17-method contract. Local concurrent method, native checkout,
+refund, cancellation and restart checks pass. The new independent hosted service
+is being prepared; public delivery is not yet accepted. See the [shared service
+contract](payment-provider-api.md#shared-shopware-payments-service-version-120).
+
 ## Shared image captions (2 November 2026, source and local acceptance)
 
 Product media, Shop design image/hero blocks and App Studio image controls now

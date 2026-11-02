@@ -1,5 +1,5 @@
 /** Shared installed-provider onboarding and channel connection controls for merchant Apps and App Studio. */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { RequestFn } from "../shell/studio-types";
 import type { CountryCatalogue } from "../../shared/geography/geography-types";
 import CountryPicker from "../../shared/geography/CountryPicker";
@@ -18,7 +18,16 @@ export default function ProviderAccount({
   const t = usePaymentProviderText(),
     [geo, setGeo] = useState<CountryCatalogue>(),
     [channel, setChannel] = useState("default"),
-    [environment, setEnvironment] = useState("sandbox"),
+    [environment, setEnvironment] = useState(""),
+    [environments, setEnvironments] = useState<string[]>([]),
+    [savedAccounts, setSavedAccounts] = useState<
+      {
+        provider: string;
+        channel: string;
+        environment: string;
+        ready: boolean;
+      }[]
+    >([]),
     [channels, setChannels] = useState<{ id: string }[]>([]),
     [country, setCountry] = useState(["DE"]),
     [busy, setBusy] = useState(false),
@@ -28,6 +37,9 @@ export default function ProviderAccount({
       ready: boolean;
       onboardingUrl?: string;
     }>();
+  const scope = `${provider}:${channel}:${environment}`;
+  const currentScope = useRef(scope);
+  currentScope.current = scope;
   useEffect(() => {
     let active = true;
     void request("/store-api/countries")
@@ -35,31 +47,56 @@ export default function ProviderAccount({
         if (active) setGeo(v);
       })
       .catch(() => {});
-    void request("/api/automation")
+    setAccount(undefined);
+    setEnvironments([]);
+    setEnvironment("");
+    setError("");
+    void request("/api/payment-providers")
       .then((v) => {
-        if (active) setChannels(v.channels ?? []);
+        if (!active) return;
+        setChannels(v.channels ?? []);
+        setSavedAccounts(v.accounts ?? []);
+        const configuration = v.providers?.find(
+          (p: { id: string }) => p.id === provider,
+        )?.configuration;
+        setEnvironments(configuration?.environments ?? []);
+        setEnvironment(configuration?.defaultEnvironment ?? "");
       })
-      .catch(() => {});
+      .catch((e) => {
+        if (active) setError((e as Error).message);
+      });
     return () => {
       active = false;
     };
-  }, [request]);
+  }, [request, provider]);
+  useEffect(() => {
+    setAccount(
+      savedAccounts.find(
+        (a) =>
+          a.provider === provider &&
+          a.channel === channel &&
+          a.environment === environment,
+      ),
+    );
+  }, [provider, channel, environment, savedAccounts]);
   const connect = async (operation: "start" | "status" | "disconnect") => {
     setBusy(true);
     setError("");
     try {
-      setAccount(
-        await request(`/api/payment-providers/${provider}/onboarding`, {
+      const result = await request(
+        `/api/payment-providers/${provider}/onboarding`,
+        {
           operation,
           channel,
           environment,
           country: country[0],
           approve: operation !== "status",
           requestKey: crypto.randomUUID(),
-        }),
+        },
       );
+      if (currentScope.current === scope) setAccount(result);
     } catch (e) {
-      setError((e as Error).message);
+      if (currentScope.current === scope) setError((e as Error).message);
     } finally {
       setBusy(false);
       setConfirmDisconnect(false);
@@ -71,6 +108,7 @@ export default function ProviderAccount({
       <label>
         {t("channel")}
         <select
+          disabled={busy}
           value={channel}
           onChange={(e) => {
             setChannel(e.target.value);
@@ -87,16 +125,29 @@ export default function ProviderAccount({
       <label>
         {t("environment")}
         <select
+          disabled={busy || !environments.length}
           value={environment}
           onChange={(e) => {
             setEnvironment(e.target.value);
             setAccount(undefined);
           }}
         >
-          <option value="sandbox">{t("sandbox")}</option>
-          <option value="live">{t("live")}</option>
+          {!environments.length && (
+            <option value="">{t("unconfigured")}</option>
+          )}
+          {environments.map((env) => (
+            <option key={env} value={env}>
+              {env === "contract-fixture"
+                ? t("fixture")
+                : t(env as "simulation" | "sandbox" | "live")}
+            </option>
+          ))}
         </select>
       </label>
+      {!environments.length && <p role="status">{t("deploy")}</p>}
+      {environment === "simulation" && (
+        <p role="status">{t("simulationHint")}</p>
+      )}
       <CountryPicker
         countries={geo?.countries ?? []}
         value={country}
@@ -106,14 +157,14 @@ export default function ProviderAccount({
       />
       <div className="workbench-row">
         <button
-          disabled={busy || !canWrite}
+          disabled={busy || !canWrite || !environment}
           className="studio-secondary"
           onClick={() => void connect("status")}
         >
           {t("refresh")}
         </button>
         <button
-          disabled={busy || !canWrite}
+          disabled={busy || !canWrite || !environment}
           className="studio-primary"
           onClick={() => void connect("start")}
         >
@@ -122,7 +173,7 @@ export default function ProviderAccount({
       </div>
       {account && (
         <button
-          disabled={busy || !canWrite}
+          disabled={busy || !canWrite || !environment}
           className="studio-secondary"
           onClick={() => setConfirmDisconnect(true)}
         >
@@ -135,7 +186,7 @@ export default function ProviderAccount({
           onCancel={() => setConfirmDisconnect(false)}
           onConfirm={() => void connect("disconnect")}
           confirmLabel={t("disconnect")}
-          disabled={busy || !canWrite}
+          disabled={busy || !canWrite || !environment}
         >
           <p>{t("disconnectHint")}</p>
         </ConfirmDialog>

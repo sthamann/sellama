@@ -122,6 +122,12 @@ it("offers recovery for failed and stalled session requests without a financial 
   expect(screen.getByRole("alert").textContent).toContain(
     "Provider unavailable",
   );
+  await act(async () => {
+    vi.advanceTimersByTime(21_000);
+  });
+  expect(screen.getByRole("alert").textContent).toContain(
+    "Provider unavailable",
+  );
   api.mockImplementationOnce(() => new Promise(() => {}));
   fireEvent.click(screen.getByRole("button", { name: "Reload payment form" }));
   await act(async () => {

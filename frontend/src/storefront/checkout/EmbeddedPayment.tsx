@@ -50,10 +50,10 @@ export default function EmbeddedPayment({
     };
   }, [id, token, reload]);
   useEffect(() => {
-    if (loaded) return;
+    if (loaded || error) return;
     const timer = window.setTimeout(() => setError(timeoutText), 20_000);
     return () => window.clearTimeout(timer);
-  }, [session, loaded, timeoutText]);
+  }, [session, loaded, error, timeoutText]);
   useEffect(() => {
     if (!session) return;
     const receive = (event: MessageEvent) => {

@@ -74,9 +74,9 @@ customer, order or spending record is never published from a sandbox.
 
 ## Actual local browser views
 
-![German configurator retains walnut, dimensions and saved feedback while showing the native EUR 517 quote](screenshots/veyndo-furniture-configuration.jpg)
+[Dated workflow evidence: German configurator retains walnut, dimensions and saved feedback while showing the native EUR 517 quote](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/screenshots/veyndo-furniture-configuration.jpg)
 
-![Local simulated order confirmation for EUR 517](screenshots/veyndo-furniture-order.jpg)
+[Dated workflow evidence: Local simulated order confirmation for EUR 517](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/screenshots/veyndo-furniture-order.jpg)
 
 These captures use synthetic local data and simulated payment. They do not show
 public deployment or an actual provider settlement. The standard product image

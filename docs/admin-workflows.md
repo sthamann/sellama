@@ -22,7 +22,7 @@ Currency settings have their own padded content region and a simple scope toolba
 a content-language picker is omitted where there is no translatable content.
 Price-generation jobs require catalogue rights in addition to settings admission.
 
-![Grouped settings and padded native currency configuration](assets/admin-20261014/settings-currencies.png)
+![Current grouped settings and currency editor](assets/product-tour-20261102/currencies.jpg)
 
 On phones, a grouped settings selector keeps the actual configuration near the
 top instead of making merchants scroll through the entire navigation first.
@@ -43,7 +43,7 @@ join the existing PostgreSQL outbox. This creates a **CRM profile, without issui
 a customer password, login session or storefront access**. Existing account identity
 and historical purchase ownership are never reassigned from matching email alone.
 
-![Customer defaults and the linked order list](assets/admin-20261014/customer-orders.png)
+![Current customer detail and order-history workspace with synthetic data](assets/product-tour-20261102/customer-detail.jpg)
 
 ## Create an order on behalf of a customer
 
@@ -148,11 +148,11 @@ No paid inference, real payments or real customer email is used in these fixture
 
 ## Browser walkthrough and capture boundary
 
-![Review billing and shipping snapshots before placing the native order](assets/admin-20261014/order-review.png)
+![Current native quote review for a synthetic order](assets/product-tour-20261102/checkout-review.jpg)
 
-![Native order detail after creating a manual-payment order](assets/admin-20261014/order-created.png)
+![Current saved synthetic order in Studio](assets/product-tour-20261102/order-detail.jpg)
 
-The 14 October 2026 Chrome walkthrough created **Alex Morgan** in an isolated local
+The inline images were refreshed on 2 November using a fictional coat order and current customer/settings controls. The earlier 14 October 2026 Chrome walkthrough created **Alex Morgan** in an isolated local
 shop, confirmed both default-address assignments, placed a German manual-payment
 order for a lamp (**74.90 EUR + 4.90 EUR delivery = 79.80 EUR**), opened its native
 order detail, and followed its customer link back to the linked order history.

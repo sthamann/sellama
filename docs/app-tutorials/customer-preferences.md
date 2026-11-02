@@ -7,6 +7,10 @@ customer. It does not make private customer data public or duplicate the CRM.
 [Workshop setup and release steps](README.md) ·
 [Installable customer example](../../extensions/apps/assistant-examples/customer.json)
 
+![Current data model editor; define the customer relationship and fields described below](../assets/product-tour-20261102/app-data-models.jpg)
+
+*Current shared workspace, captured 2 November 2026. The linked earlier worked examples preserve their original field definitions and outcomes.*
+
 ## 1. Configure the assistant
 
 Open **Developers → New app → Admin app**. Enter **Customer preferences**, choose
@@ -14,7 +18,7 @@ a unique technical ID such as `tutorial_customer`, and select **Customer ·
 additional fields**. Leave **Expose action to MCP / agents** disabled. Create the
 editable draft; resolve the replacement prompt only after saving earlier work.
 
-![Customer placement and explicit MCP choice in the guided assistant](../assets/app-tutorials/customer-assistant-current.png)
+[Earlier worked example: Customer placement and explicit MCP choice in the guided assistant](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/customer-assistant-current.png)
 
 ## 2. Keep the customer relation; edit labels and choices
 
@@ -23,13 +27,13 @@ In **Data models**, the assistant supplies required indexed `customer_id` with
 Keep **Allow shoppers to read this model** off. Rename the displayed labels to
 **Preference subject**, **Merchant notes** and **Service level**.
 
-![Customer-bound fields in the real draft model](../assets/app-tutorials/customer-model-current.png)
+[Earlier worked example: Customer-bound fields in the real draft model](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/customer-model-current.png)
 
 For `segment`, retain technical values `standard` / `priority`; edit their
 displayed labels through **Content language**. Changing a caption is not changing
 stored choice identity. An unknown choice is rejected by the native validator.
 
-![One language at a time for choice captions; stable technical values](../assets/app-tutorials/customer-choices-current.png)
+[Earlier worked example: One language at a time for choice captions; stable technical values](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/customer-choices-current.png)
 
 An optional new field can be added with **Add field**. For example, add a boolean
 `contact_requested` with a translated label. This records a merchant workflow

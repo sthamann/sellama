@@ -4,6 +4,10 @@ Test a private shop change with a small group of fictional customers. Give them 
 shopping goal, adjust their budgets and languages, and inspect what actually
 happens in native search, the basket and simulated checkout.
 
+![Current saved customer-scenario results from the synthetic test shop](assets/current-workspace-20261030/customer-results.png)
+
+*Interface capture from 30 October 2026. Earlier public profile-suggestion outcomes remain linked as dated evidence below.*
+
 ## Try it
 
 1. Open a **private sandbox** and save the product, rule, app or channel changes
@@ -51,7 +55,7 @@ Review the names, goals, budgets and countries, then choose **Use these suggesti
 Your overall task stays unchanged; adopting profiles does not start a run or replace
 saved results. All profile fields remain editable before **Let customers test**.
 
-![Actual public Studio: preview catalogue-based fictional customers before adopting them](assets/customer-scenarios-20261022/public-profile-suggestions-preview.png)
+[Dated example from the earlier interface: Actual public Studio: preview catalogue-based fictional customers before adopting them](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/customer-scenarios-20261022/public-profile-suggestions-preview.png)
 
 The suggestion preview uses no customer records and makes no additional model call.
 Studio may stay in your interface language even when the chosen channel serves a
@@ -74,7 +78,7 @@ Austria (EUR 29.14). Reload retained both orders and their journals; **Use these
 customers again** restored the exact original task and profiles without starting
 another purchase. [Exact deployment and browser evidence](evidence/customer-scenarios-2026-10-22.md#public-catalogue-profile-acceptance).
 
-![Actual configured-model decisions and authoritative private order totals](assets/customer-scenarios-20261022/public-profile-suggestions-results.png)
+[Dated example from the earlier interface: Actual configured-model decisions and authoritative private order totals](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/customer-scenarios-20261022/public-profile-suggestions-results.png)
 
 ## What a comparison means
 

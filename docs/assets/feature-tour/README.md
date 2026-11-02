@@ -1,8 +1,11 @@
 # VEYNDO feature-tour captures — 13 October 2026
 
+> Historical capture inventory. For the current product interface, use the [2 November screenshots and animated workflows](../product-tour-20261102/README.md). Original dates and checksums below are retained.
+
+
 [Feature guide](../../features.md) · [Media provenance](../README.md)
 
-The current feature guide uses fresh screenshots and twelve refreshed GIFs from the real VEYNDO UI. The isolated Nord Atelier fixture uses PostgreSQL and synthetic merchant/customer records. The interface and responses were not generated, mocked or rearranged. Product photographs are bundled demonstration artwork.
+The historical 13 October feature tour used screenshots and twelve GIFs from the real VEYNDO UI. The isolated Nord Atelier fixture uses PostgreSQL and synthetic merchant/customer records. The interface and responses were not generated, mocked or rearranged. Product photographs are bundled demonstration artwork.
 
 The initial rebrand capture source is `5b2ebb5`; the additional context views use `3cea18a`. [Additional capture metadata](../additional-veyndo-captures.json), [remaining-capture metadata](../remaining-veyndo-captures.json) and [context-capture metadata](../veyndo-current-context-captures.json) record individual hashes, source revisions and limits. [Recording metadata](recordings.json) identifies the current GIFs.
 

@@ -35,7 +35,7 @@ correction. These presentation changes do not alter permissions, data admission 
 publication: creating a draft still opens the ordinary editable Manifest; nothing
 is installed into the live shop by selecting a placement.
 
-![Grouped illustrated placement cards and a private draft summary](assets/app-creation-20261016/desktop.jpg)
+![Current guided app entry and native patterns](assets/product-tour-20261102/app-assistants.jpg)
 
 [Name and language](assets/app-creation-20261016/name.jpg) ·
 [Mobile selection](assets/app-creation-20261016/mobile.jpg) ·
@@ -68,7 +68,7 @@ can be resized between 280 and 500 px. Drag the separators or focus one and use
 Left/Right. Only these presentation widths are remembered locally. They do not
 change the app definition or its permissions.
 
-![Compact blocks and actual form properties](assets/app-workspace-20261015/designer.png)
+![Current visual App Studio and component palette](assets/product-tour-20261102/app-elements.jpg)
 
 A form in **Design preview · Sample data** shows structure, not editable customer
 records. Select it to change the actual field labels in Properties, or use **Edit
@@ -83,7 +83,7 @@ button or the backdrop returns to editing; unfinished text remains available whe
 reopened. On a phone the panel fills the screen. Native modal behavior contains
 keyboard focus and restores it to the opening control.
 
-![Contextual AI assistant, separate from the canvas](assets/app-workspace-20261015/agent.png)
+![Current contextual App Studio agent](assets/product-tour-20261102/app-agent.jpg)
 
 Describe the desired change. Veyndo AI uses the configured provider and prepares
 a proposal for review. Codex and Claude Code prepare an exportable task containing
@@ -168,7 +168,7 @@ API & integrations separates key name, lifetime and expiry days. Permissions are
 searchable, grouped by responsibility, and display a readable caption with the
 technical ID in parentheses. The same picker is used by team/role configuration.
 
-![API key settings and grouped permissions](assets/app-workspace-20261015/api.png)
+![Current API access and permissions workspace](assets/product-tour-20261102/api-integrations.jpg)
 
 Current personal administrators may explicitly choose **No expiry**. The API uses
 `nonExpiring: true`; lists return `expiresAt: null`. These keys count toward the
@@ -193,7 +193,7 @@ suites and a final native App Studio rerun. The complete documentation build che
 224 Markdown sources and their rendered links/assets. These are verification results
 for this change, not a statement of 100% whole-codebase coverage.
 
-Chrome checks use synthetic local shop **Atelier Preview**. Screenshots show real
+The current inline screenshots were refreshed on 2 November in the isolated Nord Atelier demo. The earlier Chrome checks used synthetic local shop **Atelier Preview**. Both capture sets show real
 UI, not mockups. They verify the compact palette, field editing, modal assistant
 and API console. Paid model inference and real provider credentials were not used
 for this UI check. The shared native checkout contains the new app mounts; this

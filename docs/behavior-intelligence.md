@@ -6,7 +6,7 @@ semantic product graph. Open **Studio → Shop knowledge → Visitor behavior**.
 Choose a sales channel and a one-, seven- or thirty-day window. This is a native
 Rust feature with the same HTTP/MCP permissions as the rest of Studio.
 
-![Current visitor insights in an isolated demo with no consented observations](assets/behavior/overview.png)
+![Current consent-bound visitor insights in the synthetic local shop](assets/product-tour-20261102/visitor-insights.jpg)
 
 *Isolated synthetic Nord Audience Lab: six admitted guest contexts, 24 observations
 and one simulated native order. These are demonstration observations, not public

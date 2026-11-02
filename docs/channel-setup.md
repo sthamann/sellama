@@ -4,6 +4,10 @@ One shop can sell in several ways without copying its catalogue, customers or
 orders. Sales channels select a native commerce context; independent SaaS shops
 remain separate tenants.
 
+![Current sales-channel workspace](assets/product-tour-20261102/channels.jpg)
+
+*Current interface, 2 November 2026, fictional local shop. Earlier outcome-specific examples below retain their original evidence links.*
+
 ## 1. Start with where you want to sell
 
 Open **Sales channels → Create sales channel**. Choose Storefront, Headless API,
@@ -11,7 +15,7 @@ Point of sale or Marketplace. The cards explain the purpose and show the current
 selection. A new draft hides its technical identifier and starts in the shop’s main
 content language. Missing required fields are marked next to their controls.
 
-![Channel type selection with separate icons, readable cards and clear steps](assets/channels-20261015/channel-wizard.png)
+![Current channel-type selection and guided creation](assets/product-tour-20261102/channel-wizard.jpg)
 
 Continue with catalogue/languages, then review. Whole catalogue and the main shop
 language are selected initially. POS asks for its location; storefront/headless
@@ -46,7 +50,7 @@ public shop/channel identifiers. No bearer token or customer information is put
 in this URL. If there is no Experience session, use your existing merchant login
 or the configured verified email/OAuth path. You can sign out to switch accounts.
 
-![Self-service Storyfront entry inside the merchant workspace](assets/channels-20261015/storyfront-create.png)
+[Dated example from the earlier interface: Self-service Storyfront entry inside the merchant workspace](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/channels-20261015/storyfront-create.png)
 
 Confirm the experience name, select an enabled content language and describe the
 look and feel. The service checks current Core membership, app/channel management,
@@ -54,7 +58,7 @@ settings read/write and catalogue read rights. Invalid/foreign/paused/private/PO
 or marketplace channels are refused before a job is created. It never trusts the
 URL as authority.
 
-![Creative brief reuses the selected channel’s catalogue](assets/channels-20261015/existing-storyfront-brief.png)
+[Dated example from the earlier interface: Creative brief reuses the selected channel’s catalogue](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/channels-20261015/existing-storyfront-brief.png)
 
 The existing durable creation job reuses the current tenant/channel and imports
 that catalogue into the **original private Storyfront**. It does not create another

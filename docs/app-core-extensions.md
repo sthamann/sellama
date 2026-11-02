@@ -8,6 +8,10 @@ names, revision, history and package version.
 This guide describes the implementation and registered local acceptance. Hosted
 acceptance remains recorded separately in [current status](status.md).
 
+![Current App Studio data model and product relationship](assets/product-tour-20261102/app-data-models.jpg)
+
+*Current interface, 2 November 2026, fictional local shop. Earlier outcome-specific examples below retain their original evidence links.*
+
 ## Start in App Studio
 
 1. Open **Data models** and select the model you want to attach.
@@ -98,13 +102,13 @@ metadata. Select them in the existing column picker and arrange them with the
 same layout controls. Exact manual filters use the shared native predicate before
 pagination, rather than filtering the current browser page.
 
-![Native product grid: saved app segment, optional column and exact server filter](assets/core-extensions-20261017/native-product-filter.png)
+[Dated example from the earlier interface: Native product grid: saved app segment, optional column and exact server filter](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/core-extensions-20261017/native-product-filter.png)
 
 *17 October: actual browser acceptance in an isolated synthetic shop. The product
 was edited through its native app form and then found by this server filter. This
 is a local acceptance image, not a hosted-payment or capacity claim.*
 
-![New App Studio extension installed privately and saved in the native product form](assets/core-extensions-20261017/native-app-created-in-sandbox.png)
+[Dated example from the earlier interface: New App Studio extension installed privately and saved in the native product form](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/core-extensions-20261017/native-app-created-in-sandbox.png)
 
 *Actual local browser flow: create an Admin app, bind its model to Product, save
 its immutable version, install in the selected private sandbox, then write its

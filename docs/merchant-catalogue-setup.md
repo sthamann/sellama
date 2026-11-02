@@ -12,7 +12,7 @@ matching source dialog. Changing shop, private environment, language or permissi
 discards an unfinished attachment handoff. They require current catalogue read and write permission. AI extraction/generation also
 requires `assistant.use`; deterministic CSV preparation does not.
 
-![Source chooser and actual CSV upload in an isolated synthetic shop](assets/catalog-intake-20261016/source.jpg)
+![Current source chooser with an uploaded fictional product CSV](assets/product-tour-20261102/catalogue-source.jpg)
 
 ## One private workflow
 
@@ -78,11 +78,11 @@ mean an image succeeded. Images remain private previews until reviewed/applied i
 the product editor, then the ordinary product save attaches the selected media.
 A missing image provider disables image preparation. No fake image fallback is used.
 
-![Created native product with inherited main-language name and private sandbox context](assets/catalog-intake-20261016/product.jpg)
+![Actual CSV-created wool-care brush in the native private product editor](assets/product-tour-20261102/catalogue-product.jpg)
 
 The source chooser is also checked at 390 px without horizontal overflow.
 
-![Compact mobile source chooser](assets/catalog-intake-20261016/mobile.jpg)
+![Current private catalogue intake at a 390-pixel mobile viewport](assets/product-tour-20261102/catalogue-mobile.jpg)
 
 ## Native ownership, permissions and versioning
 

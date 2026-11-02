@@ -1,5 +1,11 @@
 # Changelog
 
+## 2 November 2026 · Current interface media
+
+- Refresh the feature guide and shared workspace guides with actual current Studio, storefront, app, knowledge, settings, permissions, register and operator screenshots.
+- Replace twelve earlier GIF embeddings with ten current edited UI sequences and two accurate still views; publish their static frames and capture manifest.
+- Preserve exact historical worked examples as dated source links and update image captions, media indexes and current status together.
+
 ## 2 November 2026 · Repository entry
 
 - Present the platform as Veyndo Commerce with direct shop, film, app tutorial and documentation links.

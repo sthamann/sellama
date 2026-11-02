@@ -90,12 +90,13 @@ the actor and shop, restored before edits and bounded to twenty drafts/user and
 uses manifest undo/redo; F4/F5 use the same controls as the toolbar. Immutable saved
 versions and recoverable App Studio trash are separate from autosaved drafts.
 
-![Native form designer and property inspector](assets/feature-tour/app-form-designer.png)
+![Current App Studio canvas with its compact component palette](assets/product-tour-20261102/app-elements.jpg)
 
-![Working private preview with a saved and reloaded product-bound app record](assets/feature-tour/app-private-preview.png)
+![Actual current private Product advisor preview after saving a coat-care record](assets/product-tour-20261102/app-preview-saved.jpg)
 
-These 8 October captures use the actual browser, Rust gateway and isolated
-PostgreSQL instance; see [capture provenance](assets/feature-tour/README.md).
+These 2 November captures use the actual compiled Studio, Rust gateway and isolated
+PostgreSQL instance. The Product advisor preview saved a synthetic coat-care record.
+See [capture provenance](assets/product-tour-20261102/README.md).
 
 ## Controls and behavior
 

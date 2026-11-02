@@ -13,7 +13,7 @@ Orders, products and customers now share one grid instead of separate fixed list
 People and agents use the same native filter/sort contract. The grid never owns
 prices, customer identity, order states or a second database.
 
-![Actual shared order grid in English with synthetic checkout-created orders](assets/agentic-grid/orders-en.png)
+![Current native order grid](assets/product-tour-20261102/orders.jpg)
 
 ## Use the list
 
@@ -36,7 +36,7 @@ Column layout/density is a device preference scoped by origin/shop/sandbox and
 list ID. It contains column IDs only, not records, credentials, business configuration
 or release units. This is deliberately distinct from entity history and staging.
 
-![Column visibility, ordering arrows, compact rows and explicit close control](assets/agentic-grid/columns-en.png)
+![Current native column visibility and ordering controls](assets/product-tour-20261102/grid-columns.jpg)
 
 ## Ask your list
 
@@ -64,11 +64,9 @@ and ordinary HTTP/MCP owner are shared across this path.
 Blank planned text filters are rejected instead of being treated as a useful
 search proposal. Manual list APIs retain their existing empty-search behavior.
 
-![A read-only customer filter is reviewed before applying it to the order list](assets/agentic-grid/ai-preview-en.png)
+![Current natural-language grid input with a fictional question; no model request made](assets/product-tour-20261102/grid-agent.jpg)
 
-These are real browser captures using synthetic records and a loopback model
-fixture. They demonstrate the UI, native API and review path; they do not measure
-the semantic quality of a live AI provider. [Capture provenance](assets/agentic-grid/README.md).
+The inline images show the current grid, column controls and natural-language input in a synthetic shop, captured 2 November 2026. No model request was made for these images. The [earlier loopback-model example](assets/agentic-grid/README.md) retains its original review-path evidence.
 
 The customer filter matches text in the immutable order customer snapshot (name/email)
 and legacy contact fields; it does not claim to disambiguate people with identical
@@ -110,9 +108,9 @@ native navigation. New entity directories must reuse it rather than copying a li
 Bundled controls are translated into EN/DE/FR/ES. Merchant content and app labels keep
 their existing main-language inheritance.
 
-![Product category filtering in the same grid](assets/agentic-grid/products-en.png)
+![Current native product grid](assets/product-tour-20261102/products.jpg)
 
-![Customer directory using the same controls and translated group labels](assets/agentic-grid/customers-en.png)
+![Current native customer grid](assets/product-tour-20261102/customers.jpg)
 
 The table scrolls inside its container on narrow screens; it does not expand the
 whole page. Column ordering has keyboard and touch controls, and popovers support

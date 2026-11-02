@@ -10,7 +10,7 @@ Rules consume server-owned cart, product, selected-address, customer-history and
 
 Saved rules can be referenced with `{"type":"ruleReference","ruleId":"eligible"}`. Only referenced IDs are fetched using tenant-bound indexed batch reads, with 100 referenced rules and depth eight as bounds. Reference limits apply independently to each matching flow; unrelated events and inactive flows are not loaded. Event jobs freeze their definitions and revisions. Missing/disabled references fail explicitly; recursive references cannot run indefinitely. Current actor membership and granular permissions are still checked when each delayed action executes.
 
-![Current VEYNDO event flow: order placed, saved rule and explicit order note](assets/feature-tour/flow-current.png)
+![Current native Flow canvas draft; this graph was not saved or enabled](assets/product-tour-20261102/flow-canvas.jpg)
 
 ## Starting configuration and lifecycle
 

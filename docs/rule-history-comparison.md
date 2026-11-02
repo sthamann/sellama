@@ -105,7 +105,7 @@ only `RAC-484bd556` for EUR 49.90. No configuration was saved and no order was
 created by this comparison. HTTP/MCP parity and permission revocation are covered
 by the separate actual PostgreSQL tests, not inferred from this owner session.
 
-![Public Studio comparing the saved rule and draft](evidence/images/rule-history-2026-10-21/public-comparison.jpg)
+[Dated workflow evidence: Public Studio comparing the saved rule and draft](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/evidence/images/rule-history-2026-10-21/public-comparison.jpg)
 
 The responsive follow-up `ef093e7a` (`brave-produce-7557`) started at 21:14:41
 CEST and reached one passing replica with zero restarts. The same public rule
@@ -114,7 +114,7 @@ and zero unavailable. The language selector no longer covers the inputs or
 comparison controls. Returning the unsaved threshold to EUR 100 cleared the
 result; the test saved no configuration. Temporary browser emulation was removed.
 
-![Public mobile Studio with an unobstructed comparison](evidence/images/rule-history-2026-10-21/public-mobile-comparison.jpg)
+[Dated workflow evidence: Public mobile Studio with an unobstructed comparison](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/evidence/images/rule-history-2026-10-21/public-mobile-comparison.jpg)
 
 ### Local and responsive checks
 
@@ -123,11 +123,11 @@ Flow. Changing the draft threshold from 1 to 1,000 showed one evaluated case and
 one changed result. Editing the draft cleared that result; selecting a Flow with
 no records showed the empty-history message. Nothing was saved by comparing.
 
-![Local Studio showing the recorded-condition comparison](evidence/images/rule-history-2026-10-21/local-comparison.jpg)
+[Dated workflow evidence: Local Studio showing the recorded-condition comparison](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/evidence/images/rule-history-2026-10-21/local-comparison.jpg)
 
 The 390 × 844 browser check also completes the comparison. The shared content
 language card stays in the page flow on narrow screens, so it cannot cover the
 condition or result controls. Controls stack vertically and the result table
 scrolls inside its own container.
 
-![Mobile Studio comparison with unobstructed controls](evidence/images/rule-history-2026-10-21/mobile-comparison.jpg)
+[Dated workflow evidence: Mobile Studio comparison with unobstructed controls](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/evidence/images/rule-history-2026-10-21/mobile-comparison.jpg)

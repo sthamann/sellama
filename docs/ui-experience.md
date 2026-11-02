@@ -4,6 +4,10 @@
 
 VEYNDO's interface follows one path: **workspace → evidence → conversation → reviewed change → live result**. The assistant belongs beside the task. Opening help must preserve an unsaved product editor; suggestions must not invoke a model or apply a change until the merchant explicitly submits or approves it.
 
+![Current native storefront with a catalogue-based assistant](assets/product-tour-20261102/storefront.jpg)
+
+*Current interface, 2 November 2026, fictional local shop. Earlier outcome-specific examples below retain their original evidence links.*
+
 ## Studio
 
 `admin/shell/StudioHeader.tsx` exposes **Ask VEYNDO** on every workspace. `admin/assistant/WorkspaceCopilot.tsx` opens a native dialog beside the current screen. It reuses `StudioConversation`, `StudioComposer`, the session-scoped controller and the existing proposal renderer. The current workspace/environment, area and a selected linked entity reference are included in an editable prompt. Product list entries use the same entity navigation as orders/customers, keeping deep links and back navigation connected.
@@ -24,13 +28,13 @@ flowchart LR
 
 This implements contextual entry, not a claim that every possible module has a fully specialized autonomous agent. Merchant editors remain explicit, reliable controls. Existing preview, staging, knowledge and proposal flows are the foundation for subsequent task-specific assistance.
 
-![Contextual assistant beside the selected product](assets/feature-tour/workspace-assistant-current.png)
+![Current contextual merchant assistant, captured 2 November 2026](assets/assistant-layout-20261102/copilot.jpg)
 
 ## Standard storefront and customer account
 
 `storefront/shell/ConciergeView.tsx` exposes catalogue-grounded discovery with budget, gift and comparison question starters. A starter only fills the input. Explicit submission uses the existing `/api/concierge` transport with shop, language and cart context. Recommendations now appear as an editable visual selection using the existing native product cards: actual catalogue images, descriptions, stock and current currency prices. Remove individual suggestions or restore the selection; these controls do not add or remove basket items. Open the native detail page to select variants or app configuration before using the normal basket and checkout. The edited selection survives detail/back navigation within the current buyer, shop, channel, language, country and currency context. A context change hides the previous answer and fences pending results/errors. IDs outside the currently loaded catalogue page remain safe detail links without invented facts. Model prose remains a separate, untrusted explanation. Product-specific questions continue through the existing product question/knowledge path.
 
-![Editable visual selection from the actual native catalogue](assets/customer-scenarios-20261022/visual-selection-desktop.png)
+[Dated example from the earlier interface: Editable visual selection from the actual native catalogue](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/customer-scenarios-20261022/visual-selection-desktop.png)
 
 `useStorefrontAnchors.ts` restores section scrolling after SPA rendering, including browser history and reduced-motion handling. Store branding, legal content and product routes remain scoped to the selected shop/channel. Long brand names wrap without colliding with currency/language or basket controls.
 

@@ -7,6 +7,10 @@ published product-bound records. No separate frontend database is introduced.
 [Workshop setup and release steps](README.md) ·
 [Canonical starting package](../../extensions/apps/product-advisor/manifest.json)
 
+![Current Product advisor preview with a saved synthetic coat-care record](../assets/product-tour-20261102/app-preview-saved.jpg)
+
+*Current shared workspace, captured 2 November 2026. The linked earlier worked examples preserve their original field definitions and outcomes.*
+
 ## 1. Start with the pattern
 
 Open **Developers → New app → Product advisor** under **Start with a working
@@ -14,7 +18,7 @@ pattern**. Confirm draft replacement only after saving other work. The pattern
 opens two views: a private workspace and a shopper view. Its generated app ID is
 unique; use that actual ID when configuring API or AI access later.
 
-![Product advisor table, bound form and validated save button](../assets/app-tutorials/product-advisor.jpg)
+[Earlier worked example: Product advisor table, bound form and validated save button](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/product-advisor.jpg)
 
 *Actual Design preview. Grey rows and “Example value” are labelled sample data;
 they are not saved advice.*
@@ -37,7 +41,7 @@ the public surface is **Product detail**.
 
 ## 3. Review exposure and optional intelligence
 
-![Product list is public; saving requires catalog.write](../assets/app-tutorials/product-access.jpg)
+[Earlier worked example: Product list is public; saving requires catalog.write](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/product-access.jpg)
 
 In **Connections**, verify these separate choices:
 

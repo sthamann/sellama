@@ -17,7 +17,7 @@ inline domain implementations inside the assistant or Rust core.
 
 Existing apps still open through their cards and **Edit app**. Regeneration preserves existing action access settings for actions with the same app/action identity. New generated actions default to MCP off. External agent JSON is reviewed and validated before staging.
 
-![Nine app assistants](assets/feature-tour/app-assistants.jpg)
+![Current App Studio entry with AI description and working app patterns](assets/product-tour-20261102/app-assistants.jpg)
 
 ## Editor extensions with actual ownership
 
@@ -25,7 +25,7 @@ Existing apps still open through their cards and **Edit app**. Regeneration pres
 
 Supported editor mounts are `admin.product.general`, `admin.product.tab`, `admin.product` (legacy), `admin.customer`, `admin.order` and `admin.order.general`. Product tabs appear in the central product editor; new fields reside in namespaced app records in the fixed shared store, rather than becoming ad hoc columns on core tables. `choices: [{value, label}]` creates a server-validated selection field with localized labels. Public customer/order references are rejected.
 
-![Installed product app with persisted data](screenshots/app-product-tab.png)
+![Current private product-bound app preview with an actually saved synthetic record](assets/product-tour-20261102/app-preview-saved.jpg)
 
 ## Four access checks
 

@@ -51,7 +51,7 @@ editing. Inspection does not write, import, release or activate stock.
 
 ## Saved migration work plans
 
-![Saved work plan and batch completion after reload](evidence/images/migration-2026-10-18/work-plan-completed.jpg)
+[Dated workflow evidence: Saved work plan and batch completion after reload](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/evidence/images/migration-2026-10-18/work-plan-completed.jpg)
 
 Studio can save a named work plan with its source profile, planned domains and an
 existing private destination. Selecting it after a reload restores context, not
@@ -279,7 +279,7 @@ manifest publication and again before reading a package. Export preparation is
 not an implicit read of private on-prem databases or a generic provider-plugin
 converter. Unsupported source profiles still require an explicit adapter.
 
-![Frozen export evidence in the actual local Studio](evidence/images/migration-2026-10-18/export-review.png)
+[Dated workflow evidence: Frozen export evidence in the actual local Studio](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/evidence/images/migration-2026-10-18/export-review.png)
 
 ## Original customers, addresses and order history
 

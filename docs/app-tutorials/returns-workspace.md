@@ -7,6 +7,10 @@ This app handles cases; financial refunds remain in the payment state machine.
 [Workshop setup and release steps](README.md) ·
 [Canonical starting package](../../extensions/apps/returns-workspace/manifest.json)
 
+![Current connection and app-workflow editor; the exact returns example is linked below](../assets/product-tour-20261102/app-connections.jpg)
+
+*Current shared workspace, captured 2 November 2026. The linked earlier worked examples preserve their original field definitions and outcomes.*
+
 ## 1. Choose the order-bound pattern
 
 Open **Developers → New app → Returns workspace**. In **Data models**, inspect the
@@ -21,7 +25,7 @@ six existing fields before adding anything:
 | `received_on` | Date received | Optional date |
 | `notes` | Internal working notes | Private plain text |
 
-![App-owned initial state, permitted transitions and immutable order reference](../assets/app-tutorials/returns-workflow-editor.png)
+[Earlier worked example: App-owned initial state, permitted transitions and immutable order reference](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/returns-workflow-editor.png)
 
 *Actual 12 October local editor. The app owns its states and immutable order
 reference; the shared API enforces the same contract. No returns implementation
@@ -67,7 +71,7 @@ reopening is needed; the form retains the confirmed revision. The record selecto
 also lets you create another case for that order. This is the case status; the
 original order/payment status and amounts must remain unchanged.
 
-![Closed return case with received date preserved after a browser reload](../assets/app-tutorials/returns-case-confirmed.png)
+[Earlier worked example: Closed return case with received date preserved after a browser reload](https://github.com/sthamann/veyndo/blob/4b4a658058a2210d9d935f40da81ea57efee262c/docs/assets/app-tutorials/returns-case-confirmed.png)
 
 *Actual local app at order RAC-cbcfc9f0. New, Under review, Goods received and
 Closed each required one save. The received date and Closed state survived

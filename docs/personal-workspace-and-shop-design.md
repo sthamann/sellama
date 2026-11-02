@@ -17,7 +17,7 @@ Add cards, move them by dragging or with the up/down buttons, pin views and save
 several named work areas. The shell, shop switch, language and live/sandbox switch
 stay in their familiar positions.
 
-![Personal workspace with goals and movable cards](assets/workspace-20261015/workspace.jpg)
+![Current personal merchant workspace](assets/product-tour-20261102/workspace.jpg)
 
 Save the workspace before leaving through the sidebar. Opening a workspace card
 also saves it first. Concurrent windows use optimistic revisions; a conflict is
@@ -139,11 +139,11 @@ explicit failed preparations without a new executable task.
 9. Save, then choose **Review publication**. Select the intended app/page changes
    in the native staging review and publish explicitly.
 
-![Guided private setup keeps the actual storefront visible](assets/design-migration-20261020/design-start.jpg)
+![Current reference-design intake in the right agent panel](assets/product-tour-20261102/shop-agent.jpg)
 
-![Drag directly into the storefront at the blue insertion boundary](assets/shop-design-20261016/drop.jpg)
+![Current graphical element library beside the real shop preview](assets/product-tour-20261102/shop-elements.jpg)
 
-![Move grip, up/down arrows and bin on the selected section](assets/shop-design-20261016/controls.jpg)
+![Current shop preview and editing tools](assets/product-tour-20261102/shop-editor.jpg)
 
 The global `*` home supplies the inherited appearance. A channel home overrides
 selected values; null/missing theme properties inherit. Editing an inherited
@@ -177,7 +177,7 @@ capture; upload a screenshot when the URL is incomplete. Provider failure preser
 the saved page and returns an actionable error. Vision quality requires a configured
 provider/model that actually supports images; synthetic fixtures only test the contract.
 
-![Reference upload and shared agent workspace](assets/shop-design-20261016/agent.jpg)
+![Current design agent with URLs, screenshots and coding-agent choices](assets/product-tour-20261102/shop-agent.jpg)
 
 See the [16 October local acceptance notes](assets/shop-design-20261016/README.md) for browser and contract evidence.
 
@@ -205,7 +205,7 @@ configured authorized app/Flow; an accepted form is not proof of external delive
 
 ## Same storefront, same checkout
 
-![Published shop using the shared page renderer](assets/workspace-20261015/storefront.jpg)
+![Current synthetic Nord Atelier storefront](assets/product-tour-20261102/storefront.jpg)
 
 The published shop reads the same app records, filtered on the server by published
 state, start time and current channel. Drafts/future pages never become public
@@ -213,12 +213,12 @@ because a caller changes an app filter. Product data/prices still come from nati
 channel catalogue calculations; Add to cart, customer account and the original
 checkout continue through their existing owners.
 
-![Native checkout reached from the designed page](assets/workspace-20261015/checkout.jpg)
+![Current checkout with fictional contact and address data](assets/product-tour-20261102/checkout-details.jpg)
 
 No payment implementation was added to the page editor. A simulated order verifies
 the local integration path; it does not certify real provider settlement.
 
-![Native simulated order completion and cleared cart](assets/workspace-20261015/completion.jpg)
+![Current completed simulated order](assets/product-tour-20261102/checkout-complete.jpg)
 
 The published page and checkout were also exercised at a 390-pixel viewport,
 without horizontal document overflow. See the [capture notes](assets/workspace-20261015/README.md)
@@ -278,13 +278,13 @@ Clicking the native home prepares an unsaved `site_builder` document with stable
 
 Regression coverage includes the real static frame, native product rendering and click selection, no cart/order calls, automatic home selection, locale/channel transport, inherited-page fork and media/translation preservation. The package owns its test cases; thin frontend adapters register them in the shared runner.
 
-![Mobile storefront viewport inside the same editor](assets/shop-design-20261015/editor-mobile.png)
+![Current shared Canvas overview on a mobile viewport, captured 2 November](assets/canvas-workspace-20261102/mobile-canvas.png)
 
 The release review opens the currently selected sandbox rather than the first unrelated environment. Local browser acceptance followed native home → section selection → translated heading edit → CAS save → reopen → select only the page → native release → published page with the same heading and catalogue image. Mobile preview was checked at its actual 390 CSS-pixel frame width; this capture is the desktop editor's mobile preview, not a claim of a separate phone-browser checkout test.
 
 The same local acceptance also added an actual product from the published page to the native cart, reviewed delivery/tax totals, and completed a **simulated** EUR 43.90 order (`RAC-33d99e28`) with synthetic contact/address data. The confirmation rendered and the cart count returned to zero. This does not claim a real payment-provider settlement or a hosted rollout.
 
-![Native simulated checkout after publishing the edited page](assets/shop-design-20261015/checkout-confirmed.png)
+![Current completed simulated purchase with fictional addresses](assets/product-tour-20261102/checkout-complete.jpg)
 
 
 ## Illustrated elements and compact panels
@@ -296,14 +296,14 @@ choices. Text formatting uses compact shared Tiptap controls; media and less com
 formats live in one menu. EN/DE/FR/ES interface text and selected content-language
 inheritance remain separate.
 
-![Illustrated elements beside the actual shop preview](assets/shop-design-20261015/elements-gallery.png)
+![Current visual element gallery](assets/product-tour-20261102/shop-elements.jpg)
 
 1. Select a private sandbox and open **Elements**.
 2. Pick an illustrated hero, text, product list, image, form or article list.
 3. The element appears in the shared preview and its properties open for editing.
 4. Save the private draft, inspect history and review the selected native release.
 
-![Compact rich-text inspector and section hierarchy](assets/shop-design-20261015/compact-inspector.png)
+![Current shop inspector beside the actual preview](assets/product-tour-20261102/shop-editor.jpg)
 
 ### Apps contribute elements through their existing contract
 
@@ -326,7 +326,7 @@ own history and publication rules; publishing a page does not copy private app d
 
 ### One visible agent entry, including Codex and Claude Code
 
-![Shared agent controls with a real prepared Codex task](assets/shop-design-20261015/agent-workspace.png)
+![Current contextual design agent](assets/product-tour-20261102/shop-agent.jpg)
 
 **Veyndo AI** prepares two or three reviewable alternatives. **Codex / Claude Code**
 prepares a task containing the current page/revision, enabled languages, at most 64

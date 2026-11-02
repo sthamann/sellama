@@ -15,7 +15,7 @@ catalogue data, merchant-managed sources, curated graph connections, order-deriv
 associations and explicit merchant approvals. It shows actual persisted data;
 an empty shop does not receive fabricated questions, support tickets or learning.
 
-![Connected merchant knowledge and price controls](assets/knowledge-controls-20261016/boundaries.jpg)
+![Current AI boundaries with links to connected shop settings](assets/product-tour-20261102/knowledge-boundaries.jpg)
 
 ## Control AI price changes
 
@@ -50,7 +50,7 @@ price. The boundaries govern AI base-price proposals, including approved proposa
 customer-group prices, promotions and checkout rules retain their existing owners.
 The UI does not introduce another pricing engine or generic policy language.
 
-![Native catalogue search and related shop functions](assets/knowledge-controls-20261016/connections.jpg)
+![Current product knowledge and catalogue relationships](assets/product-tour-20261102/knowledge-connections.jpg)
 
 The existing `merchant.commerce.read` MCP/planner operation supports
 `area: "aiPolicy"`. It returns at most eight exact native corridors, their required
@@ -106,7 +106,7 @@ contracts, not proof of real-model interpretation or measured revenue benefit.
   checkout settings or test order from a result. This uses durable agent tasks,
   current authority and the native commerce owners. [Guide and illustrated evidence](customer-scenarios.md).
 
-![Product knowledge and evidence](assets/feature-tour/product-knowledge-current.png)
+![Current product facts and curated catalogue relationships for the wool coat](assets/product-tour-20261102/knowledge-connections.jpg)
 
 ## Try the complete source path
 
@@ -132,10 +132,11 @@ contracts, not proof of real-model interpretation or measured revenue benefit.
    selectively release the `document:<id>` unit. Metadata, language chunks and hashes
    move together. A newer live revision still blocks a conflicting release.
 
-![Source editor with inherited language](assets/feature-tour/knowledge-source-editor.png)
+![Current multilingual knowledge editor with a synthetic care guide](assets/product-tour-20261102/knowledge-source-editor.jpg)
 
-The screenshots use a synthetic private App Studio Lab source, never manufacturer
-guidance or live customer records. It remains outside the live shop.
+The 2 November screenshots use a fictional local care guide, not manufacturer
+guidance or live customer records. The editor starts private; the separately
+recorded review publishes it only inside the isolated demonstration shop.
 
 ## HTTP and MCP contracts
 

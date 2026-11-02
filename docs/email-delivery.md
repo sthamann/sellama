@@ -6,7 +6,7 @@ support English, German, French and Spanish. Gmail remains a separate read-only
 support-mail import app. Email Delivery is a new transactional service; it is not
 an exact port of Shopware's entire mail-template/document/message-queue subsystem.
 
-![Current English Email Delivery controls; delivery disabled in the local demo](assets/feature-tour/email-workspace-current.png)
+![Current Email Delivery app configuration; no provider connected and no message sent](assets/product-tour-20261102/email.jpg)
 
 ## Quick setup
 

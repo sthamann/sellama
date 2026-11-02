@@ -60,7 +60,7 @@ When a goal or requirement lacks the shop main language, the brief explains the
 missing content before saving and offers a direct language switch. It does not
 copy a translation into another language or weaken native save validation.
 
-![Plain-language App idea brief and next steps](assets/app-idea-20261016/overview.jpg)
+![Current app description and working-pattern entry](assets/product-tour-20261102/app-assistants.jpg)
 
 [Shared agent handoff](assets/app-idea-20261016/agent.jpg) ·
 [Mobile brief](assets/app-idea-20261016/mobile.jpg)

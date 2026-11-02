@@ -4,6 +4,19 @@ Updated 2 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
+## Shopware Payments acceptance (2 November 2026)
+
+The private provider and current public Core pass local synthetic purchase,
+authorization/void, pending/partial/full refund and recovery checks. Connector
+1.1.0 adds exact USD/JPY amounts and refunds while retaining historical EUR 1.0.0.
+The embedded provider form gains a bounded loading state, scoped readiness and
+presentation-only reload. Actual local Chrome purchases on desktop and at 390px
+use the private SEPA form, return to the shop and show an empty native bag. Their
+partial and remaining full refunds also pass through the merchant API. External
+provider browser acceptance, public service deployment and full original feature
+parity remain open.
+[Current journeys and concrete remaining work](shopware-payments-acceptance.md).
+
 ## Shared image captions (2 November 2026, source and local acceptance)
 
 Product media, Shop design image/hero blocks and App Studio image controls now

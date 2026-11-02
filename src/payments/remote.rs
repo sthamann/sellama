@@ -136,7 +136,7 @@ pub(crate) fn approval_url(p: &Attempt, value: &Value) -> Result<Option<String>>
     };
     let u = reqwest::Url::parse(s).map_err(|_| bad("Invalid provider approval URL"))?;
     let c = config(&p.provider, &p.adapter_version, &p.environment)?;
-    if u.scheme() != "https"
+    if !approval_transport(&u, &p.environment)
         || !u.username().is_empty()
         || u.password().is_some()
         || !c["approvalOrigins"].as_array().is_some_and(|origins| {
@@ -148,4 +148,47 @@ pub(crate) fn approval_url(p: &Attempt, value: &Value) -> Result<Option<String>>
         return Err(bad("Provider approval origin is not authorized"));
     }
     Ok(Some(s.into()))
+}
+
+// Local browser acceptance uses a separate loopback provider frame. Sandbox and Live keep HTTPS.
+fn approval_transport(url: &reqwest::Url, environment: &str) -> bool {
+    url.scheme() == "https"
+        || (environment == "contract-fixture"
+            && url.scheme() == "http"
+            && ["127.0.0.1", "localhost"].contains(&url.host_str().unwrap_or("")))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::approval_transport;
+
+    #[test]
+    fn local_provider_frames_require_fixture_environment_and_exact_loopback() {
+        for origin in [
+            "http://127.0.0.1:9000/checkout",
+            "http://localhost:9000/checkout",
+        ] {
+            let url = reqwest::Url::parse(origin).unwrap();
+            assert!(approval_transport(&url, "contract-fixture"));
+            for environment in ["live", "sandbox", "simulation", ""] {
+                assert!(!approval_transport(&url, environment));
+            }
+        }
+        for origin in [
+            "http://provider.example/",
+            "http://localhost.example/",
+            "http://10.0.0.1/",
+            "javascript:alert(1)",
+            "file:///checkout",
+        ] {
+            assert!(!approval_transport(
+                &reqwest::Url::parse(origin).unwrap(),
+                "contract-fixture"
+            ));
+        }
+        assert!(approval_transport(
+            &reqwest::Url::parse("https://provider.example/checkout").unwrap(),
+            "live"
+        ));
+    }
 }

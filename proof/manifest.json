@@ -3755,8 +3755,8 @@
     },
     "src/payments/remote.rs": {
       "status": "unproved",
-      "sha256": "fb481e59a40f402265ff58a3bf699cf6d9132d75e003b6452d9f7f75b3b1ca9a",
-      "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
+      "sha256": "a229ebf30a734b7f2ecaccdcc74552edb598f8c898c953c556e90d860bcb1f4c",
+      "review": "Reviewed payment presentation-only readiness passthrough and approved exact-loopback fixture transport. Sandbox/Live HTTPS, exact origin allowlist and financial receipt admission remain enforced; targeted browser-message, timeout/reload and cross-service payment tests cover these unproved adapters."
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",
@@ -3770,8 +3770,8 @@
     },
     "src/payments/sessions.rs": {
       "status": "unproved",
-      "sha256": "3a20e4f03083bc4d67bf6222d5dcaba909d39e291b2c9babf501c3036fdad6b1",
-      "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
+      "sha256": "24b90e4f63d958079f532e30126e352621051671c9a9921c19442bf568beee5b",
+      "review": "Reviewed payment presentation-only readiness passthrough and approved exact-loopback fixture transport. Sandbox/Live HTTPS, exact origin allowlist and financial receipt admission remain enforced; targeted browser-message, timeout/reload and cross-service payment tests cover these unproved adapters."
     },
     "src/payments/state.rs": {
       "status": "reviewed-binding",

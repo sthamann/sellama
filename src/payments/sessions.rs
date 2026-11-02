@@ -64,7 +64,7 @@ pub(crate) async fn session(
         return Err(bad("Checkout session nonce mismatch"));
     }
     Ok(Json(
-        json!({"uiUrl":url,"sessionToken":token,"nonce":nonce,"expiresIn":ttl}),
+        json!({"uiUrl":url,"sessionToken":token,"nonce":nonce,"expiresIn":ttl,"readySignal":v["readySignal"].as_bool().unwrap_or(false)}),
     ))
 }
 

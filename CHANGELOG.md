@@ -1,5 +1,16 @@
 # Changelog
 
+## 2 November 2026 · Payment form recovery
+
+- Embedded payment forms expose loading, exact-origin/nonce readiness, a 20-second
+  timeout and a presentation-only reload in EN/DE/FR/ES. Legacy providers keep
+  their existing frame-load behavior. Readiness never authorizes payment.
+- Explicitly approved loopback provider frames work only in `contract-fixture`;
+  Sandbox and Live retain HTTPS and the operator origin allowlist.
+- Document the private Shopware Payments connector's current acceptance and the
+  remaining account, deployment, browser and original-feature parity work.
+
+
 ## Shared multilingual image captions (2 November 2026)
 
 - Add one caption editor to product media, site-builder image/hero properties and

@@ -26,6 +26,10 @@ pub(crate) struct Block {
     pub rich: Value,
     #[serde(default)]
     pub image: String,
+    #[serde(default, skip_serializing_if = "HashMap::is_empty")]
+    pub caption: HashMap<String, Option<String>>,
+    #[serde(default, skip_serializing_if = "HashMap::is_empty")]
+    pub image_alt: HashMap<String, Option<String>>,
     #[serde(default)]
     pub products: Vec<String>,
     #[serde(default)]
@@ -162,7 +166,13 @@ pub(crate) async fn validate_owned(
         if let Some(element) = &b.extension {
             elements::validate_owned(tx, t, element).await?;
         }
-        let mut languages = b.text.keys().cloned().collect::<Vec<_>>();
+        let mut languages = b
+            .text
+            .keys()
+            .chain(b.caption.keys())
+            .chain(b.image_alt.keys())
+            .cloned()
+            .collect::<Vec<_>>();
         if let Some(rich) = b.rich.as_object() {
             languages.extend(rich.keys().cloned());
         }

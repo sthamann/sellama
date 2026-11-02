@@ -3,6 +3,10 @@
 mod core;
 pub(super) fn definitions() -> Vec<(&'static str, &'static str)> {
     let mut all = core::CORE.to_vec();
+    all.push((
+        "merchant.media.caption",
+        "Prepare a localized image caption and alt text for explicit editor review",
+    ));
     all.extend(crate::agent_runs::CAPABILITIES.iter().copied());
     all.extend(crate::agent_runs::scenarios::CAPABILITIES.iter().copied());
     all.extend(crate::apps::discovery::CAPABILITIES.iter().copied());

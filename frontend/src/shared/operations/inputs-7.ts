@@ -30,6 +30,13 @@ export interface Inputs7 {
     state?: string;
     to?: string;
   };
+  "merchant.media.caption": {
+    alt?: string;
+    caption?: string;
+    context: string;
+    imageUrl?: string;
+    locale: string;
+  };
   "merchant.run.create": {
     approve?: boolean;
     id?: string;
@@ -213,23 +220,5 @@ export interface Inputs7 {
         | "environments"
         | "users";
     };
-  };
-  "merchant.scenario.create": {
-    inference?: {
-      model?: string | null;
-      provider: "platform" | "ollama" | "openai" | "anthropic";
-    };
-    instruction: string;
-    profiles: Array<{
-      budgetMinor: number;
-      country: string;
-      goal: string;
-      id: string;
-      locale: string;
-      name: string;
-    }>;
-    requestId: string;
-    sourceTaskId?: string;
-    title: string;
   };
 }

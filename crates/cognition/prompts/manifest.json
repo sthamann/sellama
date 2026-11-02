@@ -90,6 +90,11 @@
       "id": "app-brief@2",
       "path": "prompts/app-brief.v2.txt",
       "sha256": "c0a5dd1195985f9c150e49105a18fc533dfe516b690e84a81b9ea0b12ccba8fd"
+    },
+    {
+      "id": "media-caption@1",
+      "path": "prompts/media-caption.v1.txt",
+      "sha256": "7d368215afb79fb94e5d266f1879eb961d91347be7fbb71ed83efcbd6a1a7f7b"
     }
   ]
 }

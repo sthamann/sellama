@@ -89,7 +89,14 @@ export function renderRichNode(
       return <hr key={key} />;
     case "image":
       return safeRichUrl(a.src) ? (
-        <img key={key} src={a.src} alt={a.alt ?? ""} loading="lazy" />
+        typeof a.title === "string" && a.title ? (
+          <figure key={key}>
+            <img src={a.src} alt={a.alt ?? ""} loading="lazy" />
+            <figcaption>{a.title}</figcaption>
+          </figure>
+        ) : (
+          <img key={key} src={a.src} alt={a.alt ?? ""} loading="lazy" />
+        )
       ) : null;
     case "video":
       return safeRichUrl(a.src) ? (

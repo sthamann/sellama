@@ -11,6 +11,8 @@ export type Block = {
   text: LocalizedText;
   rich: Record<string, RichBlock[]> | null;
   image: string;
+  caption?: LocalizedText;
+  imageAlt?: LocalizedText;
   products: string[];
   productMode?: "all" | "selected";
   fields: FormField[];

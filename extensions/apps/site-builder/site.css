@@ -207,3 +207,10 @@
 .shop[data-designed="true"] .shop-header button {
   border-radius: var(--site-radius);
 }
+
+.site-section figure > figcaption {
+  padding: 12px 0;
+  font-size: 0.875em;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}

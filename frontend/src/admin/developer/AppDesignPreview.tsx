@@ -91,6 +91,7 @@ export default function AppDesignPreview({
         <div className="app-preview-media">
           <Icon name="image" size={32} />
           {a("designImage")}
+          {text(b.text ?? {}) && <p>{text(b.text ?? {})}</p>}
         </div>
       ) : b.kind === "chart" ? (
         <div className="app-preview-chart" aria-hidden="true">

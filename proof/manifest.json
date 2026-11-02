@@ -1250,8 +1250,8 @@
     },
     "extensions/apps/site-builder/block_validation.rs": {
       "status": "unproved",
-      "sha256": "bf81a59d1d45f081e55c092b5f9857750d4538076299cb9662939babfdc2fbf0",
-      "review": "Reviewed app-owned block validation extraction: all original admission predicates retained, errors contain bounded field paths without content, planner and coding handoff share explicit format and native-validated example; workspace units and clippy plus actual collection correction regression validate the boundary."
+      "sha256": "594acd1c2b7530177428b898abcbf1a4b0f6ec2f34f6ef78eaed72e006efb84a",
+      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
     },
     "extensions/apps/site-builder/context.rs": {
       "status": "unproved",
@@ -1285,8 +1285,8 @@
     },
     "extensions/apps/site-builder/server.rs": {
       "status": "unproved",
-      "sha256": "e39c827b0ea50c92f6d396aa05ced7c3182256557335b147763bbb20fda1ee0d",
-      "review": "Reviewed app-owned block validation extraction: all original admission predicates retained, errors contain bounded field paths without content, planner and coding handoff share explicit format and native-validated example; workspace units and clippy plus actual collection correction regression validate the boundary."
+      "sha256": "9b646a599f4b669ef98bdc584c9d71b272b12090745a72fd49220f744a1dbc9c",
+      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
     },
     "extensions/apps/site-forms/server.rs": {
       "status": "unproved",
@@ -2018,6 +2018,16 @@
       "sha256": "005cfc70e72cbb91c9e05855feddd256f1a5eb4ffe019369bfb4cf09b56faea3",
       "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
     },
+    "src/assets/caption_source.rs": {
+      "status": "unproved",
+      "sha256": "3f74820107c24028e2353f66934604875909a17ff950f553d69432246ba04610",
+      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
+    },
+    "src/assets/captions.rs": {
+      "status": "unproved",
+      "sha256": "f5b8a7f26722e15ac417138cf59460907286fd58ed58e9a4295e4f535d15dfa8",
+      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
+    },
     "src/assets/download.rs": {
       "status": "reviewed-binding",
       "sha256": "c8f3f097e40c04b95d3eb5ab876b9f51e794e7016d697356b64e09353c17b32a",
@@ -2045,8 +2055,8 @@
     },
     "src/assets/mod.rs": {
       "status": "unproved",
-      "sha256": "7b4d96c7913bea849d5fa743da596227117535247526fcb18c04941c8f4e9740",
-      "review": "Independent review of native imported immutable image boundaries and selected parent/product-before-asset publication; exact persisted product baseline, attachment-only guard, source-position ordering and recoverable two-step association verified through real HTTP/PostgreSQL regressions. Pure extracted policies unchanged."
+      "sha256": "d3d2ffec6995100d5a42b9fcd2dfd5706da23eef90d61267e9ff155f7574b3ad",
+      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
     },
     "src/assets/rich.rs": {
       "status": "unproved",
@@ -2390,8 +2400,8 @@
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "3cf7ca4dfe4124cc6b1d243bc371409bc080d89eb6e03be44e825fe0ac94b90f",
-      "review": "Customer scenarios: independent scenario_security_review completed; native signed-role, cohort, replay, injection, cancellation and post-lock lease-expiry regressions pass. Shared checkout preflight avoids nested-pool deadlock; authority is rechecked at the fenced transaction commit."
+      "sha256": "b7acd28ea8174f85fa3aeb23ce993598cb427abafe3e04abdce17832b89eee9e",
+      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
     },
     "src/capabilities/contract.rs": {
       "status": "unproved",
@@ -2415,8 +2425,8 @@
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "3507f7cd4014f3b53673627bf65567baf5aa3d8d218f93db4b2b8cedddb332d5",
-      "review": "Reviewed opt-in paged catalogue preparation: current catalogue.read and tenant-owned products, enabled-language translation flags and durable image states only; no mutation, provider retry, credential or authority widening. Failed image jobs remain inspectable after reload."
+      "sha256": "5438e5234cf02e14ae302b0980e8d49df5b40def6cfe8272660d77aaadb55ca1",
+      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -2805,8 +2815,8 @@
     },
     "src/commerce/product_edit.rs": {
       "status": "unproved",
-      "sha256": "8c02f8901d1e2c8818a8388419f4d050fe1a56a42ba4d7bbc6fdf2d77c22c89d",
-      "review": "Reviewed native category-only product expansion: explicit bounded shape, original aggregate/content CAS retained through native product lock, no commerce or channel write, tenant-owned category assignment and unchanged native rights; pre-review full-product deserialization. Reproduced public Invalid product metadata through old-binary HTTP, replacement preserves metadata and denies stale/mixed/foreign writes. No extracted business predicate changed."
+      "sha256": "6cabad4adde975aab9e57a45d17ac5ab329b9d524b002def884ce1c78300ec17",
+      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
     },
     "src/commerce/product_fields.rs": {
       "status": "unproved",
@@ -3235,8 +3245,8 @@
     },
     "src/localization.rs": {
       "status": "unproved",
-      "sha256": "77e94af95afb4c93183945fab6cec2b20f6d4779a11ed25a7b48b83d878163d0",
-      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
+      "sha256": "5db6fdd86b0ad424a4e1ef8e65930a33b2169d22d43216b3aaf3f562fac34fc5",
+      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
     },
     "src/main.rs": {
       "status": "unproved",
@@ -4294,8 +4304,12 @@
       "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
     },
     "crates/cognition/prompts/manifest.json": {
-      "sha256": "4f4347522debb4f379e35643ec3fb376517f25be4fd30b9d98eff080df527091",
-      "review": "Guided native field families encode translated/indexed/core-reference and typed validation constraints before inference; new helper preserves existing Manifest admission and authority; native malformed-constraint and OpenAI/Ollama protocol regressions retained"
+      "sha256": "f92f1e52db9299dbbd082b1b9b088baf7131da020abcbf6194ad0a369453c494",
+      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
+    },
+    "crates/cognition/prompts/media-caption.v1.txt": {
+      "sha256": "7d368215afb79fb94e5d266f1879eb961d91347be7fbb71ed83efcbd6a1a7f7b",
+      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
     },
     "crates/cognition/prompts/merchant-planner.v1.txt": {
       "sha256": "6fc1d69faed9342d8b95af531c3c3e0c597f1c4d18a311d3f62e5849236fdfaf",

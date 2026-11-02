@@ -12,7 +12,13 @@ class Model(BaseHTTPRequestHandler):
   value=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
   if state.get('unavailable'):
    self.send_response(503);self.end_headers();return
-  if self.path=='/api/embed': out={'embeddings':[[1.0]+[0.0]*1023 for _ in value['input']]}
+  if 'caption' in value.get('format',{}).get('properties',{}):
+   seen.append(value)
+   if state.get('captionMode')=='unavailable':
+    self.send_response(503);self.end_headers();self.wfile.write(b'provider-secret');return
+   result={'caption':'<img onerror=alert(1)>' if state.get('captionMode')=='markup' else 'Ein Stuhl im warmen Licht.','alt':'Stuhl'}
+   out={'message':{'content':json.dumps(result)},'done_reason':'stop'}
+  elif self.path=='/api/embed': out={'embeddings':[[1.0]+[0.0]*1023 for _ in value['input']]}
   else:
    seen.append(value)
    fields=state['fields']; content=copy.deepcopy(fields['content']); content['blocks'][0]['text']['de-DE']='Vom Agenten vorbereitet'
@@ -41,6 +47,8 @@ def mcp(name,args,h):return call('/mcp',{'jsonrpc':'2.0','id':1,'method':'tools/
 def save(fields,id='home',revision=0,h=None):return call('/api/apps/site_builder/actions/save_page',{'id':id,'revision':revision,'fields':fields},h)
 def rows(h,public=False):return call(('/store-api' if public else '/api')+'/apps/site_builder/actions/'+('pages' if public else 'editor_pages'),{},h)['elements']
 try:
+ from testing.media_caption_checks import verify as verify_media_captions
+ verify_media_captions(call,account,headers,mcp,base,state,seen)
  from testing.shop_setup_checks import verify_setup
  verify_setup(call,account,headers,mcp)
  from testing.site_release import verify as verify_site_release

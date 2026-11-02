@@ -163,6 +163,7 @@ export default function DesignerInspector({
           <>
             <ContentLanguagePicker />
             <PageInspector
+              canGenerate={rights.includes("assistant.use")}
               page={d.draft}
               appearance={theme}
               block={block}

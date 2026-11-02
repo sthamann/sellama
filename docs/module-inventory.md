@@ -131,6 +131,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/webhook_scope.rs](../src/apps/webhook_scope.rs) | Scope signed app ingress from its route before identity, tenant lifecycle and forced-RLS admission. |
 | [src/apps/webhooks.rs](../src/apps/webhooks.rs) | Operator-signed incoming events: tenant-bound HMAC, five-minute freshness and atomic replay receipts. |
 | [src/assets/app_files.rs](../src/assets/app_files.rs) | Scoped app access to the existing asset store. Binary callbacks are explicit and private; publishing still uses the native asset lifecycle. |
+| [src/assets/caption_source.rs](../src/assets/caption_source.rs) | Image evidence uses owned assets or DNS-pinned public HTTPS; decoded thumbnails strip metadata before inference. |
+| [src/assets/captions.rs](../src/assets/captions.rs) | Caption proposals use central inference and current shop languages; only the owning native editor can save them. |
 | [src/assets/download.rs](../src/assets/download.rs) | Public attachments honor sales-channel visibility; downloads require a paid, owned order snapshot. |
 | [src/assets/image_jobs.rs](../src/assets/image_jobs.rs) | Durable image jobs: tenant admission, revision-bound private previews and explicit publication, without automatic paid retries. |
 | [src/assets/image_provider.rs](../src/assets/image_provider.rs) | Optional OpenAI Images adapter; bounded responses and decoded PNG output, no remote user URLs or leaked provider errors. |
@@ -1282,6 +1284,9 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/legal/consent-store.ts](../frontend/src/shared/legal/consent-store.ts) | Live consent registry starts denied; only validated server receipts unlock integrations. No legacy grant is trusted. |
 | [frontend/src/shared/legal/legal-types.ts](../frontend/src/shared/legal/legal-types.ts) | Channel-scoped legal policy, explicit optional purposes and durable consumer requests. |
 | [frontend/src/shared/legal/requirements.ts](../frontend/src/shared/legal/requirements.ts) | Source-backed requirement catalogue; operational applicability is reviewed, never inferred as legal certification. |
+| [frontend/src/shared/media/MediaCaptionEditor.tsx](../frontend/src/shared/media/MediaCaptionEditor.tsx) | Shared localized caption edits and explicit AI proposal review; native owners retain persistence and publication. |
+| [frontend/src/shared/media/caption-i18n.ts](../frontend/src/shared/media/caption-i18n.ts) | Interface copy for shared caption editing; content languages come from the actual shop context. |
+| [frontend/src/shared/media/captions.css](../frontend/src/shared/media/captions.css) | Compact caption tools inherit their editor's palette and fit narrow property panels. |
 | [frontend/src/shared/money/fx-draft.ts](../frontend/src/shared/money/fx-draft.ts) | Draft-only FX preview matches the server rational/half-up boundary; checkout always uses its server quote. |
 | [frontend/src/shared/operations/index.ts](../frontend/src/shared/operations/index.ts) | Generated native operation input contracts; do not edit. |
 | [frontend/src/shared/operations/inputs-0.ts](../frontend/src/shared/operations/inputs-0.ts) | Generated native operation input contracts; do not edit. |
@@ -1631,6 +1636,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/site-builder/studio/DesignerPreview.tsx](../extensions/apps/site-builder/studio/DesignerPreview.tsx) | Preview composes the shared storefront renderer with editor-only gesture controls. |
 | [extensions/apps/site-builder/studio/DesignerPreviewBar.tsx](../extensions/apps/site-builder/studio/DesignerPreviewBar.tsx) | Stable preview navigation shares the current editor history across overview and page modes. |
 | [extensions/apps/site-builder/studio/EditableSection.tsx](../extensions/apps/site-builder/studio/EditableSection.tsx) | Preview-only controls decorate the actual storefront renderer; the published renderer has no editor UI. |
+| [extensions/apps/site-builder/studio/ImageProperties.tsx](../extensions/apps/site-builder/studio/ImageProperties.tsx) | Shared image metadata controls edit the selected page block through its normal draft owner. |
 | [extensions/apps/site-builder/studio/NativeHomePreview.tsx](../extensions/apps/site-builder/studio/NativeHomePreview.tsx) | Preview composes the actual native header, hero, product cards and footer, without a live cart or commands. |
 | [extensions/apps/site-builder/studio/NativeProductPreview.tsx](../extensions/apps/site-builder/studio/NativeProductPreview.tsx) | Native gallery and purchase presentation use a scoped read without shopper sessions, analytics or app actions. |
 | [extensions/apps/site-builder/studio/PageHistory.tsx](../extensions/apps/site-builder/studio/PageHistory.tsx) | Whole-page and section restoration use retained native app revisions; restoration is an editable draft. |
@@ -1905,6 +1911,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/mail_contracts/fixtures.py](../scripts/testing/mail_contracts/fixtures.py) | Shared disposable mail servers, synthetic CA and isolated archived connector settings. |
 | [scripts/testing/mail_contracts/journey.py](../scripts/testing/mail_contracts/journey.py) | Native Rust checkout/outbox/Flow/MCP to Rust mail worker and loopback SMTP acceptance. |
 | [scripts/testing/mail_contracts/wire.py](../scripts/testing/mail_contracts/wire.py) | Loopback SMTP/TLS and HTTP mail-provider fixtures plus consent-aware test requests. |
+| [scripts/testing/media_caption_checks.py](../scripts/testing/media_caption_checks.py) | Actual caption proposal, ownership, locale persistence and selected page-release regressions; synthetic provider only. |
 | [scripts/testing/merchant_guidance.py](../scripts/testing/merchant_guidance.py) | Explicit versioned merchant guidance reaches actual model input and is withdrawn by the native archive path. |
 | [scripts/testing/native_lifecycle_race.py](../scripts/testing/native_lifecycle_race.py) | Force native workflow editing against app installation at the real database boundary. |
 | [scripts/testing/native_tools.py](../scripts/testing/native_tools.py) | Synthetic provider-native wire responses shared by real HTTP integration fixtures; not a model implementation. |

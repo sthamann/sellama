@@ -5,6 +5,10 @@ standard storefront. They use existing native identities, operations, app record
 proposal tasks, history, sandbox review and checkout. The private original
 Storyfront editor continues to own Storyfront Experiences.
 
+Image and hero properties also provide [multilingual image captions](visual-workspace-canvas.md)
+with reviewed AI suggestions, separate from accessibility alt text. The same
+caption tools are used in product media and App Studio image controls.
+
 ## Start with your work
 
 Open **My workspace** after signing in with a personal merchant account. Select a

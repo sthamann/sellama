@@ -4,6 +4,7 @@ export type GalleryImage = {
   id: string;
   url: string;
   view: string;
+  caption?: Record<string, string | null | undefined>;
   alt?: Record<string, string | null | undefined>;
 };
 export function mediaAlt(

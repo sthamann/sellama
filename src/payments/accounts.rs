@@ -139,6 +139,15 @@ pub(crate) async fn onboarding_route(
 ) -> Result<Json<Value>> {
     Ok(Json(onboarding(&a, &h, &id, &v).await?))
 }
+/// Only public deployment metadata is exposed; service URLs and credentials remain server-side.
+fn configured_environments(id: &str, version: &str) -> Value {
+    let c = &crate::runtime_config::get().payment_services[id][version];
+    let environments: Vec<_> = ["simulation", "sandbox", "live", "contract-fixture"]
+        .into_iter()
+        .filter(|env| c[*env].is_object() || (c["url"].is_string() && c["environment"] == *env))
+        .collect();
+    json!({"environments":environments,"defaultEnvironment":c["defaultEnvironment"].as_str().or(c["environment"].as_str()).or(environments.first().copied())})
+}
 pub(crate) async fn providers_route(
     State(a): State<App>,
     h: RequestContext,
@@ -147,12 +156,16 @@ pub(crate) async fn providers_route(
     auth::permit(&h, "payments.read")?;
     let rows=sqlx::query("SELECT id,version,active,manifest->'paymentProvider' AS contract FROM app_packages WHERE tenant=$1 AND manifest ? 'paymentProvider' ORDER BY id").bind(&t).fetch_all(&a.db).await?;
     let accounts=sqlx::query("SELECT app,channel,account_ref,environment,ready,updated_at::text FROM payment_provider_accounts WHERE tenant=$1 ORDER BY app,channel").bind(&t).fetch_all(&a.db).await?;
+    let channels = sqlx::query("SELECT id FROM sales_channels WHERE tenant=$1 ORDER BY id")
+        .bind(&t)
+        .fetch_all(&a.db)
+        .await?;
     Ok(Json(
-        json!({"apiVersion":"1","providers":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"version":r.get::<String,_>("version"),"active":r.get::<bool,_>("active"),"contract":r.get::<Value,_>("contract")})).collect::<Vec<_>>(),"accounts":accounts.iter().map(|r|json!({"provider":r.get::<String,_>("app"),"channel":r.get::<String,_>("channel"),"accountRef":r.get::<String,_>("account_ref"),"environment":r.get::<String,_>("environment"),"ready":r.get::<bool,_>("ready"),"updatedAt":r.get::<String,_>("updated_at")})).collect::<Vec<_>>() }),
+        json!({"apiVersion":"1","channels":channels.iter().map(|r|json!({"id":r.get::<String,_>("id")})).collect::<Vec<_>>(),"providers":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"version":r.get::<String,_>("version"),"active":r.get::<bool,_>("active"),"contract":r.get::<Value,_>("contract"),"configuration":configured_environments(&r.get::<String,_>("id"),&r.get::<String,_>("version"))})).collect::<Vec<_>>(),"accounts":accounts.iter().map(|r|json!({"provider":r.get::<String,_>("app"),"channel":r.get::<String,_>("channel"),"accountRef":r.get::<String,_>("account_ref"),"environment":r.get::<String,_>("environment"),"ready":r.get::<bool,_>("ready"),"updatedAt":r.get::<String,_>("updated_at")})).collect::<Vec<_>>() }),
     ))
 }
 
 /// Generation and coding agents use the same private account action contract.
 pub(crate) fn onboarding_action() -> Value {
-    json!({"name":"onboarding","description":"Manage payment provider account","handler":"payment_onboarding","public":false,"permission":"payments.manage","mcp":true,"flowAllowed":false,"inputSchema":{"type":"object","properties":{"operation":{"type":"string","enum":["start","status","disconnect"]},"channel":{"type":"string"},"environment":{"type":"string","enum":["sandbox","live","contract-fixture"]},"country":{"type":"string"},"requestKey":{"type":"string"},"approve":{"type":"boolean"}},"required":["operation","requestKey"],"additionalProperties":false}})
+    json!({"name":"onboarding","description":"Manage payment provider account","handler":"payment_onboarding","public":false,"permission":"payments.manage","mcp":true,"flowAllowed":false,"inputSchema":{"type":"object","properties":{"operation":{"type":"string","enum":["start","status","disconnect"]},"channel":{"type":"string"},"environment":{"type":"string","enum":["sandbox","live","simulation","contract-fixture"]},"country":{"type":"string"},"requestKey":{"type":"string"},"approve":{"type":"boolean"}},"required":["operation","requestKey"],"additionalProperties":false}})
 }

@@ -81,13 +81,25 @@ pub(crate) fn validate_accounts(accounts: &serde_json::Value, services: &serde_j
                     .expect("Payment environment map required");
                 assert!(
                     !environments.is_empty()
-                        && environments
-                            .keys()
-                            .all(|key| ["sandbox", "live", "contract-fixture"]
+                        && environments.keys().all(|key| key == "defaultEnvironment"
+                            || ["sandbox", "live", "simulation", "contract-fixture"]
                                 .contains(&key.as_str())),
                     "Payment environment map must declare supported environments"
                 );
-                for environment in ["sandbox", "live", "contract-fixture"] {
+                if let Some(default) = version.get("defaultEnvironment") {
+                    assert!(
+                        default.as_str().is_some_and(|value| [
+                            "sandbox",
+                            "live",
+                            "simulation",
+                            "contract-fixture"
+                        ]
+                        .contains(&value)
+                            && version[value].is_object()),
+                        "Default payment environment must be configured"
+                    );
+                }
+                for environment in ["sandbox", "live", "simulation", "contract-fixture"] {
                     if let Some(config) = version.get(environment) {
                         super::remote::validate_service(config, environment)
                             .expect("Invalid payment service environment configuration");
@@ -95,5 +107,29 @@ pub(crate) fn validate_accounts(accounts: &serde_json::Value, services: &serde_j
                 }
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::json;
+    #[test]
+    fn hosted_simulation_requires_https_and_a_configured_default() {
+        let service = json!({"url":"https://payments.example.test","token":"synthetic-credential-with-32-characters","environment":"simulation","approvalOrigins":["https://payments.example.test"]});
+        validate_accounts(
+            &json!({}),
+            &json!({"provider":{"1.2.0":{"defaultEnvironment":"simulation","simulation":service}}}),
+        );
+        assert!(
+            std::panic::catch_unwind(|| validate_accounts(
+                &json!({}),
+                &json!({"provider":{"1.2.0":{"defaultEnvironment":"live","simulation":service}}})
+            ))
+            .is_err()
+        );
+        let mut insecure = service;
+        insecure["url"] = json!("http://127.0.0.1:8888");
+        assert!(super::super::remote::validate_service(&insecure, "simulation").is_err());
     }
 }

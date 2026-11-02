@@ -2430,8 +2430,8 @@
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "d90f82a2c24a110a6893f466cbd7d1852b0b0dabd0ecd4d32f50dcc2347aabc0",
-      "review": "Canvas reference capture uses bounded public-only egress and native vision; developer context is validated before inference, redacted evidence retained in existing immutable versions, HTTP/MCP task schemas preserve native staging and current rights. Native app-generation HTTP/PostgreSQL and context unit regressions passed."
+      "sha256": "57c0994b94d47d40e39a8f72a4418a1ba8aa79d2077d74bb19e52c6eeb5d42c5",
+      "review": "Review shared payment-service simulation admission, configured environment discovery and additive native account constraint; financial kernel unchanged."
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -3470,8 +3470,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "33fdac68820b213f3f31a61771fa9a75062096d90eb2257c2981c9e7c2a055d0",
-      "review": "Reviewed capability-authenticated consent aliases and tenant/channel composite FK. Readers, processing and checkout resolve one canonical receipt; withdrawal erases related preferences in batch. PostgreSQL legal_privacy exercises original expiry, no copied checkout acceptance, second purchase and seven concurrent continuation/withdrawal requests; behavior_intelligence and tenant_isolation passed. SQL adapter remains unproved. Staging diff only adds authorized main-language metadata for product labels."
+      "sha256": "10613c834d2a1456bbe6fcf35e3b4b1c87eb1442a270fdc1a298e33bdedc9cc1",
+      "review": "Review shared payment-service simulation admission, configured environment discovery and additive native account constraint; financial kernel unchanged."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -3710,8 +3710,8 @@
     },
     "src/payments/accounts.rs": {
       "status": "unproved",
-      "sha256": "4f5610a8d9b6267980ad792bc48cc850705fe5eb94c359ec44b117dba8089ebb",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "f4682852fd428d129edb58669c5a11ed16c79e0e089ff869c31cabfa2e0b3165",
+      "review": "Review shared payment-service simulation admission, configured environment discovery and additive native account constraint; financial kernel unchanged."
     },
     "src/payments/app_commands.rs": {
       "status": "unproved",
@@ -3745,8 +3745,8 @@
     },
     "src/payments/provider_configuration.rs": {
       "status": "unproved",
-      "sha256": "a70e834b496b6dcf70a3149e2c01318b9c70bcc5c9cd12a440d210822e5e8dd4",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "2fa7a508a2ea7a3c6cf064f9257b144b863f503998d693dfef13996bda3523c3",
+      "review": "Review shared payment-service simulation admission, configured environment discovery and additive native account constraint; financial kernel unchanged."
     },
     "src/payments/provider_webhooks.rs": {
       "status": "unproved",
@@ -3765,8 +3765,8 @@
     },
     "src/payments/remote.rs": {
       "status": "unproved",
-      "sha256": "a229ebf30a734b7f2ecaccdcc74552edb598f8c898c953c556e90d860bcb1f4c",
-      "review": "Reviewed payment presentation-only readiness passthrough and approved exact-loopback fixture transport. Sandbox/Live HTTPS, exact origin allowlist and financial receipt admission remain enforced; targeted browser-message, timeout/reload and cross-service payment tests cover these unproved adapters."
+      "sha256": "2c94291c413770ed1671d5a3e7e6deddb2cbd671039105d2c01a74c5f7be40f7",
+      "review": "Review shared payment-service simulation admission, configured environment discovery and additive native account constraint; financial kernel unchanged."
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",
@@ -4824,6 +4824,10 @@
     "migrations/108-consent-continuation.sql": {
       "sha256": "a3608c7d8ebb51e24dd18f2948f3681c7b1d869c98d9f06c978a78d19b9f8e86",
       "review": "Reviewed capability-authenticated consent aliases and tenant/channel composite FK. Readers, processing and checkout resolve one canonical receipt; withdrawal erases related preferences in batch. PostgreSQL legal_privacy exercises original expiry, no copied checkout acceptance, second purchase and seven concurrent continuation/withdrawal requests; behavior_intelligence and tenant_isolation passed. SQL adapter remains unproved. Staging diff only adds authorized main-language metadata for product labels."
+    },
+    "migrations/109-payment-simulation.sql": {
+      "sha256": "2283718e8305a498ab39a1e2dead0361a2232fad7c94d51cf25f9b25b9b73bda",
+      "review": "Review shared payment-service simulation admission, configured environment discovery and additive native account constraint; financial kernel unchanged."
     },
     "proof/Commerce/Claims/Access.lean": {
       "sha256": "f884142fe393e6ea189473d8e02add783f80cef3e45f08d4d0d8e01a57f0a205",

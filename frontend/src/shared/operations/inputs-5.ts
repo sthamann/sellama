@@ -24,7 +24,7 @@ export interface Inputs5 {
     approve?: boolean;
     channel?: string;
     country?: string;
-    environment?: "sandbox" | "live" | "contract-fixture";
+    environment?: "sandbox" | "live" | "simulation" | "contract-fixture";
     id?: string;
     operation?: "start" | "status" | "disconnect";
     requestKey?: string;

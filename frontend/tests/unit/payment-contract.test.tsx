@@ -102,7 +102,20 @@ it("sends a scoped token only to the fixed provider origin and rejects forged fr
 it("requires confirmation to disconnect the selected channel and keeps the full provider draft", async () => {
   const request = vi.fn(async (path: string, body?: any) => {
     if (path === "/store-api/countries") return { countries: [] };
-    if (path === "/api/automation") return { channels: [{ id: "web_de" }] };
+    if (path === "/api/payment-providers")
+      return {
+        channels: [{ id: "web_de" }],
+        providers: [
+          {
+            id: "provider_app",
+            configuration: {
+              environments: ["sandbox"],
+              defaultEnvironment: "sandbox",
+            },
+          },
+        ],
+        accounts: [],
+      };
     return { ready: body.operation !== "disconnect" };
   });
   const m = assistedManifest({
@@ -154,4 +167,62 @@ it("requires confirmation to disconnect the selected channel and keeps the full 
     ),
   );
   expect(change).not.toHaveBeenCalled();
+});
+
+it("selects configured simulation and does not require automation rights", async () => {
+  const request = vi.fn(async (path: string, body?: any) => {
+    if (path === "/store-api/countries") return { countries: [] };
+    if (path === "/api/payment-providers")
+      return {
+        channels: [{ id: "default" }],
+        providers: [
+          {
+            id: "provider_app",
+            configuration: {
+              environments: ["simulation"],
+              defaultEnvironment: "simulation",
+            },
+          },
+        ],
+        accounts: [],
+      };
+    return { ready: true, ...body };
+  });
+  render(
+    <AppPayments
+      manifest={assistedManifest({
+        kind: "payment",
+        location: "admin.navigation",
+        id: "provider_app",
+        name: { en: "Provider" },
+        mcp: true,
+        publicRead: false,
+        event: "order.placed",
+        cron: "0 * * * * *",
+      })}
+      onChange={vi.fn()}
+      request={request}
+    />,
+    { wrapper: LocaleProvider },
+  );
+  await waitFor(() =>
+    expect(
+      (screen.getByLabelText("Environment") as HTMLSelectElement).value,
+    ).toBe("simulation"),
+  );
+  expect(screen.queryByRole("option", { name: "Live account" })).toBeNull();
+  expect(request.mock.calls.some(([path]) => path === "/api/automation")).toBe(
+    false,
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Start onboarding" }));
+  await waitFor(() =>
+    expect(request).toHaveBeenCalledWith(
+      "/api/payment-providers/provider_app/onboarding",
+      expect.objectContaining({
+        environment: "simulation",
+        channel: "default",
+        approve: true,
+      }),
+    ),
+  );
 });

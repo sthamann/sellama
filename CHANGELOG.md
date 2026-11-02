@@ -1,5 +1,12 @@
 # Changelog
 
+## 2 November 2026 · Shared payment service
+
+- Replace the Shopware Payments placeholder with its 17-method versioned provider contract.
+- Add an explicit hosted simulation environment to native account, API and MCP admission while retaining HTTPS and immutable financial bindings.
+- Show configured environments and existing connections in the shared account panel without automation rights.
+- Keep provider execution in its private Rust service; test concurrent methods, cancellation, refunds and restart recovery through the existing ledger.
+
 ## 2 November 2026 · Shared visual canvas
 
 - Keep expanded coding-agent task exports inside the native right dock, including long schema tokens and phone layouts.

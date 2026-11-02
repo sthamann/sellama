@@ -73,6 +73,10 @@ acceptance, not an external bank transaction or Storyfront acceptance.
 ## Hosted simulation browser acceptance, version 1.2.0
 
 Local Chrome order `RAC-7bb9b34b` used the shared simulated SEPA form in German.
+A second card order, `RAC-f8831534`, passed at 390 × 844 pixels. Both show
+confirmed payment, return to the shop and an empty bag. The merchant API then
+refunded one cent, replayed that same refund key and refunded the exact EUR 12.49
+remainder for each order. No external money was involved.
 After confirming the explicit test decision, the native checkout displayed
 **Zahlung bestätigt** for EUR 12.50. Returning to the collection and opening the
 bag showed zero items. The browser controller initially held the iframe document;
@@ -85,6 +89,10 @@ Storyfront iframe remain separate acceptance steps.
 ![Native confirmation after the simulated SEPA payment](assets/payments-20261102/local-payment-confirmed.png)
 
 ![Empty bag after returning to the shop](assets/payments-20261102/local-returned-empty-cart.png)
+
+[Mobile card form](assets/payments-20261102/mobile-card-simulation.png) ·
+[Mobile payment confirmation](assets/payments-20261102/mobile-payment-confirmed.png) ·
+[Mobile empty bag](assets/payments-20261102/mobile-returned-empty-cart.png).
 
 ## Comparison with Shopware
 

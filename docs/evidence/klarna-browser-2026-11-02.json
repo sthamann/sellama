@@ -1,0 +1,18 @@
+{
+  "orderId": "31c0dbbafc2b4b24bad1ebad3c6b5662",
+  "orderNumber": "RAC-31c0dbba",
+  "attemptId": "d40e53f89b0a435abd71c5e9fbd40869",
+  "amountMinor": 1250,
+  "currency": "EUR",
+  "browserAuthorization": true,
+  "merchantCapture": "captured",
+  "captureReplayMatches": true,
+  "simulated": true,
+  "browserReturnedToShop": true,
+  "browserCartEmpty": true,
+  "partialRefundMinor": 1,
+  "refundReplayMatches": true,
+  "finalState": "refunded",
+  "refundedMinor": 1250,
+  "browserFormRecovery": "Initial frame document held; presentation reload recovered same order without duplicate purchase."
+}

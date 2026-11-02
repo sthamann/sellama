@@ -95,6 +95,31 @@ Storyfront iframe remain separate acceptance steps.
 [Mobile payment confirmation](assets/payments-20261102/mobile-payment-confirmed.png) ·
 [Mobile empty bag](assets/payments-20261102/mobile-returned-empty-cart.png).
 
+## Klarna browser authorization and capture, 2 November 2026
+
+Local Chrome order **RAC-31c0dbba** used the actual shared private payment form
+for Klarna and EUR 12.50. The simulation stored the explicit shopper decision;
+the native receipt showed **Zahlung autorisiert** and explained that the merchant
+collects the reserved amount separately. The merchant's native capture command
+then changed the ledger to `captured`. Replaying the same capture key returned
+the original job. After reload, the receipt showed **Zahlung bestätigt**.
+
+The browser returned to the collection and opened the empty native bag. A
+one-cent refund, replay of its key and the exact EUR 12.49 remaining refund
+completed against that same order. The final native state is `refunded`.
+The browser controller initially held the provider document; the visible
+presentation reload recovered this same order without another purchase.
+
+![Native Klarna authorization before merchant capture](assets/payments-20261102/klarna-authorized.png)
+
+[Confirmed capture](assets/payments-20261102/klarna-captured.png) ·
+[Returned empty native bag](assets/payments-20261102/klarna-returned-empty-cart.png) ·
+[Recorded result](evidence/klarna-browser-2026-11-02.json).
+
+This is the local standard-storefront simulation with real Rust services and
+PostgreSQL. It does not establish public hosting, an actual Klarna provider
+account, bank approval or the nested original Storyfront browser journey.
+
 ## Original Storyfront server integration, 2 November 2026
 
 The original Storyfront handler at pin `5d5f0e743b083a4154044f1ab26b778f1916dad2`

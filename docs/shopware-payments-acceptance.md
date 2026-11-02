@@ -1,9 +1,10 @@
 # Shopware Payments: integration and test acceptance
 
 Updated 2 November 2026. The private Rust connector implements the provider path;
-the public Core owns the order and payment ledger. The public catalogue entry is
-an installation placeholder. It does not install the private service or enable a
-payment method. Use [the provider contract](payment-provider-api.md) for deployment.
+the public Core owns the order and payment ledger. The public catalogue now ships
+the versioned 1.2.0 contract for all 17 methods. Install or upgrade it through the
+existing app lifecycle, connect the configured account and enable its methods.
+Installing the contract does not provision the private service or activate methods. Use [the provider contract](payment-provider-api.md) for deployment.
 
 ## What can be tested now
 
@@ -23,6 +24,9 @@ responses and merchant are synthetic; no external payment network is contacted.
 | Tenant, receipt and browser-session isolation | Foreign tenant/account/payee/amount/parent rejected; scoped token and nonce retained |
 | SEPA form confirmation | Private endpoint validates the IBAN and explicit mandate consent before the original nested provider request |
 | Native browser purchase | Actual Chrome desktop and 390px viewport: private SEPA form, confirmed payment, return and empty cart; simulated PSP only |
+| Hosted simulation contract | All 17 methods with 12 concurrent callers, native cancellation, exact partial/full refunds and durable replay across restart; zero PSP traffic |
+| Restricted service runtime | Separate migration bootstrap and non-owner runtime; owner runtime and runtime migration rejected |
+| Shipped simulated form | Actual scoped session and confirmation endpoint, German shop language over English browser default, readiness nonce and no bank inputs; native Chrome SEPA purchase, return and empty cart also pass |
 | Public Shopware Payments checkout | Not accepted: no dedicated private Payments service was present in the inspected Northflank project |
 
 The connector's 1.1.0 package widens PayPal/card currency declarations to its supported
@@ -66,6 +70,30 @@ acceptance, not an external bank transaction or Storyfront acceptance.
 [Mobile private SEPA form](assets/payments-20261102/mobile-provider-form.jpg) ·
 [Mobile form recovery](assets/payments-20261102/mobile-payment-recovery.jpg).
 
+## Hosted simulation browser acceptance, version 1.2.0
+
+Local Chrome order `RAC-7bb9b34b` used the shared simulated SEPA form in German.
+A second card order, `RAC-f8831534`, passed at 390 × 844 pixels. Both show
+confirmed payment, return to the shop and an empty bag. The merchant API then
+refunded one cent, replayed that same refund key and refunded the exact EUR 12.49
+remainder for each order. No external money was involved.
+After confirming the explicit test decision, the native checkout displayed
+**Zahlung bestätigt** for EUR 12.50. Returning to the collection and opening the
+bag showed zero items. The browser controller initially held the iframe document;
+the existing form-reload action recovered the same order without a second purchase.
+This accepts the local standard storefront path. Public hosting and the original
+Storyfront iframe remain separate acceptance steps.
+
+![Shared simulated payment form](assets/payments-20261102/local-simulated-provider-form.png)
+
+![Native confirmation after the simulated SEPA payment](assets/payments-20261102/local-payment-confirmed.png)
+
+![Empty bag after returning to the shop](assets/payments-20261102/local-returned-empty-cart.png)
+
+[Mobile card form](assets/payments-20261102/mobile-card-simulation.png) ·
+[Mobile payment confirmation](assets/payments-20261102/mobile-payment-confirmed.png) ·
+[Mobile empty bag](assets/payments-20261102/mobile-returned-empty-cart.png).
+
 ## Comparison with Shopware
 
 The [official Shopware Payments guide](https://docs.shopware.com/en/shopware-6-en/shopware-services/shopware-payments)
@@ -77,7 +105,8 @@ claim of complete feature parity.
 The remaining work is tracked explicitly:
 
 - [ ] Deploy the private provider service with its own database access, HTTPS UI
-  origin, approved partner configuration and registered provider callbacks.
+  origin and native Core connection. Simulation needs no PSP credentials; provider
+  Sandbox/Live additionally require approved partner configuration and callbacks.
 - [ ] Connect an authorized Shopware Payments test account and complete browser
   payment, capture, void, cancellation and refunds against that account.
 - [ ] Accept each enabled card/wallet/redirect method, including 3DS outcomes,
@@ -101,7 +130,12 @@ receiving preferences are applied by the provider, not inferred from a manifest.
 
 ## Repeating the local test
 
-Build the public Core and private connector. In the private repository run
+Build the public Core and private connector. Version 1.2.0 also provides
+`SWP_SIMULATION_ONLY=true` for the hosted simulation cases, including execution of
+the shipped checkout document with Node 22. Use a separate throwaway database for
+each invocation.
+
+For the original-shaped provider regression, in the private repository run
 `COMMERCE_ROOT=/absolute/path/to/veyndo python3 tests/local_stack.py`. Supply a
 throwaway `DATABASE_URL` or the test container and `DB_PORT`. Do not point the suite
 at a merchant database. It removes its own automatically created database on exit.

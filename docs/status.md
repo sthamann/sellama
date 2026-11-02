@@ -45,7 +45,10 @@ parity remain open.
 
 Version 1.2.0 adds an explicit hosted simulation mode and replaces the public
 placeholder with the 17-method contract. Local concurrent method, native checkout,
-refund, cancellation and restart checks pass. The new independent hosted service
+refund, cancellation and restart checks pass. A local Chrome SEPA purchase also
+and a mobile card purchase
+show payment confirmation, return and an empty native bag, followed by exact
+partial/full refunds. The new independent hosted service
 is being prepared; public delivery is not yet accepted. See the [shared service
 contract](payment-provider-api.md#shared-shopware-payments-service-version-120).
 

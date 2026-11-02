@@ -31,7 +31,7 @@ public acceptance are recorded separately.
 
 | Work | What connects it |
 | --- | --- |
-| **Ask, review, act** | Describe the work and open a view with real records, native editing and private catalogue intake. Pin it for later; changes retain their approval path. [AI workspace](docs/agentic-workspace.md). |
+| **Ask, review, act** | Describe work and open real records with native editing and private catalogue intake. Pin it; changes stay reviewed. [AI workspace](docs/agentic-workspace.md#a-connected-conversation-surface). |
 | **Prepare the catalogue** | Inspect each product's enabled-language coverage and saved image-job progress, then open its native editor to repair missing content. [Catalogue preparation](docs/product-management.md#preparing-a-catalogue-together). |
 | **Bring your shop** | The [Migration Assistant](docs/agentic-migration.md) connects versioned source profiles, saved background inspection, readable variant review and native imports into private previews. |
 | **Build the business** | Describe an app with forms, uploads, settings and views. Connect materials and dimensions to company approval, checkout and reorder. Visual editing and coding agents share one versioned definition. [App Studio](docs/app-studio.md), [configurator](docs/furniture-configurator.md), [object extensions](docs/app-core-extensions.md). |

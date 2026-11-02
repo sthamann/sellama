@@ -1,5 +1,15 @@
 # Changelog
 
+## 2 November 2026 · Merchant assistant layout
+
+- Align welcome, source tools, working context and message input in one column
+  shared with the contextual assistant drawer. Keep narrow and short views scrollable.
+- Remove empty product sidebars and the duplicate CSV control. Retain direct file
+  intake, scoped dialogs, current permissions and reviewed catalogue changes.
+- Replace visible stock/visitor prompt instructions with concise EN/DE/FR/ES
+  action labels; the native requests retain their full original boundaries.
+- Add actual desktop, drawer and mobile screenshots to the workspace guide.
+
 ## 2 November 2026 · Payment form recovery
 
 - Embedded payment forms expose loading, exact-origin/nonce readiness, a 20-second

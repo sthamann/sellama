@@ -1019,6 +1019,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/app-studio-responsive.css](../frontend/src/admin/styles/app-studio-responsive.css) | Responsive App Studio layouts and reduced-motion settings. |
 | [frontend/src/admin/styles/app-studio.css](../frontend/src/admin/styles/app-studio.css) | App Studio: restrained light canvas, compact control density and responsive palette/inspector workspaces. |
 | [frontend/src/admin/styles/app-workspace.css](../frontend/src/admin/styles/app-workspace.css) | App Studio panel sizing, visible insertions and shared automation presentation. |
+| [frontend/src/admin/styles/assistant-layout.css](../frontend/src/admin/styles/assistant-layout.css) | One reading column connects merchant context, conversation and intake in full Studio and the copilot. |
 | [frontend/src/admin/styles/automation-lifecycle.css](../frontend/src/admin/styles/automation-lifecycle.css) | Configuration workspace: readable definitions, clear selection and contextual actions. |
 | [frontend/src/admin/styles/automation.css](../frontend/src/admin/styles/automation.css) | Actual graph nodes and original rule forms use the Studio theme and independent responsive columns. |
 | [frontend/src/admin/styles/b2b-settings.css](../frontend/src/admin/styles/b2b-settings.css) | Revisioned B2B settings cards, accessible switches and responsive spacing. |

@@ -14,6 +14,7 @@ const moduleRights: Record<Tab, string[]> = {
     "customers.read",
     "knowledge.read",
   ],
+  setup: ["settings.write"],
   design: ["channels.read"],
   assistant: ["assistant.use"],
   overview: ["overview.read", "orders.read"],
@@ -34,6 +35,7 @@ const moduleRights: Record<Tab, string[]> = {
   commerce: ["settings.read"],
 };
 export function canOpenStudio(tab: Tab, rights: string[]) {
+  if (tab === "setup" && !rights.includes("settings.read")) return false;
   if (tab === "design" && !rights.includes("catalog.read")) return false;
   if (
     ["customers", "orders"].includes(tab) &&

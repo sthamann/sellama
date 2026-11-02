@@ -17,6 +17,16 @@ extends the existing planner/approval owner; it is not another agent backend.
 
 **Personal workspace and standard-shop editor:** [Illustrated workflow, shared models, rights, history, forms and publication](personal-workspace-and-shop-design.md).
 
+**Guided shop setup:** [Six review steps, inline native company editing and local acceptance](shop-setup.md).
+`frontend/src/admin/setup/` owns the guide and return path, with its scoped
+`PRODUCT.md` brief retaining the existing Studio design. Its provider checks saved
+setup changes across tabs while preserving unrelated fresh workspace fields.
+`SetupBasics.tsx`
+reuses the existing settings draft, fields and save bar. Optional progress remains
+in `src/studio/personal/model.rs` with workspace revisions, RLS and history.
+`src/agent_runs/context.rs` admits bounded current setup context to the existing
+assistant. Domain tools and publication retain their native owners.
+
 **Studio setup and access:** [Channel wizard fixes, reusable roles, current grants, central B2B configuration and guided company creation](studio-access-and-setup.md).
 
 **13 October integration audit:** shared current rights, configuration versions,

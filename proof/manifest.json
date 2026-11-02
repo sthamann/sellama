@@ -1480,8 +1480,8 @@
     },
     "src/agent_runs/context.rs": {
       "status": "unproved",
-      "sha256": "f13ed66be03415156120a753a719585e5c61edfecce4767ea0b00780eeba31dc",
-      "review": "Reviewed contextual private-work contracts and independent findings: app opt-out, locked guidance, preserved manual actions, conversation lease and locale inheritance; native own/foreign, stale approval, narrowed rights, renewed login, killed-worker continuation and actual app-preview regressions passed. SQL, async runtime and providers remain unproved."
+      "sha256": "87c7ceecabaadd5538214902c53482a6189a62f197110fa391d2792a4c590fd1",
+      "review": "Shop setup remains optional bounded actor-private workspace presentation with native CAS/history; agent context adds setup view only and rejects authority fields. Covered by 3 model tests, context negative test and native HTTP/PostgreSQL save/conflict/history/MCP/foreign-shop rejection."
     },
     "src/agent_runs/contract.rs": {
       "status": "unproved",
@@ -4100,8 +4100,8 @@
     },
     "src/studio/personal/model.rs": {
       "status": "unproved",
-      "sha256": "ae482abe85e75a27a6ea9647c43e18762a619776e9d583fba4208e55bb738443",
-      "review": "Task2 reviewed native view component admission and bounded private pins; unchanged extracted policies. Local native units, clippy and real users/providers/site HTTP pass; independent review fixes cover nested cancel and CRM address drafts."
+      "sha256": "d3cc872a6b12337094184374e1b0ca4a29aaf99195009ceb423f79c28e72a6ad",
+      "review": "Reviewed optional bounded actor-private setup preferences: legacy omission, strict fields, six allowed review steps, duplicate and incomplete-completion rejection; no authority or publication meaning. Native HTTP/MCP CAS/history/foreign-shop and Rust model regressions passed."
     },
     "src/studio/personal.rs": {
       "status": "unproved",

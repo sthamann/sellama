@@ -144,7 +144,7 @@ it("navigates every merchant workspace without duplicating registry requests", a
   });
   const user = userEvent.setup();
   const buttons = within(navigation).getAllByRole("button");
-  expect(buttons.length).toBe(19);
+  expect(buttons.length).toBe(20);
   for (const button of buttons) {
     await user.click(button);
     await waitFor(() => expect(button).toHaveAttribute("aria-current", "page"));

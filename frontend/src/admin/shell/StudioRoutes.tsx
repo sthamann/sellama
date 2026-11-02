@@ -1,15 +1,14 @@
 /** StudioRoutes: focused Studio view; state and commands come from the session-scoped controller. */
+const SetupEntry = lazy(() => import("../setup/SetupEntry"));
 import { useScenarioNavigation } from "../scenarios/useScenarioNavigation";
 import { lazy, useCallback } from "react";
 import { createStudioRequest } from "./requests";
 import { useLocale } from "../../shared/i18n/i18n";
 import StudioConversation from "./StudioConversation";
-
 import { AppSurfaceView } from "../../shared/apps/AppSurfaces";
 import "../../shared/styles/workbench.css";
 import Icon from "../../shared/ui/Icon";
 import { downloadFile } from "../../shared/api/download";
-const PersonalWorkspace = lazy(() => import("../workspace/PersonalWorkspace"));
 const ShopDesigner = lazy(
   () => import("../../../../extensions/apps/site-builder/studio/ShopDesigner"),
 );
@@ -49,11 +48,9 @@ const OverviewView = lazy(() =>
     default: m.OverviewView,
   })),
 );
-
 import { canOpenStudio } from "./permissions";
 import { usePermissionText } from "../team/permission-i18n";
 import { useStudio } from "./StudioContext";
-
 export default function StudioRoutes() {
   const {
     auth,
@@ -141,8 +138,8 @@ export default function StudioRoutes() {
     );
   return appSurface ? (
     <AppSurfaceView selected={appSurface} />
-  ) : tab === "workspace" ? (
-    <PersonalWorkspace />
+  ) : ["setup", "workspace"].includes(tab) ? (
+    <SetupEntry />
   ) : tab === "design" ? (
     <ShopDesigner
       request={request}

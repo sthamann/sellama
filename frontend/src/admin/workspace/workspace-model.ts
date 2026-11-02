@@ -16,7 +16,12 @@ export type Goal = {
   status: "planned" | "working" | "review" | "done" | "stopped";
   taskId: string | null;
 };
-export type Workspace = { areas: Area[]; active: string; goals: Goal[] };
+export type Workspace = {
+  areas: Area[];
+  active: string;
+  goals: Goal[];
+  setup?: import("../setup/setup-model").SetupProgress;
+};
 export type WorkspaceRecord = {
   revision: number;
   data: Workspace;

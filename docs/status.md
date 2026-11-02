@@ -1,8 +1,28 @@
 # Veyndo: current status
 
-Updated 30 October 2026. Start here for the public product, observed journeys and
+Updated 2 November 2026. Start here for the public product, observed journeys and
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
+
+## Guided shop setup, source and local acceptance (2 November 2026)
+
+An optional welcome and **Set up your shop** sidebar entry now connect six explicit
+review areas: basics, products, design, checkout, legal information and a test.
+The first step saves company name, contact email and address through the existing
+native settings form. The other areas lead to existing tools. Saved personal
+progress supports pause/reopen and an active live shop return banner. Controls
+support EN/DE/FR/ES; AI help uses the existing assistant with bounded current step
+context. Completion records the user's review.
+
+Local acceptance includes 17 targeted UI tests, four native model/context tests,
+real HTTP/PostgreSQL progress, history, MCP readback, revision and isolation checks,
+two independent controllers with stale progress/reload recovery and fresh layout
+preservation, and an actual browser company save, explicit step progression and
+pause/reopen.
+[Illustrated guide, source owners and precise verification scope](shop-setup.md).
+Public deployment of this addition has not been observed. Real provider acceptance
+and a completed purchase are separate from these setup checks. Historical public
+releases below retain their original scope and dates.
 
 ## Platform scope
 

@@ -1,5 +1,22 @@
 # Changelog
 
+## Guided personal shop setup (2 November 2026, source and local acceptance)
+
+- Add an optional welcome and six explicit review areas for basics, products,
+  design, checkout, legal information and a test, with EN/DE/FR/ES controls.
+- Save company details inline through existing native settings. Open existing
+  catalogue, design, sandbox, legal and order tools; use the existing assistant
+  with bounded current setup context.
+- Save personal progress alongside the existing workspace with revision checks,
+  row security and history. Detect changed setup progress in a second tab before
+  merging, retain another tab's reviewed areas and recover by reloading; preserve
+  unrelated fresh workspace layout. Pause/reopen through the sidebar and return
+  through an active live shop banner.
+- Document 17 targeted UI tests, four native model/context tests, real storage/API
+  checks and an actual local browser save/progression/pause/reopen. Completion
+  records review; public deployment and real provider/purchase acceptance remain
+  separate.
+
 ## Native product preview in the design overview (30 October 2026)
 
 - Compare a selected channel product alongside home/content pages. Share the native

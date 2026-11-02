@@ -6,6 +6,17 @@ struct Workspace {
     areas: Vec<Area>,
     active: String,
     goals: Vec<Goal>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    setup: Option<Setup>,
+}
+// Presentation progress only: never a publication, payment or permissions gate.
+#[derive(Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+struct Setup {
+    version: u8,
+    state: String,
+    step: String,
+    reviewed: Vec<String>,
 }
 #[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -40,6 +51,23 @@ pub(super) fn validate(v: &Value) -> Result<Value> {
         serde_json::from_value(v.clone()).map_err(|_| bad("Invalid personal workspace"))?;
     let text = |s: &str, n| !s.trim().is_empty() && s.len() <= n;
     let mut ids = std::collections::HashSet::new();
+    if let Some(s) = &w.setup {
+        let steps = ["basics", "products", "design", "checkout", "legal", "test"];
+        if s.version != 1
+            || !["active", "dismissed", "complete"].contains(&s.state.as_str())
+            || !steps.contains(&s.step.as_str())
+            || s.reviewed.len() > steps.len()
+            || s.reviewed.iter().any(|v| !steps.contains(&v.as_str()))
+            || s.reviewed
+                .iter()
+                .collect::<std::collections::HashSet<_>>()
+                .len()
+                != s.reviewed.len()
+            || (s.state == "complete" && s.reviewed.len() != steps.len())
+        {
+            return Err(bad("Invalid personal setup progress"));
+        }
+    }
     if v.to_string().len() > 24000 || w.areas.len() > 8 || w.goals.len() > 30 || w.active.len() > 32
     {
         return Err(bad("Workspace exceeds personal storage limits"));
@@ -143,6 +171,26 @@ pub(crate) fn schema(n: &str) -> Option<Value> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn setup_progress_is_bounded_optional_and_never_authority() {
+        let mut v = empty();
+        assert_eq!(validate(&v).unwrap(), v);
+        v["setup"] = json!({"version":1,"state":"active","step":"products","reviewed":["basics"]});
+        assert_eq!(validate(&v).unwrap(), v);
+        for patch in [
+            json!({"reviewed":["basics","basics"]}),
+            json!({"state":"complete"}),
+            json!({"step":"admin"}),
+            json!({"version":2}),
+            json!({"permissions":["owner"]}),
+        ] {
+            let mut invalid = v.clone();
+            for (k, value) in patch.as_object().unwrap() {
+                invalid["setup"][k] = value.clone();
+            }
+            assert!(validate(&invalid).is_err());
+        }
+    }
     #[test]
     fn composed_pins_preserve_layout_but_never_authority_or_personal_search() {
         let original = json!({"areas":[{"id":"service","name":"Service","cards":[],"pins":[

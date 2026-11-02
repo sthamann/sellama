@@ -39,6 +39,12 @@ Choose another local port/project without touching other development shops:
 TRY_PORT=8789 TRY_PROJECT=veyndo-my-tour ./scripts/try.sh
 ```
 
+## Set up your own shop
+
+The optional **Set up your shop** entry in Studio offers six review areas, an
+inline company form and a saved return point. It links to the existing catalogue,
+design, checkout, legal and test tools. [Illustrated setup guide and current local acceptance](shop-setup.md).
+
 ## Complete the round
 
 1. In the shop's storefront, choose a coat size and place one **simulated** order.

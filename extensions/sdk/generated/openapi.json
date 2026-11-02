@@ -5559,6 +5559,7 @@
                                     "enum": [
                                       "assistant",
                                       "workspace",
+                                      "setup",
                                       "overview",
                                       "knowledge",
                                       "agents",
@@ -5712,6 +5713,7 @@
                                     "enum": [
                                       "assistant",
                                       "workspace",
+                                      "setup",
                                       "overview",
                                       "knowledge",
                                       "agents",
@@ -5865,6 +5867,7 @@
                                     "enum": [
                                       "assistant",
                                       "workspace",
+                                      "setup",
                                       "overview",
                                       "knowledge",
                                       "agents",
@@ -6020,6 +6023,7 @@
                                     "enum": [
                                       "assistant",
                                       "workspace",
+                                      "setup",
                                       "overview",
                                       "knowledge",
                                       "agents",

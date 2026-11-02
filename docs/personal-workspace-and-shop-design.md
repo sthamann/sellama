@@ -368,3 +368,12 @@ The [29 October public follow-through](evidence/platform-followups-hosted-2026-1
 also observes actual palette and section drags, arrow/delete/undo, selected agent
 scope and three real URL-derived proposals. Desktop/mobile review and explicit
 adoption save a new private revision without publishing the live shop.
+
+## Shared scene overview
+
+Shop design now opens a zoomable board of the current channel’s home, product,
+category and content pages. Open a page for direct manipulation, reveal properties
+only when needed and return without losing that page’s draft or undo history.
+Product/category tiles reuse native data editors. The app editor shares the board,
+contextual agent dock and proposal comparison pattern.
+[Illustrated workflow and tested scope](visual-workspace-canvas.md).

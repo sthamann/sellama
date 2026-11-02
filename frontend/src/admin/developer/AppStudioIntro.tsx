@@ -6,13 +6,28 @@ export default function AppStudioIntro({
   disabled,
   onNew,
   overview,
+  compact,
 }: {
   disabled: boolean;
   onNew: () => void;
   overview?: boolean;
+  compact?: boolean;
 }) {
   const pt = usePermissionText();
   const { a } = useAppStudioText();
+  if (compact)
+    return (
+      <button
+        type="button"
+        className="studio-secondary app-canvas-back"
+        title={pt("back")}
+        aria-label={pt("back")}
+        onClick={onNew}
+      >
+        <Icon name="chevron-left" size={16} />
+        {pt("back")}
+      </button>
+    );
   return (
     <div className="app-studio-intro">
       <div>

@@ -1,8 +1,8 @@
 # A visual workspace for shops and apps
 
 The useful Canvas idea is a shared overview of real pages, followed by direct work
-on one selected page or element. The working product and the next design direction
-are deliberately separated below.
+on one selected page or element. The current editors share the overview and contextual tools
+described below while retaining their native definitions and publication owners.
 
 ## Working now: image captions in the existing editors
 
@@ -34,33 +34,108 @@ Product captions remain part of the product aggregate. Page captions stay inside
 the site-builder app document. App images use the existing localized `Block.text`.
 No new database table, runtime, executable markup or publication mechanism is added.
 
-## Next: one overview, consistent tools
+## One overview for shops and apps
 
-The following design changes are **proposed**, not a shipped Canvas replacement.
-They build on the current real storefront previews, page overview, drag/drop,
-resizable app panels and contextual agent drawers.
+Shop design and App Studio now use the same zoomable scene board. Drag its
+background to pan, use the zoom control or press `+`, `-` and `0` while the board
+has keyboard focus. **Fit all** fits the current group. At most four scenes are
+mounted together; additional pages are reached with the view arrows. A large
+catalogue is never loaded just to fill the overview.
 
-| Area | Concrete change | Acceptance |
-| --- | --- | --- |
-| Shop overview | Show home, product, collection and content templates on a zoomable board. Keep channel, language and draft context in one top bar. | Open any tile into the real renderer; preserve unsaved edits when returning to the overview. Bound previews to visible tiles rather than loading the entire catalogue. |
-| Direct editing | Select a visible element, edit text in place and use one small move/duplicate/delete toolbar. Open the inspector only when its settings are needed. | Keyboard and touch perform the same insertion/reorder operation; visible drop targets identify the exact insertion point. |
-| App overview | Show the app's selected placements together, for example product detail, checkout and merchant view. Open a placement using the same selection model. | One app version owns all placements; switching views retains edits and enforces each surface's existing rights. |
-| Contextual agent | A collapsible right dock receives the selected page, block, channel, language and revision. Accept a URL, screenshot or a written instruction. | Show proposed changes on the actual preview, retain original evidence, review the diff and apply through the current native sandbox/CAS path. |
-| App behaviour | Connect a selected button/form to the existing graphical flow/action tools from its inspector. Keep fields and app settings adjacent to the view that uses them. | A visual connection and coding-agent change edit the same typed contract; neither widens installed actions or rights. |
+![Shop overview with home, product, category and a content page](assets/canvas-workspace-20261102/shop-overview.png)
 
-The first connected slice should be **overview → select a page → edit an image and
-caption → preview on mobile → review a sandbox release**. This is a smaller,
-verifiable improvement than replacing every editor with a new free-form runtime.
-Storyfront Experiences retain their original editor and commerce connection.
+### Shape the shop
+
+1. Open **Shop design** and choose the sale channel. The board shows its real home,
+   a selectable product, a category listing and its content pages.
+2. Choose **Open editor** on a page. Click a section to reveal its properties.
+   Collapse **Properties** and **Pages & sections** whenever the preview needs room.
+3. Drag an element to the insertion line. Selected sections expose move, duplicate
+   and delete controls. These edit the existing page document and undo history.
+4. Return to **Page overview**, open another page and come back. The unsaved page,
+   its selection and undo history stay in this workspace. A channel change warns
+   before discarding unfinished work. Save each page explicitly before reloading.
+5. Review the existing selected sandbox publication when ready.
+
+Product and category tiles open their existing native data editors within the
+workspace, retaining the page draft behind them. Native product/category writes
+keep their normal permissions, revision checks and history. Those editors change
+product/category data; the board does not introduce arbitrary product-detail or
+category layout templates. Global shop design remains inherited from the home.
+Original Storyfront Experiences continue to use their own editor.
+
+### Shape every app placement together
+
+An app starts in its placement overview, for example merchant product panel,
+product detail and checkout summary. The placement name leads each scene so views
+with the same app name remain distinguishable. Choose **Open editor** to work on
+that view. **Elements** opens the compact graphical palette; **Properties** opens
+only when needed. Both can be closed. The app identity, section selector, private
+environment and version save remain in the compact header.
+
+![One app with merchant, product and checkout placements](assets/canvas-workspace-20261102/app-overview.png)
+
+Selected stack and grid elements share move, duplicate and delete actions.
+Duplicated elements get a new ID; handlers and field bindings remain in the same
+Manifest. Grid duplicates receive a bounded position offset. Stack drag/drop
+marks the insertion boundary and uses that boundary even when the pointer ends on
+the intervening canvas area. Existing keyboard controls provide an alternative
+to dragging.
+
+For a button or input choose **Edit behavior**. The existing graphical logic
+editor edits its typed click/change handler. **Open Flow Builder** reaches the
+existing automation editor; an app event is the link to a shop Flow. This does not
+turn a button handler into a second Flow runtime. **Data fields** and **App settings**
+open the existing definitions, then the section selector returns to Design without
+replacing the edited Manifest. Version save, private functional preview, staging
+and selected release retain their native owners.
+
+### One contextual agent
+
+**Agent** opens the right dock alongside the overview or selected view. The dock
+shows the selected placement, element, content language, app version and scope.
+App definitions apply across channels, displayed explicitly as **All sales
+channels**; page proposals retain their selected sale channel and revision.
+
+Write a request, supply up to three public HTTPS reference pages or upload up to
+two PNG/JPEG/WebP screenshots/designs. Client preparation bounds decoded image
+size and encodes a reduced image; native validation independently enforces format,
+byte and dimension limits. Shop and app references share the public-only,
+DNS-pinned fetcher. A page that cannot be captured safely is marked unavailable.
+Captured HTML is partial reference evidence, never rendered or executed.
+
+![Contextual agent alongside the edited app](assets/canvas-workspace-20261102/app-agent.png)
+
+Veyndo AI uses central structured inference with image evidence. Codex/Claude Code
+receive the same current Manifest, selected context, schema and bounded references
+through the native task export. Invalid or stale selections are rejected before
+inference. The existing `developer.task` operation exposes that context through
+MCP and generated TypeScript/WIT/OpenAPI inputs. Screenshot HTTP requests have a
+4 MiB limit on the two specific developer routes; ordinary MCP transport limits
+remain unchanged, so large images use HTTP task export.
+
+**Preview proposal** shows the candidate on the same board or selected scene.
+**Current draft** switches back. Neither action adopts the candidate. Adoption
+requires the existing explicit review and an unchanged Manifest/environment.
+Late responses from another environment or changed selection are not adopted.
+App generation retains the existing action authority and business contracts.
+
+Reference status, URLs and digests are retained with the immutable development
+version and return after reload. Raw image pixels and fetched HTML are not retained
+in the build record. The current dock shows uploaded thumbnails while reviewing;
+this is not a permanent original-design asset library.
 
 ## Reference and verification
 
 Shopify documents the side-by-side overview, pan/zoom, fullscreen editing and
 selection-aware Sidekick in [Canvas navigation](https://help.shopify.com/en/manual/online-store/themes/canvas/navigating)
 and [Canvas customization](https://help.shopify.com/en/manual/online-store/themes/canvas/customizing).
-These inform the proposed workflow, not a claim of complete feature parity.
+These inform the workflow; the native editors and publication model remain Veyndo’s.
 
 [Local caption acceptance](evidence/media-captions-2026-11-02.md) records the tested
 source, storage, renderer and provider-fixture boundaries. See also the
 [existing shop design guide](personal-workspace-and-shop-design.md),
 [product media](settings-media.md) and [app workspace](app-studio-workspace.md).
+
+[Canvas acceptance and tested boundaries](evidence/canvas-workspace-2026-11-02.md)
+records the connected native and browser journeys.

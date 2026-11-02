@@ -14,6 +14,17 @@ export type Build = {
   digest: string;
   manifest: Manifest;
   summary: Record<string, string>;
+  designEvidence?: {
+    version: number;
+    context: Record<string, unknown>;
+    sources: {
+      url?: string;
+      kind?: string;
+      status: string;
+      digest?: string;
+      note?: string;
+    }[];
+  };
   state: "draft" | "staged";
   provider: string;
   model?: string;
@@ -110,6 +121,8 @@ export function useAppStudio(
   };
   const manifest = history.present,
     dirty = JSON.stringify(manifest) !== baseline;
+  const liveScope = useRef("");
+  liveScope.current = `${env}:${JSON.stringify(manifest)}`;
   const draftStorage = useDraftStorage(
     request,
     manifest,
@@ -288,6 +301,16 @@ export function useAppStudio(
       provider: string,
       model: string,
       mode: "edit" | "compose" = "edit",
+      design?: {
+        context?: {
+          view: string;
+          selected: string;
+          language: string;
+          channel: string;
+        };
+        references?: { urls: string[]; images: string[] };
+      },
+      isCurrent?: () => boolean,
     ) => {
       const base = JSON.stringify(manifest),
         current = epoch.current;
@@ -298,8 +321,14 @@ export function useAppStudio(
         manifest,
         inference: { provider, model },
         mode,
+        ...design,
       });
-      if (current === epoch.current) setProposal({ build: b, base });
+      if (
+        current === epoch.current &&
+        liveScope.current === `${env}:${base}` &&
+        (!isCurrent || isCurrent())
+      )
+        setProposal({ build: b, base });
     },
     proposeImport: async (m: Manifest) => {
       const base = JSON.stringify(manifest),
@@ -310,7 +339,8 @@ export function useAppStudio(
         summary: m.name,
         manifest: m,
       });
-      if (current === epoch.current) setProposal({ build: b, base });
+      if (current === epoch.current && liveScope.current === `${env}:${base}`)
+        setProposal({ build: b, base });
     },
     startDraft: (m: Manifest) => {
       dispatch(m);

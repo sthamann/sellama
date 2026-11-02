@@ -1,4 +1,5 @@
 /** Drag/drop, snapping, resize and multi-selection share the published app geometry contract. */
+import AppElementActions from "./AppElementActions";
 import { controlKinds } from "../../shared/apps/native/types";
 import { useRef, useState } from "react";
 import type { Block, NativeView, Entity } from "../../shared/apps/native/types";
@@ -18,7 +19,9 @@ export default function AppGridCanvas({
   mainLocale,
   onAdd,
   onCode,
+  onProperties,
 }: {
+  onProperties?: () => void;
   onCode: (id: string) => void;
   view: NativeView;
   entities?: Entity[];
@@ -193,6 +196,16 @@ export default function AppGridCanvas({
               entities={entities}
               mainLocale={mainLocale}
             />
+            {picked.includes(b.id) && (
+              <AppElementActions
+                block={b}
+                blocks={view.blocks}
+                onChange={onChange}
+                onSelect={(id) => select(id, false)}
+                onCode={onCode}
+                onProperties={onProperties}
+              />
+            )}
             <button
               className="app-grid-resize"
               aria-label={a("height")}

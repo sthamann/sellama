@@ -67,7 +67,13 @@ it("opens the selected real page and retains a typed agent request when returnin
     elements: [],
   };
   const request = vi.fn(async (path: string) =>
-    path.includes("/context") ? context : { elements: [home, about] },
+    path.includes("/context")
+      ? context
+      : path.startsWith("/store-api/")
+        ? { elements: [] }
+        : path.startsWith("/store-api/")
+          ? { elements: [] }
+          : { elements: [home, about] },
   );
   render(
     <ShopDesigner
@@ -78,14 +84,14 @@ it("opens the selected real page and retains a typed agent request when returnin
       onEnvironments={() => {}}
     />,
   );
-  fireEvent.click(await screen.findByRole("tab", { name: "Agent" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Agent" }));
   const prompt = screen.getByRole("textbox", {
     name: "Was möchtest du ändern?",
   });
   fireEvent.change(prompt, { target: { value: "Make the whole shop calmer" } });
   fireEvent.click(screen.getByRole("button", { name: "Seitenübersicht" }));
   expect(
-    await screen.findByRole("button", { name: "Seite bearbeiten: About us" }),
+    await screen.findByRole("button", { name: "Bearbeitung öffnen: About us" }),
   ).toBeVisible();
   expect(
     screen.queryByRole("textbox", { name: "Was möchtest du ändern?" }),
@@ -96,7 +102,7 @@ it("opens the selected real page and retains a typed agent request when returnin
   ).toHaveValue("Make the whole shop calmer");
   fireEvent.click(screen.getByRole("button", { name: "Seitenübersicht" }));
   fireEvent.click(
-    screen.getByRole("button", { name: "Seite bearbeiten: About us" }),
+    screen.getByRole("button", { name: "Bearbeitung öffnen: About us" }),
   );
   await waitFor(() =>
     expect(
@@ -118,7 +124,9 @@ it("returns to the same unsaved page without discarding its dirty state or undo 
           installed: ["site_builder", "site_forms"],
           catalogue: { elements: [] },
         }
-      : { elements: [home, about] },
+      : path.startsWith("/store-api/")
+        ? { elements: [] }
+        : { elements: [home, about] },
   );
   render(
     <LocaleScope locale="en-GB">
@@ -131,7 +139,11 @@ it("returns to the same unsaved page without discarding its dirty state or undo 
       />
     </LocaleScope>,
   );
-  fireEvent.click(await screen.findByRole("tab", { name: "Elements" }));
+  fireEvent.click(
+    await screen.findByRole("button", { name: "Open editor: Home" }),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Properties" }));
+  fireEvent.click(screen.getByRole("tab", { name: "Elements" }));
   fireEvent.click(screen.getByRole("button", { name: /Image.*A photograph/ }));
   const inserted = document
     .querySelector("[data-block-id].selected")
@@ -139,9 +151,7 @@ it("returns to the same unsaved page without discarding its dirty state or undo 
   const count = document.querySelectorAll("[data-block-id]").length;
   expect(screen.getByRole("button", { name: "Save draft" })).toBeEnabled();
   fireEvent.click(screen.getByRole("button", { name: "Page overview" }));
-  fireEvent.click(
-    screen.getByRole("button", { name: "Edit page: Current home" }),
-  );
+  fireEvent.click(screen.getByRole("button", { name: "Open editor: Home" }));
   expect(screen.queryByRole("dialog")).toBeNull();
   expect(screen.getByRole("button", { name: "Save draft" })).toBeEnabled();
   expect(document.querySelectorAll("[data-block-id]")).toHaveLength(count);

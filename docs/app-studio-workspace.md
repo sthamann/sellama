@@ -5,6 +5,16 @@ proposals and the existing release workflow. These are different views of the sa
 Manifest and authorized Rust runtime. This guide describes the implementation added
 on 15 October 2026; it does not claim every external provider has been certified.
 
+## Work from the shared canvas
+
+The editor now opens the app’s placements together on a zoomable overview.
+Open a placement, reveal Elements/Properties as needed and use the right Agent
+dock with selected-element context, screenshot/URL references and an explicit
+before/after proposal preview. Buttons and inputs open their existing graphical
+behavior editor directly. The compact section selector connects data, settings,
+connections and versions without replacing the current definition.
+[Illustrated Canvas workflow and precise scope](visual-workspace-canvas.md).
+
 ## Start with where the app helps
 
 Choose **New app → Connected experience** to extend several places at once. Select

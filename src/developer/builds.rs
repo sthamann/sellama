@@ -47,6 +47,7 @@ pub(super) async fn save(
     v: &Value,
     provider: &str,
     model: Option<&str>,
+    evidence: Option<&Value>,
 ) -> Result<Value> {
     let stage = v["environment"]
         .as_str()
@@ -105,14 +106,15 @@ pub(super) async fn save(
     let manifest = json!(m);
     let digest = hash(&manifest.to_string());
     let id = uid();
-    let n=sqlx::query("INSERT INTO developer_builds(id,tenant,environment,app,version,digest,manifest,prompt,provider,model,summary) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) ON CONFLICT(tenant,app,version) DO NOTHING").bind(&id).bind(t).bind(stage).bind(&m.id).bind(&m.version).bind(&digest).bind(&manifest).bind(prompt).bind(provider).bind(model).bind(&v["summary"]).execute(&a.db).await?.rows_affected();
+    let retained = design_context::stored(prompt, evidence);
+    let n=sqlx::query("INSERT INTO developer_builds(id,tenant,environment,app,version,digest,manifest,prompt,provider,model,summary) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) ON CONFLICT(tenant,app,version) DO NOTHING").bind(&id).bind(t).bind(stage).bind(&m.id).bind(&m.version).bind(&digest).bind(&manifest).bind(retained).bind(provider).bind(model).bind(&v["summary"]).execute(&a.db).await?.rows_affected();
     if n != 1 {
         return Err(conflict(
             "Development version already exists; use a new version",
         ));
     }
     Ok(
-        json!({"id":id,"app":m.id,"version":m.version,"digest":digest,"manifest":manifest,"summary":v["summary"],"state":"draft","environment":stage}),
+        json!({"id":id,"app":m.id,"version":m.version,"digest":digest,"manifest":manifest,"summary":v["summary"],"state":"draft","environment":stage,"designEvidence":evidence}),
     )
 }
 #[cfg(test)]

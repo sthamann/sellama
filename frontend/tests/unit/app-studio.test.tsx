@@ -21,6 +21,8 @@ function setup() {
   let build: any;
   let archived = false;
   const request = vi.fn(async (path: string, body?: any) => {
+    if (path === "/api/auth/access")
+      return { permissions: ["developer.manage", "assistant.use"] };
     if (path === "/api/developer/drafts") return { drafts: [] };
     if (path.startsWith("/api/developer/drafts/"))
       return { revision: (body?.revision ?? 0) + 1 };
@@ -85,11 +87,30 @@ function setup() {
   fireEvent.click(screen.getByRole("button", { name: "Close assistant" }));
   return { request };
 }
+async function properties(user: ReturnType<typeof userEvent.setup>) {
+  const open = screen.queryAllByRole("button", { name: /^Open editor:/ });
+  if (open.length) await user.click(open[0]);
+  const props = screen.getByRole("button", { name: "Properties" });
+  if (props.getAttribute("aria-pressed") !== "true") await user.click(props);
+  const name = screen.getByText("App name", { selector: "summary" });
+  if (!name.parentElement?.hasAttribute("open")) await user.click(name);
+}
+async function section(
+  user: ReturnType<typeof userEvent.setup>,
+  value: string,
+) {
+  await user.selectOptions(
+    screen.getByRole("combobox", { name: "App Studio" }),
+    value,
+  );
+}
 it("adds and reorders real schema blocks, then saves, stages and releases only the app package", async () => {
   const { request } = setup(),
     user = userEvent.setup();
   await screen.findByRole("button", { name: "Save new version" });
   expect(screen.queryByRole("button", { name: "Payment provider" })).toBeNull();
+  await user.click(screen.getAllByRole("button", { name: /^Open editor:/ })[0]);
+  await user.click(screen.getByRole("button", { name: "Elements" }));
   await user.click(screen.getByRole("button", { name: /^Cards$/ }));
   await user.click(screen.getByRole("button", { name: "Move up" }));
   await user.click(screen.getByRole("button", { name: "Save new version" }));
@@ -103,7 +124,7 @@ it("adds and reorders real schema blocks, then saves, stages and releases only t
   )![1];
   expect(saved.manifest.views[0].blocks[2].kind).toBe("cards");
   expect(saved.manifest.actions[1].handler).toBe("save");
-  await user.click(screen.getByRole("button", { name: /Versions & releases/ }));
+  await section(user, "versions");
   await user.click(
     await screen.findByRole("button", { name: "Approve & install in sandbox" }),
   );
@@ -121,7 +142,7 @@ it("reviews an agent manifest before updating the same canvas, preserving conten
   setup();
   const user = userEvent.setup();
   await screen.findByText(/care_/);
-  await user.click(screen.getByRole("button", { name: "Coding agent" }));
+  await section(user, "agent");
   const m = template();
   m.id = "agent_app";
   m.entities[0].fields.push({
@@ -140,8 +161,8 @@ it("reviews an agent manifest before updating the same canvas, preserving conten
   await user.click(
     await screen.findByRole("button", { name: "Use this proposal" }),
   );
-  await user.click(screen.getByRole("button", { name: "Close assistant" }));
-  await user.click(screen.getByRole("button", { name: "Data models" }));
+  await user.click(screen.getByRole("button", { name: "Close panel" }));
+  await section(user, "data");
   expect(screen.getByDisplayValue("care_score")).toBeVisible();
 });
 it("opens a saved app card directly on the editable canvas and saves a new version", async () => {
@@ -153,19 +174,20 @@ it("opens a saved app card directly on the editable canvas and saves a new versi
   const original = request.mock.calls.find(
     (c) => c[0] === "/api/developer/import",
   )![1];
-  await user.click(screen.getByRole("button", { name: "Coding agent" }));
-  await user.click(screen.getByRole("button", { name: "Close assistant" }));
+  await section(user, "agent");
+  await user.click(screen.getByRole("button", { name: "Close panel" }));
   await user.click(screen.getByRole("button", { name: "Back to overview" }));
   await user.click(
     screen.getByRole("button", {
       name: /Product care guide.*Open for editing/,
     }),
   );
-  expect(screen.getByRole("button", { name: "Design" })).toHaveAttribute(
-    "aria-current",
-    "page",
+  expect(screen.getByRole("combobox", { name: "App Studio" })).toHaveValue(
+    "design",
   );
+  await properties(user);
   expect(screen.getByLabelText("Version")).toHaveValue("0.1.1");
+  await properties(user);
   await user.clear(screen.getByLabelText("App name"));
   await user.type(screen.getByLabelText("App name"), "Updated guide");
   await user.click(screen.getByRole("button", { name: "Save new version" }));
@@ -182,28 +204,30 @@ it("opens a saved app card directly on the editable canvas and saves a new versi
   expect(original.manifest.version).toBe("0.1.0");
   expect(original.manifest.name.en).toBe("Product care guide");
 });
-it("returns from version editing and the explicit edit button to the design workspace", async () => {
+it("returns from version editing and data fields to the same design workspace", async () => {
   setup();
   const user = userEvent.setup();
   await user.click(
     await screen.findByRole("button", { name: "Save new version" }),
   );
-  await user.click(screen.getByRole("button", { name: /Versions & releases/ }));
+  await section(user, "versions");
   await user.click(
     screen.getByRole("button", { name: "Edit as next version" }),
   );
+  await properties(user);
   expect(screen.getByLabelText("Version")).toHaveValue("0.1.1");
-  expect(screen.getByRole("button", { name: "Design" })).toHaveAttribute(
-    "aria-current",
-    "page",
+  expect(screen.getByRole("combobox", { name: "App Studio" })).toHaveValue(
+    "design",
   );
-  await user.click(screen.getByRole("button", { name: "Data models" }));
-  await user.click(screen.getByRole("button", { name: "Edit app" }));
+  await properties(user);
+  await section(user, "data");
+  await section(user, "design");
+  await properties(user);
   expect(screen.getByLabelText("Version")).toHaveValue("0.1.1");
-  expect(screen.getByRole("button", { name: "Design" })).toHaveAttribute(
-    "aria-current",
-    "page",
+  expect(screen.getByRole("combobox", { name: "App Studio" })).toHaveValue(
+    "design",
   );
+  await properties(user);
 });
 
 it("automatically starts a new version when an already-saved canvas is edited directly", async () => {
@@ -217,6 +241,7 @@ it("automatically starts a new version when an already-saved canvas is edited di
       screen.getByRole("button", { name: "Save new version" }),
     ).toBeDisabled(),
   );
+  await properties(user);
   await user.clear(screen.getByLabelText("App name"));
   await user.type(screen.getByLabelText("App name"), "Direct edit");
   expect(screen.getByLabelText("Version")).toHaveValue("0.1.1");
@@ -265,6 +290,7 @@ it("returns from the designer to the overview without removing the draft", async
   setup();
   const user = userEvent.setup();
   await screen.findByRole("button", { name: "Save new version" });
+  await properties(user);
   const appName = screen.getByLabelText("App name") as HTMLInputElement;
   await user.clear(appName);
   await user.type(appName, "Retained app draft");
@@ -273,5 +299,6 @@ it("returns from the designer to the overview without removing the draft", async
     screen.getByRole("button", { name: "Close assistant" }),
   ).toBeInTheDocument();
   await user.click(screen.getByRole("button", { name: "Close assistant" }));
+  await properties(user);
   expect(screen.getByLabelText("App name")).toHaveValue("Retained app draft");
 });

@@ -8,6 +8,8 @@ export type IconName =
   | "agents"
   | "arrow"
   | "send"
+  | "minus"
+  | "chevron-left"
   | "plus"
   | "settings"
   | "check"
@@ -94,6 +96,8 @@ const paths: Record<IconName, string> = {
   agents: "M9 3v3M15 3v3M5 7h14v13H5ZM2 11h3M19 11h3M8 11h1M15 11h1M9 16h6",
   arrow: "M5 12h14M13 6l6 6-6 6",
   send: "m3 3 18 9-18 9 4-9-4-9ZM7 12h14",
+  minus: "M5 12h14",
+  "chevron-left": "m15 5-7 7 7 7",
   plus: "M12 5v14M5 12h14",
   settings: "M4 7h16M4 17h16M8 4v6M16 14v6",
   check: "m5 12 4 4L19 6",

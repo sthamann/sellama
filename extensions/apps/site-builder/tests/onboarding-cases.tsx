@@ -84,7 +84,7 @@ it("guides a new shop through private handoff and the required package consent, 
   const live = api(),
     enter = vi.fn(async () => {}),
     page = render(view(live, false, rights, enter));
-  fireEvent.click(await screen.findByRole("tab", { name: "Agent" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Agent" }));
   expect(
     screen.queryByRole("textbox", { name: "Reference URLs (one per line)" }),
   ).toBeNull();
@@ -128,6 +128,7 @@ it("reuses a selected private workspace without creating another environment", a
   const request = api(["site_builder", "site_forms"]),
     enter = vi.fn(async () => {});
   render(view(request, false, rights, enter));
+  fireEvent.click(await screen.findByRole("button", { name: "Agent" }));
   await screen.findByRole("option", { name: "My campaign" });
   fireEvent.change(
     await screen.findByRole("combobox", { name: "Private workspace" }),
@@ -151,6 +152,7 @@ it("reuses a selected private workspace without creating another environment", a
 it("explains missing channel permission and never creates an environment for a read-only merchant", async () => {
   const request = api();
   render(view(request, false, ["channels.read", "environments.read"]));
+  fireEvent.click(await screen.findByRole("button", { name: "Agent" }));
   expect(
     await screen.findByText(
       /Ask a shop administrator for channel editing access/,
@@ -176,6 +178,7 @@ it("cancels app consent without installing and retries a failed explicit install
     return base(path, body);
   });
   render(view(request, true));
+  fireEvent.click(await screen.findByRole("button", { name: "Agent" }));
   await reviewRequiredApps();
   await screen.findByRole("button", { name: "Install" });
   fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
@@ -212,6 +215,7 @@ it("does not switch a different workspace when an old sandbox creation finishes 
       : base(path, body),
   );
   const page = render(view(request, false, rights, enter));
+  fireEvent.click(await screen.findByRole("button", { name: "Agent" }));
   fireEvent.click(
     await screen.findByRole("button", {
       name: "Create private draft and continue",
@@ -239,6 +243,7 @@ it("does not redirect another Studio view after setup was unmounted", async () =
       : base(path, body),
   );
   const page = render(view(request, false, rights, enter));
+  fireEvent.click(await screen.findByRole("button", { name: "Agent" }));
   fireEvent.click(
     await screen.findByRole("button", {
       name: "Create private draft and continue",
@@ -255,6 +260,7 @@ it("does not redirect another Studio view after setup was unmounted", async () =
 it("invalidates the host handoff while environment-list refresh is still pending", async () => {
   const enter = vi.fn(async (_id: string, _current?: () => boolean) => {});
   const page = render(view(api(), false, rights, enter));
+  fireEvent.click(await screen.findByRole("button", { name: "Agent" }));
   fireEvent.click(
     await screen.findByRole("button", {
       name: "Create private draft and continue",
@@ -275,7 +281,7 @@ it("does not require a form receiver for ordinary pages, but reviews it for a fo
       screen.queryByRole("button", { name: "Review required apps" }),
     ).toBeNull(),
   );
-  fireEvent.click(await screen.findByRole("tab", { name: "Agent" }));
+  fireEvent.click(await screen.findByRole("button", { name: "Agent" }));
   expect(
     await screen.findByRole("textbox", {
       name: "Reference URLs (one per line)",

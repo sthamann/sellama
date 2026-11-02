@@ -45,3 +45,5 @@ that caption review.
 The images show a local synthetic shop with simulated commerce. The proposal
 wording comes from a local test provider. The product photograph is an existing
 bundled demo image, not a new image-generation result.
+
+Subsequent shared Canvas work is recorded in [its own acceptance](canvas-workspace-2026-11-02.md). This earlier receipt retains its original caption-only scope.

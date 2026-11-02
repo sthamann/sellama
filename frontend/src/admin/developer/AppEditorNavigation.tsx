@@ -9,11 +9,13 @@ export default function AppEditorNavigation({
   onSelect,
   versions,
   payments = false,
+  compact = false,
 }: {
   section: AppStudioKey;
   onSelect: (s: AppStudioKey) => void;
   versions: number;
   payments?: boolean;
+  compact?: boolean;
 }) {
   const { a } = useAppStudioText();
   const tabs = [
@@ -36,6 +38,23 @@ export default function AppEditorNavigation({
     agent: "code",
     versions: "history",
   };
+  if (compact)
+    return (
+      <select
+        aria-label={a("studio")}
+        value={section}
+        onChange={(e) => onSelect(e.target.value as AppStudioKey)}
+      >
+        {tabs
+          .filter((key) => key !== "payments" || payments)
+          .map((key) => (
+            <option key={key} value={key}>
+              {a(key)}
+              {key === "versions" ? ` (${versions})` : ""}
+            </option>
+          ))}
+      </select>
+    );
   return (
     <nav className="app-studio-tabs" aria-label={a("studio")}>
       {tabs

@@ -1,5 +1,19 @@
 # Changelog
 
+## 2 November 2026 · Shared visual canvas
+
+- Share bounded pan/zoom scene navigation across shop pages and app placements;
+  reuse native renderers, product/category editors and existing undo/draft owners.
+- Collapse palettes/properties around the preview, add direct duplicate/move/delete
+  actions and preserve the visible drop boundary when dropping on canvas chrome.
+- Keep the App Studio agent in a right dock with selected view/block/language,
+  screenshot/URL evidence, coding-agent task export and candidate preview before adoption.
+- Validate selected context before inference, use native vision transport and retain
+  redacted reference provenance in immutable versions. Extend canonical MCP inputs
+  and regenerate TS/WIT/OpenAPI contracts without adding a storage or execution owner.
+- Connect element behavior to the existing graphical logic and Flow tools; retain
+  current rights, private preview, version save and selected sandbox publication.
+
 ## 2 November 2026 · Merchant assistant layout
 
 - Align welcome, source tools, working context and message input in one column

@@ -10,7 +10,9 @@ export default function AppViewTabs({
   mainLocale,
   onSelect,
   onChange,
+  readOnly = false,
 }: {
+  readOnly?: boolean;
   manifest: Manifest;
   selected?: string;
   mainLocale: string;
@@ -57,7 +59,7 @@ export default function AppViewTabs({
       ))}
       <button
         type="button"
-        disabled={(m.views?.length ?? 0) >= 16}
+        disabled={readOnly || (m.views?.length ?? 0) >= 16}
         onClick={() => {
           const id = nextId("view", m.views?.map((v) => v.id) ?? []);
           onChange({

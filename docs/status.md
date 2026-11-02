@@ -4,6 +4,17 @@ Updated 2 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
+## Shared visual canvas (2 November 2026)
+
+Shop design and App Studio share a zoomable overview with bounded mounted previews,
+collapsible tools and contextual direct editing. App placements lead into their
+existing view; native product/category handoffs retain the page draft. The app
+agent dock accepts screenshots and URLs, exports selected context to coding agents
+and previews a proposal before adoption. Existing native versions, private previews,
+permissions and selected publication remain authoritative.
+[Illustrated workflow](visual-workspace-canvas.md) ·
+[Native and browser acceptance](evidence/canvas-workspace-2026-11-02.md).
+
 ## Merchant assistant layout (2 November 2026, local acceptance)
 
 Welcome, source actions and input share one column in full Studio and the
@@ -34,9 +45,9 @@ share a localized caption editor with explicit AI proposal review. Native
 renderers display captions separately from alternative text. The shared operation
 uses central inference, owned/bounded image evidence, current rights and enabled
 shop languages. Product aggregate and app-document revision/sandbox owners remain
-unchanged. [Workflow and next Canvas direction](visual-workspace-canvas.md) ·
+unchanged. [Caption and Canvas workflow](visual-workspace-canvas.md) ·
 [acceptance evidence](evidence/media-captions-2026-11-02.md).
-The zoomable common Canvas described in that guide is proposed, not implemented.
+The shared Canvas is now implemented and covered by the acceptance record above.
 Public runtime delivery and real-model wording quality remain separate checks.
 
 ## Guided shop setup, source and local acceptance (2 November 2026)

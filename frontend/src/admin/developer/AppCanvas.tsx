@@ -1,5 +1,7 @@
 /** Accessible click-to-add canvas with selectable blocks and keyboard-accessible ordering controls. */
 import { useState } from "react";
+import AppElementActions from "./AppElementActions";
+import { useCanvasText } from "../../shared/canvas/canvas-i18n";
 import AppControlThumbnail from "./AppControlThumbnail";
 import AppLogicEditor from "./AppLogicEditor";
 import { accepts } from "./control-model";
@@ -31,7 +33,13 @@ export default function AppCanvas({
   paletteWidth = 180,
   onResizePalette,
   onEditFields,
+  onCode,
+  onProperties,
+  toolsVisible = true,
 }: {
+  toolsVisible?: boolean;
+  onCode?: (id: string) => void;
+  onProperties?: () => void;
   paletteWidth?: number;
   onResizePalette?: (n: number) => void;
   onEditFields?: () => void;
@@ -45,6 +53,9 @@ export default function AppCanvas({
   previewRequest: RequestFn;
 }) {
   const [code, setCode] = useState("");
+  const [dropAt, setDropAt] = useState<number | null>(null);
+  const cv = useCanvasText();
+  const openCode = (id: string) => (onCode ? onCode(id) : setCode(id));
   const { a } = useAppStudioText();
   const w = useAppWorkspaceText();
   const update = (blocks: Block[]) =>
@@ -104,7 +115,7 @@ export default function AppCanvas({
     }
   };
   return (
-    <div className="app-designer">
+    <div className={`app-designer ${toolsVisible ? "" : "palette-collapsed"}`}>
       {code && (
         <AppLogicEditor
           block={view.blocks.find((b) => b.id === code)!}
@@ -116,7 +127,7 @@ export default function AppCanvas({
           }
         />
       )}
-      <aside className="app-palette">
+      <aside className="app-palette" hidden={!toolsVisible}>
         <span className="app-panel-label">{a("palette")}</span>
         {(["text", "table", "cards", "form", ...controlKinds] as const).map(
           (kind) => (
@@ -154,7 +165,7 @@ export default function AppCanvas({
           <p>{a("privateHint")}</p>
         </div>
       </aside>
-      {onResizePalette && (
+      {toolsVisible && onResizePalette && (
         <AppPanelHandle
           side="palette"
           value={paletteWidth}
@@ -167,7 +178,10 @@ export default function AppCanvas({
         onDragOver={(e) => {
           if (view.layout !== "form") e.preventDefault();
         }}
-        onDrop={(e) => drop(e)}
+        onDrop={(e) => {
+          drop(e, dropAt ?? view.blocks.length);
+          setDropAt(null);
+        }}
       >
         <div className="app-canvas-label">
           <span>{a(preview ? "realPreview" : "sample")}</span>
@@ -187,7 +201,8 @@ export default function AppCanvas({
           <AppGridCanvas
             view={view}
             entities={manifest.entities}
-            onCode={setCode}
+            onCode={openCode}
+            onProperties={onProperties}
             selected={selected}
             onSelect={onSelect}
             onChange={update}
@@ -202,17 +217,42 @@ export default function AppCanvas({
           />
         ) : (
           <div className={`app-design-blocks app-design-${view.layout}`}>
+            {dropAt !== null && (
+              <p className="app-drop-status" role="status">
+                {cv("drop")} · {dropAt + 1}
+              </p>
+            )}
             {view.blocks.map((b, index) => (
               <article
-                className={`app-design-block ${selected === b.id ? "selected" : ""}`}
+                className={`app-design-block ${selected === b.id ? "selected" : ""} ${dropAt === index ? "drop-before" : ""} ${dropAt === index + 1 && index === view.blocks.length - 1 ? "drop-after" : ""}`}
                 key={b.id}
                 draggable
                 onDragStart={(e) => {
                   e.dataTransfer.setData("application/vnd.veyndo.block", b.id);
                   e.dataTransfer.effectAllowed = "move";
                 }}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => drop(e, index)}
+                onDragOver={(e) => {
+                  if (
+                    !e.dataTransfer.types.some((type) =>
+                      [
+                        "application/vnd.veyndo.kind",
+                        "application/vnd.veyndo.block",
+                      ].includes(type),
+                    )
+                  )
+                    return;
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const box = e.currentTarget.getBoundingClientRect();
+                  setDropAt(
+                    index + (e.clientY > box.top + box.height / 2 ? 1 : 0),
+                  );
+                }}
+                onDragEnd={() => setDropAt(null)}
+                onDrop={(e) => {
+                  drop(e, dropAt ?? index);
+                  setDropAt(null);
+                }}
                 onDoubleClick={() => {
                   onSelect(b.id);
                   if (
@@ -224,7 +264,7 @@ export default function AppCanvas({
                       "datepicker",
                     ].includes(b.kind)
                   )
-                    setCode(b.id);
+                    openCode(b.id);
                 }}
               >
                 <button
@@ -248,45 +288,14 @@ export default function AppCanvas({
                   </button>
                 )}
                 {selected === b.id && (
-                  <div className="app-node-controls">
-                    <button
-                      disabled={index === 0}
-                      aria-label={a("up")}
-                      onClick={() => {
-                        const next = [...view.blocks];
-                        [next[index - 1], next[index]] = [
-                          next[index],
-                          next[index - 1],
-                        ];
-                        update(next);
-                      }}
-                    >
-                      ↑
-                    </button>
-                    <button
-                      disabled={index === view.blocks.length - 1}
-                      aria-label={a("down")}
-                      onClick={() => {
-                        const next = [...view.blocks];
-                        [next[index + 1], next[index]] = [
-                          next[index],
-                          next[index + 1],
-                        ];
-                        update(next);
-                      }}
-                    >
-                      ↓
-                    </button>
-                    <button
-                      aria-label={a("delete")}
-                      onClick={() => {
-                        update(view.blocks.filter((n) => n.id !== b.id));
-                        onSelect("");
-                      }}
-                    >
-                      <Icon name="close" size={14} />
-                    </button>
-                  </div>
+                  <AppElementActions
+                    block={b}
+                    blocks={view.blocks}
+                    onChange={update}
+                    onSelect={onSelect}
+                    onCode={openCode}
+                    onProperties={onProperties}
+                  />
                 )}
               </article>
             ))}

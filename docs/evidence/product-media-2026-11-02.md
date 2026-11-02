@@ -60,7 +60,7 @@ H.264/YUV420p with progressive playback. Existing dated original Storyfront
 example captures remain explicitly dated examples.
 
 The complete handbook build/check passes 364 pages, 357 Markdown sources and
-40,033 local link/asset references. Short structure/localization/source-inventory
+40,035 local link/asset references. Short structure/localization/source-inventory
 and README/status hygiene checks pass. The separate website checks pass 254 tests;
 the focused gallery/Team checks pass eight tests. The design detector reports no
 findings on the changed source surfaces. Actual local Chrome playback reaches
@@ -69,7 +69,40 @@ gallery has `scrollWidth=innerWidth=390`. These are scoped publication checks.
 
 ## Delivery
 
-The public docs, README and static gallery are owned by `sthamann/veyndo`. The
-actual root homepage and Team hub are owned by `sthamann/veyndo-experience`.
-Both owners are updated together. Delivery identifiers and actual public playback
-checks are appended after rollout; a local build alone is not public publication.
+The public docs, README and static gallery were published in
+[PR 264](https://github.com/sthamann/veyndo/pull/264), merged as
+`14f86499bf65ab0e39363290617d3da349d41687`.
+[Pages run 41499997340](https://github.com/sthamann/veyndo/actions/runs/41499997340)
+completed successfully. The actual root homepage, four-language marketing copy,
+SaaS previews and both Team languages were published from private Experience
+PR 84, merged as `aa344b5217b428cbb72cc0dc7d0d6ad55c2800e9`.
+Both private CI runs passed, including the actual original Storyfront image boot,
+PostgreSQL and runtime integration checks. Linux test ordering exposed a fixture
+closing the shared storage connection before access regressions; that teardown
+now belongs to process exit. All 33 route/access regressions pass together.
+
+Northflank built the unchanged original native packaging as `great-produce-4187`
+in 1 minute 42 seconds and deployed that exact merge. The existing service reports
+Running, 1/1 instances. No new service, database access or provider was added.
+
+Public verification after rollout on 2 November:
+
+- [Homepage](https://www.veyndo.ai/?locale=de-DE),
+  [German Team](https://team.veyndo.ai/#tours),
+  [English Team](https://team.veyndo.ai/en.html#tours),
+  [feature guide](../features.md), [status](../status.md), this handbook and the
+  main-branch README serve the refreshed content.
+- All four films on each of the homepage, Team host and handbook have the exact
+  manifest SHA-256. All twelve MP4 deliveries answer range requests with HTTP 206,
+  the correct `Content-Range` and `video/mp4`.
+- All four homepage films reached `readyState=4`, 1920 decoded pixels and more
+  than 15 seconds of real playback without a media error, then were paused.
+  The Team play control starts real frames; its Canvas chapter seeks to 56 seconds
+  and continues playback. The handbook's native player also plays successfully.
+- The public Canvas gallery selects its real current shop overview, loads the
+  1440-pixel capture and has no horizontal overflow at either 390 or 2560 pixels.
+  The handbook video page also fits 390 pixels. The English Team page displays
+  four current films and its 2 November capture dates without broken loaded images.
+- Older recordings remain explicitly dated archives or original example captures;
+  they are not relabelled as current native UI. These browser and encoding checks
+  do not claim a new physical iOS/Safari device test or external payment acceptance.

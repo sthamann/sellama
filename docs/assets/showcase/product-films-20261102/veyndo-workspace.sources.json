@@ -1,0 +1,72 @@
+{
+  "sourceRepo": "sthamann/veyndo",
+  "sourceMain": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+  "captureWindow": "2026-11-02",
+  "assets": [
+    {
+      "id": "product-detail",
+      "path": "assets/product-detail.jpg",
+      "source": "docs/assets/product-tour-20261102/product-detail.jpg",
+      "sha256": "c30cd412d6bb5c44baf2017e9b9cc66e2ff9e225e11fce09814bc7f9ae837ecf",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "product-restored",
+      "path": "assets/product-restored.jpg",
+      "source": "docs/assets/product-tour-20261102/product-restored.jpg",
+      "sha256": "fec1ae9b4de9e2875d54f74e11544fcbf09ab0c97d69f253b785477d7c262b70",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "selected-release",
+      "path": "assets/selected-release.jpg",
+      "source": "docs/assets/product-tour-20261102/selected-release.jpg",
+      "sha256": "645b7b3bb696f9ccbd5982d4a86eaa0fa6140c39547bda39f8d7cb495830f6eb",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "product-media",
+      "path": "assets/product-media.jpg",
+      "source": "docs/assets/product-tour-20261102/product-media.jpg",
+      "sha256": "2198837cef9a2279ac4d42baeab7b895920e5e6290fd4902dc99bae053597d45",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "product-seo",
+      "path": "assets/product-seo.jpg",
+      "source": "docs/assets/product-tour-20261102/product-seo.jpg",
+      "sha256": "37ca8d0f559469109619b247eb9816f9098b3f3217781bf2c4ff38cc994e7e6f",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "product-cross-selling",
+      "path": "assets/product-cross-selling.jpg",
+      "source": "docs/assets/product-tour-20261102/product-cross-selling.jpg",
+      "sha256": "c00e2bc8dae86f34d6068d2397ac74143151a20968233e1377ca5b3dec2f1197",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "product-general",
+      "path": "assets/product-general.jpg",
+      "source": "docs/assets/product-tour-20261102/product-general.jpg",
+      "sha256": "1a0bd067d34c86c669f29951ec927b7138ded1de38a94bd5591bcf2188ea7257",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "shop-editor",
+      "path": "assets/shop-editor.jpg",
+      "source": "docs/assets/product-tour-20261102/shop-editor.jpg",
+      "sha256": "287bd07593b1ade61d033716f5ac3a2b767b71821629857f5b0bd5dd3b443eb9",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    }
+  ],
+  "scope": "Actual 2 November native Rust/PostgreSQL and compiled Studio captures, fictional data. Editorial still sequences; no new inference or real-money provider acceptance."
+}

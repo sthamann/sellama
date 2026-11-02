@@ -1,0 +1,72 @@
+{
+  "sourceRepo": "sthamann/veyndo",
+  "sourceMain": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+  "captureWindow": "2026-11-02",
+  "assets": [
+    {
+      "id": "overview",
+      "path": "assets/overview.jpg",
+      "source": "docs/assets/product-tour-20261102/overview.jpg",
+      "sha256": "f0680adbbc5241c34eaa4ce6885694160d926c53f12c155d2dad21549d88d804",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "app-overview",
+      "path": "assets/app-overview.jpg",
+      "source": "docs/assets/product-tour-20261102/app-overview.jpg",
+      "sha256": "e78dc3ea899ba04bd45fae1fa42f7c39d76f76b2920c78871ab81bd3f2670f90",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "app-data-models",
+      "path": "assets/app-data-models.jpg",
+      "source": "docs/assets/product-tour-20261102/app-data-models.jpg",
+      "sha256": "b56f9e8c7859a45550b27fb8819f78938c05ba705e26e8b582ad48740e7c9130",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "app-connections",
+      "path": "assets/app-connections.jpg",
+      "source": "docs/assets/product-tour-20261102/app-connections.jpg",
+      "sha256": "1a511834077e5fb48c95529d85e7741f4e916f08a176a16d5afa1b297adf6e30",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "app-preview-saved",
+      "path": "assets/app-preview-saved.jpg",
+      "source": "docs/assets/product-tour-20261102/app-preview-saved.jpg",
+      "sha256": "f83b0653ba408d33955353532a6505bd12cb98e0d3eb381a8693b40c11469118",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "app-designer",
+      "path": "assets/app-designer.jpg",
+      "source": "docs/assets/product-tour-20261102/app-designer.jpg",
+      "sha256": "31db5c9840b129ee1aa9bed1776000bb279d01b7e103c41631be1792c91baba1",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "app-agent",
+      "path": "assets/app-agent.jpg",
+      "source": "docs/assets/product-tour-20261102/app-agent.jpg",
+      "sha256": "e4a820428b4e803f8e5f2c1f311b963c42e3f802da76aed515bf24c474a0a6d1",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "app-settings",
+      "path": "assets/app-settings.jpg",
+      "source": "docs/assets/product-tour-20261102/app-settings.jpg",
+      "sha256": "2a1d7294fe45f1a144a8628eba89c6d47d4797bb82ea31a199943f166f48303c",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    }
+  ],
+  "scope": "Actual 2 November native Rust/PostgreSQL and compiled Studio captures, fictional data. Editorial still sequences; no new inference or real-money provider acceptance."
+}

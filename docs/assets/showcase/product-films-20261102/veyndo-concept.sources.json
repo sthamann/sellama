@@ -1,0 +1,64 @@
+{
+  "sourceRepo": "sthamann/veyndo",
+  "sourceMain": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
+  "captureWindow": "2026-11-02",
+  "assets": [
+    {
+      "id": "overview",
+      "path": "assets/overview.jpg",
+      "source": "docs/assets/product-tour-20261102/overview.jpg",
+      "sha256": "f0680adbbc5241c34eaa4ce6885694160d926c53f12c155d2dad21549d88d804",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "assistant",
+      "path": "assets/assistant.jpg",
+      "source": "docs/assets/product-tour-20261102/assistant.jpg",
+      "sha256": "935a594ee860d5f386c1badf5a88c3bd6f85760fe09e56b96f1363ce9c63d0b9",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "workspace",
+      "path": "assets/workspace.jpg",
+      "source": "docs/assets/product-tour-20261102/workspace.jpg",
+      "sha256": "aa5e59bec4b8529845cb29e45bc7e434f287514688a7ed7be049014232fb09ed",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "app-preview-saved",
+      "path": "assets/app-preview-saved.jpg",
+      "source": "docs/assets/product-tour-20261102/app-preview-saved.jpg",
+      "sha256": "f83b0653ba408d33955353532a6505bd12cb98e0d3eb381a8693b40c11469118",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "checkout-complete",
+      "path": "assets/checkout-complete.jpg",
+      "source": "docs/assets/product-tour-20261102/checkout-complete.jpg",
+      "sha256": "2998be884543811db24559d736669bd2f6cc656fc9632232e5e8aed40dbc7734",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "shop-overview",
+      "path": "assets/shop-overview.jpg",
+      "source": "docs/assets/product-tour-20261102/shop-overview.jpg",
+      "sha256": "7d6232cb3686cc1f83f42e489c19e3a002f25af3a895f1f8da0a502e60b63134",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    },
+    {
+      "id": "product-general",
+      "path": "assets/product-general.jpg",
+      "source": "docs/assets/product-tour-20261102/product-general.jpg",
+      "sha256": "1a0bd067d34c86c669f29951ec927b7138ded1de38a94bd5591bcf2188ea7257",
+      "kind": "actual product capture",
+      "treatment": "CSS focus framing only; original pixels unchanged"
+    }
+  ],
+  "scope": "Actual 2 November native Rust/PostgreSQL and compiled Studio captures, fictional data. Editorial still sequences; no new inference or real-money provider acceptance."
+}

@@ -1,0 +1,63 @@
+1
+00:00:00,250 --> 00:00:06,800
+The merchant workspace connects conversation and native shop tools.
+
+2
+00:00:07,150 --> 00:00:13,700
+The catalogue intake offers CSV, source URLs and sample product descriptions.
+
+3
+00:00:14,250 --> 00:00:20,800
+See sources, catalogue knowledge and the available shop connections together.
+
+4
+00:00:21,150 --> 00:00:27,700
+Open the source or test view from the same knowledge workspace.
+
+5
+00:00:28,250 --> 00:00:34,800
+A product or shop URL opens the existing catalogue intake.
+
+6
+00:00:35,150 --> 00:00:41,700
+Review the observed product data before it enters the native catalogue.
+
+7
+00:00:42,250 --> 00:00:48,800
+Provide a shop URL, screenshot or design reference in the shop editor.
+
+8
+00:00:49,150 --> 00:00:55,700
+The contextual agent prepares changes for the current private design.
+
+9
+00:00:56,250 --> 00:01:02,800
+The canvas connects the home page, product page and category.
+
+10
+00:01:03,150 --> 00:01:09,700
+Manual editing and agent proposals remain in the same design workflow.
+
+11
+00:01:10,250 --> 00:01:16,800
+The app assistant works with the selected app and versioned draft.
+
+12
+00:01:17,150 --> 00:01:23,700
+Open the coding workflow while preserving the app definition and settings.
+
+13
+00:01:24,250 --> 00:01:30,800
+The agentic commerce area brings customer scenarios into the shop context.
+
+14
+00:01:31,150 --> 00:01:37,700
+Configure the test work and inspect its saved runs in the same workspace.
+
+15
+00:01:38,250 --> 00:01:46,800
+Agent suggestions and manual edits follow the same reviewable route.
+
+16
+00:01:47,150 --> 00:01:55,700
+Select what is published, with the native release history retained.

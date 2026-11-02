@@ -1,70 +1,72 @@
-# Veyndo product films and video tours
+# Veyndo Commerce product films and video tours
 
-**Updated 30 October 2026.** Four new Full HD films use current product captures, English titles and subtitles, and no sound. Start with the AI overview, then explore product editing and a concrete consultation app.
+**Updated 2 November 2026.** Four refreshed Full HD films use actual current native Studio captures. English titles and subtitles, no sound. Start with the platform overview, then explore the product workflow, the shared canvas and a product advisor app.
 
 ## AI across the working shop
 
-**1:56 · English · 1080p · Silent · 30 October 2026**
+**1:56 · English · 1080p · Silent · 2 November 2026**
 
-Contextual working views, shop intelligence, catalogue intake, reference-assisted design, app assistants and saved fictional customer results.
+Merchant intake, reviewed shop knowledge, design references, the shared canvas, app assistance and fictional customer scenarios.
 
-<video controls playsinline muted preload="none" poster="assets/showcase/product-films-20261030/veyndo-ai-commerce.jpg" aria-label="AI across the working shop" style="width:100%;height:auto;aspect-ratio:16/9;border-radius:16px">
-<source src="assets/showcase/product-films-20261030/veyndo-ai-commerce.mp4" type="video/mp4">
-<track kind="captions" src="assets/showcase/product-films-20261030/veyndo-ai-commerce.en.vtt" srclang="en" label="English">
-<a href="assets/showcase/product-films-20261030/veyndo-ai-commerce.mp4">Watch or download the film</a>
+<video controls playsinline muted preload="none" poster="assets/showcase/product-films-20261102/veyndo-ai-commerce.jpg" aria-label="AI across the working shop" style="width:100%;height:auto;aspect-ratio:16/9;border-radius:16px">
+<source src="assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4" type="video/mp4">
+<track kind="captions" src="assets/showcase/product-films-20261102/veyndo-ai-commerce.en.vtt" srclang="en" label="English">
+<a href="assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4">Watch or download the film</a>
 </video>
 
-[Download MP4](assets/showcase/product-films-20261030/veyndo-ai-commerce.mp4) · [English VTT](https://www.veyndo.ai/docs/assets/showcase/product-films-20261030/veyndo-ai-commerce.en.vtt) · [English SRT](https://www.veyndo.ai/docs/assets/showcase/product-films-20261030/veyndo-ai-commerce.en.srt)
+[Download MP4](assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4) · [English VTT](assets/showcase/product-films-20261102/veyndo-ai-commerce.en.vtt) · [English SRT](assets/showcase/product-films-20261102/veyndo-ai-commerce.en.srt)
 
 ## Commerce that thinks and acts
 
-**1:12 · English · 1080p · Silent · 30 October 2026**
+**1:12 · English · 1080p · Silent · 2 November 2026**
 
-Follow one product through the merchant assistant, a native working view, an installed consultation app and the visual storefront editor.
+Follow one wool coat through merchant tools, a saved product advisor record, visual shop design and a native simulated order.
 
-<video controls playsinline muted preload="none" poster="assets/showcase/product-films-20261030/veyndo-concept.jpg" aria-label="Commerce that thinks and acts" style="width:100%;height:auto;aspect-ratio:16/9;border-radius:16px">
-<source src="assets/showcase/product-films-20261030/veyndo-concept.mp4" type="video/mp4">
-<track kind="captions" src="assets/showcase/product-films-20261030/veyndo-concept.en.vtt" srclang="en" label="English">
-<a href="assets/showcase/product-films-20261030/veyndo-concept.mp4">Watch or download the film</a>
+<video controls playsinline muted preload="none" poster="assets/showcase/product-films-20261102/veyndo-concept.jpg" aria-label="Commerce that thinks and acts" style="width:100%;height:auto;aspect-ratio:16/9;border-radius:16px">
+<source src="assets/showcase/product-films-20261102/veyndo-concept.mp4" type="video/mp4">
+<track kind="captions" src="assets/showcase/product-films-20261102/veyndo-concept.en.vtt" srclang="en" label="English">
+<a href="assets/showcase/product-films-20261102/veyndo-concept.mp4">Watch or download the film</a>
 </video>
 
-[Download MP4](assets/showcase/product-films-20261030/veyndo-concept.mp4) · [English VTT](https://www.veyndo.ai/docs/assets/showcase/product-films-20261030/veyndo-concept.en.vtt) · [English SRT](https://www.veyndo.ai/docs/assets/showcase/product-films-20261030/veyndo-concept.en.srt)
+[Download MP4](assets/showcase/product-films-20261102/veyndo-concept.mp4) · [English VTT](assets/showcase/product-films-20261102/veyndo-concept.en.vtt) · [English SRT](assets/showcase/product-films-20261102/veyndo-concept.en.srt)
 
 ## From product work to a connected shop
 
-**1:36 · English · 1080p · Silent · 30 October 2026**
+**1:36 · English · 1080p · Silent · 2 November 2026**
 
-Current content editing, gallery ordering, SEO preview, ordered recommendations, native product cards, visual design and saved customer-agent outcomes.
+Product content, multilingual captions, SEO, related products, native variants, private shop design, selected publication and content restoration.
 
-<video controls playsinline muted preload="none" poster="assets/showcase/product-films-20261030/veyndo-workspace.jpg" aria-label="From product work to a connected shop" style="width:100%;height:auto;aspect-ratio:16/9;border-radius:16px">
-<source src="assets/showcase/product-films-20261030/veyndo-workspace.mp4" type="video/mp4">
-<track kind="captions" src="assets/showcase/product-films-20261030/veyndo-workspace.en.vtt" srclang="en" label="English">
-<a href="assets/showcase/product-films-20261030/veyndo-workspace.mp4">Watch or download the film</a>
+<video controls playsinline muted preload="none" poster="assets/showcase/product-films-20261102/veyndo-workspace.jpg" aria-label="From product work to a connected shop" style="width:100%;height:auto;aspect-ratio:16/9;border-radius:16px">
+<source src="assets/showcase/product-films-20261102/veyndo-workspace.mp4" type="video/mp4">
+<track kind="captions" src="assets/showcase/product-films-20261102/veyndo-workspace.en.vtt" srclang="en" label="English">
+<a href="assets/showcase/product-films-20261102/veyndo-workspace.mp4">Watch or download the film</a>
 </video>
 
-[Download MP4](assets/showcase/product-films-20261030/veyndo-workspace.mp4) · [English VTT](https://www.veyndo.ai/docs/assets/showcase/product-films-20261030/veyndo-workspace.en.vtt) · [English SRT](https://www.veyndo.ai/docs/assets/showcase/product-films-20261030/veyndo-workspace.en.srt)
+[Download MP4](assets/showcase/product-films-20261102/veyndo-workspace.mp4) · [English VTT](assets/showcase/product-films-20261102/veyndo-workspace.en.vtt) · [English SRT](assets/showcase/product-films-20261102/veyndo-workspace.en.srt)
 
-## Build a consultation app
+## Build a product advisor app
 
-**1:24 · English · 1080p · Silent · 30 October 2026**
+**1:24 · English · 1080p · Silent · 2 November 2026**
 
-Describe an app, arrange its native interface, open the coding assistant, configure installation settings, inspect a retained request and check an upgrade.
+App placements, graphical editing, the contextual coding assistant, installation settings, data relationships, actions and a saved care record.
 
-<video controls playsinline muted preload="none" poster="assets/showcase/product-films-20261030/veyndo-app-platform.jpg" aria-label="Build a consultation app" style="width:100%;height:auto;aspect-ratio:16/9;border-radius:16px">
-<source src="assets/showcase/product-films-20261030/veyndo-app-platform.mp4" type="video/mp4">
-<track kind="captions" src="assets/showcase/product-films-20261030/veyndo-app-platform.en.vtt" srclang="en" label="English">
-<a href="assets/showcase/product-films-20261030/veyndo-app-platform.mp4">Watch or download the film</a>
+<video controls playsinline muted preload="none" poster="assets/showcase/product-films-20261102/veyndo-app-platform.jpg" aria-label="Build a product advisor app" style="width:100%;height:auto;aspect-ratio:16/9;border-radius:16px">
+<source src="assets/showcase/product-films-20261102/veyndo-app-platform.mp4" type="video/mp4">
+<track kind="captions" src="assets/showcase/product-films-20261102/veyndo-app-platform.en.vtt" srclang="en" label="English">
+<a href="assets/showcase/product-films-20261102/veyndo-app-platform.mp4">Watch or download the film</a>
 </video>
 
-[Download MP4](assets/showcase/product-films-20261030/veyndo-app-platform.mp4) · [English VTT](https://www.veyndo.ai/docs/assets/showcase/product-films-20261030/veyndo-app-platform.en.vtt) · [English SRT](https://www.veyndo.ai/docs/assets/showcase/product-films-20261030/veyndo-app-platform.en.srt)
+[Download MP4](assets/showcase/product-films-20261102/veyndo-app-platform.mp4) · [English VTT](assets/showcase/product-films-20261102/veyndo-app-platform.en.vtt) · [English SRT](assets/showcase/product-films-20261102/veyndo-app-platform.en.srt)
 
-## Files and current screenshots
+## Sources, editable projects and current screenshots
 
-[All four editable projects](https://www.veyndo.ai/docs/assets/showcase/product-films-20261030/editable-projects.zip) · [Sources and encoding](assets/showcase/product-films-20261030/README.md) · [File metadata and hashes](https://www.veyndo.ai/docs/assets/showcase/product-films-20261030/manifest.json).
+[All four editable HyperFrames projects](assets/showcase/product-films-20261102/editable-projects.zip) · [Sources and encoding](assets/showcase/product-films-20261102/README.md) · [File metadata and hashes](assets/showcase/product-films-20261102/manifest.json).
 
-The films are editorial sequences of actual interface stills captured on **29 and 30 October**. The public Studio captures were made on 30 October; selected native acceptance captures are dated 29 and 30 October. Interface text is English and German, with English explanation. All data is synthetic and payments are simulated. Saved scenario results were reopened, not rerun for this recording. The dated [software acceptance](status.md) remains the evidence for the underlying workflows.
+The films are editorial sequences of actual interface stills captured on **2 November** from the native Rust/PostgreSQL application and compiled Studio. All records are fictional; purchases are simulated. The capture run includes a completed coat purchase, private app record, selected product publication and explicit content restoration. The films show the available agent controls; no new external model request was made for this recording. Source images remain unchanged, with editorial framing and timing.
 
-[Current product editor](assets/current-workspace-20261030/product-general.png) · [Shop intelligence](assets/current-workspace-20261030/shop-intelligence.png) · [App Studio](assets/current-workspace-20261030/app-designer.png) · [Media publication checks](evidence/product-media-2026-10-30.md).
+[Current screenshot and animation library](assets/product-tour-20261102/README.md) · [Current status](status.md) · [Publication checks](evidence/product-media-2026-11-02.md).
+
+Earlier films remain below with their original dates. Their presence is historical evidence, not a fresh recording or provider acceptance.
 
 ## Earlier workflow recordings — 13 October 2026
 

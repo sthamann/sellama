@@ -632,9 +632,10 @@
       ],
       "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
       "url": "http://127.0.0.1:8802/?shop=media-tour&studio=knowledge#merchant",
-      "capturedAt": "2026-11-02T17:01:04.650Z",
-      "bytes": 121612,
-      "sha256": "b48071a3ca41c82d16d0eec68e557352535a3b7e18b0817242e14ac2be04f739"
+      "capturedAt": "2026-11-02T18:12:18.927Z",
+      "bytes": 130273,
+      "sha256": "8781b6d234041bb704bace4dfabbd5e429e707981c9e8b390426016430456269",
+      "observed": "Configuration revision 1 loaded; manual approval selected; product search and price-boundary actions visible."
     },
     {
       "file": "knowledge-connections.jpg",
@@ -961,9 +962,10 @@
       ],
       "sourceCommit": "b1f2269b7a29ef1059edb34db07c0654b02a8a93",
       "url": "http://127.0.0.1:8802/?shop=media-tour&studio=productData&entity=coat#merchant",
-      "capturedAt": "2026-11-02T17:00:43.753Z",
-      "bytes": 120930,
-      "sha256": "3c20382ab6f59400285f787c875d49c36aec89520049c9bd1093fab824d2285c"
+      "capturedAt": "2026-11-02T18:11:04.040Z",
+      "bytes": 129901,
+      "sha256": "c00e2bc8dae86f34d6068d2397ac74143151a20968233e1377ca5b3dec2f1197",
+      "observed": "Two native recommendations saved; product revision 2; Saved status."
     },
     {
       "file": "product-detail.jpg",

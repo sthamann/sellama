@@ -5,6 +5,14 @@ journeys. The [connected AI workspace](agentic-workspace.md) explains contextual
 planning, reviewed private execution, app composition, real preview, editable list
 handoff and remembered merchant guidance.
 
+**Updated 2 November 2026:** the public Core includes the shared shop/app Canvas
+with zoomable placement previews, graphical elements, direct behavior editing
+and the contextual agent dock. Product, page and app imagery share localized
+caption controls. The [current visual workflow](visual-workspace-canvas.md),
+[App Studio guide](app-studio.md) and [new product advisor film](video-tours.md#build-a-product-advisor-app)
+show those connected owners. The wider source-build, replay and managed-service
+programme below remains open.
+
 **Updated 29 October 2026:** the connected follow-ups add agent-composed native
 working views, description-led consultation app generation, upgrade checks against
 saved data and current consumers, actual browser designer/customer acceptance,

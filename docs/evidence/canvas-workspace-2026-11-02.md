@@ -91,7 +91,7 @@ app template in the new placement overview, selected-button actions and its exis
 graphical click-handler editor. The public contextual agent exported a real Codex
 task containing `view: workspace`, `selected: save`, `language: de-DE`, `channel: *`
 and the current Manifest digest. Saving the native immutable app version returned
-**Version saved**, with one release record. The package was not installed or
+**Version saved**, with one immutable development version. The package was not installed or
 published to the live shop by this acceptance.
 
 The public illustrated guide loaded all three actual capture assets. The wider

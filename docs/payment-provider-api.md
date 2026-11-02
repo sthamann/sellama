@@ -91,7 +91,8 @@ The bundled `shopware_payments` package now contains the public, language-neutra
 provider contract for PayPal, Apple Pay, Google Pay, Venmo, Pay Later, invoice,
 SEPA, Bancontact, EPS, BLIK, iDEAL, MyBank, Przelewy24, card, Swish, Afterpay and
 Klarna. The implementation, upstream source and partner attribution remain in
-the separate private Rust service. Klarna declares authorization before capture.
+the separate private Rust service. Klarna declares authorization before capture. Checkout shows authorization as an
+approved reservation rather than a captured payment or an endless loading state.
 Other methods retain their declared capture flow and their country/currency rules.
 
 Operators can configure `simulation` alongside `sandbox` and `live` in the existing
@@ -107,6 +108,9 @@ returns the service URL or token. The shared account panel uses this information
 including existing connections, without requiring unrelated automation access.
 Account operations still require `payments.manage`; installing the package leaves
 methods inactive until the merchant connects and enables them.
+
+The immutable native order snapshot retains the resolved checkout language, so
+the provider document follows the shop language instead of the browser default.
 
 The private service's `SWP_MODE=simulation` uses the same authenticated RPC,
 immutable invoice, hosted session, durable signed notification and native Core

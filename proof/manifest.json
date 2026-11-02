@@ -3685,8 +3685,8 @@
     },
     "src/order_checkout.rs": {
       "status": "reviewed-binding",
-      "sha256": "fb8f796153cd75d249f48e310a403aacbe59a96a26f09edfc7b5c0cc7b0fce30",
-      "review": "Customer scenarios: independent scenario_security_review completed; native signed-role, cohort, replay, injection, cancellation and post-lock lease-expiry regressions pass. Shared checkout preflight avoids nested-pool deadlock; authority is rechecked at the fenced transaction commit."
+      "sha256": "36f43f4d1db4260b76aff47c4b2e301689b3285a26a78a87d93938dc42884b80",
+      "review": "Review authoritative checkout locale in the immutable order snapshot for hosted provider presentation; amounts, rights and transaction ownership unchanged."
     },
     "src/order_routes.rs": {
       "status": "unproved",

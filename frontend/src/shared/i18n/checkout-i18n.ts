@@ -87,6 +87,18 @@ const text = {
     "Paiement confirmé",
     "Pago confirmado",
   ],
+  authorized: [
+    "Payment authorized",
+    "Zahlung autorisiert",
+    "Paiement autorisé",
+    "Pago autorizado",
+  ],
+  authorizedHint: [
+    "Your payment is approved. The shop will capture the reserved amount separately.",
+    "Deine Zahlung ist freigegeben. Der Shop zieht den reservierten Betrag gesondert ein.",
+    "Votre paiement est approuvé. La boutique encaissera le montant réservé séparément.",
+    "Tu pago está aprobado. La tienda cobrará el importe reservado por separado.",
+  ],
   paidHint: [
     "The provider receipt matches your order. You can close this page.",
     "Der Zahlungsbeleg stimmt mit deiner Bestellung überein. Du kannst diese Seite schließen.",

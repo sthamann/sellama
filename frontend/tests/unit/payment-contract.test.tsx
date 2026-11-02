@@ -2,6 +2,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { it, expect, vi } from "vitest";
 import AppPayments from "../../src/admin/developer/AppPayments";
+import PaymentSession from "../../src/storefront/checkout/PaymentSession";
 import EmbeddedPayment from "../../src/storefront/checkout/EmbeddedPayment";
 import { assistedManifest } from "../../src/admin/developer/assistant-model";
 import { compile, problems } from "../../src/admin/developer/app-model";
@@ -225,4 +226,25 @@ it("selects configured simulation and does not require automation rights", async
       }),
     ),
   );
+});
+
+it("shows an authorization as approved without claiming captured money", async () => {
+  api.mockResolvedValue({
+    state: "authorized",
+    amountMinor: 1250,
+    currency: "EUR",
+    currencyScale: 2,
+    environment: "simulation",
+    checkout: "embedded",
+  });
+  render(<PaymentSession id="auth-only" token="scoped-context" />, {
+    wrapper: LocaleProvider,
+  });
+  await waitFor(() =>
+    expect(
+      screen.getByRole("heading", { name: "Payment authorized" }),
+    ).toBeTruthy(),
+  );
+  expect(screen.queryByTitle("Secure payment")).toBeNull();
+  expect(screen.queryByText("Payment received")).toBeNull();
 });

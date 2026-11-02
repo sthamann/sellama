@@ -14,3 +14,8 @@ advice app was saved through the native immutable build API.
 
 See [acceptance](../../evidence/canvas-workspace-2026-11-02.md) for observed actions
 and the separation between local UI/native provider fixtures and public delivery.
+
+Public captures after PR 258 deployment:
+
+- `public-shop-overview.png`: native public Core, existing synthetic completion lab and private environment.
+- `agent-export-contained.png`: subsequent local containment regression with the actual expanded native Codex task, after correcting intrinsic grid sizing.

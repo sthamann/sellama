@@ -69,5 +69,46 @@ arbitrary new product/category layout templates are outside this change.
 
 ## Delivery
 
-Local acceptance is recorded above. Public image, CI and website delivery must be
-verified independently before claiming this source is available online.
+[PR 258](https://github.com/sthamann/veyndo/pull/258) merged as
+`f079e294362e3cc5c522615652d493661427e950`. Main quick verification, the
+smoke-tested packaged image, migration image and documentation deployment passed:
+[quick checks](https://github.com/sthamann/veyndo/actions/runs/41466420823),
+[packaged runtime](https://github.com/sthamann/veyndo/actions/runs/41466420779),
+[migration image](https://github.com/sthamann/veyndo/actions/runs/41466420817),
+[website](https://github.com/sthamann/veyndo/actions/runs/41466420981).
+
+The existing Northflank main workflow
+`25831be9-0954-44c0-bac8-1677b61bb583` built that exact commit, completed snapshot
+`26-11-02-150522-backup`, passed the native migration job and deployed Core with
+one ready replica. Total duration was 12m55s; backup took 45s, migration 14s and
+Core deployment 1m11s. Public `/health` returned `status: ok` with PostgreSQL and
+simulated payment after deployment.
+
+Actual public Chrome acceptance used the existing synthetic **Veyndo Completion
+Lab 15 Oct** and a private environment. It covered the authenticated start-to-Studio
+handoff, shared shop overview, opening the real product editor, an existing advice
+app template in the new placement overview, selected-button actions and its existing
+graphical click-handler editor. The public contextual agent exported a real Codex
+task containing `view: workspace`, `selected: save`, `language: de-DE`, `channel: *`
+and the current Manifest digest. Saving the native immutable app version returned
+**Version saved**, with one release record. The package was not installed or
+published to the live shop by this acceptance.
+
+The public illustrated guide loaded all three actual capture assets. The wider
+reference-image/provider fixture and selected-publication tests remain the local
+native acceptance described above. Public UI checks do not establish external
+model design quality or an additional real-payment acceptance.
+
+[Public shop overview](../assets/canvas-workspace-20261102/public-shop-overview.png) ·
+[Corrected expanded task](../assets/canvas-workspace-20261102/agent-export-contained.png).
+
+The public task check exposed intrinsic CSS grid expansion when the full task
+was opened: content grew to roughly 3,982 px inside a 324 px dock. The shared
+agent panel and task-transfer grid now use shrinkable tracks; long task tokens
+wrap. A fresh actual local native export with 68,205 characters keeps the dock
+at `clientWidth = scrollWidth = 324`, with no overwide descendants. At a 390 px
+phone viewport, document width stays 390 and the dock stays 357 px without
+horizontal overflow. The rebuilt frontend and formatting passed; the independent
+finish review returned `ship` for this focused containment correction. The
+linked corrected-task capture is local; the public overview is captured after
+the first rollout.

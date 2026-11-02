@@ -1,4 +1,5 @@
 /** Stable preview navigation shares the current editor history across overview and page modes. */
+import { useCanvasText } from "../../../../frontend/src/shared/canvas/canvas-i18n";
 import Icon from "../../../../frontend/src/shared/ui/Icon";
 import { PlacementStatus } from "./EditableSection";
 import { useDesignText } from "./design-i18n";
@@ -14,7 +15,11 @@ export default function DesignerPreviewBar({
   onDevice,
   onOverview,
   onPages,
+  toolsOpen,
+  onTools,
 }: {
+  toolsOpen?: boolean;
+  onTools?: () => void;
   d: Designer;
   writable: boolean;
   overview: boolean;
@@ -24,6 +29,7 @@ export default function DesignerPreviewBar({
   onOverview: () => void;
   onPages: () => void;
 }) {
+  const cv = useCanvasText();
   const t = useDesignText(),
     o = useOverviewText();
   return (
@@ -67,6 +73,12 @@ export default function DesignerPreviewBar({
       >
         ↷
       </button>
+      {!overview && (
+        <button type="button" aria-expanded={toolsOpen} onClick={onTools}>
+          <Icon name="settings" size={16} />
+          {toolsOpen ? cv("close") : cv("properties")}
+        </button>
+      )}
       <PlacementStatus page={d.draft} />
     </div>
   );

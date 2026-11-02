@@ -316,10 +316,23 @@ interface inputs {
     %build-id: string,
     %digest: string,
   }
+  record developer-task-input-context {
+    %channel: string,
+    %language: string,
+    %selected: string,
+    %view: string,
+  }
+  record developer-task-input-references {
+    %images: option<list<string>>,
+    %urls: option<list<string>>,
+  }
   record developer-task-input {
     %agent: string,
+    %context: option<developer-task-input-context>,
     %environment: string,
+    %manifest: option<string>,
     %prompt: string,
+    %references: option<developer-task-input-references>,
   }
   record catalog-search-input {
     %after: option<string>,

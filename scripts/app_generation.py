@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Native AI proposal contract with local model HTTP, real Rust/SQL and no paid model calls."""
-import copy,json,os,socket,subprocess,threading,time,urllib.request,urllib.error,uuid
+import base64,copy,json,os,socket,struct,zlib,random,subprocess,threading,time,urllib.request,urllib.error,uuid
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from urllib.parse import urlsplit,urlunsplit
 from testing.database import psql
@@ -64,7 +64,37 @@ try:
  state['manifest']=m
  payload={'environment':stage,'prompt':'Improve this product editor with native controls while preserving data and permissions','manifest':m,'inference':{'provider':'ollama','model':'synthetic-model'}}
  assert not seen,'Unrelated work reached the app-generation model before its first request'
- b=call('/api/developer/generate',payload);generated=b['manifest']
+ def png_chunk(kind,data):return struct.pack('!I',len(data))+kind+data+struct.pack('!I',zlib.crc32(kind+data))
+ pixels=random.Random(7).randbytes(250*250*4)
+ png=b'\x89PNG\r\n\x1a\n'+png_chunk(b'IHDR',struct.pack('!IIBBBBB',250,250,8,6,0,0,0))+png_chunk(b'IDAT',zlib.compress(b''.join(b'\0'+pixels[y*1000:(y+1)*1000] for y in range(250))))+png_chunk(b'IEND',b'')
+ pixel='data:image/png;base64,'+base64.b64encode(png).decode()
+ assert len(pixel)>65536,'Screenshot transport must exceed the default JSON body limit'
+ editor={'view':m['views'][0]['id'],'selected':m['views'][0]['blocks'][0]['id'],'language':'en-GB','channel':'*'}
+ invalid={**payload,'context':{**editor,'selected':'foreign-element'}}
+ call('/api/developer/generate',invalid,409)
+ assert not seen,'Invalid selection reached a model'
+ b=call('/api/developer/generate',{**payload,'context':editor,'references':{'images':[pixel],'urls':['https://127.0.0.1/private']}});generated=b['manifest']
+ assert b['designEvidence']['context']['selected']==editor['selected']
+ assert b['designEvidence']['sources'][0]['status']=='provided'
+ assert b['designEvidence']['sources'][1]['status']=='unavailable'
+ assert pixel.split(',')[1] in json.dumps(seen[0]),'Image pixels did not reach the vision provider'
+ retained=next(x for x in call('/api/developer')['builds'] if x['id']==b['id'])['designEvidence']
+ assert retained==b['designEvidence'] and pixel not in json.dumps(retained)
+ task=call('/api/developer/task',{'environment':stage,'prompt':'Adapt this selected element','agent':'codex','manifest':m,'context':editor,'references':{'images':[pixel]}})
+ assert task['context']['manifestDigest'] and task['referenceImages']==[pixel]
+ assert task['referenceEvidence'][0]['status']=='provided'
+ rpc=call('/mcp',{'jsonrpc':'2.0','id':1,'method':'tools/call','params':{'name':'developer.task','arguments':{'environment':stage,'prompt':'Adapt this selected element','agent':'codex','manifest':m,'context':editor,'references':{'urls':['https://127.0.0.1/private']}}}})
+ assert not rpc['result'].get('isError') and rpc['result']['structuredContent']['context']['selected']==editor['selected']
+ limited=call('/api/workspace/integrations',{'name':'Canvas denied','permissions':['catalog.read'],'expiresInDays':1})
+ denied={**headers,'Authorization':'Bearer '+limited['key']}
+ before_calls=len(seen)
+ call('/api/developer/generate',{**payload,'context':editor},403,denied)
+ call('/api/developer/task',{**payload,'agent':'codex','context':editor},403,denied)
+ assert len(seen)==before_calls
+ call('/api/developer/task',{**invalid,'agent':'codex'},409)
+ call('/api/developer/task',{**payload,'agent':'codex','references':{'images':['data:image/svg+xml;base64,PHN2Zz4=']}},400)
+ call('/api/developer/task',{**payload,'agent':'codex','references':{'urls':['https://user:password@example.test/']}},400)
+ print('PASS native canvas selection fences, actual image-provider transport, coding task context, denied private URL capture and immutable redacted evidence readback')
  assert b['state']=='draft' and b['environment']==stage
  assert not generated['entities'][0]['publicRead'] and generated['entities'][0]['fields'][0]['coreReference']=='product'
  assert not any(s['app']==m['id'] for s in call('/api/apps/surfaces')['surfaces'])

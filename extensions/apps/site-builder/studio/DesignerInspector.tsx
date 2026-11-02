@@ -122,7 +122,7 @@ export default function DesignerInspector({
                   "/api/apps/site_builder/actions/editor_pages",
                   { id: d.draft!.id },
                 );
-                if (response.elements[0]) d.open(response.elements[0]);
+                if (response.elements[0]) d.open(response.elements[0], true);
               }}
             />
           </div>

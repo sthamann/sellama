@@ -174,7 +174,7 @@ pub(crate) fn input(name: &str) -> Value {
             json!({"buildId":{"type":"string"},"digest":{"type":"string"},"approve":{"type":"boolean"}})
         }
         "developer.task" => {
-            json!({"environment":{"type":"string"},"prompt":{"type":"string"},"agent":{"type":"string"}})
+            json!({"environment":{"type":"string"},"prompt":{"type":"string","maxLength":8000},"agent":{"type":"string"},"manifest":{"type":"object"},"context":{"type":"object","properties":{"view":{"type":"string"},"selected":{"type":"string"},"language":{"type":"string"},"channel":{"type":"string","enum":["*"]}},"required":["view","selected","language","channel"],"additionalProperties":false},"references":{"type":"object","properties":{"urls":{"type":"array","maxItems":3,"items":{"type":"string","maxLength":2000}},"images":{"type":"array","maxItems":2,"items":{"type":"string","maxLength":1400000}}},"additionalProperties":false}})
         }
         "catalog.search" => {
             json!({"query":{"type":"string","maxLength":200},"search":{"type":"string","maxLength":200},"category":{"type":"string","maxLength":100},"categoryId":{"type":"string","maxLength":100},"ids":{"type":"array","maxItems":500,"items":{"type":"string","minLength":1,"maxLength":200}},"after":{"type":"string","maxLength":200},"limit":{"type":"integer","minimum":1,"maximum":100}})

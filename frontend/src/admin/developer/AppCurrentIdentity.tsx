@@ -17,7 +17,7 @@ export default function AppCurrentIdentity({
         <Icon name="layers" size={20} />
       </span>
       <div>
-        <strong>{title}</strong>
+        <h1>{title}</h1>
         <small>
           {id} · {version} · {status}
         </small>

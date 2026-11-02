@@ -1280,8 +1280,8 @@
     },
     "extensions/apps/site-builder/references.rs": {
       "status": "unproved",
-      "sha256": "2ee3779421ca948e24db00d398db134279cbfeaad31767292dd503c1b163178a",
-      "review": "Personal workspace and app-owned site design review: trusted personal sessions and actor RLS; public status/time/channel projection; original read-scope and current-field history; append-only cart-bound inbox/outbox with PII rights; package-before-record release fences. Independent security review and actual PostgreSQL own/foreign/CAS/history/form/model fixtures plus existing app/commerce/checkout/role/strict-runtime suites. New pure intake conjunction has exact Lean claims/conformance/negative mutations. SQL, UI, inference and providers remain unproved."
+      "sha256": "fc5980fba3459fb7605b9a52037f48c585a935bc146c20893bac8f2e20eeb82d",
+      "review": "Canvas reference capture uses bounded public-only egress and native vision; developer context is validated before inference, redacted evidence retained in existing immutable versions, HTTP/MCP task schemas preserve native staging and current rights. Native app-generation HTTP/PostgreSQL and context unit regressions passed."
     },
     "extensions/apps/site-builder/server.rs": {
       "status": "unproved",
@@ -2028,6 +2028,11 @@
       "sha256": "f5b8a7f26722e15ac417138cf59460907286fd58ed58e9a4295e4f535d15dfa8",
       "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
     },
+    "src/assets/design_references.rs": {
+      "status": "unproved",
+      "sha256": "eda440b4084ec8df20d54abf2450e20228f108ef012ffbfd8f5e631361e8157b",
+      "review": "Reviewed final canvas adapters: bounded shared reference capture rejects credential URLs and private destinations; context validated before provider calls; immutable version provenance excludes raw pixels/HTML; existing staging, authorization and generated MCP contracts retained. Native screenshot HTTP/MCP, denied-access and app-generation lifecycle regressions passed."
+    },
     "src/assets/download.rs": {
       "status": "reviewed-binding",
       "sha256": "c8f3f097e40c04b95d3eb5ab876b9f51e794e7016d697356b64e09353c17b32a",
@@ -2055,8 +2060,8 @@
     },
     "src/assets/mod.rs": {
       "status": "unproved",
-      "sha256": "d3d2ffec6995100d5a42b9fcd2dfd5706da23eef90d61267e9ff155f7574b3ad",
-      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
+      "sha256": "de2a2b95b070a15048e6480370366c11700c83251cc63fd4f4624afe4935fbed",
+      "review": "Canvas reference capture uses bounded public-only egress and native vision; developer context is validated before inference, redacted evidence retained in existing immutable versions, HTTP/MCP task schemas preserve native staging and current rights. Native app-generation HTTP/PostgreSQL and context unit regressions passed."
     },
     "src/assets/rich.rs": {
       "status": "unproved",
@@ -2425,8 +2430,8 @@
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "5438e5234cf02e14ae302b0980e8d49df5b40def6cfe8272660d77aaadb55ca1",
-      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
+      "sha256": "d90f82a2c24a110a6893f466cbd7d1852b0b0dabd0ecd4d32f50dcc2347aabc0",
+      "review": "Canvas reference capture uses bounded public-only egress and native vision; developer context is validated before inference, redacted evidence retained in existing immutable versions, HTTP/MCP task schemas preserve native staging and current rights. Native app-generation HTTP/PostgreSQL and context unit regressions passed."
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -2990,8 +2995,13 @@
     },
     "src/developer/builds.rs": {
       "status": "unproved",
-      "sha256": "b38e3c473f4f6645e3ae406a7253fea053f397a41373b2e93d61f796256b97ad",
-      "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
+      "sha256": "a5b9a996c6d0a8a409fe2ee0e34199d053ec113837efc89d4706b69a7c6085b0",
+      "review": "Canvas reference capture uses bounded public-only egress and native vision; developer context is validated before inference, redacted evidence retained in existing immutable versions, HTTP/MCP task schemas preserve native staging and current rights. Native app-generation HTTP/PostgreSQL and context unit regressions passed."
+    },
+    "src/developer/design_context.rs": {
+      "status": "unproved",
+      "sha256": "27341ed0843c2b67eaf49e01a7be499f77f7a7f3e811f3bb5a219f7c5d4b54eb",
+      "review": "Canvas reference capture uses bounded public-only egress and native vision; developer context is validated before inference, redacted evidence retained in existing immutable versions, HTTP/MCP task schemas preserve native staging and current rights. Native app-generation HTTP/PostgreSQL and context unit regressions passed."
     },
     "src/developer/drafts.rs": {
       "status": "unproved",
@@ -3000,8 +3010,8 @@
     },
     "src/developer/generation.rs": {
       "status": "unproved",
-      "sha256": "dce6d38bd04f8fa2524673faaf13d94e307c64ecbf76b26ac68c0766882e8c58",
-      "review": "Guided first-app generation exposes only typed native field constraint properties, preserving required/choices ownership, immutable app-brief@1 and current native admission; register app-brief@2 with OpenAI/Ollama wire and native upload regressions"
+      "sha256": "3c2dfce8b7f7fca39748543f9cda1a53ab868a2d301fac3b3b3131bf9add4b3f",
+      "review": "Canvas reference capture uses bounded public-only egress and native vision; developer context is validated before inference, redacted evidence retained in existing immutable versions, HTTP/MCP task schemas preserve native staging and current rights. Native app-generation HTTP/PostgreSQL and context unit regressions passed."
     },
     "src/developer/generation_bindings.rs": {
       "status": "unproved",
@@ -3030,8 +3040,8 @@
     },
     "src/developer/mod.rs": {
       "status": "unproved",
-      "sha256": "13122b00577af7d58d24a6ce282fd26af25c07e969ae436f87d1a5af6a20148b",
-      "review": "Guided native field families encode translated/indexed/core-reference and typed validation constraints before inference; new helper preserves existing Manifest admission and authority; native malformed-constraint and OpenAI/Ollama protocol regressions retained"
+      "sha256": "e82fe9edc5d01dcfa0354bb728ca753c545d87fedb3e21203296e60c631c9ac0",
+      "review": "Canvas reference capture uses bounded public-only egress and native vision; developer context is validated before inference, redacted evidence retained in existing immutable versions, HTTP/MCP task schemas preserve native staging and current rights. Native app-generation HTTP/PostgreSQL and context unit regressions passed."
     },
     "src/developer/preview.rs": {
       "status": "unproved",
@@ -3040,8 +3050,8 @@
     },
     "src/developer/routes.rs": {
       "status": "unproved",
-      "sha256": "35b9052740ae7ea345024684e5a7a8005f971a0e1d5c1396c08a4413ae2cb277",
-      "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
+      "sha256": "e32506b46f7fe011160c801f3a940f8275f4e30ee3df1110c884e7b4a7d9abcf",
+      "review": "Canvas reference capture uses bounded public-only egress and native vision; developer context is validated before inference, redacted evidence retained in existing immutable versions, HTTP/MCP task schemas preserve native staging and current rights. Native app-generation HTTP/PostgreSQL and context unit regressions passed."
     },
     "src/documents/content.rs": {
       "status": "unproved",

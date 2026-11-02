@@ -1,4 +1,5 @@
 /** AI generation is an explicit reviewed proposal, with conflict protection and no automatic canvas replacement. */
+import { useCanvasText } from "../../shared/canvas/canvas-i18n";
 import type { AppStudio } from "./useAppStudio";
 import { proposalChanges } from "./app-proposal";
 import { useBuildingText } from "../../shared/i18n/app-building-i18n";
@@ -8,7 +9,16 @@ import type { NativeLifecycle } from "../../shared/apps/native/types";
 import { useLifecycleText } from "../../shared/i18n/native-lifecycle-i18n";
 import { useWorkflowStateText } from "../../shared/i18n/workflow-state-text";
 import { usePermissionText } from "../team/permission-i18n";
-export default function AppProposalReview({ studio }: { studio: AppStudio }) {
+export default function AppProposalReview({
+  studio,
+  comparing,
+  onPreview,
+}: {
+  studio: AppStudio;
+  comparing?: boolean;
+  onPreview?: (value: boolean) => void;
+}) {
+  const cv = useCanvasText();
   const t = useBuildingText(),
     life = useLifecycleText(),
     { locale } = useLocale(),
@@ -23,6 +33,37 @@ export default function AppProposalReview({ studio }: { studio: AppStudio }) {
       <h3>{t("proposal")}</h3>
       <p>{t("proposalHint")}</p>
       <p>{contentText(p.build.summary, locale, studio.mainLocale)}</p>
+      {p.build.designEvidence && (
+        <details>
+          <summary>{cv("references")}</summary>
+          <ul>
+            {p.build.designEvidence.sources.map((source, index) => (
+              <li key={index}>
+                <code>{source.url ?? cv("references")}</code> ·{" "}
+                {cv(
+                  source.status === "provided" ||
+                    source.status === "partial" ||
+                    source.status === "unavailable"
+                    ? source.status
+                    : "references",
+                )}
+                {source.digest && (
+                  <small> · {source.digest.slice(0, 12)}</small>
+                )}
+                {source.status !== "provided" && (
+                  <p>
+                    {cv(
+                      source.status === "partial"
+                        ? "captureHint"
+                        : "unavailableHint",
+                    )}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
       <div className="app-proposal-groups">
         {(["models", "surfaces", "workflows", "access"] as const).map(
           (group) => (
@@ -63,6 +104,17 @@ export default function AppProposalReview({ studio }: { studio: AppStudio }) {
       </div>
       {stale && <p role="alert">{t("conflict")}</p>}
       <div className="app-agent-options">
+        {onPreview && (
+          <button
+            type="button"
+            className="studio-secondary"
+            aria-pressed={!!comparing}
+            disabled={stale}
+            onClick={() => onPreview(!comparing)}
+          >
+            {cv(comparing ? "before" : "after")}
+          </button>
+        )}
         <button
           type="button"
           className="studio-primary"

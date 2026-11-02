@@ -34,7 +34,7 @@ export default function AppDesignPreview({
     </div>
   );
   return (
-    <div className={`app-design-preview app-preview-${b.kind}`}>
+    <div className={`app-design-preview app-design-kind-${b.kind}`}>
       <div className="app-preview-kind">
         <Icon name={controlIcons[b.kind]} size={14} />
         {a(b.kind)}

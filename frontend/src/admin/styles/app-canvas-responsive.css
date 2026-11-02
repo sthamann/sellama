@@ -1,0 +1,99 @@
+/** Shared app canvas keeps its native controls reachable at narrow and short viewport sizes. */
+@media (max-width: 1050px) {
+  .app-canvas-layout.with-inspector {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+  .app-visual-workspace .app-designer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-visual-workspace .app-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 200px;
+  }
+  .app-visual-workspace .app-palette > button {
+    width: calc(50% - 6px);
+  }
+  .app-visual-workspace .app-designer > .app-panel-resize {
+    display: none;
+  }
+}
+@media (max-width: 750px) {
+  .app-canvas-layout.with-inspector {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-canvas-agent,
+  .app-canvas-properties {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    max-height: none;
+  }
+  .app-visual-workspace .app-node-controls button {
+    min-width: 40px;
+    min-height: 40px;
+  }
+  .app-visual-workspace .app-canvas {
+    min-height: 420px;
+  }
+}
+@media (max-width: 650px) {
+  .app-studio.app-studio-editing {
+    padding: 8px !important;
+  }
+}
+@media (max-width: 650px) {
+  .app-studio-editing .app-studio-toolbar {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr) 108px;
+    gap: 8px;
+    padding: 10px;
+  }
+  .app-studio-editing .app-studio-toolbar .app-logo {
+    display: none;
+  }
+  .app-studio-editing .app-canvas-back {
+    font-size: 0;
+    gap: 0;
+    padding: 8px;
+    min-width: 36px;
+  }
+  .app-studio-editing .app-studio-toolbar > select {
+    width: 100%;
+    font-size: 11px;
+  }
+  .app-studio-editing .app-toolbar-actions {
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+    width: 100%;
+  }
+  .app-studio-editing .app-toolbar-actions .app-agent-toggle {
+    display: none;
+  }
+  .app-studio-editing .app-toolbar-actions > label {
+    min-width: 0;
+    width: 100%;
+  }
+  .app-studio-editing .app-toolbar-actions select {
+    width: 100%;
+    min-width: 0;
+  }
+  .app-visual-workspace > .visual-workspace-toolbar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .app-visual-workspace > .visual-workspace-toolbar button {
+    flex: 0 0 40px;
+    min-width: 40px;
+    font-size: 0;
+    gap: 0;
+  }
+}
+@media (max-width: 650px) {
+  .app-visual-workspace .app-node-controls button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}

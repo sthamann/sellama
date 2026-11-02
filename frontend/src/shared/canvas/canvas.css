@@ -1,0 +1,284 @@
+/* The common Studio canvas separates navigation from real bounded scene previews. */
+.visual-canvas {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: min(76dvh, 880px);
+  min-height: 420px;
+  background: var(--panel, #edf4fb);
+  color: var(--text, #142432);
+}
+.visual-canvas-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--surface, #fff);
+  border-bottom: 1px solid var(--border, #d4e2ef);
+}
+.visual-canvas-zoom,
+.visual-canvas-paging {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.visual-canvas-toolbar button,
+.visual-canvas-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--border, #d4e2ef);
+  border-radius: 8px;
+  color: inherit;
+  background: var(--surface, #fff);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+}
+.visual-canvas-toolbar button:hover:not(:disabled),
+.visual-canvas-open:hover {
+  background: var(--hover, #e5f3ff);
+}
+.visual-canvas button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.visual-canvas-zoom label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.visual-canvas-zoom input[type="range"] {
+  width: 84px;
+  min-height: 32px;
+  padding: 0;
+  accent-color: var(--accent, #0668c9);
+}
+.visual-canvas-zoom output {
+  min-width: 38px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.visual-canvas-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  cursor: grab;
+  scrollbar-color: var(--border, #c8d8e8) transparent;
+}
+.visual-canvas-viewport:active {
+  cursor: grabbing;
+}
+.visual-canvas-board {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  width: max-content;
+  min-width: 100%;
+  padding: 32px;
+}
+.visual-canvas-scene {
+  flex: 0 0 360px;
+  width: 360px;
+  cursor: auto;
+}
+.visual-canvas-scene > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 72px;
+  padding-block: 4px 12px;
+}
+.visual-canvas-scene h3 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.visual-canvas-scene header p {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 5px 0 0;
+  color: var(--muted, #607182);
+}
+.visual-canvas-scene header small {
+  color: var(--accent, #0668c9);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.visual-canvas-scene-preview {
+  background: var(--surface, #fff);
+  height: 520px;
+  overflow: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px #14243212;
+}
+.visual-canvas-scene[aria-current="true"] .visual-canvas-scene-preview {
+  outline: 2px solid var(--accent, #0668c9);
+  outline-offset: 4px;
+}
+.visual-canvas-open {
+  width: 100%;
+  margin-top: 12px;
+  min-height: 44px;
+  font-size: 14px;
+  justify-content: space-between;
+}
+.visual-canvas-hint {
+  font-size: 11px;
+  padding: 8px 16px;
+  color: var(--muted, #607182);
+  margin: 0;
+  border-top: 1px solid var(--border, #d4e2ef);
+}
+.visual-canvas :focus-visible {
+  outline: 2px solid var(--accent, #0668c9);
+  outline-offset: 3px;
+}
+.visual-canvas ::selection {
+  background: var(--hover, #e5f3ff);
+  color: var(--text, #142432);
+}
+.visual-workspace-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border, #d4e2ef);
+  background: var(--surface, #fff);
+}
+.visual-workspace-toolbar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 12px;
+  border: 1px solid var(--border, #d4e2ef);
+  background: var(--surface, #fff);
+  color: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.visual-workspace-toolbar button[aria-pressed="true"] {
+  background: var(--hover, #e5f3ff);
+  color: var(--accent, #0668c9);
+  border-color: currentColor;
+}
+.canvas-reference-inputs {
+  display: grid;
+  gap: 12px;
+  margin-block: 16px;
+}
+.canvas-reference-inputs label {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+}
+.canvas-reference-inputs textarea {
+  width: 100%;
+  min-height: 76px;
+  padding: 10px;
+  border: 1px solid var(--border, #d4e2ef);
+  border-radius: 10px;
+  font: inherit;
+  color: inherit;
+  background: var(--surface, #fff);
+}
+.canvas-reference-inputs input[type="file"] {
+  width: 100%;
+  font-size: 12px;
+}
+.canvas-reference-inputs small {
+  color: var(--muted, #607182);
+  line-height: 1.6;
+}
+.canvas-reference-images {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.canvas-reference-images figure {
+  width: 100px;
+  margin: 0;
+}
+.canvas-reference-images img {
+  width: 100%;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.canvas-reference-images button {
+  width: 100%;
+  min-height: 36px;
+}
+@media (max-width: 650px) {
+  .visual-canvas {
+    height: 70dvh;
+    min-height: 400px;
+  }
+  .visual-canvas-toolbar {
+    padding: 10px;
+    gap: 8px;
+  }
+  .visual-canvas-zoom {
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .visual-canvas-zoom label {
+    font-size: 11px;
+  }
+  .visual-canvas-zoom input[type="range"] {
+    width: 56px;
+  }
+  .visual-canvas-toolbar button {
+    min-height: 44px;
+  }
+  .visual-canvas-board {
+    padding: 20px;
+  }
+  .visual-workspace-toolbar {
+    padding: 8px;
+  }
+}
+
+.visual-canvas-mobile-open {
+  display: none;
+}
+@media (max-width: 650px) {
+  .visual-canvas-mobile-open {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 8px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .visual-canvas-mobile-open select,
+  .visual-canvas-mobile-open button {
+    min-height: 44px;
+    min-width: 0;
+    font: inherit;
+    font-size: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px;
+    background: var(--surface);
+    color: var(--text);
+  }
+  .visual-canvas-mobile-open button {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+  }
+}

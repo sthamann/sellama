@@ -1844,11 +1844,64 @@
           "agent": {
             "type": "string"
           },
+          "context": {
+            "additionalProperties": false,
+            "properties": {
+              "channel": {
+                "enum": [
+                  "*"
+                ],
+                "type": "string"
+              },
+              "language": {
+                "type": "string"
+              },
+              "selected": {
+                "type": "string"
+              },
+              "view": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "view",
+              "selected",
+              "language",
+              "channel"
+            ],
+            "type": "object"
+          },
           "environment": {
             "type": "string"
           },
+          "manifest": {
+            "type": "object"
+          },
           "prompt": {
+            "maxLength": 8000,
             "type": "string"
+          },
+          "references": {
+            "additionalProperties": false,
+            "properties": {
+              "images": {
+                "items": {
+                  "maxLength": 1400000,
+                  "type": "string"
+                },
+                "maxItems": 2,
+                "type": "array"
+              },
+              "urls": {
+                "items": {
+                  "maxLength": 2000,
+                  "type": "string"
+                },
+                "maxItems": 3,
+                "type": "array"
+              }
+            },
+            "type": "object"
           }
         },
         "required": [

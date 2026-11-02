@@ -14,6 +14,7 @@ import { contentText } from "../../shared/i18n/content-language";
 import { useAppStudio } from "./useAppStudio";
 import { problems } from "./app-model";
 import { AppFlowNavigation } from "./AppFlowNavigation";
+import AppCanvasAgent from "./AppCanvasAgent";
 import AppDesignWorkspace from "./AppDesignWorkspace";
 import AppDraftEntry from "./AppDraftEntry";
 import AppCapabilityEditor from "./AppCapabilityEditor";
@@ -22,7 +23,7 @@ import AppDataEditor from "./AppDataEditor";
 import AppEditorNavigation from "./AppEditorNavigation";
 import AppPayments from "./AppPayments";
 import AppConnections from "./AppConnections";
-import AppAgentDrawer, { useAppAgentEntry } from "./AppAgentDrawer";
+import { useAppAgentEntry } from "./AppAgentDrawer";
 import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import AppVersions from "./AppVersions";
 import AppLibrary from "./AppLibrary";
@@ -76,6 +77,11 @@ export default function DeveloperView({
     [selected, setSelected] = useState(""),
     [preview, setPreview] = useState(false),
     [stageName, setStageName] = useState("");
+  const showAgent: typeof agent.show = (...args) => {
+    setSection("design");
+    agent.show(...args);
+  };
+  const [comparison, setComparison] = useState(false);
   const [previewLanguages, setPreviewLanguages] = useState<{
     mainLocale: string;
     locales: string[];
@@ -120,15 +126,17 @@ export default function DeveloperView({
       <div
         className={`studio-page app-studio ${assistant ? "" : "app-studio-editing"}`}
       >
-        <AppStudioIntro
-          disabled={!manage || studio.busy}
-          onNew={() => {
-            setAssistant(true);
-            setPreview(false);
-            immediate.close();
-          }}
-          overview={!assistant}
-        />
+        {assistant && (
+          <AppStudioIntro
+            disabled={!manage || studio.busy}
+            onNew={() => {
+              setAssistant(true);
+              setPreview(false);
+              immediate.close();
+            }}
+            overview={!assistant}
+          />
+        )}
         {assistant && (
           <ContentLanguage
             locales={studio.locales}
@@ -166,6 +174,16 @@ export default function DeveloperView({
             disabled={!manage || studio.busy}
           >
             <div className="app-studio-toolbar">
+              <AppStudioIntro
+                compact
+                overview
+                disabled={!manage || studio.busy}
+                onNew={() => {
+                  setAssistant(true);
+                  setPreview(false);
+                  immediate.close();
+                }}
+              />
               <AppCurrentIdentity
                 title={contentText(m.name, locale, studio.mainLocale) || m.id}
                 id={m.id}
@@ -178,29 +196,27 @@ export default function DeveloperView({
                       : "saved",
                 )}
               />
+              <AppEditorNavigation
+                compact
+                section={section}
+                onSelect={(key) =>
+                  key === "agent" ? showAgent() : setSection(key)
+                }
+                versions={studio.builds.length}
+                payments={m.category === "payment" || !!m.paymentProvider}
+              />
               <div className="app-toolbar-actions">
                 <button
                   type="button"
                   className="studio-secondary app-agent-toggle"
-                  aria-haspopup="dialog"
                   aria-expanded={agent.drawer.open}
-                  onClick={() => agent.show()}
+                  onClick={() => {
+                    setSection("design");
+                    agent.show();
+                  }}
                 >
                   <Icon name="spark" size={17} />
                   {workspaceText("agentTitle")}
-                </button>
-                <button
-                  className="studio-secondary"
-                  onClick={() => {
-                    if (studio.saved) openForEditing(studio.saved);
-                    else {
-                      setPreview(false);
-                      setSection("design");
-                    }
-                  }}
-                >
-                  <Icon name="code" size={16} />
-                  {a("editApp")}
                 </button>
                 <label>
                   {a("sandbox")}
@@ -251,14 +267,6 @@ export default function DeveloperView({
                 <button className="studio-secondary">{w("newStage")}</button>
               </form>
             )}
-            <AppEditorNavigation
-              section={section}
-              onSelect={(key) =>
-                key === "agent" ? agent.show() : setSection(key)
-              }
-              versions={studio.builds.length}
-              payments={m.category === "payment" || !!m.paymentProvider}
-            />
             <ContentLanguage
               locales={
                 preview && canPreview && previewLanguages
@@ -310,8 +318,7 @@ export default function DeveloperView({
                   </div>
                 )}
               </div>
-              <AppAgentDrawer {...agent.drawer} />
-              {section === "design" && (
+              <div hidden={section !== "design"}>
                 <AppDesignWorkspace
                   studio={studio}
                   immediate={immediate}
@@ -325,13 +332,29 @@ export default function DeveloperView({
                     setPreviewLanguages({ mainLocale, locales })
                   }
                   onEditFields={() => setSection("data")}
+                  onSettings={() => setSection("settings")}
+                  agentOpen={agent.drawer.open}
+                  onAgent={() => agent.show()}
+                  onAgentClose={agent.drawer.onClose}
+                  comparison={comparison}
+                  onComparison={setComparison}
+                  agent={
+                    <AppCanvasAgent
+                      {...agent.drawer}
+                      view={view?.id ?? ""}
+                      selected={selected}
+                      onClose={agent.drawer.onClose}
+                      comparing={comparison}
+                      onPreview={setComparison}
+                    />
+                  }
                 />
-              )}
+              </div>
               {section === "capability" && (
                 <AppCapabilityEditor
                   manifest={m}
                   onChange={studio.edit}
-                  onAssist={agent.show}
+                  onAssist={showAgent}
                   onDesign={() => setSection("design")}
                 />
               )}
@@ -362,7 +385,7 @@ export default function DeveloperView({
                   rights={rights}
                   onEdit={openForEditing}
                   onNavigate={setSection}
-                  onAssist={agent.show}
+                  onAssist={showAgent}
                 />
               )}
             </ContentLanguage>

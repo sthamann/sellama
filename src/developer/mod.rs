@@ -3,6 +3,7 @@ use crate::*;
 pub(crate) mod agent_connection;
 mod archive;
 mod builds;
+mod design_context;
 mod drafts;
 mod generation;
 mod generation_bindings;

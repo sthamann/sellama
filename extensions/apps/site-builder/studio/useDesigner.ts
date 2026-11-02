@@ -39,6 +39,28 @@ export default function useDesigner(request: RequestFn, workspace: string) {
     [future, setFuture] = useState<Page[]>([]),
     scope = useRef(0),
     baseline = useRef("");
+  const working = useRef(
+    new Map<
+      string,
+      {
+        page: Page;
+        base: string;
+        past: Page[];
+        future: Page[];
+        selected: string;
+      }
+    >(),
+  );
+  const remember = () => {
+    if (draft)
+      working.current.set(draft.id, {
+        page: draft,
+        base: baseline.current,
+        past,
+        future,
+        selected,
+      });
+  };
   const [catalogueLanguage, setCatalogueLanguage] = useState("");
   const contextScope = useRef("");
   contextScope.current = `${workspace}:${channel}:${catalogueLanguage}`;
@@ -66,6 +88,7 @@ export default function useDesigner(request: RequestFn, workspace: string) {
     }
   };
   useEffect(() => {
+    working.current.clear();
     setDraft(undefined);
     setPast([]);
     setFuture([]);
@@ -104,15 +127,32 @@ export default function useDesigner(request: RequestFn, workspace: string) {
     };
   }, [workspace, request, channel, catalogueLanguage]);
   const dirty = !!draft && baseline.current !== JSON.stringify(draft);
+  const hasUnsaved =
+    dirty ||
+    [...working.current.values()].some(
+      (v) => v.page.id !== draft?.id && JSON.stringify(v.page) !== v.base,
+    );
   useEffect(() => {
-    if (!dirty) return;
+    if (!hasUnsaved) return;
     const warn = (e: BeforeUnloadEvent) => {
       e.preventDefault();
     };
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
-  }, [dirty]);
-  const open = (page: Page) => {
+  }, [hasUnsaved]);
+  const open = (page: Page, fresh = false) => {
+    remember();
+    if (fresh) working.current.delete(page.id);
+    const kept = working.current.get(page.id);
+    if (kept && !fresh) {
+      setDraft(kept.page);
+      baseline.current = kept.base;
+      setPast(kept.past);
+      setFuture(kept.future);
+      setSelected(kept.selected);
+      setSaved(false);
+      return;
+    }
     page = normalizePage(page);
     setDraft(page);
     baseline.current = page.revision ? JSON.stringify(page) : "";
@@ -149,6 +189,7 @@ export default function useDesigner(request: RequestFn, workspace: string) {
         id: result.id,
         revision: result.revision,
       } as Page;
+      working.current.delete(page.id);
       setDraft(next);
       baseline.current = JSON.stringify(next);
       setPages((rows) => [...rows.filter((p) => p.id !== next.id), next]);
@@ -165,12 +206,22 @@ export default function useDesigner(request: RequestFn, workspace: string) {
     setContext,
     setCatalogueLanguage,
     pages,
+    workingPages: [
+      ...new Map([
+        ...pages.map((p) => [p.id, p] as const),
+        ...Array.from(
+          working.current.values(),
+          (v) => [v.page.id, v.page] as const,
+        ),
+      ]).values(),
+    ],
     setPages,
     draft,
     selected,
     setSelected,
     channel,
     changeChannel: (next: string) => {
+      working.current.clear();
       setChannel(next);
       setDraft(undefined);
       setSelected("");
@@ -195,8 +246,10 @@ export default function useDesigner(request: RequestFn, workspace: string) {
     loaded,
     saved,
     dirty,
+    hasUnsaved,
     open,
     close: () => {
+      remember();
       setDraft(undefined);
       baseline.current = "";
       setSelected("");

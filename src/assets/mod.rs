@@ -5,6 +5,7 @@ mod import;
 pub(crate) use import::image as import_image;
 mod caption_source;
 mod captions;
+pub(crate) mod design_references;
 mod image_jobs;
 mod image_provider;
 pub(crate) use captions::schema as caption_schema;

@@ -26,7 +26,11 @@ const context = {
 };
 function api(pages: (typeof home)[] = []) {
   return vi.fn(async (path: string) =>
-    path.includes("/context") ? context : { elements: pages },
+    path.includes("/context")
+      ? context
+      : path.startsWith("/store-api/")
+        ? { elements: [] }
+        : { elements: pages },
   );
 }
 it("shows the actual native shop without forcing creation of a CMS page", async () => {
@@ -40,9 +44,9 @@ it("shows the actual native shop without forcing creation of a CMS page", async 
       onEnvironments={() => {}}
     />,
   );
-  expect(await screen.findByTestId("actual-storefront")).toHaveTextContent(
-    "Native storefront",
-  );
+  expect(
+    (await screen.findAllByTestId("actual-storefront"))[0],
+  ).toHaveTextContent("Native storefront");
   expect(screen.queryByRole("textbox")).toBeNull();
   expect(
     request.mock.calls.every(([path]) => !path.includes("save_page")),
@@ -59,9 +63,9 @@ it("opens an existing home automatically instead of an empty editor", async () =
     />,
   );
   expect(
-    await screen.findByRole("heading", { name: "Current collection" }),
+    (await screen.findAllByRole("heading", { name: "Current collection" }))[0],
   ).toBeVisible();
-  expect(screen.getByTestId("actual-storefront")).not.toHaveTextContent(
+  expect(screen.getAllByTestId("actual-storefront")[0]).not.toHaveTextContent(
     "Native storefront",
   );
 });
@@ -155,4 +159,27 @@ it("shows inherited rich content instead of rendering a locale code as prose", a
   ).toHaveTextContent("Actual inherited copy");
   expect(change).not.toHaveBeenCalled();
   expect(page.content.blocks[0].rich["de-DE"]).toBeUndefined();
+});
+
+it("retains independent unfinished pages and undo across page switches, then clears them on a confirmed channel change", async () => {
+  const request = api([home]);
+  const state = renderHook(() => useDesigner(request, "cache-pages"));
+  await waitFor(() => expect(state.result.current.loaded).toBe(true));
+  const about = { ...home, id: "about", slug: "about" };
+  act(() => state.result.current.open(home));
+  act(() => state.result.current.edit({ ...home, theme: { radius: 7 } }));
+  act(() => state.result.current.open(about));
+  act(() => state.result.current.edit({ ...about, theme: { radius: 12 } }));
+  act(() => state.result.current.open(home));
+  expect(state.result.current.draft?.theme.radius).toBe(7);
+  expect(state.result.current.canUndo).toBe(true);
+  act(() => state.result.current.undo());
+  expect(state.result.current.dirty).toBe(false);
+  expect(state.result.current.hasUnsaved).toBe(true);
+  act(() => state.result.current.open(about));
+  expect(state.result.current.draft?.theme.radius).toBe(12);
+  act(() => state.result.current.changeChannel("other"));
+  expect(
+    state.result.current.workingPages.some((p) => p.theme.radius === 12),
+  ).toBe(false);
 });

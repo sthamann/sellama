@@ -115,6 +115,14 @@ export function useBlockEditing({
     d.edit({ ...page, content: { blocks } });
     select(blocks[0]?.id ?? "");
   };
+  const duplicate = (id: string) => {
+    const block = d.draft?.content.blocks.find((b) => b.id === id);
+    if (block)
+      insert({
+        ...structuredClone(block),
+        id: "block_" + crypto.randomUUID().replaceAll("-", "").slice(0, 12),
+      });
+  };
   const start = (block: Block, moving: boolean) => {
     const { d, enabled, scope } = live.current;
     const page = d.draft ?? prepare();
@@ -206,6 +214,7 @@ export function useBlockEditing({
     insert,
     move,
     remove,
+    duplicate,
   };
 }
 export type BlockEditing = ReturnType<typeof useBlockEditing>;

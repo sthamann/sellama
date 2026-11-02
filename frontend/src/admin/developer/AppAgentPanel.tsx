@@ -1,10 +1,14 @@
 /** Coding agents receive the current Manifest IR and authoritative schema; imported edits round-trip to the canvas. */
 import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import { useBuildingText } from "../../shared/i18n/app-building-i18n";
+import ReferenceInputs from "../../shared/canvas/ReferenceInputs";
+import { designUrls } from "../../shared/agents/reference-images";
+import { useCanvasText } from "../../shared/canvas/canvas-i18n";
+import type { AppCanvasContext } from "./AppCanvasAgent";
 import AppProposalTest from "./AppProposalTest";
 import AppProposalReview from "./AppProposalReview";
 import { useControlText } from "../../shared/i18n/control-i18n";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import AgentComposer, {
   type AgentEngine,
 } from "../../shared/agents/AgentComposer";
@@ -37,14 +41,32 @@ export default function AppAgentPanel({
   requestSeed,
   onRequestConsumed,
   sandboxRequest,
+  context,
+  comparing,
+  onPreview,
 }: {
+  context?: AppCanvasContext;
+  comparing?: boolean;
+  onPreview?: (value: boolean) => void;
   studio: AppStudio;
   request: RequestFn;
   sandboxRequest?: (environment: string) => RequestFn;
   requestSeed?: AppAgentRequest;
   onRequestConsumed?: () => void;
 }) {
-  const workspace = useAppWorkspaceText();
+  const workspace = useAppWorkspaceText(),
+    cv = useCanvasText();
+  const [urls, setUrls] = useState(""),
+    [images, setImages] = useState<string[]>([]),
+    [preparing, setPreparing] = useState(false);
+  const referenceScope = `${studio.env}:${studio.manifest.id}:${context?.view}:${context?.selected}:${context?.language}`;
+  const currentScope = useRef(referenceScope);
+  currentScope.current = referenceScope;
+  useEffect(() => {
+    setUrls("");
+    setImages([]);
+    setTask("");
+  }, [referenceScope]);
   const c = useControlText(),
     t = useBuildingText();
   const { a } = useAppStudioText(),
@@ -75,32 +97,61 @@ export default function AppAgentPanel({
       <section className="app-model-card">
         <h2>{a("prompt")}</h2>
         <p>{a("hint")}</p>
-        <div className="app-agent-options">
-          <button
-            type="button"
-            className="studio-secondary"
-            onClick={() => setPrompt(t("formPrompt"))}
-          >
-            {t("formIdea")}
-          </button>
-          <button
-            type="button"
-            className="studio-secondary"
-            onClick={() => setPrompt(t("validationPrompt"))}
-          >
-            {t("validationIdea")}
-          </button>
-        </div>
+        {context ? (
+          <details className="app-canvas-agent-ideas">
+            <summary>{cv("ideas")}</summary>
+            <div className="app-agent-options">
+              <button
+                type="button"
+                onClick={() => setPrompt(cv("spaciousPrompt"))}
+              >
+                {cv("spacious")}
+              </button>
+              <button
+                type="button"
+                onClick={() => setPrompt(cv("labelsPrompt"))}
+              >
+                {cv("labels")}
+              </button>
+            </div>
+          </details>
+        ) : (
+          <div className="app-agent-options">
+            <button
+              type="button"
+              className="studio-secondary"
+              onClick={() => setPrompt(t("formPrompt"))}
+            >
+              {t("formIdea")}
+            </button>
+            <button
+              type="button"
+              className="studio-secondary"
+              onClick={() => setPrompt(t("validationPrompt"))}
+            >
+              {t("validationIdea")}
+            </button>
+          </div>
+        )}
         <AgentComposer
           prompt={prompt}
           onPrompt={setPrompt}
           engine={agent}
           onEngine={setAgent}
           busy={studio.busy}
-          disabled={!studio.env || (agent === "platform" && !configured)}
-          placeholder={w("promptExample")}
+          disabled={
+            preparing || !studio.env || (agent === "platform" && !configured)
+          }
+          placeholder={context ? cv("spaciousPrompt") : w("promptExample")}
           onSubmit={() =>
             void studio.run(async () => {
+              const scope = referenceScope;
+              let references;
+              try {
+                references = { urls: designUrls(urls), images };
+              } catch {
+                throw Error(cv("invalidUrls"));
+              }
               if (agent === "platform")
                 await studio.generate(
                   prompt,
@@ -109,23 +160,34 @@ export default function AppAgentPanel({
                     studio.providers.find((p) => p.id === provider)?.model ||
                     "",
                   mode,
+                  { context, references },
+                  () => currentScope.current === scope,
                 );
-              else
-                setTask(
-                  JSON.stringify(
-                    await request("/api/developer/task", {
-                      environment: studio.env,
-                      prompt,
-                      agent,
-                      manifest: studio.manifest,
-                    }),
-                    null,
-                    2,
-                  ),
-                );
+              else {
+                const value = await request("/api/developer/task", {
+                  environment: studio.env,
+                  prompt,
+                  agent,
+                  manifest: studio.manifest,
+                  context,
+                  references,
+                });
+                if (currentScope.current === scope)
+                  setTask(JSON.stringify(value, null, 2));
+              }
             })
           }
         >
+          <ReferenceInputs
+            urls={urls}
+            images={images}
+            onUrls={setUrls}
+            onImages={setImages}
+            disabled={studio.busy}
+            scope={referenceScope}
+            onBusy={setPreparing}
+            onError={studio.setError}
+          />
           {agent === "platform" && (
             <div className="app-agent-options">
               <label>
@@ -175,7 +237,11 @@ export default function AppAgentPanel({
           )}
         </AgentComposer>
       </section>
-      <AppProposalReview studio={studio} />
+      <AppProposalReview
+        studio={studio}
+        comparing={comparing}
+        onPreview={onPreview}
+      />
       {studio.proposal && sandboxRequest && (
         <AppProposalTest
           key={studio.proposal.build.digest}

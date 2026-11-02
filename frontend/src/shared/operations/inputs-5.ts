@@ -38,7 +38,19 @@ export interface Inputs5 {
     summary: JsonValue;
   };
   "developer.stage": { approve: boolean; buildId: string; digest: string };
-  "developer.task": { agent: string; environment: string; prompt: string };
+  "developer.task": {
+    agent: string;
+    context?: {
+      channel: "*";
+      language: string;
+      selected: string;
+      view: string;
+    };
+    environment: string;
+    manifest?: JsonValue;
+    prompt: string;
+    references?: { images?: Array<string>; urls?: Array<string> };
+  };
   "catalog.search": {
     after?: string;
     category?: string;

@@ -5,6 +5,8 @@ import { useContentLanguage } from "../../../../frontend/src/shared/i18n/Content
 import { contentText } from "../../../../frontend/src/shared/i18n/content-language";
 import { useDesignText } from "./design-i18n";
 import { useInteractionText } from "./interaction-i18n";
+import Icon from "../../../../frontend/src/shared/ui/Icon";
+import { useCanvasText } from "../../../../frontend/src/shared/canvas/canvas-i18n";
 import { useBlocks } from "./useBlockEditing";
 export function DropPosition({ at }: { at: number }) {
   const editing = useBlocks(),
@@ -34,6 +36,7 @@ export default function EditableSection({
   selected: boolean;
   children: ReactNode;
 }) {
+  const c = useCanvasText();
   const editing = useBlocks(),
     t = useDesignText(),
     i = useInteractionText();
@@ -102,6 +105,15 @@ export default function EditableSection({
           onClick={() => editing.move(block.id, 1)}
         >
           ↓
+        </button>
+        <button
+          type="button"
+          disabled={count >= 24}
+          aria-label={c("duplicate")}
+          title={c("duplicate")}
+          onClick={() => editing.duplicate(block.id)}
+        >
+          <Icon name="copy" size={16} />
         </button>
         <button
           type="button"

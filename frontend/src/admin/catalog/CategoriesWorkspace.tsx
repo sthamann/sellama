@@ -1,5 +1,6 @@
 /** Localized category tree editor; parent moves and revisions are validated in the API. */
 import EntityHistory from "../../shared/history/EntityHistory";
+import { useUnsavedWorkspace } from "../../shared/ui/useUnsavedWorkspace";
 import { useState } from "react";
 import type { RequestFn } from "../shell/studio-types";
 import { useCatalogText } from "../../shared/i18n/catalog-i18n";
@@ -30,8 +31,12 @@ export default function CategoriesWorkspace({
   categories,
   onRefresh,
   canWrite = true,
+  initialId,
+  onDirtyChange,
 }: {
   canWrite?: boolean;
+  initialId?: string;
+  onDirtyChange?: (dirty: boolean) => void;
   request: RequestFn;
   categories: Category[];
   onRefresh: () => void;
@@ -56,10 +61,19 @@ export default function CategoriesWorkspace({
   const name = (cat: Category, language: string = locale) =>
     inheritedText(cat.data.translations, language, mainLocale, "name") ||
     cat.id;
-  const [selected, setSelected] = useState<Category | null>(null);
+  const [selected, setSelected] = useState<Category | null>(
+    categories.find((c) => c.id === initialId) ?? null,
+  );
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
+  useUnsavedWorkspace(
+    !!selected &&
+      (busy ||
+        JSON.stringify(selected) !==
+          JSON.stringify(categories.find((c) => c.id === selected.id))),
+    onDirtyChange,
+  );
   const edit = (v: Category) => {
     setSelected(v);
     setSaved(false);

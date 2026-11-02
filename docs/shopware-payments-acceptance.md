@@ -1,9 +1,10 @@
 # Shopware Payments: integration and test acceptance
 
 Updated 2 November 2026. The private Rust connector implements the provider path;
-the public Core owns the order and payment ledger. The public catalogue entry is
-an installation placeholder. It does not install the private service or enable a
-payment method. Use [the provider contract](payment-provider-api.md) for deployment.
+the public Core owns the order and payment ledger. The public catalogue now ships
+the versioned 1.2.0 contract for all 17 methods. Install or upgrade it through the
+existing app lifecycle, connect the configured account and enable its methods.
+Installing the contract does not provision the private service or activate methods. Use [the provider contract](payment-provider-api.md) for deployment.
 
 ## What can be tested now
 
@@ -23,6 +24,9 @@ responses and merchant are synthetic; no external payment network is contacted.
 | Tenant, receipt and browser-session isolation | Foreign tenant/account/payee/amount/parent rejected; scoped token and nonce retained |
 | SEPA form confirmation | Private endpoint validates the IBAN and explicit mandate consent before the original nested provider request |
 | Native browser purchase | Actual Chrome desktop and 390px viewport: private SEPA form, confirmed payment, return and empty cart; simulated PSP only |
+| Hosted simulation contract | All 17 methods with 12 concurrent callers, native cancellation, exact partial/full refunds and durable replay across restart; zero PSP traffic |
+| Restricted service runtime | Separate migration bootstrap and non-owner runtime; owner runtime and runtime migration rejected |
+| Shipped simulated form | Actual scoped session and confirmation endpoint, German shop language over English browser default, readiness nonce and no bank inputs; rendered Chrome remains a separate check |
 | Public Shopware Payments checkout | Not accepted: no dedicated private Payments service was present in the inspected Northflank project |
 
 The connector's 1.1.0 package widens PayPal/card currency declarations to its supported
@@ -77,7 +81,8 @@ claim of complete feature parity.
 The remaining work is tracked explicitly:
 
 - [ ] Deploy the private provider service with its own database access, HTTPS UI
-  origin, approved partner configuration and registered provider callbacks.
+  origin and native Core connection. Simulation needs no PSP credentials; provider
+  Sandbox/Live additionally require approved partner configuration and callbacks.
 - [ ] Connect an authorized Shopware Payments test account and complete browser
   payment, capture, void, cancellation and refunds against that account.
 - [ ] Accept each enabled card/wallet/redirect method, including 3DS outcomes,
@@ -101,7 +106,12 @@ receiving preferences are applied by the provider, not inferred from a manifest.
 
 ## Repeating the local test
 
-Build the public Core and private connector. In the private repository run
+Build the public Core and private connector. Version 1.2.0 also provides
+`SWP_SIMULATION_ONLY=true` for the hosted simulation cases, including execution of
+the shipped checkout document with Node 22. Use a separate throwaway database for
+each invocation.
+
+For the original-shaped provider regression, In the private repository run
 `COMMERCE_ROOT=/absolute/path/to/veyndo python3 tests/local_stack.py`. Supply a
 throwaway `DATABASE_URL` or the test container and `DB_PORT`. Do not point the suite
 at a merchant database. It removes its own automatically created database on exit.

@@ -56,6 +56,22 @@ pub(super) fn validate(blocks: &[Block]) -> Result<()> {
                 "use a locale-to-string/null map, at most 100 locales and 2000 UTF-8 bytes per value",
             ));
         }
+        for (field, map, limit) in [
+            ("caption", &b.caption, 600),
+            ("imageAlt", &b.image_alt, 400),
+        ] {
+            if map.len() > 100
+                || map.iter().any(|(l, v)| {
+                    !commerce::valid_locale_key(l) || v.as_ref().is_some_and(|s| s.len() > limit)
+                })
+            {
+                return Err(invalid(
+                    i,
+                    field,
+                    "use bounded locale-to-string/null translations",
+                ));
+            }
+        }
         if b.product_mode
             .as_deref()
             .is_some_and(|m| !["all", "selected"].contains(&m))

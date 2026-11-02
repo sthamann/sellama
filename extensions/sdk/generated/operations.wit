@@ -440,6 +440,13 @@ interface inputs {
     %state: option<string>,
     %to: option<string>,
   }
+  record merchant-media-caption-input {
+    %alt: option<string>,
+    %caption: option<string>,
+    %context: string,
+    %image-url: option<string>,
+    %locale: string,
+  }
   record merchant-run-create-input-inference {
     %model: option<option<string>>,
     %provider: string,
@@ -1650,6 +1657,7 @@ interface inputs {
   merchant-plan: func(input: merchant-plan-input) -> result<string, string>;
   merchant-apply: func(input: merchant-apply-input) -> result<string, string>;
   merchant-orders: func(input: merchant-orders-input) -> result<string, string>;
+  merchant-media-caption: func(input: merchant-media-caption-input) -> result<string, string>;
   merchant-run-create: func(input: merchant-run-create-input) -> result<string, string>;
   merchant-run-status: func(input: merchant-run-status-input) -> result<string, string>;
   merchant-run-cancel: func(input: merchant-run-cancel-input) -> result<string, string>;

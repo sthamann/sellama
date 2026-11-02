@@ -3,8 +3,11 @@ use crate::*;
 mod download;
 mod import;
 pub(crate) use import::image as import_image;
+mod caption_source;
+mod captions;
 mod image_jobs;
 mod image_provider;
+pub(crate) use captions::schema as caption_schema;
 mod rich;
 mod rich_document;
 pub(crate) use rich_document::safe_url;
@@ -18,6 +21,11 @@ pub(crate) use rich::validate_rich;
 pub(crate) use upload::{list, publish};
 pub(crate) fn router() -> Router<App> {
     Router::new()
+        .secure_route(
+            "/api/merchant/media/caption",
+            &[("POST", "assistant.use")],
+            post(captions::route),
+        )
         .secure_route(
             "/api/merchant/media/provider",
             &[("GET", "catalog.read")],
@@ -97,6 +105,7 @@ pub(crate) async fn snapshot(
 
 pub(crate) fn media_permission(name: &str) -> Option<&'static str> {
     match name {
+        "merchant.media.caption" => Some("assistant.use"),
         "merchant.media.provider" | "merchant.media.list" | "merchant.media.detail" => {
             Some("catalog.read")
         }
@@ -119,6 +128,7 @@ pub(crate) async fn media_invoke(
             .ok_or(bad("Image ID required"))
     };
     let Json(result) = match name {
+        "merchant.media.caption" => return captions::prepare(a, h, v).await,
         "merchant.media.provider" => image_jobs::provider(state, headers).await?,
         "merchant.media.create" => {
             image_jobs::enqueue(

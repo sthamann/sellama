@@ -810,6 +810,11 @@
     "source": "src/legal/mod.rs"
   },
   {
+    "path": "/api/merchant/media/caption",
+    "method": "POST",
+    "source": "src/assets/mod.rs"
+  },
+  {
     "path": "/api/merchant/media/jobs/{id}",
     "method": "GET",
     "source": "src/assets/mod.rs"

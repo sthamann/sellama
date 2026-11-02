@@ -14,7 +14,7 @@ export default function ProductGallery({
   const { s } = useShopText();
   return (
     <section className="pdp-gallery" aria-label={s("images")}>
-      <div className="gallery-main">
+      <figure className="gallery-main">
         {p.media[image]?.url ? (
           <img
             src={p.media[image].url}
@@ -30,7 +30,10 @@ export default function ProductGallery({
             {s("images")} · {image + 1} / {p.media.length}
           </span>
         )}
-      </div>
+        {p.media[image]?.caption && (
+          <figcaption>{p.media[image].caption}</figcaption>
+        )}
+      </figure>
       <div className="gallery-thumbs">
         {p.media.map((m, i) => (
           <button

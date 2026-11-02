@@ -1,5 +1,19 @@
 # Changelog
 
+## Shared multilingual image captions (2 November 2026)
+
+- Add one caption editor to product media, site-builder image/hero properties and
+  native App Studio image controls. Keep accessibility alt text separate and render
+  captions through the existing storefront/app/rich-content renderers.
+- Add `merchant.media.caption` through canonical HTTP/MCP dispatch and generated
+  input contracts. Central inference prepares a reviewable proposal; no model call
+  saves or publishes content. Fence stale proposals after editor context changes.
+- Preserve product/page history, enabled language validation, explicit empty values
+  and selective sandbox publication. Decode bounded owned/public images, deny
+  private-network image URLs and label context-only proposals explicitly.
+- Document local provider-fixture, native storage and UI evidence alongside a
+  concrete Canvas direction for the shop and app workspaces.
+
 ## Guided personal shop setup (2 November 2026, source and local acceptance)
 
 - Add an optional welcome and six explicit review areas for basics, products,

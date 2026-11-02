@@ -2,6 +2,24 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs8 {
+  "merchant.scenario.create": {
+    inference?: {
+      model?: string | null;
+      provider: "platform" | "ollama" | "openai" | "anthropic";
+    };
+    instruction: string;
+    profiles: Array<{
+      budgetMinor: number;
+      country: string;
+      goal: string;
+      id: string;
+      locale: string;
+      name: string;
+    }>;
+    requestId: string;
+    sourceTaskId?: string;
+    title: string;
+  };
   "merchant.scenario.status": { id: string };
   "merchant.scenario.list": JsonValue;
   "merchant.apps.search": { after?: string; limit?: number; query?: string };
@@ -109,49 +127,6 @@ export interface Inputs8 {
     revision?: number;
   };
   "team.role.dependencies": {
-    approve?: boolean;
-    data?: {
-      active: boolean;
-      name: JsonValue;
-      permissions: Array<
-        | "overview.read"
-        | "assistant.use"
-        | "automation.read"
-        | "automation.manage"
-        | "channels.read"
-        | "channels.manage"
-        | "developer.read"
-        | "developer.manage"
-        | "environments.read"
-        | "environments.manage"
-        | "knowledge.write"
-        | "ai.manage"
-        | "apps.read"
-        | "pos.use"
-        | "b2b.read"
-        | "b2b.manage"
-        | "catalog.read"
-        | "catalog.write"
-        | "orders.read"
-        | "orders.write"
-        | "customers.read"
-        | "customers.pii"
-        | "customers.write"
-        | "documents.read"
-        | "documents.create"
-        | "payments.read"
-        | "payments.manage"
-        | "team.manage"
-        | "settings.read"
-        | "settings.write"
-        | "apps.manage"
-        | "knowledge.read"
-      >;
-    };
-    id?: string;
-    revision?: number;
-  };
-  "team.role.delete": {
     approve?: boolean;
     data?: {
       active: boolean;

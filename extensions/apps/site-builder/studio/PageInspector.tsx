@@ -1,4 +1,5 @@
 /** Property edits and WYSIWYG content update the same structured page record as agents and MCP. */
+import ImageProperties from "./ImageProperties";
 import { useState } from "react";
 import type { RequestFn } from "../../../../frontend/src/shared/api/types";
 import { useContentLanguage } from "../../../../frontend/src/shared/i18n/ContentLanguage";
@@ -19,6 +20,8 @@ function localTime(iso: string | null) {
 export default function PageInspector({
   page,
   block,
+  request,
+  canGenerate = false,
   products,
   disabled,
   appearance,
@@ -26,6 +29,7 @@ export default function PageInspector({
   onSelect,
   onSearch,
 }: {
+  canGenerate?: boolean;
   page: Page;
   block?: Block;
   products: SiteProduct[];
@@ -163,15 +167,14 @@ export default function PageInspector({
               />
             )}
             {(["hero", "image"] as string[]).includes(block.kind) && (
-              <label>
-                {e("image")}
-                <input
-                  value={block.image}
-                  type="url"
-                  maxLength={2000}
-                  onChange={(event) => editBlock({ image: event.target.value })}
-                />
-              </label>
+              <ImageProperties
+                page={page}
+                block={block}
+                request={request}
+                disabled={disabled}
+                canGenerate={canGenerate}
+                onChange={editBlock}
+              />
             )}
             {block.kind === "products" && (
               <>

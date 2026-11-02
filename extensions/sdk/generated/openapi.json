@@ -5474,6 +5474,75 @@
                         "additionalProperties": false,
                         "properties": {
                           "name": {
+                            "const": "merchant.media.caption"
+                          },
+                          "arguments": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "alt": {
+                                "maxLength": 400,
+                                "type": "string"
+                              },
+                              "caption": {
+                                "maxLength": 600,
+                                "type": "string"
+                              },
+                              "context": {
+                                "maxLength": 4000,
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "imageUrl": {
+                                "maxLength": 2000,
+                                "type": "string"
+                              },
+                              "locale": {
+                                "maxLength": 35,
+                                "minLength": 2,
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "locale",
+                              "context"
+                            ],
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "jsonrpc",
+                      "id",
+                      "method",
+                      "params"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "jsonrpc": {
+                        "const": "2.0"
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "integer"
+                        ]
+                      },
+                      "method": {
+                        "const": "tools/call"
+                      },
+                      "params": {
+                        "type": "object",
+                        "required": [
+                          "name",
+                          "arguments"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "name": {
                             "const": "merchant.run.create"
                           },
                           "arguments": {

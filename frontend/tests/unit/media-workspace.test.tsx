@@ -23,7 +23,7 @@ it("closes pending media mutations when write access is revoked while preserving
       <ContentLanguage locales={["en-GB"]} mainLocale="en-GB">
         <ProductMediaWorkspace
           draft={draft}
-          request={vi.fn()}
+          request={vi.fn(async () => ({}))}
           onChange={onChange}
           canWrite={canWrite}
         />
@@ -274,7 +274,7 @@ it("reorders only a local gallery drag and keeps image metadata and selection", 
         <ContentLanguage locales={["en-GB", "de-DE"]} mainLocale="en-GB">
           <ProductMediaWorkspace
             draft={draft}
-            request={vi.fn()}
+            request={vi.fn(async () => ({}))}
             onChange={(next) => {
               last = next;
               setDraft(next);
@@ -323,7 +323,7 @@ it("cancels a pending gallery drag when write access is revoked", () => {
       <ContentLanguage locales={["en-GB"]} mainLocale="en-GB">
         <ProductMediaWorkspace
           draft={draft}
-          request={vi.fn()}
+          request={vi.fn(async () => ({}))}
           onChange={change}
           canWrite={canWrite}
         />
@@ -359,7 +359,7 @@ it("keeps the initially selected image while moving it with keyboard or touch co
         <ContentLanguage locales={["en-GB"]} mainLocale="en-GB">
           <ProductMediaWorkspace
             draft={draft}
-            request={vi.fn()}
+            request={vi.fn(async () => ({}))}
             onChange={(next) => {
               last = next;
               setDraft(next);

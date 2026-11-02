@@ -101,6 +101,13 @@ export default function NativeControl({
             onError={() => setFailed(true)}
           />
         )}
+        {!failed &&
+          !!stored &&
+          contentText(block.text ?? {}, locale, mainLocale) && (
+            <figcaption>
+              {contentText(block.text ?? {}, locale, mainLocale)}
+            </figcaption>
+          )}
         {records.length > 1 && (
           <select
             value={active}

@@ -1,4 +1,5 @@
 /** Shared design workspace composes the existing preview, palette and inspector with bounded personal panel widths. */
+import { useGridAccess } from "../../shared/grid/useGridAccess";
 import { useAppPanelSizing, AppPanelHandle } from "./AppPanelSizing";
 import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import { useAppStudioText } from "../../shared/i18n/app-studio-i18n";
@@ -33,6 +34,7 @@ export default function AppDesignWorkspace({
   onLanguages: (main: string, locales: string[]) => void;
   onEditFields: () => void;
 }) {
+  const rights = useGridAccess(request);
   const panels = useAppPanelSizing(),
     w = useAppWorkspaceText(),
     { a } = useAppStudioText(),
@@ -85,6 +87,8 @@ export default function AppDesignWorkspace({
             onChange={(n) => panels.resize("inspector", n)}
           />
           <AppInspector
+            request={request}
+            canGenerate={rights.includes("assistant.use")}
             manifest={m}
             view={view}
             selected={selected}

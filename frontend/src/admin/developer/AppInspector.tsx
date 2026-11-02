@@ -1,4 +1,6 @@
 /** One content language edits app/view/block metadata; changing bindings updates the actual manifest. */
+import MediaCaptionEditor from "../../shared/media/MediaCaptionEditor";
+import type { RequestFn } from "../../shared/api/types";
 import AppControlProperties from "./AppControlProperties";
 import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 import AppFormFields from "./AppFormFields";
@@ -12,10 +14,14 @@ import type { Manifest, NativeView } from "../../shared/apps/native/types";
 import { locations, textMap } from "./app-model";
 export default function AppInspector({
   manifest,
+  request,
+  canGenerate = false,
   view,
   selected,
   onChange,
 }: {
+  request?: RequestFn;
+  canGenerate?: boolean;
   manifest: Manifest;
   view: NativeView;
   selected: string;
@@ -142,6 +148,26 @@ export default function AppInspector({
             required
             maxLength={100}
           />
+          {block.kind === "image" && (
+            <MediaCaptionEditor
+              key={block.id}
+              scopeKey={`${manifest.id}:${manifest.version}:${view.id}:${block.id}`}
+              value={block.text ?? {}}
+              request={request}
+              canGenerate={canGenerate}
+              context={JSON.stringify({
+                app: manifest.name,
+                image: block.title,
+              })}
+              onChange={(v) =>
+                patch({
+                  blocks: view.blocks.map((b) =>
+                    b.id === selected ? { ...b, text: textMap(v) } : b,
+                  ),
+                })
+              }
+            />
+          )}
           {block.kind === "form" && (
             <AppFormFields
               manifest={manifest}

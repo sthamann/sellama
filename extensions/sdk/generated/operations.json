@@ -2512,6 +2512,43 @@
       "readOnly": true
     },
     {
+      "description": "Prepare a localized image caption and alt text for explicit editor review",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "alt": {
+            "maxLength": 400,
+            "type": "string"
+          },
+          "caption": {
+            "maxLength": 600,
+            "type": "string"
+          },
+          "context": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "imageUrl": {
+            "maxLength": 2000,
+            "type": "string"
+          },
+          "locale": {
+            "maxLength": 35,
+            "minLength": 2,
+            "type": "string"
+          }
+        },
+        "required": [
+          "locale",
+          "context"
+        ],
+        "type": "object"
+      },
+      "name": "merchant.media.caption",
+      "readOnly": false
+    },
+    {
       "description": "Queue a durable native planning task; no automatic business writes",
       "inputSchema": {
         "additionalProperties": false,

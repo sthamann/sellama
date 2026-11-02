@@ -2,6 +2,8 @@
 
 This folder owns the Rust modules listed below. Each source begins with its responsibility contract. The crate currently shares internal types/imports through a facade; APIs, MCP and UCP delegate to shared domain operations.
 
+- [`captions.rs`](captions.rs): Current-language, current-rights AI caption proposals through shared inference; no content mutation.
+- [`caption_source.rs`](caption_source.rs): Owned assets, exact public demo paths and DNS-pinned HTTPS images decoded into bounded evidence.
 - [`download.rs`](download.rs): Public attachments honor sales-channel visibility; downloads require a paid, owned order snapshot.
 - [`image_jobs.rs`](image_jobs.rs): Durable image jobs: tenant admission, revision-bound private previews and explicit publication, without automatic paid retries.
 - [`image_provider.rs`](image_provider.rs): Optional OpenAI Images adapter; bounded responses and decoded PNG output, no remote user URLs or leaked provider errors.

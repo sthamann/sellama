@@ -50,7 +50,7 @@ export type Product = {
   stock: number;
   revision: number;
   options: Record<string, string>;
-  media: { id: string; url: string; view: string }[];
+  media: { id: string; url: string; view: string; caption?: string }[];
   properties: Record<string, string>;
   min_purchase: number;
   purchase_steps: number;

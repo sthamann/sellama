@@ -75,6 +75,15 @@ The assistant context preview consumes the product's actual first gallery image.
 An empty gallery shows a clear empty state. ProductArt is no longer used to fabricate
 an illustration for the selected product in that panel.
 
+### Multilingual image captions
+
+Image captions are visible text below an image, separate from accessibility alt
+text. Edit the selected content language or review **Suggest with AI** and choose
+**Use in draft** before saving the product. Page and App Studio image controls
+reuse the same editor. Missing translations inherit; explicit empty captions stay
+blank. AI suggestions use current platform inference and are labelled when only
+content context was available. See [the caption guide and visual direction](visual-workspace-canvas.md).
+
 ### Optional image provider
 
 On the Rust server set `IMAGE_GENERATION_ENABLED=true`, `OPENAI_API_KEY` and optionally

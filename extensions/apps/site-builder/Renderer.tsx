@@ -177,9 +177,18 @@ export default function SiteRenderer({
               <figure>
                 <img
                   src={photo}
-                  alt={title}
+                  alt={
+                    b.imageAlt?.[language] ??
+                    b.imageAlt?.[language.split("-")[0]] ??
+                    b.imageAlt?.[mainLocale] ??
+                    b.imageAlt?.[mainLocale.split("-")[0]] ??
+                    title
+                  }
                   loading={b.kind === "hero" ? "eager" : "lazy"}
                 />
+                {text(b.caption ?? {}) && (
+                  <figcaption>{text(b.caption ?? {})}</figcaption>
+                )}
               </figure>
             )}
             {b.kind === "products" && (

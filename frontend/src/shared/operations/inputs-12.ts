@@ -2,6 +2,12 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs12 {
+  "pos.customer": {
+    cartToken: string;
+    channelId: string;
+    customerId: string | null;
+    revision: number;
+  };
   "pos.discount": {
     cartToken: string;
     channelId: string;
@@ -39,5 +45,4 @@ export interface Inputs12 {
     revision: number;
   };
   "pos.create": { channelId: string };
-  "pos.cart": { cartToken: string; channelId: string };
 }

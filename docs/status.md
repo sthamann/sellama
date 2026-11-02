@@ -4,6 +4,18 @@ Updated 2 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
+## Shared image captions (2 November 2026, source and local acceptance)
+
+Product media, Shop design image/hero blocks and App Studio image controls now
+share a localized caption editor with explicit AI proposal review. Native
+renderers display captions separately from alternative text. The shared operation
+uses central inference, owned/bounded image evidence, current rights and enabled
+shop languages. Product aggregate and app-document revision/sandbox owners remain
+unchanged. [Workflow and next Canvas direction](visual-workspace-canvas.md) ·
+[acceptance evidence](evidence/media-captions-2026-11-02.md).
+The zoomable common Canvas described in that guide is proposed, not implemented.
+Public runtime delivery and real-model wording quality remain separate checks.
+
 ## Guided shop setup, source and local acceptance (2 November 2026)
 
 An optional welcome and **Set up your shop** sidebar entry now connect six explicit

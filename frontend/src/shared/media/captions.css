@@ -1,0 +1,45 @@
+/* Compact caption tools inherit their editor's palette and fit narrow property panels. */
+.media-caption-editor {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding-block: 12px;
+}
+.media-caption-editor small {
+  color: var(--muted, #52677d);
+  font-size: 12px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.media-caption-editor > button {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.media-caption-proposal {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  background: var(--surface-soft, #eef5fc);
+  border-radius: 12px;
+}
+.media-caption-proposal label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+}
+.media-caption-proposal textarea {
+  width: 100%;
+  min-width: 0;
+  resize: vertical;
+  font: inherit;
+}
+.media-caption-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.media-caption-actions button {
+  flex: 1 1 auto;
+}

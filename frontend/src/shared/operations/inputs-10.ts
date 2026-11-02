@@ -2,6 +2,30 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs10 {
+  "knowledge.claim.propose": {
+    confidence?: number;
+    contentHash?: string;
+    locale?: string;
+    nodeType?:
+      | "product"
+      | "variant"
+      | "material"
+      | "property"
+      | "intent"
+      | "problem"
+      | "occasion"
+      | "audience"
+      | "claim"
+      | "return_reason"
+      | "supplier"
+      | "policy"
+      | "document"
+      | "support";
+    productId?: string;
+    quote?: string;
+    sourceId?: string;
+    text?: string;
+  };
   "knowledge.claim.review": {
     approve?: boolean;
     id?: string;
@@ -63,5 +87,4 @@ export interface Inputs10 {
   "merchant.site.apply": { approve: boolean; taskId: string };
   "studio.workspace.work.read": JsonValue;
   "studio.workspace.read": JsonValue;
-  "studio.workspace.save": { data: JsonValue; revision: number };
 }

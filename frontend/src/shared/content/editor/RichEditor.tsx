@@ -1,4 +1,5 @@
 /** Actual Tiptap WYSIWYG editor with structured safe content, media, formatting and per-language drafts. */
+import { useCaptionText } from "../../media/caption-i18n";
 import { useEffect, useState } from "react";
 import { useEditor, EditorContent, useEditorState } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -49,12 +50,14 @@ export default function RichEditor({
   disabled?: boolean;
 }) {
   const { c, locale } = useCatalogText();
-  const e = useEditorText();
+  const e = useEditorText(),
+    captionText = useCaptionText();
   const buffer = useEditorBuffer();
   const [mode, setMode] = useState<"visual" | "markdown">("visual");
   const lang = language ?? locale.slice(0, 2);
   const [media, setMedia] = useState<"image" | "video" | "link" | null>(null);
   const [url, setUrl] = useState("");
+  const [caption, setCaption] = useState("");
   const [preview, setPreview] = useState(false);
   const editor = useEditor(
     {
@@ -181,13 +184,27 @@ export default function RichEditor({
             {c("url")}
             <input value={url} onChange={(e) => setUrl(e.target.value)} />
           </label>
+          {media === "image" && (
+            <label>
+              {captionText("caption")}
+              <input
+                value={caption}
+                maxLength={600}
+                onChange={(e) => setCaption(e.target.value)}
+              />
+            </label>
+          )}
           <button
             type="button"
             className="studio-secondary"
             disabled={!safeRichUrl(url)}
             onClick={() => {
               if (media === "image")
-                editor.chain().focus().setImage({ src: url }).run();
+                editor
+                  .chain()
+                  .focus()
+                  .setImage({ src: url, title: caption })
+                  .run();
               else if (media === "video")
                 editor
                   .chain()
@@ -197,6 +214,7 @@ export default function RichEditor({
               else editor.chain().focus().setLink({ href: url }).run();
               setMedia(null);
               setUrl("");
+              setCaption("");
             }}
           >
             {c("add")}

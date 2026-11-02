@@ -1,4 +1,6 @@
 /** One product-media workspace: cover, ordered gallery, multilingual image metadata, drag/drop and optional reviewed AI drafts. */
+import MediaCaptionEditor from "../../shared/media/MediaCaptionEditor";
+import { useGridAccess } from "../../shared/grid/useGridAccess";
 import { useRef, useState } from "react";
 import LocalizedField from "../../shared/i18n/LocalizedField";
 import { useContentLanguage } from "../../shared/i18n/ContentLanguage";
@@ -26,6 +28,7 @@ export default function ProductMediaWorkspace({
   onChange: (draft: ProductDraft) => void;
   unsaved?: boolean;
 }) {
+  const rights = useGridAccess(request);
   const t = useProductMediaText();
   const { w } = useWorkspaceText(),
     { language, mainLocale } = useContentLanguage();
@@ -144,6 +147,26 @@ export default function ProductMediaWorkspace({
                   onChange={(alt) =>
                     change(
                       media.map((m) => (m.id === image.id ? { ...m, alt } : m)),
+                    )
+                  }
+                />
+                <MediaCaptionEditor
+                  key={image.id}
+                  scopeKey={`${draft.id}:${draft.revision}:${image.id}`}
+                  value={image.caption ?? {}}
+                  disabled={!canWrite}
+                  request={request}
+                  canGenerate={rights.includes("assistant.use")}
+                  imageUrl={image.url}
+                  context={JSON.stringify({
+                    product: draft.translations,
+                    view: image.view,
+                  })}
+                  onChange={(caption) =>
+                    change(
+                      media.map((m) =>
+                        m.id === image.id ? { ...m, caption } : m,
+                      ),
                     )
                   }
                 />

@@ -106,6 +106,7 @@
   top: 25px;
 }
 .gallery-main {
+  margin: 0;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
@@ -265,4 +266,12 @@
   height: 6px;
   border-radius: 50%;
   background: currentColor;
+}
+
+.gallery-main > figcaption {
+  padding: 12px 20px 40px;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }

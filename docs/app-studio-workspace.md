@@ -38,6 +38,14 @@ their existing explicit mounting paths. Choosing a placement does not grant righ
 or make a draft public. Public views remain read-only unless a separately reviewed
 contract permits a specific action.
 
+## Image captions
+
+Select an image in **Design** to edit its caption in the current content language.
+The native image control renders that text below its asset. The AI button prepares
+a reviewed suggestion from the current app/image description; no record image is
+selected in the design inspector. Captions use the existing localized block text
+and the normal version/release path. [Shared caption workflow](visual-workspace-canvas.md).
+
 ## Work on the app, with help when needed
 
 The canvas stays central. The toolbox uses compact illustrated rows: drag a block

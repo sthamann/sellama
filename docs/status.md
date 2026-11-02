@@ -4,7 +4,7 @@ Updated 2 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
-## Shared visual canvas (2 November 2026)
+## Shared visual canvas (2 November 2026, publicly delivered)
 
 Shop design and App Studio share a zoomable overview with bounded mounted previews,
 collapsible tools and contextual direct editing. App placements lead into their
@@ -14,6 +14,11 @@ and previews a proposal before adoption. Existing native versions, private previ
 permissions and selected publication remain authoritative.
 [Illustrated workflow](visual-workspace-canvas.md) ·
 [Native and browser acceptance](evidence/canvas-workspace-2026-11-02.md).
+PR 258 is deployed on the public Core. The authenticated public shop/app overview,
+native product handoff, graphical button behavior, contextual Codex task export
+and immutable app version save passed after rollout. The website guide and actual
+captures are published; image-provider and selected-release fixtures retain their
+separate local scope.
 
 ## Merchant assistant layout (2 November 2026, local acceptance)
 

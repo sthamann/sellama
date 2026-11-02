@@ -2,6 +2,8 @@
 
 ## 2 November 2026 · Shared visual canvas
 
+- Keep expanded coding-agent task exports inside the native right dock, including long schema tokens and phone layouts.
+
 - Share bounded pan/zoom scene navigation across shop pages and app placements;
   reuse native renderers, product/category editors and existing undo/draft owners.
 - Collapse palettes/properties around the preview, add direct duplicate/move/delete

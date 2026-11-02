@@ -7,6 +7,7 @@ type Session = {
   sessionToken: string;
   nonce: string;
   expiresIn: number;
+  readySignal?: boolean;
 };
 export default function EmbeddedPayment({
   id,
@@ -22,11 +23,17 @@ export default function EmbeddedPayment({
   const { x } = useCheckoutText(),
     frame = useRef<HTMLIFrameElement>(null),
     [session, setSession] = useState<Session>(),
-    [error, setError] = useState("");
+    [error, setError] = useState(""),
+    [loaded, setLoaded] = useState(false),
+    [reload, setReload] = useState(0);
+  const timeoutText = x("paymentLoadTimeout");
   const changed = useRef(onChanged);
   changed.current = onChanged;
   useEffect(() => {
     let active = true;
+    setSession(undefined);
+    setLoaded(false);
+    setError("");
     void shopApi<Session>(
       `/store-api/payments/${id}/session?parentOrigin=${encodeURIComponent(window.location.origin)}`,
       undefined,
@@ -41,7 +48,12 @@ export default function EmbeddedPayment({
     return () => {
       active = false;
     };
-  }, [id, token]);
+  }, [id, token, reload]);
+  useEffect(() => {
+    if (loaded || error) return;
+    const timer = window.setTimeout(() => setError(timeoutText), 20_000);
+    return () => window.clearTimeout(timer);
+  }, [session, loaded, error, timeoutText]);
   useEffect(() => {
     if (!session) return;
     const receive = (event: MessageEvent) => {
@@ -49,12 +61,17 @@ export default function EmbeddedPayment({
         event.origin !== new URL(session.uiUrl).origin ||
         event.source !== frame.current?.contentWindow ||
         event.data?.nonce !== session.nonce ||
-        !["veyndo.payment.changed", "veyndo.payment.redirect"].includes(
-          event.data?.type,
-        )
+        ![
+          "veyndo.payment.ready",
+          "veyndo.payment.changed",
+          "veyndo.payment.redirect",
+        ].includes(event.data?.type)
       )
         return;
-      if (event.data.type === "veyndo.payment.redirect") {
+      if (event.data.type === "veyndo.payment.ready") {
+        setLoaded(true);
+        setError("");
+      } else if (event.data.type === "veyndo.payment.redirect") {
         if (approvalUrl && event.data.url === approvalUrl)
           window.location.assign(approvalUrl);
       } else changed.current();
@@ -64,16 +81,38 @@ export default function EmbeddedPayment({
   }, [session, approvalUrl]);
   return (
     <div className="embedded-payment">
-      {error && <p role="alert">{error}</p>}
+      {error ? (
+        <div role="alert">
+          <p>{error}</p>
+          <button
+            className="shop-secondary"
+            onClick={() => setReload((n) => n + 1)}
+          >
+            {x("paymentReload")}
+          </button>
+        </div>
+      ) : (
+        !loaded && <p role="status">{x("paymentLoading")}</p>
+      )}
       {session && (
         <iframe
           ref={frame}
-          title={x("continuePay")}
+          title={x("securePayment")}
+          hidden={Boolean(error)}
           src={session.uiUrl}
           sandbox="allow-scripts allow-forms allow-popups allow-same-origin allow-popups-to-escape-sandbox"
           allow="payment"
-          style={{ width: "100%", minHeight: 380, border: 0 }}
-          onLoad={() =>
+          style={{
+            width: "100%",
+            minHeight: 380,
+            border: 0,
+            visibility: loaded ? "visible" : "hidden",
+          }}
+          onLoad={() => {
+            if (!session.readySignal) {
+              setLoaded(true);
+              setError("");
+            }
             frame.current?.contentWindow?.postMessage(
               {
                 type: "veyndo.payment.init",
@@ -81,8 +120,8 @@ export default function EmbeddedPayment({
                 nonce: session.nonce,
               },
               new URL(session.uiUrl).origin,
-            )
-          }
+            );
+          }}
         />
       )}
     </div>

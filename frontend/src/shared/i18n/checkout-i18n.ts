@@ -51,6 +51,30 @@ const text = {
     "Continuer vers PayPal",
     "Continuar a PayPal",
   ],
+  securePayment: [
+    "Secure payment",
+    "Sichere Zahlung",
+    "Paiement sécurisé",
+    "Pago seguro",
+  ],
+  paymentLoading: [
+    "Loading your secure payment form…",
+    "Deine sichere Zahlungsmaske wird geladen …",
+    "Chargement du formulaire de paiement sécurisé…",
+    "Cargando el formulario de pago seguro…",
+  ],
+  paymentLoadTimeout: [
+    "The payment form could not be loaded. Load it again. Your order is saved.",
+    "Die Zahlungsmaske konnte nicht geladen werden. Lade sie erneut. Deine Bestellung bleibt erhalten.",
+    "Le formulaire de paiement ne s’est pas chargé. Rechargez-le. Votre commande est enregistrée.",
+    "No se pudo cargar el formulario de pago. Vuelve a cargarlo. Tu pedido está guardado.",
+  ],
+  paymentReload: [
+    "Reload payment form",
+    "Zahlungsmaske erneut laden",
+    "Recharger le formulaire de paiement",
+    "Volver a cargar el formulario de pago",
+  ],
   checking: [
     "Confirming your payment…",
     "Deine Zahlung wird bestätigt …",

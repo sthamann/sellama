@@ -127,11 +127,13 @@ loopback override is allowed for contract tests; such attempts are permanently
 labelled `contract-fixture`. Environment/version mismatches require the original
 adapter for reconciliation. No actual Sandbox or Live transaction was run.
 
-Shopware's [Payments documentation](https://docs.shopware.com/en/shopware-6-en/shopware-services/shopware-payments)
-requires a valid Shopware installation and onboarding. A standalone integration
-contract has not been verified. Its example app therefore reports
-`connector-contract-required` and cannot be selected for checkout. The native
-PayPal adapter must not be presented as an official Shopware Payments integration.
+The separate private Shopware Payments Rust connector implements the general
+provider contract. Its actual Core/PostgreSQL journeys run against a local,
+PayPal-shaped fixture. The public catalogue entry remains a setup placeholder;
+it does not deploy that service. Actual authorized test-account traffic and full
+original feature parity remain separate acceptance work. See the [current
+integration and acceptance matrix](shopware-payments-acceptance.md). The native
+PayPal adapter must not be presented as the Shopware Payments connector.
 
 The current [provider API](payment-provider-api.md) adds authorization/void commands
 and [multi-currency](currencies.md) with immutable precision. The following gaps

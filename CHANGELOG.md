@@ -1,5 +1,13 @@
 # Changelog
 
+## 3 November 2026: external payment refund reconciliation
+
+- Provider-observed completed refunds now update the original native payment and
+  order through existing receipt admission. Duplicate callbacks, changed receipt
+  amounts, unknown native jobs and failed holds cannot double-count refunded money.
+- This is implemented and tested with native services and local provider fixtures.
+  External provider account acceptance and full Shopware feature parity remain open.
+
 ## 3 November 2026: persistent contextual assistant
 
 - Ask Veyndo is a scoped right sidebar across Studio, with one shared conversation,

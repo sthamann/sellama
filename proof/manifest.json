@@ -30,7 +30,8 @@
     },
     "refund_admissible": {
       "bindings": [
-        "src/payments/operations.rs"
+        "src/payments/operations.rs",
+        "src/payments/refund_receipts.rs"
       ],
       "theorems": [
         "refund_bounded",
@@ -3740,13 +3741,13 @@
     },
     "src/payments/generic_receipts.rs": {
       "status": "unproved",
-      "sha256": "d749defd48f3c6ff21109880cdbd88d4d9751f48e4d94d70ac4fd7962e129450",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "88f44c0b733d342d0ec1d14762df5f6aaeb9c7e6a49909720b5589b56caeb759",
+      "review": "Reviewed exact native provider refund admission using existing extracted refund policy, immutable receipt amount and job/tenant/attempt binding; monotonic replay and private financial metadata stays out of outbound RPC; asynchronous SQL and provider adapters remain unproved"
     },
     "src/payments/mod.rs": {
       "status": "unproved",
-      "sha256": "aeec121860a066abd6da733e222b46ae85be12305ad7a7428785292940afa399",
-      "review": "Relocated app implementation into owner packages; generic connector binary and payment ledger preserve existing contracts; reviewed receipt and inventory bindings unchanged"
+      "sha256": "8f8b079769a7127af4317b86b6bf5bd9e2d1a07de46aa1da1dd704227d5d3089",
+      "review": "Reviewed external completed-refund receipt admission, tenant/account/attempt/job binding, monotonic exact sums and replay; Rust/SQL/provider adapters remain unproved"
     },
     "src/payments/operations.rs": {
       "status": "reviewed-binding",
@@ -3773,6 +3774,11 @@
       "sha256": "dd3cddcacdb0cb896e9d9221cd909cf89402f942997e1e08a1f96ad6c9632231",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
+    "src/payments/refund_receipts.rs": {
+      "status": "reviewed-binding",
+      "sha256": "f66057c9ffc50ccf01ea594dcac8be30dc8f2341d36cc7f344b9a9464e6b30cc",
+      "review": "Reviewed exact native provider refund admission using existing extracted refund policy, immutable receipt amount and job/tenant/attempt binding; monotonic replay and private financial metadata stays out of outbound RPC; asynchronous SQL and provider adapters remain unproved"
+    },
     "src/payments/registry.rs": {
       "status": "unproved",
       "sha256": "1dad151f8a50ef65e8e73c04c42cda4e0c479a7e55c30039b469951f71bd70dc",
@@ -3780,8 +3786,8 @@
     },
     "src/payments/remote.rs": {
       "status": "unproved",
-      "sha256": "2c94291c413770ed1671d5a3e7e6deddb2cbd671039105d2c01a74c5f7be40f7",
-      "review": "Review shared payment-service simulation admission, configured environment discovery and additive native account constraint; financial kernel unchanged."
+      "sha256": "21059d4390117efd0e764f95092a2526db44bc0b331a9c6ed7c73555caa2b0ce",
+      "review": "Reviewed exact native provider refund admission using existing extracted refund policy, immutable receipt amount and job/tenant/attempt binding; monotonic replay and private financial metadata stays out of outbound RPC; asynchronous SQL and provider adapters remain unproved"
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",

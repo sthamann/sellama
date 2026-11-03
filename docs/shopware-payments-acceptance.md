@@ -162,8 +162,13 @@ Completed hosted steps and remaining provider work are tracked explicitly:
 - [ ] Complete original express/payment messaging controls through the existing
   versioned configuration. Native manual collection already has the separately
   recorded local Klarna browser acceptance above.
-- [ ] Complete vault/recurring lifecycle, multi-capture, externally initiated refund
-  and dispute reconciliation, reporting/fees and shipment tracking.
+- [x] Implement externally initiated completed-refund reconciliation, with signed
+  capture-link notification, native job binding and duplicate/changed-receipt
+  rejection. Both actual Rust services pass against a local HTTP provider fixture;
+  external PSP acceptance still requires the authorized account below.
+  [Native regression evidence](evidence/payment-refund-reconciliation-2026-11-03.md).
+- [ ] Complete vault/recurring lifecycle, multi-capture, dispute reconciliation,
+  reporting/fees and shipment tracking.
 - [x] Accept the public original Storyfront embedded card simulation through the
   actual hosted private provider, return, empty original cart after reload and
   complete native merchant refund on 3 November.

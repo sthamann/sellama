@@ -22,6 +22,8 @@ class Handler(BaseHTTPRequestHandler):
    if b['operation']=='authorize':v.update(status='authorized',authorizationId='AUTH-'+b['attemptId'],authorizedAmountMinor=b['amountMinor'])
    if b['operation'] in ['cancel','void']:v.update(status='voided' if b['context'].get('authorizationId') else 'cancelled')
    if b['operation']=='refund':v.update(status='refunded',refund={'id':'REFUND-'+b['requestKey'],'amountMinor':b['input']['amountMinor'],'currency':b['currency']})
+   if b['operation']=='reconcile' and behavior.get('refundsFor') == b['attemptId']:
+    v.update(status='captured',captureId='CAP-'+b['attemptId'],settledAmountMinor=b['amountMinor'],refunds=behavior['refunds'])
    if behavior.get('badMoney') and b['operation']=='capture':v['settledAmountMinor']=1
    if behavior.get('wrongAccount'):v['accountRef']='foreign-account'
   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps(v).encode())
@@ -164,6 +166,8 @@ try:
  call('/api/apps/'+m['id']+'/actions/payment_command',{'operation':'reconcile','attemptId':id,'approve':True,'requestKey':uuid.uuid4().hex},expected=401)
  print('PASS Signed callbacks reject forgery and deduplicate; protected app/MCP/Flow command gateway reaches the core job ledger')
 
+ from testing.payment_external_refunds import run as external_refunds
+ external_refunds(globals())
  m['version']='1.1.0';m['paymentProvider']['methods'][0]['intent']='authorize';call('/api/apps',{'manifest':m},ah)
  o2,h2=purchase();id2=o2['payment']['attemptId'];wait(id2,h2,'ready');reference[id2]='approved';call('/store-api/payments/'+id2+'/reconcile',{}, {**h2,'Idempotency-Key':uuid.uuid4().hex});wait(id2,h2,'authorized')
  call('/api/payments/'+id2+'/void',{'approve':True},{**ah,'Idempotency-Key':uuid.uuid4().hex});wait(id2,h2,'cancelled')

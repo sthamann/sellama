@@ -126,3 +126,20 @@ and service restart. The original provider-shaped fixture also retains USD/JPY,
 SEPA mandate and historical version tests. These are simulation and contract
 checks. Actual wallet SDKs, bank mandates and live provider access retain their
 separate provider acceptance requirements.
+
+## Provider-observed external refunds
+
+A confirmed `captured` receipt can optionally include `refunds`, a bounded array of
+completed refund records `{id, amountMinor, currency, requestKey?}`. Each record
+belongs to the verified original invoice and provider order. Pending, failed and
+denied refunds must not be included as refunded money. The native owner rejects
+wrong currencies, nonpositive amounts, totals above the captured invoice, duplicate
+IDs and changed historical receipt amounts. Repeated snapshots never reduce or
+double-count previously admitted refunds.
+
+`requestKey`, when present, must identify the original native refund job for this
+same tenant, attempt and amount. This lets a refund first observed during
+reconciliation later finish its native job without adding the amount a second
+time. Unknown jobs and receipt ownership conflicts are rejected transactionally.
+External refunds use the existing payment ledger, receipt claims, order state and
+outbox; they do not create a new refund executor or grant any client authority.

@@ -23,7 +23,7 @@ pub(super) fn identity(p: &Attempt, v: &Value) -> Result<()> {
     }
     Ok(())
 }
-fn reference(v: &Value) -> Result<&str> {
+pub(super) fn reference(v: &Value) -> Result<&str> {
     v.as_str()
         .filter(|s| {
             !s.is_empty()
@@ -33,7 +33,7 @@ fn reference(v: &Value) -> Result<&str> {
         })
         .ok_or(bad("Invalid provider receipt reference"))
 }
-async fn claim(
+pub(super) async fn claim(
     tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,
     p: &Attempt,
     kind: &str,
@@ -83,15 +83,12 @@ pub(crate) async fn persist(
         {
             return Err(bad("Refund receipt mismatch"));
         }
-        let refund = reference(&v["refund"]["id"])?;
         let key = input["ledgerJobKey"]
             .as_str()
             .ok_or(bad("Refund ledger job required"))?;
-        claim(tx, p, "refund", refund, key).await?;
-        refunded = refunded
-            .checked_add(amount)
-            .filter(|n| *n <= p.amount)
-            .ok_or(conflict("Refund exceeds payment"))?;
+        let delta =
+            super::refund_receipts::apply(tx, p, &mut context, &v["refund"], Some(key)).await?;
+        refunded = super::refund_receipts::checked_total(p.amount, refunded, delta)?;
         state = if refunded == p.amount {
             "refunded"
         } else {
@@ -166,6 +163,18 @@ pub(crate) async fn persist(
         return Err(bad("Unsupported provider receipt state"));
     }
     state::transition(&p.state, &state)?;
+    if status == "captured" && v["confirmed"] == true {
+        refunded = super::refund_receipts::reconcile(tx, p, &mut context, v).await?;
+        if refunded > 0 {
+            let next = if refunded == p.amount {
+                "refunded"
+            } else {
+                "partially_refunded"
+            };
+            state::transition(&state, next)?;
+            state = next.into();
+        }
+    }
     sqlx::query("UPDATE payment_attempts SET state=$1,provider_order=$2,approval_url=coalesce($3,approval_url),capture_id=$4,refunded_minor=$5,provider_context=$6,revision=revision+1 WHERE tenant=$7 AND id=$8").bind(&state).bind(remote).bind(url).bind(capture).bind(refunded).bind(context).bind(&p.tenant).bind(&p.id).execute(&mut **tx).await?;
     if state != p.state {
         if state == "approved" || (state == "authorized" && p.context["intent"] == "capture") {

@@ -483,8 +483,13 @@ This lists every checked-in source module in these roots, including files with n
 | [src/payments/app_commands.rs](../src/payments/app_commands.rs) | App/Flow/MCP payment actions enqueue core jobs; provider-bound attempts prevent cross-app command authority. |
 | [src/payments/capture_admission.rs](../src/payments/capture_admission.rs) | Serialized native capture budgets; uncertain capture jobs reserve the remaining authorization. |
 | [src/payments/capture_configuration.rs](../src/payments/capture_configuration.rs) | Capture timing is versioned shop/channel configuration; every attempt freezes its admitted provider intent. |
+| [src/payments/catalog.rs](../src/payments/catalog.rs) | Native payment operation descriptions, composed by the canonical operation registry. |
 | [src/payments/contract.rs](../src/payments/contract.rs) | Versioned app-owned payment methods; declarations never grant financial authority. |
+| [src/payments/details.rs](../src/payments/details.rs) | Native payment-only history projection and optional owned provider observation; no financial command is executed. |
+| [src/payments/details_model.rs](../src/payments/details_model.rs) | Typed, PII-free provider transaction details; these observations never mutate native payment state. |
+| [src/payments/details_tests.rs](../src/payments/details_tests.rs) | Transaction observations reject untyped and foreign evidence without touching payment state. |
 | [src/payments/generic_receipts.rs](../src/payments/generic_receipts.rs) | Provider-neutral receipt admission and atomic allocation; verified evidence owns ledger transitions. |
+| [src/payments/merchant.rs](../src/payments/merchant.rs) | Shared merchant payment operation bridge; HTTP, MCP and Flows retain native rights and durable jobs. |
 | [src/payments/mod.rs](../src/payments/mod.rs) | Provider-independent payment ledger and durable workers; the PayPal adapter supports explicit Sandbox/Live environments. |
 | [src/payments/operations.rs](../src/payments/operations.rs) | Durable idempotent payment commands, customer context binding and serial refund admission. |
 | [src/payments/provider.rs](../src/payments/provider.rs) | Payment provider identity, tenant account configuration and immutable wire context. |
@@ -934,8 +939,11 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/orders/shipments.css](../frontend/src/admin/orders/shipments.css) | Package allocation stays compact on desktop and touch-friendly on narrow order workspaces. |
 | [frontend/src/admin/orders/useOrderCreation.ts](../frontend/src/admin/orders/useOrderCreation.ts) | Draft controller loads admitted choices, fences async reads and keeps review state separate from the editable input. |
 | [frontend/src/admin/payments/PaymentActions.tsx](../frontend/src/admin/payments/PaymentActions.tsx) | Shared native order/provider controls; an accepted job is observed before another financial action. |
+| [frontend/src/admin/payments/PaymentDetails.tsx](../frontend/src/admin/payments/PaymentDetails.tsx) | Read-only transaction observation and native financial history, shared across Studio views. |
 | [frontend/src/admin/payments/payment-actions.css](../frontend/src/admin/payments/payment-actions.css) | Native payment action grouping, shared by order details and payment administration. |
 | [frontend/src/admin/payments/payment-amount.ts](../frontend/src/admin/payments/payment-amount.ts) | Exact decimal merchant input; reject overprecision instead of rounding financial commands. |
+| [frontend/src/admin/payments/payment-command.ts](../frontend/src/admin/payments/payment-command.ts) | Shared frozen merchant payment request identity; retries preserve the original exact payload. |
+| [frontend/src/admin/payments/payment-details.css](../frontend/src/admin/payments/payment-details.css) | Responsive, read-only payment receipt and history disclosure. |
 | [frontend/src/admin/pos/POSWorkspace.tsx](../frontend/src/admin/pos/POSWorkspace.tsx) | Native Studio register; all reads and writes use authenticated, tenant-scoped shared commerce operations. |
 | [frontend/src/admin/pos/ReceiptPrinter.tsx](../frontend/src/admin/pos/ReceiptPrinter.tsx) | OS-installed receipt printers receive the issued immutable invoice projection; no USB access, credentials or duplicate ledger. |
 | [frontend/src/admin/pos/Register.tsx](../frontend/src/admin/pos/Register.tsx) | Register composition: persisted sale, catalog, customer and assistant tools share native transport. |
@@ -1326,6 +1334,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/locales/shop-fr.ts](../frontend/src/shared/i18n/locales/shop-fr.ts) | Storefront and operational interface strings: fr. |
 | [frontend/src/shared/i18n/native-lifecycle-i18n.ts](../frontend/src/shared/i18n/native-lifecycle-i18n.ts) | Shared native lifecycle editor vocabulary; state labels remain merchant content. |
 | [frontend/src/shared/i18n/operations-i18n.ts](../frontend/src/shared/i18n/operations-i18n.ts) | Operational commerce labels in all supported languages. |
+| [frontend/src/shared/i18n/payment-details-i18n.ts](../frontend/src/shared/i18n/payment-details-i18n.ts) | Read-only payment transaction and fee vocabulary for every Studio language. |
 | [frontend/src/shared/i18n/payment-errors-i18n.ts](../frontend/src/shared/i18n/payment-errors-i18n.ts) | Recoverable merchant payment guidance; immutable provider diagnostics remain server-side. |
 | [frontend/src/shared/i18n/payment-ledger-i18n.ts](../frontend/src/shared/i18n/payment-ledger-i18n.ts) | Merchant payment balances and capture allocation vocabulary in every Studio language. |
 | [frontend/src/shared/i18n/payment-provider-i18n.ts](../frontend/src/shared/i18n/payment-provider-i18n.ts) | Payment contract editor and account onboarding vocabulary. |

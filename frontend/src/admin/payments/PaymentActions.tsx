@@ -154,59 +154,66 @@ export default function PaymentActions({
           </small>
         </form>
       )}
-      {captures.length > 0 && !["cancelled", "expired"].includes(state) && (
-        <form
-          className="payment-amount-form"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            if (
-              refundMinor &&
-              selected &&
-              (await onPayment("refund", refundMinor, {
-                captureId: selected.id,
-              }))
-            )
-              setRefund("");
-          }}
-        >
-          {captures.length > 1 && (
-            <label className="payment-capture-picker">
-              {text("selectCapture")}
-              <select
-                disabled={disabled}
-                value={selected?.id ?? ""}
-                onChange={(e) => {
-                  setCaptureId(e.target.value);
-                  setRefund("");
-                }}
-              >
-                {captures.map((c, index) => (
-                  <option key={c.id} value={c.id}>
-                    {index + 1} · {money(c.amountMinor - c.refundedMinor)} ·{" "}
-                    {c.id}
-                  </option>
-                ))}
-              </select>
-            </label>
-          )}
-          <label>
-            {text("amount")} · {currency}
-            <input
-              required
-              inputMode="decimal"
-              value={refund}
-              placeholder={money(refundable)}
-              onChange={(e) => setRefund(e.target.value)}
-            />
-          </label>
-          <button
-            className="studio-secondary"
-            disabled={disabled || !refundMinor || refundMinor > refundable}
+      {(captures.length > 0 ||
+        (!settlement && ["captured", "partially_refunded"].includes(state))) &&
+        !["cancelled", "expired"].includes(state) && (
+          <form
+            className="payment-amount-form"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              if (
+                refundMinor &&
+                (selected
+                  ? await onPayment("refund", refundMinor, {
+                      captureId: selected.id,
+                    })
+                  : await onPayment("refund", refundMinor))
+              )
+                setRefund("");
+            }}
           >
-            {text("refund")}
-          </button>
-        </form>
-      )}
+            {captures.length > 1 && (
+              <label className="payment-capture-picker">
+                {text("selectCapture")}
+                <select
+                  disabled={disabled}
+                  value={selected?.id ?? ""}
+                  onChange={(e) => {
+                    setCaptureId(e.target.value);
+                    setRefund("");
+                  }}
+                >
+                  {captures.map((c, index) => (
+                    <option key={c.id} value={c.id}>
+                      {index + 1} · {money(c.amountMinor - c.refundedMinor)} ·{" "}
+                      {c.id}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+            <label>
+              {text("refund")} · {currency}
+              <input
+                required
+                inputMode="decimal"
+                value={refund}
+                placeholder={money(refundable)}
+                onChange={(e) => setRefund(e.target.value)}
+              />
+            </label>
+            <button
+              className="studio-secondary"
+              disabled={
+                disabled ||
+                !refundMinor ||
+                (!!settlement && refundMinor > refundable)
+              }
+            >
+              {text("refund")}
+            </button>
+          </form>
+        )}
     </div>
   );
 }

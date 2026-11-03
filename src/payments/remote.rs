@@ -91,11 +91,15 @@ pub(crate) async fn execute(
     key: &str,
     input: &Value,
 ) -> Result<Value> {
-    let mut order: Value = sqlx::query_scalar("SELECT data FROM orders WHERE tenant=$1 AND id=$2")
-        .bind(&p.tenant)
-        .bind(&p.order)
-        .fetch_one(&a.db)
-        .await?;
+    let mut order: Value = if op == "inspect" {
+        Value::Null
+    } else {
+        sqlx::query_scalar("SELECT data FROM orders WHERE tenant=$1 AND id=$2")
+            .bind(&p.tenant)
+            .bind(&p.order)
+            .fetch_one(&a.db)
+            .await?
+    };
     if let Some(c) = order["cart"].as_object_mut() {
         c.remove("token");
     }

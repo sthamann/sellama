@@ -119,6 +119,7 @@ describe("currency contexts", () => {
     render(
       <LocaleProvider>
         <OrderPaymentDelivery
+          request={vi.fn()}
           order={{
             cart: { price: { currency: "KWD", currencyScale: 3 } },
             payment: {

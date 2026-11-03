@@ -1,0 +1,85 @@
+/* Responsive, read-only payment receipt and history disclosure. */
+.payment-details {
+  min-width: 0;
+  margin-block: 1rem;
+  border-block-start: 1px solid var(--border);
+  padding-block-start: 1rem;
+}
+.payment-details summary {
+  cursor: pointer;
+  font-weight: 650;
+  padding: 0.5rem 0;
+}
+.payment-details summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.payment-details section {
+  margin-block: 1.25rem;
+}
+.payment-details h3 {
+  font-size: 1rem;
+  margin-block: 0 0.5rem;
+}
+.payment-details-hint,
+.payment-details small,
+.payment-history time {
+  color: var(--muted);
+}
+.payment-details p {
+  max-width: 65ch;
+}
+.payment-reference,
+.payment-receipts small {
+  overflow-wrap: anywhere;
+}
+.payment-receipts,
+.payment-history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.payment-receipts li {
+  padding-block: 0.75rem;
+  border-block-end: 1px solid var(--border);
+}
+.payment-receipt-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  justify-content: space-between;
+  font-variant-numeric: tabular-nums;
+}
+.payment-receipt-heading span {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.payment-receipts dl {
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+}
+.payment-receipts dl div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+.payment-receipts dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.payment-history li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  justify-content: space-between;
+  padding-block: 0.5rem;
+  font-size: 0.875rem;
+}
+.payment-details > button {
+  margin-block-start: 1rem;
+}
+
+.payment-details > small {
+  display: block;
+}

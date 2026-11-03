@@ -11,3 +11,9 @@ owns presentation DTOs only. Current permissions, provider capabilities, account
 ownership, immutable receipts and pending reservations remain server decisions.
 EN/DE/FR/ES text comes from the shared payment dictionaries; styles inherit the
 native Studio theme and collapse into one column at narrow widths.
+
+`PaymentDetails` lazily reads the shared native payment details endpoint. Provider
+observations and durable payment-only history remain separate; no command is
+issued by loading or refreshing this section. It is available with `payments.read`,
+including members who cannot manage payments or read customer PII. Historical
+orders without a capture summary retain their exact native refund form.

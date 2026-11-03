@@ -24,6 +24,11 @@ pub(crate) fn payment_router() -> Router<App> {
             &[("POST", "payments.manage")],
             post(onboarding_route),
         )
+        .secure_route(
+            "/api/payments/{id}/details",
+            &[("GET", "payments.read")],
+            get(super::details::route),
+        )
         .secure_route("/api/payments", &[("GET", "payments.read")], get(status))
         .secure_route(
             "/api/payments/jobs/{id}",

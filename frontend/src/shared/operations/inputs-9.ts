@@ -2,51 +2,6 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs9 {
-  "team.role.delete": {
-    approve?: boolean;
-    data?: {
-      active: boolean;
-      name: JsonValue;
-      permissions: Array<
-        | "overview.read"
-        | "assistant.use"
-        | "automation.read"
-        | "automation.manage"
-        | "channels.read"
-        | "channels.manage"
-        | "developer.read"
-        | "developer.manage"
-        | "environments.read"
-        | "environments.manage"
-        | "knowledge.write"
-        | "ai.manage"
-        | "apps.read"
-        | "pos.use"
-        | "b2b.read"
-        | "b2b.manage"
-        | "catalog.read"
-        | "catalog.write"
-        | "orders.read"
-        | "orders.write"
-        | "customers.read"
-        | "customers.pii"
-        | "customers.write"
-        | "documents.read"
-        | "documents.create"
-        | "payments.read"
-        | "payments.manage"
-        | "team.manage"
-        | "settings.read"
-        | "settings.write"
-        | "apps.manage"
-        | "knowledge.read"
-      >;
-    };
-    id?: string;
-    revision?: number;
-  };
-  "knowledge.behavior": { days?: number; salesChannelId?: string };
-  "knowledge.behavior.journey": { session?: string };
   "knowledge.experiments": JsonValue;
   "knowledge.experiment.create": { approve?: boolean; design?: JsonValue };
   "knowledge.experiment.start": {
@@ -68,4 +23,40 @@ export interface Inputs9 {
   "catalog.facts": { productId?: string };
   "knowledge.autonomy.apply": { taskId?: string };
   "knowledge.claims": { productId?: string };
+  "knowledge.claim.propose": {
+    confidence?: number;
+    contentHash?: string;
+    locale?: string;
+    nodeType?:
+      | "product"
+      | "variant"
+      | "material"
+      | "property"
+      | "intent"
+      | "problem"
+      | "occasion"
+      | "audience"
+      | "claim"
+      | "return_reason"
+      | "supplier"
+      | "policy"
+      | "document"
+      | "support";
+    productId?: string;
+    quote?: string;
+    sourceId?: string;
+    text?: string;
+  };
+  "knowledge.claim.review": {
+    approve?: boolean;
+    id?: string;
+    revision?: number;
+    state?: "evidenced" | "confirmed" | "rejected";
+  };
+  "knowledge.extract": {
+    inference?: JsonValue;
+    locale?: string;
+    productId?: string;
+    sourceId?: string;
+  };
 }

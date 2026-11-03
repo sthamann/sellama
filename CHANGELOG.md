@@ -1,5 +1,13 @@
 # Changelog
 
+## Payment transaction details, 3 November 2026
+
+- Added owned read-only provider transactions and exact fees/net amounts with contract 1.4.0.
+- Shared order/payment disclosure, current `payments.read`, HTTP/MCP and durable payment-only history.
+- Excluded full order/customer/card/bank data, retained frozen identities and native snapshot consistency.
+- Restored exact refund entry for historical orders without the new capture summary.
+- Local Rust/Core/PG, 17-method simulation and targeted UI checks; external provider tests deferred.
+
 ## 3 November 2026: partial and multiple payment capture
 
 - Original invoices now retain distinct confirmed capture balances, optional

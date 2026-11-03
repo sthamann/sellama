@@ -1,4 +1,5 @@
 /** Order workspace: server actions, exact-once commands, provider progress and visible event history. */
+import { paymentCommand } from "../payments/payment-command";
 import type { PaymentOptions } from "../payments/payment-amount";
 
 import { contentText } from "../../shared/i18n/content-language";
@@ -141,18 +142,14 @@ export default function OrderDetail({
   ) =>
     run(async () => {
       if (pendingJob) return observe(pendingJob);
-      const signature = JSON.stringify({ id, operation, amount, options });
-      if (retry.current?.signature !== signature)
-        retry.current = {
-          signature,
-          key: crypto.randomUUID(),
-          body: {
-            approve: true,
-            ...options,
-            ...(amount === undefined ? {} : { amountMinor: amount }),
-          },
-        };
-      const current = retry.current;
+      const current = paymentCommand(
+        retry.current,
+        order.payment.attemptId,
+        operation,
+        amount,
+        options,
+      );
+      retry.current = current;
       const result = await request(
         `/api/payments/${order.payment.attemptId}/${operation}`,
         { ...current.body, requestKey: current.key },
@@ -288,6 +285,7 @@ export default function OrderDetail({
           <small>{c("snapshotHint")}</small>
         </section>
         <OrderPaymentDelivery
+          request={request}
           order={order}
           busy={busy}
           rights={rights}

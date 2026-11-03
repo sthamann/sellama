@@ -1,4 +1,6 @@
 /** Payment jobs are observed until confirmation. Delivery actions share the server state machine. */
+import type { RequestFn } from "../shell/studio-types";
+import PaymentDetails from "../payments/PaymentDetails";
 import PaymentActions from "../payments/PaymentActions";
 import type { PaymentOptions } from "../payments/payment-amount";
 import { safeRichUrl } from "../../shared/content/rich-document";
@@ -11,6 +13,7 @@ import "./shipments.css";
 import type { OrderAction } from "./OrderWorkflow";
 export default function OrderPaymentDelivery({
   order,
+  request,
   busy,
   rights,
   onAction,
@@ -20,6 +23,7 @@ export default function OrderPaymentDelivery({
   onSplit,
 }: {
   order: any;
+  request: RequestFn;
   busy: boolean;
   rights: string[];
   onAction: (a: OrderAction, tracking?: string, trackingUrl?: string) => void;
@@ -80,6 +84,13 @@ export default function OrderPaymentDelivery({
           pending={pendingJob}
           onPayment={onPayment}
           onCheck={onCheck}
+        />
+      )}
+      {rights.includes("payments.read") && order.payment.attemptId && (
+        <PaymentDetails
+          key={order.payment.attemptId}
+          id={order.payment.attemptId}
+          request={request}
         />
       )}
       <div className="delivery-divider" />

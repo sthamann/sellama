@@ -4,6 +4,15 @@ Updated 3 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
+## Payment transaction details, 3 November 2026
+
+Contract 1.4.0 adds read-only owned provider transactions, exact fees/net amounts
+and a payment-only projection of durable native history. Orders and payment
+management share the same disclosure, HTTP/MCP operation and current read rights.
+Actual local Rust/Core/PostgreSQL checks pass, including no ledger mutation and
+no exposed customer/card/bank fields. External provider tests remain deferred.
+[Usage and validation](payment-transaction-details.md).
+
 ## Payment capture expansion, 3 November 2026, local acceptance
 
 Core and private Rust service support partial/multiple capture, per-capture

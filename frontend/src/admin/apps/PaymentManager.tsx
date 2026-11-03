@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { useAppText } from "../../shared/i18n/app-i18n";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
 import type { RequestFn } from "../shell/studio-types";
+import { paymentCommand, type PaymentRetry } from "../payments/payment-command";
+import PaymentDetails from "../payments/PaymentDetails";
 import PaymentActions from "../payments/PaymentActions";
 import type { PaymentOptions, Settlement } from "../payments/payment-amount";
 type Data = {
@@ -37,9 +39,7 @@ export default function PaymentManager({
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [pending, setPending] = useState<Record<string, string>>({});
-  const retries = useRef<Record<string, { signature: string; key: string }>>(
-    {},
-  );
+  const retries = useRef<Record<string, PaymentRetry>>({});
   useEffect(() => {
     let active = true;
     request("/api/payments")
@@ -82,14 +82,17 @@ export default function PaymentManager({
     setError("");
     try {
       if (pending[id]) return await observe(id, pending[id]);
-      const signature = JSON.stringify({ operation, amount, options });
-      if (retries.current[id]?.signature !== signature)
-        retries.current[id] = { signature, key: crypto.randomUUID() };
+      const current = paymentCommand(
+        retries.current[id],
+        id,
+        operation,
+        amount,
+        options,
+      );
+      retries.current[id] = current;
       const result = await request(`/api/payments/${id}/${operation}`, {
-        approve: true,
-        requestKey: retries.current[id].key,
-        ...(amount === undefined ? {} : { amountMinor: amount }),
-        ...options,
+        ...current.body,
+        requestKey: current.key,
       });
       setPending((old) => ({ ...old, [id]: result.jobId }));
       return await observe(id, result.jobId);
@@ -136,6 +139,7 @@ export default function PaymentManager({
               onCheck={() => void command(p.id, "reconcile")}
             />
           }
+          <PaymentDetails id={p.id} request={request} />
         </article>
       ))}
       {error && <p role="alert">{error}</p>}

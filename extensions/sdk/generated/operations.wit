@@ -284,24 +284,6 @@ interface inputs {
     %request-key: string,
     %revision: s64,
   }
-  record merchant-payment-input {
-    %amount-minor: option<s64>,
-    %approve: bool,
-    %capture-id: option<string>,
-    %final-capture: option<bool>,
-    %id: string,
-    %operation: string,
-    %request-key: string,
-  }
-  record merchant-payment-onboarding-input {
-    %approve: option<bool>,
-    %channel: option<string>,
-    %country: option<string>,
-    %environment: option<string>,
-    %id: option<string>,
-    %operation: option<string>,
-    %request-key: option<string>,
-  }
   record developer-archive-input {
     %app: string,
     %approve: bool,
@@ -705,6 +687,27 @@ interface inputs {
   record knowledge-compile-input {
     %claims: option<list<knowledge-compile-input-claims-item>>,
     %product-id: option<string>,
+  }
+  record merchant-payment-input {
+    %amount-minor: option<s64>,
+    %approve: bool,
+    %capture-id: option<string>,
+    %final-capture: option<bool>,
+    %id: string,
+    %operation: string,
+    %request-key: string,
+  }
+  record merchant-payment-details-input {
+    %id: string,
+  }
+  record merchant-payment-onboarding-input {
+    %approve: option<bool>,
+    %channel: option<string>,
+    %country: option<string>,
+    %environment: option<string>,
+    %id: option<string>,
+    %operation: option<string>,
+    %request-key: option<string>,
   }
   record merchant-app-history-input {
     %app: string,
@@ -1653,9 +1656,6 @@ interface inputs {
   merchant-delivery-split: func(input: merchant-delivery-split-input) -> result<string, string>;
   merchant-receipts: func(input: merchant-receipts-input) -> result<string, string>;
   merchant-receipt-create: func(input: merchant-receipt-create-input) -> result<string, string>;
-  merchant-payment: func(input: merchant-payment-input) -> result<string, string>;
-  merchant-payment-providers: func(input: string) -> result<string, string>;
-  merchant-payment-onboarding: func(input: merchant-payment-onboarding-input) -> result<string, string>;
   developer-archive: func(input: developer-archive-input) -> result<string, string>;
   developer-builds: func(input: string) -> result<string, string>;
   developer-import: func(input: developer-import-input) -> result<string, string>;
@@ -1716,6 +1716,10 @@ interface inputs {
   knowledge-claim-review: func(input: knowledge-claim-review-input) -> result<string, string>;
   knowledge-extract: func(input: knowledge-extract-input) -> result<string, string>;
   knowledge-compile: func(input: knowledge-compile-input) -> result<string, string>;
+  merchant-payment: func(input: merchant-payment-input) -> result<string, string>;
+  merchant-payment-details: func(input: merchant-payment-details-input) -> result<string, string>;
+  merchant-payment-providers: func(input: string) -> result<string, string>;
+  merchant-payment-onboarding: func(input: merchant-payment-onboarding-input) -> result<string, string>;
   merchant-app-history: func(input: merchant-app-history-input) -> result<string, string>;
   merchant-app-restore: func(input: merchant-app-restore-input) -> result<string, string>;
   merchant-site-task: func(input: merchant-site-task-input) -> result<string, string>;

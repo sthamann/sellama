@@ -57,6 +57,7 @@ pub(crate) static OPERATIONS: LazyLock<Vec<Operation>> = LazyLock::new(|| {
                 || name == "merchant.scenario.status"
                 || name == "merchant.scenario.list"
                 || name == "merchant.agents.status"
+                || name == "merchant.payment.details"
                 || matches!(name, "catalog.facts" | "checkout.options" | "cart.quote");
             Operation {
                 name,
@@ -144,6 +145,10 @@ mod tests {
                 assert!(operation.effect == Effect::Read);
             }
         }
+        assert_eq!(
+            find("merchant.payment.details").unwrap().tool()["annotations"]["readOnlyHint"],
+            true
+        );
         for name in [
             "merchant.apply",
             "checkout.complete",

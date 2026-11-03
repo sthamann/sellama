@@ -2,9 +2,17 @@
 
 Updated 3 November 2026. The private Rust connector implements the provider path;
 the public Core owns the order and payment ledger. The public catalogue now ships
-the versioned 1.3.0 contract for all 17 methods. Install or upgrade it through the
+the versioned 1.4.0 contract for all 17 methods. Install or upgrade it through the
 existing app lifecycle, connect the configured account and enable its methods.
 Installing the contract does not provision the private service or activate methods. Use [the provider contract](payment-provider-api.md) for deployment.
+
+## Transaction details, 3 November 2026
+
+Contract 1.4.0 adds owned provider capture/authorization/refund observations,
+exact fees/net amounts and native durable payment history through HTTP, MCP and
+shared Studio controls. Reads do not reconcile or create financial jobs. Native
+services passed local current-rights, isolation and unchanged-ledger checks.
+[Usage and evidence boundary](payment-transaction-details.md).
 
 ## Capture management, 3 November 2026
 

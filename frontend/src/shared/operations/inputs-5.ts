@@ -11,26 +11,6 @@ export interface Inputs5 {
     requestKey: string;
     revision: number;
   };
-  "merchant.payment": {
-    amountMinor?: number;
-    approve: boolean;
-    captureId?: string;
-    finalCapture?: boolean;
-    id: string;
-    operation:
-      "capture" | "authorize" | "void" | "refund" | "reconcile" | "cancel";
-    requestKey: string;
-  };
-  "merchant.payment.providers": JsonValue;
-  "merchant.payment.onboarding": {
-    approve?: boolean;
-    channel?: string;
-    country?: string;
-    environment?: "sandbox" | "live" | "simulation" | "contract-fixture";
-    id?: string;
-    operation?: "start" | "status" | "disconnect";
-    requestKey?: string;
-  };
   "developer.archive": { app: string; approve: boolean; archived: boolean };
   "developer.builds": JsonValue;
   "developer.import": {
@@ -64,4 +44,19 @@ export interface Inputs5 {
   };
   "catalog.detail": { after?: string; limit?: number; productId: string };
   "checkout.options": JsonValue;
+  "checkout.select": {
+    checkout: {
+      address?: JsonValue | null;
+      billingAddress?: JsonValue | null;
+      billingAddressId?: string | null;
+      country?: string;
+      customerEmail?: string | null;
+      paymentMethodId?: string;
+      shippingAddressId?: string | null;
+      shippingMethodId?: string;
+    };
+    revision: number;
+  };
+  "knowledge.graph": JsonValue;
+  "knowledge.search": { query?: string };
 }

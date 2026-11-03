@@ -206,18 +206,6 @@ pub(crate) const CORE: &[(&str, &str)] = &[
         "Generate a numbered immutable receipt and PDF",
     ),
     (
-        "merchant.payment",
-        "Explicitly approved idempotent provider command",
-    ),
-    (
-        "merchant.payment.providers",
-        "Read installed payment contracts and merchant account readiness",
-    ),
-    (
-        "merchant.payment.onboarding",
-        "Approved provider onboarding scoped to merchant and sales channel",
-    ),
-    (
         "developer.archive",
         "Explicit recoverable App Studio project removal or restore",
     ),

@@ -3654,204 +3654,6 @@
                         "additionalProperties": false,
                         "properties": {
                           "name": {
-                            "const": "merchant.payment"
-                          },
-                          "arguments": {
-                            "additionalProperties": false,
-                            "properties": {
-                              "amountMinor": {
-                                "minimum": 1,
-                                "type": "integer"
-                              },
-                              "approve": {
-                                "type": "boolean"
-                              },
-                              "captureId": {
-                                "type": "string"
-                              },
-                              "finalCapture": {
-                                "type": "boolean"
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "operation": {
-                                "enum": [
-                                  "capture",
-                                  "authorize",
-                                  "void",
-                                  "refund",
-                                  "reconcile",
-                                  "cancel"
-                                ],
-                                "type": "string"
-                              },
-                              "requestKey": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "operation",
-                              "requestKey",
-                              "approve"
-                            ],
-                            "type": "object"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "type": "object",
-                    "required": [
-                      "jsonrpc",
-                      "id",
-                      "method",
-                      "params"
-                    ],
-                    "additionalProperties": false,
-                    "properties": {
-                      "jsonrpc": {
-                        "const": "2.0"
-                      },
-                      "id": {
-                        "type": [
-                          "string",
-                          "integer"
-                        ]
-                      },
-                      "method": {
-                        "const": "tools/call"
-                      },
-                      "params": {
-                        "type": "object",
-                        "required": [
-                          "name",
-                          "arguments"
-                        ],
-                        "additionalProperties": false,
-                        "properties": {
-                          "name": {
-                            "const": "merchant.payment.providers"
-                          },
-                          "arguments": {
-                            "additionalProperties": false,
-                            "properties": {},
-                            "required": [],
-                            "type": "object"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "type": "object",
-                    "required": [
-                      "jsonrpc",
-                      "id",
-                      "method",
-                      "params"
-                    ],
-                    "additionalProperties": false,
-                    "properties": {
-                      "jsonrpc": {
-                        "const": "2.0"
-                      },
-                      "id": {
-                        "type": [
-                          "string",
-                          "integer"
-                        ]
-                      },
-                      "method": {
-                        "const": "tools/call"
-                      },
-                      "params": {
-                        "type": "object",
-                        "required": [
-                          "name",
-                          "arguments"
-                        ],
-                        "additionalProperties": false,
-                        "properties": {
-                          "name": {
-                            "const": "merchant.payment.onboarding"
-                          },
-                          "arguments": {
-                            "additionalProperties": false,
-                            "properties": {
-                              "approve": {
-                                "type": "boolean"
-                              },
-                              "channel": {
-                                "type": "string"
-                              },
-                              "country": {
-                                "type": "string"
-                              },
-                              "environment": {
-                                "enum": [
-                                  "sandbox",
-                                  "live",
-                                  "simulation",
-                                  "contract-fixture"
-                                ],
-                                "type": "string"
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "operation": {
-                                "enum": [
-                                  "start",
-                                  "status",
-                                  "disconnect"
-                                ],
-                                "type": "string"
-                              },
-                              "requestKey": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [],
-                            "type": "object"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "type": "object",
-                    "required": [
-                      "jsonrpc",
-                      "id",
-                      "method",
-                      "params"
-                    ],
-                    "additionalProperties": false,
-                    "properties": {
-                      "jsonrpc": {
-                        "const": "2.0"
-                      },
-                      "id": {
-                        "type": [
-                          "string",
-                          "integer"
-                        ]
-                      },
-                      "method": {
-                        "const": "tools/call"
-                      },
-                      "params": {
-                        "type": "object",
-                        "required": [
-                          "name",
-                          "arguments"
-                        ],
-                        "additionalProperties": false,
-                        "properties": {
-                          "name": {
                             "const": "developer.archive"
                           },
                           "arguments": {
@@ -8015,6 +7817,253 @@
                                 "type": "string"
                               }
                             },
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "jsonrpc",
+                      "id",
+                      "method",
+                      "params"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "jsonrpc": {
+                        "const": "2.0"
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "integer"
+                        ]
+                      },
+                      "method": {
+                        "const": "tools/call"
+                      },
+                      "params": {
+                        "type": "object",
+                        "required": [
+                          "name",
+                          "arguments"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "name": {
+                            "const": "merchant.payment"
+                          },
+                          "arguments": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "amountMinor": {
+                                "minimum": 1,
+                                "type": "integer"
+                              },
+                              "approve": {
+                                "type": "boolean"
+                              },
+                              "captureId": {
+                                "type": "string"
+                              },
+                              "finalCapture": {
+                                "type": "boolean"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "operation": {
+                                "enum": [
+                                  "capture",
+                                  "authorize",
+                                  "void",
+                                  "refund",
+                                  "reconcile",
+                                  "cancel"
+                                ],
+                                "type": "string"
+                              },
+                              "requestKey": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "operation",
+                              "requestKey",
+                              "approve"
+                            ],
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "jsonrpc",
+                      "id",
+                      "method",
+                      "params"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "jsonrpc": {
+                        "const": "2.0"
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "integer"
+                        ]
+                      },
+                      "method": {
+                        "const": "tools/call"
+                      },
+                      "params": {
+                        "type": "object",
+                        "required": [
+                          "name",
+                          "arguments"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "name": {
+                            "const": "merchant.payment.details"
+                          },
+                          "arguments": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id"
+                            ],
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "jsonrpc",
+                      "id",
+                      "method",
+                      "params"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "jsonrpc": {
+                        "const": "2.0"
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "integer"
+                        ]
+                      },
+                      "method": {
+                        "const": "tools/call"
+                      },
+                      "params": {
+                        "type": "object",
+                        "required": [
+                          "name",
+                          "arguments"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "name": {
+                            "const": "merchant.payment.providers"
+                          },
+                          "arguments": {
+                            "additionalProperties": false,
+                            "properties": {},
+                            "required": [],
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "jsonrpc",
+                      "id",
+                      "method",
+                      "params"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "jsonrpc": {
+                        "const": "2.0"
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "integer"
+                        ]
+                      },
+                      "method": {
+                        "const": "tools/call"
+                      },
+                      "params": {
+                        "type": "object",
+                        "required": [
+                          "name",
+                          "arguments"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "name": {
+                            "const": "merchant.payment.onboarding"
+                          },
+                          "arguments": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "approve": {
+                                "type": "boolean"
+                              },
+                              "channel": {
+                                "type": "string"
+                              },
+                              "country": {
+                                "type": "string"
+                              },
+                              "environment": {
+                                "enum": [
+                                  "sandbox",
+                                  "live",
+                                  "simulation",
+                                  "contract-fixture"
+                                ],
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "operation": {
+                                "enum": [
+                                  "start",
+                                  "status",
+                                  "disconnect"
+                                ],
+                                "type": "string"
+                              },
+                              "requestKey": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [],
                             "type": "object"
                           }
                         }

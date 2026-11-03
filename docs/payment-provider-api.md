@@ -177,3 +177,15 @@ with `captureClosed: true`. It must not report whole-order cancellation or relea
 sold stock. Public customer commands cannot override amount/finalCapture/captureId;
 for an authorization intent, customer approval requests authorization rather than
 merchant capture. [Merchant workflow](payment-capture-management.md).
+
+## Read-only transaction inspection
+
+A method may declare `details`. The native payment details operation issues
+`inspect` through the original frozen service version/account. Its receipt keeps
+the usual immutable invoice identity and adds a typed `details` object containing
+reference/status/timestamps and bounded authorization/capture/refund entries.
+Each entry has ID, status, exact minor amount, currency/scale, optional timestamps,
+`finalCapture`, exact `fees` (`provider` or `platform`) and optional fee/net amounts.
+Unknown fields and customer/card/bank data are rejected. This is an observation,
+never a native settlement transition. No customer/order payload is sent for inspection.
+See [transaction details](payment-transaction-details.md).

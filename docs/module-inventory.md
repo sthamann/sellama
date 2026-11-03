@@ -1074,10 +1074,12 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/studio-sign-in.css](../frontend/src/admin/styles/studio-sign-in.css) | Dedicated access surface: responsive Veyndo login and native modal reauthentication. |
 | [frontend/src/admin/styles/studio.css](../frontend/src/admin/styles/studio.css) | Ordered studio stylesheet entry; domain rules live in the adjacent folder. |
 | [frontend/src/admin/styles/team-roles.css](../frontend/src/admin/styles/team-roles.css) | Native team roles and readable scopes share Studio surfaces and responsive form rhythm. |
+| [frontend/src/admin/styles/team-workspace.css](../frontend/src/admin/styles/team-workspace.css) | Account, shop creation and team access share a clear action and form hierarchy. |
 | [frontend/src/admin/styles/variants.css](../frontend/src/admin/styles/variants.css) | Variant family and review table share the catalog's responsive theme and focus treatment. |
 | [frontend/src/admin/styles/workspace-copilot.css](../frontend/src/admin/styles/workspace-copilot.css) | Contextual assistant drawer inherits Studio tokens and contains the existing conversation on all viewport sizes. |
 | [frontend/src/admin/styles/workspace-polish.css](../frontend/src/admin/styles/workspace-polish.css) | Consistent Studio density, readable hierarchy and independently scrollable navigation across workspaces. |
 | [frontend/src/admin/team/AccessManager.tsx](../frontend/src/admin/team/AccessManager.tsx) | Fine-grained team overrides, revocable invitations and personal session inventory. |
+| [frontend/src/admin/team/CreateWorkspace.tsx](../frontend/src/admin/team/CreateWorkspace.tsx) | Visible native shop creation keeps identifiers editable and submits only through its account owner. |
 | [frontend/src/admin/team/PermissionPicker.tsx](../frontend/src/admin/team/PermissionPicker.tsx) | One readable, searchable permission selector; technical IDs always remain visible beside the label. |
 | [frontend/src/admin/team/PersonalAccountForm.tsx](../frontend/src/admin/team/PersonalAccountForm.tsx) | PersonalAccountForm: focused account-form view with explicit typed inputs and callbacks. |
 | [frontend/src/admin/team/RolesManager.tsx](../frontend/src/admin/team/RolesManager.tsx) | Tenant role editor uses the canonical roles API, shared translation editor, audit and dependency confirmation. |
@@ -1086,6 +1088,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/team/permission-i18n.ts](../frontend/src/admin/team/permission-i18n.ts) | Role interface vocabulary uses the shared permission label catalogue. |
 | [frontend/src/admin/team/permission-labels.ts](../frontend/src/admin/team/permission-labels.ts) | Shared readable labels and exact permission identifiers for Studio, app actions and API keys. |
 | [frontend/src/admin/team/permission-picker.css](../frontend/src/admin/team/permission-picker.css) | Shared readable permission groups replace flat scope walls in roles and API credentials. |
+| [frontend/src/admin/team/workspace-create-i18n.ts](../frontend/src/admin/team/workspace-create-i18n.ts) | Shop creation guidance uses the current Studio interface language. |
 | [frontend/src/admin/workspace/AgentViewDirectory.tsx](../frontend/src/admin/workspace/AgentViewDirectory.tsx) | Composition mounts existing domain directories, filters and native entity editors without a second renderer. |
 | [frontend/src/admin/workspace/AgentWorkSurface.tsx](../frontend/src/admin/workspace/AgentWorkSurface.tsx) | Reviewed composition binds real native views to the current Studio scope and private workspace preferences. |
 | [frontend/src/admin/workspace/PersonalWorkspace.tsx](../frontend/src/admin/workspace/PersonalWorkspace.tsx) | Personal entry point on the existing shell; requests and linked views retain current scope and rights. |

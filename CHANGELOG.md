@@ -1,5 +1,12 @@
 # Changelog
 
+## 3 November 2026: consistent Studio actions and account setup
+
+- Keep component button styling independent of lazy stylesheet order; restore visible list filters and controls through a low-specificity Studio reset.
+- Promote Shop creation and New app to clear primary actions; group account and security controls, suggest editable shop identifiers and preserve native validation and error recovery.
+- Default invitations to the active Viewer role after asynchronous loading; require an explicit selection if it is unavailable.
+- Reuse the same integration-key manager from Team and Developer, including current grants, expiry, agent budgets and confirmed revocation.
+
 ## 3 November 2026: reliable native editing from the Canvas
 
 - Make Canvas editing visible above each preview, with blue actions and an unscaled view picker shared by Shop design and App Studio. Preserve native callbacks and disabled admission.

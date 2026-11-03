@@ -1,4 +1,5 @@
 /** Fine-grained team overrides, revocable invitations and personal session inventory. */
+import IntegrationKeys from "../developer/api/IntegrationKeys";
 import RolesManager from "./RolesManager";
 import PermissionPicker from "./PermissionPicker";
 import { usePermissionText } from "./permission-i18n";
@@ -15,10 +16,7 @@ export default function AccessManager({ request }: { request: RequestFn }) {
     [scopes, setScopes] = useState<string[]>([]),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
-  const [keys, setKeys] = useState<any[]>([]),
-    [newKey, setNewKey] = useState(""),
-    [keyScopes, setKeyScopes] = useState<string[]>(["orders.read"]),
-    [canManage, setCanManage] = useState(false);
+  const [canManage, setCanManage] = useState(false);
   const load = useCallback(async () => {
     const access = await request("/api/auth/access");
     setScopes(access.available);
@@ -28,7 +26,6 @@ export default function AccessManager({ request }: { request: RequestFn }) {
       const v = await request("/api/workspace/members");
       setMembers(v.members);
       setInvites(v.invitations);
-      setKeys((await request("/api/workspace/integrations")).elements);
     }
     setSessions((await request("/api/auth/sessions")).sessions);
   }, [request]);
@@ -48,7 +45,7 @@ export default function AccessManager({ request }: { request: RequestFn }) {
     }
   };
   return (
-    <div className="studio-page workbench">
+    <div className="studio-page workbench team-access">
       {canManage && (
         <RolesManager request={request} onChanged={() => void load()} />
       )}
@@ -164,81 +161,7 @@ export default function AccessManager({ request }: { request: RequestFn }) {
           </div>
         ))}
       </section>
-      {canManage && (
-        <section className="studio-card">
-          <h2>{o("integrations")}</h2>
-          <p>{o("keyHint")}</p>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const f = new FormData(e.currentTarget);
-              void run(async () => {
-                const v = await request("/api/workspace/integrations", {
-                  name: f.get("name"),
-                  expiresInDays: Number(f.get("days")),
-                  permissions: keyScopes,
-                });
-                setNewKey(v.key);
-              });
-            }}
-          >
-            <label>
-              {o("name")}
-              <input name="name" required maxLength={100} />
-            </label>
-            <label>
-              {o("expiry")}
-              <input
-                name="days"
-                type="number"
-                min={1}
-                max={90}
-                defaultValue={30}
-                required
-              />
-            </label>
-            <PermissionPicker
-              available={scopes}
-              granted={granted}
-              disabled={busy}
-              value={keyScopes}
-              onChange={setKeyScopes}
-            />
-            <button disabled={busy} className="studio-primary">
-              {o("createKey")}
-            </button>
-          </form>
-          {newKey && (
-            <input
-              aria-label={o("createKey")}
-              readOnly
-              value={newKey}
-              onFocus={(e) => e.target.select()}
-            />
-          )}{" "}
-          {keys.map((k) => (
-            <div className="operation-row" key={k.id}>
-              <strong>{k.name}</strong>
-              <span>{new Date(k.expiresAt).toLocaleString(locale)}</span>
-              <button
-                disabled={busy}
-                className="studio-secondary"
-                onClick={() =>
-                  run(() =>
-                    request(
-                      `/api/workspace/integrations/${k.id}`,
-                      undefined,
-                      "DELETE",
-                    ),
-                  )
-                }
-              >
-                {o("revoke")}
-              </button>
-            </div>
-          ))}
-        </section>
-      )}
+      {canManage && <IntegrationKeys request={request} />}
       {error && <p role="alert">{error}</p>}
     </div>
   );

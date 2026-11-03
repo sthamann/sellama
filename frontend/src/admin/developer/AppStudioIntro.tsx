@@ -31,10 +31,6 @@ export default function AppStudioIntro({
   return (
     <div className="app-studio-intro">
       <div>
-        <span className="kicker">
-          <Icon name="code" size={14} />
-          {a("studio")}
-        </span>
         <h1>{a("studio")}</h1>
         <p>{a("hint")}</p>
       </div>
@@ -44,7 +40,7 @@ export default function AppStudioIntro({
           {pt("back")}
         </button>
       )}
-      <button className="studio-secondary" disabled={disabled} onClick={onNew}>
+      <button className="studio-primary" disabled={disabled} onClick={onNew}>
         <Icon name="plus" size={16} />
         {a("reset")}
       </button>

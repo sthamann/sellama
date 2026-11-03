@@ -2,7 +2,10 @@
 import type { WorkspaceRole } from "./RolesManager";
 import { contentText } from "../../shared/i18n/content-language";
 import { usePermissionText } from "./permission-i18n";
-import { BRAND } from "../../shared/ui/Brand";
+import Icon from "../../shared/ui/Icon";
+import CreateWorkspace from "./CreateWorkspace";
+import { useWorkspaceCreateText } from "./workspace-create-i18n";
+import "../styles/team-workspace.css";
 import { useCallback, useEffect, useState } from "react";
 import { shopApi } from "../../shared/api/shop-api";
 import { useShopText } from "../../shared/i18n/shop-i18n";
@@ -32,7 +35,8 @@ export default function UsersManager({
   onLogout: () => void;
 }) {
   const { s, locale } = useShopText();
-  const pt = usePermissionText();
+  const pt = usePermissionText(),
+    ct = useWorkspaceCreateText();
   const [roleDefinitions, setRoleDefinitions] = useState<WorkspaceRole[]>([]),
     [main, setMain] = useState("en-GB"),
     [grants, setGrants] = useState<string[]>([]);
@@ -43,6 +47,12 @@ export default function UsersManager({
       main,
     ) || s(id);
   const [mode, setMode] = useState("login");
+  const [creating, setCreating] = useState(false);
+  const [createdShop, setCreatedShop] = useState<{
+    id: string;
+    name: string;
+  }>();
+  const [inviteRole, setInviteRole] = useState("viewer");
   const [session, setSession] = useState<Session>();
   const [members, setMembers] = useState<Member[]>([]);
   const [error, setError] = useState("");
@@ -50,6 +60,15 @@ export default function UsersManager({
   const [invitation, setInvitation] = useState("");
   const role = session?.workspaces.find((w) => w.id === workspace)?.role;
   const canManage = grants.includes("team.manage");
+  const invitationRoles = roleDefinitions.filter(
+    (r) => r.data.active && (r.id !== "owner" || role === "owner"),
+  );
+  const inviteAllowed = invitationRoles.some((r) => r.id === inviteRole);
+  useEffect(() => {
+    setInviteRole("viewer");
+    setCreating(false);
+    setCreatedShop(undefined);
+  }, [workspace]);
   const refresh = useCallback(async () => {
     if (!token) return;
     const data = await shopApi<Session>(
@@ -121,73 +140,59 @@ export default function UsersManager({
     <section className="commerce-manager users-manager">
       <div className="commerce-title">
         <div>
-          <p className="kicker">
-            {BRAND.name} / {s("workspace")}
-          </p>
           <h1>{s("users")}</h1>
           <p>{s("workspaceHint")}</p>
         </div>
-        {session && (
+        {session && !creating && (
           <button
-            className="studio-secondary"
+            className="studio-primary"
             disabled={busy}
-            onClick={() =>
-              run(async () => {
-                await shopApi(
-                  "/api/auth/logout",
-                  {},
-                  undefined,
-                  undefined,
-                  token,
-                );
-                onLogout();
-              })
-            }
+            aria-expanded={creating}
+            aria-controls="team-create-workspace"
+            onClick={() => {
+              setCreating(true);
+              setError("");
+            }}
           >
-            {s("logout")}
+            <Icon name="plus" size={18} />
+            {s("register")}
           </button>
         )}
       </div>
-      {session && (
-        <details>
-          <summary>{s("register")}</summary>
-          <form
-            className="commerce-fields"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const f = new FormData(e.currentTarget);
-              void run(async () => {
-                const created = await shopApi<Session>(
-                  "/api/workspaces",
-                  {
-                    workspaceId: f.get("workspaceId"),
-                    workspaceName: f.get("workspaceName"),
-                  },
-                  undefined,
-                  undefined,
-                  token,
-                );
-                onSession(created);
-              });
-            }}
+      {session && creating && (
+        <CreateWorkspace
+          busy={busy}
+          onCancel={() => setCreating(false)}
+          onCreate={(workspaceName, workspaceId) =>
+            run(async () => {
+              const created = await shopApi<Session>(
+                "/api/workspaces",
+                { workspaceName, workspaceId },
+                undefined,
+                undefined,
+                token,
+              );
+              onSession(created);
+              setCreating(false);
+              setCreatedShop({ id: created.workspace, name: workspaceName });
+            })
+          }
+        />
+      )}
+      {createdShop && (
+        <div className="team-created" role="status">
+          <div>
+            <strong>{ct("created")}</strong>
+            <p>{createdShop.name}</p>
+          </div>
+          <button
+            className="studio-primary"
+            onClick={() => onWorkspace(createdShop.id, createdShop.name)}
           >
-            <label>
-              {s("workspaceName")}
-              <input name="workspaceName" required maxLength={100} />
-            </label>
-            <label>
-              {s("workspaceId")}
-              <input
-                name="workspaceId"
-                required
-                pattern="[a-z0-9][a-z0-9-]{1,47}"
-              />
-            </label>
-            <button className="studio-primary" disabled={busy}>
-              {s("register")}
-            </button>
-          </form>
-        </details>
+            {ct("open")}
+            <Icon name="arrow" size={18} />
+          </button>
+        </div>
       )}
       {error && (
         <p className="commerce-error" role="alert">
@@ -222,33 +227,35 @@ export default function UsersManager({
         </section>
       ) : (
         <>
-          <AccountSecurity
-            token={token}
-            onLogout={onLogout}
-            onSession={onSession}
-          />
-          <section className="commerce-card">
-            <h2>{session.user.name}</h2>
-            <p>{session.user.email}</p>
-            <label>
-              {s("workspace")}
-              <select
-                value={workspace}
-                onChange={(e) => {
-                  const w = session.workspaces.find(
-                    (w) => w.id === e.target.value,
-                  )!;
-                  onWorkspace(w.id, w.name);
-                }}
-              >
-                {session.workspaces.map((w) => (
-                  <option key={w.id} value={w.id}>
-                    {w.name} · {roleName(w.role)}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </section>
+          <div className="team-personal-grid">
+            <section className="commerce-card">
+              <h2>{session.user.name}</h2>
+              <p>{session.user.email}</p>
+              <label>
+                {s("workspace")}
+                <select
+                  value={workspace}
+                  onChange={(e) => {
+                    const w = session.workspaces.find(
+                      (w) => w.id === e.target.value,
+                    )!;
+                    onWorkspace(w.id, w.name);
+                  }}
+                >
+                  {session.workspaces.map((w) => (
+                    <option key={w.id} value={w.id}>
+                      {w.name} · {roleName(w.role)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </section>
+            <AccountSecurity
+              token={token}
+              onLogout={onLogout}
+              onSession={onSession}
+            />
+          </div>
           {canManage && (
             <>
               <section className="commerce-card">
@@ -257,6 +264,7 @@ export default function UsersManager({
                   className="account-form"
                   onSubmit={(e) => {
                     e.preventDefault();
+                    if (busy || !inviteAllowed) return;
                     const form = new FormData(e.currentTarget);
                     run(async () => {
                       const v = await shopApi<{ token: string }>(
@@ -277,21 +285,26 @@ export default function UsersManager({
                   </label>
                   <label>
                     {s("role")}
-                    <select name="role" defaultValue="viewer">
-                      {roleDefinitions
-                        .filter(
-                          (r) =>
-                            r.data.active &&
-                            (r.id !== "owner" || role === "owner"),
-                        )
-                        .map(({ id: r }) => (
-                          <option key={r} value={r}>
-                            {roleName(r)} ({r})
-                          </option>
-                        ))}
+                    <select
+                      name="role"
+                      required
+                      value={inviteAllowed ? inviteRole : ""}
+                      onChange={(e) => setInviteRole(e.target.value)}
+                    >
+                      <option value="" disabled>
+                        {s("role")}
+                      </option>
+                      {invitationRoles.map(({ id: r }) => (
+                        <option key={r} value={r}>
+                          {roleName(r)} ({r})
+                        </option>
+                      ))}
                     </select>
                   </label>
-                  <button className="studio-primary" disabled={busy}>
+                  <button
+                    className="studio-primary"
+                    disabled={busy || !inviteAllowed}
+                  >
                     {s("invite")}
                   </button>
                 </form>

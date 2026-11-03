@@ -46,3 +46,9 @@ Run `npm run build`, `npm test`, `npm run test:coverage` and `npm run architectu
 Catalogue base and responsive styles load with both native editors, including direct
 Canvas handoffs. `canvas-commerce-editor.css` owns the shared wrapper spacing;
 opening App Studio or the product directory first is never a styling prerequisite.
+
+The generic Studio button reset uses `:where(.studio)` so feature controls keep
+border/background states regardless of lazy stylesheet order. Explicit primary
+and secondary action classes keep their existing priority. `team-workspace.css`
+owns responsive account, shop creation and access-panel layout; it does not alter
+roles, sessions or key authority.

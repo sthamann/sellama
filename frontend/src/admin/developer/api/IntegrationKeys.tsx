@@ -1,4 +1,5 @@
 /** Personal, expiring, least-privilege integration keys; plaintext stays in component memory and is never reloaded. */
+import "../../styles/api-console.css";
 import { useEffect, useRef, useState } from "react";
 import type { RequestFn } from "../../shell/studio-types";
 import PermissionPicker from "../../team/PermissionPicker";

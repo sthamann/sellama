@@ -139,3 +139,12 @@ source, storage, renderer and provider-fixture boundaries. See also the
 
 [Canvas acceptance and tested boundaries](evidence/canvas-workspace-2026-11-02.md)
 records the connected native and browser journeys.
+
+## Direct product and category editing
+
+Product and category editors load their own shared catalogue styles when opened
+directly from the Canvas. Their layout does not depend on a previous visit to
+Products or App Studio. Product sections remain beside the form on desktop and
+use the existing compact section selector on narrow screens. The shared Canvas
+wrapper owns its own spacing. Native language, revision, permission and private
+save paths remain the same.

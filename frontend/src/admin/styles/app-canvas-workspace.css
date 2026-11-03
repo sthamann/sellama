@@ -191,14 +191,6 @@
 .app-canvas-agent .app-proposal {
   margin-top: 20px;
 }
-.canvas-commerce-editor {
-  min-width: 0;
-  padding: 12px;
-}
-.canvas-commerce-editor .product-editor {
-  padding: 16px !important;
-  max-width: none;
-}
 .canvas-category-choice {
   display: grid;
   gap: 8px;

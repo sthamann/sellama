@@ -70,3 +70,8 @@ come from shop configuration. No inherited text is fabricated on save.
 `ProductEditorNav.tsx` joins core editor sections with registered, authorized app-owned product tabs. General settings render registered contextual sections; no arbitrary app code executes in the core renderer.
 
 `MarkdownSource`, `markdown-content` and `EditorBuffer` implement an explicit, guarded Markdown source buffer over the same safe TipTap document. `variant-model`, `variant-family` and `VariantGenerator` provide bounded combination review, current-SKU defaults, existing-family lookup and partial-failure retry. `ProductVariants` handles family cursor pagination and child option editing. Tests: `studio-product-upgrades.test.tsx` plus the real `catalog_management` suite.
+
+Product and category editors import their catalogue styles directly. Their layout
+and permission fields must render on a cold Canvas entry without first mounting
+`ProductDataView`. `CanvasCommerceEditor` owns its generic wrapper stylesheet;
+App Studio does not provide styles on behalf of the shop designer.

@@ -3,7 +3,7 @@
   display: grid;
   gap: 20px;
   min-width: 0;
-  color: var(--studio-text, #172e40);
+  color: var(--text, #172e40);
 }
 .report-actions,
 .report-actions > div {
@@ -21,8 +21,8 @@
   align-items: end;
   gap: 14px;
   padding: 18px;
-  background: var(--studio-card, #fff);
-  border: 1px solid var(--studio-border, #d5e1ed);
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #d5e1ed);
   border-radius: 12px;
 }
 .report-filters label,
@@ -36,11 +36,11 @@
 .report-filters select,
 .report-filters input,
 .report-widget-options select {
-  border: 1px solid var(--studio-border, #d5e1ed);
+  border: 1px solid var(--border, #d5e1ed);
   border-radius: 8px;
   min-height: 40px;
   padding: 8px 10px;
-  background: var(--studio-card, #fff);
+  background: var(--surface, #fff);
   color: inherit;
   font: inherit;
   font-size: 13px;
@@ -54,13 +54,13 @@
 }
 .report-filters input[type="checkbox"],
 .report-library input {
-  accent-color: var(--studio-accent, #0b62b3);
+  accent-color: var(--accent, #0b62b3);
   width: 17px;
   height: 17px;
 }
 .report-range {
   font-size: 12px;
-  color: var(--studio-muted, #52677b);
+  color: var(--muted, #52677b);
   font-variant-numeric: tabular-nums;
   margin: 0;
   display: flex;
@@ -76,9 +76,9 @@
 .report-panel {
   padding: 24px;
   min-width: 0;
-  border: 1px solid var(--studio-border, #d5e1ed);
+  border: 1px solid var(--border, #d5e1ed);
   border-radius: 14px;
-  background: var(--studio-card, #fff);
+  background: var(--surface, #fff);
   position: relative;
 }
 .report-width-full {
@@ -114,7 +114,7 @@
 }
 .report-total > span {
   font-size: 12px;
-  color: var(--studio-muted, #52677b);
+  color: var(--muted, #52677b);
 }
 .report-plot {
   min-width: 0;
@@ -127,25 +127,25 @@
   height: 230px;
 }
 .report-gridline {
-  stroke: var(--studio-border, #d5e1ed);
+  stroke: var(--border, #d5e1ed);
   stroke-dasharray: 3 5;
 }
 .report-axis {
   font-size: 11px;
-  fill: var(--studio-muted, #52677b);
+  fill: var(--muted, #52677b);
   font-variant-numeric: tabular-nums;
 }
 .report-line {
-  stroke: var(--studio-accent, #0b62b3);
+  stroke: var(--accent, #0b62b3);
   stroke-width: 2.5;
   stroke-linejoin: round;
 }
 .report-bar {
-  fill: var(--studio-accent, #0b62b3);
+  fill: var(--accent, #0b62b3);
 }
 .report-point {
-  fill: var(--studio-card, #fff);
-  stroke: var(--studio-accent, #0b62b3);
+  fill: var(--surface, #fff);
+  stroke: var(--accent, #0b62b3);
   stroke-width: 2;
   cursor: crosshair;
 }
@@ -159,19 +159,19 @@
   font-size: 12px;
   min-height: 20px;
   font-variant-numeric: tabular-nums;
-  color: var(--studio-muted, #52677b);
+  color: var(--muted, #52677b);
 }
 .report-note {
   font-size: 12px;
   line-height: 1.6;
-  color: var(--studio-muted, #52677b);
+  color: var(--muted, #52677b);
   max-width: 75ch;
   margin: 10px 0 0;
 }
 .report-table-wrap {
   overflow: auto;
   max-height: 440px;
-  scrollbar-color: var(--studio-border, #d5e1ed) transparent;
+  scrollbar-color: var(--border, #d5e1ed) transparent;
 }
 .report-table {
   width: 100%;
@@ -183,13 +183,13 @@
 .report-table td,
 .report-table th {
   padding: 12px 8px;
-  border-bottom: 1px solid var(--studio-border, #d5e1ed);
+  border-bottom: 1px solid var(--border, #d5e1ed);
   font-weight: 400;
   line-height: 1.5;
 }
 .report-table thead th {
   font-size: 11px;
-  color: var(--studio-muted, #52677b);
+  color: var(--muted, #52677b);
   font-weight: 650;
   white-space: nowrap;
 }
@@ -211,7 +211,7 @@
 .report-funnel-track {
   display: block;
   height: 5px;
-  background: var(--studio-hover, #eef4fb);
+  background: var(--hover, #eef4fb);
   border-radius: 3px;
   overflow: hidden;
   margin-top: 6px;
@@ -220,7 +220,7 @@
 .report-funnel-track > span {
   display: block;
   height: 100%;
-  background: var(--studio-accent, #0b62b3);
+  background: var(--accent, #0b62b3);
   border-radius: 3px;
 }
 .report-funnel {
@@ -242,7 +242,7 @@
 }
 .report-funnel small {
   grid-column: 2;
-  color: var(--studio-muted, #52677b);
+  color: var(--muted, #52677b);
 }
 .report-order {
   display: flex;
@@ -264,23 +264,23 @@
   cursor: grab;
 }
 .report-drop {
-  outline: 3px solid var(--studio-accent, #0b62b3);
+  outline: 3px solid var(--accent, #0b62b3);
   outline-offset: 3px;
 }
 .report-drop-label {
-  color: var(--studio-accent, #0b62b3);
+  color: var(--accent, #0b62b3);
   font-size: 12px;
   font-weight: 650;
   margin: 0 0 12px;
 }
 .report-library {
-  border: 1px solid var(--studio-border, #d5e1ed);
+  border: 1px solid var(--border, #d5e1ed);
   border-radius: 12px;
   padding: 18px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 10px;
-  background: var(--studio-card, #fff);
+  background: var(--surface, #fff);
 }
 .report-library legend {
   font-weight: 650;
@@ -298,7 +298,7 @@
   flex-wrap: wrap;
 }
 .report-library label:has(input:checked) {
-  background: var(--studio-hover, #eef4fb);
+  background: var(--hover, #eef4fb);
 }
 .report-library label:has(input:disabled) {
   opacity: 0.6;
@@ -312,21 +312,21 @@
 .report-skeleton {
   padding: 24px;
   border-radius: 12px;
-  background: var(--studio-card, #fff);
-  color: var(--studio-muted, #52677b);
+  background: var(--surface, #fff);
+  color: var(--muted, #52677b);
 }
 .report-skeleton {
   min-height: 240px;
   background: linear-gradient(
     100deg,
-    var(--studio-card, #fff),
-    var(--studio-hover, #eef4fb)
+    var(--surface, #fff),
+    var(--hover, #eef4fb)
   );
 }
 .report-board button:focus-visible,
 .report-board select:focus-visible,
 .report-board input:focus-visible {
-  outline: 2px solid var(--studio-accent, #0b62b3);
+  outline: 2px solid var(--accent, #0b62b3);
   outline-offset: 3px;
 }
 .report-board button:disabled {

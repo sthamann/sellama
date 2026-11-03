@@ -68,6 +68,7 @@ pub(crate) async fn persist(
     let mut capture = p.capture.clone();
     let mut refunded = p.refunded;
     let mut context = p.context.clone();
+    let instructions_changed = super::instructions_state::admit(p, &mut context, v)?;
     let url = remote::approval_url(p, &v["approvalUrl"])?;
     if op == "refund" {
         let amount = input["amountMinor"]
@@ -193,6 +194,9 @@ pub(crate) async fn persist(
             .await?;
         }
         update_order(tx, p, &state).await?;
+    }
+    if instructions_changed {
+        super::instructions_state::publish(tx, p, &context).await?;
     }
     Ok(())
 }

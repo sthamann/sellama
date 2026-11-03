@@ -5,6 +5,7 @@ pub async fn action(store: &Store, t: &str, name: &str, v: &Value) -> Result<Val
     if name == "status" {
         let mut value = config::public(store, t).await?;
         value["defaultTemplates"] = templates::defaults();
+        value["defaultPaymentTemplates"] = payment_templates::defaults();
         return Ok(value);
     }
     if name == "configure" {
@@ -12,16 +13,23 @@ pub async fn action(store: &Store, t: &str, name: &str, v: &Value) -> Result<Val
     }
     let current = store.get(t, "email").await?;
     let s = config::parse(&current["settings"])?;
-    if name == "preview_order" {
-        return Ok(json!({"mail":templates::order(v,&s)?,"externalDelivery":false}));
+    if ["preview_order", "preview_payment_instructions"].contains(&name) {
+        let mail = if name == "preview_order" {
+            templates::order(v, &s)?
+        } else {
+            templates::payment(v, &s)?
+        };
+        return Ok(json!({"mail":mail,"externalDelivery":false}));
     }
     checked(
-        ["send", "send_order"].contains(&name),
+        ["send", "send_order", "send_payment_instructions"].contains(&name),
         "Unknown email action",
     )?;
     checked(s.enabled, "Email delivery disabled")?;
     let mail = if name == "send_order" {
         templates::order(v, &s)?
+    } else if name == "send_payment_instructions" {
+        templates::payment(v, &s)?
     } else {
         templates::envelope(&v["message"], &s)?
     };
@@ -66,6 +74,18 @@ pub async fn event(store: &Store, t: &str, v: &Value) -> Result<Value> {
             return Ok(json!({"ignored":true,"reason":"Consumer receipt email disabled"}));
         }
         return action(store,t,"send",&json!({"message":templates::consumer(&v["data"],&s)?,"requestKey":v["idempotencyKey"]})).await;
+    }
+    if kind == "payment.instructions.available" && s.notify_payment_instructions {
+        if !s.enabled {
+            return Ok(json!({"ignored":true,"reason":"Invoice instruction email disabled"}));
+        }
+        return action(
+            store,
+            t,
+            "send_payment_instructions",
+            &json!({"event":v["data"],"requestKey":v["idempotencyKey"]}),
+        )
+        .await;
     }
     if kind == "order.placed" && s.notify_orders {
         return action(

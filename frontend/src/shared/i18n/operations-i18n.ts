@@ -65,6 +65,12 @@ export const operationWords = {
     "Statut de livraison modifié",
     "Estado de entrega cambiado",
   ],
+  "payment.instructions.available": [
+    "Invoice payment details available",
+    "Zahlungsangaben zum Rechnungskauf liegen vor",
+    "Informations du paiement sur facture disponibles",
+    "Datos del pago por factura disponibles",
+  ],
   "payment.updated": [
     "Provider payment status changed",
     "Anbieter-Zahlungsstatus geändert",

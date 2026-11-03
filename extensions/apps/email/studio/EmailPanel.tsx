@@ -1,6 +1,5 @@
 /** Native email app settings, localized templates, safe previews and durable delivery receipts. */
-import { ContentLanguage } from "../../../../frontend/src/shared/i18n/ContentLanguage";
-import ContentLanguagePicker from "../../../../frontend/src/shared/i18n/ContentLanguagePicker";
+import EmailTemplateEditor from "./EmailTemplateEditor";
 import EmailProviderFields from "./EmailProviderFields";
 
 import { useEffect, useRef, useState } from "react";
@@ -22,6 +21,11 @@ export default function EmailPanel({
   const [language, setLanguage] = useState(locale.split("-")[0]);
   const [recipient, setRecipient] = useState("");
   const [preview, setPreview] = useState<any>();
+  const [templateKind, setTemplateKind] = useState<"order" | "instructions">(
+    "order",
+  );
+  const previewAction =
+    templateKind === "order" ? "preview_order" : "preview_payment_instructions";
   const [busy, setBusy] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [error, setError] = useState(false);
@@ -109,17 +113,26 @@ export default function EmailPanel({
       />
     </label>
   );
-  const template = {
-    ...status?.defaultTemplates?.[language],
-    ...settings?.templates?.[language],
-  };
-  const editTemplate = (key: string, value: string) =>
-    change("templates", {
-      ...settings.templates,
-      [language]: { ...template, [key]: value },
-    });
   const sample = {
     event: {
+      ...(templateKind === "instructions"
+        ? {
+            paymentInstructions: {
+              amountMinor: 4990,
+              currency: "EUR",
+              currencyScale: 2,
+              simulated: true,
+              instructions: {
+                kind: "bank_transfer",
+                paymentReference: "SIM-DEMO-2026",
+                iban: "DE89370400440532013000",
+                bic: "DEUTDEFFXXX",
+                bankName: e("sampleBank"),
+                accountHolderName: e("sampleRecipient"),
+              },
+            },
+          }
+        : {}),
       order: {
         orderNumber: "DEMO-2026",
         orderCustomer: { email: recipient, firstName: "Alex" },
@@ -130,7 +143,7 @@ export default function EmailPanel({
     locale: language,
   };
   const test = async (dryRun: boolean) => {
-    const v = await call("preview_order", sample);
+    const v = await call(previewAction, sample);
     setPreview(v.mail);
     await call("send", {
       requestKey: crypto.randomUUID(),
@@ -170,42 +183,23 @@ export default function EmailPanel({
             field={field}
             secret={secret}
           />
-          <section>
-            <h3>{e("templates")}</h3>
-            <ContentLanguage
-              locales={Object.keys(
-                status.defaultTemplates ?? settings.templates ?? {},
-              )}
-              mainLocale={settings.locale ?? settings.defaultLocale ?? "en"}
-              language={language}
-              onLanguageChange={(next) => {
-                setLanguage(next);
-                setPreview(undefined);
-              }}
-            >
-              <ContentLanguagePicker />
-            </ContentLanguage>
-            <p>{e("variables")}</p>
-            {["subject", "text", "html"].map((key) => (
-              <label key={key}>
-                {e(key)}
-                {key === "subject" ? (
-                  <input
-                    disabled={!manage || busy}
-                    value={template[key] ?? ""}
-                    onChange={(ev) => editTemplate(key, ev.target.value)}
-                  />
-                ) : (
-                  <textarea
-                    rows={key === "text" ? 4 : 2}
-                    disabled={!manage || busy}
-                    value={template[key] ?? ""}
-                    onChange={(ev) => editTemplate(key, ev.target.value)}
-                  />
-                )}
-              </label>
-            ))}
-          </section>
+          <EmailTemplateEditor
+            status={status}
+            settings={settings}
+            manage={manage}
+            busy={busy}
+            language={language}
+            onLanguageChange={(next) => {
+              setLanguage(next);
+              setPreview(undefined);
+            }}
+            kind={templateKind}
+            onKindChange={(next) => {
+              setTemplateKind(next);
+              setPreview(undefined);
+            }}
+            change={change}
+          />
           <button
             className="studio-primary"
             disabled={!manage || busy || !dirty}
@@ -265,7 +259,7 @@ export default function EmailPanel({
                 disabled={!manage || busy || dirty || !recipient}
                 onClick={() =>
                   void run(async () =>
-                    setPreview((await call("preview_order", sample)).mail),
+                    setPreview((await call(previewAction, sample)).mail),
                   )
                 }
               >

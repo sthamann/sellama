@@ -4,6 +4,18 @@ Updated 3 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
+## Deferred invoice checkout, 3 November 2026
+
+The 1.5.0 feature branch adds private invoice details before provider creation,
+immutable recipient instructions, durable pending review and same-key/webhook
+recovery. Local native Rust/Core/PostgreSQL and 17-method simulation checks pass.
+The recipient display supports four languages and narrow embedded checkouts.
+Native invoice PDFs and the opt-in Email Delivery 1.3.0 template now share the
+validated immutable recipient evidence. Automatic and Flow-triggered messages
+passed the actual local encrypted Rust queue test, with no external mail.
+Hosted migration 003 and rollout remain pending; external account tests stay
+deferred. [Customer flow, rights and recovery](payment-invoice-checkout.md).
+
 ## Payment transaction details, 3 November 2026
 
 Contract 1.4.0 adds read-only owned provider transactions, exact fees/net amounts

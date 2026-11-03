@@ -91,7 +91,7 @@ pub(crate) async fn execute(
     key: &str,
     input: &Value,
 ) -> Result<Value> {
-    let mut order: Value = if op == "inspect" {
+    let mut order: Value = if ["inspect", "instructions"].contains(&op) {
         Value::Null
     } else {
         sqlx::query_scalar("SELECT data FROM orders WHERE tenant=$1 AND id=$2")

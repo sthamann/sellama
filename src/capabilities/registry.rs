@@ -57,7 +57,12 @@ pub(crate) static OPERATIONS: LazyLock<Vec<Operation>> = LazyLock::new(|| {
                 || name == "merchant.scenario.status"
                 || name == "merchant.scenario.list"
                 || name == "merchant.agents.status"
-                || name == "merchant.payment.details"
+                || [
+                    "merchant.payment.details",
+                    "merchant.payment.instructions",
+                    "checkout.payment.instructions",
+                ]
+                .contains(&name)
                 || matches!(name, "catalog.facts" | "checkout.options" | "cart.quote");
             Operation {
                 name,

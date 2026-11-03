@@ -3,6 +3,7 @@ use crate::{App, RequestContext, Result, State, Value, bad};
 pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -> Result<Value> {
     let id = || v["id"].as_str().ok_or(bad("id required"));
     match name {
+        "merchant.payment.instructions" => super::instructions::merchant_read(a, h, id()?).await,
         "merchant.payment.details" => super::transaction_details(a, h, id()?).await,
         "merchant.payment.providers" => {
             Ok(super::providers_route(State(a.clone()), h.clone()).await?.0)

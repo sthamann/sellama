@@ -161,7 +161,9 @@ pub(crate) fn input(name: &str) -> Value {
         "merchant.receipt.create" => {
             json!({"id":{"type":"string"},"revision":{"type":"integer"},"kind":{"type":"string","enum":["invoice","delivery_note","cancellation"]},"locale":{"type":"string","enum":["en","de","fr","es"]},"requestKey":{"type":"string"},"referenceId":{"type":"string"},"deliveryIndex":{"type":"integer","minimum":0}})
         }
-        "merchant.payment.details" => json!({"id":{"type":"string"}}),
+        "merchant.payment.details"
+        | "merchant.payment.instructions"
+        | "checkout.payment.instructions" => json!({"id":{"type":"string"}}),
         "merchant.payment.onboarding" => {
             json!({"id":{"type":"string"},"operation":{"type":"string","enum":["start","status","disconnect"]},"channel":{"type":"string"},"environment":{"type":"string","enum":["sandbox","live","simulation","contract-fixture"]},"country":{"type":"string"},"requestKey":{"type":"string"},"approve":{"type":"boolean"}})
         }
@@ -233,7 +235,9 @@ pub(crate) fn input(name: &str) -> Value {
         "merchant.order.transition" => vec!["id", "revision", "kind", "state"],
         "merchant.order.note" => vec!["id", "revision", "text"],
         "merchant.receipt.create" => vec!["id", "revision", "kind", "locale", "requestKey"],
-        "merchant.payment.details" => vec!["id"],
+        "merchant.payment.details"
+        | "merchant.payment.instructions"
+        | "checkout.payment.instructions" => vec!["id"],
         "merchant.payment" => vec!["id", "operation", "requestKey", "approve"],
         "developer.archive" => vec!["app", "archived", "approve"],
         "developer.import" => vec!["environment", "prompt", "summary", "manifest"],

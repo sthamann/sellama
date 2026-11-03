@@ -28,6 +28,7 @@ pub(super) const EVENTS: &[&str] = &[
     "pos.discount_changed",
     "pos.customer_selected",
     "payment.captured",
+    "payment.instructions.available",
     "order.state_changed",
     "payment.state_changed",
     "delivery.state_changed",
@@ -151,6 +152,11 @@ pub(crate) async fn project_flows(
     let mut public_event = data.clone();
     if kind.starts_with("consumer.") {
         public_event.as_object_mut().map(|v| v.remove("receipt"));
+    }
+    if kind == "payment.instructions.available" {
+        public_event
+            .as_object_mut()
+            .map(|v| v.remove("paymentInstructions"));
     }
     let data = &public_event;
     let rows = sqlx::query("SELECT id,data FROM commerce_flows WHERE tenant=$1 AND data->>'event'=$2 AND data->>'active'='true' ORDER BY id FOR SHARE")

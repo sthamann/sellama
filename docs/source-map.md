@@ -1,5 +1,11 @@
 # Source responsibilities and verification map
 
+**Invoice checkout:** `src/payments/instructions.rs` owns the typed recipient
+projection and customer/compound merchant rights. `PaymentInstructions.tsx` and
+its adjacent stylesheet render it in the existing native completion checkout.
+Provider source creation, recipient persistence and polling stay in the private
+Rust payment service. [Contract, migration and acceptance](payment-invoice-checkout.md).
+
 **Provider test modules:** [Mail fixture reuse, connected app scenarios and the
 native Rust regression command](testing.md#mail-and-connected-app-test-ownership).
 The suite registry keeps its existing entries. Shared test servers live separately

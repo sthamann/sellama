@@ -1,0 +1,41 @@
+/* Recipient details use the same payment surface, with wrapping for small embedded checkouts. */
+.payment-instructions {
+  min-width: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.payment-instructions h4 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+.payment-instructions p {
+  max-width: 65ch;
+  line-height: 1.6;
+}
+.payment-instructions dl {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0;
+}
+.payment-instructions dl div {
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) minmax(0, 2fr);
+  gap: 12px;
+}
+.payment-instructions dt {
+  color: var(--muted);
+}
+.payment-instructions dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+.payment-instructions-test {
+  font-weight: 600;
+}
+@media (max-width: 480px) {
+  .payment-instructions dl div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+}

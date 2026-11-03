@@ -1035,6 +1035,11 @@
     "source": "src/payments/routes.rs"
   },
   {
+    "path": "/api/payments/{id}/instructions",
+    "method": "GET",
+    "source": "src/payments/routes.rs"
+  },
+  {
     "path": "/api/payments/{id}/{operation}",
     "method": "POST",
     "source": "src/payments/routes.rs"
@@ -1606,6 +1611,11 @@
   },
   {
     "path": "/store-api/payments/{id}",
+    "method": "GET",
+    "source": "src/payments/routes.rs"
+  },
+  {
+    "path": "/store-api/payments/{id}/instructions",
     "method": "GET",
     "source": "src/payments/routes.rs"
   },

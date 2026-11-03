@@ -2,6 +2,30 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs11 {
+  "merchant.site.apply": { approve: boolean; taskId: string };
+  "merchant.reports.read": {
+    channel?: string | null;
+    channelType?: "all" | "storefront" | "headless" | "marketplace" | "pos";
+    compare?: boolean;
+    currency?: string | null;
+    from?: string | null;
+    interval?: "auto" | "day" | "week" | "month" | "year";
+    period?:
+      | "today"
+      | "yesterday"
+      | "week"
+      | "last7"
+      | "last30"
+      | "last90"
+      | "month"
+      | "lastMonth"
+      | "year"
+      | "lastYear"
+      | "all"
+      | "custom";
+    timezone?: string;
+    to?: string | null;
+  };
   "studio.workspace.work.read": JsonValue;
   "studio.workspace.read": JsonValue;
   "studio.workspace.save": { data: JsonValue; revision: number };
@@ -96,16 +120,5 @@ export interface Inputs11 {
     revision: number;
     terms: boolean;
     totalMinor: string;
-  };
-  "merchant.catalog.context": JsonValue;
-  "merchant.catalog.prepare": {
-    count: number;
-    inference?: {
-      model?: string | null;
-      provider?: "platform" | "ollama" | "openai" | "anthropic";
-    } | null;
-    mode: "csv" | "url" | "demo" | "shopify_csv" | "shop_mcp";
-    shopDomain?: string;
-    source: string;
   };
 }

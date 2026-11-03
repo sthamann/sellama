@@ -132,7 +132,8 @@ The app validates headers and addresses; arbitrary executable templates are reje
 Attachments and internationalized mailbox addresses are not implemented yet.
 
 MCP exposes `app.email.status`, `app.email.configure`, `app.email.preview_order`,
-`app.email.send` and `app.email.send_order` through the same permission/schema path.
+`app.email.send`, `app.email.send_order`, `app.email.preview_payment_instructions`
+and `app.email.send_payment_instructions` through the same permission/schema path.
 A successful queue response means **accepted for processing**, not delivered.
 Sending is a private mutation action; agents must use the existing merchant-controlled
 app capability, rather than interpreting imported mail contents as instructions.
@@ -145,8 +146,8 @@ Choose one of the following:
   subscription. The event's persisted order snapshot supplies the customer email.
 - In the graphical Flow Builder choose an order event, conditions and
   **Email Delivery → send_order**. The core supplies `requestKey` and `event`.
-  Optional `locale` chooses the template language; otherwise the app's default is
-  used. [Example flow](../extensions/apps/email/order-confirmation-flow.json).
+  Optional `locale` chooses the template language; otherwise the frozen checkout
+  language, then the app's default, is used. [Example flow](../extensions/apps/email/order-confirmation-flow.json).
 - Use **send** for custom notifications with a deliberately configured message.
 
 Enabling both automatic confirmation and an equivalent saved flow intentionally
@@ -233,3 +234,22 @@ its own sign-in. Email access never bypasses this boundary.
 ## Consumer-request receipts
 
 Built-in Email Delivery 1.1.0 subscribes to six `consumer.*.requested` events and renders bounded EN/DE/FR/ES acknowledgements with immutable declaration reference and receipt time. `notifyConsumerRequests` controls these transactional messages. Delivery must be enabled and configured; dry-run does not send email. Existing 1.0.0 installed manifests need an explicit update. See [European operation](european-operation.md) for privacy, review and legal boundaries.
+
+## Invoice recipient details
+
+Email Delivery 1.3.0 adds an independent **Invoice payment details** template and
+**Send invoice payment details automatically** setting, disabled by default.
+The provider-confirmed `payment.instructions.available` event supplies the
+recipient and reference, even while monetary capture remains pending. The template
+variable `{paymentInstructions}` uses exact native minor units and an explicit
+currency scale. Simulation messages say not to transfer money. Message previews
+never enqueue delivery; the existing test queue, encryption and delivery history
+remain the same.
+
+This package upgrade requests explicit `payments.instructions.read` and the exact
+event subscription. Approval and the private preview/send actions require current
+payment, order and customer-data rights. Existing 1.2.0 packages retain their
+original permissions. A Flow can use `send_payment_instructions` instead of the
+automatic subscription. Do not configure both for the same intended notification.
+The Flow reloads the original order's recipient at execution rather than storing
+bank data in its job definition. [Invoice integration and local acceptance](payment-invoice-checkout.md).

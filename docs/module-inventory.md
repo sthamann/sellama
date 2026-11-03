@@ -468,6 +468,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/operations/order_documents.rs](../src/operations/order_documents.rs) | Immutable private carrier documents belong to the existing order receipt store, never product assets. |
 | [src/operations/order_list.rs](../src/operations/order_list.rs) | Parameter-bound global order filters and stable tuple cursors; query text never becomes SQL. |
 | [src/operations/orders.rs](../src/operations/orders.rs) | Bounded order search, token-redacted detail and append-only operational notes. |
+| [src/operations/receipt_instructions.rs](../src/operations/receipt_instructions.rs) | Four-language invoice recipient footer from the immutable native receipt snapshot; cancellations never request payment. |
 | [src/operations/receipt_pdf.rs](../src/operations/receipt_pdf.rs) | Minimal paginated PDF serializer with WinAnsi Helvetica; snapshot retains complete Unicode originals. |
 | [src/operations/receipt_text.rs](../src/operations/receipt_text.rs) | Four-language document labels and authoritative snapshot-to-print projection. |
 | [src/operations/receipts.rs](../src/operations/receipts.rs) | Idempotent immutable invoices/delivery notes with transactional per-shop number ranges. |
@@ -489,6 +490,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/payments/details_model.rs](../src/payments/details_model.rs) | Typed, PII-free provider transaction details; these observations never mutate native payment state. |
 | [src/payments/details_tests.rs](../src/payments/details_tests.rs) | Transaction observations reject untyped and foreign evidence without touching payment state. |
 | [src/payments/generic_receipts.rs](../src/payments/generic_receipts.rs) | Provider-neutral receipt admission and atomic allocation; verified evidence owns ledger transitions. |
+| [src/payments/instructions.rs](../src/payments/instructions.rs) | Customer-capability and compound merchant access to typed recipient instructions; reads never settle an invoice. |
+| [src/payments/instructions_state.rs](../src/payments/instructions_state.rs) | Immutable recipient evidence in the existing payment context, native invoice snapshots and one scoped outbox event. |
 | [src/payments/merchant.rs](../src/payments/merchant.rs) | Shared merchant payment operation bridge; HTTP, MCP and Flows retain native rights and durable jobs. |
 | [src/payments/mod.rs](../src/payments/mod.rs) | Provider-independent payment ledger and durable workers; the PayPal adapter supports explicit Sandbox/Live environments. |
 | [src/payments/operations.rs](../src/payments/operations.rs) | Durable idempotent payment commands, customer context binding and serial refund admission. |
@@ -1436,6 +1439,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/checkout/EmbeddedPayment.tsx](../frontend/src/storefront/checkout/EmbeddedPayment.tsx) | A scoped provider frame receives a short-lived token; messages only trigger server reconciliation. |
 | [frontend/src/storefront/checkout/OrderCompletion.tsx](../frontend/src/storefront/checkout/OrderCompletion.tsx) | Dedicated completion page renders the accepted order snapshot and honest provider state, with no ID-only reads. |
 | [frontend/src/storefront/checkout/OrderConfetti.tsx](../frontend/src/storefront/checkout/OrderConfetti.tsx) | Finite CSS celebration after an accepted order; no timers, libraries or motion for reduced-motion users. |
+| [frontend/src/storefront/checkout/PaymentInstructions.tsx](../frontend/src/storefront/checkout/PaymentInstructions.tsx) | Owned recipient instructions stay visible after the private form; their presence never confirms payment. |
 | [frontend/src/storefront/checkout/PaymentSession.tsx](../frontend/src/storefront/checkout/PaymentSession.tsx) | Provider handoff and bounded durable-status polling; only verified server receipts confirm payment. |
 | [frontend/src/storefront/checkout/checkout-order.ts](../frontend/src/storefront/checkout/checkout-order.ts) | Bind the purchase to the reviewed cart and total; the server remains the pricing authority. |
 | [frontend/src/storefront/checkout/embedded-checkout.ts](../frontend/src/storefront/checkout/embedded-checkout.ts) | Only the registered embedding storefront receives the shopper cart receipt capability; it verifies with Core. |
@@ -1474,13 +1478,14 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/shell/useStorefrontAnchors.ts](../frontend/src/storefront/shell/useStorefrontAnchors.ts) | Restore native section navigation after SPA rendering, with cancellation and reduced-motion support. |
 | [frontend/src/storefront/shell/useStorefrontController.ts](../frontend/src/storefront/shell/useStorefrontController.ts) | Cart lifecycle, authoritative checkout commands and storefront coordination. |
 | [frontend/src/storefront/styles/checkout-fields.css](../frontend/src/storefront/styles/checkout-fields.css) | Checkout-owned form layout, independent of previously mounted account/admin stylesheets. |
-| [frontend/src/storefront/styles/checkout.css](../frontend/src/storefront/styles/checkout.css) | One-page checkout: calm responsive workspace with a sticky, readable order review. |
+| [frontend/src/storefront/styles/checkout.css](../frontend/src/storefront/styles/checkout.css) | Shared native checkout layout and payment states; recipient instructions have an adjacent owner. |
 | [frontend/src/storefront/styles/company-identity.css](../frontend/src/storefront/styles/company-identity.css) | Public company branding and readable legal identity across storefront channels. |
 | [frontend/src/storefront/styles/concierge-selection.css](../frontend/src/storefront/styles/concierge-selection.css) | Native product shortlist: responsive cards and reversible selection controls. |
 | [frontend/src/storefront/styles/cross-selling.css](../frontend/src/storefront/styles/cross-selling.css) | Merchant-selected product tiles retain the storefront grid and its native responsive breakpoints. |
 | [frontend/src/storefront/styles/experience-polish.css](../frontend/src/storefront/styles/experience-polish.css) | Shared storefront interaction layer: stable navigation, editorial surfaces and catalogue-grounded AI discovery. |
 | [frontend/src/storefront/styles/legal.css](../frontend/src/storefront/styles/legal.css) | Responsive, equally weighted consent controls and readable legal/customer forms. |
 | [frontend/src/storefront/styles/order-completion.css](../frontend/src/storefront/styles/order-completion.css) | Order receipt page and finite transform-only celebration; honors reduced motion. |
+| [frontend/src/storefront/styles/payment-instructions.css](../frontend/src/storefront/styles/payment-instructions.css) | Recipient details use the same payment surface, with wrapping for small embedded checkouts. |
 | [frontend/src/storefront/styles/shop/01--root.css](../frontend/src/storefront/styles/shop/01--root.css) | shop: -root styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/storefront/styles/shop/02-shop-product-image.css](../frontend/src/storefront/styles/shop/02-shop-product-image.css) | shop: shop-product-image styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/storefront/styles/shop/03-availability-span.css](../frontend/src/storefront/styles/shop/03-availability-span.css) | shop: availability-span styles. Source order is preserved by the entry stylesheet. |
@@ -1511,12 +1516,15 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/edi/tests/integration.py](../extensions/apps/edi/tests/integration.py) | Real installed-package -> Rust EDI gateway -> consent-bound callbacks -> buyer-owned requisition -> native checkout; no external network. |
 | [extensions/apps/email/src/config.rs](../extensions/apps/email/src/config.rs) | Compile-time mail setting types plus bounded runtime validation and write-only credentials. |
 | [extensions/apps/email/src/email.rs](../extensions/apps/email/src/email.rs) | Email app actions/events retain the published gateway, flow and MCP payload contract. |
+| [extensions/apps/email/src/payment_templates.rs](../extensions/apps/email/src/payment_templates.rs) | Localized recipient instructions use native exact money and escaped template substitution; no mail implies paid status. |
 | [extensions/apps/email/src/smtp.rs](../extensions/apps/email/src/smtp.rs) | Pinned SMTP/STARTTLS/TLS with verified hostname, bounded dialogue and no retry after ambiguous DATA. |
 | [extensions/apps/email/src/templates.rs](../extensions/apps/email/src/templates.rs) | Bounded immutable envelopes and non-executable multilingual templates; HTML substitutions are escaped. |
 | [extensions/apps/email/studio/EmailPanel.tsx](../extensions/apps/email/studio/EmailPanel.tsx) | Native email app settings, localized templates, safe previews and durable delivery receipts. |
 | [extensions/apps/email/studio/EmailProviderFields.tsx](../extensions/apps/email/studio/EmailProviderFields.tsx) | EmailProviderFields: focused connector-settings view with explicit typed inputs and callbacks. |
+| [extensions/apps/email/studio/EmailTemplateEditor.tsx](../extensions/apps/email/studio/EmailTemplateEditor.tsx) | One template type and content language at a time, using the installed email app's defaults and overrides. |
 | [extensions/apps/email/studio/email-i18n.ts](../extensions/apps/email/studio/email-i18n.ts) | Complete mail workspace vocabulary in English, German, French and Spanish. |
 | [extensions/apps/email/studio/email-languages.ts](../extensions/apps/email/studio/email-languages.ts) | Supported transactional email template languages. |
+| [extensions/apps/email/studio/email-settings.css](../extensions/apps/email/studio/email-settings.css) | Email-owned provider fields and notification choices retain the shared Studio form controls. |
 | [extensions/apps/engraving/configuration.wat](../extensions/apps/engraving/configuration.wat) | Engraving-owned rules: printable input is checked by the host; app defines length and fee. |
 | [extensions/apps/erp-handoff/service/config.rs](../extensions/apps/erp-handoff/service/config.rs) | Operator-owned tenant destinations and callback keys; request bodies cannot choose URLs or credentials. |
 | [extensions/apps/erp-handoff/service/delivery.rs](../extensions/apps/erp-handoff/service/delivery.rs) | Authoritative order callback and fixed-destination ERP export: one stable key, no automatic retry after an ambiguous result. |

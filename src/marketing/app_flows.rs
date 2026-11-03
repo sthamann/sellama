@@ -16,6 +16,21 @@ pub(super) fn validate_manifest_flow(
         .find(|x| x.name == target.action)
         .ok_or(bad("Unknown flow app action"))?;
     eligible(act)?;
+    if f.event == "payment.instructions.available"
+        && act.input_schema["properties"].get("event").is_some()
+    {
+        for scope in ["payments.read", "orders.read", "customers.pii"] {
+            auth::permit(h, scope)?;
+        }
+        if !["payments.instructions.read", "customers.pii"]
+            .iter()
+            .all(|scope| m.permissions.iter().any(|p| p == scope))
+        {
+            return Err(bad(
+                "App needs explicit payment and PII permission for recipient instructions",
+            ));
+        }
+    }
     auth::permit(h, act.permission.as_deref().unwrap_or("catalog"))?;
     apps::additional_permissions(h, act)?;
     if let Some(entity) = m
@@ -178,7 +193,7 @@ pub(crate) async fn execute_app_flow(
         .find(|x| x.name == target.action)
         .ok_or(bad("Unknown flow app action"))?;
     eligible(act)?;
-    let event = if definition["orderId"]
+    let mut event = if definition["orderId"]
         .as_str()
         .is_some_and(|s| !s.is_empty())
     {
@@ -186,6 +201,21 @@ pub(crate) async fn execute_app_flow(
     } else {
         definition["eventContext"].clone()
     };
+    if f.event == "payment.instructions.available"
+        && act.input_schema["properties"].get("event").is_some()
+    {
+        if !["payments.instructions.read", "customers.pii"]
+            .iter()
+            .all(|scope| m.permissions.iter().any(|p| p == scope))
+        {
+            return Err(bad(
+                "App needs explicit payment and PII permission for recipient instructions",
+            ));
+        }
+        event["paymentInstructions"] =
+            payments::flow_instructions(a, &h, definition["orderId"].as_str().unwrap_or(""))
+                .await?;
+    }
     let args = arguments(act, &target.arguments, id, instruction, &event, &f.event);
     apps::invoke_app(a, &h, &target.app, &target.action, &args).await
 }

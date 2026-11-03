@@ -3932,6 +3932,40 @@
       "readOnly": false
     },
     {
+      "description": "Read recipient instructions for the original customer checkout",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "name": "checkout.payment.instructions",
+      "readOnly": true
+    },
+    {
+      "description": "Read owned invoice recipient instructions with order and PII access",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "name": "merchant.payment.instructions",
+      "readOnly": true
+    },
+    {
       "description": "Explicitly approved idempotent provider command",
       "inputSchema": {
         "additionalProperties": false,

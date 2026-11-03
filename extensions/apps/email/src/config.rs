@@ -30,6 +30,7 @@ pub struct Settings {
     pub enabled: bool,
     pub dry_run: bool,
     pub notify_orders: bool,
+    pub notify_payment_instructions: bool,
     pub notify_consumer_requests: bool,
     pub from_email: String,
     pub from_name: String,
@@ -41,6 +42,7 @@ pub struct Settings {
     pub smtp_username: String,
     pub region: String,
     pub templates: BTreeMap<String, Template>,
+    pub payment_templates: BTreeMap<String, Template>,
 }
 impl Default for Settings {
     fn default() -> Self {
@@ -49,6 +51,7 @@ impl Default for Settings {
             enabled: false,
             dry_run: true,
             notify_orders: false,
+            notify_payment_instructions: false,
             notify_consumer_requests: true,
             from_email: String::new(),
             from_name: String::new(),
@@ -60,6 +63,7 @@ impl Default for Settings {
             smtp_username: String::new(),
             region: "global".into(),
             templates: BTreeMap::new(),
+            payment_templates: BTreeMap::new(),
         }
     }
 }
@@ -112,7 +116,7 @@ pub fn parse(value: &Value) -> Result<Settings> {
                 .is_match(&s.smtp_host),
         "Invalid SMTP hostname",
     )?;
-    for (locale, t) in &s.templates {
+    for (locale, t) in s.templates.iter().chain(s.payment_templates.iter()) {
         checked(
             ["en", "de", "fr", "es"].contains(&locale.as_str()),
             "Invalid template language",

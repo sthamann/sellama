@@ -26,6 +26,7 @@ mod order_list;
 mod orders;
 mod redacted_reads;
 pub(crate) use redacted_reads::redacted_read;
+mod receipt_instructions;
 mod receipt_pdf;
 mod receipt_text;
 pub(crate) use receipt_text::lines as receipt_lines;
@@ -70,7 +71,9 @@ pub(crate) fn permission(name: &str) -> Option<&'static str> {
         "merchant.receipts" => "documents.read",
         "merchant.receipt.create" => "documents.create",
         "merchant.payment" | "merchant.payment.onboarding" => "payments.manage",
-        "merchant.payment.providers" | "merchant.payment.details" => "payments.read",
+        "merchant.payment.providers"
+        | "merchant.payment.details"
+        | "merchant.payment.instructions" => "payments.read",
         "merchant.products"
         | "merchant.categories"
         | "merchant.product.assets"
@@ -85,6 +88,9 @@ pub(crate) fn permission(name: &str) -> Option<&'static str> {
 }
 /// Compound admission for manual ordering is identical in discovery and invocation.
 pub(crate) fn creation_visible(h: &RequestContext, name: &str) -> bool {
+    if name == "merchant.payment.instructions" {
+        return auth::allowed(h, "orders.read");
+    }
     !matches!(
         name,
         "merchant.order.context" | "merchant.order.review" | "merchant.order.complete"
@@ -101,7 +107,8 @@ pub(crate) fn requires_pii(name: &str) -> bool {
     name.starts_with("merchant.customer.")
         || matches!(
             name,
-            "merchant.customers"
+            "merchant.payment.instructions"
+                | "merchant.customers"
                 | "merchant.customer"
                 | "merchant.orders"
                 | "merchant.order"
@@ -283,7 +290,8 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
         "merchant.receipt.create" => {
             receipts::create(State(a.clone()), h.clone(), Path(id()?), Json(v.clone())).await?
         }
-        "merchant.payment.details"
+        "merchant.payment.instructions"
+        | "merchant.payment.details"
         | "merchant.payment.providers"
         | "merchant.payment.onboarding"
         | "merchant.payment" => Json(payments::merchant_operation(a, h, name, v).await?),

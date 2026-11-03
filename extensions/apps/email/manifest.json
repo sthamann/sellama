@@ -1,6 +1,6 @@
 {
   "id": "email",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "coreApi": "1",
   "runtime": "service",
   "name": {
@@ -19,7 +19,9 @@
     "events:consumer.correct.requested",
     "events:consumer.portability.requested",
     "events:consumer.objection.requested",
-    "customers.pii"
+    "customers.pii",
+    "events:payment.instructions.available",
+    "payments.instructions.read"
   ],
   "entities": [],
   "slots": [],
@@ -154,6 +156,73 @@
       "readOnly": false,
       "permission": "apps.manage",
       "flowAllowed": true
+    },
+    {
+      "name": "preview_payment_instructions",
+      "description": "Preview invoice recipient instructions without sending",
+      "handler": "service",
+      "entity": null,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event": {
+            "type": "object"
+          },
+          "locale": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "event"
+        ],
+        "additionalProperties": false
+      },
+      "public": false,
+      "readOnly": true,
+      "permission": "apps.manage",
+      "flowAllowed": false,
+      "requiredPermissions": [
+        "payments.read",
+        "orders.read",
+        "customers.pii"
+      ]
+    },
+    {
+      "name": "send_payment_instructions",
+      "description": "Queue localized invoice recipient instructions",
+      "handler": "service",
+      "entity": null,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event": {
+            "type": "object"
+          },
+          "requestKey": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string"
+          },
+          "dryRun": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "event",
+          "requestKey"
+        ],
+        "additionalProperties": false
+      },
+      "public": false,
+      "readOnly": false,
+      "permission": "apps.manage",
+      "flowAllowed": true,
+      "requiredPermissions": [
+        "payments.read",
+        "orders.read",
+        "customers.pii"
+      ]
     }
   ],
   "events": [
@@ -163,7 +232,8 @@
     "consumer.erase.requested",
     "consumer.correct.requested",
     "consumer.portability.requested",
-    "consumer.objection.requested"
+    "consumer.objection.requested",
+    "payment.instructions.available"
   ],
   "eventDelivery": {
     "batchSize": 10

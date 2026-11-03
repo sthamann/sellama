@@ -23,7 +23,10 @@ function setup(manage = true) {
         };
         return status;
       }
-      if (path.endsWith("/preview_order"))
+      if (
+        path.endsWith("/preview_order") ||
+        path.endsWith("/preview_payment_instructions")
+      )
         return {
           mail: {
             to: input.event.order.orderCustomer.email,
@@ -187,4 +190,37 @@ it("queues only an explicit test when delivery is enabled in test mode", async (
   expect(
     screen.getByRole("button", { name: "Send a real test email" }),
   ).toBeDisabled();
+});
+
+it("previews invoice instructions separately and saves their opt-in without sending", async () => {
+  const { request } = setup();
+  await screen.findByRole("combobox", { name: "Message type" });
+  fireEvent.change(screen.getByRole("combobox", { name: "Message type" }), {
+    target: { value: "instructions" },
+  });
+  fireEvent.change(screen.getByRole("textbox", { name: "Test recipient" }), {
+    target: { value: "buyer@example.test" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "Preview email" }));
+  await screen.findByText("Rendered order fixture");
+  const preview = request.mock.calls.find((c) =>
+    c[0].endsWith("/preview_payment_instructions"),
+  )![1] as Record<string, any>;
+  expect(preview.event.paymentInstructions.simulated).toBe(true);
+  fireEvent.click(
+    screen.getByRole("checkbox", {
+      name: "Send invoice payment details automatically",
+    }),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Save configuration" }));
+  await waitFor(() =>
+    expect(request.mock.calls.some((c) => c[0].endsWith("/configure"))).toBe(
+      true,
+    ),
+  );
+  const saved = request.mock.calls.find((c) =>
+    c[0].endsWith("/configure"),
+  )![1] as Record<string, any>;
+  expect(saved.settings.notifyPaymentInstructions).toBe(true);
+  expect(request.mock.calls.some((c) => c[0].endsWith("/send"))).toBe(false);
 });

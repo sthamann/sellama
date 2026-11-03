@@ -10,7 +10,11 @@ mod contract;
 mod merchant;
 pub(crate) use merchant::invoke as merchant_operation;
 mod instructions;
+mod instructions_state;
 pub(crate) use instructions::customer_read as customer_instructions;
+pub(crate) use instructions_state::{
+    for_document as document_instructions, for_flow as flow_instructions,
+};
 mod details;
 mod details_model;
 pub(crate) use contract::*;

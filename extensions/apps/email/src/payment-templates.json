@@ -1,0 +1,6 @@
+{
+  "en": {"subject":"Payment details for order {orderNumber}","text":"Hello {firstName},\nYour invoice payment details are available. These details do not confirm receipt of money.{paymentInstructions}"},
+  "de": {"subject":"Zahlungsangaben zu Bestellung {orderNumber}","text":"Hallo {firstName},\ndie Angaben zu deinem Rechnungskauf liegen vor. Diese Angaben bestätigen keinen Geldeingang.{paymentInstructions}"},
+  "fr": {"subject":"Informations de paiement de la commande {orderNumber}","text":"Bonjour {firstName},\nles informations du paiement sur facture sont disponibles. Elles ne confirment pas la réception du paiement.{paymentInstructions}"},
+  "es": {"subject":"Datos de pago del pedido {orderNumber}","text":"Hola {firstName},\nlos datos del pago por factura están disponibles. Estos datos no confirman la recepción del dinero.{paymentInstructions}"}
+}

@@ -59,6 +59,12 @@ impl Instructions {
         Ok(())
     }
 }
+pub(super) fn validated(value: &Value) -> Result<Value> {
+    let value: Instructions = serde_json::from_value(value.clone())
+        .map_err(|_| bad("Invalid recipient instructions response"))?;
+    value.validate()?;
+    serde_json::to_value(value).map_err(|_| bad("Invalid recipient instructions"))
+}
 pub(crate) async fn customer_read(a: &App, h: &RequestContext, id: &str) -> Result<Value> {
     customer(a, h, id).await?;
     read(a, &tenant(h)?, id).await
@@ -100,6 +106,11 @@ async fn read(a: &App, t: &str, id: &str) -> Result<Value> {
         .is_some_and(|cs| cs.iter().any(|c| c == "instructions"))
     {
         return Ok(json!({"status":"unsupported","instructions":null}));
+    }
+    if let Some(saved) = p.context.get("recipientInstructions") {
+        return Ok(
+            json!({"status":"available","instructions":validated(saved)?,"amountMinor":p.amount,"currency":p.currency,"currencyScale":p.currency_scale,"simulated":p.environment!="live"}),
+        );
     }
     let v = remote::execute(a, &p, "instructions", &uid(), &json!({})).await?;
     generic_receipts::identity(&p, &v)?;

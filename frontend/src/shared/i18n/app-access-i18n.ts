@@ -191,6 +191,12 @@ const words = {
     "Importer les commandes marketplace vérifiées",
     "Importar pedidos marketplace revisados",
   ],
+  "payments.instructions.read": [
+    "Read invoice recipient instructions",
+    "Zahlungsangaben für Rechnungen lesen",
+    "Lire les coordonnées de paiement des factures",
+    "Leer instrucciones de pago de facturas",
+  ],
   "payments.record": [
     "Record externally collected payments",
     "Extern eingezogene Zahlungen erfassen",

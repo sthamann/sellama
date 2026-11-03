@@ -101,6 +101,21 @@ fn render(raw: &str, vars: &Value, html: bool) -> Result<String> {
     Ok(output)
 }
 pub fn order(v: &Value, s: &Settings) -> Result<Mail> {
+    render_order(v, s, defaults(), &s.templates)
+}
+pub fn payment(v: &Value, s: &Settings) -> Result<Mail> {
+    checked(
+        v["event"].get("paymentInstructions").is_some(),
+        "Invoice payment instructions required",
+    )?;
+    render_order(v, s, payment_templates::defaults(), &s.payment_templates)
+}
+fn render_order(
+    v: &Value,
+    s: &Settings,
+    defaults: Value,
+    overrides: &std::collections::BTreeMap<String, config::Template>,
+) -> Result<Mail> {
     let event = &v["event"];
     let o = event.get("order").unwrap_or(event);
     let c = &o["orderCustomer"];
@@ -110,13 +125,14 @@ pub fn order(v: &Value, s: &Settings) -> Result<Mail> {
     )?;
     let locale = v["locale"]
         .as_str()
+        .or_else(|| o["cart"]["locale"].as_str())
         .unwrap_or(&s.locale)
         .split('-')
         .next()
         .unwrap_or("en");
-    let mut template = defaults()[locale].clone();
+    let mut template = defaults[locale].clone();
     checked(!template.is_null(), "Unsupported email language")?;
-    if let Some(t) = s.templates.get(locale) {
+    if let Some(t) = overrides.get(locale) {
         for (k, val) in [
             ("subject", &t.subject),
             ("text", &t.text),
@@ -143,7 +159,7 @@ pub fn order(v: &Value, s: &Settings) -> Result<Mail> {
             o["currencyId"].as_str().unwrap_or("EUR").into(),
         )
     };
-    let vars = json!({"orderNumber":o.get("orderNumber").unwrap_or(&event["orderId"]),"firstName":c["firstName"].as_str().or(c["name"].as_str()).unwrap_or(""),"totalPrice":if locale=="en" {price}else{price.replace('.',",")},"currency":currency});
+    let vars = json!({"orderNumber":o.get("orderNumber").unwrap_or(&event["orderId"]),"firstName":c["firstName"].as_str().or(c["name"].as_str()).unwrap_or(""),"totalPrice":if locale=="en" {price}else{price.replace('.',",")},"currency":currency,"paymentInstructions":payment_templates::block(event,locale)?});
     envelope(
         &json!({"to":c["email"],"subject":render(&text(&template,"subject"),&vars,false)?,"text":render(&text(&template,"text"),&vars,false)?,"html":render(&text(&template,"html"),&vars,true)?}),
         s,

@@ -12,6 +12,8 @@ mod integrations;
 mod legacy;
 mod network;
 mod oauth;
+#[path = "../../../apps/email/src/payment_templates.rs"]
+mod payment_templates;
 mod providers;
 mod queue;
 mod server;

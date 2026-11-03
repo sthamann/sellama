@@ -210,6 +210,12 @@ pub(crate) fn lines(v: &Value) -> Vec<String> {
             lines.push(message.into());
         }
     }
+    if v["kind"] == "invoice" {
+        lines.extend(super::receipt_instructions::lines(
+            &v["paymentInstructions"],
+            index,
+        ));
+    }
     lines
 }
 

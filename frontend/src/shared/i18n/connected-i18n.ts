@@ -121,6 +121,12 @@ export const connectedWords: Record<string, readonly string[]> = {
     "Statut de livraison modifié",
     "Estado de entrega cambiado",
   ],
+  "payment.instructions.available": [
+    "Invoice payment details available",
+    "Zahlungsangaben zum Rechnungskauf liegen vor",
+    "Informations du paiement sur facture disponibles",
+    "Datos del pago por factura disponibles",
+  ],
   "payment.updated": [
     "Payment updated",
     "Zahlung aktualisiert",

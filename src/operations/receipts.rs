@@ -145,6 +145,11 @@ pub(super) async fn create(
             return Err(conflict("Invoice already exists"));
         }
     }
+    let payment_instructions = if kind == "invoice" {
+        payments::document_instructions(&mut tx, &t, &order).await?
+    } else {
+        None
+    };
     let number:i64=sqlx::query_scalar("INSERT INTO receipt_counters(tenant,kind,next_number) VALUES($1,$2,2) ON CONFLICT(tenant,kind) DO UPDATE SET next_number=receipt_counters.next_number+1 RETURNING next_number-1").bind(&t).bind(kind).fetch_one(&mut *tx).await?;
     let prefix = match kind {
         "invoice" => "INV",
@@ -154,6 +159,9 @@ pub(super) async fn create(
     let number = format!("{prefix}-{number:08}");
     let receipt = uid();
     let mut snapshot = json!({"number":number,"kind":kind,"locale":locale,"seller":if let Some(ref original)=reference{original["seller"].clone()}else{seller},"order":if let Some(ref original)=reference{original["order"].clone()}else{order.clone()},"issuedAt":sqlx::query_scalar::<_,String>("SELECT now()::text").fetch_one(&mut *tx).await?,"referenceId":v["referenceId"],"referenceNumber":reference.map(|s|s["number"].clone())});
+    if let Some(instructions) = payment_instructions {
+        snapshot["paymentInstructions"] = instructions;
+    }
     if let Some(package) = package {
         snapshot["deliveryIndex"] = v["deliveryIndex"].clone();
         snapshot["delivery"] = package;

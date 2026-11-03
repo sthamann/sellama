@@ -1,5 +1,16 @@
 # Changelog
 
+## Invoice PDFs and email, 3 November 2026
+
+Validated invoice instructions now freeze in native invoice PDFs and emit one
+scoped availability event without marking an invoice paid. Email Delivery 1.3.0
+adds editable localized recipient templates, an explicit automatic-send opt-in,
+HTTP/MCP actions and existing graphical Flow integration. App consent and current
+compound rights guard disclosure; Flow definitions omit bank data. Actual local
+Rust/Core/PostgreSQL acceptance covers pending conflicts, immutable PDF content,
+one encrypted automatic mail, Flow mail, recovery and exact refunds. Hosted rollout
+and external account acceptance remain separate.
+
 ## Invoice checkout 1.5.0, 3 November 2026
 
 Feature branch: deferred private invoice-source creation, immutable recipient instructions, durable pending review, stable native references, same-key and verified-webhook recovery, and conservative cancellation. Typed customer/compound merchant HTTP/MCP reads and a four-language responsive checkout display reuse the existing payment ledger and worker. Local Rust/Core/PostgreSQL and 17-method simulation acceptance; hosted migration/rollout and external account tests remain separate. See [the invoice guide](docs/payment-invoice-checkout.md).

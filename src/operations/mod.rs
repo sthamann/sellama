@@ -26,6 +26,7 @@ mod order_list;
 mod orders;
 mod redacted_reads;
 pub(crate) use redacted_reads::redacted_read;
+mod receipt_instructions;
 mod receipt_pdf;
 mod receipt_text;
 pub(crate) use receipt_text::lines as receipt_lines;

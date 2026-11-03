@@ -1,6 +1,54 @@
 /** Complete mail workspace vocabulary in English, German, French and Spanish. */
 import { useLocale } from "../../../../frontend/src/shared/i18n/i18n";
 export const emailWords: Record<string, readonly string[]> = {
+  notifyPaymentInstructions: [
+    "Send invoice payment details automatically",
+    "Zahlungsangaben zum Rechnungskauf automatisch senden",
+    "Envoyer automatiquement les informations de paiement sur facture",
+    "Enviar automáticamente los datos del pago por factura",
+  ],
+  templateLibrary: [
+    "Message templates",
+    "Nachrichtenvorlagen",
+    "Modèles de message",
+    "Plantillas de mensajes",
+  ],
+  templateKind: [
+    "Message type",
+    "Art der Nachricht",
+    "Type de message",
+    "Tipo de mensaje",
+  ],
+  orderTemplate: [
+    "Order confirmation",
+    "Bestellbestätigung",
+    "Confirmation de commande",
+    "Confirmación del pedido",
+  ],
+  paymentTemplate: [
+    "Invoice payment details",
+    "Zahlungsangaben zum Rechnungskauf",
+    "Informations du paiement sur facture",
+    "Datos del pago por factura",
+  ],
+  paymentVariables: [
+    "{paymentInstructions} inserts the confirmed recipient details. They are sent once they are available.",
+    "{paymentInstructions} fügt die bestätigten Empfängerangaben ein. Sie werden versendet, sobald sie vorliegen.",
+    "{paymentInstructions} insère les coordonnées confirmées du bénéficiaire, envoyées dès leur disponibilité.",
+    "{paymentInstructions} añade los datos confirmados del destinatario. Se envían cuando están disponibles.",
+  ],
+  sampleBank: [
+    "Simulation bank",
+    "Simulationsbank",
+    "Banque simulée",
+    "Banco simulado",
+  ],
+  sampleRecipient: [
+    "Simulation recipient",
+    "Simulationsempfänger",
+    "Bénéficiaire simulé",
+    "Destinatario simulado",
+  ],
   removeCredentials: [
     "Remove credentials and disable delivery",
     "Zugangsdaten entfernen und Versand deaktivieren",

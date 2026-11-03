@@ -49,3 +49,31 @@ The account has separate sign-in and registration forms and six connected views:
 - Existing account component suites cover login/registration, order details, receipts/downloads, safe links, address defaults and expiration. `scripts/customer_accounts.py` exercises the real database and selects a purchasable product from the current default catalogue rather than retired demo IDs.
 
 Browser acceptance covers desktop, 375×667 portrait and 844×390 landscape for the assistant and account, plus storefront overflow, product navigation and checkout layout. Passing these checks is not 100% visual coverage of every app, industry-specific form or external payment/OAuth integration. No external model call or financial charge is needed to verify layout and question preparation.
+
+## Clear actions and connected account setup
+
+Studio keeps its generic button reset at low CSS specificity. Feature buttons,
+list filters, column controls and selected states retain their own styling even
+when their shared stylesheet loads before the Studio shell. Primary creation and
+save actions use the existing blue `studio-primary`; secondary navigation and
+cancellation retain `studio-secondary`.
+
+**Team & access → Create shop** is a visible heading action. Its inline form
+suggests an editable identifier from the shop name, validates the native identifier
+format, retains entered values on rejection and submits through the existing
+personal `/api/workspaces` owner. Successful creation shows the shop name and an
+explicit **Open shop** action through the existing workspace switch. Account details, shop switching and MFA remain
+native account controls. Duplicate identifiers and the existing account shop limit
+have explicit localized recovery guidance.
+
+Invitation roles wait for the current role definitions and default to the active
+Viewer role. If that role is unavailable, the user must choose an allowed role;
+loading options never silently selects Administrator. Native authorization still
+checks every invitation. Team and developer screens reuse one `IntegrationKeys`
+component with the same current rights, lifetime options, agent budgets, one-time
+secret handling and revoke confirmation.
+
+The focused `team-workspace`, `api-console`, `workspace-roles` and
+`visual-workspace` frontend tests cover these connected interaction boundaries.
+Rendered desktop/mobile checks and actual shop creation are recorded separately
+from the daily full suite.

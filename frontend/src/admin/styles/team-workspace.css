@@ -1,0 +1,151 @@
+/* Account, shop creation and team access share a clear action and form hierarchy. */
+.users-manager,
+.studio-main.is-workspace .team-access {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px clamp(20px, 4vw, 60px);
+  min-width: 0;
+}
+.users-manager .commerce-title {
+  align-items: center;
+  margin-bottom: 24px;
+}
+.users-manager .commerce-title h1 {
+  margin: 0 0 10px;
+}
+.users-manager .commerce-title > button {
+  flex-shrink: 0;
+}
+.team-create-workspace {
+  margin-bottom: 24px;
+}
+.team-create-workspace header {
+  margin-bottom: 20px;
+}
+.team-create-workspace header p {
+  margin-top: 8px;
+  max-width: 65ch;
+  color: var(--muted);
+}
+.team-create-workspace fieldset {
+  border: 0;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+}
+.team-create-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px;
+}
+.team-create-identifier {
+  display: grid;
+  align-content: start;
+  gap: 7px;
+}
+.users-manager label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+.team-create-identifier small,
+.users-manager label small {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.team-form-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.team-personal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.team-personal-grid > section {
+  min-width: 0;
+}
+.users-manager .commerce-card > h2 {
+  margin-bottom: 8px;
+}
+.users-manager .commerce-card > label,
+.users-manager .commerce-card > form {
+  margin-top: 20px;
+}
+.team-personal-grid .account-form {
+  max-width: none;
+}
+.users-manager .account-form > button {
+  justify-self: start;
+}
+.users-manager input:user-invalid {
+  border-color: var(--error, #b42318);
+}
+.team-access {
+  display: grid;
+  gap: 20px;
+}
+.team-access > .studio-card {
+  display: grid;
+  gap: 16px;
+}
+.team-access > .studio-card > p {
+  max-width: 70ch;
+  color: var(--muted);
+}
+.team-access details > summary {
+  cursor: pointer;
+  padding: 12px 0;
+}
+.team-access details > .studio-primary {
+  margin-top: 16px;
+}
+@media (max-width: 850px) {
+  .team-personal-grid,
+  .team-create-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 500px) {
+  .users-manager .commerce-title > .studio-primary {
+    width: 100%;
+  }
+  .team-form-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .team-form-actions > button {
+    width: 100%;
+  }
+}
+
+.users-manager .account-security > p + p {
+  margin-top: 12px;
+  color: var(--text);
+}
+
+.team-created {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  background: var(--accent-soft);
+  border-radius: 12px;
+}
+.team-created p {
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}

@@ -1,6 +1,7 @@
 {
   "http": [
     "studio",
+    "merchant_reports",
     "integration",
     "protocols",
     "intelligence",

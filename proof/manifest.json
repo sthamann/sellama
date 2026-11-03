@@ -2410,13 +2410,13 @@
     },
     "src/capabilities/admission.rs": {
       "status": "unproved",
-      "sha256": "a1b89d8b01547f8d0cba631da46599381adf9a70c8b5dac1793aa45413b5e5d7",
-      "review": "Customer scenarios: independent scenario_security_review completed; native signed-role, cohort, replay, injection, cancellation and post-lock lease-expiry regressions pass. Shared checkout preflight avoids nested-pool deadlock; authority is rechecked at the fenced transaction commit."
+      "sha256": "8622759b9a7175bda8f4b7eff25d6b0435455e13b8436bedebf9d5d0346aa1b6",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "b7acd28ea8174f85fa3aeb23ce993598cb427abafe3e04abdce17832b89eee9e",
-      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
+      "sha256": "e083a91cc9b614639cd435882f179c1bf744bd1514d164b45db75f37b0655615",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
     },
     "src/capabilities/contract.rs": {
       "status": "unproved",
@@ -2430,18 +2430,18 @@
     },
     "src/capabilities/dispatch.rs": {
       "status": "unproved",
-      "sha256": "8e9fc966613fd0822fc6a657d647f209554b06384984367231f0d0b5ddb346ab",
-      "review": "Customer scenarios: independent scenario_security_review completed; native signed-role, cohort, replay, injection, cancellation and post-lock lease-expiry regressions pass. Shared checkout preflight avoids nested-pool deadlock; authority is rechecked at the fenced transaction commit."
+      "sha256": "19173ae4e37466faddfb1630436856e3f5daf84d2e3af067012ceff292ba9f82",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
     },
     "src/capabilities/registry.rs": {
       "status": "unproved",
-      "sha256": "f0914e7fc2bf4641ae65eb1b8e1da051371d291c820d6058e807942a1a444017",
-      "review": "Customer scenarios: independent scenario_security_review completed; native signed-role, cohort, replay, injection, cancellation and post-lock lease-expiry regressions pass. Shared checkout preflight avoids nested-pool deadlock; authority is rechecked at the fenced transaction commit."
+      "sha256": "7723375141214c28dc2467fd0ab8a23f2351486278cc51c40f51d5f6bf09e160",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "57c0994b94d47d40e39a8f72a4418a1ba8aa79d2077d74bb19e52c6eeb5d42c5",
-      "review": "Review shared payment-service simulation admission, configured environment discovery and additive native account constraint; financial kernel unchanged."
+      "sha256": "a62a211fc50a17d5a351b8ce6ef46f192b7ca414303e49a46a7e762aaf6485be",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -4010,8 +4010,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "81c48251fec843e2bf8c9c272711f7d88d733bddc120816570cc48e18987b4ea",
-      "review": "Reviewed scoped settings transport limit and JSON rejection; native settings authorization, CAS, event and verified commerce kernels unchanged"
+      "sha256": "0f11c9222a2a5295ad3307e1db76bd23721e44a58d0e306caa432f27e036056f",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",
@@ -4130,13 +4130,33 @@
     },
     "src/studio/personal/model.rs": {
       "status": "unproved",
-      "sha256": "d3cc872a6b12337094184374e1b0ca4a29aaf99195009ceb423f79c28e72a6ad",
-      "review": "Reviewed optional bounded actor-private setup preferences: legacy omission, strict fields, six allowed review steps, duplicate and incomplete-completion rejection; no authority or publication meaning. Native HTTP/MCP CAS/history/foreign-shop and Rust model regressions passed."
+      "sha256": "473d5db984c948d7aa9de05222484a87f4f39fadf32d6fd91e65fd7d9ffab5c9",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
     },
     "src/studio/personal.rs": {
       "status": "unproved",
       "sha256": "1bbc594cca12f6711bde63a18f1ce4a55a90832f9a0c7d326e6e57ec2ef1ac56",
       "review": "Reviewed contextual private-work contracts and independent findings: app opt-out, locked guidance, preserved manual actions, conversation lease and locale inheritance; native own/foreign, stale approval, narrowed rights, renewed login, killed-worker continuation and actual app-preview regressions passed. SQL, async runtime and providers remain unproved."
+    },
+    "src/studio/reports/config.rs": {
+      "status": "unproved",
+      "sha256": "ff0a83f3850e0089ee961a5544117d678effb0faa7f27327b8d80e13199f9092",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
+    },
+    "src/studio/reports/period.rs": {
+      "status": "unproved",
+      "sha256": "5c14b6c130c20d69aa630c6f7891dcd174ad0ce42653d4d951c7645341bfb8e4",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
+    },
+    "src/studio/reports/traffic.rs": {
+      "status": "unproved",
+      "sha256": "55de174483d2ec8ca4a8b234a34de3a1600796a178cf410308fa362f6f10fe6c",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
+    },
+    "src/studio/reports.rs": {
+      "status": "unproved",
+      "sha256": "f2723d0f39391740e81d8f5f7d263debeffc650b1b1a530a27aea7e53dfdb7a7",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
     },
     "src/studio/revenue.rs": {
       "status": "unproved",
@@ -4150,8 +4170,8 @@
     },
     "src/studio.rs": {
       "status": "unproved",
-      "sha256": "547abe6bbe49ce628d6d8493e3e135e1410be561afcd8954cb1ac49a44cd0a8e",
-      "review": "Reviewed contextual private-work contracts and independent findings: app opt-out, locked guidance, preserved manual actions, conversation lease and locale inheritance; native own/foreign, stale approval, narrowed rights, renewed login, killed-worker continuation and actual app-preview regressions passed. SQL, async runtime and providers remain unproved."
+      "sha256": "4cbd5568c97626d4c43140c609103148e70a89c58fcfb43f30b2f60fff9749af",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
     },
     "src/translations/apply.rs": {
       "status": "reviewed-binding",
@@ -5022,6 +5042,18 @@
     "src/studio/overview.sql": {
       "sha256": "08ab1c71d526596a2f283bb46c5778e03a9d3d1a03b8cc7dc325300f19f097af",
       "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+    },
+    "src/studio/reports/sales.sql": {
+      "sha256": "65c67f6c9545dc70f79c4939473341fc654f73c115488678e4736c4cbaeb8137",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
+    },
+    "src/studio/reports/source.sql": {
+      "sha256": "718af452e40c3f93f2b67a929e3378c99dfc803c1761de35cff3abdff25be1de",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
+    },
+    "src/studio/reports/traffic.sql": {
+      "sha256": "bb650388f42a6ed6e094f7e07c02472ac8aea4abacf695d257b9f558c663034d",
+      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
     },
     "src/ucp/b2b-negotiation.json": {
       "sha256": "80049231fb689a5a8a105ff73046ec0a5b97caa480e0a5029e8688ad7dfacba7",

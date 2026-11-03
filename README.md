@@ -23,8 +23,7 @@ core. People and agents use the same native operations, permissions and versione
 changes; prices and stock remain authoritative.
 
 **Start here: [current status, tested scope and open acceptance](docs/status.md).**
-This is a working prototype, built in public. Local implementation, CI results and
-public acceptance are recorded separately.
+Built in public. Implementation, CI and public acceptance are recorded separately.
 
 ## What you can do
 
@@ -37,6 +36,7 @@ public acceptance are recorded separately.
 | **Automate the work** | Repeat reviewed work as a Flow and compare rule drafts with recorded order inputs before saving. [Automation](docs/automation.md), [reusable work](docs/personal-workspace-and-shop-design.md#repeat-completed-work-as-a-flow), [rule comparison](docs/rule-history-comparison.md). |
 | **Shop by intent** | Describe a gift, budget or comparison; edit the visual selection with real product cards, then use native variants, app configuration and checkout. [Shopper workspace](docs/ui-experience.md#standard-storefront-and-customer-account). |
 | **Test before release** | Let fictional customers try private proposals with native baskets and simulated purchases. Review outcomes and configuration freshness, then open the interactive shop preview before publication. [Customer simulator](docs/customer-scenarios.md). |
+| **See what works** | Build sales and conversion reports. [Merchant reports](docs/merchant-reports.md). |
 | **Stay in control** | Current roles, private sandboxes, immutable versions, saved-data upgrade checks and selected publication govern changes. [Security](docs/security.md). |
 
 [![Veyndo: AI commerce in 1:56](docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.jpg)](https://www.veyndo.ai/docs/video-tours.html)

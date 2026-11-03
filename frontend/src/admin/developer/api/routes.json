@@ -950,6 +950,11 @@
     "source": "src/operations/routes.rs"
   },
   {
+    "path": "/api/merchant/reports",
+    "method": "POST",
+    "source": "src/studio/reports.rs"
+  },
+  {
     "path": "/api/merchant/reviews/{id}",
     "method": "PUT",
     "source": "src/routes.rs"

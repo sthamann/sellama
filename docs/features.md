@@ -120,11 +120,11 @@ The sidebar groups **15 workspaces**. The shell provides a shop switcher, live/p
 
 ### Shop today and the price playground
 
-The dashboard reads actual commerce data: recorded orders/value, today's count, seven-day order chart, parent-product inventory, low stock, pending proposals, recent orders and activity. Simulated order value is identified; it is not reported as collected real revenue. Product selections link into the central editor.
+Shop today and personal workspace areas share configurable reports for ordered revenue, order count, average order, refunds, best products, sales channels, observed traffic, conversion and the purchase journey. Select periods, daily/weekly/monthly/yearly grouping, timezone, currency and channel scope. Add, reorder and resize cards, select charts or tables and save your personal overview. Existing native orders and consent eligible observations supply the values. [Build an overview and understand the numbers](merchant-reports.md).
 
 The side preview has a **price playground** for quantity and consumer/business-group context. It calls the actual calculator without creating a cart, order or inventory mutation. The selected product can become context for a conversation. [Studio interface](studio-interface.md).
 
-![Current Studio overview of synthetic local orders and catalogue data](assets/product-tour-20261102/overview.jpg)
+![Configurable reports using synthetic local orders](assets/merchant-reports-20261103/overview.jpg)
 
 ## Products and categories
 

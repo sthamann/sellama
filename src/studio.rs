@@ -3,6 +3,7 @@ use super::*;
 use axum::{extract::Request, middleware::Next};
 pub(crate) mod facts;
 pub(crate) mod personal;
+pub(crate) mod reports;
 mod revenue;
 mod work;
 

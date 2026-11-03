@@ -1,5 +1,12 @@
 # Changelog
 
+## 3 November 2026: configurable merchant reports
+
+- Share native reports between Shop today and each personal workspace area, with period, grouping, currency, timezone and channel filters.
+- Add and arrange charts, tables and purchase-journey cards; save private revisioned preferences and export authorized aggregates as CSV.
+- Aggregate exact native order money and refund totals, rank products and channels, and reuse current consent eligible traffic and conversion observations.
+- Expose the same bounded Rust operation through HTTP and MCP with current rights, tenant isolation, stale response fences and four interface languages.
+
 ## 3 November 2026: native 3D product models and variant materials
 
 - Upload bounded self-contained GLB 2 assets through native product media; preview inactive products through current merchant permissions.

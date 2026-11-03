@@ -2,6 +2,9 @@
 use crate::*;
 pub(super) fn visible(a: &App, h: &RequestContext, name: &str) -> bool {
     let n = &name;
+    if name == "merchant.reports.read" {
+        return merchant(a, h).is_ok() && studio::reports::visible(h);
+    }
     if name.starts_with("merchant.scenario.") {
         return merchant(a, h).is_ok() && agent_runs::scenarios::visible(h);
     }

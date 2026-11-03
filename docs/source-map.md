@@ -690,3 +690,14 @@ the existing app, migration and native API owners. App-owned protocols reside in
 `extensions/services/connectors/src/integrations.rs` hosts their generic queue
 and credential-revision fences. Shopware 6 extraction/normalization stays in
 `extensions/apps/migration/`; Nexus is an HTTP setup recipe only.
+
+## Configurable merchant reports
+
+`src/studio/reports.rs` owns HTTP/MCP admission and snapshot composition;
+`src/studio/reports/{config,period,traffic}.rs` owns typed preferences, calendar
+bounds and reuse of native consent eligibility. Bundled SQL aggregates native
+orders/payment attempts without another ledger. `frontend/src/admin/reports/`
+is shared by Shop today and personal workspace areas. Existing private workspace
+CAS/history stores presentation choices only. `merchant_reports` tests real
+native checkout/POS, consent, current rights, isolation and historical fixtures.
+See [merchant reports](merchant-reports.md) for metric semantics and bounds.

@@ -63,15 +63,19 @@ problem saving a method does not look like a failed purchase.
 
 Apply Core migration **110** and private provider migrations **003/004** before
 enabling 1.6.0. Reapply the private runtime grants. Configure an explicit private
-`SWP_VAULT_KEY` as 32 URL-safe base64-encoded bytes. Preserve that key with private
-backups; replacing it alone does not rotate existing ciphertext. Historical
+`SWP_VAULT_KEY` as 64 random hexadecimal characters or 32 URL-safe base64-encoded
+bytes. Preserve that key with private backups; replacing it alone does not rotate
+existing ciphertext. Historical
 1.0.0 through 1.5.0 attempts retain their original contracts.
 
 The local acceptance uses actual Rust Core/provider processes and PostgreSQL,
 with synthetic provider responses. It covers save, own-account repeat purchase,
 HTTP/MCP projections, missing/foreign credentials, idempotent revocation, encrypted
 storage, delayed confirmation and process restart without repeating capture.
-This feature branch is not a hosted rollout or an actual PSP acceptance.
+The implementation is merged into main. Hosted migration/configuration and actual
+PSP acceptance remain separate. The hosted simulation transport is also locally
+accepted for PayPal/card save, repeat purchase, revocation and refund with zero
+external provider calls.
 [Exact local steps and UI captures](evidence/payment-saved-methods-2026-11-03.md).
 
 Revocation removes permission to reuse the private handle. It does not claim that

@@ -1,6 +1,6 @@
 # Saved payment methods: local acceptance, 3 November 2026
 
-Core and private provider branch `feat/payment-vault-20261103`, contract 1.6.0.
+Core PRs 284/285 and private provider PRs 14/15 are merged, contract 1.6.0.
 Actual native Rust processes and disposable PostgreSQL use synthetic provider
 HTTP. No provider account, external charge or hosted deployment is involved.
 
@@ -41,13 +41,21 @@ component fixture, not a new public checkout acceptance.
 
 [Mobile save-progress messages, local component fixture](../assets/payment-vault/notice-mobile.png).
 
-Private Rust checks include 21 units with encryption randomization, binding and
-tamper rejection. The native redaction unit rejects hidden provider/customer data
+Private Rust checks cover encryption randomization, binding and tamper rejection,
+equivalent hex/base64 encryption keys and rejection of malformed key input. The
+native redaction unit rejects hidden provider/customer data
 and malformed display metadata. Frontend build, localization, architecture and
 the manual design detector are targeted checks. Full tests and coverage retain
 the existing daily/manual schedule.
 
 ## Remaining acceptance
+
+The hosted-mode simulation transport was run locally against actual native Core
+and private Rust services. It passed PayPal/card save and repeat purchase,
+own-account revocation and original purchase refund with zero external HTTP calls.
+The exact additive 003/004 maintenance SQL was separately
+applied to a local 001/002 database and replayed successfully, retaining checksums
+and restricted runtime grants. These preparations do not establish hosted rollout.
 
 Apply native migration 110/private 003/004 and private runtime grants, configure
 the private encryption key and roll out the matching artifacts before hosted

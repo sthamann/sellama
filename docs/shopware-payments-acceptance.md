@@ -194,8 +194,9 @@ Completed hosted steps and remaining provider work are tracked explicitly:
   external PSP acceptance still requires the authorized account below.
   [Native regression evidence](evidence/payment-refund-reconciliation-2026-11-03.md).
 - [x] Implement locally accepted customer-present saved methods, multi-capture,
-  per-capture refunds and read-only transaction/fee details. These feature branches
-  still need hosted rollout and actual provider acceptance.
+  per-capture refunds and read-only transaction/fee details. These changes are
+  merged into main. The saved-method and invoice releases still need their hosted
+  schema/configuration rollout; actual provider acceptance remains separate.
 - [ ] Complete merchant-initiated recurring lifecycle, dispute reconciliation,
   broader reporting and shipment tracking.
 - [x] Accept the public original Storyfront embedded card simulation through the

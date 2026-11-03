@@ -13,6 +13,8 @@ mod rich;
 mod rich_document;
 pub(crate) use rich_document::safe_url;
 pub(crate) mod ingestion;
+mod model_format;
+pub(crate) mod model_media;
 mod upload;
 pub(crate) use upload::persist as persist_app_upload;
 mod app_files;
@@ -54,8 +56,8 @@ pub(crate) fn router() -> Router<App> {
         )
         .secure_route(
             "/api/merchant/assets/{id}",
-            &[("PUT", "catalog.write")],
-            axum::routing::put(upload::publish),
+            &[("GET", "catalog.read"), ("PUT", "catalog.write")],
+            get(download::preview).put(upload::publish),
         )
         .route(
             "/store-api/product/{id}/attachments",
@@ -68,7 +70,7 @@ pub(crate) fn router() -> Router<App> {
             get(download::file),
         )
         .layer(axum::extract::DefaultBodyLimit::max(
-            8 * 1024 * 1024 + 65536,
+            model_format::MODEL_LIMIT + 65536,
         ))
 }
 pub(crate) async fn snapshot(

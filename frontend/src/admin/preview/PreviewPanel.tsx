@@ -1,4 +1,5 @@
 /** PreviewPanel renders verified shop state and typed user actions. */
+import { mediaImage } from "../../shared/media/product-media";
 import { useEffect, useRef, useState } from "react";
 import { useLocale } from "../../shared/i18n/i18n";
 import { inheritedText } from "../../shared/geography/geography-types";
@@ -95,8 +96,8 @@ export function PreviewPanel({
       {product ? (
         <>
           <div className="preview-art">
-            {product.media?.[0]?.url ? (
-              <img src={product.media[0].url} alt={product.name} />
+            {mediaImage(product.media) ? (
+              <img src={mediaImage(product.media)} alt={product.name} />
             ) : (
               <div className="preview-empty">
                 <span aria-hidden="true">◇</span>

@@ -1,4 +1,5 @@
 /** Bounded native catalogue search, not the sampled dashboard; stale replies never replace current results. */
+import { mediaImage } from "../../shared/media/product-media";
 import { useEffect, useState } from "react";
 import type { Product, RequestFn } from "../shell/studio-types";
 import { useKnowledgeText } from "../../shared/i18n/knowledge-i18n";
@@ -73,8 +74,8 @@ export default function GuardrailProductSearch({
             disabled={disabled || busy || selected.includes(p.id)}
             onClick={() => onAdd(p)}
           >
-            {p.media?.[0]?.url ? (
-              <img src={p.media[0].url} alt="" />
+            {mediaImage(p.media) ? (
+              <img src={mediaImage(p.media)} alt="" />
             ) : (
               <span className="guardrail-product-icon">
                 <Icon name="box" />

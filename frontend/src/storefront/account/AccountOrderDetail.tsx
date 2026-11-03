@@ -1,4 +1,5 @@
 /** Purchase detail uses immutable addresses, current fulfillment, issued PDFs and paid order entitlements. */
+import { mediaImage } from "../../shared/media/product-media";
 import { useEffect, useState } from "react";
 import { contentText } from "../../shared/i18n/content-language";
 import { useAccountText } from "../../shared/i18n/account-i18n";
@@ -130,8 +131,8 @@ export default function AccountOrderDetail({
               <h3>{a("subtotal")}</h3>
               {order.cart.lineItems.map((item) => (
                 <div className="account-line-item" key={item.id}>
-                  {item.media?.[0]?.url && (
-                    <img src={item.media[0].url} alt="" />
+                  {mediaImage(item.media) && (
+                    <img src={mediaImage(item.media)} alt="" />
                   )}
                   <div>
                     <strong>{item.label}</strong>

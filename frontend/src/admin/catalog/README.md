@@ -75,3 +75,8 @@ Product and category editors import their catalogue styles directly. Their layou
 and permission fields must render on a cold Canvas entry without first mounting
 `ProductDataView`. `CanvasCommerceEditor` owns its generic wrapper stylesheet;
 App Studio does not provide styles on behalf of the shop designer.
+
+`ProductModels` uploads typed GLB assets and explicitly reuses parent assignments
+inside the product draft. `ProductModelCard` edits localized model text and
+selects actual material variants discovered in the shared 3D viewer.
+[Merchant workflow](../../../../docs/product-3d-models.md).

@@ -12,7 +12,12 @@ export default function ProductAttachments({ id }: { id: string }) {
     let active = true;
     shopApi<any>(`/store-api/product/${id}/attachments`)
       .then((v) => {
-        if (active) setFiles(v.elements);
+        if (active)
+          setFiles(
+            v.elements.filter(
+              (file: { mime: string }) => file.mime !== "model/gltf-binary",
+            ),
+          );
       })
       .catch((e) => {
         if (active) setError(e.message);

@@ -1,4 +1,5 @@
 /** Clickable purchase cards show the live server status and lead to a protected order detail. */
+import { mediaImage } from "../../shared/media/product-media";
 import { contentText } from "../../shared/i18n/content-language";
 import { useAccountText } from "../../shared/i18n/account-i18n";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
@@ -56,8 +57,8 @@ export default function AccountOrderList({
           <div className="account-order-products">
             {order.cart.lineItems.slice(0, 3).map((item) => (
               <span key={item.id}>
-                {item.media?.[0]?.url && (
-                  <img src={item.media[0].url} alt="" loading="lazy" />
+                {mediaImage(item.media) && (
+                  <img src={mediaImage(item.media)} alt="" loading="lazy" />
                 )}
                 <span>
                   {item.quantity} × {item.label}

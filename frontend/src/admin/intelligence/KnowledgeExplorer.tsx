@@ -1,4 +1,5 @@
 /** Product-centred evidence inspector reads canonical facts and graph relationships beyond overview sampling. */
+import { mediaImage } from "../../shared/media/product-media";
 import { useEffect, useState } from "react";
 import {
   useKnowledgeText,
@@ -139,8 +140,8 @@ export default function KnowledgeExplorer({
           <>
             <section className="studio-card knowledge-product-summary">
               <div className="knowledge-product-image">
-                {p.media?.[0]?.url ? (
-                  <img src={p.media[0].url} alt="" />
+                {mediaImage(p.media) ? (
+                  <img src={mediaImage(p.media)} alt="" />
                 ) : (
                   <ProductArt id={p.id} />
                 )}

@@ -1,4 +1,5 @@
 /** Bounded product pages and keyboard-wedge scanner input; feedback uses the authoritative cart. */
+import { mediaImage } from "../../shared/media/product-media";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import type { useRegister } from "./useRegister";
@@ -134,8 +135,8 @@ export default function RegisterCatalog({
             }
           >
             <div className="pos-product-image">
-              {p.media?.[0]?.url ? (
-                <img src={p.media[0].url} alt="" loading="lazy" />
+              {mediaImage(p.media) ? (
+                <img src={mediaImage(p.media)} alt="" loading="lazy" />
               ) : (
                 <Icon name="box" size={48} />
               )}

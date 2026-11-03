@@ -13,3 +13,8 @@ This folder owns the Rust modules listed below. Each source begins with its resp
 - [`upload.rs`](upload.rs): File admission, immutable bytes and explicit publishing; binary content never enters merchant list responses.
 
 The [source inventory](../../docs/module-inventory.md) is checked in CI. [The behavioral map](../../docs/source-map.md) identifies integration suites, and [testing](../../docs/testing.md) describes actual coverage and limits. Every file is limited to 320 lines; `main.rs` to 120.
+
+`model_format.rs` validates bounded embedded GLB 2 and material names;
+`model_media.rs` validates typed product assignments against current owned or
+parent assets. `download.rs` provides authenticated inactive-product previews
+and current channel-aware public delivery. [3D product guide](../../docs/product-3d-models.md).

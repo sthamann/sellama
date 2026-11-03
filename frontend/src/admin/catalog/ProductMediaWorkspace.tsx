@@ -15,6 +15,8 @@ import { useProductMediaText } from "./product-media-i18n";
 import Icon from "../../shared/ui/Icon";
 import AiImageStudio from "./AiImageStudio";
 import "../styles/media-workspace.css";
+import ProductModels from "./ProductModels";
+import { isModel } from "../../shared/media/product-media";
 export default function ProductMediaWorkspace({
   draft,
   request,
@@ -41,16 +43,26 @@ export default function ProductMediaWorkspace({
   current.current = draft;
   const writable = useRef(canWrite);
   writable.current = canWrite;
-  const media = draft.commerce.media as GalleryImage[],
+  const media = (draft.commerce.media as GalleryImage[]).filter(
+      (m) => !isModel(m),
+    ),
     image = media.find((m) => m.id === selected) ?? media[0];
   const change = (media: GalleryImage[]) =>
     writable.current &&
     onChange({
       ...current.current,
-      commerce: { ...current.current.commerce, media },
+      commerce: {
+        ...current.current.commerce,
+        media: [...media, ...current.current.commerce.media.filter(isModel)],
+      },
     });
   const append = (images: GalleryImage[]) => {
-    change([...current.current.commerce.media, ...images]);
+    change([
+      ...(current.current.commerce.media as GalleryImage[]).filter(
+        (m) => !isModel(m),
+      ),
+      ...images,
+    ]);
     setSelected(images[0]?.id ?? "");
   };
   return (
@@ -64,7 +76,7 @@ export default function ProductMediaWorkspace({
           type="button"
           className="studio-secondary"
           onClick={() => setShowUrl((v) => !v)}
-          disabled={!canWrite || busy || media.length >= 20}
+          disabled={!canWrite || busy || draft.commerce.media.length >= 20}
         >
           {w("addUrl")}
         </button>
@@ -74,7 +86,7 @@ export default function ProductMediaWorkspace({
           <MediaDropzone
             id={draft.id}
             mainLocale={mainLocale}
-            count={media.length}
+            count={draft.commerce.media.length}
             request={request}
             onImages={append}
             onBusy={setBusy}
@@ -98,7 +110,7 @@ export default function ProductMediaWorkspace({
             disabled={
               !url ||
               busy ||
-              media.length >= 20 ||
+              draft.commerce.media.length >= 20 ||
               (!url.startsWith("/media/") &&
                 !url.startsWith("/store-api/assets/") &&
                 !url.startsWith("/assets/") &&
@@ -236,6 +248,13 @@ export default function ProductMediaWorkspace({
           )}
         </div>
       )}
+      <ProductModels
+        key={draft.id ?? "new"}
+        draft={draft}
+        request={request}
+        onChange={onChange}
+        canWrite={canWrite}
+      />
       {draft.id && canWrite && (
         <AiImageStudio
           productId={draft.id}
@@ -243,7 +262,7 @@ export default function ProductMediaWorkspace({
           sourceId={image?.id}
           request={request}
           onImage={(m) => append([m])}
-          disabled={busy || unsaved || media.length >= 20}
+          disabled={busy || unsaved || draft.commerce.media.length >= 20}
         />
       )}
       {canWrite && removing && image && (

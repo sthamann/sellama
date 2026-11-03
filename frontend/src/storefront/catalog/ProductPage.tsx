@@ -43,6 +43,7 @@ export default function ProductPage({
   const [data, setData] = useState<Detail>();
   const [error, setError] = useState("");
   const [image, setImage] = useState(0);
+  const [modelOpen, setModelOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [reviewed, setReviewed] = useState(false);
   const [sending, setSending] = useState(false);
@@ -188,7 +189,13 @@ export default function ProductPage({
         ← {s("back")}
       </a>
       <div className="pdp-main">
-        <ProductGallery p={p} image={image} setImage={setImage} />
+        <ProductGallery
+          p={p}
+          image={image}
+          setImage={setImage}
+          modelOpen={modelOpen}
+          onModelOpen={setModelOpen}
+        />
         <ProductPurchase
           s={s}
           p={p}

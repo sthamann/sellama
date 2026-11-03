@@ -1,6 +1,8 @@
 /** Pure gallery operations preserve order, explicit alt translations and upload bounds without fabricating language values. */
 import { contentText } from "../../shared/i18n/content-language";
 export type GalleryImage = {
+  type?: "image" | "model";
+  modelVariant?: string | null;
   id: string;
   url: string;
   view: string;

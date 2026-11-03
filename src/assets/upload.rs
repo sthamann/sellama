@@ -66,6 +66,12 @@ pub(crate) async fn persist(
     Ok(json!({"id":id,"shop":t,"digest":digest,"public":false}))
 }
 pub(super) fn validate_bytes(mime: &str, b: &[u8]) -> Result<()> {
+    if mime == "model/gltf-binary" {
+        return super::model_format::validate(b);
+    }
+    if b.is_empty() || b.len() > 8 * 1024 * 1024 {
+        return Err(bad("Asset must contain 1 byte..8 MiB"));
+    }
     let ok = match mime {
         "application/pdf" => b.starts_with(b"%PDF-"),
         "image/png" => b.starts_with(b"\x89PNG\r\n\x1a\n"),

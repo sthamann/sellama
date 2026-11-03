@@ -1,4 +1,5 @@
 /** ConciergeView: storefront view composed from the scoped cart/controller. */
+import { mediaImage } from "../../shared/media/product-media";
 import ConciergeSelection from "./ConciergeSelection";
 import { shopApi } from "../../shared/api/shop-api";
 import "../../shared/styles/apps.css";
@@ -38,7 +39,7 @@ export default function ConciergeView() {
     };
   }, [scope]);
   const prompt = products.some((p) =>
-    p.media[0]?.url.startsWith("/media/demo/fashion/"),
+    mediaImage(p.media)?.startsWith("/media/demo/fashion/"),
   )
     ? "fashionWish"
     : "wish";

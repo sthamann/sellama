@@ -1,4 +1,5 @@
 /** Sticky order review presents authoritative totals and discounts beside the purchase action. */
+import { mediaImage } from "../../shared/media/product-media";
 import type { Cart } from "../../shared/api/shop-api";
 import { useShopText } from "../../shared/i18n/shop-i18n";
 import { useWorkbenchText } from "../../shared/i18n/workbench-i18n";
@@ -40,9 +41,9 @@ export default function CheckoutSummary({
               href={`#product/${encodeURIComponent(item.id)}`}
               onClick={onClose}
             >
-              {item.media?.[0]?.url && (
+              {mediaImage(item.media) && (
                 <img
-                  src={item.media[0].url}
+                  src={mediaImage(item.media)}
                   alt=""
                   width="48"
                   height="48"

@@ -1,4 +1,5 @@
 /** A selected product resolves through the native merchant read; missing/forbidden records remain explicitly removable without losing the selection. */
+import { mediaImage } from "../../shared/media/product-media";
 import { useEffect, useState } from "react";
 import type { RequestFn } from "../shell/studio-types";
 import { hydrateDraft, productName } from "./catalog-model";
@@ -49,7 +50,7 @@ export default function RelatedProductRow({
             language,
             name: productName(d, language) || id,
             number: d.catalog.productNumber,
-            image: d.commerce.media?.[0]?.url,
+            image: mediaImage(d.commerce.media),
             active: d.catalog.active,
           });
         }

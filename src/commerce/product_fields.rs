@@ -94,9 +94,11 @@ impl ProductFields {
                 return Err(bad("Invalid product media labels"));
             }
         }
+        assets::model_media::validate_shape(media)?;
         Ok(())
     }
     pub(crate) async fn save(&self, tx: &mut sqlx::PgConnection, t: &str, id: &str) -> Result<()> {
+        assets::model_media::validate(tx, t, id, &self.media).await?;
         sqlx::query("UPDATE products SET price=$1,tax_rate=$2,stock=coalesce($3,stock),min_purchase=$4,purchase_steps=$5,max_purchase=$6,delivery_days=$7,list_price=$8,advanced_prices=$9,media=$10,properties=$11 WHERE tenant=$12 AND id=$13").bind(self.price).bind(self.tax_rate).bind(self.stock).bind(self.min_purchase as i32).bind(self.purchase_steps as i32).bind(self.max_purchase.map(|n|n as i32)).bind(self.delivery_days).bind(self.list_price).bind(json!(self.advanced_prices)).bind(&self.media).bind(json!(self.properties)).bind(t).bind(id).execute(&mut *tx).await?;
         sqlx::query(
             "UPDATE products SET regulation_price=$1,reference_price=$2 WHERE tenant=$3 AND id=$4",

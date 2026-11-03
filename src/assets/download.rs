@@ -37,11 +37,42 @@ pub(super) async fn attachment(
     State(a): State<App>,
     h: RequestContext,
     Path(id): Path<String>,
+    axum::extract::Query(context): axum::extract::Query<ModelContext>,
 ) -> Result<Response> {
     let t = tenant(&h)?;
     let r=sqlx::query("SELECT product_id,mime,filename,content FROM product_assets WHERE tenant=$1 AND id=$2 AND kind='attachment' AND public").bind(t).bind(id).fetch_optional(&a.db).await?.ok_or(Error(StatusCode::NOT_FOUND,"Attachment not found".into()))?;
-    marketing::admit_product(&a, &h, &r.get::<String, _>("product_id")).await?;
+    let owner: String = r.get("product_id");
+    let selected = context.product_id.as_deref().unwrap_or(&owner);
+    if selected != owner {
+        let parent: Option<String> =
+            sqlx::query_scalar("SELECT parent_id FROM products WHERE tenant=$1 AND id=$2")
+                .bind(tenant(&h)?)
+                .bind(selected)
+                .fetch_optional(&a.db)
+                .await?
+                .flatten();
+        if r.get::<String, _>("mime") != "model/gltf-binary" || parent.as_deref() != Some(&owner) {
+            return Err(Error(StatusCode::NOT_FOUND, "Attachment not found".into()));
+        }
+    }
+    marketing::admit_product(&a, &h, selected).await?;
     Ok(response(&r))
+}
+#[derive(Default, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub(super) struct ModelContext {
+    product_id: Option<String>,
+}
+/// Authenticated Studio preview never requires activating or publishing an unfinished product.
+pub(super) async fn preview(
+    State(a): State<App>,
+    h: RequestContext,
+    Path(id): Path<String>,
+) -> Result<Response> {
+    let t = merchant(&a, &h)?;
+    auth::permit(&h, "catalog.read")?;
+    let row = sqlx::query("SELECT mime,filename,content FROM product_assets WHERE tenant=$1 AND id=$2 AND kind='attachment' AND mime='model/gltf-binary'").bind(t).bind(id).fetch_optional(&a.db).await?.ok_or(Error(StatusCode::NOT_FOUND,"Model unavailable".into()))?;
+    Ok(response(&row))
 }
 fn paid(o: &Value) -> bool {
     verified_kernel::download_admissible(

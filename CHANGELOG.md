@@ -1,5 +1,11 @@
 # Changelog
 
+## 3 November 2026: reliable native editing from the Canvas
+
+- Load catalogue base and responsive styles with the reusable product and category editors, so direct Shop design entry works before opening the catalogue.
+- Give the shared Canvas commerce wrapper its own stylesheet instead of depending on App Studio navigation history.
+- Keep the compact product section selector authoritative on narrow screens when lazy catalogue styles load later; preserve native revisions, permissions and private save behavior.
+
 ## 3 November 2026: hosted payment setup and public Storyfront acceptance
 
 - Allow shop and channel settings up to 1 MiB so the full 17-method payment catalogue can be saved. Preserve the 64 KiB default for other routes and return a structured JSON error for oversized settings.

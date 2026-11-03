@@ -1,0 +1,9 @@
+/** Shared native commerce handoff spacing loads with its Canvas editor in every workspace. */
+.canvas-commerce-editor {
+  min-width: 0;
+  padding: 12px;
+}
+.canvas-commerce-editor .product-editor {
+  padding: 16px !important;
+  max-width: none;
+}

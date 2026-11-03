@@ -1,4 +1,6 @@
 /** Localized category tree editor; parent moves and revisions are validated in the API. */
+import "../styles/catalog.css";
+import "../styles/catalog-editor.css";
 import EntityHistory from "../../shared/history/EntityHistory";
 import { useUnsavedWorkspace } from "../../shared/ui/useUnsavedWorkspace";
 import { useState } from "react";

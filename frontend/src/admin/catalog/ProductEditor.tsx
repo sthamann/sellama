@@ -1,4 +1,6 @@
 /** Revision-aware product aggregate editor: one save, translation tabs and product-scoped linked capabilities. */
+import "../styles/catalog.css";
+import "../styles/catalog-editor.css";
 import { useCoreExtensions } from "../../shared/apps/CoreExtensions";
 import { contentLocale } from "../../shared/i18n/content-language";
 import { invalidProductSeo } from "../../shared/content/product-seo";

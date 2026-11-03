@@ -42,3 +42,7 @@ Files and their individual responsibilities are listed in [the generated source 
 ## Verification
 
 Run `npm run build`, `npm test`, `npm run test:coverage` and `npm run architecture` from `frontend/`. Coverage includes untested source files; a module in this folder is not automatically fully tested. See the root [testing guide](../../../../docs/testing.md) for backend integration and coverage limits.
+
+Catalogue base and responsive styles load with both native editors, including direct
+Canvas handoffs. `canvas-commerce-editor.css` owns the shared wrapper spacing;
+opening App Studio or the product directory first is never a styling prerequisite.

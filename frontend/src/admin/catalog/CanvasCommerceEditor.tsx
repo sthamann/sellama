@@ -1,4 +1,5 @@
 /** Canvas handoff reuses native product/category editors without unmounting or copying the page designer. */
+import "../styles/canvas-commerce-editor.css";
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import type { RequestFn } from "../../shared/api/types";
 import type { Category } from "./catalog-model";

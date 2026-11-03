@@ -1032,6 +1032,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/automation.css](../frontend/src/admin/styles/automation.css) | Actual graph nodes and original rule forms use the Studio theme and independent responsive columns. |
 | [frontend/src/admin/styles/b2b-settings.css](../frontend/src/admin/styles/b2b-settings.css) | Revisioned B2B settings cards, accessible switches and responsive spacing. |
 | [frontend/src/admin/styles/behavior.css](../frontend/src/admin/styles/behavior.css) | Consent-bound insights use the existing Studio tokens and a responsive, inspectable visual hierarchy. |
+| [frontend/src/admin/styles/canvas-commerce-editor.css](../frontend/src/admin/styles/canvas-commerce-editor.css) | Shared native commerce handoff spacing loads with its Canvas editor in every workspace. |
 | [frontend/src/admin/styles/catalog-editor.css](../frontend/src/admin/styles/catalog-editor.css) | Visual editor and category workspace responsive styles. |
 | [frontend/src/admin/styles/catalog-intake.css](../frontend/src/admin/styles/catalog-intake.css) | Catalogue setup uses the Studio palette, native modal focus containment and bounded review cards. |
 | [frontend/src/admin/styles/catalog-preparation.css](../frontend/src/admin/styles/catalog-preparation.css) | Readiness uses the shared paged grid; compact step controls route to native editors. |

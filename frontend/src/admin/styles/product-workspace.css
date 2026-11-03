@@ -82,6 +82,7 @@
   font-weight: 600;
 }
 .product-editor .catalog-editor-actions {
+  width: auto;
   gap: 16px;
   flex-shrink: 0;
 }
@@ -120,7 +121,7 @@
 .product-editor .product-editor-nav {
   top: 145px;
 }
-.product-editor .product-editor-tablist {
+.product-editor .product-editor-nav .product-editor-tablist {
   margin: 0;
   gap: 20px;
 }
@@ -263,7 +264,7 @@
   .product-editor .product-editor-nav {
     position: static;
   }
-  .product-editor .product-editor-tablist {
+  .product-editor .product-editor-nav .product-editor-tablist {
     display: none;
   }
   .studio .product-editor label.product-editor-mobile-nav {

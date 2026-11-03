@@ -3160,8 +3160,8 @@
     },
     "src/http_limits.rs": {
       "status": "unproved",
-      "sha256": "6085e1f3f2e6cb7b8dadc039c99dc925dd061a2e74c1ce55e363fa9db3bc12d2",
-      "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
+      "sha256": "9fce250ef68f3536c47d81930e29b58ca9d4d3ffeb2f48f5f435d7803303ae57",
+      "review": "Reviewed settings-only payload allowance and JSON rejection with real HTTP regression; native authorization, CAS, event and verified commerce kernels unchanged"
     },
     "src/knowledge/embeddings.rs": {
       "status": "unproved",
@@ -4000,8 +4000,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "7291bb5214111211c0726b6f625aeb0a277173a4041f6ccdc9caa3a8570587b7",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "81c48251fec843e2bf8c9c272711f7d88d733bddc120816570cc48e18987b4ea",
+      "review": "Reviewed scoped settings transport limit and JSON rejection; native settings authorization, CAS, event and verified commerce kernels unchanged"
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",

@@ -1,6 +1,6 @@
 # Shopware Payments: integration and test acceptance
 
-Updated 2 November 2026. The private Rust connector implements the provider path;
+Updated 3 November 2026. The private Rust connector implements the provider path;
 the public Core owns the order and payment ledger. The public catalogue now ships
 the versioned 1.2.0 contract for all 17 methods. Install or upgrade it through the
 existing app lifecycle, connect the configured account and enable its methods.
@@ -28,7 +28,7 @@ responses and merchant are synthetic; no external payment network is contacted.
 | Restricted service runtime | Separate migration bootstrap and non-owner runtime; owner runtime and runtime migration rejected |
 | Shipped simulated form | Actual scoped session and confirmation endpoint, German shop language over English browser default, readiness nonce and no bank inputs; native Chrome SEPA purchase, return and empty cart also pass |
 | Original Storyfront server integration | Real original checkout/completion handlers with native transfer, private simulated capture, exact proof rejection and complete refund; browser framing is separate |
-| Public Shopware Payments checkout | Not accepted: no dedicated private Payments service was present in the inspected Northflank project |
+| Public Shopware Payments checkout | Private Rust service is hosted in simulation and its merchant account connects successfully. Original Storyfront browser purchase, return and refund are still being checked |
 
 The connector's 1.1.0 package widens PayPal/card currency declarations to its supported
 currency list. It preserves the exact currency scale in new invoices and replay
@@ -136,8 +136,9 @@ refund and completed the exact EUR 12.49 remainder.
 
 This is an integration check of the original server handler and actual Rust
 services. It does not replace the original browser's bag, nested iframe, return
-or public-hosting acceptance. The dedicated public service still awaits its
-creation and restricted database access. No PSP was contacted.
+or public-hosting acceptance. On 3 November the dedicated public service and restricted database access were
+provisioned, and the synthetic merchant onboarding completed. The original nested
+browser purchase remains a separate acceptance step. No PSP was contacted.
 
 [Machine-readable result](evidence/storyfront-payment-service-2026-11-02.json).
 
@@ -192,3 +193,19 @@ Stopping it cleans up the isolated database.
 
 See [checkout](checkout.md), [payment provider API](payment-provider-api.md),
 [testing](testing.md) and [the current product status](status.md).
+
+## Hosted deployment, 3 November 2026
+
+The private Rust service runs in simulation with schema versions 1 and 2. Its
+dedicated runtime login has neither ownership, superuser, role administration,
+database creation, role inheritance nor RLS bypass. Temporary maintenance access
+was removed after migration and verification. Core resolves the versioned service
+through the existing payment and app contracts; no provider source is shipped in
+the public Core.
+
+Synthetic merchant onboarding succeeded. Enabling the expanded method catalogue
+exposed the ordinary 64 KiB settings request limit. Only shop and channel settings
+now allow 1 MiB, with a structured JSON rejection above that limit. A targeted real
+HTTP test covers the larger catalogue, the unchanged ordinary route limit and the
+oversized settings error. This deployment entry does not claim completed public
+purchase, return, empty Storyfront bag or refund acceptance.

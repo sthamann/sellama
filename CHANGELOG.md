@@ -1,5 +1,10 @@
 # Changelog
 
+## 3 November 2026: hosted payment setup
+
+- Allow shop and channel settings up to 1 MiB so the full 17-method payment catalogue can be saved. Preserve the 64 KiB default for other routes and return a structured JSON error for oversized settings.
+- Provision the private Rust payment service in simulation with a separate database and restricted non-owner runtime login. Keep public purchase, Storyfront framing and refund acceptance tracked separately.
+
 ## 2 November 2026: current films, gallery and status
 
 Refresh the four English silent product films with actual 2 November Studio captures, shared Canvas and current Shop knowledge/App Studio. Publish captions, editable sources and encoding metadata. Replace two incomplete loading-state screenshots, align status and app-system documentation, and separate archived films from the current gallery. The actual homepage and bilingual Team hub use the same source media.

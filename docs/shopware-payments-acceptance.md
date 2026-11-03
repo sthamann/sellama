@@ -28,7 +28,7 @@ responses and merchant are synthetic; no external payment network is contacted.
 | Restricted service runtime | Separate migration bootstrap and non-owner runtime; owner runtime and runtime migration rejected |
 | Shipped simulated form | Actual scoped session and confirmation endpoint, German shop language over English browser default, readiness nonce and no bank inputs; native Chrome SEPA purchase, return and empty cart also pass |
 | Original Storyfront server integration | Real original checkout/completion handlers with native transfer, private simulated capture, exact proof rejection and complete refund; browser framing is separate |
-| Public Shopware Payments checkout | Private Rust service is hosted in simulation and its merchant account connects successfully. Original Storyfront browser purchase, return and refund are still being checked |
+| Public original Storyfront card checkout | Order RAC-ef438264: actual nested native/provider frames, EUR 59.90 captured, return, original empty bag after reload, EUR 0.01 + EUR 59.89 refunds and provider reconciliation |
 
 The connector's 1.1.0 package widens PayPal/card currency declarations to its supported
 currency list. It preserves the exact currency scale in new invoices and replay
@@ -137,8 +137,8 @@ refund and completed the exact EUR 12.49 remainder.
 This is an integration check of the original server handler and actual Rust
 services. It does not replace the original browser's bag, nested iframe, return
 or public-hosting acceptance. On 3 November the dedicated public service and restricted database access were
-provisioned, and the synthetic merchant onboarding completed. The original nested
-browser purchase remains a separate acceptance step. No PSP was contacted.
+provisioned, and the synthetic merchant onboarding completed. The original nested browser purchase then passed on 3 November as recorded below.
+No PSP was contacted.
 
 [Machine-readable result](evidence/storyfront-payment-service-2026-11-02.json).
 
@@ -207,5 +207,46 @@ Synthetic merchant onboarding succeeded. Enabling the expanded method catalogue
 exposed the ordinary 64 KiB settings request limit. Only shop and channel settings
 now allow 1 MiB, with a structured JSON rejection above that limit. A targeted real
 HTTP test covers the larger catalogue, the unchanged ordinary route limit and the
-oversized settings error. This deployment entry does not claim completed public
-purchase, return, empty Storyfront bag or refund acceptance.
+oversized settings error. The completed public original Storyfront card journey is recorded below.
+
+## Public original Storyfront purchase and refund, 3 November 2026
+
+The public Lumen Storyfront created **RAC-ef438264** for one synthetic Mattblau
+lamp, **EUR 59.90**, with pickup, zero shipping and EUR 9.56 included tax. The
+German order confirmation retained the German product name. The actual native
+checkout appeared inside the original Storyfront, and the private payment
+service's card simulation appeared in a second nested frame. Explicit test
+confirmation changed the native payment to **captured**.
+
+The normal browser-controlled tab initially held a frame document response. The
+same public journey completed through the actual native Chrome interface without
+changing authentication, frame security or application source. The user did not
+perform any manual testing. The provider form loaded normally in that journey.
+
+Returning through **Zurück zum Shop** closed the embedded checkout and updated the
+original Storyfront bag to zero items, with its completion message. Reloading the
+original Experience and opening the bag again still showed zero items.
+
+![Original Storyfront bag remains empty after returning and reloading](assets/payments-20261103/storyfront-empty-bag-public.jpg)
+
+Native Studio requested a **EUR 0.01** partial refund, observed **partially
+refunded**, then requested the exact **EUR 59.89** remainder. The same order showed
+**refunded**. Refreshing the provider status retained that confirmed final state.
+The history also records the native `order.placed` and `payment.captured` Flows.
+
+![The same public order is fully refunded in native Studio](assets/payments-20261103/refund-complete.jpg)
+
+The private runtime was observed at documentation revision
+`cdea3552fc39ccaf4dee1e7952dfa5ba5c8a8a47`, retaining the implementation first
+hosted at `9511263faa8ababb01fb87f836ddd9a68127686e`. Public Core ran
+`1f8c2a45b55dc1bcc00944e36a352299b06c517e`, build `auspicious-key-6715`.
+Only the shop/channel settings routes receive the 1 MiB allowance; the full
+catalogue now saves successfully and ordinary request limits remain unchanged.
+
+[Saved method configuration](assets/payments-20261103/payment-methods-saved.jpg) ·
+[Structured observation](evidence/public-storyfront-payments-2026-11-03.json).
+
+This records public card simulation through the original Storyfront. The 17-method
+contract, local concurrent coverage and local SEPA/Klarna journeys retain their
+separate scope. Real PSP Sandbox/Live approval and complete original feature
+parity remain in the comparison above. No bank or card network was charged.

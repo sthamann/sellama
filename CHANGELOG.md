@@ -1,9 +1,10 @@
 # Changelog
 
-## 3 November 2026: hosted payment setup
+## 3 November 2026: hosted payment setup and public Storyfront acceptance
 
 - Allow shop and channel settings up to 1 MiB so the full 17-method payment catalogue can be saved. Preserve the 64 KiB default for other routes and return a structured JSON error for oversized settings.
-- Provision the private Rust payment service in simulation with a separate database and restricted non-owner runtime login. Keep public purchase, Storyfront framing and refund acceptance tracked separately.
+- Provision the private Rust payment service in simulation with a separate database and restricted non-owner runtime login.
+- Accept the actual public original Storyfront card purchase, nested provider form, confirmed EUR 59.90 payment, return, empty original bag after reload, one-cent partial refund and exact remainder through native Studio; publish observed evidence and screenshots.
 
 ## 2 November 2026: current films, gallery and status
 

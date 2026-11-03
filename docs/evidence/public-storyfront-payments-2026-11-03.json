@@ -1,0 +1,46 @@
+{
+  "observedAt": "2026-11-03T08:28:55Z",
+  "scope": "Public original Storyfront browser purchase through hosted private Rust payment service; simulated money only",
+  "browser": "Actual Chrome native UI for both nested frames, native Studio UI for refunds",
+  "coreCommit": "1f8c2a45b55dc1bcc00944e36a352299b06c517e",
+  "coreBuild": "auspicious-key-6715",
+  "providerRuntimeCommit": "cdea3552fc39ccaf4dee1e7952dfa5ba5c8a8a47",
+  "providerImplementationCommit": "9511263faa8ababb01fb87f836ddd9a68127686e",
+  "providerMode": "simulation",
+  "shop": "lumen-story-lab-15-o-98aa4751fa",
+  "order": "RAC-ef438264",
+  "method": "shopware-payments-card",
+  "currency": "EUR",
+  "unitPriceMinor": 5990,
+  "quantity": 1,
+  "shippingMinor": 0,
+  "totalMinor": 5990,
+  "taxMinor": 956,
+  "originalBagBefore": 1,
+  "nestedNativeCheckoutVisible": true,
+  "nestedPrivateProviderFormVisible": true,
+  "explicitSimulatedConfirmation": true,
+  "nativePaymentConfirmed": true,
+  "nativeOrderStateAfterPayment": "captured",
+  "originalStoryfrontReturn": true,
+  "originalBagAfter": 0,
+  "originalBagAfterReload": 0,
+  "refundMinorAmounts": [
+    1,
+    5989
+  ],
+  "nativeOrderStateAfterRefund": "refunded",
+  "providerStatusRecheckedAfterRefund": true,
+  "settingsSaveAfterFix": "passed",
+  "realPspCharged": false,
+  "remainingAcceptance": [
+    "Real provider Sandbox/Live account and bank approval",
+    "Public browser walkthrough for every other declared payment method",
+    "Complete original Shopware Payments feature parity"
+  ],
+  "screenshots": [
+    "../assets/payments-20261103/storyfront-empty-bag-public.jpg",
+    "../assets/payments-20261103/refund-complete.jpg",
+    "../assets/payments-20261103/payment-methods-saved.jpg"
+  ]
+}

@@ -9,6 +9,9 @@
   permission/tenant-reference validation.
 - OpenUI presents typed native working-view compositions. Native directories,
   record editors, catalogue review, approval and publication keep their owners.
+- Follow-up public acceptance found a product answer carrying an order view. A
+  single explicit view discriminator and native navigation/view consistency now
+  reject that mismatch; saved mismatched views cannot open from the client.
 - Targeted UI, actual HTTP/provider and invalid-target tests accompany the change;
   the daily full-suite schedule remains unchanged.
 

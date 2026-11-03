@@ -1,6 +1,12 @@
 /** Shared four-language interaction vocabulary for contextual Studio help and storefront discovery. */
 import { useLocale } from "./i18n";
 export const experienceUIWords = {
+  viewMismatch: [
+    "This saved view targets a different area. Ask for a new matching view.",
+    "Diese gespeicherte Ansicht betrifft einen anderen Bereich. Lass eine neue passende Ansicht vorbereiten.",
+    "Cette vue vise un autre espace. Demandez une nouvelle vue correspondante.",
+    "Esta vista apunta a otra área. Pide una nueva vista que corresponda.",
+  ],
   addSources: [
     "Add sources",
     "Quellen hinzufügen",

@@ -73,7 +73,10 @@ a working view. It can also offer **Open Products**, **Open Settings** or anothe
 registered view. Opening requires a click. The server validates current domain and
 PII rights and checks entity references in the owning shop; the client checks the
 current visible rights again. Arbitrary URLs, scripts and foreign references are
-rejected. Navigating to another native route follows its normal editor lifecycle;
+rejected. A working view combined with product/order/customer navigation must
+target the same native entity. Its actual entity is shown before opening; an
+inconsistent saved proposal asks for a new view instead of opening the wrong list.
+Navigating to another native route follows its normal editor lifecycle;
 collapsing the sidebar itself does not navigate or save.
 
 OpenUI 1.0.1 is now integrated with fixed native Directory and Intake bindings.

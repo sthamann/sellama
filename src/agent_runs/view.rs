@@ -31,8 +31,13 @@ pub(crate) fn validate_components(entity: &str, components: &[String]) -> Result
     Ok(())
 }
 pub(crate) fn schema() -> Value {
-    let variants=["orders","customers","products"].iter().map(|entity| json!({"type":"object","properties":{"entity":{"type":"string","enum":[entity]},"criteria":operations::grid_schema::schema(entity).unwrap(),"components":{"type":"array","minItems":1,"maxItems":3,"items":{"type":"string","enum":if *entity=="products"{vec!["records","details","intake"]}else{vec!["records","details"]}}}},"required":["entity","criteria","components"],"additionalProperties":false})).collect::<Vec<_>>();
-    json!({"anyOf":variants.into_iter().chain(std::iter::once(json!({"type":"null"}))).collect::<Vec<_>>()})
+    // One explicit discriminator avoids provider preference for the first same-shaped union arm.
+    // The exact per-entity filter schema is still enforced by admit(), after wire restoration.
+    json!({"anyOf":[{"type":"object","properties":{
+        "entity":{"type":"string","enum":["products","orders","customers"]},
+        "criteria":{"type":"object"},
+        "components":{"type":"array","minItems":1,"maxItems":3,"items":{"type":"string","enum":["records","details","intake"]}}
+    },"required":["entity","criteria","components"],"additionalProperties":false},{"type":"null"}]})
 }
 pub(crate) async fn admit(a: &App, h: &RequestContext, view: &mut View) -> Result<()> {
     validate_components(&view.entity, &view.components)?;

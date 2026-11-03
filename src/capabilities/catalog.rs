@@ -42,6 +42,10 @@ pub(super) fn definitions() -> Vec<(&'static str, &'static str)> {
     ]);
     all.extend([
         (
+            "merchant.reports.read",
+            "Read bounded sales, channel and consent-aware traffic reports",
+        ),
+        (
             "studio.workspace.work.read",
             "Read bounded actionable work from current authorized shop data",
         ),

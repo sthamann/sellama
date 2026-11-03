@@ -1,6 +1,9 @@
 //! Native operation input contracts; transports consume this owner instead of maintaining their own schemas.
 use crate::*;
 pub(crate) fn input(name: &str) -> Value {
+    if let Some(schema) = studio::reports::schema(name) {
+        return schema;
+    }
     if let Some(schema) = assets::caption_schema(name) {
         return schema;
     }

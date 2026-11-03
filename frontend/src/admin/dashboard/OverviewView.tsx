@@ -1,4 +1,6 @@
 /** OverviewView renders verified shop state and typed user actions. */
+import { useReportText } from "../reports/report-i18n";
+import TodayReports from "../reports/TodayReports";
 import { useCatalogIntakeText } from "../../shared/i18n/catalog-intake-i18n";
 import { storefrontURL } from "../../shared/api/shop-scope";
 import { useLocale } from "../../shared/i18n/i18n";
@@ -15,94 +17,20 @@ export function OverviewView({
   onProduct: (id: string) => void;
 }) {
   const intakeText = useCatalogIntakeText();
-  const { t, money, date, number } = useLocale();
+  const reportText = useReportText();
+  const { t, date } = useLocale();
   const format = (n: number, currency = "EUR") =>
     new Intl.NumberFormat(data.locale, { style: "currency", currency }).format(
       n,
     );
-  const low = data.products.filter((p) => p.stock < 10);
-  const maximum = Math.max(1, ...data.timeline.map((d) => d.orders));
   return (
     <div className="studio-page">
       <div className="page-intro">
-        <span className="kicker">{t("basedOn")}</span>
-        <h1>{t("shopPulse")}</h1>
-        <p>{t("shopPulseSub")}</p>
+        <h1>{reportText("title")}</h1>
+        <p>{reportText("hint")}</p>
       </div>
-      <div className="metric-grid">
-        <div className="metric">
-          <Icon name="pulse" />
-          <span>{t("orders")}</span>
-          <strong>{number(data.summary.orders)}</strong>
-          <small>
-            {data.summary.ordersToday} · {t("today")}
-          </small>
-        </div>
-        <div className="metric">
-          <Icon name="box" />
-          <span>{t("revenue")}</span>
-          <strong>
-            {data.summary.revenueByCurrency?.length
-              ? data.summary.revenueByCurrency.map((v) => (
-                  <span key={v.currency} style={{ display: "block" }}>
-                    {format(Number(v.amount), v.currency)}
-                  </span>
-                ))
-              : money(data.summary.revenue ?? 0)}
-          </strong>
-          <small>
-            {t("simulated")} · {t("lifetime")}
-          </small>
-        </div>
-        <div className="metric">
-          <Icon name="graph" />
-          <span>{t("products")}</span>
-          <strong>
-            {data.products.length}
-            {data.productsPagination.hasMore ? "+" : ""}
-          </strong>
-          <small>
-            {t(data.productsPagination.hasMore ? "lowStockShown" : "lowStock", {
-              count: low.length,
-            })}
-          </small>
-        </div>
-        <div className="metric">
-          <Icon name="chat" />
-          <span>{t("pendingPlans")}</span>
-          <strong>{data.summary.pendingPlans}</strong>
-          <small>{t("assistant")}</small>
-        </div>
-      </div>
+      <TodayReports />
       <div className="overview-columns">
-        <section className="studio-card">
-          <div className="card-heading">
-            <h2>{t("orderTrend")}</h2>
-            <span className="soft-tag">{t("simulated")}</span>
-          </div>
-          <div
-            className="order-chart"
-            role="img"
-            aria-label={data.timeline
-              .map((d) => `${d.day}: ${d.orders}`)
-              .join(", ")}
-          >
-            {data.timeline.map((d) => (
-              <div className="chart-day" key={d.day}>
-                <span>{d.orders}</span>
-                <div className="bar-track">
-                  <div style={{ height: `${(d.orders / maximum) * 100}%` }} />
-                </div>
-                <small>
-                  {new Intl.DateTimeFormat(data.locale, {
-                    day: "numeric",
-                    month: "short",
-                  }).format(new Date(d.day + "T12:00:00"))}
-                </small>
-              </div>
-            ))}
-          </div>
-        </section>
         <section className="studio-card inventory-card">
           <div className="card-heading">
             <h2>{t("inventory")}</h2>
@@ -141,7 +69,6 @@ export function OverviewView({
       <section className="studio-card">
         <div className="card-heading">
           <h2>{t("recentOrders")}</h2>
-          <span className="soft-tag">{t("simulated")}</span>
         </div>
         {data.orders.length ? (
           <div className="orders-table">

@@ -3,6 +3,7 @@ use super::*;
 #[derive(Clone, Copy)]
 pub(super) enum Owner {
     CatalogIntake,
+    Reports,
     Runs,
     Personal,
     Site,
@@ -26,7 +27,9 @@ pub(super) enum Owner {
 }
 impl Owner {
     pub(super) fn for_name(name: &str) -> Self {
-        if name.starts_with("merchant.apps.") {
+        if name == "merchant.reports.read" {
+            Self::Reports
+        } else if name.starts_with("merchant.apps.") {
             Self::AppDiscovery
         } else if name.starts_with("merchant.catalog.") {
             Self::CatalogIntake
@@ -81,6 +84,7 @@ impl Owner {
         v: &'a Value,
     ) -> CapabilityFuture<'a> {
         match self {
+            Self::Reports => Box::pin(studio::reports::invoke(a, h, v)),
             Self::AppDiscovery => Box::pin(apps::discovery::invoke(a, h, name, v)),
             Self::CatalogIntake => Box::pin(commerce::catalog_intake::invoke(a, h, name, v)),
             Self::Runs => Box::pin(agent_runs::invoke(a, h, name, v)),

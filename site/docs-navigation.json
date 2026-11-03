@@ -44,6 +44,7 @@
       },
       "sources": [
         "docs/agentic-workspace.md",
+        "docs/merchant-reports.md",
         "docs/cognitive-commerce.md",
         "docs/durable-agent-runs.md",
         "docs/agent-authority-controls.md",

@@ -16,6 +16,8 @@ import {
   type WorkspaceRecord,
 } from "./workspace-model";
 import WorkSuggestions from "./WorkSuggestions";
+import ReportBoard from "../reports/ReportBoard";
+import { defaultReports } from "../reports/model";
 import WorkspaceGoals from "./WorkspaceGoals";
 import AgentWorkSurface from "./AgentWorkSurface";
 import type { WorkspaceView } from "../../shared/grid/workspace-view";
@@ -162,6 +164,12 @@ export default function PersonalWorkspace() {
           </button>
         ))}
       </div>
+      <ReportBoard
+        layout={area.reports ?? defaultReports()}
+        onChange={(reports) => patchArea({ reports })}
+        request={request}
+        rights={access}
+      />
       <WorkSuggestions />
       <WorkspaceGoals
         goals={draft.goals}

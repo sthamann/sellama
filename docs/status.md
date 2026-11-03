@@ -16,6 +16,19 @@ a dedicated database and restricted runtime login. The synthetic merchant accoun
 connects successfully. Original Storyfront purchase, return and refund acceptance
 are tracked in the payment guide.
 
+## Configurable merchant reports (3 November 2026, local acceptance)
+
+Shop today and personal workspace areas share reports for ordered revenue,
+orders, average value, refunds, top products, channels, observed visits,
+conversion and purchase stages. Users select period, grouping, timezone, currency
+and channel scope; add, arrange and resize charts/tables; save private revisioned
+preferences and export authorized aggregates. HTTP and MCP share one Rust owner.
+Native tests cover actual simulated checkout/POS, consent withdrawal, current
+rights, isolation, private layout conflicts, historical dates and channel attribution.
+Four targeted report UI tests and the related 18-test UI group pass. Desktop and
+phone layouts are checked in Chrome. Public rollout is still pending for this
+change. [Guide and exact metric semantics](merchant-reports.md).
+
 ## Shared visual canvas (2 November 2026, publicly delivered)
 
 Shop design and App Studio share a zoomable overview with bounded mounted previews,

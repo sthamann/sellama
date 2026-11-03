@@ -25,6 +25,7 @@ pub(crate) static OPERATIONS: LazyLock<Vec<Operation>> = LazyLock::new(|| {
             let agent_read = matches!(
                 name,
                 "knowledge.behavior"
+                    | "merchant.reports.read"
                     | "studio.workspace.work.read"
                     | "merchant.apps.search"
                     | "merchant.apps.read"

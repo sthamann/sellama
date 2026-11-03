@@ -9,7 +9,13 @@ export type Pin = {
   query: string;
   components?: import("../../shared/grid/workspace-view").WorkspaceComponent[];
 };
-export type Area = { id: string; name: string; cards: Tab[]; pins: Pin[] };
+export type Area = {
+  id: string;
+  name: string;
+  cards: Tab[];
+  pins: Pin[];
+  reports?: import("../reports/model").ReportLayout;
+};
 export type Goal = {
   id: string;
   title: string;
@@ -20,6 +26,7 @@ export type Workspace = {
   areas: Area[];
   active: string;
   goals: Goal[];
+  todayReports?: import("../reports/model").ReportLayout;
   setup?: import("../setup/setup-model").SetupProgress;
 };
 export type WorkspaceRecord = {

@@ -4,6 +4,8 @@ use crate::*;
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 struct Workspace {
     areas: Vec<Area>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    today_reports: Option<crate::studio::reports::config::Layout>,
     active: String,
     goals: Vec<Goal>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -25,6 +27,8 @@ struct Area {
     name: String,
     cards: Vec<String>,
     pins: Vec<Pin>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    reports: Option<crate::studio::reports::config::Layout>,
 }
 #[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -49,6 +53,14 @@ pub(super) fn empty() -> Value {
 pub(super) fn validate(v: &Value) -> Result<Value> {
     let w: Workspace =
         serde_json::from_value(v.clone()).map_err(|_| bad("Invalid personal workspace"))?;
+    if let Some(layout) = &w.today_reports {
+        layout.validate()?;
+    }
+    for a in &w.areas {
+        if let Some(layout) = &a.reports {
+            layout.validate()?;
+        }
+    }
     let text = |s: &str, n| !s.trim().is_empty() && s.len() <= n;
     let mut ids = std::collections::HashSet::new();
     if let Some(s) = &w.setup {

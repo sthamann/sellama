@@ -19,6 +19,7 @@ pub(crate) fn router(a: App) -> Router {
         .merge(documents::router())
         .merge(staging::router())
         .merge(studio::personal::router())
+        .merge(studio::reports::router())
         .merge(developer::router())
         .merge(accounts::router())
         .merge(legal::router())

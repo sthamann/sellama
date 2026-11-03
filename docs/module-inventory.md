@@ -555,6 +555,10 @@ This lists every checked-in source module in these roots, including files with n
 | [src/studio/facts.rs](../src/studio/facts.rs) | Consolidate dashboard reads without unbounded pool fan-out; preserve the existing API and currency/learning semantics. |
 | [src/studio/personal/model.rs](../src/studio/personal/model.rs) | Bounded personal layouts contain references, never delegated rights or executable agent instructions. |
 | [src/studio/personal.rs](../src/studio/personal.rs) | Actor-private workspace preferences; HTTP and MCP share CAS, bounds and the current membership. |
+| [src/studio/reports/config.rs](../src/studio/reports/config.rs) | One bounded report definition for HTTP, MCP and private workspace presentation preferences. |
+| [src/studio/reports/period.rs](../src/studio/reports/period.rs) | Calendar periods are resolved once in the requested IANA timezone, with exclusive ends and bounded buckets. |
+| [src/studio/reports/traffic.rs](../src/studio/reports/traffic.rs) | Reporting reuses the behavior owner's exact receipt/expiry predicate and inherited policy resolver; no new tracking store. |
+| [src/studio/reports.rs](../src/studio/reports.rs) | Shared native commerce reports for Studio, workspace, API and agent reads; no second analytics ledger. |
 | [src/studio/revenue.rs](../src/studio/revenue.rs) | Merchant turnover remains separated by invoice currency; historical values are never repriced with today's FX. |
 | [src/studio/work.rs](../src/studio/work.rs) | Bounded current-right work items come from native rows; no inferred revenue, customer data or parallel task store. |
 | [src/studio.rs](../src/studio.rs) | Verified merchant overview facts consumed by the chat and activity views. |
@@ -937,6 +941,15 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/pos/useRegisterViewport.ts](../frontend/src/admin/pos/useRegisterViewport.ts) | Size the register pane from its actual header position, including translated toolbars and tablet wraps. |
 | [frontend/src/admin/preview/PreviewDialog.tsx](../frontend/src/admin/preview/PreviewDialog.tsx) | PreviewDialog keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/preview/PreviewPanel.tsx](../frontend/src/admin/preview/PreviewPanel.tsx) | PreviewPanel renders verified shop state and typed user actions. |
+| [frontend/src/admin/reports/ReportBoard.tsx](../frontend/src/admin/reports/ReportBoard.tsx) | Shared configurable reporting canvas; late data is fenced by request identity, filters and current rights. |
+| [frontend/src/admin/reports/ReportCard.tsx](../frontend/src/admin/reports/ReportCard.tsx) | Charts and ranked tables consume only the server snapshot, with explicit monetary and observation semantics. |
+| [frontend/src/admin/reports/ReportChart.tsx](../frontend/src/admin/reports/ReportChart.tsx) | Accessible SVG plots retain every native bucket; keyboard focus reveals the exact bucket value. |
+| [frontend/src/admin/reports/ReportFilters.tsx](../frontend/src/admin/reports/ReportFilters.tsx) | One filter bar controls the same native report query in Shop today and personal areas. |
+| [frontend/src/admin/reports/TodayReports.tsx](../frontend/src/admin/reports/TodayReports.tsx) | Shop-today presentation is saved in the existing actor-private revisioned workspace, never in shop configuration. |
+| [frontend/src/admin/reports/export.ts](../frontend/src/admin/reports/export.ts) | Export only the already authorized aggregate snapshot; escape spreadsheet formulas in merchant labels. |
+| [frontend/src/admin/reports/model.ts](../frontend/src/admin/reports/model.ts) | Saved report definitions contain presentation/filter choices only; the server remains the source of every value. |
+| [frontend/src/admin/reports/report-i18n.ts](../frontend/src/admin/reports/report-i18n.ts) | Studio report vocabulary; amounts, names and dates come from the native report snapshot. |
+| [frontend/src/admin/reports/reports.css](../frontend/src/admin/reports/reports.css) | Report workspace extends Studio tokens with readable charts, restrained controls and explicit reordering. |
 | [frontend/src/admin/scenarios/ScenarioComparison.tsx](../frontend/src/admin/scenarios/ScenarioComparison.tsx) | Matching test inputs and changed observed snapshots are separate evidence. |
 | [frontend/src/admin/scenarios/ScenarioEvidence.tsx](../frontend/src/admin/scenarios/ScenarioEvidence.tsx) | Configuration freshness is independent of whether a fictional purchase succeeded. |
 | [frontend/src/admin/scenarios/ScenarioHistory.tsx](../frontend/src/admin/scenarios/ScenarioHistory.tsx) | Distinguishable saved-run and comparison selection for the customer lab. |
@@ -1862,6 +1875,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/marketplaces.py](../scripts/marketplaces.py) | Registered verification entry; marketplace fixture and assertions remain app-owned. |
 | [scripts/mcp_stdio.py](../scripts/mcp_stdio.py) | Line-delimited MCP stdio bridge for Claude Desktop and other local clients. |
 | [scripts/merchant_operations.py](../scripts/merchant_operations.py) | Real HTTP/PostgreSQL CRM, receipt, scoped-access and paid-download regressions. No PSP traffic. |
+| [scripts/merchant_reports.py](../scripts/merchant_reports.py) | Native report aggregation over real checkout/POS/consent flows plus isolated historical fixtures; no external providers. |
 | [scripts/migrate_connector_state.py](../scripts/migrate_connector_state.py) | Explicit offline legacy-state migration; decrypted data crosses stdin only, never logs or temporary files. |
 | [scripts/migration_assistant.py](../scripts/migration_assistant.py) | Registered migration verification; provider fixtures and runtime code remain under the app package. |
 | [scripts/money_boundary_differential.py](../scripts/money_boundary_differential.py) | Gate the exact checkout boundary using totals from original Shopware calculators, never a PHP rewrite. |
@@ -1961,6 +1975,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/prompt_governance.py](../scripts/testing/prompt_governance.py) | Bind prompt versions and admission fixtures without claiming semantic model accuracy. |
 | [scripts/testing/provider_fleet.py](../scripts/testing/provider_fleet.py) | Configure one encrypted synthetic provider for all test workers, then restore the isolated control-plane row. |
 | [scripts/testing/reference_connector.py](../scripts/testing/reference_connector.py) | Archived connector oracle imports for differential tests only; never a serving runtime. |
+| [scripts/testing/report_history.py](../scripts/testing/report_history.py) | Synthetic historical report fixtures use the same explicit local PostgreSQL test bridge as other native suites. |
 | [scripts/testing/role_races.py](../scripts/testing/role_races.py) | Force real HTTP delegation to wait behind the same PostgreSQL lifecycle lock as role edits. |
 | [scripts/testing/rule_history.py](../scripts/testing/rule_history.py) | Frozen comparison against real checkout/Flow snapshots; no current-data fallback or effects. |
 | [scripts/testing/runtime.py](../scripts/testing/runtime.py) | Owned synthetic server lifetime, child checks and loopback readiness for verification. |

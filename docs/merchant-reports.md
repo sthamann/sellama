@@ -90,6 +90,8 @@ large merchant performance guarantee.
 
 ## Acceptance
 
+![Public report matched to the simulated test purchase](assets/merchant-reports-20261103/public-overview.jpg)
+
 The native `merchant_reports` suite creates isolated local shops, performs a real
 native simulated checkout and cashier sale, and verifies exact totals, consent
 withdrawal, per-channel conversion, HTTP/MCP permissions, tenant isolation,
@@ -98,6 +100,8 @@ workspace persistence and revision conflicts. Synthetic historical fixtures cove
 headless attribution. These attribution fixtures do not contact marketplace providers.
 
 Targeted interface checks cover composing and reordering cards, changed filters,
-late responses after shop/permission changes and CSV escaping. Browser acceptance
-and public delivery are recorded in [current status](status.md). Screenshots show
+late responses after shop/permission changes and CSV escaping. The public native simulated EUR 169.00 purchase, matching reports, saved layouts,
+actual CSV download and private stage separation passed on 3 November.
+[Observed public journey](evidence/merchant-reports-2026-11-03.md) and
+[current status](status.md) retain exact delivery scope. Screenshots show
 labelled synthetic demonstration data.

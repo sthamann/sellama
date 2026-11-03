@@ -48,6 +48,15 @@ its own model/material directly. Image thumbnails, product cards, POS, cart,
 order confirmation and account history continue using image assets rather than
 attempting to render a GLB as an image.
 
+## Try the public demo
+
+Open the [3D Models Demo](https://3d-models-demo-20261103.veyndo.ai/products/10385748-1fb6-42f7-a0e2-fbf6edc44e38?lang=de-DE).
+Choose **View in 3D**, then switch between **Oak** and **Ocean**. The blue SKU
+uses a wider model; the open view follows the SKU without a second launch.
+These are original synthetic demonstration models.
+
+![Public storefront with the wider blue SKU and interactive model controls](screenshots/veyndo-product-3d-shop.jpg)
+
 ## Shared media contract
 
 ```json
@@ -102,3 +111,12 @@ selected sandbox publication. Two Rust format tests and focused frontend tests
 cover the parser, current rights, parent reuse and safe image-only consumers.
 The original synthetic stool fixtures are authored locally in
 `scripts/testing/model_fixture.py`; they contain no external resources.
+
+On 3 November 2026, core commit `ea1082a` was deployed and publicly checked:
+upload, authenticated preview, malformed files/material names, both SKU forms,
+stale saves, channel admission and selected sandbox publication passed against
+the live API. Chrome also passed the actual Studio upload/save and private
+preview, then the public 3D view and SKU switch with no console errors. Desktop
+and 390-pixel layout checks were performed locally; these are browser checks,
+not a physical-device acceptance. Foreign-account negative controls passed in
+the isolated native suite.

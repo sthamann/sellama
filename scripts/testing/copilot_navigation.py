@@ -8,6 +8,10 @@ def verify_navigation(call, behavior, passed):
     assert planned['messages'][-1]['data']['preview']['proposal']['navigation'] == behavior['navigation'], planned
     assert planned['messages'][-1]['data']['preview']['workspaceContext']['selected']['id']=='lamp'
     assert call('/api/merchant/products/lamp')['commerce']['price']==before
+    behavior['navigationView']={'entity':'orders','criteria':{},'components':['records','details']}
+    rejected=call('/api/agent/chat',{'message':'Reject product navigation combined with an order working view','inference':{'provider':'openai'}})
+    assert rejected['messages'][-1]['data'].get('error') and not rejected['messages'][-1]['data'].get('taskId'),rejected
+    behavior.pop('navigationView')
     for target in [{'view':'productData','id':'unavailable-foreign-record'}, {'view':'commerce','id':'lamp'}, {'view':'https://evil.example','id':None}, {'view':'productData','id':'lamp','tenant':'atelier'}]:
         behavior['navigation']=target
         rejected=call('/api/agent/chat',{'message':'Reject invalid native navigation.', 'inference':{'provider':'openai'}})

@@ -22,6 +22,7 @@ pub(super) async fn admit(
     {
         return Err(bad("Review list views separately from mutations"));
     }
+    agent_runs::navigation::validate_view(p.navigation.as_ref(), p.view.as_ref())?;
     if let Some(target) = &p.navigation {
         agent_runs::navigation::admit(a, authority, target).await?;
     }

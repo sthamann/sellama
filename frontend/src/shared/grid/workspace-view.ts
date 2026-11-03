@@ -81,3 +81,19 @@ export function admitWorkspaceView(
     components: [...components],
   };
 }
+
+/** A saved model proposal cannot announce one entity while opening a different native entity. */
+export function matchesWorkspaceNavigation(
+  view: WorkspaceView,
+  navigation: unknown,
+): boolean {
+  if (!navigation || typeof navigation !== "object") return true;
+  const target = (navigation as { view?: unknown }).view;
+  const expected =
+    target === "productData"
+      ? "products"
+      : target === "orders" || target === "customers"
+        ? target
+        : undefined;
+  return !expected || view.entity === expected;
+}

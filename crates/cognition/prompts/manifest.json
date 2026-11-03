@@ -100,6 +100,11 @@
       "id": "merchant-planner@5",
       "path": "prompts/merchant-planner.v5.txt",
       "sha256": "94676f8346a7d75870464bc2996e196ae6846f1ad9a8b45841acd99f276cd324"
+    },
+    {
+      "id": "merchant-planner@6",
+      "path": "prompts/merchant-planner.v6.txt",
+      "sha256": "00ce805b4c5cac4d6b54983f589367653e9a2550b4c937efc93c2a06cd2b4dc3"
     }
   ]
 }

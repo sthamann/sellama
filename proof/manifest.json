@@ -705,8 +705,8 @@
     },
     "crates/cognition/src/prompts.rs": {
       "status": "unproved",
-      "sha256": "e916d7c16bbb9dd8514cae2079c05d5cc87fd071f5ff33e500c694ed50365af3",
-      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
+      "sha256": "5c0c3dca814bcc0948358b7c29aa0e04da0d0478935e50678dde07f2ef98a64b",
+      "review": "Reviewed native presentation consistency: linked product/order/customer navigation must match the working-view entity; one discriminator replaces same-shaped union alternatives, exact native grid admission and current rights retained. New native and UI mismatch regressions plus provider HTTP rejection checks."
     },
     "crates/commerce/src/discount.rs": {
       "status": "reviewed-binding",
@@ -1500,8 +1500,8 @@
     },
     "src/agent_runs/navigation.rs": {
       "status": "unproved",
-      "sha256": "ea9e2ff7982980fd38a04a2edd4a7c7c8f6ccf8c637e12ec6329d7e8b57ea921",
-      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
+      "sha256": "494f8d7e66e32ef9bac72789bdf03d002fb47ee0d62e2ff8a54584d4479326a1",
+      "review": "Reviewed native presentation consistency: linked product/order/customer navigation must match the working-view entity; one discriminator replaces same-shaped union alternatives, exact native grid admission and current rights retained. New native and UI mismatch regressions plus provider HTTP rejection checks."
     },
     "src/agent_runs/scenarios/catalogue.rs": {
       "status": "unproved",
@@ -1540,8 +1540,8 @@
     },
     "src/agent_runs/view.rs": {
       "status": "unproved",
-      "sha256": "877a525852793ff3b2349d4cf62c5dcf0b177fde37a9dc71ec16e8db0c4d5dc5",
-      "review": "Task2 reviewed native view component admission and bounded private pins; unchanged extracted policies. Local native units, clippy and real users/providers/site HTTP pass; independent review fixes cover nested cancel and CRM address drafts."
+      "sha256": "73faa6859f7aa9267b873df1cccd61595fdf813c8c66dc64da78f3b00e1360c5",
+      "review": "Reviewed native presentation consistency: linked product/order/customer navigation must match the working-view entity; one discriminator replaces same-shaped union alternatives, exact native grid admission and current rights retained. New native and UI mismatch regressions plus provider HTTP rejection checks."
     },
     "src/agent_runs/work.rs": {
       "status": "unproved",
@@ -3875,8 +3875,8 @@
     },
     "src/planner/admission.rs": {
       "status": "unproved",
-      "sha256": "c6def0c10290195e02dcc6501fe992ae73da1da110588cf45faae8e6b906f35d",
-      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
+      "sha256": "3aad9e25ca9538eb601868513e2d566518baf9b95ab2bba6843e9c3bc55f7d02",
+      "review": "Reviewed native presentation consistency: linked product/order/customer navigation must match the working-view entity; one discriminator replaces same-shaped union alternatives, exact native grid admission and current rights retained. New native and UI mismatch regressions plus provider HTTP rejection checks."
     },
     "src/planner/repair.rs": {
       "status": "unproved",
@@ -3885,8 +3885,8 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "599d420cb7b3a13a7ec911f9b818cbcb0f5c2b19164cf809b0532c3155638028",
-      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
+      "sha256": "96a3a8035d86e1cfdae6095904c791fd36672927440fefaf65fa284d5e594f8f",
+      "review": "Reviewed native presentation consistency: linked product/order/customer navigation must match the working-view entity; one discriminator replaces same-shaped union alternatives, exact native grid admission and current rights retained. New native and UI mismatch regressions plus provider HTTP rejection checks."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
@@ -4349,8 +4349,8 @@
       "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
     },
     "crates/cognition/prompts/manifest.json": {
-      "sha256": "882189187073fa166498461610c8d2d156f126168a66232cd0bfda89d4798e53",
-      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
+      "sha256": "8bf816f72a26aa797e79a964927bb47c79a433477792d71b29a8d17218572d43",
+      "review": "Reviewed native presentation consistency: linked product/order/customer navigation must match the working-view entity; one discriminator replaces same-shaped union alternatives, exact native grid admission and current rights retained. New native and UI mismatch regressions plus provider HTTP rejection checks."
     },
     "crates/cognition/prompts/media-caption.v1.txt": {
       "sha256": "7d368215afb79fb94e5d266f1879eb961d91347be7fbb71ed83efcbd6a1a7f7b",
@@ -4375,6 +4375,10 @@
     "crates/cognition/prompts/merchant-planner.v5.txt": {
       "sha256": "94676f8346a7d75870464bc2996e196ae6846f1ad9a8b45841acd99f276cd324",
       "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
+    },
+    "crates/cognition/prompts/merchant-planner.v6.txt": {
+      "sha256": "00ce805b4c5cac4d6b54983f589367653e9a2550b4c937efc93c2a06cd2b4dc3",
+      "review": "Reviewed native presentation consistency: linked product/order/customer navigation must match the working-view entity; one discriminator replaces same-shaped union alternatives, exact native grid admission and current rights retained. New native and UI mismatch regressions plus provider HTTP rejection checks."
     },
     "crates/cognition/prompts/merchant-repair.v1.txt": {
       "sha256": "703a48219790f0746e893117dfeddc88438de3a6eb123af0722900a3b87220ef",

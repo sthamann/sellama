@@ -3,9 +3,12 @@ import { useAgentWorkspaceText } from "../../shared/i18n/agent-workspace-i18n";
 import { useAppText } from "../../shared/i18n/app-i18n";
 import { useLocale } from "../../shared/i18n/i18n";
 import { useBuildingText } from "../../shared/i18n/app-building-i18n";
+import { useStudioNavigation } from "../shell/navigation";
 import Icon from "../../shared/ui/Icon";
 import type { Message } from "../shell/studio-types";
 import { useCompositionText } from "../workspace/composition-i18n";
+import { matchesWorkspaceNavigation } from "../../shared/grid/workspace-view";
+import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 import type { WorkspaceView } from "../../shared/grid/workspace-view";
 import { useScenarioText } from "../scenarios/scenario-i18n";
 export default function ProposalCard({
@@ -36,9 +39,14 @@ export default function ProposalCard({
   const composed = useCompositionText();
   const b = useBuildingText(),
     aw = useAgentWorkspaceText();
+  const { u } = useExperienceUIText();
+  const { tabLabel } = useStudioNavigation();
   const preview = message.data.preview;
   const scenarioText = useScenarioText();
   if (!preview) return null;
+  const view = preview.proposal.view;
+  const viewMatches =
+    !view || matchesWorkspaceNavigation(view, preview.proposal.navigation);
   const changes = preview.proposal.changes;
   const translations = new URL(location.href);
   translations.searchParams.set("studio", "commerce");
@@ -83,7 +91,13 @@ export default function ProposalCard({
       ))}
       {preview.proposal.view && (
         <div className="review-product">
-          {onOpenWorkspace && (
+          <strong>
+            {tabLabel(
+              view!.entity === "products" ? "productData" : view!.entity,
+            )}
+          </strong>
+          {!viewMatches && <p role="alert">{u("viewMismatch")}</p>}
+          {viewMatches && onOpenWorkspace && (
             <button
               type="button"
               className="studio-primary"
@@ -98,7 +112,7 @@ export default function ProposalCard({
             <summary>{t("details")}</summary>
             <pre>{JSON.stringify(preview.proposal.view.criteria, null, 2)}</pre>
           </details>
-          {onOpenView && (
+          {viewMatches && onOpenView && (
             <button
               type="button"
               className="studio-primary"

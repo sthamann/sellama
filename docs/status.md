@@ -6,7 +6,7 @@ journey are tracked separately. All purchases below use **simulated payments**.
 
 ## Current public release
 
-The public Core release `598246a8d7872043ae8e0ed9bd0e951ede18669d`
+The public Core release `99d11901b729c012fcee43b626fd2626e982987e`
 (3 November) is running publicly. Its source includes the shared canvas, localized media captions,
 guided shop setup, assistant layout and shared payment contract. Northflank
 reports one ready replica with no restarts after the latest rollout. Feature

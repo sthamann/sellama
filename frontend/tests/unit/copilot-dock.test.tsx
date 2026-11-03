@@ -132,3 +132,52 @@ it("updates selected context with native navigation and keeps the originating ap
   rerender({ view: "assistant", app: "", scope: "two" });
   expect(result.current.workspaceContext.selected).toBeUndefined();
 });
+
+it("blocks an old proposal whose product navigation carries an order view", async () => {
+  const { default: ProposalCard } =
+    await import("../../src/admin/assistant/ProposalCard");
+  const message = {
+    id: 1,
+    role: "assistant",
+    content: "Product view",
+    applied: false,
+    data: {
+      preview: {
+        model: "fixture",
+        inference: "fixture",
+        catalogBefore: [],
+        proposal: {
+          summary: "Product view",
+          changes: [],
+          navigation: { view: "productData" as const, id: "bag" },
+          view: {
+            entity: "orders" as const,
+            criteria: {},
+            components: ["records" as const],
+          },
+        },
+      },
+    },
+  };
+  render(
+    <LocaleScope locale="en-GB">
+      <ProposalCard
+        message={message}
+        onApply={vi.fn()}
+        busy={false}
+        canApply
+        onOpenView={vi.fn()}
+        onOpenWorkspace={vi.fn()}
+      />
+    </LocaleScope>,
+  );
+  expect(screen.getByRole("alert")).toHaveTextContent(
+    "This saved view targets a different area",
+  );
+  expect(
+    screen.queryByRole("button", { name: "Open working view" }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole("button", { name: "Open editable list" }),
+  ).not.toBeInTheDocument();
+});

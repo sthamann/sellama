@@ -27,7 +27,7 @@ class Handler(BaseHTTPRequestHandler):
         if behavior['mode']=='reject':
             self.send_response(429); self.end_headers(); return
         result=proposal
-        if behavior['mode']=='navigation-plan':result={**proposal,'changes':[],'navigation':behavior['navigation']}
+        if behavior['mode']=='navigation-plan':result={**proposal,'changes':[],'navigation':behavior['navigation'],'view':behavior.get('navigationView')}
         if behavior['mode']=='view-plan':result={**proposal,'changes':[],'view':behavior['view']}
         if behavior['mode']=='work-plan':result={**proposal,'changes':[],'operations':behavior['operations']}
         if behavior['mode'] in ['extract','bad-extract']:

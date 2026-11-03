@@ -31,6 +31,25 @@ pub(crate) fn schema() -> Value {
         "id":{"type":["string","null"],"minLength":1,"maxLength":160}
     },"required":["view","id"]})
 }
+pub(crate) fn validate_view(
+    target: Option<&Navigation>,
+    view: Option<&super::view::View>,
+) -> Result<()> {
+    if let (Some(target), Some(view)) = (target, view) {
+        let entity = match target.view.as_str() {
+            "productData" => Some("products"),
+            "orders" => Some("orders"),
+            "customers" => Some("customers"),
+            _ => None,
+        };
+        if entity.is_some_and(|entity| entity != view.entity) {
+            return Err(bad(
+                "Navigation and working view address different entities; preserve the verified navigation target and use its matching working-view entity",
+            ));
+        }
+    }
+    Ok(())
+}
 pub(crate) async fn admit(a: &App, h: &RequestContext, target: &Navigation) -> Result<()> {
     let right = VIEWS
         .iter()
@@ -68,6 +87,22 @@ pub(crate) async fn admit(a: &App, h: &RequestContext, target: &Navigation) -> R
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn product_navigation_cannot_open_an_order_working_view() {
+        let target = Navigation {
+            view: "productData".into(),
+            id: Some("bag".into()),
+        };
+        let mut view = super::super::view::View {
+            entity: "orders".into(),
+            criteria: json!({}),
+            components: vec!["records".into()],
+        };
+        assert!(validate_view(Some(&target), Some(&view)).is_err());
+        view.entity = "products".into();
+        assert!(validate_view(Some(&target), Some(&view)).is_ok());
+        assert!(validate_view(None, Some(&view)).is_ok());
+    }
     #[test]
     fn navigation_cannot_supply_urls_or_permissions() {
         apps::validate_native_input(&schema(), &json!({"view":"productData","id":"sku"})).unwrap();

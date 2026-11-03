@@ -35,3 +35,11 @@ def verify(tenant,report):
         grouped=report({'period':'all','channelType':kind})
         assert sum(v['orders']for v in grouped['totals'])==1
         assert grouped['channels'][0]['channel']==kind and grouped['channels'][0]['kind']==kind
+
+    sql(f"""INSERT INTO payment_attempts(id,tenant,order_id,provider,adapter_version,amount_minor,currency,state,refunded_minor,environment,bn_code)
+      VALUES('report-payment-{tenant}','{tenant}','report-order-{tenant}-50','fixture','1',9980,'EUR','captured',50,'simulation','');
+      UPDATE orders SET data=jsonb_set(data,'{{payment,attemptId}}',to_jsonb('report-payment-{tenant}'::text))
+      WHERE tenant='{tenant}' AND id='report-order-{tenant}-50'""")
+    refunded=report({'period':'all','currency':'EUR'})
+    assert Decimal(refunded['totals'][0]['refunds'])==Decimal('0.50')
+    assert sum(Decimal(v['refunds'])for v in refunded['trend'])==Decimal('0.50')

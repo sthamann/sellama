@@ -6,6 +6,7 @@
 - Add and arrange charts, tables and purchase-journey cards; save private revisioned preferences and export authorized aggregates as CSV.
 - Aggregate exact native order money and refund totals, rank products and channels, and reuse current consent eligible traffic and conversion observations.
 - Expose the same bounded Rust operation through HTTP and MCP with current rights, tenant isolation, stale response fences and four interface languages.
+- Accept the public native simulated EUR 169.00 purchase against its reports, saved independent views, actual CSV export and private stage separation.
 
 ## 3 November 2026: native 3D product models and variant materials
 

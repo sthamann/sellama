@@ -6,7 +6,7 @@ journey are tracked separately. All purchases below use **simulated payments**.
 
 ## Current public release
 
-The public Core release `1f8c2a45b55dc1bcc00944e36a352299b06c517e`
+The public Core release `598246a8d7872043ae8e0ed9bd0e951ede18669d`
 (3 November) is running publicly. Its source includes the shared canvas, localized media captions,
 guided shop setup, assistant layout and shared payment contract. Northflank
 reports one ready replica with no restarts after the latest rollout. Feature
@@ -16,7 +16,7 @@ a dedicated database and restricted runtime login. The synthetic merchant accoun
 connects successfully. Original Storyfront purchase, return and refund acceptance
 are tracked in the payment guide.
 
-## Configurable merchant reports (3 November 2026, local acceptance)
+## Configurable merchant reports (3 November 2026, public acceptance)
 
 Shop today and personal workspace areas share reports for ordered revenue,
 orders, average value, refunds, top products, channels, observed visits,
@@ -26,8 +26,11 @@ preferences and export authorized aggregates. HTTP and MCP share one Rust owner.
 Native tests cover actual simulated checkout/POS, consent withdrawal, current
 rights, isolation, private layout conflicts, historical dates and channel attribution.
 Four targeted report UI tests and the related 18-test UI group pass. Desktop and
-phone layouts are checked in Chrome. Public rollout is still pending for this
-change. [Guide and exact metric semantics](merchant-reports.md).
+phone layouts are checked in Chrome. The final presentation image is deployed with one healthy replica and zero restarts. Public native acceptance confirms a simulated
+EUR 169.00 checkout, matching sales/product/channel/consented conversion reports,
+saved independent views, actual CSV export and private stage separation.
+[Guide and exact metric semantics](merchant-reports.md) ·
+[Observed public journey](evidence/merchant-reports-2026-11-03.md).
 
 ## Shared visual canvas (2 November 2026, publicly delivered)
 

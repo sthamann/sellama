@@ -1,6 +1,52 @@
 /** Checkout vocabulary: the same purchase and payment states in every supported UI language. */
 import { useLocale } from "./i18n";
 const text = {
+  invoiceInstructions: [
+    "Invoice payment details",
+    "Angaben zum Rechnungskauf",
+    "Informations du paiement sur facture",
+    "Datos del pago por factura",
+  ],
+  invoiceWaiting: [
+    "The provider is preparing your invoice payment details. Your payment status is shown above.",
+    "Der Anbieter bereitet die Angaben zum Rechnungskauf vor. Den Zahlungsstatus siehst du oben.",
+    "Le prestataire prépare les informations de votre facture. Le statut du paiement figure ci-dessus.",
+    "El proveedor está preparando los datos de tu factura. El estado del pago aparece arriba.",
+  ],
+  invoiceTerms: [
+    "Use this recipient and payment reference for your invoice. Follow the payment terms on your invoice. These details do not confirm receipt of money.",
+    "Nutze diesen Empfänger und Verwendungszweck für deine Rechnung. Beachte das Zahlungsziel auf deiner Rechnung. Diese Angaben bestätigen keinen Geldeingang.",
+    "Utilisez ce destinataire et cette référence pour votre facture. Respectez les conditions de paiement indiquées sur la facture. Ces informations ne confirment pas la réception du paiement.",
+    "Usa este destinatario y esta referencia para tu factura. Sigue las condiciones de pago indicadas en la factura. Estos datos no confirman la recepción del dinero.",
+  ],
+  invoiceSimulation: [
+    "Simulated bank details. Do not transfer money.",
+    "Simulierte Bankdaten. Bitte kein Geld überweisen.",
+    "Coordonnées bancaires simulées. Ne transférez pas d’argent.",
+    "Datos bancarios simulados. No transfieras dinero.",
+  ],
+  invoiceRecipient: ["Recipient", "Empfänger", "Destinataire", "Destinatario"],
+  invoiceIban: ["IBAN", "IBAN", "IBAN", "IBAN"],
+  invoiceBic: ["BIC", "BIC", "BIC", "BIC"],
+  invoiceBank: ["Bank", "Bank", "Banque", "Banco"],
+  invoiceReference: [
+    "Payment reference",
+    "Verwendungszweck",
+    "Référence du paiement",
+    "Referencia del pago",
+  ],
+  invoiceLoadError: [
+    "Payment details could not be loaded. Check again before making a transfer.",
+    "Die Zahlungsangaben konnten nicht geladen werden. Prüfe erneut, bevor du Geld überweist.",
+    "Les informations du paiement n’ont pas pu être chargées. Vérifiez à nouveau avant tout virement.",
+    "No se pudieron cargar los datos del pago. Comprueba de nuevo antes de hacer una transferencia.",
+  ],
+  invoiceRefresh: [
+    "Check invoice details",
+    "Rechnungsangaben prüfen",
+    "Vérifier les informations de facturation",
+    "Comprobar datos de la factura",
+  ],
   title: ["Checkout", "Zur Kasse", "Commander", "Finalizar compra"],
   subtitle: [
     "Your details, delivery and payment. All in one place.",

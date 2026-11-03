@@ -1,3 +1,5 @@
+/* Shared native checkout layout and payment states; recipient instructions have an adjacent owner. */
+@import "./payment-instructions.css";
 /* One-page checkout: calm responsive workspace with a sticky, readable order review. */
 @import "./checkout-fields.css";
 .shop-bag.veyndo-checkout {

@@ -9,6 +9,8 @@ pub(crate) use catalog::CAPABILITIES;
 mod contract;
 mod merchant;
 pub(crate) use merchant::invoke as merchant_operation;
+mod instructions;
+pub(crate) use instructions::customer_read as customer_instructions;
 mod details;
 mod details_model;
 pub(crate) use contract::*;

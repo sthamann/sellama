@@ -688,6 +688,12 @@ interface inputs {
     %claims: option<list<knowledge-compile-input-claims-item>>,
     %product-id: option<string>,
   }
+  record checkout-payment-instructions-input {
+    %id: string,
+  }
+  record merchant-payment-instructions-input {
+    %id: string,
+  }
   record merchant-payment-input {
     %amount-minor: option<s64>,
     %approve: bool,
@@ -1716,6 +1722,8 @@ interface inputs {
   knowledge-claim-review: func(input: knowledge-claim-review-input) -> result<string, string>;
   knowledge-extract: func(input: knowledge-extract-input) -> result<string, string>;
   knowledge-compile: func(input: knowledge-compile-input) -> result<string, string>;
+  checkout-payment-instructions: func(input: checkout-payment-instructions-input) -> result<string, string>;
+  merchant-payment-instructions: func(input: merchant-payment-instructions-input) -> result<string, string>;
   merchant-payment: func(input: merchant-payment-input) -> result<string, string>;
   merchant-payment-details: func(input: merchant-payment-details-input) -> result<string, string>;
   merchant-payment-providers: func(input: string) -> result<string, string>;

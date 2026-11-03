@@ -274,3 +274,13 @@ This records public card simulation through the original Storyfront. The 17-meth
 contract, local concurrent coverage and local SEPA/Klarna journeys retain their
 separate scope. Real PSP Sandbox/Live approval and complete original feature
 parity remain in the comparison above. No bank or card network was charged.
+
+
+## Deferred invoice implementation, 1.5.0
+
+The feature branch adds source-backed invoice creation, pending-review recipient
+instructions, restart and lost-response recovery, exact native refunds and scoped
+HTTP/MCP reads. Actual local service/PG and explicit 17-method simulation checks
+passed. [Detailed contract and rollout prerequisites](payment-invoice-checkout.md).
+This does not change the public Storyfront acceptance recorded above. External
+provider tests remain deferred; no provider login or saved credential is needed.

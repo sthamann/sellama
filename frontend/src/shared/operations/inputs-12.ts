@@ -2,6 +2,17 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs12 {
+  "merchant.catalog.context": JsonValue;
+  "merchant.catalog.prepare": {
+    count: number;
+    inference?: {
+      model?: string | null;
+      provider?: "platform" | "ollama" | "openai" | "anthropic";
+    } | null;
+    mode: "csv" | "url" | "demo" | "shopify_csv" | "shop_mcp";
+    shopDomain?: string;
+    source: string;
+  };
   "merchant.catalog.save": {
     approve: boolean;
     currency: string;
@@ -48,16 +59,4 @@ export interface Inputs12 {
     query?: string;
   };
   "pos.context": { channelId: string };
-  "pos.detail": {
-    after?: string;
-    cartToken?: string;
-    channelId: string;
-    productId: string;
-  };
-  "pos.currency": {
-    cartToken: string;
-    channelId: string;
-    currency: string;
-    revision: number;
-  };
 }

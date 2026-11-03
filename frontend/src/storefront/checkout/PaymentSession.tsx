@@ -1,11 +1,13 @@
 /** Provider handoff and bounded durable-status polling; only verified server receipts confirm payment. */
 import { useEffect, useRef, useState } from "react";
 import EmbeddedPayment from "./EmbeddedPayment";
+import PaymentInstructions from "./PaymentInstructions";
 import { shopApi } from "../../shared/api/shop-api";
 import { useCheckoutText } from "../../shared/i18n/checkout-i18n";
 import { useShopText } from "../../shared/i18n/shop-i18n";
 type Status = {
   state: string;
+  instructionsAvailable?: boolean;
   checkout?: "redirect" | "embedded";
   approvalUrl?: string;
   amountMinor: number;
@@ -171,6 +173,10 @@ function PaymentStatus({ id, token, autoRedirect = false }: PaymentProps) {
           <a className="shop-primary" href={data.approvalUrl}>
             {x("continuePay")}
           </a>
+        )}
+      {data?.instructionsAvailable &&
+        !["cancelled", "expired"].includes(data.state) && (
+          <PaymentInstructions key={`${id}:${token}`} id={id} token={token} />
         )}
       {delayed && !paid && (
         <>

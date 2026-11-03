@@ -1,6 +1,6 @@
 {
   "id": "shopware_payments",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "coreApi": "1",
   "runtime": "service",
   "category": "payment",
@@ -323,7 +323,8 @@
         "capabilities": [
           "capture",
           "refund",
-          "details"
+          "details",
+          "instructions"
         ],
         "checkout": "embedded",
         "intent": "capture"

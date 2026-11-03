@@ -70,6 +70,7 @@ pub(crate) fn validate_contract(m: &apps::Manifest) -> Result<()> {
                     "vault",
                     "multi_capture",
                     "details",
+                    "instructions",
                 ]
                 .contains(&c.as_str())
             })

@@ -2481,18 +2481,18 @@
     },
     "src/capabilities/dispatch.rs": {
       "status": "unproved",
-      "sha256": "19173ae4e37466faddfb1630436856e3f5daf84d2e3af067012ceff292ba9f82",
-      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
+      "sha256": "f3bfb92f58182631829f53fa7d28e321aac37903526d3a0eb73d6993f4d78a09",
+      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
     },
     "src/capabilities/registry.rs": {
       "status": "unproved",
-      "sha256": "ff30f8b77cf921be4e3dd62c884e7b1ae54cc5289ba4debc99edd452972c98ad",
-      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+      "sha256": "dc19aebced7f3984efc58f9f8dbeabba65f5143ab483b812086bce519c506d03",
+      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "b0674a3fb2b858d503e2e803a51003d1f71a5f747b43d9ea5b12e6eb83ad130c",
-      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+      "sha256": "d5f2454db3188aa9db5870a3fba867070cd661044f4c4d7a60c43acf3d182544",
+      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -3696,8 +3696,8 @@
     },
     "src/operations/mod.rs": {
       "status": "unproved",
-      "sha256": "ecbb4fb9920466d261b422f337524fb2021bd692f0d08688aecc632ad1c2d100",
-      "review": "Reviewed scoped payment-only read snapshot, frozen PII-free inspection and typed fee bounds; payment descriptions and unchanged merchant command bridge moved into payment owner. Native Rust/Core/PG and targeted UI tests pass. SQL and provider calls remain unproved."
+      "sha256": "b7c4662f05cd77242318a5cc132a2c0d6e42ae46967483f3b067a2c16b799cb7",
+      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
     },
     "src/operations/order_documents.rs": {
       "status": "unproved",
@@ -3791,13 +3791,13 @@
     },
     "src/payments/catalog.rs": {
       "status": "unproved",
-      "sha256": "969191e6857a0fef265fe2257ed24f3db7a106409fb36bfc32c3d10e35bef201",
-      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+      "sha256": "99a2ae87631f60c47a79cf7c64993f8fc8ac6cb06a45c9c53a64fef907618e4c",
+      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
     },
     "src/payments/contract.rs": {
       "status": "unproved",
-      "sha256": "5007347491d4b91871744baedb348169b40055cfb6702632b88369a029565cb5",
-      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+      "sha256": "f8d7f3eec2c80a4890f44bdb2752f40ebb7403b636b83d76c8ae769da713942d",
+      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
     },
     "src/payments/details.rs": {
       "status": "unproved",
@@ -3819,15 +3819,20 @@
       "sha256": "f3215b4d5eb7b487282f21ef2c6c94a71e0a2aa922f8df049396c91e5bed80f4",
       "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
+    "src/payments/instructions.rs": {
+      "status": "unproved",
+      "sha256": "d139f3f6adb7d9c46dd6ada97e2607da0ac10341df875ff0aa78cd3909ea7906",
+      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
+    },
     "src/payments/merchant.rs": {
       "status": "unproved",
-      "sha256": "2613ffdb5a18bc89f992a5f7e08c34d1d595eba68f1b670fff2296690a54727d",
-      "review": "Reviewed scoped payment-only read snapshot, frozen PII-free inspection and typed fee bounds; payment descriptions and unchanged merchant command bridge moved into payment owner. Native Rust/Core/PG and targeted UI tests pass. SQL and provider calls remain unproved."
+      "sha256": "a805dc26ed3dddac27f777cb70584d355842e80024f338b1679576952086331e",
+      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
     },
     "src/payments/mod.rs": {
       "status": "unproved",
-      "sha256": "93afdba5902760649ae9be98071a9cb792f7daeb7ab6ffca06b9be8031b4fa95",
-      "review": "Reviewed scoped payment-only read snapshot, frozen PII-free inspection and typed fee bounds; payment descriptions and unchanged merchant command bridge moved into payment owner. Native Rust/Core/PG and targeted UI tests pass. SQL and provider calls remain unproved."
+      "sha256": "77f45a7826e2d192df3770e65b099165e3848d184254f7f5eb7d5b0bf15bfeb0",
+      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
     },
     "src/payments/operations.rs": {
       "status": "reviewed-binding",
@@ -3871,8 +3876,8 @@
     },
     "src/payments/remote.rs": {
       "status": "unproved",
-      "sha256": "922d9087e94b8120bf49288f5646cb8929d920d99f7c3c9b6b26e6b2559856f1",
-      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+      "sha256": "2b41cfdc90e022b4fb98389bd28f119dcacb38fd11ebbc5548c5f7784d6aef2e",
+      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",
@@ -3881,8 +3886,8 @@
     },
     "src/payments/routes.rs": {
       "status": "unproved",
-      "sha256": "1713b97533a79eef3ca1c6546fae94a016137646f180ade370ff2e24f85fa257",
-      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+      "sha256": "a2736eaf274db7bf0a84a486375d89d17412e12554421675d4527bd28235c7fd",
+      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
     },
     "src/payments/sessions.rs": {
       "status": "unproved",

@@ -1,5 +1,9 @@
 # Changelog
 
+## Invoice checkout 1.5.0, 3 November 2026
+
+Feature branch: deferred private invoice-source creation, immutable recipient instructions, durable pending review, stable native references, same-key and verified-webhook recovery, and conservative cancellation. Typed customer/compound merchant HTTP/MCP reads and a four-language responsive checkout display reuse the existing payment ledger and worker. Local Rust/Core/PostgreSQL and 17-method simulation acceptance; hosted migration/rollout and external account tests remain separate. See [the invoice guide](docs/payment-invoice-checkout.md).
+
 ## Payment transaction details, 3 November 2026
 
 - Added owned read-only provider transactions and exact fees/net amounts with contract 1.4.0.

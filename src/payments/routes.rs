@@ -35,6 +35,15 @@ pub(crate) fn payment_router() -> Router<App> {
             &[("GET", "payments.read")],
             get(job_status),
         )
+        .secure_route(
+            "/api/payments/{id}/instructions",
+            &[("GET", "payments.read")],
+            get(super::instructions::merchant_route),
+        )
+        .route(
+            "/store-api/payments/{id}/instructions",
+            get(super::instructions::customer_route),
+        )
         .route("/store-api/payments/{id}", get(customer_status))
         .route("/store-api/payments/{id}/session", get(sessions::session))
         .route(
@@ -121,7 +130,7 @@ async fn status_row(
 }
 fn payment_status(r: &sqlx::postgres::PgRow, id: &str) -> Value {
     let settled = super::settlements::summary(&super::attempt(r));
-    json!({"provider":r.get::<String,_>("provider"),"capturedMinor":settled["capturedMinor"],"captureClosed":settled["captureClosed"],"checkout":r.get::<Value,_>("provider_context")["checkout"],"intent":r.get::<Value,_>("provider_context")["intent"],"job":r.get::<Option<Value>,_>("job"),"id":id,"state":r.get::<String,_>("state"),"approvalUrl":r.get::<Option<String>,_>("approval_url"),"amountMinor":r.get::<i64,_>("amount_minor"),"currency":r.get::<String,_>("currency"),"currencyScale":r.get::<i16,_>("currency_scale"),"refundedMinor":r.get::<i64,_>("refunded_minor"),"revision":r.get::<i64,_>("revision"),"environment":r.get::<String,_>("environment"),"realMoneyCharged":r.get::<String,_>("environment")=="live" && ["captured","partially_captured","captured_late","partially_refunded","refunded"].contains(&r.get::<String,_>("state").as_str())})
+    json!({"provider":r.get::<String,_>("provider"),"capturedMinor":settled["capturedMinor"],"captureClosed":settled["captureClosed"],"checkout":r.get::<Value,_>("provider_context")["checkout"],"intent":r.get::<Value,_>("provider_context")["intent"],"job":r.get::<Option<Value>,_>("job"),"id":id,"state":r.get::<String,_>("state"),"approvalUrl":r.get::<Option<String>,_>("approval_url"),"amountMinor":r.get::<i64,_>("amount_minor"),"currency":r.get::<String,_>("currency"),"currencyScale":r.get::<i16,_>("currency_scale"),"refundedMinor":r.get::<i64,_>("refunded_minor"),"revision":r.get::<i64,_>("revision"),"environment":r.get::<String,_>("environment"),"instructionsAvailable":r.get::<Value,_>("provider_context")["capabilities"].as_array().is_some_and(|cs|cs.iter().any(|c|c=="instructions")),"realMoneyCharged":r.get::<String,_>("environment")=="live" && ["captured","partially_captured","captured_late","partially_refunded","refunded"].contains(&r.get::<String,_>("state").as_str())})
 }
 pub(crate) async fn read(a: &App, t: &str, id: &str) -> Result<Value> {
     Ok(payment_status(&status_row(a, t, id, None).await?, id))

@@ -86,6 +86,12 @@ in their existing native owners. The renderer receives no model-supplied rows,
 permissions, arbitrary component names, HTML or SQL. Existing approval, revisions,
 private drafts and selected publication apply to all resulting changes.
 
+The public product walkthrough confirms a real model answer, a filtered native
+product grid, the genuine embedded product editor and exact-product navigation
+while the conversation stays open. [Screenshots and the observed acceptance](evidence/persistent-copilot-2026-11-03.md#corrected-public-acceptance).
+
+![Public product editor with Ask Veyndo](assets/copilot-20261103/public-product-context.jpg)
+
 ## Open a working view
 
 Ask, for example: **Show active products with low stock, their details and a CSV

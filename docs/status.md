@@ -6,7 +6,7 @@ journey are tracked separately. All purchases below use **simulated payments**.
 
 ## Current public release
 
-The public Core release `99d11901b729c012fcee43b626fd2626e982987e`
+The public Core release `6442279d28786a6422419bd2e0ec13cac7bcebe0`
 (3 November) is running publicly. Its source includes the shared canvas, localized media captions,
 guided shop setup, assistant layout and shared payment contract. Northflank
 reports one ready replica with no restarts after the latest rollout. Feature
@@ -16,18 +16,20 @@ a dedicated database and restricted runtime login. The synthetic merchant accoun
 connects successfully. Original Storyfront purchase, return and refund acceptance
 are tracked in the payment guide.
 
-## Persistent Ask Veyndo sidebar (3 November 2026, local acceptance)
+## Persistent Ask Veyndo sidebar (3 November 2026, public acceptance)
 
-The contextual assistant now stays beside native Studio views and reuses the same
-conversation, saved runs and proposal owner. It carries the selected entity/app,
-can suggest permission-checked native destinations and composes working views
-through OpenUI with native data. Collapsing preserves the editor draft. Desktop
-and phone browser acceptance includes a real local Qwen product question, correct
-Cognac/EUR 169 answer, generated list, actual embedded product editor and reopened
-conversation. Targeted tests cover malformed/foreign navigation, current domain
-and PII rights, composition admission and scope changes. No provider-independent
-claim of arbitrary generated UI or automatic mutations follows from this result.
-[How to use it](agentic-workspace.md#ask-veyndo-beside-your-work).
+The contextual assistant stays beside native Studio views, carrying the selected
+entity/app and reusing the same conversation, saved runs and proposal owner. It
+opens checked native destinations and composes working views through OpenUI with
+native data. Collapsing preserves the editor draft. The public configured model
+read selected product `bag`, answered Cognac/EUR 169, prepared the correct filtered
+Products grid, opened its genuine product editor and navigated back to that exact
+product while retaining the conversation. No commerce data was changed. A first
+public mismatch was corrected; old inconsistent proposals are now blocked.
+Local desktop/phone/dark-mode checks and 21 targeted UI, nine Rust and 52 native
+HTTP/provider checks cover the affected path and rights.
+[How to use it](agentic-workspace.md#ask-veyndo-beside-your-work) ·
+[Public screenshots and acceptance](evidence/persistent-copilot-2026-11-03.md).
 
 ## Configurable merchant reports (3 November 2026, public acceptance)
 

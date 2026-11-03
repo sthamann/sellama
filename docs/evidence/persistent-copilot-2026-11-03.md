@@ -51,3 +51,36 @@ mutation. The follow-up makes the model choose one explicit entity, validates
 linked navigation/view consistency server-side and blocks mismatched saved views
 in the client. The actual native target is shown before opening. Local Qwen and this public provider are
 separate observed model runs; synthetic provider checks remain labelled above.
+
+## Corrected public acceptance
+
+PR 279, source `6442279d28786a6422419bd2e0ec13cac7bcebe0`, is publicly
+serving after successful image `numerous-boat-4033`. The new Core pod
+`vendune-core-84dd4584c5-gpxlk` passed 1/1 checks with zero restarts.
+
+The same public merchant session verified the following after that pod became
+ready, on 3 November 2026 at 15:13 Europe/Berlin:
+
+- Reopening the earlier inconsistent proposal shows its actual **Orders** target
+  and a localized explanation. It no longer offers the working-view action.
+- A fresh `gpt-6.1-sol` conversation reads selected product `bag` and answers
+  **Cognac / EUR 169.00**. It prepares **Products**, filtered by `Everyday`, and
+  a distinct **Open Products · bag** action.
+- Opening the generated view displays the genuine native product grid with one
+  matching row, product number `bag`, EUR 169.00 and its current stock.
+- Selecting that row opens the genuine product editor inside the view, showing
+  **Everyday Ledertasche**, **bag**, **Version 2**, with Save disabled.
+- Closing the working view, returning to the normal directory and using the
+  assistant's exact-product button reopens `bag`. The conversation and right
+  sidebar remain present. No product or other commerce mutation was submitted.
+
+Final focused validation covers **21 UI tests**, **nine Rust agent-run tests**
+and **52 native HTTP/provider checks**, including the observed mismatch. These
+replace the earlier local counts for the final source; the first public negative
+above remains part of the record. Native lint/build, prompt governance, four
+languages, structure, site links and the scoped visual detector pass. Full daily
+tests keep their existing cadence.
+
+![Public product editor and contextual assistant](../assets/copilot-20261103/public-product-context.jpg)
+
+![Public generated native product working view](../assets/copilot-20261103/public-working-view.jpg)

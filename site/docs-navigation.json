@@ -119,6 +119,7 @@
         "docs/payment-provider-api.md",
         "docs/payment-transaction-details.md",
         "docs/payment-invoice-checkout.md",
+        "docs/payment-saved-methods.md",
         "docs/payment-capture-management.md",
         "docs/studio-api-and-channels.md",
         "docs/service-integrations.md",

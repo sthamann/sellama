@@ -1,0 +1,37 @@
+/* Saved-method choices and account revocation retain the storefront's shared tokens and native form controls. */
+.saved-payment-choice {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+.saved-payment-choice > label {
+  display: grid;
+  gap: 8px;
+  margin-block: 12px;
+}
+.saved-payment-choice .saved-payment-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.saved-payment-consent input {
+  flex: 0 0 auto;
+  margin-block-start: 4px;
+}
+.saved-payment-consent small,
+.saved-payment-row small {
+  display: block;
+  color: var(--muted);
+  margin-block-start: 4px;
+}
+.saved-payment-account {
+  margin-block-start: 28px;
+}
+.saved-payment-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 16px;
+  border-block-end: 1px solid var(--border);
+}

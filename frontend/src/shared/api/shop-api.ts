@@ -73,6 +73,7 @@ export type Product = {
   };
 };
 export type Selection = {
+  paymentFunding?: { save: boolean; id?: string | null } | null;
   country: string;
   shippingMethodId: string;
   paymentMethodId: string;

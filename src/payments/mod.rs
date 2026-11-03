@@ -1,5 +1,8 @@
 //! Provider-independent payment ledger and durable workers; the PayPal adapter supports explicit Sandbox/Live environments.
 
+mod funding;
+pub(crate) mod instruments;
+pub(crate) use funding::{Choice as FundingChoice, prepare as prepare_funding};
 mod accounts;
 mod app_commands;
 pub(crate) use accounts::*;

@@ -195,6 +195,7 @@ pub(crate) async fn persist(
         }
         update_order(tx, p, &state).await?;
     }
+    super::instruments::observe(tx, p, v).await?;
     if instructions_changed {
         super::instructions_state::publish(tx, p, &context).await?;
     }

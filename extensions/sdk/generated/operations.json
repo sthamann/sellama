@@ -3932,6 +3932,42 @@
       "readOnly": false
     },
     {
+      "description": "List redacted saved methods for the current owning customer account",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "name": "checkout.payment.methods",
+      "readOnly": true
+    },
+    {
+      "description": "Revoke the owning customer saved method and queue provider cleanup",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "approve": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "requestKey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "requestKey",
+          "approve"
+        ],
+        "type": "object"
+      },
+      "name": "checkout.payment.method.revoke",
+      "readOnly": false
+    },
+    {
       "description": "Read recipient instructions for the original customer checkout",
       "inputSchema": {
         "additionalProperties": false,

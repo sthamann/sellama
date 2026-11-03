@@ -1,5 +1,17 @@
 # Changelog
 
+## Saved customer payment methods, 3 November 2026
+
+Explicit unchecked consent, account-bound reuse and customer revocation now share
+the native checkout, HTTP/MCP registry and durable payment worker. Provider tokens
+remain authenticated and encrypted in the private Rust service. Fixed shared
+storage, current sessions, immutable account/environment/consent, redacted UI and
+minimized Flow events preserve existing boundaries. Local actual-service tests
+cover second purchase, guest/foreign denial, idempotent revocation, delayed
+confirmation and restart without duplicate capture. Hosted rollout and actual
+provider acceptance remain pending; automatic recurring debits remain separate.
+See [saved payment methods](docs/payment-saved-methods.md).
+
 ## Invoice PDFs and email, 3 November 2026
 
 Validated invoice instructions now freeze in native invoice PDFs and emit one

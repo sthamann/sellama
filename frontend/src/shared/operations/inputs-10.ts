@@ -6,6 +6,12 @@ export interface Inputs10 {
     claims?: Array<{ id: string; text: string }>;
     productId?: string;
   };
+  "checkout.payment.methods": JsonValue;
+  "checkout.payment.method.revoke": {
+    approve: boolean;
+    id: string;
+    requestKey: string;
+  };
   "checkout.payment.instructions": { id: string };
   "merchant.payment.instructions": { id: string };
   "merchant.payment": {
@@ -51,24 +57,5 @@ export interface Inputs10 {
     instruction: string;
     revision: number;
     selected?: string;
-  };
-  "merchant.site.propose": {
-    fields: JsonValue;
-    id: string;
-    instruction: string;
-    revision: number;
-    selected?: string;
-    summary?: string;
-  };
-  "merchant.site.plan": {
-    content?: boolean;
-    id: string;
-    images?: Array<string>;
-    instruction: string;
-    revision: number;
-    selected?: string;
-    structure?: boolean;
-    style?: boolean;
-    urls?: Array<string>;
   };
 }

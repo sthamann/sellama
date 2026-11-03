@@ -1360,6 +1360,16 @@
     "source": "src/accounts/mod.rs"
   },
   {
+    "path": "/store-api/account/payment-methods",
+    "method": "GET",
+    "source": "src/payments/routes.rs"
+  },
+  {
+    "path": "/store-api/account/payment-methods/{id}/revoke",
+    "method": "POST",
+    "source": "src/payments/routes.rs"
+  },
+  {
     "path": "/store-api/account/profile",
     "method": "GET",
     "source": "src/accounts/mod.rs"

@@ -29,6 +29,7 @@ pub(super) const EVENTS: &[&str] = &[
     "pos.customer_selected",
     "payment.captured",
     "payment.instructions.available",
+    "payment.instrument.revoked",
     "order.state_changed",
     "payment.state_changed",
     "delivery.state_changed",

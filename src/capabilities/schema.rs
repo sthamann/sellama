@@ -164,6 +164,9 @@ pub(crate) fn input(name: &str) -> Value {
         "merchant.payment.details"
         | "merchant.payment.instructions"
         | "checkout.payment.instructions" => json!({"id":{"type":"string"}}),
+        "checkout.payment.method.revoke" => {
+            json!({"id":{"type":"string"},"requestKey":{"type":"string"},"approve":{"type":"boolean"}})
+        }
         "merchant.payment.onboarding" => {
             json!({"id":{"type":"string"},"operation":{"type":"string","enum":["start","status","disconnect"]},"channel":{"type":"string"},"environment":{"type":"string","enum":["sandbox","live","simulation","contract-fixture"]},"country":{"type":"string"},"requestKey":{"type":"string"},"approve":{"type":"boolean"}})
         }
@@ -238,6 +241,7 @@ pub(crate) fn input(name: &str) -> Value {
         "merchant.payment.details"
         | "merchant.payment.instructions"
         | "checkout.payment.instructions" => vec!["id"],
+        "checkout.payment.method.revoke" => vec!["id", "requestKey", "approve"],
         "merchant.payment" => vec!["id", "operation", "requestKey", "approve"],
         "developer.archive" => vec!["app", "archived", "approve"],
         "developer.import" => vec!["environment", "prompt", "summary", "manifest"],

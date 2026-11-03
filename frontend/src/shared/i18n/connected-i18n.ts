@@ -127,6 +127,12 @@ export const connectedWords: Record<string, readonly string[]> = {
     "Informations du paiement sur facture disponibles",
     "Datos del pago por factura disponibles",
   ],
+  "payment.instrument.revoked": [
+    "Saved payment method revoked",
+    "Gespeichertes Zahlungsmittel widerrufen",
+    "Moyen de paiement enregistré révoqué",
+    "Método de pago guardado revocado",
+  ],
   "payment.updated": [
     "Payment updated",
     "Zahlung aktualisiert",

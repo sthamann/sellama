@@ -1581,8 +1581,8 @@
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
-      "sha256": "b6dec8b4588596622b5c753e8441420eb50a55f631336bdb25d9bd82e1107477",
-      "review": "Reviewed invoice recipient caching and immutable native documents; explicit app/PII event consent and current Flow rehydration; existing encrypted email queue and localized templates. Targeted native service and adversarial projection tests; no new formal proof claim."
+      "sha256": "d5b14fa7b86b63afa66384bcfdf3f16a0e4dba693d1033f719c78803f7c1d562",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/apps/asset_surfaces.rs": {
       "status": "unproved",
@@ -1716,8 +1716,8 @@
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
-      "sha256": "92b9b42da7dc04da64e1bb8b56d24104dfbce0299a68b4ccf2bb72ce262dfdb2",
-      "review": "Reviewed invoice recipient caching and immutable native documents; explicit app/PII event consent and current Flow rehydration; existing encrypted email queue and localized templates. Targeted native service and adversarial projection tests; no new formal proof claim."
+      "sha256": "df2c6aa87f34186817f0d90dfd7d6459ec808a58e344232017552a0c13c2324c",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/apps/events.rs": {
       "status": "unproved",
@@ -2086,8 +2086,8 @@
     },
     "src/assets/model_format.rs": {
       "status": "unproved",
-      "sha256": "039b0300ea8401e614de32fc7326bf0254a987e57e211bdd7b9ed3f623231914",
-      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
+      "sha256": "a16207e26d8a2f1831e593156a769ad0eb2049a50bfdb4d922f6af2acb519f13",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Model-format test padding uses the equivalent is_multiple_of predicate for current Clippy. Extracted kernel unchanged; SQL/provider paths remain unproved."
     },
     "src/assets/model_media.rs": {
       "status": "unproved",
@@ -2486,18 +2486,18 @@
     },
     "src/capabilities/dispatch.rs": {
       "status": "unproved",
-      "sha256": "f3bfb92f58182631829f53fa7d28e321aac37903526d3a0eb73d6993f4d78a09",
-      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
+      "sha256": "f51182b9ba4ba71e892720e3b6748b407663e61bea8fd4dabd6c7dac250e7b2e",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/capabilities/registry.rs": {
       "status": "unproved",
-      "sha256": "dc19aebced7f3984efc58f9f8dbeabba65f5143ab483b812086bce519c506d03",
-      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
+      "sha256": "fea32a7278003965f4338d51f42e8a92e0b47d64f40453d0d4fc18438663e323",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "d5f2454db3188aa9db5870a3fba867070cd661044f4c4d7a60c43acf3d182544",
-      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
+      "sha256": "b54cd6bf636c7e1a89b6d20a55762af56b9f136e4568b90d52f149fa16d9cb62",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -2986,8 +2986,8 @@
     },
     "src/commerce/types.rs": {
       "status": "unproved",
-      "sha256": "4e334d3cda1e9754b9925dddd1aaa80e8b199e7996bba031cb1a8e42948e189c",
-      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
+      "sha256": "741e049166afe4108ffa7bf26f53cede695d123e9e9aa902c7f47cfec7bee4ac",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/concierge.rs": {
       "status": "unproved",
@@ -3411,8 +3411,8 @@
     },
     "src/marketing/flows.rs": {
       "status": "unproved",
-      "sha256": "49414f49a6a77920af7b52f787f945ed647abf4090f43293ccc50939f53739bd",
-      "review": "Reviewed invoice recipient caching and immutable native documents; explicit app/PII event consent and current Flow rehydration; existing encrypted email queue and localized templates. Targeted native service and adversarial projection tests; no new formal proof claim."
+      "sha256": "727273aa852ce30bf7414ae33bd299a7a4a7fa3c4b7d3320bceeed44825e5ce2",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
@@ -3536,8 +3536,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "10613c834d2a1456bbe6fcf35e3b4b1c87eb1442a270fdc1a298e33bdedc9cc1",
-      "review": "Review shared payment-service simulation admission, configured environment discovery and additive native account constraint; financial kernel unchanged."
+      "sha256": "320e9a23a444abff3e41fa639bab18ac3f684dc22791965b105f34644f19f3d0",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -3756,8 +3756,8 @@
     },
     "src/order_checkout.rs": {
       "status": "reviewed-binding",
-      "sha256": "36f43f4d1db4260b76aff47c4b2e301689b3285a26a78a87d93938dc42884b80",
-      "review": "Review authoritative checkout locale in the immutable order snapshot for hosted provider presentation; amounts, rights and transaction ownership unchanged."
+      "sha256": "dd8c8c70c215c2ed99caa8fa3d745051cc6702686ec1bfc0293dcc7bd7754fbc",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/order_routes.rs": {
       "status": "unproved",
@@ -3801,8 +3801,8 @@
     },
     "src/payments/catalog.rs": {
       "status": "unproved",
-      "sha256": "99a2ae87631f60c47a79cf7c64993f8fc8ac6cb06a45c9c53a64fef907618e4c",
-      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
+      "sha256": "4f34c31d1e9f0667f8856eeff757a43f74df8ec69f1249dadc364bc7d3450fe5",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/payments/contract.rs": {
       "status": "unproved",
@@ -3824,10 +3824,15 @@
       "sha256": "68722baf9dd2502e266d64b30ab205ef5f70980a278618aa16d48dddcaf5ba4c",
       "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
     },
+    "src/payments/funding.rs": {
+      "status": "unproved",
+      "sha256": "940e0b22c7ddb98c312f59415e0209d459e6d91320e6fabfde39b9de716f13c5",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+    },
     "src/payments/generic_receipts.rs": {
       "status": "unproved",
-      "sha256": "4d0d7d0b2a58d5f9149a1c1cea6621be10b443d3fdcfcb51c66782967225a792",
-      "review": "Reviewed invoice recipient caching and immutable native documents; explicit app/PII event consent and current Flow rehydration; existing encrypted email queue and localized templates. Targeted native service and adversarial projection tests; no new formal proof claim."
+      "sha256": "d272bb34284c49833e11786d1809771b62247cfe4479cd4722c6c0d90c32a47b",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/payments/instructions.rs": {
       "status": "unproved",
@@ -3839,6 +3844,11 @@
       "sha256": "e4f6eced06f7961b35fe195d88a93927fc2047dbe36a9998b2ed70ed4046db62",
       "review": "Reviewed invoice recipient caching and immutable native documents; explicit app/PII event consent and current Flow rehydration; existing encrypted email queue and localized templates. Targeted native service and adversarial projection tests; no new formal proof claim."
     },
+    "src/payments/instruments.rs": {
+      "status": "unproved",
+      "sha256": "e7c4d416398e3845cd84a5c9fc97b8867e2dfaefb38a5d44d50f503b90f58bb2",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+    },
     "src/payments/merchant.rs": {
       "status": "unproved",
       "sha256": "a805dc26ed3dddac27f777cb70584d355842e80024f338b1679576952086331e",
@@ -3846,8 +3856,8 @@
     },
     "src/payments/mod.rs": {
       "status": "unproved",
-      "sha256": "c1bf6348336b439ff1ed8776b26e3fad6468a7c2260d13b4cb202458a4bd665c",
-      "review": "Reviewed invoice recipient caching and immutable native documents; explicit app/PII event consent and current Flow rehydration; existing encrypted email queue and localized templates. Targeted native service and adversarial projection tests; no new formal proof claim."
+      "sha256": "3d59ec5038664158d1cf0fb81813a8ed0d01a127f6933ba0e52a68b3f9628e5d",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/payments/operations.rs": {
       "status": "reviewed-binding",
@@ -3891,8 +3901,8 @@
     },
     "src/payments/remote.rs": {
       "status": "unproved",
-      "sha256": "2b41cfdc90e022b4fb98389bd28f119dcacb38fd11ebbc5548c5f7784d6aef2e",
-      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
+      "sha256": "5b23f88a3d4827281c430413697df391bc77ad45adda2cfa00b9c25ce2ac6c47",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",
@@ -3901,8 +3911,8 @@
     },
     "src/payments/routes.rs": {
       "status": "unproved",
-      "sha256": "a2736eaf274db7bf0a84a486375d89d17412e12554421675d4527bd28235c7fd",
-      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
+      "sha256": "ad43ccd85343c4886694de89659bce18890f0db1faa14ab9cde8cfd4be4743b0",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/payments/sessions.rs": {
       "status": "unproved",
@@ -3926,8 +3936,8 @@
     },
     "src/payments/worker.rs": {
       "status": "unproved",
-      "sha256": "f0522e8e5140194477ceab326fea8dee3ecb6d94c17c20cc1bd4a30e52c97c0e",
-      "review": "Reviewed partial capture, per-capture refunds, settings admission and attempt-before-job locking; generated dispatcher follows policy domains; no SQL/provider proof claim"
+      "sha256": "fb2dce1466b78b0e50710a842a7f283bf26215aade891d8c193ab1dff848beb2",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "src/performance/access_snapshot.rs": {
       "status": "unproved",
@@ -4987,6 +4997,10 @@
     "migrations/109-payment-simulation.sql": {
       "sha256": "2283718e8305a498ab39a1e2dead0361a2232fad7c94d51cf25f9b25b9b73bda",
       "review": "Review shared payment-service simulation admission, configured environment discovery and additive native account constraint; financial kernel unchanged."
+    },
+    "migrations/110-payment-vault.sql": {
+      "sha256": "94137f2aee710fd0ec234c8fb664a27c13eb65a688002a22ce1adf6304c360a4",
+      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
     },
     "proof/Commerce/Claims/Access.lean": {
       "sha256": "f884142fe393e6ea189473d8e02add783f80cef3e45f08d4d0d8e01a57f0a205",

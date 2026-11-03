@@ -2,6 +2,25 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs11 {
+  "merchant.site.propose": {
+    fields: JsonValue;
+    id: string;
+    instruction: string;
+    revision: number;
+    selected?: string;
+    summary?: string;
+  };
+  "merchant.site.plan": {
+    content?: boolean;
+    id: string;
+    images?: Array<string>;
+    instruction: string;
+    revision: number;
+    selected?: string;
+    structure?: boolean;
+    style?: boolean;
+    urls?: Array<string>;
+  };
   "merchant.site.apply": { approve: boolean; taskId: string };
   "merchant.reports.read": {
     channel?: string | null;
@@ -99,26 +118,4 @@ export interface Inputs11 {
     shippingAddress?: JsonValue | null;
   };
   "merchant.order.context": { channelId: string; locale?: string };
-  "merchant.order.review": {
-    channelId: string;
-    checkout: JsonValue;
-    codes?: Array<string>;
-    currency: string;
-    customerId: string;
-    items: Array<{ id: string; quantity: number }>;
-    locale: string;
-  };
-  "merchant.order.complete": {
-    approve: boolean;
-    cartToken: string;
-    channelId: string;
-    customerAcknowledgement: boolean;
-    digitalImmediate: boolean;
-    locale: string;
-    policyVersion: string;
-    requestKey: string;
-    revision: number;
-    terms: boolean;
-    totalMinor: string;
-  };
 }

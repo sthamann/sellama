@@ -4,6 +4,17 @@ Updated 3 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
+## Saved customer payments, 3 November 2026, feature branch
+
+Contract 1.6.0 adds explicit save consent, account-bound second purchases and
+immediate customer revocation through the existing native ledger and jobs.
+Provider tokens stay encrypted in the private service. Checkout/account controls,
+HTTP/MCP operations and a minimized Flow event share current identity checks.
+Local Rust/PostgreSQL tests cover foreign/guest denial, delayed confirmation and
+restart without duplicate capture. Hosted migrations and configuration remain
+pending; external provider account tests remain deferred.
+[Workflow, storage and rollout](payment-saved-methods.md).
+
 ## Deferred invoice checkout, 3 November 2026
 
 The 1.5.0 feature branch adds private invoice details before provider creation,

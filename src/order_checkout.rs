@@ -286,6 +286,7 @@ pub(crate) async fn checkout(a: &App, h: &RequestContext, key: &str) -> Result<V
             None
         };
         payments::prepare(&mut tx, &c, &mut order, minor, return_origin.as_deref()).await?;
+        payments::prepare_funding(&mut tx, h, &c, &order).await?;
         commerce::order_fields(&mut order);
         sqlx::query("UPDATE orders SET data=$1 WHERE id=$2")
             .bind(&order)

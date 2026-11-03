@@ -1,4 +1,5 @@
 /** Responsive customer workspace separates authentication, address care and protected purchase details. */
+import SavedPaymentMethods from "./SavedPaymentMethods";
 import { useEffect, useRef, useState } from "react";
 import type { Cart } from "../../shared/api/shop-api";
 import { AppSurfaceSlot } from "../../shared/apps/AppSurfaces";
@@ -211,6 +212,9 @@ export default function CustomerAccount({
                         onOrder={onOrder}
                         onShop={onClose}
                       />
+                    )}
+                    {page === "overview" && (
+                      <SavedPaymentMethods customerId={account.profile.id} />
                     )}
                     {page === "profile" && (
                       <>

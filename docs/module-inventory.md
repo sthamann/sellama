@@ -482,6 +482,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/payments/provider_configuration.rs](../src/payments/provider_configuration.rs) | Pure startup validation of the native provider origin; no live credentials or provider calls. |
 | [src/payments/provider_webhooks.rs](../src/payments/provider_webhooks.rs) | Version-pinned HMAC notifications enqueue reconciliation; external event payloads never write monetary state. |
 | [src/payments/receipt_guard.rs](../src/payments/receipt_guard.rs) | Bind integer provider receipt amounts and status to the formally checked exact-match predicate. |
+| [src/payments/refund_receipts.rs](../src/payments/refund_receipts.rs) | Exactly-once provider refund admission, including refunds initiated outside Studio. |
 | [src/payments/registry.rs](../src/payments/registry.rs) | Installed payment registry and immutable account/version snapshots; no remote calls inside checkout SQL. |
 | [src/payments/remote.rs](../src/payments/remote.rs) | Dedicated payment RPC, pinned service version and operator-owned egress; never ordinary app-action receipts. |
 | [src/payments/return_urls.rs](../src/payments/return_urls.rs) | Provider return/cancel URLs preserve the tenant and sales channel; navigation is never payment evidence. |
@@ -1975,6 +1976,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/outbox_cases.py](../scripts/testing/outbox_cases.py) | Disposable real-transaction counterexamples for subscriber migration and commit-order gaps. |
 | [scripts/testing/parallel_check.py](../scripts/testing/parallel_check.py) | Owned background verification process group; failures stay fatal and logs survive cleanup. |
 | [scripts/testing/partition_coverage.py](../scripts/testing/partition_coverage.py) | Transfer same-source raw LLVM/Python profiles; official collectors calculate coverage. |
+| [scripts/testing/payment_external_refunds.py](../scripts/testing/payment_external_refunds.py) | Admit provider-initiated refunds through actual HTTP/SQL; malicious receipts leave the ledger untouched. |
 | [scripts/testing/payment_snapshot.py](../scripts/testing/payment_snapshot.py) | Force a committed provider receipt between POS cart admission and its status read. |
 | [scripts/testing/plugin_ownership.py](../scripts/testing/plugin_ownership.py) | Keep app implementation in its package; preserve shared runtimes and exact safety boundaries. |
 | [scripts/testing/pooler.py](../scripts/testing/pooler.py) | Owned real PgBouncer fixture: one backend, transaction pooling, never a forced privileged user. |

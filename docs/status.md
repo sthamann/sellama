@@ -88,6 +88,16 @@ Klarna settings saved after the scoped settings payload repair. This public brow
 journey accepts card simulation; other methods retain their separately named local
 acceptance. [Screenshots and observed result](shopware-payments-acceptance.md#public-original-storyfront-purchase-and-refund-3-november-2026).
 
+## External refund reconciliation (3 November 2026, local acceptance)
+
+Provider-initiated completed refunds now use the same native receipt claims,
+payment/order state and outbox. Signed capture-link notifications resolve their
+original provider order; duplicate receipts, wrong amounts/currencies and native
+job mismatches are rejected. Both actual Rust services and the independent Core
+provider fixture passed against local HTTP PSP responses. This is additional
+local acceptance, not an actual external test-account or complete parity claim.
+[Evidence and remaining external prerequisite](evidence/payment-refund-reconciliation-2026-11-03.md).
+
 ## Shopware Payments acceptance (2 November 2026)
 
 The private provider and current public Core pass local synthetic purchase,

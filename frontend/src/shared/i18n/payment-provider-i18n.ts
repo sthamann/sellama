@@ -128,6 +128,12 @@ export const paymentProviderWords = {
     "Annuler l’autorisation",
     "Anular autorización",
   ],
+  details: [
+    "Transaction details",
+    "Transaktionsdetails",
+    "Détails de transaction",
+    "Detalles de transacción",
+  ],
   multi_capture: [
     "Partial and multiple captures",
     "Teilbeträge und mehrere Einzüge",

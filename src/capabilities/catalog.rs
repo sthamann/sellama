@@ -12,6 +12,7 @@ pub(super) fn definitions() -> Vec<(&'static str, &'static str)> {
     all.extend(crate::apps::discovery::CAPABILITIES.iter().copied());
     all.extend(crate::agent_runs::controls::CAPABILITIES.iter().copied());
     all.extend(COGNITIVE.iter().copied());
+    all.extend(crate::payments::CAPABILITIES.iter().copied());
     all.extend([
         (
             "merchant.app.history",

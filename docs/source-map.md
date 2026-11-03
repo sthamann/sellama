@@ -712,3 +712,11 @@ management. [Merchant workflow](payment-capture-management.md) and
 [provider contract](payment-provider-api.md#partial-and-multiple-captures) define
 balance, recovery and current-rights behavior. The generated conformance driver
 now dispatches through bounded files matching the existing seven policy domains.
+
+## Payment transaction observations
+
+`src/payments/{catalog,details,details_model,details_tests}.rs` own the provider-neutral
+read contract and safe durable history projection. `remote.rs` omits customer/order
+payloads for inspection. Provider protocol and fee extraction remain in the private
+Rust payment service. `frontend/src/admin/payments/PaymentDetails` is shared by
+orders and payment management. [Usage](payment-transaction-details.md).

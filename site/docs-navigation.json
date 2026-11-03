@@ -117,6 +117,8 @@
         "docs/connected-apps.md",
         "docs/email-delivery.md",
         "docs/payment-provider-api.md",
+        "docs/payment-transaction-details.md",
+        "docs/payment-capture-management.md",
         "docs/studio-api-and-channels.md",
         "docs/service-integrations.md",
         "docs/plugin-ownership.md"

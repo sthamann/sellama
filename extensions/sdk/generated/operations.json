@@ -1652,108 +1652,6 @@
       "readOnly": false
     },
     {
-      "description": "Explicitly approved idempotent provider command",
-      "inputSchema": {
-        "additionalProperties": false,
-        "properties": {
-          "amountMinor": {
-            "minimum": 1,
-            "type": "integer"
-          },
-          "approve": {
-            "type": "boolean"
-          },
-          "captureId": {
-            "type": "string"
-          },
-          "finalCapture": {
-            "type": "boolean"
-          },
-          "id": {
-            "type": "string"
-          },
-          "operation": {
-            "enum": [
-              "capture",
-              "authorize",
-              "void",
-              "refund",
-              "reconcile",
-              "cancel"
-            ],
-            "type": "string"
-          },
-          "requestKey": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "operation",
-          "requestKey",
-          "approve"
-        ],
-        "type": "object"
-      },
-      "name": "merchant.payment",
-      "readOnly": false
-    },
-    {
-      "description": "Read installed payment contracts and merchant account readiness",
-      "inputSchema": {
-        "additionalProperties": false,
-        "properties": {},
-        "required": [],
-        "type": "object"
-      },
-      "name": "merchant.payment.providers",
-      "readOnly": false
-    },
-    {
-      "description": "Approved provider onboarding scoped to merchant and sales channel",
-      "inputSchema": {
-        "additionalProperties": false,
-        "properties": {
-          "approve": {
-            "type": "boolean"
-          },
-          "channel": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "environment": {
-            "enum": [
-              "sandbox",
-              "live",
-              "simulation",
-              "contract-fixture"
-            ],
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "operation": {
-            "enum": [
-              "start",
-              "status",
-              "disconnect"
-            ],
-            "type": "string"
-          },
-          "requestKey": {
-            "type": "string"
-          }
-        },
-        "required": [],
-        "type": "object"
-      },
-      "name": "merchant.payment.onboarding",
-      "readOnly": false
-    },
-    {
       "description": "Explicit recoverable App Studio project removal or restore",
       "inputSchema": {
         "additionalProperties": false,
@@ -4031,6 +3929,125 @@
         "type": "object"
       },
       "name": "knowledge.compile",
+      "readOnly": false
+    },
+    {
+      "description": "Explicitly approved idempotent provider command",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "amountMinor": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "approve": {
+            "type": "boolean"
+          },
+          "captureId": {
+            "type": "string"
+          },
+          "finalCapture": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "operation": {
+            "enum": [
+              "capture",
+              "authorize",
+              "void",
+              "refund",
+              "reconcile",
+              "cancel"
+            ],
+            "type": "string"
+          },
+          "requestKey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "operation",
+          "requestKey",
+          "approve"
+        ],
+        "type": "object"
+      },
+      "name": "merchant.payment",
+      "readOnly": false
+    },
+    {
+      "description": "Read native payment history and provider transaction fees",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "name": "merchant.payment.details",
+      "readOnly": true
+    },
+    {
+      "description": "Read installed payment contracts and merchant account readiness",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {},
+        "required": [],
+        "type": "object"
+      },
+      "name": "merchant.payment.providers",
+      "readOnly": false
+    },
+    {
+      "description": "Approved provider onboarding scoped to merchant and sales channel",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "approve": {
+            "type": "boolean"
+          },
+          "channel": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "environment": {
+            "enum": [
+              "sandbox",
+              "live",
+              "simulation",
+              "contract-fixture"
+            ],
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "operation": {
+            "enum": [
+              "start",
+              "status",
+              "disconnect"
+            ],
+            "type": "string"
+          },
+          "requestKey": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "name": "merchant.payment.onboarding",
       "readOnly": false
     },
     {

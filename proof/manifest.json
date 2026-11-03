@@ -2466,8 +2466,8 @@
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "e083a91cc9b614639cd435882f179c1bf744bd1514d164b45db75f37b0655615",
-      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
+      "sha256": "d799fbd5dffad28eb5c640ac9a640467af032d17bd98e7b78a718fd5930e03e0",
+      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
     },
     "src/capabilities/contract.rs": {
       "status": "unproved",
@@ -2476,8 +2476,8 @@
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
-      "sha256": "67bcdcf60488925af59c6e9ca82f3020e992b4d075255e83826456b9f3121fff",
-      "review": "Reviewed native admin customer/order ownership, compound permissions, actor-private cart and direct-token consumers, channel/settings/customer lock ordering, final extracted manual-payment admission, MCP schemas and local isolation/concurrency regressions; SQL and async effects remain outside Lean proof."
+      "sha256": "c550c48401adf896628c3c97c5ceb1d4072e2677b1c5faa99e204c92b5bdcba9",
+      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
     },
     "src/capabilities/dispatch.rs": {
       "status": "unproved",
@@ -2486,13 +2486,13 @@
     },
     "src/capabilities/registry.rs": {
       "status": "unproved",
-      "sha256": "7723375141214c28dc2467fd0ab8a23f2351486278cc51c40f51d5f6bf09e160",
-      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
+      "sha256": "ff30f8b77cf921be4e3dd62c884e7b1ae54cc5289ba4debc99edd452972c98ad",
+      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "c125ba0a1b2b3fec621815320c1ac7cae8384a676bedb7c011ade08cfe0d3344",
-      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
+      "sha256": "b0674a3fb2b858d503e2e803a51003d1f71a5f747b43d9ea5b12e6eb83ad130c",
+      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -3696,8 +3696,8 @@
     },
     "src/operations/mod.rs": {
       "status": "unproved",
-      "sha256": "817bc5325bdf42ac60c5c95186e27274bbec57ba03acdd0d843b5bdadec7b2c7",
-      "review": "Reviewed contextual private-work contracts and independent findings: app opt-out, locked guidance, preserved manual actions, conversation lease and locale inheritance; native own/foreign, stale approval, narrowed rights, renewed login, killed-worker continuation and actual app-preview regressions passed. SQL, async runtime and providers remain unproved."
+      "sha256": "ecbb4fb9920466d261b422f337524fb2021bd692f0d08688aecc632ad1c2d100",
+      "review": "Reviewed scoped payment-only read snapshot, frozen PII-free inspection and typed fee bounds; payment descriptions and unchanged merchant command bridge moved into payment owner. Native Rust/Core/PG and targeted UI tests pass. SQL and provider calls remain unproved."
     },
     "src/operations/order_documents.rs": {
       "status": "unproved",
@@ -3789,20 +3789,45 @@
       "sha256": "cdb986d3b03805fb73771623cbc63f3cf6f4be72cb5779bdc9fe70645e815e97",
       "review": "Reviewed partial capture, per-capture refunds, settings admission and attempt-before-job locking; generated dispatcher follows policy domains; no SQL/provider proof claim"
     },
+    "src/payments/catalog.rs": {
+      "status": "unproved",
+      "sha256": "969191e6857a0fef265fe2257ed24f3db7a106409fb36bfc32c3d10e35bef201",
+      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+    },
     "src/payments/contract.rs": {
       "status": "unproved",
-      "sha256": "c2d1c8a6a915c7166acf7bd0ad5ff3037b4860751fab33c21014bbe989a12299",
-      "review": "Reviewed partial capture, per-capture refunds, settings admission and attempt-before-job locking; generated dispatcher follows policy domains; no SQL/provider proof claim"
+      "sha256": "5007347491d4b91871744baedb348169b40055cfb6702632b88369a029565cb5",
+      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+    },
+    "src/payments/details.rs": {
+      "status": "unproved",
+      "sha256": "1894067e08940d9299e7b57c37e72f7421c233b9db4eb2b9ab52b2799c5a8137",
+      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+    },
+    "src/payments/details_model.rs": {
+      "status": "unproved",
+      "sha256": "15fb81a47ed7fd1d8a9a217978ce7e45cf1bbd239e2f8cc083d1b761e2388c7e",
+      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+    },
+    "src/payments/details_tests.rs": {
+      "status": "unproved",
+      "sha256": "68722baf9dd2502e266d64b30ab205ef5f70980a278618aa16d48dddcaf5ba4c",
+      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
     },
     "src/payments/generic_receipts.rs": {
       "status": "unproved",
       "sha256": "f3215b4d5eb7b487282f21ef2c6c94a71e0a2aa922f8df049396c91e5bed80f4",
       "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
+    "src/payments/merchant.rs": {
+      "status": "unproved",
+      "sha256": "2613ffdb5a18bc89f992a5f7e08c34d1d595eba68f1b670fff2296690a54727d",
+      "review": "Reviewed scoped payment-only read snapshot, frozen PII-free inspection and typed fee bounds; payment descriptions and unchanged merchant command bridge moved into payment owner. Native Rust/Core/PG and targeted UI tests pass. SQL and provider calls remain unproved."
+    },
     "src/payments/mod.rs": {
       "status": "unproved",
-      "sha256": "5339c210e0e9082dd892daf7fe7ddb25f7bdb3c40f9f165d6f89de8b72e1d925",
-      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
+      "sha256": "93afdba5902760649ae9be98071a9cb792f7daeb7ab6ffca06b9be8031b4fa95",
+      "review": "Reviewed scoped payment-only read snapshot, frozen PII-free inspection and typed fee bounds; payment descriptions and unchanged merchant command bridge moved into payment owner. Native Rust/Core/PG and targeted UI tests pass. SQL and provider calls remain unproved."
     },
     "src/payments/operations.rs": {
       "status": "reviewed-binding",
@@ -3846,8 +3871,8 @@
     },
     "src/payments/remote.rs": {
       "status": "unproved",
-      "sha256": "4828d06d4d9c6a1ba4db31a1c6641c80adcb28c4cb30e339469677e202e7668b",
-      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
+      "sha256": "922d9087e94b8120bf49288f5646cb8929d920d99f7c3c9b6b26e6b2559856f1",
+      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",
@@ -3856,8 +3881,8 @@
     },
     "src/payments/routes.rs": {
       "status": "unproved",
-      "sha256": "52b39fcdc6e733f5c9c1816e727a6acdfe07c5acd92ebd9dd907c28567775b0a",
-      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
+      "sha256": "1713b97533a79eef3ca1c6546fae94a016137646f180ade370ff2e24f85fa257",
+      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
     },
     "src/payments/sessions.rs": {
       "status": "unproved",

@@ -70,7 +70,7 @@ pub(crate) fn permission(name: &str) -> Option<&'static str> {
         "merchant.receipts" => "documents.read",
         "merchant.receipt.create" => "documents.create",
         "merchant.payment" | "merchant.payment.onboarding" => "payments.manage",
-        "merchant.payment.providers" => "payments.read",
+        "merchant.payment.providers" | "merchant.payment.details" => "payments.read",
         "merchant.products"
         | "merchant.categories"
         | "merchant.product.assets"
@@ -283,37 +283,10 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
         "merchant.receipt.create" => {
             receipts::create(State(a.clone()), h.clone(), Path(id()?), Json(v.clone())).await?
         }
-        "merchant.payment.providers" => {
-            payments::providers_route(State(a.clone()), h.clone()).await?
-        }
-        "merchant.payment.onboarding" => Json(payments::onboarding(a, h, &id()?, v).await?),
-        "merchant.payment" => {
-            let op = v["operation"].as_str().ok_or(bad("operation required"))?;
-            if ![
-                "capture",
-                "authorize",
-                "void",
-                "refund",
-                "reconcile",
-                "cancel",
-            ]
-            .contains(&op)
-                || v["approve"] != true
-            {
-                return Err(bad("Payment operation and approval required"));
-            }
-            Json(
-                payments::enqueue(
-                    a,
-                    h,
-                    &id()?,
-                    op,
-                    v["requestKey"].as_str().ok_or(bad("requestKey required"))?,
-                    v,
-                )
-                .await?,
-            )
-        }
+        "merchant.payment.details"
+        | "merchant.payment.providers"
+        | "merchant.payment.onboarding"
+        | "merchant.payment" => Json(payments::merchant_operation(a, h, name, v).await?),
         _ => return Err(bad("Unknown operation")),
     };
     Ok(result)

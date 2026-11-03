@@ -2,21 +2,6 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs6 {
-  "checkout.select": {
-    checkout: {
-      address?: JsonValue | null;
-      billingAddress?: JsonValue | null;
-      billingAddressId?: string | null;
-      country?: string;
-      customerEmail?: string | null;
-      paymentMethodId?: string;
-      shippingAddressId?: string | null;
-      shippingMethodId?: string;
-    };
-    revision: number;
-  };
-  "knowledge.graph": JsonValue;
-  "knowledge.search": { query?: string };
   "knowledge.external": { query?: string };
   "knowledge.product": { id?: string };
   "knowledge.workspace": {
@@ -83,4 +68,14 @@ export interface Inputs6 {
     id?: string;
     revision?: number;
   };
+  "cart.create": { session?: string };
+  "cart.replace": {
+    items: Array<{
+      id: string;
+      quantity: number;
+      [key: string]: JsonValue | undefined;
+    }>;
+    revision: number;
+  };
+  "cart.quote": JsonValue;
 }

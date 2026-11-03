@@ -2,16 +2,6 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs7 {
-  "cart.create": { session?: string };
-  "cart.replace": {
-    items: Array<{
-      id: string;
-      quantity: number;
-      [key: string]: JsonValue | undefined;
-    }>;
-    revision: number;
-  };
-  "cart.quote": JsonValue;
   "checkout.complete": { idempotency_key: string };
   "merchant.plan": { instruction: string };
   "merchant.apply": { approve: boolean; task_id: string };
@@ -221,4 +211,24 @@ export interface Inputs7 {
         | "users";
     };
   };
+  "merchant.scenario.create": {
+    inference?: {
+      model?: string | null;
+      provider: "platform" | "ollama" | "openai" | "anthropic";
+    };
+    instruction: string;
+    profiles: Array<{
+      budgetMinor: number;
+      country: string;
+      goal: string;
+      id: string;
+      locale: string;
+      name: string;
+    }>;
+    requestId: string;
+    sourceTaskId?: string;
+    title: string;
+  };
+  "merchant.scenario.status": { id: string };
+  "merchant.scenario.list": JsonValue;
 }

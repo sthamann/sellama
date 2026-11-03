@@ -1030,6 +1030,11 @@
     "source": "src/payments/routes.rs"
   },
   {
+    "path": "/api/payments/{id}/details",
+    "method": "GET",
+    "source": "src/payments/routes.rs"
+  },
+  {
     "path": "/api/payments/{id}/{operation}",
     "method": "POST",
     "source": "src/payments/routes.rs"

@@ -2,6 +2,7 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs11 {
+  "studio.workspace.work.read": JsonValue;
   "studio.workspace.read": JsonValue;
   "studio.workspace.save": { data: JsonValue; revision: number };
   "merchant.import.inspect": {
@@ -106,26 +107,5 @@ export interface Inputs11 {
     mode: "csv" | "url" | "demo" | "shopify_csv" | "shop_mcp";
     shopDomain?: string;
     source: string;
-  };
-  "merchant.catalog.save": {
-    approve: boolean;
-    currency: string;
-    demo: boolean;
-    draft: {
-      description: string;
-      imageUrl?: string;
-      name: string;
-      price: number;
-      productNumber?: string;
-      source?: {
-        externalId: string;
-        provider: "shopify_csv" | "shop_mcp";
-        url?: string;
-      };
-    };
-    id: string;
-    mainLocale: string;
-    settingsRevision: number;
-    taxRate: number;
   };
 }

@@ -1,6 +1,6 @@
 {
   "id": "shopware_payments",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "coreApi": "1",
   "runtime": "service",
   "category": "payment",
@@ -159,7 +159,8 @@
           "authorize",
           "void",
           "refund",
-          "multi_capture"
+          "multi_capture",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -199,7 +200,8 @@
         "countries": [],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -239,7 +241,8 @@
         "countries": [],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -263,7 +266,8 @@
           "authorize",
           "void",
           "refund",
-          "multi_capture"
+          "multi_capture",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -272,9 +276,9 @@
         "id": "paylater",
         "name": {
           "en": "Pay later",
-          "de": "Später bezahlen",
+          "de": "Sp\u00e4ter bezahlen",
           "fr": "Payer plus tard",
-          "es": "Pagar después"
+          "es": "Pagar despu\u00e9s"
         },
         "currencies": [
           "USD",
@@ -296,7 +300,8 @@
         ],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -317,7 +322,8 @@
         ],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -327,8 +333,8 @@
         "name": {
           "en": "SEPA direct debit",
           "de": "SEPA-Lastschrift",
-          "fr": "Prélèvement SEPA",
-          "es": "Domiciliación SEPA"
+          "fr": "Pr\u00e9l\u00e8vement SEPA",
+          "es": "Domiciliaci\u00f3n SEPA"
         },
         "currencies": [
           "EUR"
@@ -353,7 +359,8 @@
         ],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -374,7 +381,8 @@
         ],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -395,7 +403,8 @@
         ],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -416,7 +425,8 @@
         ],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -437,7 +447,8 @@
         ],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -458,7 +469,8 @@
         ],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -480,7 +492,8 @@
         ],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -523,7 +536,8 @@
           "authorize",
           "void",
           "refund",
-          "multi_capture"
+          "multi_capture",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -544,7 +558,8 @@
         ],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -577,7 +592,8 @@
         ],
         "capabilities": [
           "capture",
-          "refund"
+          "refund",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -633,7 +649,8 @@
           "authorize",
           "void",
           "refund",
-          "multi_capture"
+          "multi_capture",
+          "details"
         ],
         "checkout": "embedded",
         "intent": "authorize"

@@ -57,7 +57,10 @@ The exact additive 003/004 maintenance SQL was separately
 applied to a local 001/002 database and replayed successfully, retaining checksums
 and restricted runtime grants. These preparations do not establish hosted rollout.
 
-Apply native migration 110/private 003/004 and private runtime grants, configure
-the private encryption key and roll out the matching artifacts before hosted
-acceptance. Actual provider tests remain deferred by the owner. This scope does
+Core migration 110 has now completed on the public deployment. Apply private
+003/004 and runtime grants, configure the private encryption key and roll out
+the matching private artifact/service configuration before hosted saved-method
+acceptance. The [public card recheck](../shopware-payments-acceptance.md#public-recheck-after-core-upgrade-3-november-2026)
+uses the existing private runtime 1.4.0 and does not accept saved-method behavior.
+Actual provider tests remain deferred by the owner. This scope does
 not accept merchant-initiated recurring/subscription charges or PSP token deletion.

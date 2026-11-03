@@ -168,6 +168,38 @@ No PSP was contacted.
 
 [Machine-readable result](evidence/storyfront-payment-service-2026-11-02.json).
 
+## Public recheck after Core upgrade, 3 November 2026
+
+At 22:39 UTC the public Core was running `e1dde810` from build
+`dreamy-channel-4551`. Its migration-only job had completed with exit code 0.
+The existing hosted private runtime reported **1.4.0**, mode **simulation**.
+
+Original Storyfront order **RAC-fb039310** completed its embedded native checkout
+and nested private card form for **EUR 59.90**. The native confirmation showed
+**payment confirmed**. Returning to the Experience closed the checkout and left
+the original bag empty, including after a full page reload. Studio then confirmed
+**EUR 0.01** and **EUR 59.89** refunds. A further provider-status refresh retained
+**refunded** and removed the refund-entry controls.
+
+The browser tooling reported a paused document response. A fresh Storyfront tab
+loaded native checkout; opening the existing provider document once and retrying
+the same nested payment session recovered its form. No second order or payment
+was created. This records the observed recovery rather than claiming an
+uninterrupted first-load browser run. An expired Studio session was renewed
+through the existing start workspace and its same-account resume control.
+
+![Original Storyfront with native checkout and nested simulated card form](assets/payments-recheck-20261103/storyfront-payment-embedded.jpg)
+
+[Confirmed payment](assets/payments-recheck-20261103/storyfront-payment-confirmed.jpg) ·
+[Empty original bag after reload](assets/payments-recheck-20261103/storyfront-empty-bag-reloaded.jpg).
+
+![The same new order is fully refunded in native Studio](assets/payments-recheck-20261103/storyfront-refund-complete.jpg)
+
+[Machine-readable result](evidence/public-storyfront-payment-recheck-2026-11-03.json).
+This accepts the new Core against the existing private runtime. Private
+migrations 003/004, its encryption key and the 1.6.0 runtime/configuration rollout
+remain pending. Saved-method 1.6.0 and invoice 1.5.0 acceptance are separate.
+
 ## Comparison with Shopware
 
 The [official Shopware Payments guide](https://docs.shopware.com/en/shopware-6-en/shopware-services/shopware-payments)

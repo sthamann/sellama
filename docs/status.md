@@ -4,6 +4,19 @@ Updated 3 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
+## Public checkout recheck, 3 November 2026, 22:39 UTC
+
+Core `e1dde810` is publicly running after its migration-only job completed.
+Original Storyfront order **RAC-fb039310** passed the nested native checkout and
+private simulated card payment for **EUR 59.90**, returned to the Experience and
+retained an empty original bag after reload. Native Studio then confirmed a
+one-cent refund and the exact EUR 59.89 remainder; another provider-status refresh
+retained **refunded**. The browser required recovery of a paused document response
+and a retry of the same payment session, without creating another order.
+The hosted private runtime remains **1.4.0**. This recheck does not accept the
+pending saved-method or invoice rollout.
+[Screenshots and exact acceptance](shopware-payments-acceptance.md#public-recheck-after-core-upgrade-3-november-2026).
+
 ## Saved customer payments, 3 November 2026, integrated source
 
 Contract 1.6.0 adds explicit save consent, account-bound second purchases and
@@ -14,13 +27,14 @@ Local Rust/PostgreSQL tests cover foreign/guest denial, delayed confirmation and
 restart without duplicate capture. Running the hosted-mode simulation transport
 locally also passes PayPal/card save, repeat purchase, revoke and refund with no
 external calls. The Core and private service changes are merged into main.
-Hosted migrations and configuration remain
-pending; external provider account tests remain deferred.
+Core migration 110 has completed publicly. Private migrations 003/004, its
+encryption key, versioned service configuration and the private runtime upgrade
+remain pending; external provider account tests remain deferred.
 [Workflow, storage and rollout](payment-saved-methods.md).
 
 ## Deferred invoice checkout, 3 November 2026
 
-The 1.5.0 feature branch adds private invoice details before provider creation,
+Contract 1.5.0 adds private invoice details before provider creation,
 immutable recipient instructions, durable pending review and same-key/webhook
 recovery. Local native Rust/Core/PostgreSQL and 17-method simulation checks pass.
 The recipient display supports four languages and narrow embedded checkouts.

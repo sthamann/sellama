@@ -1,0 +1,53 @@
+{
+  "observedAt": "2026-11-03T22:39:16Z",
+  "scope": "Public original Storyfront purchase and refund on the newly deployed Core; simulated money only",
+  "browser": "Actual Chrome UI, nested native checkout and private provider frame; native Studio refund controls",
+  "coreCommit": "e1dde8100bc4039126a1a647418e7eebb83b92c6",
+  "coreBuild": "dreamy-channel-4551",
+  "coreMigration": {
+    "observedResult": "Migration-only setup complete; exit code 0",
+    "runId": "7203e25b-6170-423d-9c39-ce1fa817eaa8",
+    "finishedAt": "2026-11-03T22:26:17Z"
+  },
+  "providerImplementationVersion": "1.4.0",
+  "providerMode": "simulation",
+  "shop": "lumen-story-lab-15-o-98aa4751fa",
+  "order": "RAC-fb039310",
+  "method": "shopware-payments-card",
+  "currency": "EUR",
+  "quantity": 1,
+  "totalMinor": 5990,
+  "taxMinor": 956,
+  "shippingMinor": 0,
+  "originalBagBefore": 1,
+  "nestedNativeCheckoutVisible": true,
+  "nestedPrivateProviderFormVisible": true,
+  "explicitSimulatedConfirmation": true,
+  "nativePaymentConfirmed": true,
+  "nativeOrderStateAfterPayment": "captured",
+  "originalStoryfrontReturn": true,
+  "originalBagAfter": 0,
+  "originalBagAfterReload": 0,
+  "refundMinorAmounts": [
+    1,
+    5989
+  ],
+  "nativeOrderStateAfterRefund": "refunded",
+  "providerStatusRecheckedAfterRefund": true,
+  "merchantSessionRecovery": "Existing start workspace renewed the merchant session; same-account resume restored the original order view without replaying an action",
+  "browserInstrumentedDocumentRecovery": "Browser Use reported a paused document response. A fresh Storyfront tab loaded native checkout; after opening the existing provider document once, retrying the same nested payment session loaded it. No second order or payment was created.",
+  "realPspCharged": false,
+  "acceptsSavedMethods160": false,
+  "acceptsInvoice150": false,
+  "remainingAcceptance": [
+    "Hosted private migrations 003/004, encryption key and 1.6.0 runtime cutover",
+    "Hosted saved-method save/reuse/revoke and invoice journeys",
+    "Actual provider account tests deferred by owner"
+  ],
+  "screenshots": [
+    "../assets/payments-recheck-20261103/storyfront-payment-embedded.jpg",
+    "../assets/payments-recheck-20261103/storyfront-payment-confirmed.jpg",
+    "../assets/payments-recheck-20261103/storyfront-empty-bag-reloaded.jpg",
+    "../assets/payments-recheck-20261103/storyfront-refund-complete.jpg"
+  ]
+}

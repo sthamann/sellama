@@ -701,3 +701,14 @@ is shared by Shop today and personal workspace areas. Existing private workspace
 CAS/history stores presentation choices only. `merchant_reports` tests real
 native checkout/POS, consent, current rights, isolation and historical fixtures.
 See [merchant reports](merchant-reports.md) for metric semantics and bounds.
+
+## Native capture and refund allocation
+
+`payments/{capture_configuration,capture_admission,settlements,refund_allocation}.rs`
+reuse native shop settings, attempts, jobs and receipt claims. `generic_receipts`
+admits immutable provider evidence; `worker` preserves attempt-before-job locking.
+The shared Studio `admin/payments/PaymentActions` is used by orders and payment
+management. [Merchant workflow](payment-capture-management.md) and
+[provider contract](payment-provider-api.md#partial-and-multiple-captures) define
+balance, recovery and current-rights behavior. The generated conformance driver
+now dispatches through bounded files matching the existing seven policy domains.

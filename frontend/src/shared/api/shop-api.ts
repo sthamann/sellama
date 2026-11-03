@@ -98,6 +98,7 @@ export type Shipping = {
 export type Payment = {
   provider?: string;
   providerMethod?: string;
+  captureMode?: "capture" | "authorize";
   id: string;
   name: string;
   translations?: import("../geography/geography-types").TextMap;

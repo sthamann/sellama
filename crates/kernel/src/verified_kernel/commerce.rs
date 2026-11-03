@@ -8,6 +8,13 @@ pub fn stock_admissible(stock: u64, quantity: u64) -> bool {
 pub fn refund_admissible(captured: u64, refunded: u64, requested: u64) -> bool {
     refunded <= captured && requested > 0 && requested <= captured.saturating_sub(refunded)
 }
+/// Captures and in-flight reservations together cannot exceed the original authorization.
+pub fn capture_admissible(authorized: u64, captured: u64, reserved: u64, requested: u64) -> bool {
+    captured <= authorized
+        && reserved <= authorized.saturating_sub(captured)
+        && requested > 0
+        && requested <= authorized.saturating_sub(captured).saturating_sub(reserved)
+}
 pub fn revision_admissible(current: u64, expected: u64) -> bool {
     current > 0 && current == expected
 }

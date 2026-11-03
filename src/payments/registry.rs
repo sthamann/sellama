@@ -52,6 +52,7 @@ pub(crate) async fn install_methods(
             let method = m.payment_provider.as_ref().and_then(|p| p.methods.iter()
                 .find(|method| Some(&method.id) == configured.provider_method.as_ref()))
                 .ok_or(conflict("Upgrade would invalidate an active payment method; update its configuration first"))?;
+            super::capture_configuration::intent(configured.capture_mode.as_deref(), method)?;
             let previous = old
                 .as_ref()
                 .and_then(|p| p.payment_provider.as_ref())
@@ -124,6 +125,7 @@ pub(crate) async fn install_methods(
             mode: "app".into(),
             provider: Some(m.id.clone()),
             provider_method: Some(method.id.clone()),
+            capture_mode: None,
         });
     }
     commerce::validate_config(&s)?;
@@ -159,6 +161,7 @@ pub(crate) async fn prepare_remote(
         .payment_provider
         .as_ref()
         .ok_or(bad("Payment provider contract missing"))?;
+    let configured_intent = method["captureMode"].as_str();
     let method = contract
         .methods
         .iter()
@@ -177,6 +180,7 @@ pub(crate) async fn prepare_remote(
     {
         return Err(bad("Provider method unavailable for currency or country"));
     }
+    let intent = super::capture_configuration::intent(configured_intent, method)?;
     let channel = c.data.sales_channel.as_str();
     let r=sqlx::query("SELECT * FROM payment_provider_accounts WHERE tenant=$1 AND app=$2 AND channel IN ($3,'default') ORDER BY (channel=$3) DESC LIMIT 1 FOR SHARE").bind(&c.tenant).bind(provider).bind(channel).fetch_optional(&mut **tx).await?.ok_or(conflict("Complete payment provider onboarding first"))?;
     if !r.get::<bool, _>("ready") {
@@ -192,7 +196,7 @@ pub(crate) async fn prepare_remote(
     }
     let environment: String = r.get("environment");
     remote::config(provider, &m.version, &environment)?;
-    let context = json!({"apiVersion":"1","accountRef":r.get::<String,_>("account_ref"),"method":method.id,"capabilities":method.capabilities,"checkout":method.checkout,"intent":method.intent,"channel":channel,"returnOrigin":return_origin,"currencyScale":o["cart"]["price"]["currencyScale"]});
+    let context = json!({"apiVersion":"1","accountRef":r.get::<String,_>("account_ref"),"method":method.id,"capabilities":method.capabilities,"checkout":method.checkout,"intent":intent,"channel":channel,"returnOrigin":return_origin,"currencyScale":o["cart"]["price"]["currencyScale"]});
     let id = uid();
     o["payment"] = json!({"method":o["cart"]["paymentMethod"],"provider":provider,"state":"pending","attemptId":id,"environment":environment,"realMoneyCharged":false});
     sqlx::query("INSERT INTO payment_attempts(id,tenant,order_id,provider,adapter_version,amount_minor,currency,environment,bn_code,provider_context,currency_scale) VALUES($1,$2,$3,$4,$5,$6,$9,$7,'',$8,$10)").bind(&id).bind(&c.tenant).bind(o["id"].as_str().unwrap()).bind(provider).bind(&m.version).bind(minor).bind(environment).bind(context).bind(currency).bind(o["cart"]["price"]["currencyScale"].as_i64().unwrap_or(2) as i16).execute(&mut **tx).await?;

@@ -114,6 +114,11 @@ pub(crate) fn validate_config(s: &Settings) -> Result<()> {
     }
     for v in &s.payments {
         super::method_text::validate_text(&v.translations, s)?;
+        if v.capture_mode.as_deref().is_some_and(|mode| {
+            !["capture", "authorize"].contains(&mode) || v.mode != "app" || v.provider.is_none()
+        }) {
+            return Err(bad("Invalid payment capture mode"));
+        }
         if v.countries.iter().any(|c| !s.countries.contains(c)) {
             return Err(bad("Invalid payment countries"));
         }

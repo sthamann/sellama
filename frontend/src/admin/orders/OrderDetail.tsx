@@ -1,4 +1,6 @@
 /** Order workspace: server actions, exact-once commands, provider progress and visible event history. */
+import type { PaymentOptions } from "../payments/payment-amount";
+
 import { contentText } from "../../shared/i18n/content-language";
 import CoreExtensions from "../../shared/apps/CoreExtensions";
 import { useCrmText } from "../../shared/i18n/crm-i18n";
@@ -132,16 +134,21 @@ export default function OrderDetail({
     setFeedback(o("providerPending"));
     return false;
   };
-  const payment = (operation: string, amount?: number) =>
+  const payment = (
+    operation: string,
+    amount?: number,
+    options?: PaymentOptions,
+  ) =>
     run(async () => {
       if (pendingJob) return observe(pendingJob);
-      const signature = JSON.stringify({ id, operation, amount });
+      const signature = JSON.stringify({ id, operation, amount, options });
       if (retry.current?.signature !== signature)
         retry.current = {
           signature,
           key: crypto.randomUUID(),
           body: {
             approve: true,
+            ...options,
             ...(amount === undefined ? {} : { amountMinor: amount }),
           },
         };

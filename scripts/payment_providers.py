@@ -24,11 +24,12 @@ class Handler(BaseHTTPRequestHandler):
    if b['operation']=='refund':v.update(status='refunded',refund={'id':'REFUND-'+b['requestKey'],'amountMinor':b['input']['amountMinor'],'currency':b['currency']})
    if b['operation']=='reconcile' and behavior.get('refundsFor') == b['attemptId']:
     v.update(status='captured',captureId='CAP-'+b['attemptId'],settledAmountMinor=b['amountMinor'],refunds=behavior['refunds'])
+   if b['operation'] in ('reconcile','capture') and behavior.get('capturesFor')==b['attemptId']:v.update(behavior['captureSnapshot'])
    if behavior.get('badMoney') and b['operation']=='capture':v['settledAmountMinor']=1
    if behavior.get('wrongAccount'):v['accountRef']='foreign-account'
   self.send_response(200);self.send_header('Content-Type','application/json');self.end_headers();self.wfile.write(json.dumps(v).encode())
 secret='synthetic-private-provider-credential-123';fixture=ThreadingHTTPServer(('127.0.0.1',0),Handler);threading.Thread(target=fixture.serve_forever,daemon=True).start()
-base='http://127.0.0.1:8795';cfg={'url':f'http://127.0.0.1:{fixture.server_address[1]}','token':secret,'environment':'contract-fixture','approvalOrigins':['https://provider.example.test']};env={**os.environ,'BIND_ADDR':'127.0.0.1:8795','PAYMENT_SERVICES':json.dumps({'example_payments':{'1.0.0':cfg,'1.1.0':cfg}}),'PAYPAL_ACCOUNTS':'{}','PAYPAL_SANDBOX_ACCOUNTS':'{}'}
+base='http://127.0.0.1:8795';cfg={'url':f'http://127.0.0.1:{fixture.server_address[1]}','token':secret,'environment':'contract-fixture','approvalOrigins':['https://provider.example.test']};env={**os.environ,'BIND_ADDR':'127.0.0.1:8795','PAYMENT_SERVICES':json.dumps({'example_payments':{'1.0.0':cfg,'1.1.0':cfg,'1.2.0':cfg}}),'PAYPAL_ACCOUNTS':'{}','PAYPAL_SANDBOX_ACCOUNTS':'{}'}
 ROOT.joinpath('artifacts').mkdir(exist_ok=True);log=open(ROOT/'artifacts/generic-payments.log','w');p=None
 ah={'Authorization':'Bearer '+os.environ['MERCHANT_TOKEN'],'x-tenant':'workshop'}
 def call(path,body=None,h=None,method=None,expected=200):
@@ -176,10 +177,14 @@ try:
  m['paymentProvider']['methods'][0]['intent']='capture';m['version']='1.1.1'
  # Reuse a version for the collision case: two attempts may never allocate one capture receipt.
  m['version']='1.1.0';call('/api/apps',{'manifest':m},ah,expected=409)
- o3,h3=purchase();id3=o3['payment']['attemptId'];wait(id3,h3,'ready');reference[id3]='approved';behavior['captureId']='CAP-'+id
- call('/store-api/payments/'+id3+'/capture',{}, {**h3,'Idempotency-Key':uuid.uuid4().hex});time.sleep(1)
+ o3,h3=purchase();id3=o3['payment']['attemptId'];wait(id3,h3,'ready');reference[id3]='approved'
+ call('/store-api/payments/'+id3+'/reconcile',{}, {**h3,'Idempotency-Key':uuid.uuid4().hex});wait(id3,h3,'authorized')
+ behavior['captureId']='CAP-'+id
+ call('/api/payments/'+id3+'/capture',{'approve':True}, {**ah,'Idempotency-Key':uuid.uuid4().hex});time.sleep(1)
  assert call('/store-api/payments/'+id3,h=h3)['state']!='captured';behavior.clear()
  print('PASS Reused settlement receipt cannot mark another attempt paid')
+ from testing.payment_multiple_captures import run as multiple_captures
+ multiple_captures(globals())
  account=call('/api/payment-providers/'+m['id']+'/onboarding',{**onboard,'operation':'disconnect'},ah);assert not account['ready']
  assert not any(x['id']=='example-payments-wallet' for x in call('/store-api/checkout/options',h={'x-tenant':'workshop'})['payments'])
  print('PASS Disconnected provider methods are hidden from checkout discovery')

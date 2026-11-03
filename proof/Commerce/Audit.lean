@@ -45,6 +45,9 @@ import Commerce.Claims
 #print axioms CommerceKernel.budget_zero_at_exhaustion
 #print axioms CommerceKernel.cancellation_exact
 #print axioms CommerceKernel.cancellation_safe
+#print axioms CommerceKernel.capture_bounded
+#print axioms CommerceKernel.capture_exact
+#print axioms CommerceKernel.capture_zero_denied
 #print axioms CommerceKernel.carrier_booking_exact
 #print axioms CommerceKernel.carrier_booking_occupied_denied
 #print axioms CommerceKernel.channel_access_exact

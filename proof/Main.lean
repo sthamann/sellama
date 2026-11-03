@@ -42,6 +42,7 @@ def evalRequest (j : Json) : Except String Json := do
   | "discount_cap" => pure (toJson (discount_cap ((← (args.getObjVal? "total") >>= Json.getNat?)) ((← (args.getObjVal? "requested") >>= Json.getNat?))))
   | "stock_admissible" => pure (toJson (stock_admissible ((← (args.getObjVal? "stock") >>= Json.getNat?)) ((← (args.getObjVal? "quantity") >>= Json.getNat?))))
   | "refund_admissible" => pure (toJson (refund_admissible ((← (args.getObjVal? "captured") >>= Json.getNat?)) ((← (args.getObjVal? "refunded") >>= Json.getNat?)) ((← (args.getObjVal? "requested") >>= Json.getNat?))))
+  | "capture_admissible" => pure (toJson (capture_admissible ((← (args.getObjVal? "authorized") >>= Json.getNat?)) ((← (args.getObjVal? "captured") >>= Json.getNat?)) ((← (args.getObjVal? "reserved") >>= Json.getNat?)) ((← (args.getObjVal? "requested") >>= Json.getNat?))))
   | "revision_admissible" => pure (toJson (revision_admissible ((← (args.getObjVal? "current") >>= Json.getNat?)) ((← (args.getObjVal? "expected") >>= Json.getNat?))))
   | "replay_admissible" => pure (toJson (replay_admissible ((← (args.getObjVal? "same_cart") >>= Json.getBool?)) ((← (args.getObjVal? "cart_open") >>= Json.getBool?)) ((← (args.getObjVal? "same_fingerprint") >>= Json.getBool?))))
   | "checkout_contact_admissible" => pure (toJson (checkout_contact_admissible ((← (args.getObjVal? "simulated") >>= Json.getBool?)) ((← (args.getObjVal? "email_present") >>= Json.getBool?)) ((← (args.getObjVal? "billing_present") >>= Json.getBool?))))

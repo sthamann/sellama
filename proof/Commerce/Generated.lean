@@ -111,6 +111,9 @@ def stock_admissible (stock : Nat) (quantity : Nat) : Bool :=
 def refund_admissible (captured : Nat) (refunded : Nat) (requested : Nat) : Bool :=
   (((decide (refunded ≤ captured)) && (decide (requested > 0))) && (decide (requested ≤ (captured - refunded))))
 
+def capture_admissible (authorized : Nat) (captured : Nat) (reserved : Nat) (requested : Nat) : Bool :=
+  ((((decide (captured ≤ authorized)) && (decide (reserved ≤ (authorized - captured)))) && (decide (requested > 0))) && (decide (requested ≤ ((authorized - captured) - reserved))))
+
 def revision_admissible (current : Nat) (expected : Nat) : Bool :=
   ((decide (current > 0)) && (decide (current = expected)))
 
@@ -172,7 +175,7 @@ def reservation_release_admissible (uncaptured : Bool) (authorized : Bool) (void
   (uncaptured || (authorized && void_confirmed))
 
 def payment_transition_admissible (current : Nat) (next : Nat) : Bool :=
-  (((decide (current ≤ 9)) && (decide (next ≤ 9))) && (((((decide (current = next)) || (((decide (current ≤ 3)) && (decide (next > current))) && (decide (next ≤ 4)))) || ((decide (current ≤ 3)) && ((decide (next = 7)) || (decide (next = 8))))) || ((((decide (current = 4)) || (decide (current = 5))) || (decide (current = 9))) && ((decide (next = 5)) || (decide (next = 6))))) || (((decide (current = 7)) || (decide (current = 8))) && (decide (next = 9)))))
+  (((decide (current ≤ 10)) && (decide (next ≤ 10))) && (((((((decide (current = next)) || (((decide (current ≤ 3)) && (decide (next > current))) && (decide (next ≤ 4)))) || ((decide (current ≤ 3)) && ((decide (next = 7)) || (decide (next = 8))))) || ((((decide (current = 4)) || (decide (current = 5))) || (decide (current = 9))) && ((decide (next = 5)) || (decide (next = 6))))) || (((decide (current = 7)) || (decide (current = 8))) && (decide (next = 9)))) || ((decide (current ≤ 3)) && (decide (next = 10)))) || ((decide (current = 10)) && (((decide (next = 4)) || (decide (next = 5))) || (decide (next = 6))))))
 
 def delivery_split_admissible (is_open : Bool) (terminal : Bool) (available : Nat) (moving : Nat) : Bool :=
   (((is_open && (!terminal)) && (decide (moving > 0))) && (decide (moving < available)))

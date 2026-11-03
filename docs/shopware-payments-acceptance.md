@@ -2,9 +2,18 @@
 
 Updated 3 November 2026. The private Rust connector implements the provider path;
 the public Core owns the order and payment ledger. The public catalogue now ships
-the versioned 1.2.0 contract for all 17 methods. Install or upgrade it through the
+the versioned 1.3.0 contract for all 17 methods. Install or upgrade it through the
 existing app lifecycle, connect the configured account and enable its methods.
 Installing the contract does not provision the private service or activate methods. Use [the provider contract](payment-provider-api.md) for deployment.
+
+## Capture management, 3 November 2026
+
+Contract 1.3.0 adds native partial/multiple capture, exact per-capture refunds,
+confirmed remainder void and pending/lost-response recovery. The order and
+payment views share the balance/allocation controls; shop/channel settings choose
+immediate capture or authorization. [Workflow and acceptance boundary](payment-capture-management.md).
+These additions have local native-service acceptance. They are not yet a new
+public provider acceptance. The owner deferred external account tests until later.
 
 ## What can be tested now
 

@@ -206,7 +206,14 @@ This lists every checked-in source module in these roots, including files with n
 | [src/bin/money_boundary.rs](../src/bin/money_boundary.rs) | Batch transport for comparing the actual legacy-to-integer checkout boundary against original Shopware totals. |
 | [src/bin/price.rs](../src/bin/price.rs) | Batch price fixture transport for the original-PHP differential comparator. |
 | [src/bin/rules.rs](../src/bin/rules.rs) | Batch original-PHP numeric-rule comparison transport. |
-| [src/bin/verified_kernel/dispatch.rs](../src/bin/verified_kernel/dispatch.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
+| [src/bin/verified_kernel/dispatch/access.rs](../src/bin/verified_kernel/dispatch/access.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
+| [src/bin/verified_kernel/dispatch/agents.rs](../src/bin/verified_kernel/dispatch/agents.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
+| [src/bin/verified_kernel/dispatch/apps.rs](../src/bin/verified_kernel/dispatch/apps.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
+| [src/bin/verified_kernel/dispatch/automation.rs](../src/bin/verified_kernel/dispatch/automation.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
+| [src/bin/verified_kernel/dispatch/commerce.rs](../src/bin/verified_kernel/dispatch/commerce.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
+| [src/bin/verified_kernel/dispatch/fulfillment.rs](../src/bin/verified_kernel/dispatch/fulfillment.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
+| [src/bin/verified_kernel/dispatch/intelligence.rs](../src/bin/verified_kernel/dispatch/intelligence.rs) | Generated conformance driver; invokes the same production policy functions as the commerce server. |
+| [src/bin/verified_kernel/dispatch.rs](../src/bin/verified_kernel/dispatch.rs) | Generated domain dispatcher; each bounded module calls the original production policies. |
 | [src/bin/verified_kernel.rs](../src/bin/verified_kernel.rs) | Generated input/output driver; production policies are dispatched by the generated module. |
 | [src/bootstrap.rs](../src/bootstrap.rs) | Startup, additive migrations, persisted extensions and outbox worker. |
 | [src/brand_redirect.rs](../src/brand_redirect.rs) | Move browser pages to the configured domain while retaining integration and checkout endpoints. |
@@ -474,6 +481,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/outbox.rs](../src/outbox.rs) | Durable outbox and audit projection worker. |
 | [src/payments/accounts.rs](../src/payments/accounts.rs) | Merchant-authorized onboarding bridge; only authenticated provider responses establish account bindings. |
 | [src/payments/app_commands.rs](../src/payments/app_commands.rs) | App/Flow/MCP payment actions enqueue core jobs; provider-bound attempts prevent cross-app command authority. |
+| [src/payments/capture_admission.rs](../src/payments/capture_admission.rs) | Serialized native capture budgets; uncertain capture jobs reserve the remaining authorization. |
+| [src/payments/capture_configuration.rs](../src/payments/capture_configuration.rs) | Capture timing is versioned shop/channel configuration; every attempt freezes its admitted provider intent. |
 | [src/payments/contract.rs](../src/payments/contract.rs) | Versioned app-owned payment methods; declarations never grant financial authority. |
 | [src/payments/generic_receipts.rs](../src/payments/generic_receipts.rs) | Provider-neutral receipt admission and atomic allocation; verified evidence owns ledger transitions. |
 | [src/payments/mod.rs](../src/payments/mod.rs) | Provider-independent payment ledger and durable workers; the PayPal adapter supports explicit Sandbox/Live environments. |
@@ -482,12 +491,14 @@ This lists every checked-in source module in these roots, including files with n
 | [src/payments/provider_configuration.rs](../src/payments/provider_configuration.rs) | Pure startup validation of the native provider origin; no live credentials or provider calls. |
 | [src/payments/provider_webhooks.rs](../src/payments/provider_webhooks.rs) | Version-pinned HMAC notifications enqueue reconciliation; external event payloads never write monetary state. |
 | [src/payments/receipt_guard.rs](../src/payments/receipt_guard.rs) | Bind integer provider receipt amounts and status to the formally checked exact-match predicate. |
+| [src/payments/refund_allocation.rs](../src/payments/refund_allocation.rs) | Refunds select an owned capture and reserve its remaining amount before a provider call. |
 | [src/payments/refund_receipts.rs](../src/payments/refund_receipts.rs) | Exactly-once provider refund admission, including refunds initiated outside Studio. |
 | [src/payments/registry.rs](../src/payments/registry.rs) | Installed payment registry and immutable account/version snapshots; no remote calls inside checkout SQL. |
 | [src/payments/remote.rs](../src/payments/remote.rs) | Dedicated payment RPC, pinned service version and operator-owned egress; never ordinary app-action receipts. |
 | [src/payments/return_urls.rs](../src/payments/return_urls.rs) | Provider return/cancel URLs preserve the tenant and sales channel; navigation is never payment evidence. |
 | [src/payments/routes.rs](../src/payments/routes.rs) | Customer payment status/capture and merchant refund operations share the durable command API. |
 | [src/payments/sessions.rs](../src/payments/sessions.rs) | Customer-bound, short-lived provider UI sessions; iframe messages are never ledger receipts. |
+| [src/payments/settlements.rs](../src/payments/settlements.rs) | Immutable capture receipts and exact cumulative settlement for native partial/multiple captures. |
 | [src/payments/state.rs](../src/payments/state.rs) | One monotonic provider-neutral ledger state machine; evidence validation and authorization stay in receipt adapters. |
 | [src/payments/storage.rs](../src/payments/storage.rs) | Transactional provider receipts and order state updates; external responses cannot invent amounts or tenants. |
 | [src/payments/worker.rs](../src/payments/worker.rs) | Leased payment jobs; network runs after claim commit, fenced receipts prevent duplicate local effects. |
@@ -651,7 +662,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/apps/AppsManager.tsx](../frontend/src/admin/apps/AppsManager.tsx) | Installed package workspace: lifecycle, generated entities and shared agent actions. |
 | [frontend/src/admin/apps/ConnectorPanel.tsx](../frontend/src/admin/apps/ConnectorPanel.tsx) | Native app workspace: OAuth, provider settings, durable jobs and private sources. |
 | [frontend/src/admin/apps/IntegrationDirectory.tsx](../frontend/src/admin/apps/IntegrationDirectory.tsx) | Ten explicit service routes reuse native app consent or the documented HTTP setup; no fake connected state. |
-| [frontend/src/admin/apps/PaymentManager.tsx](../frontend/src/admin/apps/PaymentManager.tsx) | Payment ledger, adapter readiness and explicit refund approval. |
+| [frontend/src/admin/apps/PaymentManager.tsx](../frontend/src/admin/apps/PaymentManager.tsx) | Native payment balances and observed financial jobs, shared with the order detail controls. |
 | [frontend/src/admin/apps/ProviderAccount.tsx](../frontend/src/admin/apps/ProviderAccount.tsx) | Shared installed-provider onboarding and channel connection controls for merchant Apps and App Studio. |
 | [frontend/src/admin/apps/ServiceIntegrationPanel.tsx](../frontend/src/admin/apps/ServiceIntegrationPanel.tsx) | Revisioned encrypted connection forms and bounded operations on the existing app action gateway. |
 | [frontend/src/admin/apps/app-settings.css](../frontend/src/admin/apps/app-settings.css) | Installed-app configuration remains usable outside the developer workbench. |
@@ -922,6 +933,9 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/orders/ShipmentSplit.tsx](../frontend/src/admin/orders/ShipmentSplit.tsx) | Explicit subset editor uses server admission, parent command fencing and immutable order quantities. |
 | [frontend/src/admin/orders/shipments.css](../frontend/src/admin/orders/shipments.css) | Package allocation stays compact on desktop and touch-friendly on narrow order workspaces. |
 | [frontend/src/admin/orders/useOrderCreation.ts](../frontend/src/admin/orders/useOrderCreation.ts) | Draft controller loads admitted choices, fences async reads and keeps review state separate from the editable input. |
+| [frontend/src/admin/payments/PaymentActions.tsx](../frontend/src/admin/payments/PaymentActions.tsx) | Shared native order/provider controls; an accepted job is observed before another financial action. |
+| [frontend/src/admin/payments/payment-actions.css](../frontend/src/admin/payments/payment-actions.css) | Native payment action grouping, shared by order details and payment administration. |
+| [frontend/src/admin/payments/payment-amount.ts](../frontend/src/admin/payments/payment-amount.ts) | Exact decimal merchant input; reject overprecision instead of rounding financial commands. |
 | [frontend/src/admin/pos/POSWorkspace.tsx](../frontend/src/admin/pos/POSWorkspace.tsx) | Native Studio register; all reads and writes use authenticated, tenant-scoped shared commerce operations. |
 | [frontend/src/admin/pos/ReceiptPrinter.tsx](../frontend/src/admin/pos/ReceiptPrinter.tsx) | OS-installed receipt printers receive the issued immutable invoice projection; no USB access, credentials or duplicate ledger. |
 | [frontend/src/admin/pos/Register.tsx](../frontend/src/admin/pos/Register.tsx) | Register composition: persisted sale, catalog, customer and assistant tools share native transport. |
@@ -971,6 +985,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/scenarios/scenarios.css](../frontend/src/admin/scenarios/scenarios.css) | Private customer lab: compact profiles, scoped progress and evidence comparison. |
 | [frontend/src/admin/scenarios/useScenarioNavigation.ts](../frontend/src/admin/scenarios/useScenarioNavigation.ts) | Scope-fenced entry from native design, app and migration workspaces. |
 | [frontend/src/admin/settings/B2BSettings.tsx](../frontend/src/admin/settings/B2BSettings.tsx) | B2B controls edit the shared revisioned settings aggregate; no separate policy store or checkout engine. |
+| [frontend/src/admin/settings/CaptureModeSettings.tsx](../frontend/src/admin/settings/CaptureModeSettings.tsx) | Capture timing uses the installed provider declaration and the existing versioned settings draft. |
 | [frontend/src/admin/settings/CommerceSettings.tsx](../frontend/src/admin/settings/CommerceSettings.tsx) | One revisioned international settings aggregate: drafts survive navigation between countries, taxes, methods and languages. |
 | [frontend/src/admin/settings/CompanyField.tsx](../frontend/src/admin/settings/CompanyField.tsx) | One factual field with visible channel inheritance, an explicit reset and searchable geographic selection. |
 | [frontend/src/admin/settings/CompanyLogo.tsx](../frontend/src/admin/settings/CompanyLogo.tsx) | Private logo preview and bounded upload; attaching/removing is a draft change until the profile is saved. |
@@ -1311,6 +1326,8 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/locales/shop-fr.ts](../frontend/src/shared/i18n/locales/shop-fr.ts) | Storefront and operational interface strings: fr. |
 | [frontend/src/shared/i18n/native-lifecycle-i18n.ts](../frontend/src/shared/i18n/native-lifecycle-i18n.ts) | Shared native lifecycle editor vocabulary; state labels remain merchant content. |
 | [frontend/src/shared/i18n/operations-i18n.ts](../frontend/src/shared/i18n/operations-i18n.ts) | Operational commerce labels in all supported languages. |
+| [frontend/src/shared/i18n/payment-errors-i18n.ts](../frontend/src/shared/i18n/payment-errors-i18n.ts) | Recoverable merchant payment guidance; immutable provider diagnostics remain server-side. |
+| [frontend/src/shared/i18n/payment-ledger-i18n.ts](../frontend/src/shared/i18n/payment-ledger-i18n.ts) | Merchant payment balances and capture allocation vocabulary in every Studio language. |
 | [frontend/src/shared/i18n/payment-provider-i18n.ts](../frontend/src/shared/i18n/payment-provider-i18n.ts) | Payment contract editor and account onboarding vocabulary. |
 | [frontend/src/shared/i18n/platform-i18n.ts](../frontend/src/shared/i18n/platform-i18n.ts) | Operator console translations. Every visible control has an explicit translation in all supported locales. |
 | [frontend/src/shared/i18n/preference-i18n.ts](../frontend/src/shared/i18n/preference-i18n.ts) | Consent-bound private shopping-memory controls use typed interface text, separate from merchant product facts. |
@@ -1977,6 +1994,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/parallel_check.py](../scripts/testing/parallel_check.py) | Owned background verification process group; failures stay fatal and logs survive cleanup. |
 | [scripts/testing/partition_coverage.py](../scripts/testing/partition_coverage.py) | Transfer same-source raw LLVM/Python profiles; official collectors calculate coverage. |
 | [scripts/testing/payment_external_refunds.py](../scripts/testing/payment_external_refunds.py) | Admit provider-initiated refunds through actual HTTP/SQL; malicious receipts leave the ledger untouched. |
+| [scripts/testing/payment_multiple_captures.py](../scripts/testing/payment_multiple_captures.py) | Adversarial provider-neutral capture snapshots must leave native finance unchanged on rejection. |
 | [scripts/testing/payment_snapshot.py](../scripts/testing/payment_snapshot.py) | Force a committed provider receipt between POS cart admission and its status read. |
 | [scripts/testing/plugin_ownership.py](../scripts/testing/plugin_ownership.py) | Keep app implementation in its package; preserve shared runtimes and exact safety boundaries. |
 | [scripts/testing/pooler.py](../scripts/testing/pooler.py) | Owned real PgBouncer fixture: one backend, transaction pooling, never a forced privileged user. |

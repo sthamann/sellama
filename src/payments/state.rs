@@ -13,6 +13,7 @@ fn code(state: &str) -> Option<u64> {
         "cancelled",
         "expired",
         "captured_late",
+        "partially_captured",
     ]
     .iter()
     .position(|s| *s == state)

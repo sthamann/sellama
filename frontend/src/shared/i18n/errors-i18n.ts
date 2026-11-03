@@ -12,6 +12,7 @@ import {
   agentAdmissionErrors,
   agentAllowanceExhausted,
 } from "./agent-errors-i18n";
+import { paymentErrors } from "./payment-errors-i18n";
 import { modelErrors } from "../media/model-errors-i18n";
 const messages: Record<string, readonly string[]> = {
   "Consent contact data missing; enter the agreed email or phone, or withdraw marketing consent":
@@ -22,6 +23,7 @@ const messages: Record<string, readonly string[]> = {
       "Introduce el correo o teléfono requerido para tu elección de marketing, o retira ese consentimiento en Privacidad y reintenta. No se ha creado ningún pedido.",
     ],
   ...modelErrors,
+  ...paymentErrors,
   ...agentAdmissionErrors,
   ...configurationErrors,
   ...appUpgradeErrors,

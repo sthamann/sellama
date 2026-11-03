@@ -62,6 +62,12 @@ pub(crate) async fn app_command(
     {
         return Err(bad("Explicit approved payment command required"));
     }
+    let mut input = json!({});
+    for field in ["amountMinor", "captureId", "finalCapture"] {
+        if let Some(value) = v.get(field) {
+            input[field] = value.clone();
+        }
+    }
     enqueue(
         a,
         h,
@@ -70,11 +76,11 @@ pub(crate) async fn app_command(
         v["requestKey"]
             .as_str()
             .ok_or(bad("Request key required"))?,
-        &json!({"amountMinor":v["amountMinor"]}),
+        &input,
     )
     .await
 }
 /// Shared schema for generated apps, visual editors and explicit Flow Builder actions.
 pub(crate) fn command_action() -> Value {
-    json!({"name":"payment_command","description":"Queue provider payment operation","handler":"payment_command","public":false,"permission":"payments.manage","mcp":true,"flowAllowed":true,"inputSchema":{"type":"object","properties":{"operation":{"type":"string","enum":["capture","authorize","void","cancel","refund","reconcile"]},"attemptId":{"type":"string"},"event":{"type":"object"},"requestKey":{"type":"string"},"approve":{"type":"boolean"},"amountMinor":{"type":"integer"}},"required":["operation","requestKey","approve"],"additionalProperties":false}})
+    json!({"name":"payment_command","description":"Queue provider payment operation","handler":"payment_command","public":false,"permission":"payments.manage","mcp":true,"flowAllowed":true,"inputSchema":{"type":"object","properties":{"operation":{"type":"string","enum":["capture","authorize","void","cancel","refund","reconcile"]},"attemptId":{"type":"string"},"event":{"type":"object"},"requestKey":{"type":"string"},"approve":{"type":"boolean"},"amountMinor":{"type":"integer"},"captureId":{"type":"string"},"finalCapture":{"type":"boolean"}},"required":["operation","requestKey","approve"],"additionalProperties":false}})
 }

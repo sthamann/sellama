@@ -1,6 +1,7 @@
 /** Master/detail shipping and payment configuration, translated content and searchable country availability. */
 import { useState } from "react";
 import type { Payment, Shipping } from "../../shared/api/shop-api";
+import CaptureModeSettings from "./CaptureModeSettings";
 import MethodRemoval from "./MethodRemoval";
 import CountryPicker from "../../shared/geography/CountryPicker";
 import TranslationFields from "../../shared/geography/TranslationFields";
@@ -197,6 +198,13 @@ export default function MethodSettings({
                     )}
                   </select>
                 </label>
+                {(method as Payment).provider && (
+                  <CaptureModeSettings
+                    payment={method as Payment}
+                    request={request}
+                    onChange={update}
+                  />
+                )}
                 <label className="checkbox-label">
                   <input
                     type="checkbox"

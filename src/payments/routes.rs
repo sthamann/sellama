@@ -49,7 +49,12 @@ pub(crate) fn payment_router() -> Router<App> {
 pub(crate) async fn status(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "payments.read")?;
-    let rows=sqlx::query("SELECT id,order_id,state,provider,amount_minor,currency,currency_scale,refunded_minor,adapter_version,environment FROM payment_attempts WHERE tenant=$1 ORDER BY created_at DESC LIMIT 100").bind(&t).fetch_all(&a.db).await?;
+    let rows = sqlx::query(
+        "SELECT * FROM payment_attempts WHERE tenant=$1 ORDER BY created_at DESC LIMIT 100",
+    )
+    .bind(&t)
+    .fetch_all(&a.db)
+    .await?;
     let jobs=sqlx::query("SELECT id,attempt_id,operation,state,error FROM payment_jobs WHERE tenant=$1 ORDER BY created_at DESC LIMIT 100").bind(&t).fetch_all(&a.db).await?;
     let generic = providers_route(State(a.clone()), h.clone()).await?.0;
     let mut providers = vec![
@@ -71,7 +76,7 @@ pub(crate) async fn status(State(a): State<App>, h: RequestContext) -> Result<Js
         providers.push(json!({"id":"shopware_payments","configured":false,"status":"private-adapter-required"}));
     }
     Ok(Json(
-        json!({"providers":providers,"attempts":rows.iter().map(|r|json!({"provider":r.get::<String,_>("provider"),"id":r.get::<String,_>("id"),"orderId":r.get::<String,_>("order_id"),"state":r.get::<String,_>("state"),"amountMinor":r.get::<i64,_>("amount_minor"),"currency":r.get::<String,_>("currency"),"currencyScale":r.get::<i16,_>("currency_scale"),"refundedMinor":r.get::<i64,_>("refunded_minor"),"adapterVersion":r.get::<String,_>("adapter_version"),"environment":r.get::<String,_>("environment")})).collect::<Vec<_>>(),"jobs":jobs.iter().map(|r|json!({"id":r.get::<String,_>("id"),"attemptId":r.get::<String,_>("attempt_id"),"operation":r.get::<String,_>("operation"),"state":r.get::<String,_>("state"),"error":r.get::<Option<String>,_>("error")})).collect::<Vec<_>>()}),
+        json!({"providers":providers,"attempts":rows.iter().map(|r|json!({"provider":r.get::<String,_>("provider"),"id":r.get::<String,_>("id"),"orderId":r.get::<String,_>("order_id"),"state":r.get::<String,_>("state"),"amountMinor":r.get::<i64,_>("amount_minor"),"currency":r.get::<String,_>("currency"),"currencyScale":r.get::<i16,_>("currency_scale"),"refundedMinor":r.get::<i64,_>("refunded_minor"),"adapterVersion":r.get::<String,_>("adapter_version"),"environment":r.get::<String,_>("environment"),"settlement":super::settlements::summary(&super::attempt(r))})).collect::<Vec<_>>(),"jobs":jobs.iter().map(|r|json!({"id":r.get::<String,_>("id"),"attemptId":r.get::<String,_>("attempt_id"),"operation":r.get::<String,_>("operation"),"state":r.get::<String,_>("state"),"error":r.get::<Option<String>,_>("error")})).collect::<Vec<_>>()}),
     ))
 }
 async fn customer_status(
@@ -84,7 +89,7 @@ async fn customer_status(
 }
 // All status components come from one PostgreSQL statement snapshot. A provider
 // commit must never combine a new payment with an older admitted cart/order.
-const STATUS_FIELDS: &str = "SELECT p.provider,p.provider_context,p.state,p.approval_url,p.amount_minor,p.currency,p.currency_scale,p.refunded_minor,p.revision,p.environment,(SELECT jsonb_build_object('id',j.id,'operation',j.operation,'state',j.state) FROM payment_jobs j WHERE j.tenant=p.tenant AND j.attempt_id=p.id ORDER BY j.created_at DESC,j.id DESC LIMIT 1) AS job";
+const STATUS_FIELDS: &str = "SELECT p.*,(SELECT jsonb_build_object('id',j.id,'operation',j.operation,'state',j.state) FROM payment_jobs j WHERE j.tenant=p.tenant AND j.attempt_id=p.id ORDER BY j.created_at DESC,j.id DESC LIMIT 1) AS job";
 async fn status_row(
     a: &App,
     t: &str,
@@ -110,7 +115,8 @@ async fn status_row(
         .ok_or(Error(StatusCode::NOT_FOUND, "Payment not found".into()))
 }
 fn payment_status(r: &sqlx::postgres::PgRow, id: &str) -> Value {
-    json!({"provider":r.get::<String,_>("provider"),"checkout":r.get::<Value,_>("provider_context")["checkout"],"job":r.get::<Option<Value>,_>("job"),"id":id,"state":r.get::<String,_>("state"),"approvalUrl":r.get::<Option<String>,_>("approval_url"),"amountMinor":r.get::<i64,_>("amount_minor"),"currency":r.get::<String,_>("currency"),"currencyScale":r.get::<i16,_>("currency_scale"),"refundedMinor":r.get::<i64,_>("refunded_minor"),"revision":r.get::<i64,_>("revision"),"environment":r.get::<String,_>("environment"),"realMoneyCharged":r.get::<String,_>("environment")=="live" && ["captured","captured_late","partially_refunded","refunded"].contains(&r.get::<String,_>("state").as_str())})
+    let settled = super::settlements::summary(&super::attempt(r));
+    json!({"provider":r.get::<String,_>("provider"),"capturedMinor":settled["capturedMinor"],"captureClosed":settled["captureClosed"],"checkout":r.get::<Value,_>("provider_context")["checkout"],"intent":r.get::<Value,_>("provider_context")["intent"],"job":r.get::<Option<Value>,_>("job"),"id":id,"state":r.get::<String,_>("state"),"approvalUrl":r.get::<Option<String>,_>("approval_url"),"amountMinor":r.get::<i64,_>("amount_minor"),"currency":r.get::<String,_>("currency"),"currencyScale":r.get::<i16,_>("currency_scale"),"refundedMinor":r.get::<i64,_>("refunded_minor"),"revision":r.get::<i64,_>("revision"),"environment":r.get::<String,_>("environment"),"realMoneyCharged":r.get::<String,_>("environment")=="live" && ["captured","partially_captured","captured_late","partially_refunded","refunded"].contains(&r.get::<String,_>("state").as_str())})
 }
 pub(crate) async fn read(a: &App, t: &str, id: &str) -> Result<Value> {
     Ok(payment_status(&status_row(a, t, id, None).await?, id))
@@ -131,12 +137,26 @@ async fn customer_command(
     if !["capture", "reconcile", "cancel"].contains(&op.as_str()) {
         return Err(bad("Unsupported customer payment operation"));
     }
+    if ["amountMinor", "captureId", "finalCapture"]
+        .iter()
+        .any(|k| v.get(k).is_some())
+    {
+        return Err(bad(
+            "Customer payment commands cannot change capture or refund allocations",
+        ));
+    }
+    let status = read(&a, &tenant(&h)?, &id).await?;
+    let op = if op == "capture" && status["intent"] == "authorize" {
+        "authorize"
+    } else {
+        &op
+    };
     Ok(Json(
         enqueue(
             &a,
             &h,
             &id,
-            &op,
+            op,
             header(&h, "idempotency-key")
                 .or_else(|| v["requestKey"].as_str())
                 .ok_or(bad("Idempotency-Key required"))?,

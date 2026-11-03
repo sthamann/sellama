@@ -36,7 +36,8 @@ pub(crate) async fn save_config(
             .fetch_all(&mut *tx)
             .await?;
     for patch in patches {
-        super::settings_patch::resolve(&s, patch)?;
+        let scoped = super::settings_patch::resolve(&s, patch)?;
+        payments::capture_configuration::validate(&mut tx, &t, &scoped).await?;
     }
     super::product_languages::register(&mut tx, &s).await?;
     let tax_ids = s.taxes.iter().map(|t| t.id.clone()).collect::<Vec<_>>();

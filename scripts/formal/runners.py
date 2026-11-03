@@ -15,13 +15,13 @@ def lean_runner(functions):
         '    | .error reason => throw (IO.userError reason)']
     return '\n'.join(lines)+'\n'
 
-def rust_dispatch(functions):
+def rust_domain(functions):
     lines = ['//! Generated conformance driver; invokes the same production policy functions as the commerce server.',
         'use veyndo::verified_kernel::*;', 'use serde_json::{Value, json};',
         'pub(super) fn eval(j: &Value) -> Result<Value, String> {',
         '    let args = &j["args"];',
-        '    let n = |key: &str| args[key].as_u64().ok_or_else(|| format!("Invalid {key}"));',
-        '    let b = |key: &str| args[key].as_bool().ok_or_else(|| format!("Invalid {key}"));',
+        *(['    let n = |key: &str| args[key].as_u64().ok_or_else(|| format!("Invalid {key}"));'] if any(t=='u64' for f in functions for _,t in f.args) else []),
+        *(['    let b = |key: &str| args[key].as_bool().ok_or_else(|| format!("Invalid {key}"));'] if any(t=='bool' for f in functions for _,t in f.args) else []),
         '    match j["function"].as_str() {']
     for f in functions:
         args = ', '.join(f'{"n" if t == "u64" else "b"}("{n}")?' for n,t in f.args)
@@ -39,3 +39,18 @@ def rust_runner(functions):
         '        let input: Value = serde_json::from_str(&line?)?;',
         '        println!("{}", dispatch::eval(&input).map_err(io::Error::other)?);', '    }', '    Ok(())', '}']
     return '\n'.join(lines)+'\n'
+
+def rust_dispatch(functions):
+    from modules import KERNEL_MODULES
+    lines=['//! Generated domain dispatcher; each bounded module calls the original production policies.','use serde_json::Value;']
+    lines += ['#[path = "dispatch/'+name+'.rs"] mod '+name+';' for name in KERNEL_MODULES]
+    lines += ['pub(super) fn eval(j: &Value) -> Result<Value,String> {','    match j["function"].as_str() {']
+    for name,names in KERNEL_MODULES.items():
+        choices=' | '.join('Some("'+n+'")' for n in names)
+        lines.append('        '+choices+' => '+name+'::eval(j),')
+    lines += ['        _ => Err("Unknown policy".into()),','    }','}']
+    return '\n'.join(lines)+'\n'
+
+def rust_domains(functions):
+    from modules import KERNEL_MODULES
+    return {"src/bin/verified_kernel/dispatch/"+name+".rs":rust_domain([f for f in functions if f.name in names]) for name,names in KERNEL_MODULES.items()}

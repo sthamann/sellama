@@ -9,7 +9,13 @@ pub(crate) fn guard(o: &Value, m: &OrderMachine, kind: &str, target: &str) -> Op
     }
     let external = crate::payments::external(o);
     let ps = o["payment"]["state"].as_str().unwrap_or("");
-    let refund = ["paid", "captured", "partially_refunded"].contains(&ps);
+    let refund = [
+        "paid",
+        "captured",
+        "partially_captured",
+        "partially_refunded",
+    ]
+    .contains(&ps);
     let deliveries_open = o["deliveries"]
         .as_array()
         .is_none_or(|ds| ds.iter().all(|d| d["state"] == "open"));

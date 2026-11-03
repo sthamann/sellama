@@ -87,11 +87,13 @@ theorem reservation_captured_denied (voidConfirmed : Bool) : reservation_release
 /-- Full ledger transition relation, including confirmed late capture and refund progression. -/
 theorem payment_transition_exact (current next : Nat) :
     payment_transition_admissible current next = true ↔
-    current ≤ 9 ∧ next ≤ 9 ∧ (current = next ∨
+    current ≤ 10 ∧ next ≤ 10 ∧ (current = next ∨
     (current ≤ 3 ∧ next > current ∧ next ≤ 4) ∨
     (current ≤ 3 ∧ (next = 7 ∨ next = 8)) ∨
     ((current = 4 ∨ current = 5 ∨ current = 9) ∧ (next = 5 ∨ next = 6)) ∨
-    ((current = 7 ∨ current = 8) ∧ next = 9)) := by
+    ((current = 7 ∨ current = 8) ∧ next = 9) ∨
+    (current ≤ 3 ∧ next = 10) ∨
+    (current = 10 ∧ (next = 4 ∨ next = 5 ∨ next = 6))) := by
   simp [payment_transition_admissible, and_assoc, or_assoc]
 
 theorem payment_refunded_terminal (next : Nat) :

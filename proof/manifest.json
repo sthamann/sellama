@@ -606,6 +606,16 @@
         "agent_expired_preview_denied",
         "agent_live_independent_of_preview"
       ]
+    },
+    "capture_admissible": {
+      "bindings": [
+        "src/payments/capture_admission.rs"
+      ],
+      "theorems": [
+        "capture_exact",
+        "capture_bounded",
+        "capture_zero_denied"
+      ]
     }
   },
   "sources": {
@@ -766,13 +776,13 @@
     },
     "crates/kernel/src/verified_kernel/commerce.rs": {
       "status": "extracted-policy",
-      "sha256": "8759cc35c70330cec167de58e38e925810cc576a2262eee3a9506e628903d001",
-      "review": "Split unchanged extracted policies and theorem bodies by domain; bind exact existing planning/private-preview admission; prove sequential integer allocations and denial after limit reduction; add u128 edge regressions and closed module inventory."
+      "sha256": "d7f67d19c5770afde2a5b399946b14114d3ae98bd06a8182ad1d695009da6532",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "crates/kernel/src/verified_kernel/fulfillment.rs": {
       "status": "extracted-policy",
-      "sha256": "6ebf293e6a2617e517f65cafe1b5d48d99758d2d826833409c5806e5340f96e0",
-      "review": "Split unchanged extracted policies and theorem bodies by domain; bind exact existing planning/private-preview admission; prove sequential integer allocations and denial after limit reduction; add u128 edge regressions and closed module inventory."
+      "sha256": "09e0d1b4bc7f7400461df941fb817c33b8b1969beb6cf1e61ec2c83ddb1d621f",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "crates/kernel/src/verified_kernel/intelligence.rs": {
       "status": "extracted-policy",
@@ -781,8 +791,8 @@
     },
     "crates/kernel/src/verified_kernel.rs": {
       "status": "extracted-policy",
-      "sha256": "6f94cca36fad32de679b62c0f451e96a1743b4134a8a0e8991cf7bff20021e08",
-      "review": "Split unchanged extracted policies and theorem bodies by domain; bind exact existing planning/private-preview admission; prove sequential integer allocations and denial after limit reduction; add u128 edge regressions and closed module inventory."
+      "sha256": "1866e4b24c2b769f14e2b4442e18f2e6fba406ebcc69f9669a0dc15176555352",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "crates/runtime/src/database_scope/provision.rs": {
       "status": "unproved",
@@ -1896,8 +1906,8 @@
     },
     "src/apps/routes.rs": {
       "status": "unproved",
-      "sha256": "467e8ca29f8745d490a5152cb24c2a1e1b0a21e79b0224580d89eda11c0cb3e5",
-      "review": "Extracted Shopware app registrations and binary into preserved experiment branch; retained generic operational release policy and sandboxed UI, no commerce semantics changed"
+      "sha256": "bf0720e7edd6bcd3716c66bbbde119682cb4f7b558cfe23f0f2114b41bd29d8a",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/apps/runtime.rs": {
       "status": "unproved",
@@ -2394,10 +2404,45 @@
       "sha256": "d8538263efd3bdc98431ec9f622ab4cf104588c231ac819d1b012411a73fc45a",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
+    "src/bin/verified_kernel/dispatch/access.rs": {
+      "status": "conformance-driver",
+      "sha256": "7808db62d790e11bc8fc4b5ade0e9a42b69a349d68094be6c46558769ea4f935",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
+    },
+    "src/bin/verified_kernel/dispatch/agents.rs": {
+      "status": "conformance-driver",
+      "sha256": "3371ab393dd99ed1b8b7edb14be4ff191c41fa3a7698856fe0b93f7c8a859786",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
+    },
+    "src/bin/verified_kernel/dispatch/apps.rs": {
+      "status": "conformance-driver",
+      "sha256": "271564c588f2037542d060b2e63d3c97733dd975eefcae64ed3d46130296ccf4",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
+    },
+    "src/bin/verified_kernel/dispatch/automation.rs": {
+      "status": "conformance-driver",
+      "sha256": "5c8d401bd169535aa689a4943aba0033a442343df43fd00151d96220492a3984",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
+    },
+    "src/bin/verified_kernel/dispatch/commerce.rs": {
+      "status": "conformance-driver",
+      "sha256": "d6ae95c77ef2a8fed5e64f5370eb2050dc18f2e02c658be77d8dfe592545fe2d",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
+    },
+    "src/bin/verified_kernel/dispatch/fulfillment.rs": {
+      "status": "conformance-driver",
+      "sha256": "82b893ae013aa06920050ea6cfbea330465b4146de41dcc97d32cc33dd52e7a9",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
+    },
+    "src/bin/verified_kernel/dispatch/intelligence.rs": {
+      "status": "conformance-driver",
+      "sha256": "c28dc1f97a4c336089c0feecb22795c9c22977bfd8e0a90e4ce09acfe3455645",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
+    },
     "src/bin/verified_kernel/dispatch.rs": {
-      "status": "unproved",
-      "sha256": "4da68a5b7fc27a94c8ff54c1c96821318f99069c00816a0f7c667ad5ee90c023",
-      "review": "Reviewed original Shopware app controller, bounded fixed-origin lifecycle jobs and durable uncertain fences; opaque pinned app UI response CSP; operational records excluded by extracted release policy and native clone/publication path. Real container, native permissions/MCP, migration retention and app surface regressions passed; PHP and controller adapters remain unproved."
+      "status": "conformance-driver",
+      "sha256": "2c8580b75a87a906e1592a8973e9b5e3cad1d02f3157c58e9c8601d0c706a913",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
     },
     "src/bin/verified_kernel.rs": {
       "status": "conformance-driver",
@@ -2446,8 +2491,8 @@
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "a62a211fc50a17d5a351b8ce6ef46f192b7ca414303e49a46a7e762aaf6485be",
-      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
+      "sha256": "c125ba0a1b2b3fec621815320c1ac7cae8384a676bedb7c011ade08cfe0d3344",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -2761,8 +2806,8 @@
     },
     "src/commerce/fulfillment.rs": {
       "status": "reviewed-binding",
-      "sha256": "21ac3456c78725bcd4becf6e154ddc86b631b2ccc0de7bf33f4b9bd2aa8beca3",
-      "review": "Final native lifecycle integration review: base workflow edits and package installation share the aggregate fence before row locks; the real forced interleaving rejected the incompatible pair. Extra current-edge authority returns 403 consistently for native orders and RFQs, while financial/state/revision guards remain 409. Accepted definitions and pure admission conjunction are unchanged."
+      "sha256": "3b1b3aef91926dd5ef07fe3399207c4c219b10c775f6faa4ecffc90dfabbd602",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
     },
     "src/commerce/geography.rs": {
       "status": "unproved",
@@ -2791,8 +2836,8 @@
     },
     "src/commerce/method_usage.rs": {
       "status": "unproved",
-      "sha256": "db3973f378530d6fef8583bb60bb2267b10fc9de963a21f6257dab7e93445282",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "9bd13564da45d80e2af6bf2cde9e80e4f9e31392fded30a3856f7d721e09e703",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/commerce/mod.rs": {
       "status": "unproved",
@@ -2816,8 +2861,8 @@
     },
     "src/commerce/order_workflow.rs": {
       "status": "reviewed-binding",
-      "sha256": "3c5126794199d1799aed0a15dc4081d6eba5ddb388af9639dfdef84c4d238471",
-      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
+      "sha256": "95aa71664d7ac4702a0919ccd9d2a737b1dd69e45b1981942e3355168704651c",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
     },
     "src/commerce/product_admin.rs": {
       "status": "unproved",
@@ -2891,8 +2936,8 @@
     },
     "src/commerce/settings_mutation.rs": {
       "status": "unproved",
-      "sha256": "d3a20df585a6c2fc0095145cb0e0dd635817a3181485b290e5cdcd815bf14318",
-      "review": "Review native lifecycle labels across immutable builds, atomic installation, settings main-language edits and final selected-release validation. Existing aggregate configuration lock precedes package admission and private preview resets. Accepted historical snapshots retain their original language; the pure native-admission conjunction is unchanged."
+      "sha256": "7b3512b2eb17924fb35a2d23d5d1d04cd7d3a8e8d62aa015cf57ed5f5e0fa8ad",
+      "review": "Settings basis and release also validate inherited capture timing in every affected channel; tested monetary kernel unchanged"
     },
     "src/commerce/settings_patch.rs": {
       "status": "unproved",
@@ -2901,8 +2946,8 @@
     },
     "src/commerce/settings_release.rs": {
       "status": "unproved",
-      "sha256": "caaeacb265948344a884c7dd2cd7d1e622dab5f1432324b5dbbd8ad88683a99d",
-      "review": "Reviewed selective-publication domain rights, transactional channel and current installed Flow action admission, shared B2B configuration writers with history and staging, method/currency dependency guards, and inherited consent-bound analytics. PostgreSQL and frontend regressions exercise successful effects, denied access, stale revisions and preserved live state. SQL, async adapters and external providers remain unproved."
+      "sha256": "f28bfb36e81c78f177615a7246bf0be0d105e79e99e00f8304a1ce43f5daafc8",
+      "review": "Settings basis and release also validate inherited capture timing in every affected channel; tested monetary kernel unchanged"
     },
     "src/commerce/settings_routes.rs": {
       "status": "unproved",
@@ -2916,8 +2961,8 @@
     },
     "src/commerce/settings_validation.rs": {
       "status": "unproved",
-      "sha256": "3543cc02b37d800b8799d5199fa15ebcd2e00570ce7ff86eb8b03efe60716a7d",
-      "review": "Native POS admission, exact cash/change and shared revision review; reviewed authorized total<=tender<=1e12 and denied unreviewed tender. Existing checkout review and coupon handler extracted without parallel semantics; actor/channel guards on all direct cart consumers."
+      "sha256": "79c1df3079e10dde6c90a0748fa196c1572f0cf35fce21c4c77bef377c8d3df4",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/commerce/tax.rs": {
       "status": "unproved",
@@ -2936,8 +2981,8 @@
     },
     "src/commerce/types.rs": {
       "status": "unproved",
-      "sha256": "60fda9e95d8b4fc11f3100744b216f6ca23c39f0658957bdc4430d8bedd3d54c",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "4e334d3cda1e9754b9925dddd1aaa80e8b199e7996bba031cb1a8e42948e189c",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/concierge.rs": {
       "status": "unproved",
@@ -3731,28 +3776,38 @@
     },
     "src/payments/app_commands.rs": {
       "status": "unproved",
-      "sha256": "faad3a7cc3a83e1f357197a9a40c9ba400aafcfd5b79f4ef499b61e4f03f7a59",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "aeacdbf9c7b296488b6a71684369781abe1bfc86dde511bd3b58b6229a164081",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
+    },
+    "src/payments/capture_admission.rs": {
+      "status": "reviewed-binding",
+      "sha256": "33c89cfc2701ebaebb189a691b46e4b4e30dcd6f6c34aaf984fd819800cc40a2",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
+    },
+    "src/payments/capture_configuration.rs": {
+      "status": "unproved",
+      "sha256": "cdb986d3b03805fb73771623cbc63f3cf6f4be72cb5779bdc9fe70645e815e97",
+      "review": "Reviewed partial capture, per-capture refunds, settings admission and attempt-before-job locking; generated dispatcher follows policy domains; no SQL/provider proof claim"
     },
     "src/payments/contract.rs": {
       "status": "unproved",
-      "sha256": "94ec090a83e29cdce016e6791639799517164d498feb445941592499eb351f86",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "c2d1c8a6a915c7166acf7bd0ad5ff3037b4860751fab33c21014bbe989a12299",
+      "review": "Reviewed partial capture, per-capture refunds, settings admission and attempt-before-job locking; generated dispatcher follows policy domains; no SQL/provider proof claim"
     },
     "src/payments/generic_receipts.rs": {
       "status": "unproved",
-      "sha256": "88f44c0b733d342d0ec1d14762df5f6aaeb9c7e6a49909720b5589b56caeb759",
-      "review": "Reviewed exact native provider refund admission using existing extracted refund policy, immutable receipt amount and job/tenant/attempt binding; monotonic replay and private financial metadata stays out of outbound RPC; asynchronous SQL and provider adapters remain unproved"
+      "sha256": "f3215b4d5eb7b487282f21ef2c6c94a71e0a2aa922f8df049396c91e5bed80f4",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/payments/mod.rs": {
       "status": "unproved",
-      "sha256": "8f8b079769a7127af4317b86b6bf5bd9e2d1a07de46aa1da1dd704227d5d3089",
-      "review": "Reviewed external completed-refund receipt admission, tenant/account/attempt/job binding, monotonic exact sums and replay; Rust/SQL/provider adapters remain unproved"
+      "sha256": "5339c210e0e9082dd892daf7fe7ddb25f7bdb3c40f9f165d6f89de8b72e1d925",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/payments/operations.rs": {
       "status": "reviewed-binding",
-      "sha256": "e661a802832611b23b4587ddf22134901fd050591773b5b49b25220d746758c9",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "85ff44a67b359759ce280a541476f01f6e46f4f73e383c4929b50781c45055af",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/payments/provider.rs": {
       "status": "unproved",
@@ -3774,20 +3829,25 @@
       "sha256": "dd3cddcacdb0cb896e9d9221cd909cf89402f942997e1e08a1f96ad6c9632231",
       "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
     },
+    "src/payments/refund_allocation.rs": {
+      "status": "unproved",
+      "sha256": "5b30accf0af36fe684a8a9cb1d91caed51146a01f4190920e49d16bb9907e8a9",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
+    },
     "src/payments/refund_receipts.rs": {
       "status": "reviewed-binding",
-      "sha256": "f66057c9ffc50ccf01ea594dcac8be30dc8f2341d36cc7f344b9a9464e6b30cc",
-      "review": "Reviewed exact native provider refund admission using existing extracted refund policy, immutable receipt amount and job/tenant/attempt binding; monotonic replay and private financial metadata stays out of outbound RPC; asynchronous SQL and provider adapters remain unproved"
+      "sha256": "1a0e82a82632c35846ee8b3f1bd2d995b0d6ab5ea833ecc05f1f2dbf3eb2a1cd",
+      "review": "Reviewed bounded capture/refund receipts and completion of recovered native jobs; settings validate inherited capture timing; kernel proofs unchanged"
     },
     "src/payments/registry.rs": {
       "status": "unproved",
-      "sha256": "1dad151f8a50ef65e8e73c04c42cda4e0c479a7e55c30039b469951f71bd70dc",
-      "review": "App upgrade final review: current saved Flow membership and shared additional/core rights on the existing locked connection; explicit validation-rule schema migration reuses bounded native field checks; payment registry preserves active basis/channel method coverage. Real PostgreSQL negative fixtures reproduced old admission and pass after fixes. SQL/async admission remains unproved."
+      "sha256": "3b97ae0ee661f3d9d6d6284563a2e02d9a13dee81848c909f0bc05acba1ff70a",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/payments/remote.rs": {
       "status": "unproved",
-      "sha256": "21059d4390117efd0e764f95092a2526db44bc0b331a9c6ed7c73555caa2b0ce",
-      "review": "Reviewed exact native provider refund admission using existing extracted refund policy, immutable receipt amount and job/tenant/attempt binding; monotonic replay and private financial metadata stays out of outbound RPC; asynchronous SQL and provider adapters remain unproved"
+      "sha256": "4828d06d4d9c6a1ba4db31a1c6641c80adcb28c4cb30e339469677e202e7668b",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",
@@ -3796,28 +3856,33 @@
     },
     "src/payments/routes.rs": {
       "status": "unproved",
-      "sha256": "295425483b5d8994a1fc0da0497486cf16dd0ba84933966736ac64137ad19030",
-      "review": "Reviewed POS/payment status reads: one statement snapshot for payment, latest job and exact cart-bound native order; existing cashier/customer/channel admission and financial writers unchanged. Reviewed bounded 90-second startup retry for transient connection errors only; strict role/RLS/identity/signing audits remain unchanged. Deterministic pre-fix POS interleaving and actual refused-database startup reproduce original failures; corrected native suites and strict runtime checks are required."
+      "sha256": "52b39fcdc6e733f5c9c1816e727a6acdfe07c5acd92ebd9dd907c28567775b0a",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
     },
     "src/payments/sessions.rs": {
       "status": "unproved",
       "sha256": "24b90e4f63d958079f532e30126e352621051671c9a9921c19442bf568beee5b",
       "review": "Reviewed payment presentation-only readiness passthrough and approved exact-loopback fixture transport. Sandbox/Live HTTPS, exact origin allowlist and financial receipt admission remain enforced; targeted browser-message, timeout/reload and cross-service payment tests cover these unproved adapters."
     },
+    "src/payments/settlements.rs": {
+      "status": "unproved",
+      "sha256": "94fc23120eacbae44b207d213723c12e624c851fafca3b9e5d640735cf40d02e",
+      "review": "Reviewed bounded capture/refund receipts and completion of recovered native jobs; settings validate inherited capture timing; kernel proofs unchanged"
+    },
     "src/payments/state.rs": {
       "status": "reviewed-binding",
-      "sha256": "4672ecc436f1616130dc3bce0c5961492be1669c842ed37b4019d0ae56da7b78",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "85f11639662aea7178180ad9a6c52a05604a7ecce2e2b0c13642cf6bff742ffe",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/payments/storage.rs": {
       "status": "reviewed-binding",
-      "sha256": "2cb560b7abed55c3234140877f7b2c7ffac249d92c51d7e6c13aea1f61340f1c",
-      "review": "Native POS cash admission, shared currency/coupon forwarding and private cart consumer guards reviewed. Original coupon owner extracted and tenant-scoped; provider confirmation rejoins POS outbox once. Generated conformance dispatcher moved to a small dedicated module without policy duplication."
+      "sha256": "c43dcc3a02f4ebba1d8ad126a3bc90757e76b845f5e68c358cace484898ad318",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "src/payments/worker.rs": {
       "status": "unproved",
-      "sha256": "85dad551595ef64daf40e9fe5b8699e62fd2349c81622d83eb4ea24542f9fc9a",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "f0522e8e5140194477ceab326fea8dee3ecb6d94c17c20cc1bd4a30e52c97c0e",
+      "review": "Reviewed partial capture, per-capture refunds, settings admission and attempt-before-job locking; generated dispatcher follows policy domains; no SQL/provider proof claim"
     },
     "src/performance/access_snapshot.rs": {
       "status": "unproved",
@@ -3921,8 +3986,8 @@
     },
     "src/platform/metrics.rs": {
       "status": "unproved",
-      "sha256": "fb5d6a65d432feb322cca3ebbb913bb8d38c21ab11a3f04f38be73e4a13333b1",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "7233948f70dfcf6574add82b7bab0b042949056a20afa4ad84e659cbf1f6321e",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
     },
     "src/platform/mod.rs": {
       "status": "unproved",
@@ -4895,12 +4960,12 @@
       "review": "Split unchanged extracted policies and theorem bodies by domain; bind exact existing planning/private-preview admission; prove sequential integer allocations and denial after limit reduction; add u128 edge regressions and closed module inventory."
     },
     "proof/Commerce/Claims/Commerce.lean": {
-      "sha256": "25adc733ee224724a0829436c71fc537b6cebbb1fac3d9f521a49717a6a0836a",
-      "review": "Split unchanged extracted policies and theorem bodies by domain; bind exact existing planning/private-preview admission; prove sequential integer allocations and denial after limit reduction; add u128 edge regressions and closed module inventory."
+      "sha256": "cd03989c0b628d21eed8e897d4e6e757c9e0a727c92abd95be1c1a205e8d5450",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "proof/Commerce/Claims/Fulfillment.lean": {
-      "sha256": "c038c0f7657aa9100a1e58be5259f36794315eca893452cf29acadb1dda0bc24",
-      "review": "Split unchanged extracted policies and theorem bodies by domain; bind exact existing planning/private-preview admission; prove sequential integer allocations and denial after limit reduction; add u128 edge regressions and closed module inventory."
+      "sha256": "fa0f2a3d19f2ac74e00368761fa2a89db5890b6b9f9940c969f932466e8024b1",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "proof/Commerce/Claims/Intelligence.lean": {
       "sha256": "a91c33176e385e8b34c8ae3bdd791f8bdc96fde328d52ca3bb0d79b477d4ed6c",
@@ -4951,24 +5016,24 @@
       "review": "Review domain proof import and size closure, explicit Rust registrations, all 149 theorem bindings, existing adapter truth conditions and unchanged 61 prior policy ASTs; negative controls reject extra imports, missing claims and hidden Cargo authority."
     },
     "scripts/formal/modules.py": {
-      "sha256": "a9897c1fcc0baaa5cac61b32e8840a7d26fac3ab2fa40c01a864dd33578ca20c",
-      "review": "Split unchanged extracted policies and theorem bodies by domain; bind exact existing planning/private-preview admission; prove sequential integer allocations and denial after limit reduction; add u128 edge regressions and closed module inventory."
+      "sha256": "56c1cbc50d3ecf4dbeb7285a393dba6d004c2228a423cf2405aedf58e21615ff",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "scripts/formal/mutations.py": {
-      "sha256": "d1a9fc9428da4060aaf4461395f579d415758364d20e698e3f4f9763f34c7189",
-      "review": "Reviewed original Shopware app controller, bounded fixed-origin lifecycle jobs and durable uncertain fences; opaque pinned app UI response CSP; operational records excluded by extracted release policy and native clone/publication path. Real container, native permissions/MCP, migration retention and app surface regressions passed; PHP and controller adapters remain unproved."
+      "sha256": "dafa33d4c9eb6938c39da1e2e87e123972c5ff8af8d5590c8497b520e6cd655b",
+      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "scripts/formal/registry.py": {
-      "sha256": "8f0bebf7a8fb1f4387a456f72634446cd615aa20a4f80778979c166c28fbf3de",
-      "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
+      "sha256": "e16a5fbd178927c17e568eb3b98701a3a872cb4e5c4ce5c6aab9b1227a783342",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
     },
     "scripts/formal/runners.py": {
-      "sha256": "c73bda913fb0c1949c25ad7589e5d156c05f7e0a89f39ca7be8b8e40ebd5f565",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "30249280fde2b234aaa1fc6dfd6eff9c0423e7e8e5cca72cb4221325468dc58f",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
     },
     "scripts/formal.py": {
-      "sha256": "70144be646a76061df78ec1df0f689e659da2c7073901c70c2e717d9a2881390",
-      "review": "Review domain proof import and size closure, explicit Rust registrations, all 149 theorem bindings, existing adapter truth conditions and unchanged 61 prior policy ASTs; negative controls reject extra imports, missing claims and hidden Cargo authority."
+      "sha256": "bdc69ffcb028c7572db393ccb93fcc63b5c3b4b7ca410ba7cd07d53878f0bdf3",
+      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
     },
     "scripts/testing/prompt_governance.py": {
       "sha256": "a9ece67d4975e6c5e44cf26f4d6e397a3780449d8e3f8fbb3860627211b9fda5",

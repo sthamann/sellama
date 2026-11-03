@@ -85,6 +85,28 @@ export interface Inputs10 {
     urls?: Array<string>;
   };
   "merchant.site.apply": { approve: boolean; taskId: string };
+  "merchant.reports.read": {
+    channel?: string | null;
+    channelType?: "all" | "storefront" | "headless" | "marketplace" | "pos";
+    compare?: boolean;
+    currency?: string | null;
+    from?: string | null;
+    interval?: "auto" | "day" | "week" | "month" | "year";
+    period?:
+      | "today"
+      | "yesterday"
+      | "week"
+      | "last7"
+      | "last30"
+      | "last90"
+      | "month"
+      | "lastMonth"
+      | "year"
+      | "lastYear"
+      | "all"
+      | "custom";
+    timezone?: string;
+    to?: string | null;
+  };
   "studio.workspace.work.read": JsonValue;
-  "studio.workspace.read": JsonValue;
 }

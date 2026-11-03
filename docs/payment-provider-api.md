@@ -4,7 +4,7 @@ Payment apps declare their methods in the same versioned manifest edited in App 
 
 ## Package and account lifecycle
 
-Use `runtime: service`, `category: payment`, `permissions: [payments.provider]` and `paymentProvider: {apiVersion: "1", methods: [...]}`. Each method defines `id`, localized `name`, `currencies`, `countries` (empty means unrestricted), `capabilities`, `intent` (`capture` or `authorize`) and `checkout` (`redirect` or `embedded`). Supported declared capabilities are capture, authorize, void, refund, vault and recurring; the last two are discovery declarations, **not** a general subscription engine or finished provider implementation. Reserved core identities cannot register as external providers.
+Use `runtime: service`, `category: payment`, `permissions: [payments.provider]` and `paymentProvider: {apiVersion: "1", methods: [...]}`. Each method defines `id`, localized `name`, `currencies`, `countries` (empty means unrestricted), `capabilities`, `intent` (`capture` or `authorize`) and `checkout` (`redirect` or `embedded`). Supported declared capabilities are capture, authorize, void, refund, multi_capture, vault and recurring; the last two are discovery declarations, **not** a general subscription engine or finished provider implementation. Reserved core identities cannot register as external providers.
 
 [The neutral example](../extensions/apps/payment-provider/manifest.json) runs against the local synthetic service in `scripts/payment_providers.py`. It does not implement Stripe or another PSP. A Stripe service can use the same boundary with its own real SDK and webhook verification; no core switch statement or Stripe secrets in the public frontend are required.
 
@@ -54,7 +54,8 @@ All financial replies echo the immutable identity and invoice plus a bounded pro
 | ready / pending | Matching identity and reference; approved HTTPS URL if present |
 | approved | `confirmed: true`; automatically queues the frozen intent |
 | authorized | `confirmed: true`, exact authorizedAmountMinor, authorizationId and declared authorize capability |
-| captured | `confirmed: true`, exact settledAmountMinor and captureId |
+| captured | `confirmed: true`, exact full settledAmountMinor and captureId, or the capture collection below |
+| partially_captured | Confirmed authorized method with `multi_capture`, exact cumulative capture collection below the invoice total |
 | voided / cancelled | Confirmed provider state; an existing authorization requires void evidence before releasing inventory |
 | refunded | Confirmed exact `refund: {id, amountMinor, currency}` for the queued refund |
 | refund_pending | Does not change the refund balance; retry the same operation and poll the original provider refund |
@@ -143,3 +144,36 @@ reconciliation later finish its native job without adding the amount a second
 time. Unknown jobs and receipt ownership conflicts are rejected transactionally.
 External refunds use the existing payment ledger, receipt claims, order state and
 outbox; they do not create a new refund executor or grant any client authority.
+
+## Partial and multiple captures
+
+Methods can declare `multi_capture` together with `capture`, `authorize` and `void`.
+The versioned payment setting `captureMode: capture|authorize` chooses the intent
+for new attempts; absence inherits the provider declaration. The installed
+contract is checked on settings save, publication, upgrade and checkout.
+
+A confirmed settlement may include `captures`, at most 1000 unique records with
+`id`, positive integer `amountMinor`, the original `currency`, and optional native
+`requestKey`. `settledAmountMinor` equals the sum of this snapshot. Capture IDs
+and amounts are immutable and cannot be shared between attempts. The merged
+native total cannot exceed the original invoice. `captureClosed` closes the
+remaining authorization. Partial/multiple settlement also requires the confirmed
+original authorization ID and amount. Legacy single-capture receipts retain the
+full-invoice rule.
+
+`merchant.payment` and merchant HTTP accept optional `amountMinor` and
+`finalCapture` for capture, and optional `captureId` for refund. Additional
+captures require an explicit amount. More than one capture requires the refund's
+capture ID. Provider refund entries carry that capture ID too. A returned
+capture `requestKey` must name an owned native capture job with the exact amount;
+one native job cannot acquire two capture IDs. Provider observations can complete
+that original pending/uncertain job. Providers return `capturePending: true`
+while a capture outcome is unresolved; the Core retains its reservation and
+polls the original identity. No new request identity is generated on a retry.
+Internal capture/refund allocation maps never travel back to the provider RPC.
+
+Voiding a partially captured authorization returns its confirmed capture snapshot
+with `captureClosed: true`. It must not report whole-order cancellation or release
+sold stock. Public customer commands cannot override amount/finalCapture/captureId;
+for an authorization intent, customer approval requests authorization rather than
+merchant capture. [Merchant workflow](payment-capture-management.md).

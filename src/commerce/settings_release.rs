@@ -53,7 +53,8 @@ pub(crate) async fn validate_settings_release(
             .fetch_all(&mut **tx)
             .await?;
     for patch in patches {
-        super::settings_patch::resolve(&next, patch)?;
+        let scoped = super::settings_patch::resolve(&next, patch)?;
+        payments::capture_configuration::validate(tx, t, &scoped).await?;
     }
     super::product_languages::register(tx, &next).await?;
     Ok(())

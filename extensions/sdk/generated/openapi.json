@@ -3666,6 +3666,12 @@
                               "approve": {
                                 "type": "boolean"
                               },
+                              "captureId": {
+                                "type": "string"
+                              },
+                              "finalCapture": {
+                                "type": "boolean"
+                              },
                               "id": {
                                 "type": "string"
                               },
@@ -8419,6 +8425,121 @@
                               "taskId",
                               "approve"
                             ],
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "jsonrpc",
+                      "id",
+                      "method",
+                      "params"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "jsonrpc": {
+                        "const": "2.0"
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "integer"
+                        ]
+                      },
+                      "method": {
+                        "const": "tools/call"
+                      },
+                      "params": {
+                        "type": "object",
+                        "required": [
+                          "name",
+                          "arguments"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "name": {
+                            "const": "merchant.reports.read"
+                          },
+                          "arguments": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "channel": {
+                                "maxLength": 160,
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "channelType": {
+                                "enum": [
+                                  "all",
+                                  "storefront",
+                                  "headless",
+                                  "marketplace",
+                                  "pos"
+                                ],
+                                "type": "string"
+                              },
+                              "compare": {
+                                "type": "boolean"
+                              },
+                              "currency": {
+                                "maxLength": 3,
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "from": {
+                                "maxLength": 10,
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "interval": {
+                                "enum": [
+                                  "auto",
+                                  "day",
+                                  "week",
+                                  "month",
+                                  "year"
+                                ],
+                                "type": "string"
+                              },
+                              "period": {
+                                "enum": [
+                                  "today",
+                                  "yesterday",
+                                  "week",
+                                  "last7",
+                                  "last30",
+                                  "last90",
+                                  "month",
+                                  "lastMonth",
+                                  "year",
+                                  "lastYear",
+                                  "all",
+                                  "custom"
+                                ],
+                                "type": "string"
+                              },
+                              "timezone": {
+                                "maxLength": 64,
+                                "type": "string"
+                              },
+                              "to": {
+                                "maxLength": 10,
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            },
                             "type": "object"
                           }
                         }

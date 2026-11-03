@@ -118,8 +118,13 @@ pub(crate) async fn execute(
     let mut context = p.context.clone();
     if let Some(context) = context.as_object_mut() {
         context.remove("providerRefunds");
+        context.remove("captureReceipts");
     }
-    let body = json!({"apiVersion":"1","provider":p.provider,"adapterVersion":p.adapter_version,"tenant":p.tenant,"attemptId":p.id,"orderId":p.order,"environment":p.environment,"accountRef":p.context["accountRef"],"method":p.context["method"],"intent":p.context["intent"],"amountMinor":p.amount,"currency":p.currency,"currencyScale":p.currency_scale,"reference":p.provider_order,"captureId":p.capture,"context":context,"operation":op,"requestKey":key,"input":input,"order":order,"returnUrl":return_url,"cancelUrl":cancel_url});
+    let capture_id = input
+        .get("captureId")
+        .cloned()
+        .unwrap_or_else(|| json!(p.capture));
+    let body = json!({"apiVersion":"1","provider":p.provider,"adapterVersion":p.adapter_version,"tenant":p.tenant,"attemptId":p.id,"orderId":p.order,"environment":p.environment,"accountRef":p.context["accountRef"],"method":p.context["method"],"intent":p.context["intent"],"amountMinor":p.amount,"currency":p.currency,"currencyScale":p.currency_scale,"reference":p.provider_order,"captureId":capture_id,"context":context,"operation":op,"requestKey":key,"input":input,"order":order,"returnUrl":return_url,"cancelUrl":cancel_url});
     call(
         a,
         &p.tenant,

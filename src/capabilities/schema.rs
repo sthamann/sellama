@@ -165,7 +165,7 @@ pub(crate) fn input(name: &str) -> Value {
             json!({"id":{"type":"string"},"operation":{"type":"string","enum":["start","status","disconnect"]},"channel":{"type":"string"},"environment":{"type":"string","enum":["sandbox","live","simulation","contract-fixture"]},"country":{"type":"string"},"requestKey":{"type":"string"},"approve":{"type":"boolean"}})
         }
         "merchant.payment" => {
-            json!({"id":{"type":"string"},"operation":{"type":"string","enum":["capture","authorize","void","refund","reconcile","cancel"]},"amountMinor":{"type":"integer","minimum":1},"requestKey":{"type":"string"},"approve":{"type":"boolean"}})
+            json!({"id":{"type":"string"},"operation":{"type":"string","enum":["capture","authorize","void","refund","reconcile","cancel"]},"amountMinor":{"type":"integer","minimum":1},"captureId":{"type":"string"},"finalCapture":{"type":"boolean"},"requestKey":{"type":"string"},"approve":{"type":"boolean"}})
         }
         "developer.archive" => {
             json!({"app":{"type":"string"},"archived":{"type":"boolean"},"approve":{"type":"boolean"}})

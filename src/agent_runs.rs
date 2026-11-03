@@ -6,6 +6,7 @@ pub(crate) mod context;
 mod contract;
 pub(crate) mod controls;
 mod flow_proposals;
+pub(crate) mod navigation;
 pub(crate) mod scenarios;
 pub(crate) mod translation;
 pub(crate) mod view;

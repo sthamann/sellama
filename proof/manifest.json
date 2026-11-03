@@ -705,8 +705,8 @@
     },
     "crates/cognition/src/prompts.rs": {
       "status": "unproved",
-      "sha256": "73640eed9a0f70312e652701d23e1430f38e7c0dcbb7f10743e59a6129f9d24a",
-      "review": "Designer acceptance: app-owned versioned style prompt, bounded style-only schema preserving native page content/structure, shared proposal validation unchanged for content edits. Registered visual_workspace RED to GREEN and real Qwen screenshot returns three review-only alternatives. Prompt registry/governance extends app-owned version files. SQL/inference/rendering remain unproved."
+      "sha256": "e916d7c16bbb9dd8514cae2079c05d5cc87fd071f5ff33e500c694ed50365af3",
+      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
     },
     "crates/commerce/src/discount.rs": {
       "status": "reviewed-binding",
@@ -1275,8 +1275,8 @@
     },
     "extensions/apps/site-builder/proposals.rs": {
       "status": "unproved",
-      "sha256": "230392f452bccc6b838209f2e6d7c26d9fba672e573ba126214440281d5ee6c4",
-      "review": "Designer acceptance: app-owned versioned style prompt, bounded style-only schema preserving native page content/structure, shared proposal validation unchanged for content edits. Registered visual_workspace RED to GREEN and real Qwen screenshot returns three review-only alternatives. Prompt registry/governance extends app-owned version files. SQL/inference/rendering remain unproved."
+      "sha256": "ccaf67f9d468c2586e2e4ab8e5a1bc0148ad7ff5bd52d065e93c3cbef5139498",
+      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
     },
     "extensions/apps/site-builder/references.rs": {
       "status": "unproved",
@@ -1498,6 +1498,11 @@
       "sha256": "5ddd3031d46fe91aa89bd9dc3781332e93c51a6887034df29837b7eb7e6b3056",
       "review": "Reviewed task-reference-only Flow templates, same actor and original scope checks at native save and runtime, scalar event mapping, no copied credentials or source inputs, shared stop/lease and transactional daily limits; actual private event-to-approval write, denial and zero-inference regressions plus UI scope cleanup pass. Async SQL remains outside formal proof."
     },
+    "src/agent_runs/navigation.rs": {
+      "status": "unproved",
+      "sha256": "ea9e2ff7982980fd38a04a2edd4a7c7c8f6ccf8c637e12ec6329d7e8b57ea921",
+      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
+    },
     "src/agent_runs/scenarios/catalogue.rs": {
       "status": "unproved",
       "sha256": "ff6ee5b7a53894880ed6465882fd45eedd947fa64621435dd88aa6f93dd23764",
@@ -1555,8 +1560,8 @@
     },
     "src/agent_runs.rs": {
       "status": "unproved",
-      "sha256": "f7cb4fe39eed5c848083538752a7dffbe837434e03e0f9fe95e03cf3ab01b842",
-      "review": "Customer scenarios: independent scenario_security_review completed; native signed-role, cohort, replay, injection, cancellation and post-lock lease-expiry regressions pass. Shared checkout preflight avoids nested-pool deadlock; authority is rechecked at the fenced transaction commit."
+      "sha256": "f2d94123c9312efbcb1dfaaf6dc5f3bbc69d97d772429f6744bf09f0fbb17b3d",
+      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
@@ -3870,8 +3875,8 @@
     },
     "src/planner/admission.rs": {
       "status": "unproved",
-      "sha256": "8dc2e66239b44da2a1758d241f4729869c3e3aab4f4459757e6e1f24dd9d1dfa",
-      "review": "Review shared read-only planner admission and one checkpointed correction using original context, current authorized app contracts and unchanged personal approval; managed page fields use app-owned schema; translation and malicious checkout-correction HTTP regressions pass, workspace units and clippy pass"
+      "sha256": "c6def0c10290195e02dcc6501fe992ae73da1da110588cf45faae8e6b906f35d",
+      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
     },
     "src/planner/repair.rs": {
       "status": "unproved",
@@ -3880,8 +3885,8 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "c4d925c3f363c0a7bb00b15895504d36ece246aed3191b3cc328b3d04ad76944",
-      "review": "Task2 reviewed native view component admission and bounded private pins; unchanged extracted policies. Local native units, clippy and real users/providers/site HTTP pass; independent review fixes cover nested cancel and CRM address drafts."
+      "sha256": "599d420cb7b3a13a7ec911f9b818cbcb0f5c2b19164cf809b0532c3155638028",
+      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
@@ -3995,8 +4000,8 @@
     },
     "src/proposal_model.rs": {
       "status": "unproved",
-      "sha256": "41034e340df18b7015018cae4fc04dd339df37c1bd9570465db93a1c33e3571d",
-      "review": "Reviewed scoped translation selection, original task authority, atomic child linking and completion, cancellation/explicit ambiguous continuation, lease fences, central provider admission outside transactions and bounded prompt evidence; real PostgreSQL/HTTP collection and interruption regressions plus 724 UI tests; skipped products store SQL NULL evidence rather than JSON null. Claude supplied code-only review, findings checked and fixed."
+      "sha256": "92208ddf13c4d704ac009df3adb85428a52ab25e8adb4176d5d0f13a7b45dfd8",
+      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
     },
     "src/proposal_routes.rs": {
       "status": "unproved",
@@ -4344,8 +4349,8 @@
       "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
     },
     "crates/cognition/prompts/manifest.json": {
-      "sha256": "f92f1e52db9299dbbd082b1b9b088baf7131da020abcbf6194ad0a369453c494",
-      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
+      "sha256": "882189187073fa166498461610c8d2d156f126168a66232cd0bfda89d4798e53",
+      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
     },
     "crates/cognition/prompts/media-caption.v1.txt": {
       "sha256": "7d368215afb79fb94e5d266f1879eb961d91347be7fbb71ed83efcbd6a1a7f7b",
@@ -4366,6 +4371,10 @@
     "crates/cognition/prompts/merchant-planner.v4.txt": {
       "sha256": "4062797ca0aa59af510b0ab9f270047c03a60c373a3e96758d7300dd0ce7ee76",
       "review": "Task2 reviewed native view component admission and bounded private pins; unchanged extracted policies. Local native units, clippy and real users/providers/site HTTP pass; independent review fixes cover nested cancel and CRM address drafts."
+    },
+    "crates/cognition/prompts/merchant-planner.v5.txt": {
+      "sha256": "94676f8346a7d75870464bc2996e196ae6846f1ad9a8b45841acd99f276cd324",
+      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
     },
     "crates/cognition/prompts/merchant-repair.v1.txt": {
       "sha256": "703a48219790f0746e893117dfeddc88438de3a6eb123af0722900a3b87220ef",
@@ -4420,12 +4429,12 @@
       "review": "Reviewed international configuration, destination tax predicates and native bindings; targeted PostgreSQL international/catalog cases plus Rust tests pass. Translation fixtures verify restart, provider rejection, tenant permissions and revision conflicts. Config/product/apply share row locks. Additive schema 028 and versioned MIT geography reviewed; surrounding SQL/provider behavior remains unproved."
     },
     "frontend/package-lock.json": {
-      "sha256": "43e0e85898a196b692d6e1a191d1b9682740e2da52c0dfacae6e0a0533abae85",
-      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
+      "sha256": "c57a46506f34c32bdf307c6971a9d0a7dafe1ae01d069502fe26ea2b458e65f3",
+      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
     },
     "frontend/package.json": {
-      "sha256": "3a4ed827e8e30f00410a03827df1ae9a2fca489da77d6d3baa854f47d0bcc288",
-      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
+      "sha256": "64102b57ef335bc118cfcfb54af38b010d163940ac11c31abd86160068571ecd",
+      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
     },
     "frontend/scripts/precompress.mjs": {
       "sha256": "dbe91d7985386628933dfb734bd5555ba4e8b97502d1f644b26488434cfc195c",

@@ -15,6 +15,8 @@ pub(crate) struct Change {
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub(crate) struct Proposal {
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub(crate) navigation: Option<agent_runs::navigation::Navigation>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub(crate) view: Option<agent_runs::view::View>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub(crate) operations: Vec<agent_runs::work_plan::Step>,

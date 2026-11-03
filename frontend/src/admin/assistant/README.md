@@ -4,7 +4,7 @@ Merchant conversation rendering, reviewed change proposals and model connection 
 
 Files and their individual responsibilities are listed in [the generated source inventory](../../../../docs/module-inventory.md). Each file starts with its contract summary.
 
-`WorkspaceCopilot.tsx` presents the same scoped conversation beside the current workspace, including staging and selected entity references. Opening help or selecting a question starter does not call a model; merchant submission and approval remain explicit.
+`WorkspaceCopilot.tsx` presents the same scoped conversation as a persistent right sidebar, including staging and selected entity/app references. `useCopilotDock` owns scoped visibility. `copilot-navigation` admits only current-rights native destinations; the server independently checks domain/PII rights and owning-tenant records. Opening help or selecting a question starter does not call a model; merchant submission and approval remain explicit.
 
 ## Modules
 

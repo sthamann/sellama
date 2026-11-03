@@ -5,6 +5,7 @@ import type { IntakeMode } from "../catalog/catalog-intake-model";
 import "../styles/catalog-intake.css";
 const CatalogIntake = lazy(() => import("../catalog/CatalogIntake"));
 import MerchantSourceIntake from "../intelligence/MerchantSourceIntake";
+import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 import { useAgentWorkspaceText } from "../../shared/i18n/agent-workspace-i18n";
 import { locales } from "../../shared/i18n/i18n";
 import "../../shared/styles/workbench.css";
@@ -14,7 +15,11 @@ import "../styles/studio.css";
 
 import { useStudio } from "./StudioContext";
 
-export default function StudioComposer({ context }: { context?: string } = {}) {
+export default function StudioComposer({
+  context,
+  compact = false,
+}: { context?: string; compact?: boolean } = {}) {
+  const { u } = useExperienceUIText();
   const c = useCatalogIntakeText(),
     aw = useAgentWorkspaceText();
   const [source, setSource] = useState<"document" | "guidance">();
@@ -83,56 +88,68 @@ export default function StudioComposer({ context }: { context?: string } = {}) {
             {workspaceContext.selected && ` · ${workspaceContext.selected.id}`}
           </small>
         )}
-        {canImport && (
-          <div className="merchant-catalog-actions">
-            <label className="composer-file" title={c("dropCsv")}>
-              <Icon name="plus" size={18} />
-              <span>{c("csv")}</span>
-              <input
-                type="file"
-                accept=".csv,text/csv"
-                disabled={busy}
-                aria-label={c("attachCsv")}
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) openIntake("csv", file);
-                  e.target.value = "";
-                }}
-              />
-            </label>
-            {(
-              [
-                ["url", "link"],
-                ["demo", "spark"],
-              ] as const
-            ).map(([mode, icon]) => (
-              <button
-                type="button"
-                key={mode}
-                disabled={busy || !access.includes("assistant.use")}
-                onClick={() => openIntake(mode)}
-              >
-                <Icon name={icon} size={15} />
-                {c(mode)}
-              </button>
-            ))}
-          </div>
-        )}
-        {connected && access.includes("knowledge.write") && (
-          <div className="merchant-catalog-actions">
-            {(["document", "guidance"] as const).map((kind) => (
-              <button
-                key={kind}
-                type="button"
-                disabled={busy}
-                onClick={() => setSource(kind)}
-              >
-                <Icon name={kind === "guidance" ? "spark" : "text"} size={15} />
-                {aw(kind === "guidance" ? "guidance" : "source")}
-              </button>
-            ))}
-          </div>
-        )}
+        <details
+          className={`composer-sources ${compact ? "is-compact" : ""}`}
+          open={compact ? undefined : true}
+        >
+          <summary hidden={!compact}>
+            <Icon name="plus" size={16} />
+            {u("addSources")}
+          </summary>
+          {canImport && (
+            <div className="merchant-catalog-actions">
+              <label className="composer-file" title={c("dropCsv")}>
+                <Icon name="plus" size={18} />
+                <span>{c("csv")}</span>
+                <input
+                  type="file"
+                  accept=".csv,text/csv"
+                  disabled={busy}
+                  aria-label={c("attachCsv")}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) openIntake("csv", file);
+                    e.target.value = "";
+                  }}
+                />
+              </label>
+              {(
+                [
+                  ["url", "link"],
+                  ["demo", "spark"],
+                ] as const
+              ).map(([mode, icon]) => (
+                <button
+                  type="button"
+                  key={mode}
+                  disabled={busy || !access.includes("assistant.use")}
+                  onClick={() => openIntake(mode)}
+                >
+                  <Icon name={icon} size={15} />
+                  {c(mode)}
+                </button>
+              ))}
+            </div>
+          )}
+          {connected && access.includes("knowledge.write") && (
+            <div className="merchant-catalog-actions">
+              {(["document", "guidance"] as const).map((kind) => (
+                <button
+                  key={kind}
+                  type="button"
+                  disabled={busy}
+                  onClick={() => setSource(kind)}
+                >
+                  <Icon
+                    name={kind === "guidance" ? "spark" : "text"}
+                    size={15}
+                  />
+                  {aw(kind === "guidance" ? "guidance" : "source")}
+                </button>
+              ))}
+            </div>
+          )}
+        </details>
         {source && (
           <MerchantSourceIntake
             key={`${workspace}:${environment}:${locale}`}

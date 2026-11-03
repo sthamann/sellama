@@ -95,6 +95,11 @@
       "id": "media-caption@1",
       "path": "prompts/media-caption.v1.txt",
       "sha256": "7d368215afb79fb94e5d266f1879eb961d91347be7fbb71ed83efcbd6a1a7f7b"
+    },
+    {
+      "id": "merchant-planner@5",
+      "path": "prompts/merchant-planner.v5.txt",
+      "sha256": "94676f8346a7d75870464bc2996e196ae6846f1ad9a8b45841acd99f276cd324"
     }
   ]
 }

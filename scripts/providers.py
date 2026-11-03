@@ -27,6 +27,7 @@ class Handler(BaseHTTPRequestHandler):
         if behavior['mode']=='reject':
             self.send_response(429); self.end_headers(); return
         result=proposal
+        if behavior['mode']=='navigation-plan':result={**proposal,'changes':[],'navigation':behavior['navigation']}
         if behavior['mode']=='view-plan':result={**proposal,'changes':[],'view':behavior['view']}
         if behavior['mode']=='work-plan':result={**proposal,'changes':[],'operations':behavior['operations']}
         if behavior['mode'] in ['extract','bad-extract']:
@@ -204,6 +205,8 @@ try:
         passed('Personal reader can plan; only authorized editor executes in the owning shop')
         from testing.workspace_composition import verify_composition_access
         verify_composition_access(call, behavior, owner, personal, passed)
+    from testing.copilot_navigation import verify_navigation
+    verify_navigation(call, behavior, passed)
     behavior['mode']='normal'
     call('/api/apps',{'builtIn':'engraving'})
     before=call('/api/apps/engraving/entities/rules')['elements'][0]

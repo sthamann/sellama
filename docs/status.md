@@ -1,18 +1,20 @@
 # Veyndo: current status
 
-Updated 2 November 2026. Start here for the public product, observed journeys and
+Updated 3 November 2026. Start here for the public product, observed journeys and
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
 ## Current public release
 
-The public Core is running `f35024ada3239d6ca676d7962943fb03c2da9163`
-(2 November). Its source includes the shared canvas, localized media captions,
+The public Core release `1f8c2a45b55dc1bcc00944e36a352299b06c517e`
+(3 November) is running publicly. Its source includes the shared canvas, localized media captions,
 guided shop setup, assistant layout and shared payment contract. Northflank
 reports one ready replica with no restarts after the latest rollout. Feature
 walkthroughs below retain their actual local or public acceptance scope. The
-separate Shopware Payments provider service is still pending provisioning; the
-17-method simulation contract is not a completed hosted-provider acceptance.
+separate private Rust Shopware Payments service is now hosted in simulation, with
+a dedicated database and restricted runtime login. The synthetic merchant account
+connects successfully. Original Storyfront purchase, return and refund acceptance
+are tracked in the payment guide.
 
 ## Shared visual canvas (2 November 2026, publicly delivered)
 
@@ -40,6 +42,21 @@ keyboard focus and draft handoff; 43 targeted UI tests pass.
 [Illustrated workflow and acceptance scope](agentic-workspace.md#a-connected-conversation-surface).
 The current public Core includes this source. The responsive assistant walkthrough remains the local acceptance above.
 
+## Hosted payment service and original Storyfront (3 November 2026, public acceptance)
+
+The independent private Rust payment service is online in simulation, with its own
+logical database and restricted runtime login. The public original Lumen Storyfront
+created order **RAC-ef438264** for **EUR 59.90** through the actual embedded native
+checkout and nested provider form. After explicit test confirmation, the native
+ledger showed captured payment. Returning updated the original bag to zero items;
+it remained empty after reloading the original Storyfront.
+
+Native Studio then refunded **EUR 0.01** and the exact **EUR 59.89** remainder.
+The order and a fresh provider reconciliation showed **refunded**. Card, SEPA and
+Klarna settings saved after the scoped settings payload repair. This public browser
+journey accepts card simulation; other methods retain their separately named local
+acceptance. [Screenshots and observed result](shopware-payments-acceptance.md#public-original-storyfront-purchase-and-refund-3-november-2026).
+
 ## Shopware Payments acceptance (2 November 2026)
 
 The private provider and current public Core pass local synthetic purchase,
@@ -49,16 +66,17 @@ The embedded provider form gains a bounded loading state, scoped readiness and
 presentation-only reload. Actual local Chrome purchases on desktop and at 390px
 use the private SEPA form, return to the shop and show an empty native bag. Their
 partial and remaining full refunds also pass through the merchant API. External
-provider browser acceptance, public service deployment and full original feature
-parity remain open.
+provider browser acceptance and full original feature parity remain open. The
+private service has now been publicly deployed in simulation.
 [Current journeys and concrete remaining work](shopware-payments-acceptance.md).
 
 Version 1.2.0 adds an explicit hosted simulation mode and replaces the public
 placeholder with the 17-method contract. Local concurrent method, native checkout,
 refund, cancellation and restart checks pass. A local Chrome SEPA purchase and a mobile card purchase
 show payment confirmation, return and an empty native bag, followed by exact
-partial/full refunds. The new independent hosted service
-is being prepared; public delivery is not yet accepted. See the [shared service
+partial/full refunds. The independent hosted service is running and the synthetic merchant account is
+connected. The original public Storyfront card purchase, return, empty bag after reload and
+full refund passed on 3 November. See the [shared service
 contract](payment-provider-api.md#shared-shopware-payments-service-version-120).
 
 ## Shared image captions (2 November 2026, source and local acceptance)

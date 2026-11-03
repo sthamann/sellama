@@ -1,5 +1,12 @@
 # Changelog
 
+## 3 November 2026: native 3D product models and variant materials
+
+- Upload bounded self-contained GLB 2 assets through native product media; preview inactive products through current merchant permissions.
+- Bind product SKUs to separate geometry or actual embedded material variants; rotate and zoom in the standard storefront gallery.
+- Preserve native revisions, multilingual metadata, parent asset ownership, tenant/channel admission, history and selected sandbox publication.
+- Keep GLB files out of image-only catalogue, POS, cart and order thumbnails; load the self-hosted viewer only on demand.
+
 ## 3 November 2026: consistent Studio actions and account setup
 
 - Keep component button styling independent of lazy stylesheet order; restore visible list filters and controls through a low-specificity Studio reset.

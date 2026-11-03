@@ -1,4 +1,5 @@
 /** Bounded, debounced native product/SKU lookup; prices are only committed through the reviewed checkout quote. */
+import { mediaImage } from "../../shared/media/product-media";
 import { useEffect, useState } from "react";
 import type { RequestFn } from "../../shared/api/types";
 import type { Product } from "../../shared/api/shop-api";
@@ -66,7 +67,7 @@ export default function OrderProductPicker({
             disabled={disabled || p.stock < 1}
             onClick={() => onAdd(p)}
           >
-            {p.media?.[0]?.url && <img src={p.media[0].url} alt="" />}
+            {mediaImage(p.media) && <img src={mediaImage(p.media)} alt="" />}
             <span>
               <strong>{p.name}</strong>
               <small>

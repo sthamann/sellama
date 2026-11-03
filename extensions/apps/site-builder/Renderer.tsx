@@ -1,4 +1,5 @@
 /** Shared page renderer: Studio previews and published shops use exactly these registered components. */
+import { mediaImage } from "../../../frontend/src/shared/media/product-media";
 import type { CSSProperties, ReactElement, ReactNode } from "react";
 import type { Block, Page, Theme } from "./model";
 import { defaultTheme, fonts, explicitTheme } from "./model";
@@ -111,7 +112,7 @@ export default function SiteRenderer({
               ? products.filter((p) => b.products.includes(p.id))
               : products;
         const photo =
-          b.image || (b.kind === "hero" ? rows[0]?.media[0]?.url : "");
+          b.image || (b.kind === "hero" ? mediaImage(rows[0]?.media) : "");
         const section = (
           <section
             key={b.id}
@@ -203,8 +204,12 @@ export default function SiteRenderer({
                         onProduct?.(p.id);
                       }}
                     >
-                      {p.media[0] && (
-                        <img src={p.media[0].url} alt={p.name} loading="lazy" />
+                      {mediaImage(p.media) && (
+                        <img
+                          src={mediaImage(p.media)}
+                          alt={p.name}
+                          loading="lazy"
+                        />
                       )}
                       <strong>{p.name}</strong>
                       <span>{money(p)}</span>

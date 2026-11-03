@@ -61,7 +61,8 @@
     "behavior_intelligence",
     "admin_creation",
     "agentic_commerce",
-    "migration_assistant"
+    "migration_assistant",
+    "product_models"
   ],
   "providers": [
     "outbox_subscribers",

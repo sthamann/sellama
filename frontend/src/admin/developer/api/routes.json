@@ -651,6 +651,11 @@
   },
   {
     "path": "/api/merchant/assets/{id}",
+    "method": "GET",
+    "source": "src/assets/mod.rs"
+  },
+  {
+    "path": "/api/merchant/assets/{id}",
     "method": "PUT",
     "source": "src/assets/mod.rs"
   },

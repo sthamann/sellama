@@ -1,4 +1,5 @@
 /** Dedicated completion page renders the accepted order snapshot and honest provider state, with no ID-only reads. */
+import { mediaImage } from "../../shared/media/product-media";
 import { notifyCheckout, returnFromCheckout } from "./embedded-checkout";
 import { useEffect, useRef } from "react";
 import type { Order } from "../../shared/api/shop-api";
@@ -57,8 +58,13 @@ export default function OrderCompletion({
           <h2>{x("summary")}</h2>
           {snapshot.lineItems.map((item) => (
             <article className="completion-item" key={item.id}>
-              {item.media?.[0]?.url && (
-                <img src={item.media[0].url} width={64} height={80} alt="" />
+              {mediaImage(item.media) && (
+                <img
+                  src={mediaImage(item.media)}
+                  width={64}
+                  height={80}
+                  alt=""
+                />
               )}
               <div>
                 <strong>{item.label}</strong>

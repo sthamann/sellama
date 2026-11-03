@@ -1,4 +1,5 @@
 /** Product columns and native catalog criteria over the shared grid; media/price/content stay domain-owned. */
+import { mediaImage } from "../../shared/media/product-media";
 import type { GridQueryState } from "../../shared/grid/types";
 import AgenticGrid from "../../shared/grid/AgenticGrid";
 import { useGridPage } from "../../shared/grid/useGridPage";
@@ -85,8 +86,8 @@ export default function CatalogDirectory({
               className="agent-grid-link"
               onClick={() => onOpen(p.id)}
             >
-              {p.media?.[0]?.url ? (
-                <img src={p.media[0].url} alt="" />
+              {mediaImage(p.media) ? (
+                <img src={mediaImage(p.media)} alt="" />
               ) : (
                 <span className="agent-grid-avatar">
                   <Icon name="box" />

@@ -2035,8 +2035,8 @@
     },
     "src/assets/download.rs": {
       "status": "reviewed-binding",
-      "sha256": "c8f3f097e40c04b95d3eb5ab876b9f51e794e7016d697356b64e09353c17b32a",
-      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
+      "sha256": "e2dedc2bc5f2a8195c904bacce5fcf5677361d3a83e65462600d59c6a1c6755b",
+      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
     },
     "src/assets/image_jobs.rs": {
       "status": "unproved",
@@ -2055,13 +2055,23 @@
     },
     "src/assets/ingestion.rs": {
       "status": "unproved",
-      "sha256": "935ca68eb7e01eeebbe4bf495e82012f45f21f0f40fc094be6c7ac6ac24037df",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "b931490af51ca16e14d11b2469cd3c6ac634fb4b0d40b8e097eee7e59f4bcaa5",
+      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
     },
     "src/assets/mod.rs": {
       "status": "unproved",
-      "sha256": "de2a2b95b070a15048e6480370366c11700c83251cc63fd4f4624afe4935fbed",
-      "review": "Canvas reference capture uses bounded public-only egress and native vision; developer context is validated before inference, redacted evidence retained in existing immutable versions, HTTP/MCP task schemas preserve native staging and current rights. Native app-generation HTTP/PostgreSQL and context unit regressions passed."
+      "sha256": "fa63b09d4dd5311ee550861898294d7411cd2be6b37149ae0474417895ff3c19",
+      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
+    },
+    "src/assets/model_format.rs": {
+      "status": "unproved",
+      "sha256": "039b0300ea8401e614de32fc7326bf0254a987e57e211bdd7b9ed3f623231914",
+      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
+    },
+    "src/assets/model_media.rs": {
+      "status": "unproved",
+      "sha256": "f662aa570f75f8077c815dc069b116c55ceb0ee24006f6c97f95ab02b3932f78",
+      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
     },
     "src/assets/rich.rs": {
       "status": "unproved",
@@ -2075,8 +2085,8 @@
     },
     "src/assets/upload.rs": {
       "status": "unproved",
-      "sha256": "5bc143e5c1fe459ea700a4cd45ad6a1798ac6d08d4ebb1cc118fb03fe5948c7b",
-      "review": "Independent review of native imported immutable image boundaries and selected parent/product-before-asset publication; exact persisted product baseline, attachment-only guard, source-position ordering and recoverable two-step association verified through real HTTP/PostgreSQL regressions. Pure extracted policies unchanged."
+      "sha256": "5238ab64c440943198d3af84b6fa2be95a8a80e66accaa7137c3a9db0e4e799c",
+      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
     },
     "src/auth/abuse.rs": {
       "status": "unproved",
@@ -2155,8 +2165,8 @@
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
-      "sha256": "10b253846a3b405a17f57ac5fc19c59050b2ef03e1924527afff4d101d4bec88",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "50483121c34783685e8953a7f116b724ff3bb09f80372cd86159d20ddaf11ef8",
+      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
     },
     "src/auth/mod.rs": {
       "status": "unproved",
@@ -2825,8 +2835,8 @@
     },
     "src/commerce/product_fields.rs": {
       "status": "unproved",
-      "sha256": "dbd0f80f4b34ed41d4c3f7a20421d68fe3c3b945b495dbc5750a8823b53e2805",
-      "review": "Review additive product content clock and rolling-writer trigger; preserve aggregate CAS for explicit stock and legacy clients; content-only HTTP/MCP edits omit stock under the locked native owner; preserve live stock in history and release snapshots. Actual two-replica purchase/cancellation and editor regressions exercise stale writes; async SQL and UI remain outside the existing unchanged Lean proof boundary."
+      "sha256": "8a9ffdc93f09bd1aede67e486ee957579d5488ed81fe7a99a681b746cdc8f3b7",
+      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
     },
     "src/commerce/product_input.rs": {
       "status": "unproved",
@@ -4020,8 +4030,8 @@
     },
     "src/security_headers.rs": {
       "status": "unproved",
-      "sha256": "03f0cfba2c3e5c57f94ab4da4801e5fc7c3cae4bf946b7c2448470792205c407",
-      "review": "Reviewed original Shopware app controller, bounded fixed-origin lifecycle jobs and durable uncertain fences; opaque pinned app UI response CSP; operational records excluded by extracted release policy and native clone/publication path. Real container, native permissions/MCP, migration retention and app surface regressions passed; PHP and controller adapters remain unproved."
+      "sha256": "b2ccdf23bbbd19bc25312274f29f69a35cb3eddddf8050c6504f434f7aa73206",
+      "review": "Reviewed native GLB upload and product/parent ownership, bounded model metadata, authenticated no-store model preview, channel-scoped public assets and blob connection permission with unchanged script/eval policy; parser, native HTTP and browser regressions cover these unproved adapters."
     },
     "src/seed.rs": {
       "status": "unproved",
@@ -4390,12 +4400,12 @@
       "review": "Reviewed international configuration, destination tax predicates and native bindings; targeted PostgreSQL international/catalog cases plus Rust tests pass. Translation fixtures verify restart, provider rejection, tenant permissions and revision conflicts. Config/product/apply share row locks. Additive schema 028 and versioned MIT geography reviewed; surrounding SQL/provider behavior remains unproved."
     },
     "frontend/package-lock.json": {
-      "sha256": "1b0c696279d2aa3bd23577f2371552c39f9bfae6e1c2b0f5b1664e159be364bd",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "43e0e85898a196b692d6e1a191d1b9682740e2da52c0dfacae6e0a0533abae85",
+      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
     },
     "frontend/package.json": {
-      "sha256": "a1b0adef2ac1e2368708147f222aab56f5b659d51536f5b167e5d54fd021122a",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "3a4ed827e8e30f00410a03827df1ae9a2fca489da77d6d3baa854f47d0bcc288",
+      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
     },
     "frontend/scripts/precompress.mjs": {
       "sha256": "dbe91d7985386628933dfb734bd5555ba4e8b97502d1f644b26488434cfc195c",

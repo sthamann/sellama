@@ -42,8 +42,22 @@ pub(crate) async fn parse(
                     .bytes()
                     .await
                     .map_err(|_| bad("Asset exceeds upload limit"))?;
-                if content.is_empty() || content.len() > 8 * 1024 * 1024 {
-                    return Err(bad("Asset must contain 1 byte..8 MiB"));
+                if ["application/octet-stream", ""].contains(&mime.as_str())
+                    && filename.to_ascii_lowercase().ends_with(".glb")
+                {
+                    mime = "model/gltf-binary".into();
+                }
+                let limit = if mime == "model/gltf-binary" && !surface {
+                    super::model_format::MODEL_LIMIT
+                } else {
+                    8 * 1024 * 1024
+                };
+                if content.is_empty() || content.len() > limit {
+                    return Err(bad(if mime == "model/gltf-binary" {
+                        "GLB must contain a complete model up to 20 MiB"
+                    } else {
+                        "Asset must contain 1 byte..8 MiB"
+                    }));
                 }
                 bytes = Some(content.to_vec());
             }

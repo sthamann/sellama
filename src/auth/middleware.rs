@@ -77,6 +77,7 @@ async fn authenticate_scoped(State(a): State<App>, mut request: Request, next: N
     // Public image subrequests cannot carry frontend custom headers. Resolve only the scoped asset URL
     // before sandbox/session admission; private shops still require the same merchant credential.
     if (path.starts_with("/store-api/assets/")
+        || path.starts_with("/api/merchant/assets/")
         || path.starts_with("/store-api/company-logo/")
         || path.starts_with("/products/")
         || path.starts_with("/channel-preview/"))
@@ -91,7 +92,7 @@ async fn authenticate_scoped(State(a): State<App>, mut request: Request, next: N
             Err(_) => return bad("Invalid asset shop scope").into_response(),
         }
     }
-    if path.starts_with("/channel-preview/")
+    if (path.starts_with("/channel-preview/") || path.starts_with("/store-api/assets/"))
         && request
             .extensions()
             .get::<crate::shop_domains::HostShop>()

@@ -1,4 +1,5 @@
 /** StorefrontHeader: storefront view composed from the scoped cart/controller. */
+import { mediaImage } from "../../shared/media/product-media";
 import { openConsent } from "../../shared/legal/consent-store";
 import { StorefrontAppNavigation } from "../../shared/apps/AppSurfaces";
 import StorefrontHeaderView from "./StorefrontHeaderView";
@@ -27,7 +28,9 @@ export default function StorefrontHeader() {
     company.brandName ||
     company.name ||
     (shopTenant === "nord-atelier" &&
-    products.some((p) => p.media[0]?.url.startsWith("/media/demo/fashion/"))
+    products.some((p) =>
+      mediaImage(p.media)?.startsWith("/media/demo/fashion/"),
+    )
       ? s("fashionBrand")
       : shopTenant);
   return (

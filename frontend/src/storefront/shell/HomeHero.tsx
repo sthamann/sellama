@@ -1,4 +1,5 @@
 /** Shared native home hero for the storefront and visual preview; no commerce commands. */
+import { mediaImage } from "../../shared/media/product-media";
 import { BRAND } from "../../shared/ui/Brand";
 import Icon from "../../shared/ui/Icon";
 import Art from "../../shared/ui/ProductArt";
@@ -17,7 +18,7 @@ export default function HomeHero({
     { w } = useWorkbenchText(),
     { u } = useExperienceUIText();
   const fashion = products.some((p) =>
-    p.media[0]?.url.startsWith("/media/demo/fashion/"),
+    mediaImage(p.media)?.startsWith("/media/demo/fashion/"),
   );
   const hero =
     products.find((p) => p.id === (fashion ? "coat" : "chair")) ?? products[0];
@@ -48,10 +49,10 @@ export default function HomeHero({
         </div>
       </div>
       <div className="shop-hero-art">
-        {hero?.media[0]?.url ? (
+        {mediaImage(hero?.media) ? (
           <img
             className="shop-hero-photo"
-            src={hero.media[0].url}
+            src={mediaImage(hero.media)}
             alt={hero.name}
             width={1000}
             height={1000}

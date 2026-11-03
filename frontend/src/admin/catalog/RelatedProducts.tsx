@@ -1,4 +1,5 @@
 /** Ordered recommendations retain selected native records across cursor-paginated searches, content-language changes and read-only inspection. */
+import { mediaImage } from "../../shared/media/product-media";
 import { useEffect, useState } from "react";
 import type { RequestFn } from "../shell/studio-types";
 import { useRelatedProductsText } from "./related-products-i18n";
@@ -173,8 +174,13 @@ export default function RelatedProducts({
                     )
                   }
                 />
-                {p.media?.[0]?.url && (
-                  <img src={p.media[0].url} alt="" width="36" height="36" />
+                {mediaImage(p.media) && (
+                  <img
+                    src={mediaImage(p.media)}
+                    alt=""
+                    width="36"
+                    height="36"
+                  />
                 )}
                 <span>
                   <strong>{p.name}</strong>

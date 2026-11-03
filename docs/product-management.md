@@ -6,6 +6,8 @@ VEYNDO Studio now owns one **Products** workspace. The **Products** tab provides
 
 The interface supports English, German, French and Spanish. Content editors use every enabled shop content language. Change **Content language** to edit the corresponding name, short description, rich description, specifications and SEO fields. Missing/null fields inherit the shop main language; an explicitly empty description stays empty. Viewing a fallback never saves a fabricated translation. Existing rich descriptions remain language-specific. Changing the Studio interface language keeps the selected product, content language and unsaved draft open; switching shops or environments starts a separate scoped workspace.
 
+**3D product media:** [Upload GLB models, bind SKU materials, preview privately and publish with the product](product-3d-models.md).
+
 ## Product detail workspace
 
 The product header keeps the image, name, product number, version, unsaved state,

@@ -25,7 +25,7 @@ Public provider acceptance and dated deployment evidence remain in
 | Area | What is included | Start here |
 | --- | --- | --- |
 | Shopping | Fashion catalog, categories, variants, media, prices, reviews, customer accounts and checkout | [Storefront](#storefront-and-shopping) |
-| Catalog | Unified editor tabs, rich descriptions, translations, variants, galleries, categories, downloads and history | [Products](#products-and-categories) |
+| Catalog | Unified editor tabs, rich descriptions, translations, variants, image galleries, 3D models and materials, categories, downloads and history | [Products](#products-and-categories) |
 | Operations | CRM, addresses, customer groups, order workflows, delivery, payments and immutable PDFs | [Customers and orders](#customers-orders-and-documents) |
 | Intelligence | Reviewed proposals, private/published knowledge, retrieval, recommendations, translations and image drafts | [Intelligence](#assistant-and-shop-intelligence) |
 | Processes | Saved rules, coupons, campaigns, graphical branches, durable delays and app actions | [Rules and flows](#rules-campaigns-and-flow-builder) |
@@ -630,3 +630,7 @@ fences and current permissions. [Shipping workflows and limits](shipping-workflo
 ## Connected App Studio workbench
 
 See the [illustrated workbench guide](app-studio-workspace.md) for multiple placements, compact adjustable panels, the contextual AI drawer, model-backed form editing, shared Flow visuals, installed app settings and scoped integration keys. These extend the existing native Manifest, runtime and release owners.
+
+### 3D product media
+
+Upload self-contained GLB models, preview them in Studio and bind native product variants to their own geometry or an embedded material. Shoppers rotate and zoom inside the normal gallery, with the selected SKU retaining its native price, stock and checkout. [Setup, model contract and sandbox publication](product-3d-models.md).

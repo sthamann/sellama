@@ -1,4 +1,5 @@
 /** Convert the native home to an unsaved app document; retain real locale text and owned product-media selection. */
+import { mediaImage } from "../../../../frontend/src/shared/media/product-media";
 import { shopText } from "../../../../frontend/src/shared/i18n/shop-i18n";
 import type { SiteProduct } from "../Renderer";
 import { newPage, newBlock } from "../model";
@@ -12,7 +13,7 @@ export function homeDraft(
 ) {
   const base = shopText(mainLocale),
     fashion = products.some((p) =>
-      p.media[0]?.url.startsWith("/media/demo/fashion/"),
+      mediaImage(p.media)?.startsWith("/media/demo/fashion/"),
     );
   const page = newPage(channel, mainLocale, base("collection"));
   page.slug = "home";

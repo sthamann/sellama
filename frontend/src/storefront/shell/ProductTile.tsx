@@ -1,4 +1,5 @@
 /** Single native product card, reused by the storefront and read-only visual preview. */
+import { mediaImage } from "../../shared/media/product-media";
 import { productURL } from "../catalog/product-url";
 import ImagePlaceholder from "../catalog/ImagePlaceholder";
 import Icon from "../../shared/ui/Icon";
@@ -30,9 +31,9 @@ export default function ProductTile({
         href={productURL(p)}
         aria-label={`${s("details")}: ${p.name}`}
       >
-        {p.media[0]?.url ? (
+        {mediaImage(p.media) ? (
           <img
-            src={p.media[0].url}
+            src={mediaImage(p.media)}
             alt={p.name}
             loading="lazy"
             width="400"

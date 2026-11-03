@@ -140,6 +140,8 @@ This lists every checked-in source module in these roots, including files with n
 | [src/assets/import.rs](../src/assets/import.rs) | Immutable imported product images reuse the native asset table, product lock, byte validation and publication lifecycle. |
 | [src/assets/ingestion.rs](../src/assets/ingestion.rs) | Shared bounded multipart parser for product uploads and scoped app uploads; file validation/persistence stays in the asset owner. |
 | [src/assets/mod.rs](../src/assets/mod.rs) | Product attachments and paid digital downloads: bounded binary persistence and tenant/account ACL. |
+| [src/assets/model_format.rs](../src/assets/model_format.rs) | Bounded self-contained GLB 2 admission; remote resources and runtime decoder downloads are forbidden. |
+| [src/assets/model_media.rs](../src/assets/model_media.rs) | Model media references reuse owned immutable product assets, current product CAS and parent variant links. |
 | [src/assets/rich.rs](../src/assets/rich.rs) | Safe structured rich content, never executable HTML. Same schema for merchant API and frontend. |
 | [src/assets/rich_document.rs](../src/assets/rich_document.rs) | Allow-listed editor JSON with bounded depth and content; HTML/handlers/styles cannot enter the renderer. |
 | [src/assets/upload.rs](../src/assets/upload.rs) | File admission, immutable bytes and explicit publishing; binary content never enters merchant list responses. |
@@ -721,6 +723,8 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/catalog/ProductGeneral.tsx](../frontend/src/admin/catalog/ProductGeneral.tsx) | Product basics and full content remain primary; optional identifiers and shipping flags share one expandable native-draft section. |
 | [frontend/src/admin/catalog/ProductLocalizedContent.tsx](../frontend/src/admin/catalog/ProductLocalizedContent.tsx) | Consistent main-language inheritance for product rich documents. |
 | [frontend/src/admin/catalog/ProductMediaWorkspace.tsx](../frontend/src/admin/catalog/ProductMediaWorkspace.tsx) | One product-media workspace: cover, ordered gallery, multilingual image metadata, drag/drop and optional reviewed AI drafts. |
+| [frontend/src/admin/catalog/ProductModelCard.tsx](../frontend/src/admin/catalog/ProductModelCard.tsx) | A model edits the same localized product media item; material choices come from the loaded GLB. |
+| [frontend/src/admin/catalog/ProductModels.tsx](../frontend/src/admin/catalog/ProductModels.tsx) | Native GLB upload, parent reuse and material binding stay inside the existing revisioned product draft. |
 | [frontend/src/admin/catalog/ProductPanels.tsx](../frontend/src/admin/catalog/ProductPanels.tsx) | Native commerce, media, translated SEO/specifications and category panels for one editable product. |
 | [frontend/src/admin/catalog/ProductPriceTiers.tsx](../frontend/src/admin/catalog/ProductPriceTiers.tsx) | Native rule-bound price tiers edit the existing revisioned product aggregate. |
 | [frontend/src/admin/catalog/ProductPricing.tsx](../frontend/src/admin/catalog/ProductPricing.tsx) | Grouped native pricing inputs preserve stock-safe aggregate saves and optional price contracts. |
@@ -1052,6 +1056,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/operations.css](../frontend/src/admin/styles/operations.css) | Operational screens share the studio's light surface and clear focus states. |
 | [frontend/src/admin/styles/product-assignments.css](../frontend/src/admin/styles/product-assignments.css) | Product assignments use compact searchable choices, native checkboxes and the Studio theme. |
 | [frontend/src/admin/styles/product-content.css](../frontend/src/admin/styles/product-content.css) | Product content keeps a compact vertical rhythm and uses the incumbent Studio surfaces and native disclosures. |
+| [frontend/src/admin/styles/product-models.css](../frontend/src/admin/styles/product-models.css) | Model preview and settings extend the incumbent gallery without turning GLB files into image covers. |
 | [frontend/src/admin/styles/product-pricing.css](../frontend/src/admin/styles/product-pricing.css) | Product pricing follows the native save path with grouped basics and optional conditions. |
 | [frontend/src/admin/styles/product-seo.css](../frontend/src/admin/styles/product-seo.css) | Product SEO uses one readable field column and a responsive search-preview area on existing Studio theme surfaces. |
 | [frontend/src/admin/styles/product-specifications.css](../frontend/src/admin/styles/product-specifications.css) | Product facts use compact labelled groups, explicit add rows and a native definition-list preview within the existing editor surface. |
@@ -1303,8 +1308,15 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/legal/legal-types.ts](../frontend/src/shared/legal/legal-types.ts) | Channel-scoped legal policy, explicit optional purposes and durable consumer requests. |
 | [frontend/src/shared/legal/requirements.ts](../frontend/src/shared/legal/requirements.ts) | Source-backed requirement catalogue; operational applicability is reviewed, never inferred as legal certification. |
 | [frontend/src/shared/media/MediaCaptionEditor.tsx](../frontend/src/shared/media/MediaCaptionEditor.tsx) | Shared localized caption edits and explicit AI proposal review; native owners retain persistence and publication. |
+| [frontend/src/shared/media/ModelViewer.tsx](../frontend/src/shared/media/ModelViewer.tsx) | On-demand, self-hosted model-viewer with bounded native GLB sources, accessible controls and recoverable loading. |
 | [frontend/src/shared/media/caption-i18n.ts](../frontend/src/shared/media/caption-i18n.ts) | Interface copy for shared caption editing; content languages come from the actual shop context. |
 | [frontend/src/shared/media/captions.css](../frontend/src/shared/media/captions.css) | Compact caption tools inherit their editor's palette and fit narrow property panels. |
+| [frontend/src/shared/media/model-decoder-disabled.ts](../frontend/src/shared/media/model-decoder-disabled.ts) | Admission forbids meshopt-compressed GLB; avoid instantiating an unused WebAssembly decoder under the existing CSP. |
+| [frontend/src/shared/media/model-errors-i18n.ts](../frontend/src/shared/media/model-errors-i18n.ts) | Native 3D admission errors explain conversion, ownership and material recovery in every interface language. |
+| [frontend/src/shared/media/model-i18n.ts](../frontend/src/shared/media/model-i18n.ts) | Shared four-language controls for native 3D media; product descriptions use shop content languages. |
+| [frontend/src/shared/media/model-source.ts](../frontend/src/shared/media/model-source.ts) | Private model previews reuse explicit browser-session transport; temporary preview bytes stay in a revocable blob, with no credential in the URL. |
+| [frontend/src/shared/media/model-viewer.css](../frontend/src/shared/media/model-viewer.css) | A quiet product stage reserves its dimensions before the optional 3D engine loads. |
+| [frontend/src/shared/media/product-media.ts](../frontend/src/shared/media/product-media.ts) | One media contract keeps 3D files out of image-only thumbnails and commerce summaries. |
 | [frontend/src/shared/money/fx-draft.ts](../frontend/src/shared/money/fx-draft.ts) | Draft-only FX preview matches the server rational/half-up boundary; checkout always uses its server quote. |
 | [frontend/src/shared/operations/index.ts](../frontend/src/shared/operations/index.ts) | Generated native operation input contracts; do not edit. |
 | [frontend/src/shared/operations/inputs-0.ts](../frontend/src/shared/operations/inputs-0.ts) | Generated native operation input contracts; do not edit. |
@@ -1867,6 +1879,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/prepare_host.py](../scripts/prepare_host.py) | Prepare private first-host configuration; no server purchase, SSH, deployment or secret logging. |
 | [scripts/prepare_vercel.py](../scripts/prepare_vercel.py) | Render same-origin Vercel API proxy configuration; no credentials, deployments or account changes. |
 | [scripts/product_lab.py](../scripts/product_lab.py) | Local full-app example lifecycle; private keys and independent code/data, no automatic installation. |
+| [scripts/product_models.py](../scripts/product_models.py) | Real native product GLB upload, variant materials, isolated preview, CAS, channel admission and selected release. |
 | [scripts/production_foundations.py](../scripts/production_foundations.py) | Strict non-owner PostgreSQL runtime, pool isolation, inventory and two-replica invalidation regressions. |
 | [scripts/protocols.py](../scripts/protocols.py) | Protocol flows exercise the same commerce core; model smoke test is opt-in. |
 | [scripts/providers.py](../scripts/providers.py) | Cloud wire-contract tests using local HTTP servers, NOT live cloud inference. |
@@ -1935,6 +1948,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/mail_contracts/wire.py](../scripts/testing/mail_contracts/wire.py) | Loopback SMTP/TLS and HTTP mail-provider fixtures plus consent-aware test requests. |
 | [scripts/testing/media_caption_checks.py](../scripts/testing/media_caption_checks.py) | Actual caption proposal, ownership, locale persistence and selected page-release regressions; synthetic provider only. |
 | [scripts/testing/merchant_guidance.py](../scripts/testing/merchant_guidance.py) | Explicit versioned merchant guidance reaches actual model input and is withdrawn by the native archive path. |
+| [scripts/testing/model_fixture.py](../scripts/testing/model_fixture.py) | Original compact GLB furniture fixture with embedded geometry and two material variants; no external assets. |
 | [scripts/testing/native_lifecycle_race.py](../scripts/testing/native_lifecycle_race.py) | Force native workflow editing against app installation at the real database boundary. |
 | [scripts/testing/native_tools.py](../scripts/testing/native_tools.py) | Synthetic provider-native wire responses shared by real HTTP integration fixtures; not a model implementation. |
 | [scripts/testing/operation_contracts.py](../scripts/testing/operation_contracts.py) | Generated native operation input contracts; do not edit. |

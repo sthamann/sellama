@@ -56,10 +56,10 @@ const words = {
     "Precios, impuestos, existencias y cantidades de compra.",
   ],
   media: [
-    "Choose the images and videos customers see.",
-    "Bilder und Videos für deine Kunden auswählen.",
-    "Choisissez les images et vidéos présentées aux clients.",
-    "Elige las imágenes y los vídeos que ven tus clientes.",
+    "Choose product images and interactive 3D models.",
+    "Produktbilder und interaktive 3D Modelle auswählen.",
+    "Choisissez les images produit et les modèles 3D interactifs.",
+    "Elige imágenes del producto y modelos 3D interactivos.",
   ],
   variants: [
     "Organize sizes, colors and other product options.",

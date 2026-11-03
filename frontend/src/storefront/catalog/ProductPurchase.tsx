@@ -102,8 +102,9 @@ export default function ProductPurchase({
             {s(group)} <span>{s(p.options[group])}</span>
           </legend>
           <div>
-            {[...new Set(data.variants.map((v) => v.options[group]))].map(
-              (option) => {
+            {[...new Set(data.variants.map((v) => v.options[group]))]
+              .filter(Boolean)
+              .map((option) => {
                 const match = data.variants.find(
                   (v) =>
                     v.options[group] === option &&
@@ -130,8 +131,7 @@ export default function ProductPurchase({
                     {s(option)}
                   </button>
                 );
-              },
-            )}
+              })}
           </div>
         </fieldset>
       ))}

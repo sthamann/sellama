@@ -39,8 +39,7 @@
   font: inherit;
   font-size: 12px;
 }
-.visual-canvas-toolbar button:hover:not(:disabled),
-.visual-canvas-open:hover {
+.visual-canvas-toolbar button:hover:not(:disabled) {
   background: var(--hover, #e5f3ff);
 }
 .visual-canvas button:disabled {
@@ -125,12 +124,53 @@
   outline: 2px solid var(--accent, #0668c9);
   outline-offset: 4px;
 }
-.visual-canvas-open {
-  width: 100%;
-  margin-top: 12px;
+.visual-canvas .visual-canvas-open,
+.visual-canvas .visual-canvas-quick-open button {
   min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--accent, #0668c9);
+  border-radius: 8px;
+  background: var(--accent, #0668c9);
+  color: #fff;
+  font: inherit;
   font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.visual-canvas .visual-canvas-open {
+  width: 100%;
+  margin: 0 0 12px;
   justify-content: space-between;
+}
+.visual-canvas .visual-canvas-open:hover:not(:disabled),
+.visual-canvas .visual-canvas-quick-open button:hover:not(:disabled) {
+  background: var(--text, #142432);
+  border-color: var(--text, #142432);
+}
+.visual-canvas-quick-open {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-inline-start: auto;
+  min-width: 0;
+}
+.visual-canvas-quick-open select {
+  min-width: 0;
+  max-width: 260px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--border, #d4e2ef);
+  border-radius: 8px;
+  background: var(--surface, #fff);
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+}
+.visual-canvas-quick-open button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 .visual-canvas-hint {
   font-size: 11px;
@@ -252,33 +292,13 @@
   }
 }
 
-.visual-canvas-mobile-open {
-  display: none;
-}
 @media (max-width: 650px) {
-  .visual-canvas-mobile-open {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 8px;
-    padding: 8px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
+  .visual-canvas-quick-open {
+    width: 100%;
+    margin: 0;
   }
-  .visual-canvas-mobile-open select,
-  .visual-canvas-mobile-open button {
-    min-height: 44px;
-    min-width: 0;
-    font: inherit;
-    font-size: 12px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px;
-    background: var(--surface);
-    color: var(--text);
-  }
-  .visual-canvas-mobile-open button {
-    display: inline-flex;
-    gap: 8px;
-    align-items: center;
+  .visual-canvas-quick-open select {
+    flex: 1;
+    max-width: none;
   }
 }

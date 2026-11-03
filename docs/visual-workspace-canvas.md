@@ -48,7 +48,7 @@ catalogue is never loaded just to fill the overview.
 
 1. Open **Shop design** and choose the sale channel. The board shows its real home,
    a selectable product, a category listing and its content pages.
-2. Choose **Open editor** on a page. Click a section to reveal its properties.
+2. Choose **Edit** on a page. Click a section to reveal its properties.
    Collapse **Properties** and **Pages & sections** whenever the preview needs room.
 3. Drag an element to the insertion line. Selected sections expose move, duplicate
    and delete controls. These edit the existing page document and undo history.
@@ -68,7 +68,7 @@ Original Storyfront Experiences continue to use their own editor.
 
 An app starts in its placement overview, for example merchant product panel,
 product detail and checkout summary. The placement name leads each scene so views
-with the same app name remain distinguishable. Choose **Open editor** to work on
+with the same app name remain distinguishable. Choose **Edit** to work on
 that view. **Elements** opens the compact graphical palette; **Properties** opens
 only when needed. Both can be closed. The app identity, section selector, private
 environment and version save remain in the compact header.
@@ -148,3 +148,7 @@ Products or App Studio. Product sections remain beside the form on desktop and
 use the existing compact section selector on narrow screens. The shared Canvas
 wrapper owns its own spacing. Native language, revision, permission and private
 save paths remain the same.
+
+The blue **Edit** action appears above each scene preview. The fixed toolbar also
+lets you choose a view and open it at normal control size, independently of Canvas
+zoom. Both entry points use the same native editor callback and disabled state.

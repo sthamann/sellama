@@ -82,6 +82,7 @@ const words = {
     "Ouvrir l’éditeur",
     "Abrir editor",
   ],
+  edit: ["Edit", "Bearbeiten", "Modifier", "Editar"],
   tools: ["Elements", "Bausteine", "Éléments", "Elementos"],
   properties: ["Properties", "Eigenschaften", "Propriétés", "Propiedades"],
   close: [

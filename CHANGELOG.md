@@ -2,6 +2,7 @@
 
 ## 3 November 2026: reliable native editing from the Canvas
 
+- Make Canvas editing visible above each preview, with blue actions and an unscaled view picker shared by Shop design and App Studio. Preserve native callbacks and disabled admission.
 - Load catalogue base and responsive styles with the reusable product and category editors, so direct Shop design entry works before opening the catalogue.
 - Give the shared Canvas commerce wrapper its own stylesheet instead of depending on App Studio navigation history.
 - Keep the compact product section selector authoritative on narrow screens when lazy catalogue styles load later; preserve native revisions, permissions and private save behavior.

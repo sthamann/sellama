@@ -134,31 +134,31 @@ export default function VisualCanvas({
             </button>
           </div>
         )}
+        {chosen && (
+          <div className="visual-canvas-quick-open">
+            <select
+              aria-label={t("chooseView")}
+              value={chosen.id}
+              onChange={(e) => setChoice(e.target.value)}
+            >
+              {current.map((scene) => (
+                <option key={scene.id} value={scene.id}>
+                  {scene.title}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              disabled={chosen.disabled}
+              onClick={chosen.onOpen}
+            >
+              {t("edit")}
+              <Icon name="arrow" size={16} />
+            </button>
+          </div>
+        )}
         {children}
       </div>
-      {chosen && (
-        <div className="visual-canvas-mobile-open">
-          <select
-            aria-label={t("chooseView")}
-            value={chosen.id}
-            onChange={(e) => setChoice(e.target.value)}
-          >
-            {current.map((scene) => (
-              <option key={scene.id} value={scene.id}>
-                {scene.title}
-              </option>
-            ))}
-          </select>
-          <button
-            type="button"
-            disabled={chosen.disabled}
-            onClick={chosen.onOpen}
-          >
-            {t("open")}
-            <Icon name="arrow" size={16} />
-          </button>
-        </div>
-      )}
       <div
         className="visual-canvas-viewport"
         ref={viewport}
@@ -224,7 +224,6 @@ export default function VisualCanvas({
                 </div>
                 {scene.badge && <small>{scene.badge}</small>}
               </header>
-              <div className="visual-canvas-scene-preview">{scene.preview}</div>
               <button
                 type="button"
                 className="visual-canvas-open"
@@ -232,9 +231,10 @@ export default function VisualCanvas({
                 onClick={scene.onOpen}
                 aria-label={`${t("open")}: ${scene.title}`}
               >
-                {t("open")}
+                {t("edit")}
                 <Icon name="arrow" size={16} />
               </button>
+              <div className="visual-canvas-scene-preview">{scene.preview}</div>
             </article>
           ))}
         </div>

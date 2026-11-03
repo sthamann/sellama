@@ -29,8 +29,8 @@ HTTP. No provider account, external charge or hosted deployment is involved.
 
 ## UI and focused checks
 
-Five component tests exercise unchecked consent, method selection, revocation,
-error recovery and late responses after account switching. The actual components were rendered with synthetic
+Six component tests exercise unchecked consent, method selection, revocation,
+error recovery, independent save progress and late responses after account switching. The actual components were rendered with synthetic
 presentation data at desktop and 390 × 844. The mobile document has no horizontal
 overflow; revocation displays the empty account state. These captures show a
 component fixture, not a new public checkout acceptance.
@@ -38,6 +38,8 @@ component fixture, not a new public checkout acceptance.
 ![Checkout consent and saved-method management, local component fixture](../assets/payment-vault/desktop.png)
 
 ![Mobile account after revocation, local component fixture](../assets/payment-vault/revoked-mobile.png)
+
+[Mobile save-progress messages, local component fixture](../assets/payment-vault/notice-mobile.png).
 
 Private Rust checks include 21 units with encryption randomization, binding and
 tamper rejection. The native redaction unit rejects hidden provider/customer data

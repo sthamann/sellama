@@ -4,6 +4,7 @@ import { it, expect, vi, beforeEach } from "vitest";
 import { LocaleProvider } from "../../src/shared/i18n/i18n";
 import SavedPaymentChoice from "../../src/storefront/checkout/SavedPaymentChoice";
 import SavedPaymentMethods from "../../src/storefront/account/SavedPaymentMethods";
+import SavedPaymentNotice from "../../src/storefront/checkout/SavedPaymentNotice";
 import { cart } from "./fixtures";
 const api = vi.hoisted(() => vi.fn());
 vi.mock("../../src/shared/api/shop-api", () => ({ shopApi: api }));
@@ -20,6 +21,28 @@ beforeEach(() => {
     supportedMethods: ["shopware-payments-card"],
     elements: [instrument],
   });
+});
+it("keeps saved-method progress separate from the actual payment result", () => {
+  const v = render(
+    <LocaleProvider>
+      <SavedPaymentNotice status="pending" />
+    </LocaleProvider>,
+  );
+  expect(screen.getByRole("status")).toHaveTextContent("still being saved");
+  v.rerender(
+    <LocaleProvider>
+      <SavedPaymentNotice status="failed" />
+    </LocaleProvider>,
+  );
+  expect(screen.getByRole("status")).toHaveTextContent(
+    "payment status above is unchanged",
+  );
+  v.rerender(
+    <LocaleProvider>
+      <SavedPaymentNotice status="saved" />
+    </LocaleProvider>,
+  );
+  expect(screen.getByRole("status")).toHaveTextContent("manage or revoke");
 });
 it("offers explicit consent and selects only the current method's saved instrument", async () => {
   const onChange = vi.fn();

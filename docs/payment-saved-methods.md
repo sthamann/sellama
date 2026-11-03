@@ -56,6 +56,8 @@ capture. At most 32 active handles are admitted per native customer account.
 The Store API payment status exposes `savedPaymentMethodStatus` separately from
 financial state: pending, saved, failed or reused. Native OpenAPI, TypeScript and
 WIT operation inputs are generated from the shared registry.
+The checkout explains pending or failed saving beside the payment result, so a
+problem saving a method does not look like a failed purchase.
 
 ## Deployment and acceptance
 

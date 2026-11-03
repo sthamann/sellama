@@ -1,6 +1,24 @@
 /** Checkout vocabulary: the same purchase and payment states in every supported UI language. */
 import { useLocale } from "./i18n";
 const text = {
+  savedPaymentPending: [
+    "Your payment method is still being saved. You can check it later in your account.",
+    "Dein Zahlungsmittel wird noch gespeichert. Du kannst es später in deinem Konto prüfen.",
+    "Votre moyen est en cours d’enregistrement. Vous pourrez le consulter plus tard dans votre compte.",
+    "Tu método se está guardando. Puedes consultarlo después en tu cuenta.",
+  ],
+  savedPaymentComplete: [
+    "Your payment method is saved. You can manage or revoke it in your account.",
+    "Dein Zahlungsmittel ist gespeichert. Du kannst es in deinem Konto verwalten oder widerrufen.",
+    "Votre moyen est enregistré. Vous pouvez le gérer ou le révoquer dans votre compte.",
+    "Tu método está guardado. Puedes gestionarlo o revocarlo en tu cuenta.",
+  ],
+  savedPaymentFailed: [
+    "This payment method could not be saved. The payment status above is unchanged. You can use a new method next time.",
+    "Dieses Zahlungsmittel konnte nicht gespeichert werden. Der Zahlungsstatus oben bleibt bestehen. Beim nächsten Kauf kannst du ein neues Zahlungsmittel verwenden.",
+    "Ce moyen n’a pas pu être enregistré. Le statut du paiement ci-dessus reste inchangé. Vous pourrez utiliser un nouveau moyen au prochain achat.",
+    "No se pudo guardar este método. El estado del pago de arriba no cambia. Puedes usar un método nuevo en tu próxima compra.",
+  ],
   paypalBrand: ["PayPal", "PayPal", "PayPal", "PayPal"],
   savedPayments: [
     "Saved payment methods",

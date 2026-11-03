@@ -2,12 +2,14 @@
 import { useEffect, useRef, useState } from "react";
 import EmbeddedPayment from "./EmbeddedPayment";
 import PaymentInstructions from "./PaymentInstructions";
+import SavedPaymentNotice from "./SavedPaymentNotice";
 import { shopApi } from "../../shared/api/shop-api";
 import { useCheckoutText } from "../../shared/i18n/checkout-i18n";
 import { useShopText } from "../../shared/i18n/shop-i18n";
 type Status = {
   state: string;
   instructionsAvailable?: boolean;
+  savedPaymentMethodStatus?: string | null;
   checkout?: "redirect" | "embedded";
   approvalUrl?: string;
   amountMinor: number;
@@ -157,6 +159,7 @@ function PaymentStatus({ id, token, autoRedirect = false }: PaymentProps) {
         </strong>
       )}
       {paid && <p>{x("paidHint")}</p>}
+      <SavedPaymentNotice status={data?.savedPaymentMethodStatus} />
       {data?.state === "authorized" && <p>{x("authorizedHint")}</p>}
       {data?.checkout === "embedded" && data.state === "ready" && !returned && (
         <EmbeddedPayment

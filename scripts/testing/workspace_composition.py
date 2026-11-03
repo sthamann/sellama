@@ -15,6 +15,9 @@ def verify_composition_access(call, behavior, owner, personal, passed):
     assert planned['messages'][-1]['data']['preview']['proposal']['view'] == behavior['view'], planned
     assert call('/api/merchant/products?limit=1', headers=rh)['elements']
     call('/api/agent/conversations/' + planned['conversationId'], headers={**rh, 'x-tenant': 'atelier'}, expected=403)
+    behavior.update(mode='navigation-plan', navigation={'view':'commerce','id':None})
+    denied=call('/api/agent/chat', {'message':'Open settings without settings rights', 'inference':{'provider':'openai'}}, rh)
+    assert denied['messages'][-1]['data'].get('error'), denied
     definition['permissions'].remove('catalog.read')
     call('/api/workspace/roles/' + role, {'revision': 1, 'data': definition}, headers, method='PUT')
     assert 'catalog.read' not in call('/api/auth/access', headers=rh)['permissions']

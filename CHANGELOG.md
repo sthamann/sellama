@@ -1,5 +1,18 @@
 # Changelog
 
+## 3 November 2026: persistent contextual assistant
+
+- Ask Veyndo is a scoped right sidebar across Studio, with one shared conversation,
+  compact source tools and preserved native editor drafts when collapsed.
+- Current view and selected entity/app accompany each turn. Versioned planner v5
+  can suggest registered native destinations with explicit opening and current
+  permission/tenant-reference validation.
+- OpenUI presents typed native working-view compositions. Native directories,
+  record editors, catalogue review, approval and publication keep their owners.
+- Targeted UI, actual HTTP/provider and invalid-target tests accompany the change;
+  the daily full-suite schedule remains unchanged.
+
+
 ## 3 November 2026: configurable merchant reports
 
 - Share native reports between Shop today and each personal workspace area, with period, grouping, currency, timezone and channel filters.

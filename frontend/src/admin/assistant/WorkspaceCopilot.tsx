@@ -1,5 +1,5 @@
 /** Contextual drawer reuses the existing scoped conversation, permissions and proposal execution without unmounting editors. */
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 import { surfaceLabel } from "../../shared/apps/AppSurfaces";
 import Icon from "../../shared/ui/Icon";
@@ -7,10 +7,11 @@ import { useStudio } from "../shell/StudioContext";
 import StudioConversation from "../shell/StudioConversation";
 import "../styles/workspace-copilot.css";
 export default function WorkspaceCopilot({ onClose }: { onClose: () => void }) {
-  const dialog = useRef<HTMLDialogElement>(null);
   const { u } = useExperienceUIText();
   const {
     t,
+    error,
+    setError,
     workspaceName,
     environment,
     environments,
@@ -29,14 +30,16 @@ export default function WorkspaceCopilot({ onClose }: { onClose: () => void }) {
     if (sessionExpired) onClose();
   }, [sessionExpired, onClose]);
   useEffect(() => {
-    const node = dialog.current;
-    const previous = document.activeElement;
-    node?.showModal();
-    return () => {
-      node?.close();
-      if (previous instanceof HTMLElement) previous.focus();
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !document.querySelector("dialog[open]")) {
+        event.preventDefault();
+        onClose();
+        document.querySelector<HTMLButtonElement>(".copilot-launch")?.focus();
+      }
     };
-  }, []);
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [onClose]);
   const contextName = environment
     ? (environments.find((entry) => entry.id === environment)?.name ??
       environment)
@@ -54,14 +57,10 @@ export default function WorkspaceCopilot({ onClose }: { onClose: () => void }) {
     requestAnimationFrame(() => composer.current?.focus());
   };
   return (
-    <dialog
-      ref={dialog}
+    <aside
+      id="workspace-copilot"
       className="workspace-copilot"
       aria-labelledby="copilot-title"
-      onCancel={onClose}
-      onClick={(e) => {
-        if (e.target === dialog.current) onClose();
-      }}
     >
       <header className="copilot-header">
         <div>
@@ -78,27 +77,41 @@ export default function WorkspaceCopilot({ onClose }: { onClose: () => void }) {
           <Icon name="close" />
         </button>
       </header>
+      {error && (
+        <div className="studio-error" role="alert">
+          <span>{error}</span>
+          <button
+            type="button"
+            aria-label={t("close")}
+            onClick={() => setError("")}
+          >
+            <Icon name="close" size={16} />
+          </button>
+        </div>
+      )}
       <div className="copilot-context">
         <small>{u("context")}</small>
         <strong>
           {contextName} / {area}
         </strong>
         {entityTarget && <span>{entityTarget.id}</span>}
-        <p>{u("copilotHint")}</p>
-        <div className="copilot-tasks">
-          {(
-            [
-              ["readTask", "readPrompt"],
-              ["improveTask", "improvePrompt"],
-              ["planTask", "planPrompt"],
-            ] as const
-          ).map(([label, task]) => (
-            <button key={task} disabled={busy} onClick={() => choose(task)}>
-              {u(label)}
-              <Icon name="arrow" size={14} />
-            </button>
-          ))}
-        </div>
+        <details className="copilot-guidance">
+          <summary>{u("copilotHint")}</summary>
+          <div className="copilot-tasks">
+            {(
+              [
+                ["readTask", "readPrompt"],
+                ["improveTask", "improvePrompt"],
+                ["planTask", "planPrompt"],
+              ] as const
+            ).map(([label, task]) => (
+              <button key={task} disabled={busy} onClick={() => choose(task)}>
+                {u(label)}
+                <Icon name="arrow" size={14} />
+              </button>
+            ))}
+          </div>
+        </details>
       </div>
       <StudioConversation
         compact
@@ -107,6 +120,6 @@ export default function WorkspaceCopilot({ onClose }: { onClose: () => void }) {
           setSettings(true);
         }}
       />
-    </dialog>
+    </aside>
   );
 }

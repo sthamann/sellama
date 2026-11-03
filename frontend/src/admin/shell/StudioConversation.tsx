@@ -2,7 +2,8 @@
 import { useCatalogIntakeText } from "../../shared/i18n/catalog-intake-i18n";
 import { useScenarioNavigation } from "../scenarios/useScenarioNavigation";
 import { canTestCustomers } from "../scenarios/scenario-access";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+import CopilotNavigation from "../assistant/CopilotNavigation";
 import StudioComposer from "./StudioComposer";
 import AgentRunCard from "./AgentRunCard";
 import { useAgentRunText } from "../../shared/i18n/agent-runs-i18n";
@@ -19,7 +20,7 @@ import "../styles/assistant-layout.css";
 import { useAgentWorkspaceText } from "../../shared/i18n/agent-workspace-i18n";
 
 import { useStudio } from "./StudioContext";
-import AgentWorkSurface from "../workspace/AgentWorkSurface";
+const AgentWorkSurface = lazy(() => import("../workspace/AgentWorkSurface"));
 import type { WorkspaceView } from "../../shared/grid/workspace-view";
 import type { RequestFn } from "./studio-types";
 
@@ -189,6 +190,9 @@ export default function StudioConversation({
                 )}
                 {m.data.preview && (
                   <>
+                    <CopilotNavigation
+                      value={m.data.preview.proposal.navigation}
+                    />
                     <ProposalCard
                       onTest={
                         environment && canTestCustomers(access) && m.data.taskId
@@ -296,12 +300,14 @@ export default function StudioConversation({
         )}
         <div ref={bottom} />
       </div>
-      <StudioComposer context={context} />
+      <StudioComposer context={context} compact={compact} />
       {workingView && workingView.request === request && (
-        <AgentWorkSurface
-          candidate={workingView.view}
-          onClose={() => setWorkingView(undefined)}
-        />
+        <Suspense fallback={null}>
+          <AgentWorkSurface
+            candidate={workingView.view}
+            onClose={() => setWorkingView(undefined)}
+          />
+        </Suspense>
       )}
     </section>
   );

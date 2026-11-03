@@ -29,7 +29,7 @@ Built in public. Implementation, CI and public acceptance are recorded separatel
 
 | Work | What connects it |
 | --- | --- |
-| **Work with an agent** | Ask about your shop, open real records, prepare catalogue content and review changes before applying them. [AI workspace](docs/agentic-workspace.md#a-connected-conversation-surface), [catalogue](docs/product-management.md#preparing-a-catalogue-together). |
+| **Work with an agent** | Use the contextual sidebar to answer questions, open native views and compose working UIs. [AI workspace](docs/agentic-workspace.md#a-connected-conversation-surface), [catalogue](docs/product-management.md#preparing-a-catalogue-together). |
 | **Bring your shop** | The [Migration Assistant](docs/agentic-migration.md) connects versioned source profiles, saved background inspection, readable variant review and native imports into private previews. |
 | **Build the business** | Describe an app with forms, uploads, settings and views. Connect materials and dimensions to company approval, checkout and reorder. Visual editing and coding agents share one versioned definition. [App Studio](docs/app-studio.md), [configurator](docs/furniture-configurator.md), [object extensions](docs/app-core-extensions.md). |
 | **Shape the shop** | Design shop pages and app placements on one zoomable canvas. Drag elements, retain drafts and compare AI proposals. Add multilingual image captions and [3D product models with variant materials](docs/product-3d-models.md). Storyfront powers Experiences. [Visual design](docs/personal-workspace-and-shop-design.md). |

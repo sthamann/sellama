@@ -18,6 +18,8 @@ import "../styles/assistant-layout.css";
 import { PreviewPanel } from "../preview/PreviewPanel";
 
 import { StudioContext } from "./StudioContext";
+import WorkspaceCopilot from "../assistant/WorkspaceCopilot";
+import "../styles/workspace-copilot.css";
 import StudioHeader from "./StudioHeader";
 import StudioSignIn from "./StudioSignIn";
 import StudioRoutes from "./StudioRoutes";
@@ -106,75 +108,85 @@ export default function Merchant(props: {
                   </a>
                 </div>
               )}
-              <main
-                id="studio-content"
-                className={`studio-main view-${appSurface ? "app" : tab} ${!appSurface && ["assistant", "overview"].includes(tab) ? (selected ? "has-context" : "") : "is-workspace"}`}
+              <div
+                className={`studio-body ${controller.copilot.open && (tab !== "assistant" || appSurface) ? "has-copilot" : ""}`}
               >
-                <div className="studio-content">
-                  {(error || notice) && (
-                    <div
-                      className={`studio-notice ${error ? "is-error" : ""}`}
-                      role={error ? "alert" : "status"}
-                    >
-                      <div>
-                        {error ? (
-                          <>
-                            <b>
-                              {t(sessionExpired ? "sessionExpired" : "failure")}
-                            </b>
-                            {sessionExpired && (
-                              <button
-                                className="studio-primary"
-                                onClick={() => selectTab("users")}
-                              >
-                                {x("studioSignIn")}
-                              </button>
-                            )}
-                            <p>{error}</p>
-                          </>
-                        ) : (
-                          t(
-                            notice!.key,
-                            notice?.count != null
-                              ? { count: notice.count }
-                              : {},
-                          )
-                        )}
-                      </div>
-                      <button
-                        className="icon-button"
-                        aria-label={t("close")}
-                        onClick={() => {
-                          setError("");
-                          setNotice(undefined);
-                        }}
+                <main
+                  id="studio-content"
+                  className={`studio-main view-${appSurface ? "app" : tab} ${!appSurface && ["assistant", "overview"].includes(tab) ? (selected ? "has-context" : "") : "is-workspace"}`}
+                >
+                  <div className="studio-content">
+                    {(error || notice) && (
+                      <div
+                        className={`studio-notice ${error ? "is-error" : ""}`}
+                        role={error ? "alert" : "status"}
                       >
-                        <Icon name="close" size={16} />
-                      </button>
-                    </div>
+                        <div>
+                          {error ? (
+                            <>
+                              <b>
+                                {t(
+                                  sessionExpired ? "sessionExpired" : "failure",
+                                )}
+                              </b>
+                              {sessionExpired && (
+                                <button
+                                  className="studio-primary"
+                                  onClick={() => selectTab("users")}
+                                >
+                                  {x("studioSignIn")}
+                                </button>
+                              )}
+                              <p>{error}</p>
+                            </>
+                          ) : (
+                            t(
+                              notice!.key,
+                              notice?.count != null
+                                ? { count: notice.count }
+                                : {},
+                            )
+                          )}
+                        </div>
+                        <button
+                          className="icon-button"
+                          aria-label={t("close")}
+                          onClick={() => {
+                            setError("");
+                            setNotice(undefined);
+                          }}
+                        >
+                          <Icon name="close" size={16} />
+                        </button>
+                      </div>
+                    )}
+                    <WorkspaceBoundary
+                      key={`${workspace}:${environment}:${tab}:${appSurface?.surface.id ?? ""}:${controller.access.join(",")}`}
+                      title={t("failure")}
+                      retryLabel={t("refresh")}
+                      onRetry={() => window.location.reload()}
+                    >
+                      <Suspense fallback={<p role="status">…</p>}>
+                        <StudioRoutes />
+                      </Suspense>
+                    </WorkspaceBoundary>
+                  </div>
+                  {!appSurface &&
+                    selected &&
+                    ["assistant", "overview"].includes(tab) && (
+                      <PreviewPanel
+                        product={selected}
+                        request={request}
+                        connected={connected}
+                        onIntent={intent}
+                      />
+                    )}
+                </main>
+                {controller.copilot.open &&
+                  (tab !== "assistant" || appSurface) && (
+                    <WorkspaceCopilot onClose={controller.copilot.hide} />
                   )}
-                  <WorkspaceBoundary
-                    key={`${workspace}:${environment}:${tab}:${appSurface?.surface.id ?? ""}:${controller.access.join(",")}`}
-                    title={t("failure")}
-                    retryLabel={t("refresh")}
-                    onRetry={() => window.location.reload()}
-                  >
-                    <Suspense fallback={<p role="status">…</p>}>
-                      <StudioRoutes />
-                    </Suspense>
-                  </WorkspaceBoundary>
-                </div>
-                {!appSurface &&
-                  selected &&
-                  ["assistant", "overview"].includes(tab) && (
-                    <PreviewPanel
-                      product={selected}
-                      request={request}
-                      connected={connected}
-                      onIntent={intent}
-                    />
-                  )}
-              </main>
+              </div>
               <footer className="studio-statusbar">
                 <span>
                   <i className={serverReady ? "on" : ""} />

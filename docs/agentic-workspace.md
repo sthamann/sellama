@@ -32,8 +32,8 @@ catalogue changes. The duplicate CSV control has been removed.
 
 An empty product context no longer reserves a blank sidebar. A selected product
 still uses the native context panel and its mobile dialog. On narrow screens the
-welcome and input scroll together; the compact **Ask Veyndo** drawer uses the
-same composer. Existing conversations retain their scrollable message region.
+welcome and input scroll together; **Ask Veyndo** now opens a persistent right
+sidebar beside native editors, using the same composer. Existing conversations retain their scrollable message region.
 
 ![Merchant assistant with aligned actions and input](assets/assistant-layout-20261102/desktop.jpg)
 
@@ -47,6 +47,41 @@ keyboard focus on Send, French tablet labels and responsive sizes 1440 × 900,
 1024 × 768, 390 × 844 and 844 × 390. The narrow and landscape views expose their
 controls without horizontal document overflow. This is UI acceptance; it does not
 certify a new model capability or public runtime deployment.
+
+![Persistent assistant beside the selected native product](assets/copilot-20261103/product-context.jpg)
+
+## Ask Veyndo beside your work
+
+Open **Ask Veyndo** in the Studio header. The right sidebar stays open while you
+move between products, orders, knowledge, apps and settings. **New conversation**,
+conversation history and contextual task entry points open the same sidebar. In
+the full Assistant view, the header focuses its existing composer so the same
+conversation is rendered once. Collapse the sidebar at any time; the underlying
+editor stays mounted with its unsaved draft. On phones the conversation uses the
+screen width and has a visible Close control. Escape closes the sidebar when no
+nested dialog is active.
+
+The current native view, selected product/order/customer or installed app is sent
+with each submitted turn as bounded presentation context. Shop, environment,
+language, identity and current rights still come from the existing authenticated
+request and agent run. A context change starts no model request. **Add sources**
+reveals the shared CSV, product URL, demo catalogue and document tools.
+
+Ask **What colour and price does this product have?** The agent reads the stored
+product through native tools. Ask **Show me a product list with details** to prepare
+a working view. It can also offer **Open Products**, **Open Settings** or another
+registered view. Opening requires a click. The server validates current domain and
+PII rights and checks entity references in the owning shop; the client checks the
+current visible rights again. Arbitrary URLs, scripts and foreign references are
+rejected. Navigating to another native route follows its normal editor lifecycle;
+collapsing the sidebar itself does not navigate or save.
+
+OpenUI 1.0.1 is now integrated with fixed native Directory and Intake bindings.
+The model chooses `records`, `details` and product-only `intake` through the
+existing planning schema. Search, filters, details, source review and writes stay
+in their existing native owners. The renderer receives no model-supplied rows,
+permissions, arbitrary component names, HTML or SQL. Existing approval, revisions,
+private drafts and selected publication apply to all resulting changes.
 
 ## Open a working view
 
@@ -73,8 +108,9 @@ The composition contract accepts only `records`, `details` and product-only
 `intake`. It rejects model-provided rows, tenant identity, executable HTML and
 unknown components. Native API admission remains authoritative. The model never
 sets a confirmed completion label or executes a rendered button itself.
-This uses native Studio components; the separate OpenUI experiment remains
-outside the production dependency tree. [Dated local acceptance](evidence/composed-workspace-2026-10-29.md).
+This uses native Studio components presented by the integrated OpenUI renderer.
+The model chooses the typed composition; the host compiles only admitted component
+IDs into OpenUI. Model text is never treated as executable markup or a data query. [Dated local acceptance](evidence/composed-workspace-2026-10-29.md).
 
 ## 1. Start from the work you are doing
 

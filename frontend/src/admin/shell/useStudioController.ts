@@ -20,6 +20,7 @@ import { useStudioAccess } from "./useStudioAccess";
 import { useChatTurns } from "./useChatTurns";
 import { useStudioEnvironment } from "./useStudioEnvironment";
 import { useStudioTheme } from "./useStudioTheme";
+import { useCopilotDock } from "../assistant/useCopilotDock";
 import { useAgentWorkspaceContext } from "./useAgentWorkspaceContext";
 
 export function useStudioController({
@@ -31,7 +32,6 @@ export function useStudioController({
 }) {
   const { w } = useWorkbenchText();
   const { x } = useConnectedText();
-
   const { locale, setLocale, t, date } = useLocale();
   const serverReady = useServerHealth();
   const { tabLabel, nav } = useStudioNavigation();
@@ -87,12 +87,13 @@ export function useStudioController({
     ),
   );
   const { tab } = navigation;
+  const [appSurface, setAppSurface] = useState<AppSurface | null>(null);
   const agentWorkspace = useAgentWorkspaceContext(
     JSON.stringify([scope, token]),
     tab,
     navigation.entityTarget,
+    appSurface?.app,
   );
-  const [appSurface, setAppSurface] = useState<AppSurface | null>(null);
   const selectTab = (id: Parameters<typeof navigation.selectTab>[0]) => {
     if (id === "assistant") agentWorkspace.remember();
     setAppSurface(null);
@@ -120,7 +121,10 @@ export function useStudioController({
     connected,
     liveRequest,
   );
-  const sessionExpired = auth.expired;
+  const copilot = useCopilotDock(
+    JSON.stringify([scope, token, auth.identity?.user.id]),
+    connected && !auth.expired && canOpenStudio("assistant", access),
+  );
   useStudioPermissions(
     !!auth.identity,
     auth.expired,
@@ -246,9 +250,9 @@ export function useStudioController({
     };
   }, [request, auth.active, workspace, environment, token, connectionAttempt]);
   useEffect(() => {
-    if (tab === "assistant")
+    if (tab === "assistant" || copilot.open)
       bottom.current?.scrollIntoView({ block: "nearest" });
-  }, [messages, busy, tab]);
+  }, [messages, busy, tab, copilot.open]);
   const chat = useChatTurns({
     scope: JSON.stringify([
       scope,
@@ -272,19 +276,18 @@ export function useStudioController({
     run,
     refresh,
     onOpen: () => {
-      selectTab("assistant");
+      copilot.show();
       setMenu(false);
     },
     onNew: () => {
-      selectTab("assistant");
+      copilot.show();
       setMenu(false);
       composer.current?.focus();
     },
   });
-  const { load, newChat, send } = chat;
   const intent = (text: string) => {
     agentWorkspace.remember();
-    selectTab("assistant");
+    copilot.show();
     setDraft(text);
     setMenu(false);
     requestAnimationFrame(() => composer.current?.focus());
@@ -301,6 +304,7 @@ export function useStudioController({
     (!focus ? data?.products[0] : undefined);
 
   return {
+    copilot,
     workspaceContext: agentWorkspace.workspaceContext,
     ...navigation,
     ...designHandoff,
@@ -329,7 +333,7 @@ export function useStudioController({
     connectionPending: auth.active && (connectionPending || !sameScope),
     retryConnection: () => setConnectionAttempt((n) => n + 1),
     setConnected,
-    sessionExpired,
+    sessionExpired: auth.expired,
     auth,
     role,
     setRole,
@@ -382,10 +386,10 @@ export function useStudioController({
     refreshEnvironments,
     refresh,
     run,
-    load,
-    newChat,
+    load: chat.load,
+    newChat: chat.newChat,
     intent,
-    send,
+    send: chat.send,
     apply,
     onProduct,
     selected,

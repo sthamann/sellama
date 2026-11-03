@@ -27,6 +27,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/agent_runs/contract.rs](../src/agent_runs/contract.rs) | HTTP/MCP share revision-bound run controls and safe progress; checkpoints and credentials are never exported. |
 | [src/agent_runs/controls.rs](../src/agent_runs/controls.rs) | Live-only agent stop and existing-key admission; no control becomes a sandbox release or credential snapshot. |
 | [src/agent_runs/flow_proposals.rs](../src/agent_runs/flow_proposals.rs) | Scheduled Flow results become native reviewable tasks; only personal approval supplies execution authority. |
+| [src/agent_runs/navigation.rs](../src/agent_runs/navigation.rs) | Model navigation names native views, never URLs or authority. Admission rechecks current rights and tenant-owned records. |
 | [src/agent_runs/scenarios/catalogue.rs](../src/agent_runs/scenarios/catalogue.rs) | A bounded native channel sample seeds editable fictional profiles; it never reads customer data or invokes inference. |
 | [src/agent_runs/scenarios/evidence.rs](../src/agent_runs/scenarios/evidence.rs) | Scenario evidence uses the release owner's configuration projection, never orders or inventory. |
 | [src/agent_runs/scenarios/journey.rs](../src/agent_runs/scenarios/journey.rs) | Each fictional customer has an independent durable provider journal and an authoritative native journey. |
@@ -660,10 +661,13 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/apps/service-integration-text.ts](../frontend/src/admin/apps/service-integration-text.ts) | Shared connector controls; provider-specific descriptions and field choices stay in app packages. |
 | [frontend/src/admin/apps/service-integrations.ts](../frontend/src/admin/apps/service-integrations.ts) | Installed provider UI capabilities come from their app packages, not an alternate commerce registry. |
 | [frontend/src/admin/apps/upgrade-i18n.ts](../frontend/src/admin/apps/upgrade-i18n.ts) | Upgrade admission vocabulary shared by installed package consent and App Studio. |
+| [frontend/src/admin/assistant/CopilotNavigation.tsx](../frontend/src/admin/assistant/CopilotNavigation.tsx) | Suggested navigation stays explicit, using the shared native route. |
 | [frontend/src/admin/assistant/MessageText.tsx](../frontend/src/admin/assistant/MessageText.tsx) | MessageText keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/assistant/ProposalCard.tsx](../frontend/src/admin/assistant/ProposalCard.tsx) | ProposalCard keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/assistant/SettingsDialog.tsx](../frontend/src/admin/assistant/SettingsDialog.tsx) | SettingsDialog keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/assistant/WorkspaceCopilot.tsx](../frontend/src/admin/assistant/WorkspaceCopilot.tsx) | Contextual drawer reuses the existing scoped conversation, permissions and proposal execution without unmounting editors. |
+| [frontend/src/admin/assistant/copilot-navigation.ts](../frontend/src/admin/assistant/copilot-navigation.ts) | Only registered native destinations survive model/replay admission. Entity editors recheck current server access. |
+| [frontend/src/admin/assistant/useCopilotDock.ts](../frontend/src/admin/assistant/useCopilotDock.ts) | One actor/shop-scoped assistant dock. Hiding never discards a conversation or starts a model call. |
 | [frontend/src/admin/automation/AutomationDefinitions.tsx](../frontend/src/admin/automation/AutomationDefinitions.tsx) | Searchable, explicitly editable definitions with visible active state and version. |
 | [frontend/src/admin/automation/AutomationDelete.tsx](../frontend/src/admin/automation/AutomationDelete.tsx) | One confirmation and a server recheck; stale versions and used definitions never disappear silently. |
 | [frontend/src/admin/automation/AutomationEditor.tsx](../frontend/src/admin/automation/AutomationEditor.tsx) | AutomationEditor: focused form view with explicit typed inputs and callbacks. |
@@ -1094,7 +1098,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/styles/team-roles.css](../frontend/src/admin/styles/team-roles.css) | Native team roles and readable scopes share Studio surfaces and responsive form rhythm. |
 | [frontend/src/admin/styles/team-workspace.css](../frontend/src/admin/styles/team-workspace.css) | Account, shop creation and team access share a clear action and form hierarchy. |
 | [frontend/src/admin/styles/variants.css](../frontend/src/admin/styles/variants.css) | Variant family and review table share the catalog's responsive theme and focus treatment. |
-| [frontend/src/admin/styles/workspace-copilot.css](../frontend/src/admin/styles/workspace-copilot.css) | Contextual assistant drawer inherits Studio tokens and contains the existing conversation on all viewport sizes. |
+| [frontend/src/admin/styles/workspace-copilot.css](../frontend/src/admin/styles/workspace-copilot.css) | The conversation is a sibling of native editors; expanding it never remounts their drafts. |
 | [frontend/src/admin/styles/workspace-polish.css](../frontend/src/admin/styles/workspace-polish.css) | Consistent Studio density, readable hierarchy and independently scrollable navigation across workspaces. |
 | [frontend/src/admin/team/AccessManager.tsx](../frontend/src/admin/team/AccessManager.tsx) | Fine-grained team overrides, revocable invitations and personal session inventory. |
 | [frontend/src/admin/team/CreateWorkspace.tsx](../frontend/src/admin/team/CreateWorkspace.tsx) | Visible native shop creation keeps identifiers editable and submits only through its account owner. |
@@ -1109,6 +1113,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/team/workspace-create-i18n.ts](../frontend/src/admin/team/workspace-create-i18n.ts) | Shop creation guidance uses the current Studio interface language. |
 | [frontend/src/admin/workspace/AgentViewDirectory.tsx](../frontend/src/admin/workspace/AgentViewDirectory.tsx) | Composition mounts existing domain directories, filters and native entity editors without a second renderer. |
 | [frontend/src/admin/workspace/AgentWorkSurface.tsx](../frontend/src/admin/workspace/AgentWorkSurface.tsx) | Reviewed composition binds real native views to the current Studio scope and private workspace preferences. |
+| [frontend/src/admin/workspace/GeneratedWorkspace.tsx](../frontend/src/admin/workspace/GeneratedWorkspace.tsx) | OpenUI presents admitted model compositions. Native bindings own every record, action and permission. |
 | [frontend/src/admin/workspace/PersonalWorkspace.tsx](../frontend/src/admin/workspace/PersonalWorkspace.tsx) | Personal entry point on the existing shell; requests and linked views retain current scope and rights. |
 | [frontend/src/admin/workspace/WorkSuggestions.tsx](../frontend/src/admin/workspace/WorkSuggestions.tsx) | Actual permission-filtered work links open native owners; late responses cannot survive a scope change. |
 | [frontend/src/admin/workspace/WorkspaceGoals.tsx](../frontend/src/admin/workspace/WorkspaceGoals.tsx) | Goals reference the existing proposal owner; no parallel worker, executor or approval queue. |
@@ -1943,6 +1948,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/connected_contracts/sources.py](../scripts/testing/connected_contracts/sources.py) | Private Gmail/GA4 import, native graph/MCP/model consumption, refresh and disconnect cleanup. |
 | [scripts/testing/connected_contracts/wire.py](../scripts/testing/connected_contracts/wire.py) | Synthetic Google, Gmail, Slack and model HTTP responses, including retry and history failures. |
 | [scripts/testing/consistency_boundaries.py](../scripts/testing/consistency_boundaries.py) | Real transport/permission regressions for knowledge publication and automation discovery. |
+| [scripts/testing/copilot_navigation.py](../scripts/testing/copilot_navigation.py) | Native planner presentation cannot navigate outside the current tenant or bypass domain rights. |
 | [scripts/testing/coverage_env.py](../scripts/testing/coverage_env.py) | Convert trusted cargo-llvm-cov environment output to GitHub's environment-file syntax. |
 | [scripts/testing/coverage_report.py](../scripts/testing/coverage_report.py) | Publish separate all-source coverage totals, untested files and enforce reviewed minimums. |
 | [scripts/testing/database.py](../scripts/testing/database.py) | Use the same PostgreSQL fixtures through Docker or an explicitly selected native psql executable. |

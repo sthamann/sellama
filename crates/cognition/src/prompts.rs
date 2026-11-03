@@ -3,6 +3,10 @@ use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 const TEMPLATES: &[(&str, &str)] = &[
     (
+        "merchant-planner@5",
+        include_str!("../prompts/merchant-planner.v5.txt"),
+    ),
+    (
         "merchant-planner@1",
         include_str!("../prompts/merchant-planner.v1.txt"),
     ),

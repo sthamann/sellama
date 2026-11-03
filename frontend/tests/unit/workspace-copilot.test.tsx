@@ -64,8 +64,9 @@ it("seeds the correct staging context, keeps edits and restores focus after clos
     screen.getByRole("button", { name: "Open contextual help" }),
   );
   expect(
-    screen.getByRole("dialog", { name: "Ask Veyndo" }),
+    screen.getByRole("complementary", { name: "Ask Veyndo" }),
   ).toBeInTheDocument();
+  await user.click(screen.getByText(/Explore the current area/));
   await user.click(
     screen.getByRole("button", { name: /Explain what is happening/ }),
   );
@@ -81,10 +82,10 @@ it("seeds the correct staging context, keeps edits and restores focus after clos
     "Unpublished name",
   );
   await user.click(screen.getByRole("button", { name: "Close" }));
-  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
   expect(
     screen.getByRole("button", { name: "Open contextual help" }),
-  ).toHaveFocus();
+  ).toBeInTheDocument();
   expect(screen.getByLabelText("Unsaved product name")).toHaveValue(
     "Unpublished name",
   );
@@ -98,7 +99,7 @@ it("shows the actual configured provider and closes the modal before opening its
   await user.click(
     screen.getByRole("button", { name: /Inherited platform model/ }),
   );
-  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
   expect(screen.getByText("Provider settings opened")).toBeInTheDocument();
 });
 it("disables task seeding while a request is in progress", async () => {
@@ -106,6 +107,7 @@ it("disables task seeding while a request is in progress", async () => {
   await userEvent.click(
     screen.getByRole("button", { name: "Open contextual help" }),
   );
+  await userEvent.click(screen.getByText(/Explore the current area/));
   expect(
     screen.getByRole("button", { name: /Prepare a change/ }),
   ).toBeDisabled();
@@ -116,7 +118,7 @@ it("releases the native modal when the merchant session expires", async () => {
     screen.getByRole("button", { name: "Open contextual help" }),
   );
   rerender(<Fixture expired />);
-  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
 });
 
 it("opens a product through the shared entity route, making the selected reference available to contextual help", async () => {

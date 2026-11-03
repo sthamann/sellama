@@ -13,7 +13,7 @@ pub(super) async fn admit(
     let (commerce_settings, _) = commerce::config(a, t).await?;
     let mut p: Proposal = serde_json::from_value(candidate.clone())
         .map_err(|e| bad(format!("Invalid model proposal: {e}")))?;
-    if p.view.is_some()
+    if (p.view.is_some() || p.navigation.is_some())
         && (!p.operations.is_empty()
             || !p.changes.is_empty()
             || p.app_action.is_some()
@@ -21,6 +21,9 @@ pub(super) async fn admit(
             || p.translation.is_some())
     {
         return Err(bad("Review list views separately from mutations"));
+    }
+    if let Some(target) = &p.navigation {
+        agent_runs::navigation::admit(a, authority, target).await?;
     }
     if let Some(view) = &mut p.view {
         agent_runs::view::admit(a, authority, view).await?;

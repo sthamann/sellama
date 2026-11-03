@@ -6,6 +6,7 @@ export function useAgentWorkspaceContext(
   scope: string,
   tab: Tab,
   target?: EntityTarget,
+  app?: string,
 ) {
   const origin = useRef<
     | {
@@ -16,17 +17,19 @@ export function useAgentWorkspaceContext(
   >(undefined);
   const current = {
     view: tab,
-    selected: target
-      ? {
-          kind:
-            target.tab === "productData"
-              ? "product"
-              : target.tab === "orders"
-                ? "order"
-                : "customer",
-          id: target.id,
-        }
-      : undefined,
+    selected: app
+      ? { kind: "app", id: app }
+      : target
+        ? {
+            kind:
+              target.tab === "productData"
+                ? "product"
+                : target.tab === "orders"
+                  ? "order"
+                  : "customer",
+            id: target.id,
+          }
+        : undefined,
   };
   return {
     workspaceContext:

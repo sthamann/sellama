@@ -19,6 +19,7 @@ import { useCatalogIntakeText } from "../../shared/i18n/catalog-intake-i18n";
 import Icon from "../../shared/ui/Icon";
 import ConfirmDialog from "../../shared/ui/ConfirmDialog";
 import { useStudio } from "../shell/StudioContext";
+import GeneratedWorkspace from "./GeneratedWorkspace";
 import AgentViewDirectory from "./AgentViewDirectory";
 import { pinWorkspaceView } from "./pin-workspace-view";
 import { useCompositionText } from "./composition-i18n";
@@ -168,69 +169,77 @@ export default function AgentWorkSurface({
           {saved && <p role="status">{t("saved")}</p>}
           {error && <p role="alert">{t("saveError")}</p>}
           <p className="agent-work-surface-privacy">{t("privacy")}</p>
-          {components.includes("intake") &&
-            rights.includes("catalog.write") && (
-              <section className="agent-work-surface-intake">
-                <h3>{t("intake")}</h3>
-                {(["csv", "url", "demo"] as IntakeMode[]).map((mode) => (
-                  <button
-                    key={mode}
-                    type="button"
-                    disabled={
-                      mode !== "csv" && !rights.includes("assistant.use")
-                    }
-                    onClick={() => setIntake(mode)}
-                  >
-                    <Icon
-                      name={
-                        mode === "csv"
-                          ? "box"
-                          : mode === "url"
-                            ? "link"
-                            : "spark"
-                      }
-                    />
-                    {intakeText(mode)}
-                  </button>
-                ))}
-              </section>
-            )}
-          <AgentViewDirectory
-            onDirtyChange={reportDirty}
-            onEntity={(tab, id) =>
-              leave(() => {
-                onClose();
-                openEntity(tab, id);
-              })
-            }
-            entity={view.entity}
-            request={request}
+          <GeneratedWorkspace
+            candidate={{ ...view, criteria, components }}
             rights={rights}
-            selected={selected}
-            headers={{
-              Authorization: `Bearer ${token}`,
-              "x-tenant": environment || workspace,
-              "x-commerce-locale": locale,
-            }}
-            queryState={{
-              criteria,
-              onCriteria: (v) => {
-                setCriteria(v);
-                setCursor("");
-                setSaved(false);
-              },
-              cursor,
-              onCursor: setCursor,
-              onPin: () => void pin(),
-            }}
-            onSelect={(id) =>
-              leave(() => {
-                if (!id || components.includes("details")) setSelected(id);
-                else {
-                  onClose();
-                  openEntity(target, id);
+            intake={
+              components.includes("intake") &&
+              rights.includes("catalog.write") && (
+                <section className="agent-work-surface-intake">
+                  <h3>{t("intake")}</h3>
+                  {(["csv", "url", "demo"] as IntakeMode[]).map((mode) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      disabled={
+                        mode !== "csv" && !rights.includes("assistant.use")
+                      }
+                      onClick={() => setIntake(mode)}
+                    >
+                      <Icon
+                        name={
+                          mode === "csv"
+                            ? "box"
+                            : mode === "url"
+                              ? "link"
+                              : "spark"
+                        }
+                      />
+                      {intakeText(mode)}
+                    </button>
+                  ))}
+                </section>
+              )
+            }
+            directory={
+              <AgentViewDirectory
+                onDirtyChange={reportDirty}
+                onEntity={(tab, id) =>
+                  leave(() => {
+                    onClose();
+                    openEntity(tab, id);
+                  })
                 }
-              })
+                entity={view.entity}
+                request={request}
+                rights={rights}
+                selected={selected}
+                headers={{
+                  Authorization: `Bearer ${token}`,
+                  "x-tenant": environment || workspace,
+                  "x-commerce-locale": locale,
+                }}
+                queryState={{
+                  criteria,
+                  onCriteria: (v) => {
+                    setCriteria(v);
+                    setCursor("");
+                    setSaved(false);
+                  },
+                  cursor,
+                  onCursor: setCursor,
+                  onPin: () => void pin(),
+                }}
+                onSelect={(id) =>
+                  leave(() => {
+                    if (!id || components.includes("details")) setSelected(id);
+                    else {
+                      onClose();
+                      openEntity(target, id);
+                    }
+                  })
+                }
+              />
             }
           />
           {intake && (

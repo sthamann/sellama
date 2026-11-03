@@ -1,6 +1,13 @@
 /** Shared four-language interaction vocabulary for contextual Studio help and storefront discovery. */
 import { useLocale } from "./i18n";
 export const experienceUIWords = {
+  addSources: [
+    "Add sources",
+    "Quellen hinzufügen",
+    "Ajouter des sources",
+    "Añadir fuentes",
+  ],
+  openNative: ["Open {area}", "{area} öffnen", "Ouvrir {area}", "Abrir {area}"],
   copilot: [
     "Ask Veyndo",
     "Frag Veyndo",

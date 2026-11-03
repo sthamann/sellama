@@ -16,6 +16,19 @@ a dedicated database and restricted runtime login. The synthetic merchant accoun
 connects successfully. Original Storyfront purchase, return and refund acceptance
 are tracked in the payment guide.
 
+## Persistent Ask Veyndo sidebar (3 November 2026, local acceptance)
+
+The contextual assistant now stays beside native Studio views and reuses the same
+conversation, saved runs and proposal owner. It carries the selected entity/app,
+can suggest permission-checked native destinations and composes working views
+through OpenUI with native data. Collapsing preserves the editor draft. Desktop
+and phone browser acceptance includes a real local Qwen product question, correct
+Cognac/EUR 169 answer, generated list, actual embedded product editor and reopened
+conversation. Targeted tests cover malformed/foreign navigation, current domain
+and PII rights, composition admission and scope changes. No provider-independent
+claim of arbitrary generated UI or automatic mutations follows from this result.
+[How to use it](agentic-workspace.md#ask-veyndo-beside-your-work).
+
 ## Configurable merchant reports (3 November 2026, public acceptance)
 
 Shop today and personal workspace areas share reports for ordered revenue,

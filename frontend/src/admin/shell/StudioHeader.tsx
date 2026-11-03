@@ -9,16 +9,14 @@ import "../styles/studio.css";
 
 import { canOpenStudio } from "./permissions";
 import { useStudio } from "./StudioContext";
-import { useState } from "react";
 import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
-import WorkspaceCopilot from "../assistant/WorkspaceCopilot";
 
 export default function StudioHeader() {
   const { s } = useShopText();
-  const [copilot, setCopilot] = useState(false);
   const { u } = useExperienceUIText();
   const {
     t,
+    copilot,
     access,
     setMenu,
     menu,
@@ -78,13 +76,18 @@ export default function StudioHeader() {
           <button
             className="copilot-launch"
             aria-label={u("copilot")}
-            aria-haspopup={
-              tab === "assistant" && !appSurface ? undefined : "dialog"
+            aria-expanded={
+              tab === "assistant" && !appSurface ? true : copilot.open
+            }
+            aria-controls={
+              tab === "assistant" && !appSurface
+                ? "studio-message"
+                : "workspace-copilot"
             }
             onClick={() =>
               tab === "assistant" && !appSurface
                 ? document.getElementById("studio-message")?.focus()
-                : setCopilot(true)
+                : copilot.toggle()
             }
           >
             <Icon name="spark" size={18} />
@@ -168,9 +171,6 @@ export default function StudioHeader() {
           )}
         </button>
       </div>
-      {copilot && canOpenStudio("assistant", access) && (
-        <WorkspaceCopilot onClose={() => setCopilot(false)} />
-      )}
     </header>
   );
 }

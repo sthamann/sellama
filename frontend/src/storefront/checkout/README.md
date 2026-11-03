@@ -6,6 +6,7 @@ One-page customer identity, authoritative quote review and provider handoff.
 - `CheckoutApproval.tsx`: B2B approval after native delivery/payment review, then read-only refresh of the exact cart. Purchase remains blocked for missing approval/budget; changed quotes reset review.
 - `CheckoutDetails.tsx`: native form, customer account, addresses and selection.
 - `CheckoutIdentity.tsx`: existing login/register and customer contact controls.
+- `SavedPaymentChoice.tsx` and `useSavedPaymentMethods.ts`: current-account consent, redacted instrument choice and native revocation; no provider tokens in browser state.
 - `CheckoutMethods.tsx`: destination-aware delivery/payment radio choices.
 - `CheckoutSummary.tsx`: actual item media, quantity/coupon, totals and discounts.
 - `CheckoutPurchase.tsx`: single explicit review/purchase action in the persistent dock.

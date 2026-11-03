@@ -2,9 +2,18 @@
 
 Updated 3 November 2026. The private Rust connector implements the provider path;
 the public Core owns the order and payment ledger. The public catalogue now ships
-the versioned 1.4.0 contract for all 17 methods. Install or upgrade it through the
+the versioned 1.6.0 contract for all 17 methods. Install or upgrade it through the
 existing app lifecycle, connect the configured account and enable its methods.
 Installing the contract does not provision the private service or activate methods. Use [the provider contract](payment-provider-api.md) for deployment.
+
+## Saved customer methods, 3 November 2026, local implementation
+
+Contract 1.6.0 adds explicit save consent, encrypted private tokens, account-bound
+second purchases and revocation. It preserves the separately recorded capture,
+transaction detail and invoice contracts. Local native-service acceptance covers
+HTTP/MCP, guest/foreign denial and delayed confirmation across restart without a
+second capture. Hosted rollout and actual PSP tests are pending. Automatic
+recurring debits remain open. [Customer guide](payment-saved-methods.md).
 
 ## Transaction details, 3 November 2026
 
@@ -184,8 +193,11 @@ Completed hosted steps and remaining provider work are tracked explicitly:
   rejection. Both actual Rust services pass against a local HTTP provider fixture;
   external PSP acceptance still requires the authorized account below.
   [Native regression evidence](evidence/payment-refund-reconciliation-2026-11-03.md).
-- [ ] Complete vault/recurring lifecycle, multi-capture, dispute reconciliation,
-  reporting/fees and shipment tracking.
+- [x] Implement locally accepted customer-present saved methods, multi-capture,
+  per-capture refunds and read-only transaction/fee details. These feature branches
+  still need hosted rollout and actual provider acceptance.
+- [ ] Complete merchant-initiated recurring lifecycle, dispute reconciliation,
+  broader reporting and shipment tracking.
 - [x] Accept the public original Storyfront embedded card simulation through the
   actual hosted private provider, return, empty original cart after reload and
   complete native merchant refund on 3 November.

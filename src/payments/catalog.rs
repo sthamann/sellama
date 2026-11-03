@@ -1,6 +1,14 @@
 //! Native payment operation descriptions, composed by the canonical operation registry.
 pub(crate) const CAPABILITIES: &[(&str, &str)] = &[
     (
+        "checkout.payment.methods",
+        "List redacted saved methods for the current owning customer account",
+    ),
+    (
+        "checkout.payment.method.revoke",
+        "Revoke the owning customer saved method and queue provider cleanup",
+    ),
+    (
         "checkout.payment.instructions",
         "Read recipient instructions for the original customer checkout",
     ),

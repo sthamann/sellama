@@ -1,6 +1,6 @@
 {
   "id": "shopware_payments",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "coreApi": "1",
   "runtime": "service",
   "category": "payment",
@@ -160,7 +160,8 @@
           "void",
           "refund",
           "multi_capture",
-          "details"
+          "details",
+          "vault"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -267,7 +268,8 @@
           "void",
           "refund",
           "multi_capture",
-          "details"
+          "details",
+          "vault"
         ],
         "checkout": "embedded",
         "intent": "capture"
@@ -276,9 +278,9 @@
         "id": "paylater",
         "name": {
           "en": "Pay later",
-          "de": "Sp\u00e4ter bezahlen",
+          "de": "Später bezahlen",
           "fr": "Payer plus tard",
-          "es": "Pagar despu\u00e9s"
+          "es": "Pagar después"
         },
         "currencies": [
           "USD",
@@ -334,8 +336,8 @@
         "name": {
           "en": "SEPA direct debit",
           "de": "SEPA-Lastschrift",
-          "fr": "Pr\u00e9l\u00e8vement SEPA",
-          "es": "Domiciliaci\u00f3n SEPA"
+          "fr": "Prélèvement SEPA",
+          "es": "Domiciliación SEPA"
         },
         "currencies": [
           "EUR"
@@ -538,7 +540,8 @@
           "void",
           "refund",
           "multi_capture",
-          "details"
+          "details",
+          "vault"
         ],
         "checkout": "embedded",
         "intent": "capture"

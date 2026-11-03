@@ -489,9 +489,11 @@ This lists every checked-in source module in these roots, including files with n
 | [src/payments/details.rs](../src/payments/details.rs) | Native payment-only history projection and optional owned provider observation; no financial command is executed. |
 | [src/payments/details_model.rs](../src/payments/details_model.rs) | Typed, PII-free provider transaction details; these observations never mutate native payment state. |
 | [src/payments/details_tests.rs](../src/payments/details_tests.rs) | Transaction observations reject untyped and foreign evidence without touching payment state. |
+| [src/payments/funding.rs](../src/payments/funding.rs) | Account-authorized funding choice, immutable consent and saved-instrument admission; cart possession is insufficient. |
 | [src/payments/generic_receipts.rs](../src/payments/generic_receipts.rs) | Provider-neutral receipt admission and atomic allocation; verified evidence owns ledger transitions. |
 | [src/payments/instructions.rs](../src/payments/instructions.rs) | Customer-capability and compound merchant access to typed recipient instructions; reads never settle an invoice. |
 | [src/payments/instructions_state.rs](../src/payments/instructions_state.rs) | Immutable recipient evidence in the existing payment context, native invoice snapshots and one scoped outbox event. |
+| [src/payments/instruments.rs](../src/payments/instruments.rs) | Customer-owned saved instruments expose only redacted metadata; immediate revocation and provider cleanup share payment jobs. |
 | [src/payments/merchant.rs](../src/payments/merchant.rs) | Shared merchant payment operation bridge; HTTP, MCP and Flows retain native rights and durable jobs. |
 | [src/payments/mod.rs](../src/payments/mod.rs) | Provider-independent payment ledger and durable workers; the PayPal adapter supports explicit Sandbox/Live environments. |
 | [src/payments/operations.rs](../src/payments/operations.rs) | Durable idempotent payment commands, customer context binding and serial refund admission. |
@@ -1339,6 +1341,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/operations-i18n.ts](../frontend/src/shared/i18n/operations-i18n.ts) | Operational commerce labels in all supported languages. |
 | [frontend/src/shared/i18n/payment-details-i18n.ts](../frontend/src/shared/i18n/payment-details-i18n.ts) | Read-only payment transaction and fee vocabulary for every Studio language. |
 | [frontend/src/shared/i18n/payment-errors-i18n.ts](../frontend/src/shared/i18n/payment-errors-i18n.ts) | Recoverable merchant payment guidance; immutable provider diagnostics remain server-side. |
+| [frontend/src/shared/i18n/payment-events-i18n.ts](../frontend/src/shared/i18n/payment-events-i18n.ts) | Payment lifecycle and saved-method event labels share the existing native Flow vocabulary. |
 | [frontend/src/shared/i18n/payment-ledger-i18n.ts](../frontend/src/shared/i18n/payment-ledger-i18n.ts) | Merchant payment balances and capture allocation vocabulary in every Studio language. |
 | [frontend/src/shared/i18n/payment-provider-i18n.ts](../frontend/src/shared/i18n/payment-provider-i18n.ts) | Payment contract editor and account onboarding vocabulary. |
 | [frontend/src/shared/i18n/platform-i18n.ts](../frontend/src/shared/i18n/platform-i18n.ts) | Operator console translations. Every visible control has an explicit translation in all supported locales. |
@@ -1411,6 +1414,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/account/CompanyQuotes.tsx](../frontend/src/storefront/account/CompanyQuotes.tsx) | Buyer negotiations bind an offer to its original cart; the shared checkout remains authoritative. |
 | [frontend/src/storefront/account/CustomerAccount.tsx](../frontend/src/storefront/account/CustomerAccount.tsx) | Responsive customer workspace separates authentication, address care and protected purchase details. |
 | [frontend/src/storefront/account/CustomerSignIn.tsx](../frontend/src/storefront/account/CustomerSignIn.tsx) | Distinct sign-in and registration forms with correct autofill and an authenticated, rotated cart context. |
+| [frontend/src/storefront/account/SavedPaymentMethods.tsx](../frontend/src/storefront/account/SavedPaymentMethods.tsx) | Customers can revoke their saved methods without affecting completed purchases or historical receipts. |
 | [frontend/src/storefront/account/ShoppingPreferences.tsx](../frontend/src/storefront/account/ShoppingPreferences.tsx) | Optional cart-private memory uses native consent, revisioned graph storage and explicit AI-sharing preference. |
 | [frontend/src/storefront/account/account-fields.css](../frontend/src/storefront/account/account-fields.css) | Account form controls have explicit label spacing, consistent actions and shared address-editor integration. |
 | [frontend/src/storefront/account/account-polish.css](../frontend/src/storefront/account/account-polish.css) | Brand-aware account presentation with a separate orientation panel and bounded, scrollable forms. |
@@ -1441,8 +1445,10 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/checkout/OrderConfetti.tsx](../frontend/src/storefront/checkout/OrderConfetti.tsx) | Finite CSS celebration after an accepted order; no timers, libraries or motion for reduced-motion users. |
 | [frontend/src/storefront/checkout/PaymentInstructions.tsx](../frontend/src/storefront/checkout/PaymentInstructions.tsx) | Owned recipient instructions stay visible after the private form; their presence never confirms payment. |
 | [frontend/src/storefront/checkout/PaymentSession.tsx](../frontend/src/storefront/checkout/PaymentSession.tsx) | Provider handoff and bounded durable-status polling; only verified server receipts confirm payment. |
+| [frontend/src/storefront/checkout/SavedPaymentChoice.tsx](../frontend/src/storefront/checkout/SavedPaymentChoice.tsx) | Saved payment consent is an explicit customer choice alongside the selected native method. |
 | [frontend/src/storefront/checkout/checkout-order.ts](../frontend/src/storefront/checkout/checkout-order.ts) | Bind the purchase to the reviewed cart and total; the server remains the pricing authority. |
 | [frontend/src/storefront/checkout/embedded-checkout.ts](../frontend/src/storefront/checkout/embedded-checkout.ts) | Only the registered embedding storefront receives the shopper cart receipt capability; it verifies with Core. |
+| [frontend/src/storefront/checkout/useSavedPaymentMethods.ts](../frontend/src/storefront/checkout/useSavedPaymentMethods.ts) | Account-owned saved-method loading and revocation use the shared Store API and clear stale tenant/session data. |
 | [frontend/src/storefront/legal/CheckoutLegal.tsx](../frontend/src/storefront/legal/CheckoutLegal.tsx) | Current legal-document links and separate non-prechecked digital performance acknowledgement. |
 | [frontend/src/storefront/legal/ConsumerRequestForm.tsx](../frontend/src/storefront/legal/ConsumerRequestForm.tsx) | Public two-step declaration with immutable downloadable receipt; references never expose order data. |
 | [frontend/src/storefront/legal/LegalDocument.tsx](../frontend/src/storefront/legal/LegalDocument.tsx) | Published legal text uses selected content language/main-language inheritance; empty content is visible as missing. |
@@ -1486,6 +1492,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/styles/legal.css](../frontend/src/storefront/styles/legal.css) | Responsive, equally weighted consent controls and readable legal/customer forms. |
 | [frontend/src/storefront/styles/order-completion.css](../frontend/src/storefront/styles/order-completion.css) | Order receipt page and finite transform-only celebration; honors reduced motion. |
 | [frontend/src/storefront/styles/payment-instructions.css](../frontend/src/storefront/styles/payment-instructions.css) | Recipient details use the same payment surface, with wrapping for small embedded checkouts. |
+| [frontend/src/storefront/styles/saved-payments.css](../frontend/src/storefront/styles/saved-payments.css) | Saved-method choices and account revocation retain the storefront's shared tokens and native form controls. |
 | [frontend/src/storefront/styles/shop/01--root.css](../frontend/src/storefront/styles/shop/01--root.css) | shop: -root styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/storefront/styles/shop/02-shop-product-image.css](../frontend/src/storefront/styles/shop/02-shop-product-image.css) | shop: shop-product-image styles. Source order is preserved by the entry stylesheet. |
 | [frontend/src/storefront/styles/shop/03-availability-span.css](../frontend/src/storefront/styles/shop/03-availability-span.css) | shop: availability-span styles. Source order is preserved by the entry stylesheet. |

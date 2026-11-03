@@ -1,6 +1,64 @@
 /** Checkout vocabulary: the same purchase and payment states in every supported UI language. */
 import { useLocale } from "./i18n";
 const text = {
+  paypalBrand: ["PayPal", "PayPal", "PayPal", "PayPal"],
+  savedPayments: [
+    "Saved payment methods",
+    "Gespeicherte Zahlungsmittel",
+    "Moyens de paiement enregistrés",
+    "Métodos de pago guardados",
+  ],
+  savedPayment: [
+    "Saved payment method",
+    "Gespeichertes Zahlungsmittel",
+    "Moyen enregistré",
+    "Método guardado",
+  ],
+  chooseSavedPayment: [
+    "Payment method for this purchase",
+    "Zahlungsmittel für diesen Kauf",
+    "Moyen pour cet achat",
+    "Método para esta compra",
+  ],
+  newPayment: [
+    "Use a new payment method",
+    "Ein neues Zahlungsmittel verwenden",
+    "Utiliser un nouveau moyen",
+    "Usar un nuevo método",
+  ],
+  savePaymentConsent: [
+    "Save this payment method for my next purchase",
+    "Dieses Zahlungsmittel für meinen nächsten Kauf speichern",
+    "Enregistrer ce moyen pour mon prochain achat",
+    "Guardar este método para mi próxima compra",
+  ],
+  savePaymentHint: [
+    "Saved after successful payment. You can revoke it in your account at any time.",
+    "Wird nach erfolgreicher Zahlung gespeichert. Du kannst es jederzeit in deinem Konto widerrufen.",
+    "Enregistré après un paiement réussi. Vous pouvez le révoquer dans votre compte à tout moment.",
+    "Se guarda tras un pago correcto. Puedes revocarlo en tu cuenta cuando quieras.",
+  ],
+  savedPaymentManageHint: [
+    "Revoking a payment method prevents future use. Completed purchases remain unchanged.",
+    "Ein Widerruf sperrt die weitere Verwendung. Bereits abgeschlossene Käufe bleiben erhalten.",
+    "La révocation bloque toute utilisation future. Les achats terminés restent inchangés.",
+    "La revocación impide usos futuros. Las compras completadas se mantienen.",
+  ],
+  revokeSavedPayment: ["Revoke", "Widerrufen", "Révoquer", "Revocar"],
+  noSavedPayments: [
+    "You have no saved payment methods.",
+    "Du hast noch keine Zahlungsmittel gespeichert.",
+    "Vous n’avez aucun moyen enregistré.",
+    "No tienes métodos guardados.",
+  ],
+  savedPaymentError: [
+    "Saved payment methods could not be loaded or changed. Please sign in again and retry.",
+    "Die Zahlungsmittel konnten nicht geladen oder geändert werden. Melde dich erneut an und versuche es noch einmal.",
+    "Impossible de charger ou modifier les moyens. Reconnectez-vous et réessayez.",
+    "No se pudieron cargar o cambiar los métodos. Inicia sesión de nuevo e inténtalo otra vez.",
+  ],
+  savedPaymentRetry: ["Retry", "Erneut versuchen", "Réessayer", "Reintentar"],
+  cardEnding: ["Ending in", "Endet auf", "Se terminant par", "Terminada en"],
   invoiceInstructions: [
     "Invoice payment details",
     "Angaben zum Rechnungskauf",

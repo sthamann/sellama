@@ -91,7 +91,8 @@ pub(crate) async fn execute(
     key: &str,
     input: &Value,
 ) -> Result<Value> {
-    let mut order: Value = if ["inspect", "instructions"].contains(&op) {
+    super::funding::dispatch_check(a, p, op).await?;
+    let mut order: Value = if ["inspect", "instructions", "vault_revoke"].contains(&op) {
         Value::Null
     } else {
         sqlx::query_scalar("SELECT data FROM orders WHERE tenant=$1 AND id=$2")
@@ -128,7 +129,10 @@ pub(crate) async fn execute(
         .get("captureId")
         .cloned()
         .unwrap_or_else(|| json!(p.capture));
-    let body = json!({"apiVersion":"1","provider":p.provider,"adapterVersion":p.adapter_version,"tenant":p.tenant,"attemptId":p.id,"orderId":p.order,"environment":p.environment,"accountRef":p.context["accountRef"],"method":p.context["method"],"intent":p.context["intent"],"amountMinor":p.amount,"currency":p.currency,"currencyScale":p.currency_scale,"reference":p.provider_order,"captureId":capture_id,"context":context,"operation":op,"requestKey":key,"input":input,"order":order,"returnUrl":return_url,"cancelUrl":cancel_url});
+    let mut body = json!({"apiVersion":"1","provider":p.provider,"adapterVersion":p.adapter_version,"tenant":p.tenant,"attemptId":p.id,"orderId":p.order,"environment":p.environment,"accountRef":p.context["accountRef"],"method":p.context["method"],"intent":p.context["intent"],"amountMinor":p.amount,"currency":p.currency,"currencyScale":p.currency_scale,"reference":p.provider_order,"captureId":capture_id,"context":context,"operation":op,"requestKey":key,"input":input,"order":order,"returnUrl":return_url,"cancelUrl":cancel_url});
+    if let Some(funding) = p.context.get("funding") {
+        body["funding"] = funding.clone();
+    }
     call(
         a,
         &p.tenant,

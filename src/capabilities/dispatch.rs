@@ -2,6 +2,7 @@
 use super::*;
 #[derive(Clone, Copy)]
 pub(super) enum Owner {
+    PaymentMethods,
     PaymentInstructions,
     CatalogIntake,
     Reports,
@@ -28,7 +29,9 @@ pub(super) enum Owner {
 }
 impl Owner {
     pub(super) fn for_name(name: &str) -> Self {
-        if name == "checkout.payment.instructions" {
+        if ["checkout.payment.methods", "checkout.payment.method.revoke"].contains(&name) {
+            Self::PaymentMethods
+        } else if name == "checkout.payment.instructions" {
             Self::PaymentInstructions
         } else if name == "merchant.reports.read" {
             Self::Reports
@@ -87,6 +90,7 @@ impl Owner {
         v: &'a Value,
     ) -> CapabilityFuture<'a> {
         match self {
+            Self::PaymentMethods => Box::pin(payments::instruments::invoke(a, h, name, v)),
             Self::PaymentInstructions => Box::pin(payments::customer_instructions(
                 a,
                 h,

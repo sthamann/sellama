@@ -76,7 +76,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 | Area | Start here |
 | --- | --- |
 | AI shopping channels and inward shop imports | [Cart transfer, consent and Shopify/supplier intake](docs/agentic-commerce.md) |
-| Catalogue, customers, orders and documents | [Shop setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Invoice PDFs and messages](docs/payment-invoice-checkout.md) · [Admin walkthrough](docs/admin-workflows.md) |
+| Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |
 | POS, B2B, EDI and marketplaces | [POS](docs/pos.md) · [B2B](docs/b2b-commerce.md) · [EDI](docs/edi.md) · [Marketplaces](docs/marketplaces.md) |
 | Apps, settings, storage and private releases | [App platform](docs/app-platform.md) · [Build five apps](docs/app-tutorials/README.md) · [Shared storage](docs/app-data-storage.md) |

@@ -1,9 +1,11 @@
 /** Operational commerce labels in all supported languages. */
+import { paymentEventWords } from "./payment-events-i18n";
 import { lifecycleOperationWords } from "./native-lifecycle-i18n";
 import { b2bEventWords } from "./b2b-events-i18n";
 import { useLocale } from "./i18n";
 export const operationWords = {
   ...lifecycleOperationWords,
+  ...paymentEventWords,
   ...b2bEventWords,
   partially_captured: [
     "Partially captured",
@@ -53,29 +55,11 @@ export const operationWords = {
     "Statut de commande modifié",
     "Estado del pedido cambiado",
   ],
-  "payment.state_changed": [
-    "Manual payment status changed",
-    "Manueller Zahlungsstatus geändert",
-    "Statut de paiement manuel modifié",
-    "Estado de pago manual cambiado",
-  ],
   "delivery.state_changed": [
     "Delivery status changed",
     "Lieferstatus geändert",
     "Statut de livraison modifié",
     "Estado de entrega cambiado",
-  ],
-  "payment.instructions.available": [
-    "Invoice payment details available",
-    "Zahlungsangaben zum Rechnungskauf liegen vor",
-    "Informations du paiement sur facture disponibles",
-    "Datos del pago por factura disponibles",
-  ],
-  "payment.updated": [
-    "Provider payment status changed",
-    "Anbieter-Zahlungsstatus geändert",
-    "Statut fournisseur modifié",
-    "Estado del proveedor cambiado",
   ],
 
   nextStep: [

@@ -1,4 +1,5 @@
 /** Method cards keep delivery and payment discoverable without concealing country restrictions. */
+import SavedPaymentChoice from "./SavedPaymentChoice";
 import type { Cart, Selection } from "../../shared/api/shop-api";
 import { useShopText } from "../../shared/i18n/shop-i18n";
 import { useCheckoutText } from "../../shared/i18n/checkout-i18n";
@@ -52,7 +53,14 @@ export default function CheckoutMethods({
                 name={group.key}
                 value={method.id}
                 checked={selection[group.key] === method.id}
-                onChange={() => onChange({ [group.key]: method.id })}
+                onChange={() =>
+                  onChange({
+                    [group.key]: method.id,
+                    ...(group.key === "paymentMethodId"
+                      ? { paymentFunding: null }
+                      : {}),
+                  })
+                }
                 required
               />
               <span>
@@ -67,6 +75,12 @@ export default function CheckoutMethods({
           ))}
         </fieldset>
       ))}
+      <SavedPaymentChoice
+        cart={cart}
+        selection={selection}
+        onChange={onChange}
+        disabled={disabled}
+      />
     </div>
   );
 }

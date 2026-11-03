@@ -20,6 +20,8 @@ pub(crate) struct CheckoutSelection {
     pub billing_address_id: Option<String>,
     #[serde(default)]
     pub customer_email: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub payment_funding: Option<crate::payments::FundingChoice>,
 }
 pub(crate) fn country_default() -> String {
     "DE".into()
@@ -112,6 +114,7 @@ impl CheckoutSelection {
             shipping_address_id: None,
             billing_address_id: None,
             customer_email: None,
+            payment_funding: None,
         }
     }
 }

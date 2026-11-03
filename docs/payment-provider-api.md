@@ -4,7 +4,7 @@ Payment apps declare their methods in the same versioned manifest edited in App 
 
 ## Package and account lifecycle
 
-Use `runtime: service`, `category: payment`, `permissions: [payments.provider]` and `paymentProvider: {apiVersion: "1", methods: [...]}`. Each method defines `id`, localized `name`, `currencies`, `countries` (empty means unrestricted), `capabilities`, `intent` (`capture` or `authorize`) and `checkout` (`redirect` or `embedded`). Supported declared capabilities are capture, authorize, void, refund, multi_capture, vault and recurring; the last two are discovery declarations, **not** a general subscription engine or finished provider implementation. Reserved core identities cannot register as external providers.
+Use `runtime: service`, `category: payment`, `permissions: [payments.provider]` and `paymentProvider: {apiVersion: "1", methods: [...]}`. Each method defines `id`, localized `name`, `currencies`, `countries`, `capabilities`, `intent` and `checkout`. Capabilities include capture, authorize, void, refund, multi_capture, vault and recurring. `vault` admits the shared customer-owned saved-method contract described below; `recurring` remains a declaration without a general subscription executor. A declaration never replaces the provider implementation or actual acceptance. Reserved core identities cannot register as external providers.
 
 [The neutral example](../extensions/apps/payment-provider/manifest.json) runs against the local synthetic service in `scripts/payment_providers.py`. It does not implement Stripe or another PSP. A Stripe service can use the same boundary with its own real SDK and webhook verification; no core switch statement or Stripe secrets in the public frontend are required.
 
@@ -189,3 +189,22 @@ Each entry has ID, status, exact minor amount, currency/scale, optional timestam
 Unknown fields and customer/card/bank data are rejected. This is an observation,
 never a native settlement transition. No customer/order payload is sent for inspection.
 See [transaction details](payment-transaction-details.md).
+
+## Customer-owned saved instruments
+
+A method declaring `vault` can receive native `funding` with stable customer and
+consent identity, either explicit save consent or a previously admitted opaque
+handle. The native Core requires the current owning customer session and freezes
+the original account, method, environment and adapter version. It rechecks
+revocation before dispatching a queued create.
+
+After a verified successful financial observation, the provider may return
+`vault: {reference, customerId, consentId, brand?, last4?}`. The reference must be
+an opaque private-service handle, never the PSP token. Delayed evidence follows
+ordinary signed reconciliation. Optional vault storage failure cannot roll back
+the financial receipt. `vault_revoke` uses the same durable payment jobs and
+returns the immutable receipt identity plus `vaultRevoked: true` and the matching
+`vaultReference`; it cannot change the financial state.
+
+HTTP/MCP/account controls, rollout and token ownership are described in
+[saved payment methods](payment-saved-methods.md).

@@ -128,6 +128,14 @@ pub(crate) async fn payment_once(a: &App) -> Result<bool> {
                         )
                         .await
                     }
+                } else if op == "vault_revoke" {
+                    super::generic_receipts::identity(&current, &v).and_then(|_| {
+                        if v["vaultRevoked"] == true && v["vaultReference"] == input["reference"] {
+                            Ok(())
+                        } else {
+                            Err(bad("Provider did not confirm instrument revocation"))
+                        }
+                    })
                 } else {
                     persist(&mut tx, &current, &op, &input, &v).await
                 };

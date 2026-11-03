@@ -53,6 +53,53 @@ it("bounds mounted scenes while zooming and paging without opening or changing t
   fireEvent.click(screen.getByRole("button", { name: "Open editor: Page 4" }));
   expect(open).toHaveBeenCalledWith(4);
 });
+it("opens the chosen scene from the unscaled toolbar and preserves disabled admission", () => {
+  const open = vi.fn();
+  render(
+    <VisualCanvas
+      scenes={[
+        {
+          id: "home",
+          title: "Home",
+          preview: <p>Home preview</p>,
+          onOpen: () => open("home"),
+        },
+        {
+          id: "product",
+          title: "Product",
+          preview: <p>Product preview</p>,
+          onOpen: () => open("product"),
+        },
+        {
+          id: "locked",
+          title: "Locked",
+          disabled: true,
+          preview: <p>Locked preview</p>,
+          onOpen: () => open("locked"),
+        },
+      ]}
+    />,
+    { wrapper },
+  );
+  const picker = screen.getByRole("combobox", { name: "Choose a view" });
+  const toolbar = picker.closest(".visual-canvas-toolbar") as HTMLElement;
+  expect(toolbar.closest(".visual-canvas-board")).toBeNull();
+  const edit = within(toolbar).getByRole("button", {
+    name: "Edit",
+  });
+  fireEvent.change(picker, { target: { value: "product" } });
+  fireEvent.change(screen.getByRole("slider"), { target: { value: "35" } });
+  expect(open).not.toHaveBeenCalled();
+  fireEvent.click(edit);
+  expect(open).toHaveBeenCalledExactlyOnceWith("product");
+  fireEvent.change(picker, { target: { value: "locked" } });
+  expect(edit).toBeDisabled();
+  fireEvent.click(edit);
+  expect(open).toHaveBeenCalledTimes(1);
+  expect(
+    screen.getByRole("button", { name: "Open editor: Locked" }),
+  ).toBeDisabled();
+});
 it("opens a placement, duplicates a selected block and returns with the same edited definition", async () => {
   const changed = vi.fn(),
     request = vi.fn(async () => ({

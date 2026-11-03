@@ -150,21 +150,23 @@ transaction management, Flow actions, express checkout, Pay Later placement,
 vaulting and wallet configuration. Matching the native ledger backbone is not a
 claim of complete feature parity.
 
-The remaining work is tracked explicitly:
+Completed hosted steps and remaining provider work are tracked explicitly:
 
-- [ ] Deploy the private provider service with its own database access, HTTPS UI
-  origin and native Core connection. Simulation needs no PSP credentials; provider
+- [x] Deploy the private provider service with its own restricted database access,
+  HTTPS UI origin and native Core connection. Hosted simulation is online. Provider
   Sandbox/Live additionally require approved partner configuration and callbacks.
 - [ ] Connect an authorized Shopware Payments test account and complete browser
   payment, capture, void, cancellation and refunds against that account.
 - [ ] Accept each enabled card/wallet/redirect method, including 3DS outcomes,
   country/currency eligibility and uncertain responses on that actual service.
-- [ ] Provide merchant-facing manual collection and the original express/payment
-  messaging controls through the existing versioned payment configuration.
+- [ ] Complete original express/payment messaging controls through the existing
+  versioned configuration. Native manual collection already has the separately
+  recorded local Klarna browser acceptance above.
 - [ ] Complete vault/recurring lifecycle, multi-capture, externally initiated refund
   and dispute reconciliation, reporting/fees and shipment tracking.
-- [ ] Repeat the Storyfront embedded purchase, return and empty original cart with
-  the actual private provider; native simulated Storyfront acceptance is separate.
+- [x] Accept the public original Storyfront embedded card simulation through the
+  actual hosted private provider, return, empty original cart after reload and
+  complete native merchant refund on 3 November.
 
 Shopware supplies a test account in its own integration. Access to the original
 source does not supply the approved partner credentials for a standalone Veyndo

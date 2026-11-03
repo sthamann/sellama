@@ -73,8 +73,13 @@ pub(crate) async fn transition_order(
             }
             if target == "cancelled" {
                 if crate::payments::external(&o)
-                    || ["paid", "captured", "partially_refunded"]
-                        .contains(&o["payment"]["state"].as_str().unwrap_or(""))
+                    || [
+                        "paid",
+                        "captured",
+                        "partially_captured",
+                        "partially_refunded",
+                    ]
+                    .contains(&o["payment"]["state"].as_str().unwrap_or(""))
                 {
                     return Err(conflict("Reconcile or refund payment before cancellation"));
                 }

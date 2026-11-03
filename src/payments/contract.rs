@@ -55,6 +55,10 @@ pub(crate) fn validate_contract(m: &apps::Manifest) -> Result<()> {
             || !["redirect", "embedded"].contains(&method.checkout.as_str())
             || !["capture", "authorize"].contains(&method.intent.as_str())
             || !method.capabilities.iter().any(|c| c == &method.intent)
+            || (method.capabilities.iter().any(|c| c == "multi_capture")
+                && ["capture", "authorize", "void"]
+                    .iter()
+                    .any(|required| !method.capabilities.iter().any(|c| c == required)))
             || method.capabilities.len() > 8
             || method.capabilities.iter().any(|c| {
                 ![
@@ -64,6 +68,7 @@ pub(crate) fn validate_contract(m: &apps::Manifest) -> Result<()> {
                     "refund",
                     "recurring",
                     "vault",
+                    "multi_capture",
                 ]
                 .contains(&c.as_str())
             })
@@ -83,6 +88,21 @@ mod tests {
             "../../extensions/apps/payment-provider/manifest.json"
         ))
         .unwrap()
+    }
+    #[test]
+    fn multiple_capture_requires_its_operational_dependencies() {
+        let mut m = manifest();
+        m.payment_provider.as_mut().unwrap().methods[0]
+            .capabilities
+            .push("multi_capture".into());
+        assert!(validate_contract(&m).is_ok());
+        for required in ["capture", "authorize", "void"] {
+            let mut missing = m.clone();
+            missing.payment_provider.as_mut().unwrap().methods[0]
+                .capabilities
+                .retain(|c| c != required);
+            assert!(validate_contract(&missing).is_err());
+        }
     }
     #[test]
     fn reserved_identity_and_invalid_capability_contracts_are_rejected() {

@@ -42,6 +42,7 @@ pub use automation::rule_xor_count;
 pub use commerce::admin_payment_admissible;
 pub use commerce::b2b_approval_admissible;
 pub use commerce::b2b_budget_admissible;
+pub use commerce::capture_admissible;
 pub use commerce::checkout_contact_admissible;
 pub use commerce::checkout_review_admissible;
 pub use commerce::currency_context_admissible;

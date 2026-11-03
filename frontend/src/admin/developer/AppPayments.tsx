@@ -184,6 +184,7 @@ export default function AppPayments({
                   "authorize",
                   "void",
                   "refund",
+                  "multi_capture",
                   "recurring",
                   "vault",
                 ] as const
@@ -199,8 +200,26 @@ export default function AppPayments({
                             ? {
                                 ...v,
                                 capabilities: e.target.checked
-                                  ? [...v.capabilities, k]
-                                  : v.capabilities.filter((c) => c !== k),
+                                  ? [
+                                      ...new Set([
+                                        ...v.capabilities,
+                                        k,
+                                        ...(k === "multi_capture"
+                                          ? ["capture", "authorize", "void"]
+                                          : []),
+                                      ]),
+                                    ]
+                                  : v.capabilities.filter(
+                                      (c) =>
+                                        c !== k &&
+                                        !(
+                                          [
+                                            "capture",
+                                            "authorize",
+                                            "void",
+                                          ].includes(k) && c === "multi_capture"
+                                        ),
+                                    ),
                               }
                             : v,
                         ),

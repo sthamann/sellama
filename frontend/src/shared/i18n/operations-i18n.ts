@@ -5,6 +5,12 @@ import { useLocale } from "./i18n";
 export const operationWords = {
   ...lifecycleOperationWords,
   ...b2bEventWords,
+  partially_captured: [
+    "Partially captured",
+    "Teilweise eingezogen",
+    "Partiellement capturé",
+    "Capturado parcialmente",
+  ],
   "app.configuration.changed": [
     "Product configuration changed",
     "Produktkonfiguration geändert",

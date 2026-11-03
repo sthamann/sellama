@@ -45,7 +45,7 @@ def record(root,manifest,reason):
     binding_files={b for row in manifest['policies'].values()for b in row['bindings']}
     old=manifest.get('sources',{});rows={}
     for name,path in current_sources(root).items():
-        status='extracted-policy'if name in KERNEL_FILES else'reviewed-binding'if name in binding_files else'conformance-driver'if name=='src/bin/verified_kernel.rs'else'unproved'
+        status='extracted-policy'if name in KERNEL_FILES else'reviewed-binding'if name in binding_files else'conformance-driver'if name=='src/bin/verified_kernel.rs' or name.startswith('src/bin/verified_kernel/')else'unproved'
         rows[name]={'status':status,'sha256':digest(path),'review':reason if old.get(name,{}).get('sha256')!=digest(path) else old[name]['review']}
     manifest['sources']=rows
     prior=manifest.get('inputs',{})

@@ -14,6 +14,8 @@ export interface Inputs5 {
   "merchant.payment": {
     amountMinor?: number;
     approve: boolean;
+    captureId?: string;
+    finalCapture?: boolean;
     id: string;
     operation:
       "capture" | "authorize" | "void" | "refund" | "reconcile" | "cancel";

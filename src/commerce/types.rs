@@ -184,6 +184,8 @@ pub(crate) struct Payment {
     pub provider: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub provider_method: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub capture_mode: Option<String>,
 }
 pub(crate) fn main_locale() -> String {
     "en-GB".into()

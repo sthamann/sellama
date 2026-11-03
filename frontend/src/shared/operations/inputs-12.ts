@@ -2,6 +2,7 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs12 {
+  "pos.customers": { barcode?: string; channelId: string; query?: string };
   "pos.customer": {
     cartToken: string;
     channelId: string;
@@ -44,5 +45,4 @@ export interface Inputs12 {
     codes: Array<string>;
     revision: number;
   };
-  "pos.create": { channelId: string };
 }

@@ -42,13 +42,15 @@ pub fn reservation_release_admissible(
 }
 // Explicit ledger state codes are mapped by payments/state.rs; no backward monetary transitions.
 pub fn payment_transition_admissible(current: u64, next: u64) -> bool {
-    current <= 9
-        && next <= 9
+    current <= 10
+        && next <= 10
         && (current == next
             || current <= 3 && next > current && next <= 4
             || current <= 3 && (next == 7 || next == 8)
             || (current == 4 || current == 5 || current == 9) && (next == 5 || next == 6)
-            || (current == 7 || current == 8) && next == 9)
+            || (current == 7 || current == 8) && next == 9
+            || current <= 3 && next == 10
+            || current == 10 && (next == 4 || next == 5 || next == 6))
 }
 // Pure package allocation and carrier-intent admission; external facts and effects remain unproved.
 /// Package splitting moves a strict positive subset of an open, nonterminal allocation.

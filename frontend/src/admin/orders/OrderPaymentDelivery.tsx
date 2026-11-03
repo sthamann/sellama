@@ -1,10 +1,10 @@
 /** Payment jobs are observed until confirmation. Delivery actions share the server state machine. */
-import { useCurrencyText } from "../../shared/i18n/currency-i18n";
+import PaymentActions from "../payments/PaymentActions";
+import type { PaymentOptions } from "../payments/payment-amount";
 import { safeRichUrl } from "../../shared/content/rich-document";
 import { useAccountText } from "../../shared/i18n/account-i18n";
 import { useState } from "react";
 import { useOperationsText } from "../../shared/i18n/operations-i18n";
-import { usePaymentProviderText } from "../../shared/i18n/payment-provider-i18n";
 import ShipmentSplit, { type ShipmentPosition } from "./ShipmentSplit";
 import { useShipmentText } from "../../shared/i18n/shipment-i18n";
 import "./shipments.css";
@@ -23,7 +23,11 @@ export default function OrderPaymentDelivery({
   busy: boolean;
   rights: string[];
   onAction: (a: OrderAction, tracking?: string, trackingUrl?: string) => void;
-  onPayment: (operation: string, amount?: number) => Promise<boolean>;
+  onPayment: (
+    operation: string,
+    amount?: number,
+    options?: PaymentOptions,
+  ) => Promise<boolean>;
   pendingJob: boolean;
   onCheck: () => void;
   onSplit?: (index: number, positions: ShipmentPosition[]) => Promise<boolean>;
@@ -32,11 +36,7 @@ export default function OrderPaymentDelivery({
   const shipmentText = useShipmentText();
   const { a: accountText } = useAccountText();
   const [links, setLinks] = useState<Record<number, string>>({});
-  const paymentText = usePaymentProviderText();
   const [tracking, setTracking] = useState<Record<number, string>>({});
-  const { c } = useCurrencyText();
-  const refundFactor = 10 ** (order.cart.price.currencyScale ?? 2);
-  const [refund, setRefund] = useState("");
   const actions = order.workflow?.actions ?? [];
   const label = (a: OrderAction) =>
     o(
@@ -67,67 +67,20 @@ export default function OrderPaymentDelivery({
             </button>
           ))}
       {rights.includes("payments.manage") && order.payment.attemptId && (
-        <div className="payment-commands">
-          <button
-            disabled={busy || pendingJob}
-            className="studio-secondary"
-            onClick={() => void onPayment("reconcile")}
-          >
-            {o("reconcile")}
-          </button>
-          {order.payment.state === "authorized" &&
-            (["capture", "void"] as const).map((operation) => (
-              <button
-                key={operation}
-                disabled={busy || pendingJob}
-                className="studio-secondary"
-                onClick={() => void onPayment(operation)}
-              >
-                {paymentText(operation)}
-              </button>
-            ))}
-          {["captured", "partially_refunded"].includes(order.payment.state) && (
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                if (
-                  await onPayment(
-                    "refund",
-                    Math.round(Number(refund) * refundFactor),
-                  )
-                )
-                  setRefund("");
-              }}
-            >
-              <label>
-                {c("refundAmount")} · {order.cart.price.currency ?? "EUR"}
-                <input
-                  type="number"
-                  min={1 / refundFactor}
-                  step={1 / refundFactor}
-                  required
-                  value={refund}
-                  onChange={(e) => setRefund(e.target.value)}
-                />
-              </label>
-              <button
-                className="studio-secondary"
-                disabled={busy || pendingJob || !refund}
-              >
-                {o("refundAction")}
-              </button>
-            </form>
-          )}
-          {pendingJob && (
-            <button
-              disabled={busy}
-              className="studio-primary"
-              onClick={onCheck}
-            >
-              {o("checkOperation")}
-            </button>
-          )}
-        </div>
+        <PaymentActions
+          state={order.payment.state}
+          settlement={
+            order.payment.capturedMinor === undefined
+              ? undefined
+              : order.payment
+          }
+          currency={order.cart.price.currency ?? "EUR"}
+          scale={order.cart.price.currencyScale ?? 2}
+          busy={busy}
+          pending={pendingJob}
+          onPayment={onPayment}
+          onCheck={onCheck}
+        />
       )}
       <div className="delivery-divider" />
       <h2>{o("delivery")}</h2>

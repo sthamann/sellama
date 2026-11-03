@@ -237,4 +237,21 @@ theorem discount_idempotent (total requested : Nat) :
     discount_cap total (discount_cap total requested) = discount_cap total requested := by
   simp [discount_cap]
 
+/-- Capture budgets include completed captures and unresolved reservations. -/
+theorem capture_exact (authorized captured reserved requested : Nat) :
+    capture_admissible authorized captured reserved requested = true ↔
+    captured ≤ authorized ∧ reserved ≤ authorized - captured ∧ 0 < requested ∧
+    requested ≤ (authorized - captured) - reserved := by
+  simp [capture_admissible, and_assoc]
+
+theorem capture_bounded (authorized captured reserved requested : Nat)
+    (h : capture_admissible authorized captured reserved requested = true) :
+    0 < requested ∧ captured + reserved + requested ≤ authorized := by
+  rw [capture_exact] at h
+  omega
+
+theorem capture_zero_denied (authorized captured reserved : Nat) :
+    capture_admissible authorized captured reserved 0 = false := by
+  simp [capture_admissible]
+
 end CommerceKernel

@@ -287,6 +287,8 @@ interface inputs {
   record merchant-payment-input {
     %amount-minor: option<s64>,
     %approve: bool,
+    %capture-id: option<string>,
+    %final-capture: option<bool>,
     %id: string,
     %operation: string,
     %request-key: string,
@@ -749,6 +751,17 @@ interface inputs {
   record merchant-site-apply-input {
     %approve: bool,
     %task-id: string,
+  }
+  record merchant-reports-read-input {
+    %channel: option<option<string>>,
+    %channel-type: option<string>,
+    %compare: option<bool>,
+    %currency: option<option<string>>,
+    %from: option<option<string>>,
+    %interval: option<string>,
+    %period: option<string>,
+    %timezone: option<string>,
+    %to: option<option<string>>,
   }
   record studio-workspace-save-input {
     %data: string,
@@ -1709,6 +1722,7 @@ interface inputs {
   merchant-site-propose: func(input: merchant-site-propose-input) -> result<string, string>;
   merchant-site-plan: func(input: merchant-site-plan-input) -> result<string, string>;
   merchant-site-apply: func(input: merchant-site-apply-input) -> result<string, string>;
+  merchant-reports-read: func(input: merchant-reports-read-input) -> result<string, string>;
   studio-workspace-work-read: func(input: string) -> result<string, string>;
   studio-workspace-read: func(input: string) -> result<string, string>;
   studio-workspace-save: func(input: studio-workspace-save-input) -> result<string, string>;

@@ -1,5 +1,19 @@
 # Changelog
 
+## 3 November 2026: partial and multiple payment capture
+
+- Original invoices now retain distinct confirmed capture balances, optional
+  final capture, per-capture refunds and safe void of the unused authorization.
+- Shop/channel capture timing uses the existing revisioned settings. Orders and
+  payment management share exact amount input, balance displays and observed jobs.
+- HTTP, MCP, app/Flow commands and generated TS/OpenAPI/WIT input contracts share
+  the same admission. Pending captures reserve balance; verified recovery binds
+  the original job after a lost response. Customer commands cannot choose amounts.
+- Shopware Payments contract 1.3.0 preserves historical adapter versions. Local
+  native and adversarial provider checks pass; external account tests are deferred.
+- The generated Rust/Lean conformance dispatcher is split by existing policy
+  domains to preserve source size limits as capture budget proofs are added.
+
 ## 3 November 2026: external payment refund reconciliation
 
 - Provider-observed completed refunds now update the original native payment and

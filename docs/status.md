@@ -4,6 +4,15 @@ Updated 3 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. All purchases below use **simulated payments**.
 
+## Payment capture expansion, 3 November 2026, local acceptance
+
+Core and private Rust service support partial/multiple capture, per-capture
+refunds, remainder void, exact balance displays and versioned capture timing.
+Native local-service and independent hostile-receipt checks pass. External
+provider account testing was explicitly deferred. The new contract 1.3.0 needs
+its operator configuration and normal deployment before public acceptance.
+[Merchant guide](payment-capture-management.md) · [Provider acceptance](shopware-payments-acceptance.md).
+
 ## Current public release
 
 The public Core release `6442279d28786a6422419bd2e0ec13cac7bcebe0`

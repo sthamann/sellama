@@ -7,7 +7,7 @@ review record, never a claim that unproved adapters became proved.
 import argparse,json,pathlib,subprocess,sys
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent/'formal'))
 from extract import Parser,generated,kernel_source
-from runners import lean_runner,rust_runner,rust_dispatch
+from runners import lean_runner,rust_runner,rust_dispatch,rust_domains
 from registry import check,record
 from conformance import compare
 from axioms import source_check,dependency_check
@@ -24,7 +24,8 @@ def artifacts(functions):
     # Rustfmt is part of the driver-generation boundary; compare canonical source.
     rust=subprocess.run(['rustfmt','--edition','2024'],input=rust,capture_output=True,text=True,check=True).stdout
     dispatch=subprocess.run(['rustfmt','--edition','2024'],input=rust_dispatch(functions),capture_output=True,text=True,check=True).stdout
-    return {'src/bin/verified_kernel/dispatch.rs':dispatch,'proof/Commerce/Generated.lean':lean,'proof/Main.lean':main,'src/bin/verified_kernel.rs':rust}
+    domains={name:subprocess.run(['rustfmt','--edition','2024'],input=content,capture_output=True,text=True,check=True).stdout for name,content in rust_domains(functions).items()}
+    return {'src/bin/verified_kernel/dispatch.rs':dispatch,'proof/Commerce/Generated.lean':lean,'proof/Main.lean':main,'src/bin/verified_kernel.rs':rust,**domains}
 
 def audit(manifest):
     root=ROOT/'proof'

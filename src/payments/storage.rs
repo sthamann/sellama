@@ -30,10 +30,20 @@ pub(crate) async fn update_order(
             .fetch_one(&mut **tx)
             .await?;
     o["payment"]["state"] = json!(state);
+    let current = sqlx::query("SELECT * FROM payment_attempts WHERE tenant=$1 AND id=$2")
+        .bind(&p.tenant)
+        .bind(&p.id)
+        .fetch_one(&mut **tx)
+        .await?;
+    let summary = super::settlements::summary(&super::attempt(&current));
+    if let (Some(payment), Some(fields)) = (o["payment"].as_object_mut(), summary.as_object()) {
+        payment.extend(fields.clone());
+    }
     o["payment"]["realMoneyCharged"] = json!(
         p.environment == "live"
             && [
                 "captured",
+                "partially_captured",
                 "captured_late",
                 "partially_refunded",
                 "refunded"
@@ -65,7 +75,7 @@ pub(crate) async fn update_order(
     if let Some(cart) = event_order["cart"].as_object_mut() {
         cart.remove("token");
     }
-    let kind = if state == "captured" {
+    let kind = if state == "captured" && p.state != "captured" {
         "payment.captured"
     } else {
         "payment.updated"

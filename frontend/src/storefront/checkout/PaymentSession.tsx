@@ -11,12 +11,14 @@ type Status = {
   amountMinor: number;
   currency: string;
   currencyScale?: number;
+  capturedMinor?: number;
   environment: string;
   job?: { state: string; operation: string } | null;
 };
 const terminal = new Set([
   "authorized",
   "captured",
+  "partially_captured",
   "captured_late",
   "cancelled",
   "expired",
@@ -110,7 +112,9 @@ function PaymentStatus({ id, token, autoRedirect = false }: PaymentProps) {
     data &&
     ["captured", "captured_late", "partially_refunded", "refunded"].includes(
       data.state,
-    );
+    ) &&
+    (data.capturedMinor === undefined ||
+      data.capturedMinor >= data.amountMinor);
   return (
     <section
       className="payment-session"
@@ -121,7 +125,9 @@ function PaymentStatus({ id, token, autoRedirect = false }: PaymentProps) {
       <h3>
         {paid
           ? x("paid")
-          : data?.state === "authorized"
+          : data?.state === "authorized" ||
+              data?.state === "partially_captured" ||
+              data?.state === "partially_refunded"
             ? x("authorized")
             : data && ["cancelled", "expired"].includes(data.state)
               ? x("cancelled")

@@ -2,6 +2,7 @@
 /** Native input DTOs; opaque JSON fields remain explicit. */
 import type { JsonValue } from "./value";
 export interface Inputs11 {
+  "studio.workspace.read": JsonValue;
   "studio.workspace.save": { data: JsonValue; revision: number };
   "merchant.import.inspect": {
     details?: boolean;
@@ -127,5 +128,4 @@ export interface Inputs11 {
     settingsRevision: number;
     taxRate: number;
   };
-  "pos.customers": { barcode?: string; channelId: string; query?: string };
 }

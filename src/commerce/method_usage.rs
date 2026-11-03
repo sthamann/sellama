@@ -59,6 +59,7 @@ pub(super) async fn guard(
     next: &Settings,
     channel: Option<&str>,
 ) -> Result<()> {
+    payments::capture_configuration::validate(tx, t, next).await?;
     for (area, previous, current) in [
         (
             "shipping",

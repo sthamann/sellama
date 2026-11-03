@@ -22,7 +22,15 @@ pub(crate) async fn payment_once(a: &App) -> Result<bool> {
         return Ok(false);
     }
     let mut tx = a.db.begin().await?;
-    let row=sqlx::query("SELECT j.* FROM payment_jobs j JOIN payment_attempts p ON p.id=j.attempt_id WHERE (p.provider='paypal' AND j.tenant=ANY($1) OR p.provider=ANY($2)) AND j.available_at<=now() AND (j.state='queued' OR j.state='running' AND j.lease_until<now()) AND NOT EXISTS(SELECT 1 FROM payment_jobs other WHERE other.attempt_id=j.attempt_id AND other.id<>j.id AND other.state='running' AND other.lease_until>now()) ORDER BY j.created_at LIMIT 1 FOR UPDATE OF j,p SKIP LOCKED").bind(&tenants).bind(&providers).fetch_optional(&mut *tx).await?;
+    // Take the attempt first everywhere. Reconciliation may finish a different capture job.
+    let candidate: Option<String> = sqlx::query_scalar("SELECT p.id FROM payment_attempts p WHERE ((p.provider='paypal' AND p.tenant=ANY($1)) OR p.provider=ANY($2)) AND EXISTS(SELECT 1 FROM payment_jobs j WHERE j.tenant=p.tenant AND j.attempt_id=p.id AND j.available_at<=now() AND (j.state='queued' OR j.state='running' AND j.lease_until<now())) AND NOT EXISTS(SELECT 1 FROM payment_jobs j WHERE j.tenant=p.tenant AND j.attempt_id=p.id AND j.state='running' AND j.lease_until>now()) ORDER BY p.created_at LIMIT 1 FOR UPDATE OF p SKIP LOCKED")
+        .bind(&tenants).bind(&providers).fetch_optional(&mut *tx).await?;
+    let row = if let Some(candidate) = candidate {
+        sqlx::query("SELECT * FROM payment_jobs WHERE attempt_id=$1 AND available_at<=now() AND (state='queued' OR state='running' AND lease_until<now()) ORDER BY created_at LIMIT 1 FOR UPDATE SKIP LOCKED")
+            .bind(candidate).fetch_optional(&mut *tx).await?
+    } else {
+        None
+    };
     let Some(job) = row else {
         tx.commit().await?;
         return expire_one(a, &tenants, &providers).await;
@@ -40,7 +48,15 @@ pub(crate) async fn payment_once(a: &App) -> Result<bool> {
     let p = attempt(&row);
     tx.commit().await?;
     let outcome = if ["capture", "authorize"].contains(&op.as_str())
-        && !["ready", "approved", "authorized", "captured"].contains(&p.state.as_str())
+        && ![
+            "ready",
+            "approved",
+            "authorized",
+            "captured",
+            "partially_captured",
+            "partially_refunded",
+        ]
+        .contains(&p.state.as_str())
     {
         Err(conflict("Payment cannot be captured in this state"))
     } else if op == "cancel" && p.provider == "paypal" {
@@ -53,7 +69,12 @@ pub(crate) async fn payment_once(a: &App) -> Result<bool> {
         dispatch(a, &p, &op, &id, &input).await
     };
     let mut tx = a.db.begin().await?;
-    // Every receipt re-reads the authoritative attempt and claims its job generation.
+    // Admission and receipt allocation lock attempt before jobs, including recovered capture jobs.
+    let row = sqlx::query("SELECT * FROM payment_attempts WHERE id=$1 FOR UPDATE")
+        .bind(&p.id)
+        .fetch_one(&mut *tx)
+        .await?;
+    let current = attempt(&row);
     let fence = sqlx::query("SELECT state,attempts FROM payment_jobs WHERE id=$1 FOR UPDATE")
         .bind(&id)
         .fetch_one(&mut *tx)
@@ -62,11 +83,6 @@ pub(crate) async fn payment_once(a: &App) -> Result<bool> {
     {
         return Ok(false);
     }
-    let row = sqlx::query("SELECT * FROM payment_attempts WHERE id=$1 FOR UPDATE")
-        .bind(&p.id)
-        .fetch_one(&mut *tx)
-        .await?;
-    let current = attempt(&row);
     match outcome {
         Ok(v) => {
             if op == "refund" && p.provider == "paypal" && v["status"] == "PENDING" {

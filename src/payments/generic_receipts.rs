@@ -1,7 +1,5 @@
 //! Provider-neutral receipt admission and atomic allocation; verified evidence owns ledger transitions.
-use super::{
-    Attempt, enqueue_tx, format_amount, receipt_matches, release_stock, remote, state, update_order,
-};
+use super::{Attempt, enqueue_tx, release_stock, remote, state, update_order};
 use crate::{Error, Result, Row, StatusCode, Value, bad, conflict, json};
 
 pub(super) fn identity(p: &Attempt, v: &Value) -> Result<()> {
@@ -44,7 +42,7 @@ pub(super) async fn claim(
     let row=sqlx::query("SELECT tenant,attempt_id,job_key FROM payment_receipt_claims WHERE provider=$1 AND environment=$2 AND account_ref=$3 AND kind=$4 AND receipt_ref=$5 FOR UPDATE").bind(&p.provider).bind(&p.environment).bind(p.context["accountRef"].as_str().unwrap_or("")).bind(kind).bind(id).fetch_one(&mut **tx).await?;
     if row.get::<String, _>("tenant") != p.tenant
         || row.get::<String, _>("attempt_id") != p.id
-        || (kind == "refund" && row.get::<String, _>("job_key") != key)
+        || (["refund", "capture-job"].contains(&kind) && row.get::<String, _>("job_key") != key)
     {
         return Err(conflict("Provider receipt already allocated"));
     }
@@ -58,6 +56,12 @@ pub(crate) async fn persist(
     v: &Value,
 ) -> Result<()> {
     identity(p, v)?;
+    if op == "capture" && v["capturePending"] == true {
+        return Err(Error(
+            StatusCode::ACCEPTED,
+            "Provider capture pending".into(),
+        ));
+    }
     let remote = reference(&v["reference"])?;
     let status = v["status"].as_str().ok_or(bad("Payment status required"))?;
     let mut state = p.state.clone();
@@ -88,33 +92,22 @@ pub(crate) async fn persist(
             .ok_or(bad("Refund ledger job required"))?;
         let delta =
             super::refund_receipts::apply(tx, p, &mut context, &v["refund"], Some(key)).await?;
-        refunded = super::refund_receipts::checked_total(p.amount, refunded, delta)?;
-        state = if refunded == p.amount {
-            "refunded"
-        } else {
-            "partially_refunded"
-        }
+        refunded = super::refund_receipts::checked_total(
+            super::settlements::captured(p),
+            refunded,
+            delta,
+        )?;
+        state = super::settlements::state(
+            p,
+            super::settlements::captured(p),
+            refunded,
+            super::settlements::closed(p),
+        )
         .into();
-    } else if status == "captured" {
-        if !receipt_matches(
-            p.amount,
-            &json!({"value":format_amount(v["settledAmountMinor"].as_i64().ok_or(bad("Settled amount missing"))?,&p.currency)?,"currency_code":v["currency"]}),
-            &p.currency,
-            v["confirmed"] == true,
-        )? {
-            return Err(bad("Unconfirmed or mismatched settlement"));
-        }
-        let id = reference(&v["captureId"])?;
-        claim(tx, p, "capture", id, "").await?;
-        if p.capture.as_ref().is_some_and(|old| old != id) {
-            return Err(conflict("Capture receipt changed"));
-        }
-        capture = Some(id.into());
-        if ["pending", "ready", "approved", "authorized"].contains(&p.state.as_str()) {
-            state = "captured".into();
-        } else if ["cancelled", "expired"].contains(&p.state.as_str()) {
-            state = "captured_late".into();
-        }
+    } else if ["captured", "partially_captured"].contains(&status) {
+        let (settled, id, closed) = super::settlements::admit(tx, p, &mut context, v).await?;
+        capture = Some(id);
+        state = super::settlements::state(p, settled, refunded, closed).into();
     } else if status == "authorized" {
         if v["confirmed"] != true || v["authorizedAmountMinor"].as_i64() != Some(p.amount) {
             return Err(bad("Authorization receipt mismatch"));
@@ -163,20 +156,26 @@ pub(crate) async fn persist(
         return Err(bad("Unsupported provider receipt state"));
     }
     state::transition(&p.state, &state)?;
-    if status == "captured" && v["confirmed"] == true {
+    if ["captured", "partially_captured"].contains(&status) && v["confirmed"] == true {
         refunded = super::refund_receipts::reconcile(tx, p, &mut context, v).await?;
         if refunded > 0 {
-            let next = if refunded == p.amount {
-                "refunded"
-            } else {
-                "partially_refunded"
-            };
+            let next = super::settlements::state(
+                p,
+                context["capturedAmountMinor"].as_i64().unwrap_or(p.amount),
+                refunded,
+                context["captureClosed"] == true,
+            );
             state::transition(&state, next)?;
             state = next.into();
         }
     }
-    sqlx::query("UPDATE payment_attempts SET state=$1,provider_order=$2,approval_url=coalesce($3,approval_url),capture_id=$4,refunded_minor=$5,provider_context=$6,revision=revision+1 WHERE tenant=$7 AND id=$8").bind(&state).bind(remote).bind(url).bind(capture).bind(refunded).bind(context).bind(&p.tenant).bind(&p.id).execute(&mut **tx).await?;
-    if state != p.state {
+    sqlx::query("UPDATE payment_attempts SET state=$1,provider_order=$2,approval_url=coalesce($3,approval_url),capture_id=$4,refunded_minor=$5,provider_context=$6,revision=revision+1 WHERE tenant=$7 AND id=$8").bind(&state).bind(remote).bind(url).bind(&capture).bind(refunded).bind(&context).bind(&p.tenant).bind(&p.id).execute(&mut **tx).await?;
+    if state != p.state
+        || capture != p.capture
+        || refunded != p.refunded
+        || context["capturedAmountMinor"] != p.context["capturedAmountMinor"]
+        || context["captureClosed"] != p.context["captureClosed"]
+    {
         if state == "approved" || (state == "authorized" && p.context["intent"] == "capture") {
             let op = if p.context["intent"] == "authorize" {
                 "authorize"

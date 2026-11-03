@@ -66,18 +66,29 @@ pub(crate) async fn enqueue(
             .fetch_one(&mut *tx)
             .await?;
     if !exists {
-        if op == "refund" {
+        if op == "capture" {
+            super::capture_admission::validate(&mut tx, &p, v).await?;
+        } else if op == "refund" {
             let amount = v["amountMinor"]
                 .as_i64()
                 .filter(|v| *v > 0)
                 .ok_or(bad("Positive amountMinor required"))?;
             let reserved:i64=sqlx::query_scalar("SELECT coalesce(sum((request->>'amountMinor')::bigint),0)::bigint FROM payment_jobs WHERE tenant=$1 AND attempt_id=$2 AND operation='refund' AND state IN ('queued','running','uncertain')").bind(&t).bind(id).fetch_one(&mut *tx).await?;
-            if !["captured", "captured_late", "partially_refunded"].contains(&p.state.as_str())
+            if ![
+                "captured",
+                "captured_late",
+                "partially_refunded",
+                "partially_captured",
+            ]
+            .contains(&p.state.as_str())
                 || !p
                     .refunded
                     .checked_add(reserved)
                     .and_then(|consumed| {
-                        Some((u64::try_from(p.amount).ok()?, u64::try_from(consumed).ok()?))
+                        Some((
+                            u64::try_from(super::settlements::captured(&p)).ok()?,
+                            u64::try_from(consumed).ok()?,
+                        ))
                     })
                     .is_some_and(|(captured, consumed)| {
                         verified_kernel::refund_admissible(captured, consumed, amount as u64)
@@ -85,6 +96,9 @@ pub(crate) async fn enqueue(
             {
                 return Err(conflict("Refund exceeds the remaining captured amount"));
             }
+            super::refund_allocation::validate(&mut tx, &p, v).await?;
+        } else if op == "void" && super::settlements::multi(&p) && !super::settlements::closed(&p) {
+            // Voiding the uncaptured remainder never releases already sold inventory.
         } else if !["pending", "ready", "approved", "authorized"].contains(&p.state.as_str())
             && op != "reconcile"
         {

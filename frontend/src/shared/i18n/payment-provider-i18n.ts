@@ -128,6 +128,12 @@ export const paymentProviderWords = {
     "Annuler l’autorisation",
     "Anular autorización",
   ],
+  multi_capture: [
+    "Partial and multiple captures",
+    "Teilbeträge und mehrere Einzüge",
+    "Captures partielles et multiples",
+    "Capturas parciales y múltiples",
+  ],
   recurring: [
     "Recurring payments",
     "Wiederkehrende Zahlungen",

@@ -1663,6 +1663,12 @@
           "approve": {
             "type": "boolean"
           },
+          "captureId": {
+            "type": "string"
+          },
+          "finalCapture": {
+            "type": "boolean"
+          },
           "id": {
             "type": "string"
           },
@@ -4244,6 +4250,89 @@
       },
       "name": "merchant.site.apply",
       "readOnly": false
+    },
+    {
+      "description": "Read bounded sales, channel and consent-aware traffic reports",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "channel": {
+            "maxLength": 160,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "channelType": {
+            "enum": [
+              "all",
+              "storefront",
+              "headless",
+              "marketplace",
+              "pos"
+            ],
+            "type": "string"
+          },
+          "compare": {
+            "type": "boolean"
+          },
+          "currency": {
+            "maxLength": 3,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "from": {
+            "maxLength": 10,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "interval": {
+            "enum": [
+              "auto",
+              "day",
+              "week",
+              "month",
+              "year"
+            ],
+            "type": "string"
+          },
+          "period": {
+            "enum": [
+              "today",
+              "yesterday",
+              "week",
+              "last7",
+              "last30",
+              "last90",
+              "month",
+              "lastMonth",
+              "year",
+              "lastYear",
+              "all",
+              "custom"
+            ],
+            "type": "string"
+          },
+          "timezone": {
+            "maxLength": 64,
+            "type": "string"
+          },
+          "to": {
+            "maxLength": 10,
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "name": "merchant.reports.read",
+      "readOnly": true
     },
     {
       "description": "Read bounded actionable work from current authorized shop data",

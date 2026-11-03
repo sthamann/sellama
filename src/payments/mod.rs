@@ -8,6 +8,8 @@ mod contract;
 pub(crate) use contract::*;
 pub(crate) mod registry;
 pub(crate) use registry::*;
+mod capture_admission;
+pub(crate) mod capture_configuration;
 mod generic_receipts;
 mod operations;
 #[path = "../../extensions/apps/paypal/src/compatibility.rs"]
@@ -15,11 +17,13 @@ mod paypal;
 mod provider;
 pub(crate) mod provider_configuration;
 mod provider_webhooks;
+mod refund_allocation;
 mod refund_receipts;
 pub(crate) mod remote;
 mod return_urls;
 mod routes;
 pub(crate) mod sessions;
+mod settlements;
 mod storage;
 #[path = "../../extensions/apps/paypal/src/webhooks.rs"]
 mod webhooks;

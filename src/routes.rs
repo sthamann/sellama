@@ -36,7 +36,12 @@ pub(crate) fn router(a: App) -> Router {
         .secure_route(
             "/api/merchant/commerce/channels/{channel}",
             &[("GET", "settings.read"), ("PUT", "settings.write")],
-            get(commerce::get_scope).put(commerce::save_scope),
+            get(commerce::get_scope)
+                .put(commerce::save_scope)
+                .layer(axum::extract::DefaultBodyLimit::max(
+                    http_limits::SETTINGS_BYTES,
+                ))
+                .layer(axum::middleware::from_fn(http_limits::settings_errors)),
         )
         .secure_route(
             "/api/merchant/commerce/methods/{area}/{id}/dependencies",
@@ -150,7 +155,12 @@ pub(crate) fn router(a: App) -> Router {
         .secure_route(
             "/api/merchant/commerce",
             &[("GET", "settings.read"), ("PUT", "settings.write")],
-            get(commerce::merchant_config).put(commerce::save_config),
+            get(commerce::merchant_config)
+                .put(commerce::save_config)
+                .layer(axum::extract::DefaultBodyLimit::max(
+                    http_limits::SETTINGS_BYTES,
+                ))
+                .layer(axum::middleware::from_fn(http_limits::settings_errors)),
         )
         .secure_route(
             "/api/merchant/reviews/{id}",

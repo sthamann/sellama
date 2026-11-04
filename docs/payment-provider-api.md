@@ -217,3 +217,11 @@ origin. Source, origin and nonce checks remain in place. A timeout preserves the
 order and offers retry plus the existing server-approved approval link in a new
 tab. Returning, readiness messages and SDK callbacks trigger reconciliation; only
 verified server evidence changes the financial state.
+
+## Provider return routing
+
+Some providers append their order and payer fields after a URL fragment. The
+return view extracts only a bounded attempt reference from `#payment/ID` and
+ignores appended fields. It still requires that browser's existing scoped cart
+token. Returning or changing the return flag can only request server
+reconciliation; neither provider URL fields nor the fragment establish payment.

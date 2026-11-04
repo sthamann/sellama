@@ -74,14 +74,14 @@ it("refunds the selected owned capture and refuses excess precision and amount",
   fireEvent.change(screen.getByLabelText("Capture to refund"), {
     target: { value: "C2" },
   });
-  fireEvent.change(screen.getAllByLabelText(/Amount/)[1], {
+  fireEvent.change(screen.getByLabelText("Refund amount · EUR"), {
     target: { value: "3.01" },
   });
   expect(
     (screen.getByRole("button", { name: "Refund amount" }) as HTMLButtonElement)
       .disabled,
   ).toBe(true);
-  fireEvent.change(screen.getAllByLabelText(/Amount/)[1], {
+  fireEvent.change(screen.getByLabelText("Refund amount · EUR"), {
     target: { value: "3.00" },
   });
   fireEvent.click(screen.getByRole("button", { name: "Refund amount" }));
@@ -110,4 +110,20 @@ it("keeps legacy single-capture controls free of multi-capture fields", async ()
   expect(
     screen.queryByLabelText("Close authorization after this capture"),
   ).toBeNull();
+});
+
+it("does not display an uncompleted or expired invoice as authorized funds", () => {
+  setup({
+    state: "expired",
+    settlement: {
+      ...settlement,
+      capturedMinor: 0,
+      canCaptureMore: false,
+      captures: [],
+    },
+  });
+  expect(
+    screen.getByText("Still authorized").nextElementSibling,
+  ).toHaveTextContent("€0.00");
+  expect(screen.queryByRole("button", { name: "Capture amount" })).toBeNull();
 });

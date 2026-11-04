@@ -1,8 +1,24 @@
 # Veyndo: current status
 
-Updated 3 November 2026. Start here for the public product, observed journeys and
+Updated 4 November 2026. Start here for the public product, observed journeys and
 remaining delivery work. Source code, passing tests and a successful public
-journey are tracked separately. All purchases below use **simulated payments**.
+journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
+
+## Actual PayPal Sandbox acceptance, 4 November 2026
+
+The private payment service **1.6.4** is online in Sandbox with its restricted
+database runtime, migrations 003/004 and encryption key configured. Public Core
+**db0e00c9** is running with one ready replica. The native shop captured
+**EUR 59.00** and completed **EUR 0.01 + EUR 58.99** refunds. Original Storyfront
+captured **EUR 59.90** through its embedded checkout and actual PayPal SDK, then
+completed **EUR 0.01 + EUR 59.89** refunds. The original Storyfront bag stayed
+empty after return and full page reload. Native provider return and empty basket
+also passed. Studio displays the provider capture, fees and both refunds.
+
+The SDK locale, embedded loading and provider-appended return fragment fixes are
+published. This accepts the observed PayPal Sandbox wallet paths, not Live or
+all-method parity. Saved methods and invoice provider acceptance remain separate.
+[Current screenshots and exact scope](shopware-payments-acceptance.md#actual-paypal-sandbox-purchases-and-refunds-4-november-2026).
 
 ## Public checkout recheck, 3 November 2026, 22:39 UTC
 
@@ -27,9 +43,7 @@ Local Rust/PostgreSQL tests cover foreign/guest denial, delayed confirmation and
 restart without duplicate capture. Running the hosted-mode simulation transport
 locally also passes PayPal/card save, repeat purchase, revoke and refund with no
 external calls. The Core and private service changes are merged into main.
-Core migration 110 has completed publicly. Private migrations 003/004, its
-encryption key, versioned service configuration and the private runtime upgrade
-remain pending; external provider account tests remain deferred.
+Core migration 110 has completed publicly. Private migrations 003/004, its encryption key, versioned service configuration and the private runtime upgrade completed on 4 November. Actual provider saved-method testing remains separate.
 [Workflow, storage and rollout](payment-saved-methods.md).
 
 ## Deferred invoice checkout, 3 November 2026
@@ -41,8 +55,7 @@ The recipient display supports four languages and narrow embedded checkouts.
 Native invoice PDFs and the opt-in Email Delivery 1.3.0 template now share the
 validated immutable recipient evidence. Automatic and Flow-triggered messages
 passed the actual local encrypted Rust queue test, with no external mail.
-Hosted migration 003 and rollout remain pending; external account tests stay
-deferred. [Customer flow, rights and recovery](payment-invoice-checkout.md).
+Hosted migrations and rollout completed on 4 November; actual provider invoice testing remains separate. [Customer flow, rights and recovery](payment-invoice-checkout.md).
 
 ## Payment transaction details, 3 November 2026
 
@@ -50,28 +63,24 @@ Contract 1.4.0 adds read-only owned provider transactions, exact fees/net amount
 and a payment-only projection of durable native history. Orders and payment
 management share the same disclosure, HTTP/MCP operation and current read rights.
 Actual local Rust/Core/PostgreSQL checks pass, including no ledger mutation and
-no exposed customer/card/bank fields. External provider tests remain deferred.
+no exposed customer/card/bank fields. Actual PayPal Sandbox capture, fee and completed-refund details were observed on 4 November.
 [Usage and validation](payment-transaction-details.md).
 
 ## Payment capture expansion, 3 November 2026, local acceptance
 
 Core and private Rust service support partial/multiple capture, per-capture
 refunds, remainder void, exact balance displays and versioned capture timing.
-Native local-service and independent hostile-receipt checks pass. External
-provider account testing was explicitly deferred. The new contract 1.3.0 needs
-its operator configuration and normal deployment before public acceptance.
+Native local-service and independent hostile-receipt checks pass. Hosted configuration and deployment completed on 4 November. Actual provider immediate capture and partial/full refunds passed for the two wallet orders; multi-capture, authorization and void still need their own provider acceptance.
 [Merchant guide](payment-capture-management.md) · [Provider acceptance](shopware-payments-acceptance.md).
 
 ## Current public release
 
-The public Core release `6442279d28786a6422419bd2e0ec13cac7bcebe0`
-(3 November) is running publicly. Its source includes the shared canvas, localized media captions,
+The public Core release `db0e00c9f43e4ee45a9129e3aa7caba41a8dd766`
+(4 November) is running publicly. Its source includes the shared canvas, localized media captions,
 guided shop setup, assistant layout and shared payment contract. Northflank
 reports one ready replica with no restarts after the latest rollout. Feature
 walkthroughs below retain their actual local or public acceptance scope. The
-separate private Rust Shopware Payments service is now hosted in simulation, with
-a dedicated database and restricted runtime login. The synthetic merchant account
-connects successfully. Original Storyfront purchase, return and refund acceptance
+separate private Rust Shopware Payments service is hosted in PayPal Sandbox, with a dedicated database and restricted runtime login. Both test shops have a server-verified Sandbox seller connection. Original Storyfront purchase, return and refund acceptance
 are tracked in the payment guide.
 
 ## Persistent Ask Veyndo sidebar (3 November 2026, public acceptance)

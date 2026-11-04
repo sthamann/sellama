@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-04",
+  "environment": "actual PayPal Sandbox, fake seller and buyer, no Live charges",
+  "publicCore": {
+    "commit": "db0e00c9f43e4ee45a9129e3aa7caba41a8dd766",
+    "build": "abundant-crib-4273",
+    "readyReplicas": 1
+  },
+  "privateService": {
+    "version": "1.6.4",
+    "commit": "c60bfeb5fe9c05a6ce51b3364203842e1bd5ddb4",
+    "build": "rustic-picture-627",
+    "health": "sandbox ok",
+    "manifestVersion": "1.6.0",
+    "schema": [
+      "003",
+      "004"
+    ],
+    "temporaryAdminAccess": "removed"
+  },
+  "native": {
+    "order": "RAC-2d95fe9e",
+    "providerOrder": "7YX871198T256711G",
+    "capture": "9GP12187F3451260C",
+    "currency": "EUR",
+    "capturedMinor": 5900,
+    "providerFeeMinor": 147,
+    "netAtCaptureMinor": 5753,
+    "refunds": [
+      {
+        "amountMinor": 1,
+        "providerId": "8CW118869U622111K",
+        "status": "completed"
+      },
+      {
+        "amountMinor": 5899,
+        "providerId": "79Y83987MC517083T",
+        "status": "completed"
+      }
+    ],
+    "return": "native payment confirmed; original cart empty",
+    "providerPresentation": "approved provider fallback page; native SDK path not separately accepted",
+    "returnFixRecheck": "original provider-appended fragment reload displays payment confirmed and cart 0 on published Core"
+  },
+  "storyfront": {
+    "order": "RAC-8e248b79",
+    "providerOrder": "7AR90157W9541102G",
+    "capture": "9H030472A43627421",
+    "currency": "EUR",
+    "capturedMinor": 5990,
+    "providerFeeMinor": 149,
+    "netAtCaptureMinor": 5841,
+    "refunds": [
+      {
+        "amountMinor": 1,
+        "providerId": "74Y293865S495211J",
+        "status": "completed"
+      },
+      {
+        "amountMinor": 5989,
+        "providerId": "8PU23728DB158454C",
+        "status": "completed"
+      }
+    ],
+    "providerPresentation": "original Storyfront > embedded native checkout > private PayPal v6 SDK, de-DE > provider approval popup",
+    "return": "popup closed; embedded payment confirmed; return to original Experience",
+    "originalCart": "empty after return and full page reload",
+    "history": "native order.placed and payment.captured Flow entries observed"
+  },
+  "negativeAttempt": {
+    "order": "RAC-83dc0457",
+    "result": "expired during debugging before capture; zero captured; excluded from success"
+  },
+  "targetedChecks": {
+    "public": "19 payment/parser/merchant tests, TypeScript, frontend build, localization and structure",
+    "private": "shipped SDK document for four locales, 27 Rust unit tests, Clippy and format"
+  },
+  "scope": "Actual Sandbox wallet purchase/capture, partial/full refund, return and basket acceptance. Does not establish Live payments, every method, saved methods, recurring debits or complete Shopware feature parity."
+}

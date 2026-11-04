@@ -1,10 +1,61 @@
 # Shopware Payments: integration and test acceptance
 
-Updated 3 November 2026. The private Rust connector implements the provider path;
+Updated 4 November 2026. The private Rust connector implements the provider path;
 the public Core owns the order and payment ledger. The public catalogue now ships
 the versioned 1.6.0 contract for all 17 methods. Install or upgrade it through the
 existing app lifecycle, connect the configured account and enable its methods.
 Installing the contract does not provision the private service or activate methods. Use [the provider contract](payment-provider-api.md) for deployment.
+
+## Actual PayPal Sandbox purchases and refunds, 4 November 2026
+
+The hosted private Rust service **1.6.4**, with contract **1.6.0**, completed
+actual PayPal Sandbox purchases through the native shop and original Storyfront.
+Both use the authorized fake seller and buyer. These requests reached PayPal's
+Sandbox; no Live payment was enabled. Earlier dated sections retain their
+historical simulation scope.
+
+| Journey | Order | Captured | Completed refunds | Return and basket |
+| --- | --- | --- | --- | --- |
+| Native shop | RAC-2d95fe9e | EUR 59.00 | EUR 0.01 + EUR 58.99 | Payment confirmed, return to shop, original basket empty |
+| Original Storyfront | RAC-8e248b79 | EUR 59.90 | EUR 0.01 + EUR 59.89 | SDK popup closed, embedded confirmation, return to Experience, original bag empty after full reload |
+
+The Storyfront journey used the original Experience, native checkout iframe and
+nested private payment iframe. Its **Sicher bezahlen** button opened PayPal SDK
+v6 in German. Provider approval returned to **Zahlung bestätigt** inside that same
+checkout. The native shop used the approved provider fallback page. Its original
+provider return URL was reloaded after the Core fix and showed the correct
+confirmation and basket count of zero. The native SDK presentation itself has
+not received a separate acceptance in this run.
+
+Studio shows the actual provider order and capture IDs, completed refunds and
+fees. At capture the provider reported EUR 1.47 fees / EUR 57.53 net for the
+native order and EUR 1.49 / EUR 58.41 for Storyfront. These are capture records,
+not post-refund profit figures. The native Flow history records the Storyfront
+`order.placed` and `payment.captured` events.
+
+![Actual PayPal Sandbox capture and full refund in Veyndo Studio](assets/paypal-sandbox-20261104/storyfront-admin-paypal-full-refund.jpg)
+
+[Connected Sandbox seller in Apps](assets/paypal-sandbox-20261104/native-account-ready.jpg) ·
+[Native Studio capture and refunds](assets/paypal-sandbox-20261104/native-admin-paypal-full-refund.jpg) ·
+[Native provider return after the fix](assets/paypal-sandbox-20261104/native-provider-return-fixed.jpg) ·
+[Original Storyfront bag after return and reload](assets/paypal-sandbox-20261104/storyfront-empty-after-reload.jpg) ·
+[Structured observations](evidence/paypal-sandbox-2026-11-04.json).
+
+The public Core runs `db0e00c9` from build `abundant-crib-4273`, with one ready
+replica. The private service runs `c60bfeb5` from `rustic-picture-627`, reporting
+`sandbox ok`. Private migrations 003/004, restricted runtime grants and the vault
+key are configured; temporary database admin access was removed.
+
+Two defects found on the real browser path were fixed: the SDK now receives the
+full shop locale (`de-DE` rather than unsupported `de`), and provider-added
+fragment parameters no longer corrupt the native payment attempt reference.
+A historical Storyfront attempt expired during debugging with zero captured;
+it is excluded from the successful purchase above.
+
+This accepts actual Sandbox PayPal wallet capture/refunds and the observed
+return/basket paths. Saved-method reuse, deferred invoice approval, authorization
+and void, every other payment method and Live payments retain their separate
+provider acceptance requirements. Complete Shopware parity is not claimed.
 
 ## Saved customer methods, 3 November 2026, local implementation
 
@@ -12,7 +63,7 @@ Contract 1.6.0 adds explicit save consent, encrypted private tokens, account-bou
 second purchases and revocation. It preserves the separately recorded capture,
 transaction detail and invoice contracts. Local native-service acceptance covers
 HTTP/MCP, guest/foreign denial and delayed confirmation across restart without a
-second capture. Hosted rollout and actual PSP tests are pending. Automatic
+second capture. Hosted schema, key and service rollout completed on 4 November; actual PSP saved-method tests remain pending. Automatic
 recurring debits remain open. [Customer guide](payment-saved-methods.md).
 
 ## Transaction details, 3 November 2026
@@ -213,8 +264,8 @@ Completed hosted steps and remaining provider work are tracked explicitly:
 - [x] Deploy the private provider service with its own restricted database access,
   HTTPS UI origin and native Core connection. Hosted simulation is online. Provider
   Sandbox/Live additionally require approved partner configuration and callbacks.
-- [ ] Connect an authorized Shopware Payments test account and complete browser
-  payment, capture, void, cancellation and refunds against that account.
+- [x] Connect the authorized PayPal platform Sandbox seller and accept native and original Storyfront wallet purchases, capture, return, basket clearing and exact partial/full refunds. This uses Veyndo’s own Sandbox platform configuration.
+- [ ] Accept actual provider authorization, void and cancellation outcomes separately.
 - [ ] Accept each enabled card/wallet/redirect method, including 3DS outcomes,
   country/currency eligibility and uncertain responses on that actual service.
 - [ ] Complete original express/payment messaging controls through the existing
@@ -227,8 +278,7 @@ Completed hosted steps and remaining provider work are tracked explicitly:
   [Native regression evidence](evidence/payment-refund-reconciliation-2026-11-03.md).
 - [x] Implement locally accepted customer-present saved methods, multi-capture,
   per-capture refunds and read-only transaction/fee details. These changes are
-  merged into main. The saved-method and invoice releases still need their hosted
-  schema/configuration rollout; actual provider acceptance remains separate.
+  merged into main. The saved-method and invoice schema/configuration rollout completed on 4 November; method-specific provider acceptance remains separate.
 - [ ] Complete merchant-initiated recurring lifecycle, dispute reconciliation,
   broader reporting and shipment tracking.
 - [x] Accept the public original Storyfront embedded card simulation through the
@@ -238,8 +288,7 @@ Completed hosted steps and remaining provider work are tracked explicitly:
 Shopware supplies a test account in its own integration. Access to the original
 source does not supply the approved partner credentials for a standalone Veyndo
 service. Apple Pay is not supported in that Shopware test account; its domain
-registration uses an active production account. Real charges are outside this
-acceptance: the selected payment mode remains simulated.
+registration uses an active production account. Real charges are outside this acceptance. The 4 November wallet journeys above use actual PayPal Sandbox; earlier journeys use simulation.
 
 The [PayPal currency reference](https://developer.paypal.com/api/codes/currency/)
 explains the whole-unit currencies. Additional merchant eligibility and currency

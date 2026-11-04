@@ -46,4 +46,4 @@ capture/refund/restart matrix with zero external provider requests. The shared U
 has targeted tests and desktop Chrome rendering checks using marked example data.
 Mobile emulation could not be completed because the browser debugging connection
 rejected its focus command; this is not mobile or external provider acceptance.
-The owner deferred provider login and external account tests.
+On 4 November, actual PayPal Sandbox captures and partial/full refunds passed for native and original Storyfront orders. Studio displayed the provider order/capture/refund identities and exact fees/net amounts. [Current screenshots and scope](shopware-payments-acceptance.md#actual-paypal-sandbox-purchases-and-refunds-4-november-2026).

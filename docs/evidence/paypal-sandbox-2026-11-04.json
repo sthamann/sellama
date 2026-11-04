@@ -131,5 +131,24 @@
       "deployedInvoiceScriptMatchesReviewedSource": true,
       "invoiceScriptSha256": "add5cf5b2d608754c7aab4466df92a650ab8885e299cb6715255ef5328cacace"
     }
+  },
+  "activationDiagnostics": {
+    "implementationVersion": "1.6.6",
+    "privateCommit": "4946228a4033c99b4399f0d1d1fb6ca696f11187",
+    "privateBuild": "bold-flower-2375",
+    "privateHealth": {
+      "status": "ok",
+      "mode": "sandbox"
+    },
+    "targetedLocalAcceptance": [
+      "actual Core/private/PostgreSQL missing-grant diagnostic",
+      "zero capture and no raw provider descriptions",
+      "foreign-shop detail denial",
+      "existing save/reuse/revoke/restart/restricted-login cases",
+      "four interface language component tests",
+      "390px light/dark component rendering without horizontal overflow"
+    ],
+    "scope": "operational diagnostics preserve financial uncertainty and original request identity",
+    "externalAccountTesting": "deferred by user; no new provider acceptance"
   }
 }

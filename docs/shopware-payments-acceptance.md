@@ -47,7 +47,7 @@ not post-refund profit figures. The native Flow history records the Storyfront
 [Structured observations](evidence/paypal-sandbox-2026-11-04.json).
 
 The public Core runs `db0e00c9` from build `abundant-crib-4273`, with one ready
-replica. The additional invoice and wallet corrections are now online as private
+replica. The additional invoice and wallet corrections were delivered as private
 service **1.6.5**, commit `f174e0c9`, build `ambitious-crow-9499`; its public health
 endpoint reports `sandbox ok`. The accepted wallet purchases above ran on 1.6.4. Private migrations 003/004, restricted runtime grants and the vault
 key are configured; temporary database admin access was removed.
@@ -78,6 +78,16 @@ ready for the next check. Enabling the provider feature and completing actual
 saved-method reuse/revocation are still required. Provider invoice approval also
 needs its own account capability and acceptance. The local passing paths do not
 substitute for these provider results. No Live payment was enabled.
+
+### Clear activation diagnostics
+
+Missing provider activation is now projected as a safe operational code. The
+shared transaction history explains the cause and the next step in all four
+interface languages, including the order view and payment app. Unknown provider
+text stays hidden. The actual local Rust/Core/PostgreSQL regression confirms
+zero captured money, current merchant rights and foreign-shop denial. The
+component was also rendered at 390px in light and dark themes without horizontal
+overflow. This display does not complete provider approval or change payment state.
 
 ## Saved customer methods, 3 November 2026, local implementation
 

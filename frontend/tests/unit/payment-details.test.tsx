@@ -113,3 +113,63 @@ it("preserves exact command identity and payload across an uncertain retry", () 
     paymentCommand(first, "other", "capture", 123, { finalCapture: false }).key,
   ).not.toBe(first.key);
 });
+
+it.each([
+  ["en-GB", "Saving payment methods is not enabled"],
+  ["de-DE", "Das Speichern von Zahlungsmethoden ist"],
+  ["fr-FR", "L’enregistrement des moyens de paiement"],
+  ["es-ES", "Guardar métodos de pago no está"],
+])(
+  "explains a missing provider grant in %s without exposing raw errors",
+  async (locale, expected) => {
+    localStorage.setItem("rac-locale", locale);
+    const request = vi.fn().mockResolvedValue({
+      currency: "EUR",
+      currencyScale: 2,
+      providerObservation: { status: "not_created" },
+      history: [],
+      jobs: [
+        {
+          id: "missing-grant",
+          operation: "create",
+          state: "uncertain",
+          at: "2026-11-04T14:00:00Z",
+          diagnosticCode: "PAYMENT_SAVED_METHODS_UNAVAILABLE",
+          error: "PRIVATE_PROVIDER_TOKEN",
+        },
+        {
+          id: "hostile",
+          operation: "create",
+          state: "failed",
+          at: "2026-11-04T13:00:00Z",
+          diagnosticCode: "PRIVATE_CUSTOMER_ADDRESS",
+        },
+        {
+          id: "recovered",
+          operation: "create",
+          state: "succeeded",
+          at: "2026-11-04T15:00:00Z",
+          diagnosticCode: "PAYMENT_METHOD_UNAVAILABLE",
+        },
+      ],
+    });
+    render(
+      <LocaleProvider>
+        <PaymentDetails id="grant-check" request={request} />
+      </LocaleProvider>,
+    );
+    const element = document.querySelector("details")!;
+    element.open = true;
+    fireEvent(element, new Event("toggle"));
+    expect(await screen.findByRole("note")).toHaveTextContent(expected);
+    expect(screen.getAllByRole("note")).toHaveLength(1);
+    expect(document.body.textContent).not.toContain("PRIVATE_PROVIDER_TOKEN");
+    expect(document.body.textContent).not.toContain("PRIVATE_CUSTOMER_ADDRESS");
+    expect(
+      request.mock.calls.every(
+        (call) =>
+          call.length === 1 && call[0] === "/api/payments/grant-check/details",
+      ),
+    ).toBe(true);
+  },
+);

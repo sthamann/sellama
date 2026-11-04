@@ -489,6 +489,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/payments/details.rs](../src/payments/details.rs) | Native payment-only history projection and optional owned provider observation; no financial command is executed. |
 | [src/payments/details_model.rs](../src/payments/details_model.rs) | Typed, PII-free provider transaction details; these observations never mutate native payment state. |
 | [src/payments/details_tests.rs](../src/payments/details_tests.rs) | Transaction observations reject untyped and foreign evidence without touching payment state. |
+| [src/payments/diagnostics.rs](../src/payments/diagnostics.rs) | Safe, provider-neutral operational hints. These never authorize a financial transition. |
 | [src/payments/funding.rs](../src/payments/funding.rs) | Account-authorized funding choice, immutable consent and saved-instrument admission; cart possession is insufficient. |
 | [src/payments/generic_receipts.rs](../src/payments/generic_receipts.rs) | Provider-neutral receipt admission and atomic allocation; verified evidence owns ledger transitions. |
 | [src/payments/instructions.rs](../src/payments/instructions.rs) | Customer-capability and compound merchant access to typed recipient instructions; reads never settle an invoice. |
@@ -1341,6 +1342,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/native-lifecycle-i18n.ts](../frontend/src/shared/i18n/native-lifecycle-i18n.ts) | Shared native lifecycle editor vocabulary; state labels remain merchant content. |
 | [frontend/src/shared/i18n/operations-i18n.ts](../frontend/src/shared/i18n/operations-i18n.ts) | Operational commerce labels in all supported languages. |
 | [frontend/src/shared/i18n/payment-details-i18n.ts](../frontend/src/shared/i18n/payment-details-i18n.ts) | Read-only payment transaction and fee vocabulary for every Studio language. |
+| [frontend/src/shared/i18n/payment-diagnostic-i18n.ts](../frontend/src/shared/i18n/payment-diagnostic-i18n.ts) | Exact public diagnostic codes only. Raw provider errors never become UI copy. |
 | [frontend/src/shared/i18n/payment-errors-i18n.ts](../frontend/src/shared/i18n/payment-errors-i18n.ts) | Recoverable merchant payment guidance; immutable provider diagnostics remain server-side. |
 | [frontend/src/shared/i18n/payment-events-i18n.ts](../frontend/src/shared/i18n/payment-events-i18n.ts) | Payment lifecycle and saved-method event labels share the existing native Flow vocabulary. |
 | [frontend/src/shared/i18n/payment-ledger-i18n.ts](../frontend/src/shared/i18n/payment-ledger-i18n.ts) | Merchant payment balances and capture allocation vocabulary in every Studio language. |

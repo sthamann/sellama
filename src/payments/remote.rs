@@ -77,10 +77,11 @@ pub(crate) async fn call(
             )
         })?;
     if !r.status().is_success() {
-        return Err(Error(
-            StatusCode::BAD_GATEWAY,
-            "Payment service rejected operation".into(),
-        ));
+        let diagnostic = http_limits::json_body(r)
+            .await
+            .map(|body| super::diagnostics::response(&body))
+            .unwrap_or("Payment service rejected operation");
+        return Err(Error(StatusCode::BAD_GATEWAY, diagnostic.into()));
     }
     http_limits::json_body(r).await
 }

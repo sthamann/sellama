@@ -225,3 +225,19 @@ return view extracts only a bounded attempt reference from `#payment/ID` and
 ignores appended fields. It still requires that browser's existing scoped cart
 token. Returning or changing the return flag can only request server
 reconciliation; neither provider URL fields nor the fragment establish payment.
+
+
+## Safe operational diagnostics
+
+A non-success private provider response may contain one exact public error code:
+`PAYMENT_SAVED_METHODS_UNAVAILABLE`, `PAYMENT_METHOD_UNAVAILABLE` or
+`PAYMENT_PROVIDER_CONFIGURATION_REQUIRED`. Core ignores every other provider
+error body and retains its generic failure. No provider description is forwarded.
+The same bounded response reader and current operator-pinned service apply.
+
+Merchant transaction details add an optional `jobs[].diagnosticCode` for those
+codes only. Reading still requires the current shop and `payments.read`; financial
+actions retain their separate rights. Studio translates the code into the cause
+and recovery step in English, German, French and Spanish. The operational hint
+never changes captured money, order state, ownership or idempotency identity.
+A provider timeout remains uncertain until the original request is reconciled.

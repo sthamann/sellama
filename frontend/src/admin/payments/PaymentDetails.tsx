@@ -8,6 +8,7 @@ import {
   usePaymentDetailsText,
 } from "../../shared/i18n/payment-details-i18n";
 import "./payment-details.css";
+import { usePaymentDiagnosticText } from "../../shared/i18n/payment-diagnostic-i18n";
 type Amount = { amountMinor: number; currency: string; currencyScale: number };
 type Entry = Amount & {
   id: string;
@@ -33,7 +34,13 @@ type Details = {
     capturedMinor?: number;
     refundedMinor?: number;
   }[];
-  jobs: { id: string; operation: string; state: string; at: string }[];
+  jobs: {
+    id: string;
+    operation: string;
+    state: string;
+    at: string;
+    diagnosticCode?: string | null;
+  }[];
   currency: string;
   currencyScale: number;
 };
@@ -45,6 +52,7 @@ export default function PaymentDetails({
   request: RequestFn;
 }) {
   const t = usePaymentDetailsText(),
+    explain = usePaymentDiagnosticText(),
     { o } = useOperationsText(),
     { locale } = useLocale();
   const [data, setData] = useState<Details>(),
@@ -157,9 +165,15 @@ export default function PaymentDetails({
                 {data.jobs.map((job) => (
                   <li key={job.id}>
                     <time dateTime={job.at}>{date(job.at)}</time>
-                    <span>
+                    <div className="payment-job-result">
                       {jobLabel(job.operation)} · {jobLabel(job.state)}
-                    </span>
+                      {["failed", "uncertain"].includes(job.state) &&
+                        explain(job.diagnosticCode) && (
+                          <p className="payment-job-diagnostic" role="note">
+                            {explain(job.diagnosticCode)}
+                          </p>
+                        )}
+                    </div>
                   </li>
                 ))}
               </ul>

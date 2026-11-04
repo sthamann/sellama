@@ -666,6 +666,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/apps/AppJobArtifact.tsx](../frontend/src/admin/apps/AppJobArtifact.tsx) | Completed app exports read the existing tenant asset owner; private files never acquire a public URL. |
 | [frontend/src/admin/apps/AppJobs.tsx](../frontend/src/admin/apps/AppJobs.tsx) | Long actions use the same app/outbox contract, with progress and explicit uncertain-outcome review. |
 | [frontend/src/admin/apps/AppLibrary.tsx](../frontend/src/admin/apps/AppLibrary.tsx) | Searchable installed/discovery app cards with category/status filters and real lifecycle actions. |
+| [frontend/src/admin/apps/AppPackageImport.tsx](../frontend/src/admin/apps/AppPackageImport.tsx) | Import a bounded manifest through the same server review and approval as built-in apps. |
 | [frontend/src/admin/apps/AppSecrets.tsx](../frontend/src/admin/apps/AppSecrets.tsx) | Metadata-only credentials screen; rotation sends plaintext once to the encrypted server store. |
 | [frontend/src/admin/apps/AppSettings.tsx](../frontend/src/admin/apps/AppSettings.tsx) | Installed settings use the existing encrypted secret owner; secret inputs are write-only and cleared after save. |
 | [frontend/src/admin/apps/AppUpgradeReport.tsx](../frontend/src/admin/apps/AppUpgradeReport.tsx) | Display only native admission metadata; a report is never an installation permission. |

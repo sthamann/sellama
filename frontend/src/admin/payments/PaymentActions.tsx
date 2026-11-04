@@ -71,7 +71,9 @@ export default function PaymentActions({
           </div>
           <div>
             <dt>{text("remaining")}</dt>
-            <dd>{money(settlement.remainingAuthorizationMinor)}</dd>
+            <dd>
+              {money(canCapture ? settlement.remainingAuthorizationMinor : 0)}
+            </dd>
           </div>
         </dl>
       )}

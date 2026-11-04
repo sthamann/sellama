@@ -1,5 +1,13 @@
 # Changelog
 
+## Provider return navigation, 4 November 2026
+
+Provider-added fragment fields no longer become part of the payment attempt ID.
+The return view selects only a bounded reference with an existing local cart token
+and asks the server to reconcile. Provider token/payer/return flags never prove
+payment. Merchant summaries show no remaining authorization for an expired or
+uncompleted payment.
+
 ## Stable embedded payment loading and account selection, 4 November 2026
 
 The provider document stays visible while loading and receives repeated scoped

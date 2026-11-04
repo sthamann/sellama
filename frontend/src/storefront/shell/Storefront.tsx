@@ -24,6 +24,7 @@ import { returnToCollection } from "../catalog/product-url";
 import OrderCompletion from "../checkout/OrderCompletion";
 import CheckoutPanel from "../checkout/CheckoutPanel";
 import PaymentSession from "../checkout/PaymentSession";
+import { paymentReturnAttempt } from "../checkout/payment-return";
 import "../styles/shop.css";
 
 import { StorefrontContext } from "./StorefrontContext";
@@ -40,6 +41,7 @@ import "../styles/experience-polish.css";
 import ChannelPreview, { channelPreview } from "./ChannelPreview";
 export default function Storefront(props: { onMerchant: () => void }) {
   const c = useStorefrontController(props);
+  const returnedAttempt = paymentReturnAttempt(location.hash);
   const {
     company,
     cart,
@@ -119,15 +121,15 @@ export default function Storefront(props: { onMerchant: () => void }) {
                 )}
                 {appPath === "#order-confirmed" && order ? (
                   <OrderCompletion order={order} onBack={returnToCollection} />
-                ) : location.hash.startsWith("#payment/") &&
+                ) : returnedAttempt &&
                   localStorage.getItem(
-                    `rac-payment-token:${location.hash.slice(9)}`,
+                    `rac-payment-token:${returnedAttempt}`,
                   ) ? (
                   <main className="shop-content">
                     <PaymentSession
-                      id={location.hash.slice(9)}
+                      id={returnedAttempt}
                       token={localStorage.getItem(
-                        `rac-payment-token:${location.hash.slice(9)}`,
+                        `rac-payment-token:${returnedAttempt}`,
                       )!}
                     />
                   </main>

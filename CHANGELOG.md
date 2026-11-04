@@ -1,5 +1,12 @@
 # Changelog
 
+## Actual PayPal Sandbox browser acceptance, 4 November 2026
+
+Native and original Storyfront purchases now have actual PayPal Sandbox capture,
+return, empty-basket and partial/full-refund evidence. Studio shows provider
+transactions and capture fees. The private 1.6.4 runtime, migrations and restricted
+access are deployed. [Observed journeys and screenshots](docs/shopware-payments-acceptance.md#actual-paypal-sandbox-purchases-and-refunds-4-november-2026).
+
 ## Provider return navigation, 4 November 2026
 
 Provider-added fragment fields no longer become part of the payment attempt ID.

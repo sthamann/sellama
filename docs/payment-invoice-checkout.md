@@ -112,8 +112,7 @@ projection, HTML escaping, four message languages and exact currency precision.
 The simulation
 matrix exercises all 17 methods using contract 1.5.0 with zero provider requests.
 
-This release is merged into main and awaits hosted schema migration and rollout.
-External account tests were deferred by the owner. Customer-present
+This release is merged into main. Hosted schema migration and service rollout completed on 4 November. Actual provider invoice acceptance remains separate from the accepted PayPal wallet purchases/refunds. Customer-present
 [saved methods](payment-saved-methods.md) are implemented in contract 1.6.0 and
 have their own migration and acceptance record. Merchant-initiated recurring
 payments and remaining express/wallet configuration are still open. The public

@@ -73,9 +73,7 @@ with synthetic provider responses. It covers save, own-account repeat purchase,
 HTTP/MCP projections, missing/foreign credentials, idempotent revocation, encrypted
 storage, delayed confirmation and process restart without repeating capture.
 The implementation is merged into main and Core migration 110 has completed on
-the public deployment. Private migrations 003/004, encryption-key configuration
-and the private runtime upgrade remain pending. Actual PSP acceptance remains
-separate. The hosted simulation transport is also locally
+the public deployment. Private migrations 003/004, encryption-key configuration and runtime upgrade completed on 4 November. Actual PSP saved-method acceptance remains separate; the accepted wallet purchase/refund does not establish token reuse. The hosted simulation transport is also locally
 accepted for PayPal/card save, repeat purchase, revocation and refund with zero
 external provider calls.
 [Exact local steps and UI captures](evidence/payment-saved-methods-2026-11-03.md).

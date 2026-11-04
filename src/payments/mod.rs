@@ -20,6 +20,7 @@ pub(crate) use instructions_state::{
 };
 mod details;
 mod details_model;
+mod diagnostics;
 pub(crate) use contract::*;
 pub(crate) use details::read as transaction_details;
 pub(crate) mod registry;

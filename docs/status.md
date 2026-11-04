@@ -6,6 +6,14 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## Actual PayPal Sandbox acceptance, 4 November 2026
 
+Provider activation problems now have exact safe diagnostics in the shared
+payment history and command feedback in all four Studio languages. The actual
+local Core/private/PostgreSQL check confirms current merchant access, foreign
+shop denial, zero captured money and the existing saved-method lifecycle. The
+private 1.6.6 service is healthy in Sandbox. Actual PayPal account tests were
+deferred at the user’s request; no new external acceptance is claimed.
+
+
 The separate native SDK purchase **RAC-a98f4546** completed with popup approval,
 return, basket zero after reload and exact EUR 0.01 + EUR 58.99 refunds. The first
 hosted saved-method check returned PayPal `NOT_ENABLED_TO_VAULT_PAYMENT_SOURCE`;
@@ -14,7 +22,7 @@ in progress. Targeted local invoice and vault flows pass, including native PDFs,
 Email Delivery/Flow, durable recovery and restricted customer/database authority.
 
 
-The private payment service **1.6.5** is online in Sandbox with its restricted
+The private payment service **1.6.6** is online in Sandbox with its restricted
 database runtime, migrations 003/004 and encryption key configured. Public Core
 **db0e00c9** is running with one ready replica. The native shop captured
 **EUR 59.00** and completed **EUR 0.01 + EUR 58.99** refunds. Original Storyfront

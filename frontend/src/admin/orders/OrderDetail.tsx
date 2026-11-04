@@ -1,5 +1,6 @@
 /** Order workspace: server actions, exact-once commands, provider progress and visible event history. */
 import { paymentCommand } from "../payments/payment-command";
+import { usePaymentDiagnosticText } from "../../shared/i18n/payment-diagnostic-i18n";
 import type { PaymentOptions } from "../payments/payment-amount";
 
 import { contentText } from "../../shared/i18n/content-language";
@@ -41,6 +42,7 @@ export default function OrderDetail({
   download: (path: string) => Promise<void>;
 }) {
   const { o, locale } = useOperationsText();
+  const explainPayment = usePaymentDiagnosticText();
   const { r } = useCrmText();
   const shipmentText = useShipmentText();
   const { c } = useCustomerText();
@@ -128,7 +130,7 @@ export default function OrderDetail({
       }
       if (["failed", "uncertain"].includes(result.state)) {
         setPendingJob(undefined);
-        throw new Error(o("providerFailed"));
+        throw new Error(explainPayment(result.error) ?? o("providerFailed"));
       }
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }

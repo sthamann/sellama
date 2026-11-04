@@ -3811,8 +3811,8 @@
     },
     "src/payments/details.rs": {
       "status": "unproved",
-      "sha256": "1894067e08940d9299e7b57c37e72f7421c233b9db4eb2b9ab52b2799c5a8137",
-      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+      "sha256": "1b15834de88445fa126584f349cfebcb0e4966f68e2b64811cf2d239ba7cb67f",
+      "review": "Reviewed provider-neutral diagnostic allowlist, bounded error transport and current tenant/payment-read projection. No financial admission, identity or settlement policy changed. Unknown provider text remains suppressed; targeted Rust and four-language frontend diagnostics regressions pass."
     },
     "src/payments/details_model.rs": {
       "status": "unproved",
@@ -3823,6 +3823,11 @@
       "status": "unproved",
       "sha256": "68722baf9dd2502e266d64b30ab205ef5f70980a278618aa16d48dddcaf5ba4c",
       "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+    },
+    "src/payments/diagnostics.rs": {
+      "status": "unproved",
+      "sha256": "78e5e97975153cb318790f5730e9c8ac783374824f4e0108192df6c16ce1064f",
+      "review": "Reviewed provider-neutral diagnostic allowlist, bounded error transport and current tenant/payment-read projection. No financial admission, identity or settlement policy changed. Unknown provider text remains suppressed; targeted Rust and four-language frontend diagnostics regressions pass."
     },
     "src/payments/funding.rs": {
       "status": "unproved",
@@ -3856,8 +3861,8 @@
     },
     "src/payments/mod.rs": {
       "status": "unproved",
-      "sha256": "3d59ec5038664158d1cf0fb81813a8ed0d01a127f6933ba0e52a68b3f9628e5d",
-      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+      "sha256": "6215a6d0770aef0c7510db106fa5aee7a997eb01eb67dc09a002d8e39214f418",
+      "review": "Reviewed provider-neutral diagnostic allowlist, bounded error transport and current tenant/payment-read projection. No financial admission, identity or settlement policy changed. Unknown provider text remains suppressed; targeted Rust and four-language frontend diagnostics regressions pass."
     },
     "src/payments/operations.rs": {
       "status": "reviewed-binding",
@@ -3901,8 +3906,8 @@
     },
     "src/payments/remote.rs": {
       "status": "unproved",
-      "sha256": "5b23f88a3d4827281c430413697df391bc77ad45adda2cfa00b9c25ce2ac6c47",
-      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+      "sha256": "000d1ee8e797ccd7ed0313875b93f27391f8e53292316f708ac8c97504a22904",
+      "review": "Reviewed provider-neutral diagnostic allowlist, bounded error transport and current tenant/payment-read projection. No financial admission, identity or settlement policy changed. Unknown provider text remains suppressed; targeted Rust and four-language frontend diagnostics regressions pass."
     },
     "src/payments/return_urls.rs": {
       "status": "unproved",

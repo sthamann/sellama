@@ -7,6 +7,7 @@ import { paymentCommand, type PaymentRetry } from "../payments/payment-command";
 import PaymentDetails from "../payments/PaymentDetails";
 import PaymentActions from "../payments/PaymentActions";
 import type { PaymentOptions, Settlement } from "../payments/payment-amount";
+import { usePaymentDiagnosticText } from "../../shared/i18n/payment-diagnostic-i18n";
 type Data = {
   providers: { id: string; configured: boolean }[];
   attempts: {
@@ -34,6 +35,7 @@ export default function PaymentManager({
   canWrite: boolean;
 }) {
   const { a } = useAppText(),
+    explain = usePaymentDiagnosticText(),
     { o } = useOperationsText();
   const [data, setData] = useState<Data>();
   const [error, setError] = useState("");
@@ -63,7 +65,8 @@ export default function PaymentManager({
           delete next[id];
           return next;
         });
-        if (result.state !== "succeeded") throw new Error(o("providerFailed"));
+        if (result.state !== "succeeded")
+          throw new Error(explain(result.error) ?? o("providerFailed"));
         delete retries.current[id];
         return true;
       }

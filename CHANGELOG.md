@@ -1,5 +1,14 @@
 # Changelog
 
+## Clear payment activation diagnostics, 4 November 2026
+
+The shared payment history and command feedback now explain missing provider
+activation in all four Studio languages. Core forwards only exact public
+diagnostic codes; provider text stays private and financial state is unchanged.
+Targeted actual Core/private/PostgreSQL and responsive component checks cover
+missing grants, zero capture, foreign-shop denial and the existing saved-method
+lifecycle. [Provider diagnostics](docs/payment-provider-api.md#safe-operational-diagnostics).
+
 ## Native PayPal SDK and invoice follow-up, 4 November 2026
 
 The native direct SDK purchase completed with automatic return, basket zero after

@@ -173,6 +173,12 @@ const text = {
     "Continuer vers PayPal",
     "Continuar a PayPal",
   ],
+  continueProvider: [
+    "Continue with payment provider",
+    "Beim Zahlungsanbieter fortfahren",
+    "Continuer avec le prestataire de paiement",
+    "Continuar con el proveedor de pago",
+  ],
   securePayment: [
     "Secure payment",
     "Sichere Zahlung",

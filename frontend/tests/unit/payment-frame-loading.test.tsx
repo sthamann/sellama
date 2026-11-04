@@ -58,7 +58,7 @@ function message(
 it("waits for the exact provider's scoped ready signal without reconciling or accepting forged readiness", async () => {
   const { frame, changed } = await mount();
   fireEvent.load(frame);
-  expect(frame.style.visibility).toBe("hidden");
+  expect(frame.style.visibility).toBe("visible");
   expect(frame.hidden).toBe(false); // Keep a real layout width for hosted card fields while loading.
   message(frame, "veyndo.payment.ready", "https://foreign.example.test");
   message(frame, "veyndo.payment.ready", undefined, "wrong-nonce");
@@ -95,7 +95,7 @@ it("replaces an unresponsive frame with a useful recovery action and requests on
     ),
   ).toBe(true);
   message(next, "veyndo.payment.ready");
-  expect(next.style.visibility).toBe("hidden");
+  expect(screen.getByRole("status")).toBeVisible();
   message(next, "veyndo.payment.ready", undefined, "new-presentation-nonce");
   expect(next.style.visibility).toBe("visible");
   expect(changed).not.toHaveBeenCalled();
@@ -136,4 +136,42 @@ it("offers recovery for failed and stalled session requests without a financial 
   expect(screen.getByRole("alert").textContent).toContain(
     "Your order is saved",
   );
+});
+
+it("retries only the scoped presentation handshake and offers the approved provider fallback", async () => {
+  render(
+    <EmbeddedPayment
+      id="attempt"
+      token="cart"
+      onChanged={vi.fn()}
+      approvalUrl="https://provider.example.test/approve"
+    />,
+    { wrapper: LocaleProvider },
+  );
+  await act(async () => {
+    await Promise.resolve();
+  });
+  const frame = screen.getByTitle("Secure payment") as HTMLIFrameElement;
+  const post = vi.spyOn(frame.contentWindow!, "postMessage");
+  await act(async () => {
+    vi.advanceTimersByTime(1500);
+  });
+  expect(post).toHaveBeenCalledTimes(3);
+  expect(post).toHaveBeenLastCalledWith(
+    {
+      type: "veyndo.payment.init",
+      sessionToken: session.sessionToken,
+      nonce: session.nonce,
+    },
+    "https://provider.example.test",
+  );
+  expect(api).toHaveBeenCalledTimes(1);
+  await act(async () => {
+    vi.advanceTimersByTime(20_000);
+  });
+  const link = screen.getByRole("link", {
+    name: "Continue with payment provider",
+  });
+  expect(link).toHaveAttribute("href", "https://provider.example.test/approve");
+  expect(link).toHaveAttribute("rel", "noopener noreferrer");
 });

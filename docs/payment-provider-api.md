@@ -11,7 +11,7 @@ Use `runtime: service`, `category: payment`, `permissions: [payments.provider]` 
 1. Install the immutable package through `POST /api/apps`. Its methods enter Settings inactive; installing a package cannot start collecting money.
 2. Configure a private versioned service on the operator's server. Tenant and model input cannot choose its URL or credential.
 3. App Studio → Payments chooses the business country, sales channel and test/live environment. `POST /api/payment-providers/{app}/onboarding` accepts `operation: start|status|disconnect`, channel, optional environment, country, approve and a bounded requestKey. Mutations require `payments.manage` and approval. The provider must echo exact provider/version/tenant/channel/environment identity, opaque accountRef, ready, status and enabled method IDs. Returned URLs require an operator-approved HTTPS origin. No arbitrary provider payload, credentials or company identity is forwarded to the merchant/model.
-4. Activate ready methods in Settings → Payment methods. Checkout discovery hides disconnected/uninstalled methods. Readiness is rechecked transactionally at order creation. A channel-specific connection overrides the default, including an explicitly disconnected override.
+4. Activate ready methods in Settings → Payment methods. Checkout discovery hides disconnected/uninstalled methods. Readiness is rechecked transactionally at order creation. A channel-specific connection overrides the default, including an explicitly disconnected override. The account panel opens in the saved channel environment. Inspecting or disconnecting a different environment/account cannot replace the active binding; replacement requires an approved `start`.
 
 `GET /api/payment-providers` lists installed contracts and this tenant's account bindings. Onboarding does not trust a browser-supplied merchant ID. A private service must establish that mapping from verified provider evidence.
 
@@ -208,3 +208,12 @@ returns the immutable receipt identity plus `vaultRevoked: true` and the matchin
 
 HTTP/MCP/account controls, rollout and token ownership are described in
 [saved payment methods](payment-saved-methods.md).
+
+## Embedded payment loading
+
+The provider frame stays visible with localized loading feedback. Until ready,
+the parent repeats only the prebound token/nonce handshake to the fixed provider
+origin. Source, origin and nonce checks remain in place. A timeout preserves the
+order and offers retry plus the existing server-approved approval link in a new
+tab. Returning, readiness messages and SDK callbacks trigger reconciliation; only
+verified server evidence changes the financial state.

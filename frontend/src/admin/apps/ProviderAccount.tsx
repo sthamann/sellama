@@ -60,7 +60,15 @@ export default function ProviderAccount({
           (p: { id: string }) => p.id === provider,
         )?.configuration;
         setEnvironments(configuration?.environments ?? []);
-        setEnvironment(configuration?.defaultEnvironment ?? "");
+        const saved = v.accounts?.find(
+          (a: { provider: string; channel: string; environment: string }) =>
+            a.provider === provider &&
+            a.channel === "default" &&
+            configuration?.environments?.includes(a.environment),
+        );
+        setEnvironment(
+          saved?.environment ?? configuration?.defaultEnvironment ?? "",
+        );
       })
       .catch((e) => {
         if (active) setError((e as Error).message);
@@ -112,6 +120,11 @@ export default function ProviderAccount({
           value={channel}
           onChange={(e) => {
             setChannel(e.target.value);
+            const saved = savedAccounts.find(
+              (a) => a.provider === provider && a.channel === e.target.value,
+            );
+            if (saved && environments.includes(saved.environment))
+              setEnvironment(saved.environment);
             setAccount(undefined);
           }}
         >

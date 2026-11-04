@@ -79,6 +79,21 @@ export default function EmbeddedPayment({
     window.addEventListener("message", receive);
     return () => window.removeEventListener("message", receive);
   }, [session, approvalUrl]);
+  useEffect(() => {
+    if (!session || loaded || error) return;
+    // Cached documents and delayed SDK loading must not lose the single onLoad handshake.
+    const timer = window.setInterval(() => {
+      frame.current?.contentWindow?.postMessage(
+        {
+          type: "veyndo.payment.init",
+          sessionToken: session.sessionToken,
+          nonce: session.nonce,
+        },
+        new URL(session.uiUrl).origin,
+      );
+    }, 500);
+    return () => window.clearInterval(timer);
+  }, [session, loaded, error]);
   return (
     <div className="embedded-payment">
       {error ? (
@@ -90,6 +105,16 @@ export default function EmbeddedPayment({
           >
             {x("paymentReload")}
           </button>
+          {approvalUrl && (
+            <a
+              className="shop-primary"
+              href={approvalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {x("continueProvider")}
+            </a>
+          )}
         </div>
       ) : (
         !loaded && <p role="status">{x("paymentLoading")}</p>
@@ -106,7 +131,7 @@ export default function EmbeddedPayment({
             width: "100%",
             minHeight: 380,
             border: 0,
-            visibility: loaded ? "visible" : "hidden",
+            visibility: "visible",
           }}
           onLoad={() => {
             if (!session.readySignal) {

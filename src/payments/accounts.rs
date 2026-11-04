@@ -126,7 +126,22 @@ pub(crate) async fn onboarding(
         return Err(conflict("Payment package changed during onboarding"));
     }
     let public = json!({"accountRef":account,"ready":ready,"environment":environment,"methods":methods,"status":result["status"]});
-    sqlx::query("INSERT INTO payment_provider_accounts(tenant,app,channel,account_ref,environment,ready,data) VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(tenant,app,channel) DO UPDATE SET account_ref=EXCLUDED.account_ref,environment=EXCLUDED.environment,ready=EXCLUDED.ready,data=EXCLUDED.data,updated_at=now()").bind(&t).bind(id).bind(channel).bind(account).bind(environment).bind(ready).bind(public).execute(&mut *tx).await?;
+    let statement = if op == "start" {
+        "INSERT INTO payment_provider_accounts(tenant,app,channel,account_ref,environment,ready,data) VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(tenant,app,channel) DO UPDATE SET account_ref=EXCLUDED.account_ref,environment=EXCLUDED.environment,ready=EXCLUDED.ready,data=EXCLUDED.data,updated_at=now()"
+    } else {
+        // Inspecting or disconnecting another environment cannot replace the active payment account.
+        "UPDATE payment_provider_accounts SET ready=$6,data=$7,updated_at=now() WHERE tenant=$1 AND app=$2 AND channel=$3 AND account_ref=$4 AND environment=$5"
+    };
+    sqlx::query(statement)
+        .bind(&t)
+        .bind(id)
+        .bind(channel)
+        .bind(account)
+        .bind(environment)
+        .bind(ready)
+        .bind(public)
+        .execute(&mut *tx)
+        .await?;
 
     tx.commit().await?;
     Ok(response)

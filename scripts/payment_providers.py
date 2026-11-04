@@ -13,6 +13,7 @@ class Handler(BaseHTTPRequestHandler):
   if self.path=='/v1/onboarding':
    v={**{k:b[k] for k in ['apiVersion','provider','adapterVersion','tenant','channel','environment']},'accountRef':'merchant-'+b['tenant'],'ready':b['operation']!='disconnect','status':'ready','methods':['wallet'],'capabilities':['capture','authorize','void','refund']}
    if behavior.get('wrongAccount'):v['tenant']='atelier'
+   if behavior.get('differentAccount'):v['accountRef']='other-merchant'
    if behavior.get('badUrl'):v['onboardingUrl']='https://evil.test/steal'
   else:
    v={**{k:b[k] for k in ['apiVersion','provider','adapterVersion','tenant','attemptId','orderId','environment','accountRef','amountMinor','currency']},'reference':b.get('reference') or 'REF-'+b['attemptId'],'status':'ready','approvalUrl':'https://provider.example.test/pay','confirmed':True}
@@ -67,6 +68,20 @@ try:
  before=call('/api/payment-providers',h=ah)['accounts'];behavior['wrongAccount']=True
  call('/api/payment-providers/'+m['id']+'/onboarding',onboard,ah,expected=400);behavior.clear()
  behavior['badUrl']=True;call('/api/payment-providers/'+m['id']+'/onboarding',onboard,ah,expected=400);behavior.clear();assert call('/api/payment-providers',h=ah)['accounts']==before
+ behavior['differentAccount']=True
+ for operation in ['status','disconnect']:
+  call('/api/payment-providers/'+m['id']+'/onboarding',{**onboard,'operation':operation},ah)
+  assert call('/api/payment-providers',h=ah)['accounts']==before
+ behavior.clear()
+ sql("UPDATE payment_provider_accounts SET environment='simulation' WHERE tenant='workshop' AND app='example_payments' AND channel='default'")
+ protected=call('/api/payment-providers',h=ah)['accounts']
+ for operation in ['status','disconnect']:
+  call('/api/payment-providers/'+m['id']+'/onboarding',{**onboard,'operation':operation},ah)
+  assert call('/api/payment-providers',h=ah)['accounts']==protected
+ call('/api/payment-providers/'+m['id']+'/onboarding',onboard,ah)
+ restored=call('/api/payment-providers',h=ah)['accounts']
+ assert [{k:v for k,v in a.items() if k!='updatedAt'} for a in restored]==[{k:v for k,v in a.items() if k!='updatedAt'} for a in before],(restored,before)
+ print('PASS Status and disconnect cannot replace the active environment or account; only approved start activates it')
  print('PASS Installed contracts and scoped onboarding reject foreign identities and malicious URLs without mutating accounts')
  config=call('/api/merchant/commerce',h=ah);fx=config['data']['currencies'];fx['definitions'] += [{'code':c,'scale':n,'rate':r,'strategy':'automatic'} for c,n,r in [('USD',2,'1.25'),('JPY',0,'160'),('KWD',3,'0.33333333')]];fx['enabled'] += ['USD','JPY','KWD'];method=next(x for x in config['data']['payments'] if x['id']=='example-payments-wallet');assert not method['active'];method['active']=True;call('/api/merchant/commerce',{'data':config['data'],'revision':config['revision']},ah,'PUT')
  assert any(x['id']=='example-payments-wallet' for x in call('/store-api/checkout/options',h={'x-tenant':'workshop'})['payments'])

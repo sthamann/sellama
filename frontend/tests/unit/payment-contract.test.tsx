@@ -248,3 +248,60 @@ it("shows an authorization as approved without claiming captured money", async (
   expect(screen.queryByTitle("Secure payment")).toBeNull();
   expect(screen.queryByText("Payment received")).toBeNull();
 });
+
+it("opens the saved payment environment and follows the selected channel without sending a command", async () => {
+  const request = vi.fn(async (path: string) =>
+    path === "/store-api/countries"
+      ? { countries: [] }
+      : {
+          channels: [{ id: "web_de" }],
+          providers: [
+            {
+              id: "provider_app",
+              configuration: {
+                environments: ["simulation", "sandbox"],
+                defaultEnvironment: "simulation",
+              },
+            },
+          ],
+          accounts: [
+            {
+              provider: "provider_app",
+              channel: "default",
+              environment: "sandbox",
+              ready: true,
+            },
+            {
+              provider: "provider_app",
+              channel: "web_de",
+              environment: "simulation",
+              ready: false,
+            },
+          ],
+        },
+  );
+  const manifest = assistedManifest({
+    kind: "payment",
+    location: "admin.navigation",
+    id: "provider_app",
+    name: { en: "Provider" },
+    mcp: true,
+    publicRead: false,
+    event: "order.placed",
+    cron: "0 * * * * *",
+  });
+  render(
+    <AppPayments manifest={manifest} onChange={vi.fn()} request={request} />,
+    { wrapper: LocaleProvider },
+  );
+  await waitFor(() =>
+    expect(screen.getByLabelText("Environment")).toHaveValue("sandbox"),
+  );
+  fireEvent.change(screen.getByLabelText("Sales channel"), {
+    target: { value: "web_de" },
+  });
+  expect(screen.getByLabelText("Environment")).toHaveValue("simulation");
+  expect(
+    request.mock.calls.every(([path]) => !path.endsWith("/onboarding")),
+  ).toBe(true);
+});

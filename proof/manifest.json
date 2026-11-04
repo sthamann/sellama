@@ -3781,8 +3781,8 @@
     },
     "src/payments/accounts.rs": {
       "status": "unproved",
-      "sha256": "f4682852fd428d129edb58669c5a11ed16c79e0e089ff869c31cabfa2e0b3165",
-      "review": "Review shared payment-service simulation admission, configured environment discovery and additive native account constraint; financial kernel unchanged."
+      "sha256": "3dfe30d6261e5ef87ad75b9e1e80dca28b2a28e6149cce0bb27aff0ad11ff3cf",
+      "review": "Reviewed payment account binding update: start alone activates; status/disconnect match tenant/app/channel/account/environment. Real Core/PG negative cases and provider lifecycle acceptance pass. No change to extracted money policies; surrounding adapter remains unproved."
     },
     "src/payments/app_commands.rs": {
       "status": "unproved",

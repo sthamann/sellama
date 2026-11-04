@@ -1,5 +1,14 @@
 # Changelog
 
+## Stable embedded payment loading and account selection, 4 November 2026
+
+The provider document stays visible while loading and receives repeated scoped
+handshakes until ready. A loading failure offers the existing approved provider
+approval link without creating another order. Saved channel payment environments
+are selected on opening the account panel. Status and disconnect commands can
+update only the matching active account and environment; an explicit approved
+start is required to replace that configuration.
+
 ## Private app package import, 4 November 2026
 
 The Apps library now imports bounded JSON manifests through the existing server

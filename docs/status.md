@@ -6,7 +6,15 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## Actual PayPal Sandbox acceptance, 4 November 2026
 
-The private payment service **1.6.4** is online in Sandbox with its restricted
+The separate native SDK purchase **RAC-a98f4546** completed with popup approval,
+return, basket zero after reload and exact EUR 0.01 + EUR 58.99 refunds. The first
+hosted saved-method check returned PayPal `NOT_ENABLED_TO_VAULT_PAYMENT_SOURCE`;
+provider feature activation, actual reuse/revocation and invoice approval remain
+in progress. Targeted local invoice and vault flows pass, including native PDFs,
+Email Delivery/Flow, durable recovery and restricted customer/database authority.
+
+
+The private payment service **1.6.5** is online in Sandbox with its restricted
 database runtime, migrations 003/004 and encryption key configured. Public Core
 **db0e00c9** is running with one ready replica. The native shop captured
 **EUR 59.00** and completed **EUR 0.01 + EUR 58.99** refunds. Original Storyfront

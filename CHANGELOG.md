@@ -1,5 +1,15 @@
 # Changelog
 
+## Native PayPal SDK and invoice follow-up, 4 November 2026
+
+The native direct SDK purchase completed with automatic return, basket zero after
+reload and exact partial/full refunds. Private invoice disclosures, checkout risk
+correlation, safe provider rejection handling and consumer wallet save fields
+were completed. Targeted local invoice PDFs, Email Delivery/Flow, recovery, vault
+reuse/revocation and restricted access tests pass. The actual hosted save attempt
+identified a missing PayPal app feature; provider vault and invoice acceptance
+remain tracked separately. [Current evidence](docs/shopware-payments-acceptance.md).
+
 ## Actual PayPal Sandbox browser acceptance, 4 November 2026
 
 Native and original Storyfront purchases now have actual PayPal Sandbox capture,

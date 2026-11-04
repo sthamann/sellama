@@ -90,7 +90,7 @@ German, French and Spanish.
 ## Current boundaries
 
 Veyndo is an experiment platform, not established production infrastructure.
-Native and original Storyfront PayPal Sandbox purchases, return, empty basket
+Native SDK and original Storyfront PayPal Sandbox purchases, return, empty basket
 and partial/full refunds have [dated acceptance](docs/shopware-payments-acceptance.md). Live payments,
 each OAuth provider, disaster recovery and capacity require separate evidence. Selected Lean proofs cover named
 pure policies, not the whole system. Source builds, app lifecycle completeness and

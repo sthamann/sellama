@@ -16,7 +16,8 @@ historical simulation scope.
 
 | Journey | Order | Captured | Completed refunds | Return and basket |
 | --- | --- | --- | --- | --- |
-| Native shop | RAC-2d95fe9e | EUR 59.00 | EUR 0.01 + EUR 58.99 | Payment confirmed, return to shop, original basket empty |
+| Native direct SDK | RAC-a98f4546 | EUR 59.00 | EUR 0.01 + EUR 58.99 | SDK popup closed, native confirmation, original basket empty after full reload |
+| Native provider fallback | RAC-2d95fe9e | EUR 59.00 | EUR 0.01 + EUR 58.99 | Payment confirmed, return to shop, original basket empty |
 | Original Storyfront | RAC-8e248b79 | EUR 59.90 | EUR 0.01 + EUR 59.89 | SDK popup closed, embedded confirmation, return to Experience, original bag empty after full reload |
 
 The Storyfront journey used the original Experience, native checkout iframe and
@@ -24,8 +25,9 @@ nested private payment iframe. Its **Sicher bezahlen** button opened PayPal SDK
 v6 in German. Provider approval returned to **Zahlung bestätigt** inside that same
 checkout. The native shop used the approved provider fallback page. Its original
 provider return URL was reloaded after the Core fix and showed the correct
-confirmation and basket count of zero. The native SDK presentation itself has
-not received a separate acceptance in this run.
+confirmation and basket count of zero. A separate native SDK purchase then completed as RAC-a98f4546: the popup
+returned automatically to payment confirmation, the basket stayed empty after
+return and full reload, and both exact refunds completed.
 
 Studio shows the actual provider order and capture IDs, completed refunds and
 fees. At capture the provider reported EUR 1.47 fees / EUR 57.53 net for the
@@ -35,6 +37,9 @@ not post-refund profit figures. The native Flow history records the Storyfront
 
 ![Actual PayPal Sandbox capture and full refund in Veyndo Studio](assets/paypal-sandbox-20261104/storyfront-admin-paypal-full-refund.jpg)
 
+[Native direct SDK confirmation](assets/paypal-sandbox-20261104/native-direct-sdk-confirmed.jpg) ·
+[Native SDK empty basket after reload](assets/paypal-sandbox-20261104/native-direct-sdk-empty-after-reload.jpg) ·
+[Native SDK provider capture and refunds](assets/paypal-sandbox-20261104/native-direct-sdk-refunded.jpg) ·
 [Connected Sandbox seller in Apps](assets/paypal-sandbox-20261104/native-account-ready.jpg) ·
 [Native Studio capture and refunds](assets/paypal-sandbox-20261104/native-admin-paypal-full-refund.jpg) ·
 [Native provider return after the fix](assets/paypal-sandbox-20261104/native-provider-return-fixed.jpg) ·
@@ -42,8 +47,9 @@ not post-refund profit figures. The native Flow history records the Storyfront
 [Structured observations](evidence/paypal-sandbox-2026-11-04.json).
 
 The public Core runs `db0e00c9` from build `abundant-crib-4273`, with one ready
-replica. The private service runs `c60bfeb5` from `rustic-picture-627`, reporting
-`sandbox ok`. Private migrations 003/004, restricted runtime grants and the vault
+replica. The additional invoice and wallet corrections are now online as private
+service **1.6.5**, commit `f174e0c9`, build `ambitious-crow-9499`; its public health
+endpoint reports `sandbox ok`. The accepted wallet purchases above ran on 1.6.4. Private migrations 003/004, restricted runtime grants and the vault
 key are configured; temporary database admin access was removed.
 
 Two defects found on the real browser path were fixed: the SDK now receives the
@@ -56,6 +62,22 @@ This accepts actual Sandbox PayPal wallet capture/refunds and the observed
 return/basket paths. Saved-method reuse, deferred invoice approval, authorization
 and void, every other payment method and Live payments retain their separate
 provider acceptance requirements. Complete Shopware parity is not claimed.
+
+## Saved methods and invoice follow-up, 4 November 2026
+
+The targeted actual local Rust/Core/PostgreSQL checks pass native invoice PDFs,
+automatic and Flow emails, instructions during pending review, exact refunds,
+restart and lost-response recovery. The private invoice form now binds provider
+risk correlation to its checkout session and loads official legal disclosures
+before submission. Known documented provider rejections become no-funds
+cancellations, while unknown outcomes preserve the original input fence.
+
+The actual hosted save attempt reached PayPal Sandbox and returned
+`NOT_ENABLED_TO_VAULT_PAYMENT_SOURCE`. A registered fictional Veyndo customer is
+ready for the next check. Enabling the provider feature and completing actual
+saved-method reuse/revocation are still required. Provider invoice approval also
+needs its own account capability and acceptance. The local passing paths do not
+substitute for these provider results. No Live payment was enabled.
 
 ## Saved customer methods, 3 November 2026, local implementation
 

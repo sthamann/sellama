@@ -85,3 +85,14 @@ subscription lifecycle and external method-by-method acceptance remain separate.
 [Payment capture management](payment-capture-management.md) ·
 [Invoice checkout](payment-invoice-checkout.md) ·
 [Current acceptance](shopware-payments-acceptance.md).
+
+
+### Actual provider follow-up, 4 November 2026
+
+The first hosted customer-account save request reached PayPal Sandbox and was
+rejected with `NOT_ENABLED_TO_VAULT_PAYMENT_SOURCE`. The platform app must have
+its saved-payment feature enabled before actual reuse/revocation can be accepted.
+The private connector now sends the documented consumer wallet save fields.
+Targeted local owning-customer reuse, guest/foreign denial, delayed confirmation,
+revocation, restart and restricted database login tests pass. This is separate
+from the accepted native SDK purchase and completed refunds.

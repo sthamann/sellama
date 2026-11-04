@@ -118,3 +118,20 @@ have their own migration and acceptance record. Merchant-initiated recurring
 payments and remaining express/wallet configuration are still open. The public
 [Storyfront card simulation acceptance](shopware-payments-acceptance.md) retains
 its original observed release and scope.
+
+
+### Provider form completion, 4 November 2026
+
+The private invoice form now loads the official PayPal legal component in a
+separate SDK namespace and FraudNet for the server-bound checkout session. The
+same opaque correlation is sent with the original order request. Submission
+stays disabled if required provider information fails to load. The request uses
+the supported German recipient locale and physical goods only.
+
+Documented provider rejections show the specific customer-facing explanation
+and Ratepay privacy/contact links. A definite rejection becomes a durable
+no-funds cancellation; a lost response retains the original input and request
+identity. The targeted local Rust/Core/PostgreSQL flow passes instructions,
+native invoice PDF, automatic and Flow email, restart recovery, cancellation
+and exact refunds without a second capture request. Actual hosted provider
+approval remains separate from these fixtures.

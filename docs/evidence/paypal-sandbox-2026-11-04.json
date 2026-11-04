@@ -75,5 +75,61 @@
     "public": "19 payment/parser/merchant tests, TypeScript, frontend build, localization and structure",
     "private": "shipped SDK document for four locales, 27 Rust unit tests, Clippy and format"
   },
-  "scope": "Actual Sandbox wallet purchase/capture, partial/full refund, return and basket acceptance. Does not establish Live payments, every method, saved methods, recurring debits or complete Shopware feature parity."
+  "scope": "Actual Sandbox wallet purchase/capture, partial/full refund, return and basket acceptance. Does not establish Live payments, every method, saved methods, recurring debits or complete Shopware feature parity.",
+  "nativeDirectSdk": {
+    "order": "RAC-a98f4546",
+    "providerOrder": "79S71892NE803651D",
+    "capture": "1TF164651P682341C",
+    "amountMinor": 5900,
+    "currency": "EUR",
+    "provider": "PayPal Sandbox",
+    "automaticReturn": "confirmed",
+    "cartAfterReturn": 0,
+    "cartAfterReload": 0,
+    "refunds": [
+      {
+        "id": "1VU40751JB6816549",
+        "amountMinor": 1,
+        "state": "COMPLETED"
+      },
+      {
+        "id": "83820755EA626563J",
+        "amountMinor": 5899,
+        "state": "COMPLETED"
+      }
+    ],
+    "screenshots": [
+      "assets/paypal-sandbox-20261104/native-direct-sdk-confirmed.jpg",
+      "assets/paypal-sandbox-20261104/native-direct-sdk-empty-after-reload.jpg",
+      "assets/paypal-sandbox-20261104/native-direct-sdk-refunded.jpg"
+    ],
+    "implementationVersionAtPurchase": "1.6.4",
+    "publicCore": "db0e00c9f43e4ee45a9129e3aa7caba41a8dd766"
+  },
+  "savedMethodProviderFollowup": {
+    "state": "provider_feature_not_enabled",
+    "providerIssue": "NOT_ENABLED_TO_VAULT_PAYMENT_SOURCE",
+    "testCustomer": "registered through ordinary customer API; credentials not retained in evidence",
+    "localTargetedAcceptance": "save, own-account reuse, guest/foreign denial, revocation, delayed confirmation, restart, restricted database logins passed",
+    "actualReuseAccepted": false,
+    "order": "RAC-b86032af",
+    "capturedMinor": 0,
+    "publicSavedMethods": []
+  },
+  "invoiceFollowup": {
+    "localTargetedAcceptance": "native invoice PDF, automatic and Flow email, deferred instructions, owned server risk header, definitive rejection cancellation, lost-response and restart recovery, exact refunds passed",
+    "providerAcceptance": "pending separate account capability and actual approval",
+    "privateImplementation": "1.6.5",
+    "privatePullRequest": 22,
+    "hostedRuntime": {
+      "implementationVersion": "1.6.5",
+      "commit": "f174e0c918f516c414b6f3ba8d8737f4b77a4fa8",
+      "build": "ambitious-crow-9499",
+      "health": "ok",
+      "mode": "sandbox",
+      "observation": "Actual public browser health response after rolling replacement",
+      "deployedInvoiceScriptMatchesReviewedSource": true,
+      "invoiceScriptSha256": "add5cf5b2d608754c7aab4466df92a650ab8885e299cb6715255ef5328cacace"
+    }
+  }
 }

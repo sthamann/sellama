@@ -1,6 +1,7 @@
 /** Installed package workspace: lifecycle, generated entities and shared agent actions. */
 import type { Package } from "./app-types";
 import AppConsent from "./AppConsent";
+import AppPackageImport from "./AppPackageImport";
 import AppConfiguredOrders, {
   type ConfiguredOrders,
 } from "./AppConfiguredOrders";
@@ -101,6 +102,16 @@ export default function AppsManager({
           <span className="kicker">{a("apps")}</span>
           <h1>{l("heading")}</h1>
           <p>{l("intro")}</p>
+          {manage && (
+            <AppPackageImport
+              request={request}
+              onImported={async (id) => {
+                await load();
+                setSelected(id);
+                setDetailTab("appDetails");
+              }}
+            />
+          )}
         </div>
       )}
       {error && (

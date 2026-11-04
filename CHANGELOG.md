@@ -1,5 +1,12 @@
 # Changelog
 
+## Private app package import, 4 November 2026
+
+The Apps library now imports bounded JSON manifests through the existing server
+review and consent flow. Upgrades show version, digest, permissions and migration
+readiness. Current app management rights apply, and changing a manifest invalidates
+previous approval. No provider credentials or private service source are bundled.
+
 ## Saved customer payment methods, 3 November 2026
 
 Explicit unchecked consent, account-bound reuse and customer revocation now share

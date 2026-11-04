@@ -19,11 +19,13 @@ type Review = {
 export default function AppConsent({
   app,
   request,
+  manifest,
   onCancel,
   onInstall,
 }: {
   app: string;
   request: RequestFn;
+  manifest?: Record<string, unknown>;
   onCancel: () => void;
   onInstall: (
     consent: Review & { approve: true; builtIn: string },
@@ -34,17 +36,22 @@ export default function AppConsent({
   const [result, setResult] = useState<{
       app: string;
       request: RequestFn;
+      manifest?: Record<string, unknown>;
       review: Review;
     } | null>(null),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
   const review =
-    result?.app === app && result.request === request ? result.review : null;
+    result?.app === app &&
+    result.request === request &&
+    result.manifest === manifest
+      ? result.review
+      : null;
   useEffect(() => {
     let active = true;
-    request("/api/apps/review", { builtIn: app })
+    request("/api/apps/review", manifest ? { manifest } : { builtIn: app })
       .then((v) => {
-        if (active) setResult({ app, request, review: v });
+        if (active) setResult({ app, request, manifest, review: v });
       })
       .catch((e) => {
         if (active) setError(e.message);
@@ -52,7 +59,7 @@ export default function AppConsent({
     return () => {
       active = false;
     };
-  }, [app, request]);
+  }, [app, request, manifest]);
   return (
     <ConfirmDialog
       title={t("installConsent")}

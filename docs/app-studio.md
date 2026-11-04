@@ -1,5 +1,16 @@
 # Visual App Studio
 
+## Install or update a private app package
+
+In **Apps**, use **Import app package** and select its JSON manifest (up to 48 KB).
+Veyndo reviews the exact package before presenting its version, digest, permissions,
+and upgrade checks. Confirm installation only after reviewing those changes.
+The existing server checks still enforce `apps.manage`, package approval, version
+compatibility and data migration readiness. Changing the selected manifest clears
+its previous consent. Provider credentials belong in the private service or the
+installed app configuration, never in an uploaded manifest.
+
+
 Describe the app you need, review its connected forms and administration views,
 then try real records privately. Product relations, uploads, review states and
 installation settings belong to the same versioned app definition. The visual

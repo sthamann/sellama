@@ -1,6 +1,18 @@
 /** App library vocabulary and built-in summaries; no inferred connection or payment readiness. */
 import { useLocale } from "./i18n";
 export const libraryWords = {
+  importPackage: [
+    "Import app package",
+    "App Paket importieren",
+    "Importer une app",
+    "Importar app",
+  ],
+  invalidPackage: [
+    "Choose a JSON app manifest up to 48 KB with an ID and version.",
+    "Wähle eine JSON App Definition bis 48 KB mit ID und Version.",
+    "Choisissez une définition JSON de 48 Ko maximum avec un identifiant et une version.",
+    "Elige una definición JSON de hasta 48 KB con ID y versión.",
+  ],
   advancedConnection: [
     "Advanced connection & diagnostics",
     "Erweiterte Verbindung & Diagnose",

@@ -1,49 +1,14 @@
 //! Editor mounts, enumerated fields and tenant-owned core references; no app alters core tables.
 use super::*;
 pub(super) fn validate_fields(e: &Entity) -> Result<()> {
-    for f in &e.fields {
-        if let Some(kind) = f.core_reference.as_deref()
-            && (!matches!(
-                kind,
-                "product" | "customer" | "order" | "b2bCompany" | "b2bUnit" | "salesChannel"
-            ) || f.kind != "string"
-                || !f.indexed
-                || !f.required
-                || f.translatable
-                || f.references.is_some()
-                || !f.choices.is_empty()
-                || !verified_kernel::app_core_reference_admissible(
-                    kind == "product",
-                    !e.public_read,
-                ))
-        {
-            return Err(bad(
-                "Core references need indexed private strings; only products may be public",
-            ));
-        }
-        let mut choices = std::collections::HashSet::new();
-        if f.choices.len() > 100
-            || (!f.choices.is_empty()
-                && (f.kind != "string" || f.translatable || f.references.is_some()))
-        {
-            return Err(bad("Choices require a plain string field, maximum 100"));
-        }
-        for c in &f.choices {
-            if !identifier(&c.value)
-                || !choices.insert(&c.value)
-                || c.label.is_empty()
-                || c.label.len() > 100
-                || c.label
-                    .values()
-                    .any(|v| v.trim().is_empty() || v.len() > 100)
-            {
-                return Err(bad(
-                    "Choice values must be unique identifiers with translated labels",
-                ));
-            }
-        }
+    veyndo_app_model::declarations::validate_fields(e, &ReferencePolicy)
+        .map_err(model_contract::error)
+}
+pub(super) struct ReferencePolicy;
+impl veyndo_app_model::declarations::ReferencePolicy for ReferencePolicy {
+    fn admitted(&self, product: bool, private: bool) -> bool {
+        verified_kernel::app_core_reference_admissible(product, private)
     }
-    Ok(())
 }
 pub(super) fn validate_binding(
     m: &Manifest,

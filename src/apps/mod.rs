@@ -99,7 +99,6 @@ mod native_data;
 mod native_view_tests;
 mod native_views;
 mod presentation;
-mod publication;
 #[path = "../../extensions/apps/site-builder/server.rs"]
 pub(crate) mod site_builder;
 #[path = "../../extensions/apps/site-forms/server.rs"]
@@ -110,6 +109,7 @@ mod ui_logic;
 mod ui_logic_tests;
 mod ui_logic_types;
 pub(crate) use manifest_validation::validate;
+mod model_contract;
 mod persistence;
 mod record_write;
 pub(crate) mod records;

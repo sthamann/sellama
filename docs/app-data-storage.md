@@ -43,6 +43,17 @@ record IDs or different schema versions in unrelated shops cannot collide.
 Public reads project current declared fields only; storage metadata, removed fields,
 private form answers and credentials do not become public data.
 
+## Shared model compiler
+
+Apps 0.3.0 supplies `veyndo-app-model` alongside the storage package. Native app
+entity/field types, declaration grammar, bounded input schemas, typed field values,
+enabled-language checks, publication declarations and record workflows use this
+pure package. Required policy ports reuse the host currency, rich-content, relation
+shape and native reference guard. Actual referenced-object ownership, current
+rights, package consent, history and SQL isolation remain native host checks.
+The model package has no SQL/network access.
+[Wire compatibility and integrated acceptance](evidence/app-model-component-2026-11-05.md).
+
 ## References, uniqueness and concurrency
 
 PostgreSQL maintains lookup values and references in the record transaction.

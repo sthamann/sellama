@@ -90,46 +90,8 @@ pub(crate) fn validate(m: &Manifest) -> Result<()> {
     {
         return Err(bad("Maximum 64 declared indexes per app package"));
     }
-    let mut names = std::collections::HashSet::new();
-    for e in &m.entities {
-        publication::validate(e)?;
-        if !identifier(&e.name)
-            || !names.insert(&e.name)
-            || e.fields.is_empty()
-            || e.fields.len() > 16
-        {
-            return Err(bad("Invalid entity"));
-        }
-        let mut fields = std::collections::HashSet::new();
-        super::editor_contract::validate_fields(e)?;
-        field_values::contract(e)?;
-        for f in &e.fields {
-            if (f.kind == "relations"
-                && (f.references.is_none()
-                    || f.translatable
-                    || f.indexed
-                    || f.unique
-                    || f.core_reference.is_some()
-                    || !f.choices.is_empty()))
-                || !identifier(&f.name)
-                || ["tenant", "id", "revision"].contains(&f.name.as_str())
-                || !fields.insert(&f.name)
-                || !field_values::KINDS.contains(&f.kind.as_str())
-                || (field_values::json(f)
-                    && (f.indexed || f.unique || (f.references.is_some() && f.kind != "relations")))
-                || (f.translatable
-                    && (f.kind != "string" || (f.references.is_some() && f.kind != "relations")))
-                || f.references.as_ref().is_some_and(|r| {
-                    !matches!(f.kind.as_str(), "string" | "relations")
-                        || !m.entities.iter().any(|target| {
-                            target.name == *r && (!e.public_read || target.public_read)
-                        })
-                })
-            {
-                return Err(bad("Invalid field or entity relationship"));
-            }
-        }
-    }
+    veyndo_app_model::declarations::validate(&m.entities, &editor_contract::ReferencePolicy)
+        .map_err(model_contract::error)?;
     if let Some(c) = &m.configuration
         && (!identifier(&c.entity)
             || !identifier(&c.price_field)

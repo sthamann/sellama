@@ -74,11 +74,11 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/evidence_routes.rs](../src/apps/evidence_routes.rs) | Scoped merchant-only evidence retrieval; sources never enter public product answers. |
 | [src/apps/extension_filter.rs](../src/apps/extension_filter.rs) | Exact app-field predicates validated against current packages and applied before native pagination. |
 | [src/apps/extension_projection.rs](../src/apps/extension_projection.rs) | Bounded native-object read projection from existing app models, references and current package permissions. |
-| [src/apps/field_values.rs](../src/apps/field_values.rs) | Exact app field values reuse commerce money, rich content and tenant-owned assets; no HTML or float decimal coercion. |
+| [src/apps/field_values.rs](../src/apps/field_values.rs) | Native currency/content/asset policy adapters for the shared pure field validator. |
 | [src/apps/form_layout.rs](../src/apps/form_layout.rs) | Bounded twelve-column form geometry, presentation flags and tab order shared by every native app surface. |
 | [src/apps/gateway.rs](../src/apps/gateway.rs) | One permission-aware action gateway serves HTTP, UI and MCP; service egress is operator configured. |
 | [src/apps/hosted.rs](../src/apps/hosted.rs) | Persist hosted-app dependencies through the existing package installer; no private renderer or parallel registry. |
-| [src/apps/input_schema.rs](../src/apps/input_schema.rs) | Bounded recursive action-input contract. Untyped managed fields still receive depth/size budgets. |
+| [src/apps/input_schema.rs](../src/apps/input_schema.rs) | Native API/MCP error adapter for the independent bounded schema validator. |
 | [src/apps/input_schema_tests.rs](../src/apps/input_schema_tests.rs) | Adversarial schema cases exercise bounded inputs, nullable unions, escaped JSON pointers and output values. |
 | [src/apps/job_callbacks.rs](../src/apps/job_callbacks.rs) | Long-job service callbacks disclose input only after current actor consent, package and lease checks. Late callbacks cannot commit. |
 | [src/apps/job_enqueue.rs](../src/apps/job_enqueue.rs) | Service job requests reuse the existing declared action gateway, actor checks, quotas and transactional outbox. |
@@ -88,6 +88,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/manifest.rs](../src/apps/manifest.rs) | Strict package contract; identifiers and limits are checked before logical model registration. |
 | [src/apps/manifest_validation.rs](../src/apps/manifest_validation.rs) | Package capability, schema and action validation; no executable behavior is inferred from names. |
 | [src/apps/mod.rs](../src/apps/mod.rs) | Versioned app packages: managed data, UI slots, agent tools and isolated service calls. |
+| [src/apps/model_contract.rs](../src/apps/model_contract.rs) | Preserve native problem kinds, revision-conflict status and escaped JSON pointers across the pure model boundary. |
 | [src/apps/native_data.rs](../src/apps/native_data.rs) | App record translations use configured shop languages and field-level main-language inheritance. |
 | [src/apps/native_lifecycle/compile.rs](../src/apps/native_lifecycle/compile.rs) | Compile bounded app-local state graphs into the native machine; conflicts and stranded paths fail closed. |
 | [src/apps/native_lifecycle/storage.rs](../src/apps/native_lifecycle/storage.rs) | Capture accepted definitions in existing operational JSON under native package locks; no app-specific tables. |
@@ -102,10 +103,9 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/planning.rs](../src/apps/planning.rs) | Registered managed app actions join the same preview/approve transaction as core changes. |
 | [src/apps/planning_contracts.rs](../src/apps/planning_contracts.rs) | Current authorized managed-save models accompany proposals; no records, secrets or new authority. |
 | [src/apps/presentation.rs](../src/apps/presentation.rs) | Optional passive app artwork and localized summaries; omitted metadata preserves published legacy digests. |
-| [src/apps/publication.rs](../src/apps/publication.rs) | Optional server-enforced publication window and channel projection for public app records. |
 | [src/apps/record_history.rs](../src/apps/record_history.rs) | Bounded app-record history, current entity rights and restoration through the normal managed save path. |
 | [src/apps/record_import.rs](../src/apps/record_import.rs) | Private source-record intake reuses an installed app's declared native save action, schema, rights and package fence. |
-| [src/apps/record_lifecycle.rs](../src/apps/record_lifecycle.rs) | Generic app-owned record lifecycle contracts. Status vocabulary and transitions belong to the app Manifest. |
+| [src/apps/record_lifecycle.rs](../src/apps/record_lifecycle.rs) | Native transport mapping for shared app-owned workflow contracts and state transitions. |
 | [src/apps/record_write.rs](../src/apps/record_write.rs) | Native lifecycle/history hooks around the shared record mutation engine; package and typed field validation stay in data.rs. |
 | [src/apps/records.rs](../src/apps/records.rs) | One fixed PostgreSQL record store; every operation retains tenant/app/model identity and original wire values. |
 | [src/apps/registry.rs](../src/apps/registry.rs) | Atomic installation and additive schema upgrades; immutable version digests preserve history. |
@@ -1813,6 +1813,18 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/sdk/rust-events.rs](../extensions/sdk/rust-events.rs) | Language-neutral public event-signature contract for independent Rust app services; no commerce implementation. |
 | [extensions/sdk/ui_bundle.py](../extensions/sdk/ui_bundle.py) | Build self-contained vanilla example UIs from the shared SDK; no remote imports at runtime. |
 | [extensions/sdk/wit/snapshot-price.component.wat](../extensions/sdk/wit/snapshot-price.component.wat) | Typed fixture: calls the real host cart snapshot and returns one percent of its subtotal. |
+| [extensions/services/app-storage/model/src/declarations.rs](../extensions/services/app-storage/model/src/declarations.rs) | Entity/field/index/reference declaration grammar; native reference authority is an explicit required policy port. |
+| [extensions/services/app-storage/model/src/error.rs](../extensions/services/app-storage/model/src/error.rs) | Transport-neutral validation errors preserve the native bad-input, conflict and JSON-pointer distinctions. |
+| [extensions/services/app-storage/model/src/fields.rs](../extensions/services/app-storage/model/src/fields.rs) | Exact app field values reuse commerce money, rich content and tenant-owned assets; no HTML or float decimal coercion. |
+| [extensions/services/app-storage/model/src/language.rs](../extensions/services/app-storage/model/src/language.rs) | Enabled content-language and main-language requirements with the original native inheritance rules. |
+| [extensions/services/app-storage/model/src/lib.rs](../extensions/services/app-storage/model/src/lib.rs) | Pure app data contracts and validation; no database, network, identity resolution or commerce mutation authority. |
+| [extensions/services/app-storage/model/src/lifecycle.rs](../extensions/services/app-storage/model/src/lifecycle.rs) | Generic app-owned record lifecycle contracts. Status vocabulary and transitions belong to the app Manifest. |
+| [extensions/services/app-storage/model/src/publication.rs](../extensions/services/app-storage/model/src/publication.rs) | Optional server-enforced publication window and channel projection for public app records. |
+| [extensions/services/app-storage/model/src/schema.rs](../extensions/services/app-storage/model/src/schema.rs) | Bounded recursive action-input contract. Untyped managed fields still receive depth/size budgets. |
+| [extensions/services/app-storage/model/src/schema_contract.rs](../extensions/services/app-storage/model/src/schema_contract.rs) | Closed supported schema grammar, bounds and recursive declaration admission. |
+| [extensions/services/app-storage/model/src/schema_tests.rs](../extensions/services/app-storage/model/src/schema_tests.rs) | Adversarial schema cases exercise bounded inputs, nullable unions, escaped JSON pointers and output values. |
+| [extensions/services/app-storage/model/src/types.rs](../extensions/services/app-storage/model/src/types.rs) | Exact native entity/field/extension wire types; serialization defaults preserve immutable package digests. |
+| [extensions/services/app-storage/model/tests/contracts.rs](../extensions/services/app-storage/model/tests/contracts.rs) | Independent model admission, host-policy boundaries, wire stability, typed values and language cases. |
 | [extensions/services/app-storage/src/error.rs](../extensions/services/app-storage/src/error.rs) | Preserve database errors and explicit idempotency/quota conflicts without inventing HTTP or transport authority. |
 | [extensions/services/app-storage/src/jobs.rs](../extensions/services/app-storage/src/jobs.rs) | Original native app job persistence and transactional event handoff; no worker, principal or provider execution. |
 | [extensions/services/app-storage/src/lib.rs](../extensions/services/app-storage/src/lib.rs) | Scoped storage ports for trusted hosts; no identity resolution, pool creation, service dispatch or schema installation. |

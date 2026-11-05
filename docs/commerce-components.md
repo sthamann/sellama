@@ -257,8 +257,11 @@ owners require an explicit reservation/compensation design and corresponding tes
   - [ ] MKT-03b Extract the validated host operations and identity adapter, with a
     supported production schema, current permissions, API/MCP and SDK examples.
     Shared record CAS/replay/write/outbox and bounded page/filter/publication
-    queries are now extracted and consumed by Core in Apps 0.2.0. Model and
-    identity admission, standalone service/schema and API/MCP hosting remain open.
+    queries are extracted and consumed by Core. Apps 0.3.0 also supplies the pure
+    model declaration/field/schema/language/workflow compiler, with required host
+    policy ports. Full package/identity admission, standalone service/schema and
+    API/MCP hosting remain open.
+    [Model extraction evidence](evidence/app-model-component-2026-11-05.md).
     [Record operation evidence](evidence/app-record-operations-2026-11-05.md).
   - [ ] MKT-03c Accept independent durable-host operation, restricted database
     roles, migration/restore and complete Veyndo composition before cutover.
@@ -320,6 +323,21 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### Pure app model component, 5 November 2026
+
+- Apps 0.3.0 adds the independent `veyndo-app-model` Rust package. Native entity
+  types, declaration grammar, bounded schemas, field/language checks, publication
+  declarations and record workflows now have one shared implementation.
+- Required host ports retain native currency/rich-content/relation validation and
+  the verified reference guard. The model crate cannot import SQL, network, Core
+  or the storage crate; dependency checks reject those four bypasses.
+- Fourteen independent model tests, 74 native app unit tests, affected PostgreSQL
+  suites and component CI pass. All 34 public package fingerprints match the
+  previous binary, preserving installed immutable package identities.
+- MKT-03b remains open for full package/identity authority and separately hosted
+  API/MCP operation. Model extraction does not establish standalone authorization.
+
 
 ### Shared record operations, 5 November 2026
 

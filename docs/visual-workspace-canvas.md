@@ -175,6 +175,7 @@ use the existing compact section selector on narrow screens. The shared Canvas
 wrapper owns its own spacing. Native language, revision, permission and private
 save paths remain the same.
 
-The blue **Edit** action appears above each scene preview. The fixed toolbar also
+The blue action above each scene preview names its task: **Design page**,
+**Edit product data** or **Edit category data**. The fixed toolbar also
 lets you choose a view and open it at normal control size, independently of Canvas
 zoom. Both entry points use the same native editor callback and disabled state.

@@ -40,6 +40,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/agent_runs/work_plan.rs](../src/agent_runs/work_plan.rs) | Reviewed work binds bounded native configuration commands and managed app saves before any worker effect. |
 | [src/agent_runs/worker.rs](../src/agent_runs/worker.rs) | Database claims resume only completed checkpoints; unknown model outcomes are never automatically charged again. |
 | [src/agent_runs.rs](../src/agent_runs.rs) | Durable continuation extends native tasks; leases fence checkpoints and publication, never approved writes. |
+| [src/apps/action_admission.rs](../src/apps/action_admission.rs) | Shared actor, compound permission and schema admission for native app actions and pinned callbacks. |
 | [src/apps/approval.rs](../src/apps/approval.rs) | Operator service authority is bound to immutable package content, never to a merchant-chosen ID. |
 | [src/apps/asset_surfaces.rs](../src/apps/asset_surfaces.rs) | App file uploads reuse the product asset parser/store and require the current package plus either callback consent or a surface grant. |
 | [src/apps/business_capability/mod.rs](../src/apps/business_capability/mod.rs) | Versioned merchant intent and frozen, executable pure-decision examples in the canonical app package. |
@@ -80,6 +81,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/input_schema.rs](../src/apps/input_schema.rs) | Bounded recursive action-input contract. Untyped managed fields still receive depth/size budgets. |
 | [src/apps/input_schema_tests.rs](../src/apps/input_schema_tests.rs) | Adversarial schema cases exercise bounded inputs, nullable unions, escaped JSON pointers and output values. |
 | [src/apps/job_callbacks.rs](../src/apps/job_callbacks.rs) | Long-job service callbacks disclose input only after current actor consent, package and lease checks. Late callbacks cannot commit. |
+| [src/apps/job_enqueue.rs](../src/apps/job_enqueue.rs) | Service job requests reuse the existing declared action gateway, actor checks, quotas and transactional outbox. |
 | [src/apps/job_evidence.rs](../src/apps/job_evidence.rs) | Native job completion and authenticated private record evidence share one transaction and current creator/package fences. |
 | [src/apps/job_import.rs](../src/apps/job_import.rs) | Reviewed job records use current creator rights and a locked live package; private targets never become app credentials. |
 | [src/apps/jobs.rs](../src/apps/jobs.rs) | Durable long actions piggyback on the existing outbox. Apps claim a fenced lease; unknown side effects are never retried automatically. |
@@ -2006,6 +2008,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/database.py](../scripts/testing/database.py) | Use the same PostgreSQL fixtures through Docker or an explicitly selected native psql executable. |
 | [scripts/testing/documentation_hygiene.py](../scripts/testing/documentation_hygiene.py) | Keep the README an entrance, status canonical, and scoped instructions bounded; negative controls reject former regressions. |
 | [scripts/testing/extraction.py](../scripts/testing/extraction.py) | Native document-event extraction, review boundary and shared AI quotas; local provider only. |
+| [scripts/testing/host_exchange_contract.py](../scripts/testing/host_exchange_contract.py) | Keep exported host inputs connected to native deserialization fields and admission schemas. |
 | [scripts/testing/hosted_migration.py](../scripts/testing/hosted_migration.py) | Real pre-055 SQL database upgrades through the native migrator; never rewind one ledger entry on a newer store. |
 | [scripts/testing/hotpath.py](../scripts/testing/hotpath.py) | Real HTTP wire bytes and SQL tracing checks for the existing read-performance suite. |
 | [scripts/testing/image_context.py](../scripts/testing/image_context.py) | /Dockerfile')] |

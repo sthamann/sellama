@@ -12,6 +12,11 @@ Provider code, Studio views and tests are maintained in
 source snapshot recorded in `components.lock.json`; updates are imported explicitly
 and CI rejects local drift. Build the provider alone with
 `cargo build --locked -p veyndo-marketplaces --bin marketplace-gateway`.
+The SDK also exports `@veyndo/sdk/host` with generated generic callback inputs.
+The provider exposes all declared record actions and synchronization through its
+own HTTP/MCP endpoints; `sync` requires a stable `requestKey`. Fixed `hostPath`
+configuration supports other host routes. Veyndo retains its original per-user
+app gateway and native job storage. [Versioned host exchange](evidence/marketplace-host-2026-11-05.md).
 For the component container, use `extensions/apps/marketplaces` as the build
 context, not the entire Veyndo repository. The independent repository includes
 HTTP/MCP documentation, a server-side Node SDK example and automated host fixtures.

@@ -22,6 +22,10 @@ It introduces no new queue, event ledger or table. Actual durable processing sti
 uses the existing native outbox, leases and replay receipts.
 [Event and trigger boundary](evidence/app-event-contracts-2026-11-05.md).
 
+Apps 0.9.0 also shares object-binding/AI graph contracts. Graph output is derived
+from existing admitted current rows; no second record/graph store is introduced.
+[Object and graph boundary](evidence/app-object-graph-contracts-2026-11-05.md).
+
 ## One contract across every consumer
 
 The canonical Manifest still defines types, required fields, translation, choices,

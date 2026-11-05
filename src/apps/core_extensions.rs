@@ -1,62 +1,12 @@
 //! Namespaced core-object extension contracts; native records, rights and app storage keep their owners.
 use super::{Entity, Manifest, model_contract};
-use crate::{RequestContext, Result, auth, bad};
+use crate::{RequestContext, Result, auth};
 
 pub(crate) use veyndo_app_model::Object;
 
 pub(super) fn validate(m: &Manifest) -> Result<()> {
-    for e in &m.entities {
-        let Some(x) = &e.extends else { continue };
-        let anchor = e
-            .fields
-            .iter()
-            .find(|f| f.name == x.field)
-            .ok_or(bad("Extension anchor field is missing"))?;
-        if x.version != 1
-            || e.public_read
-            || e.publication.is_some()
-            || !anchor.required
-            || !anchor.indexed
-            || !anchor.unique
-            || anchor.kind != "string"
-            || anchor.translatable
-            || anchor.core_reference.as_deref() != Some(x.object.reference())
-            || anchor.references.is_some()
-        {
-            return Err(bad(
-                "Extensions need a private, required, indexed, unique native reference",
-            ));
-        }
-        let actions: Vec<_> = m
-            .actions
-            .iter()
-            .filter(|a| a.entity.as_deref() == Some(e.name.as_str()))
-            .collect();
-        if !m.permissions.iter().any(|p| p == "data.read")
-            || !actions.iter().any(|a| a.handler == "list")
-        {
-            return Err(bad(
-                "Extensions need a declared native list action and data.read",
-            ));
-        }
-        for action in actions {
-            if action.public || !matches!(action.handler.as_str(), "list" | "save") {
-                return Err(bad(
-                    "Extension records support private native list/save actions only",
-                ));
-            }
-            let scopes = x.object.scopes(action.handler == "save");
-            if scopes.iter().any(|scope| {
-                action.permission.as_deref() != Some(*scope)
-                    && !action.required_permissions.iter().any(|s| s == scope)
-            }) {
-                return Err(bad(
-                    "Extension actions must require current native object read/write and PII rights",
-                ));
-            }
-        }
-    }
-    Ok(())
+    veyndo_app_model::object_extensions::validate(&m.entities, &m.actions, &m.permissions)
+        .map_err(model_contract::error)
 }
 
 pub(crate) fn access(e: &Entity, h: &RequestContext, write: bool) -> Result<()> {

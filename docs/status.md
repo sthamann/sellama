@@ -51,6 +51,17 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Shared object and graph contracts, 5 November 2026
+
+Apps [0.9.0](https://github.com/veyndo/apps/releases/tag/v0.9.0), model 0.6.0,
+shares product/customer/order/company binding declarations, AI tool/entity metadata,
+strict graph mapping and bounded current-row projection. Native package validators,
+authorized app lists and native object projections reuse the same implementation.
+Current actor/object rights, immutable references, MCP/agent opt-in, scoped SQL and
+verified configuration release retain their owners. Graph edges do not read target
+records or become confirmed product claims.
+[Evidence and remaining scope](evidence/app-object-graph-contracts-2026-11-05.md).
+
 ## Shared event and trigger contracts, 5 November 2026
 
 Apps [0.8.0](https://github.com/veyndo/apps/releases/tag/v0.8.0), model 0.5.0,

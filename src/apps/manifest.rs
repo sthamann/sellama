@@ -74,15 +74,7 @@ pub(crate) struct ApiRoute {
     pub scope: String,
     pub action: String,
 }
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct IntelligenceContract {
-    pub description: HashMap<String, String>,
-    pub tools: Vec<String>,
-    pub entities: Vec<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub ontology: Vec<super::ontology::Mapping>,
-}
+pub(crate) use veyndo_app_model::intelligence::Contract as IntelligenceContract;
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub(crate) struct ConfigurationContract {

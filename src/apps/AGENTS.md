@@ -41,6 +41,14 @@ Filters evaluate projected payloads only. Schedule validation receives host UTC 
 private environments and tenant pauses still block native effects. Never treat
 pure eligibility or a declared scope as current dispatch authority.
 
+Shared object-binding declarations and intelligence metadata/mapping/projection
+belong to model/object_extensions, intelligence and ontology. Native validators
+retain their original order. Graph input must be current authorized app/entity rows
+from data or extension_projection, never caller-supplied tenant/role authority.
+Current native object/PII checks, immutable reference ownership, MCP/agent opt-in
+and the verified configuration-release predicate stay attached. Edges are reference
+metadata, not target reads or confirmed product claims; do not add a graph ledger.
+
 The shared `package::compile` grammar requires native before/after domain extension
 validators and scope/Wasm-kind/reference policies. Preserve their complete original
 order and typed Manifest projection in `manifest_validation.rs`; never approve
@@ -70,8 +78,8 @@ hostile-code containment or local worker limits as fleet-wide admission.
 ### App ontology ownership
 
 Optional `intelligence.ontology` belongs to the canonical native app manifest.
-`src/apps/ontology.rs` projects only selected fields/current revisions from the
-existing permission- and tenant-scoped native list. API, MCP and planner context
+`src/apps/ontology.rs` adapts the shared model graph projector using fields/current
+revisions from the existing permission- and tenant-scoped native list. API, MCP and planner context
 consume this same view; App Studio and coding agents edit the same schema.
 Namespace app-owned node/edge types. Keep graph labels in `LocalizedField` and the
 shared content-language inheritance system; ship UI vocabulary in EN/DE/FR/ES.

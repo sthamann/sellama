@@ -33,6 +33,13 @@ flowchart LR
 
 ## Common package compiler
 
+Apps 0.9.0/model 0.6.0 shares native object-binding declarations, strict AI
+metadata and namespaced graph mapping/projection. Native authorized lists and
+object-extension projections supply current rows; native current object/PII rights,
+reference ownership, MCP/agent admission and verified configuration release retain
+their existing owners.
+[Object/graph component evidence](evidence/app-object-graph-contracts-2026-11-05.md).
+
 Apps 0.8.0/model 0.5.0 also shares strict event filter/delivery contracts,
 subscription and payload minimization, clock-injected UTC schedule validation and
 private webhook declarations. Destination admission requires the host's explicit

@@ -1339,6 +1339,11 @@
       "sha256": "bb02cb358b23eb163d8b609026cd32eb40cb2c90efef8fb0fb7d910646890303",
       "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
+    "extensions/services/app-storage/examples/object_graph.rs": {
+      "status": "unproved",
+      "sha256": "2858a819f1e3f69c26f3b95e6612131a179403a2e900c9dfd38021263042089f",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
+    },
     "extensions/services/app-storage/examples/upgrade_settings.rs": {
       "status": "unproved",
       "sha256": "2bb8b686a6cc75462159379926b60ff71ff895d1ef041fdd2fcaf779fe45c30e",
@@ -1374,6 +1379,11 @@
       "sha256": "88fc819bfa47e6bb740a727f70d8f73a24f28fa4bd0bcc175f8fc0c550321858",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
     },
+    "extensions/services/app-storage/model/src/intelligence.rs": {
+      "status": "unproved",
+      "sha256": "ceb5f88f9a4f4ad1e36c80dc561f4171d2f2cffa7f577ded05428dea2421b69e",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
+    },
     "extensions/services/app-storage/model/src/language.rs": {
       "status": "unproved",
       "sha256": "30e5f14a9d4e533c0511011ea77e00c35ee163bd384e266c3155d3dc32cd9f9c",
@@ -1381,13 +1391,23 @@
     },
     "extensions/services/app-storage/model/src/lib.rs": {
       "status": "unproved",
-      "sha256": "2f5cd54fab69990d8b4052bbf46fdf4c9d5dd3be109c21074f860127447bd170",
-      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+      "sha256": "d5371d510410726fd8799775eb9a8117ae655ca37312452c013854e7e7961155",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/model/src/lifecycle.rs": {
       "status": "unproved",
       "sha256": "92a2d8f305c576a6677986c8099977efb9065287fc1515fa13b8ad17b919d961",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+    },
+    "extensions/services/app-storage/model/src/object_extensions.rs": {
+      "status": "unproved",
+      "sha256": "f59db69d45dbd177011bd41adc857077a424030c77e4e86b615fb3847af163e6",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
+    },
+    "extensions/services/app-storage/model/src/ontology.rs": {
+      "status": "unproved",
+      "sha256": "ebd724caaf8719e58ffa3186ebb630d48d9835d00559678f188576a572aaa01c",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/model/src/package.rs": {
       "status": "unproved",
@@ -1464,6 +1484,16 @@
       "sha256": "7c6f4a0fb060e5302e5dbd0c93668f76b87aaba0b40e21335f7ca62204cd81db",
       "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
+    "extensions/services/app-storage/model/tests/object_extensions.rs": {
+      "status": "unproved",
+      "sha256": "91754e7e7b930c45ea37d58fe73346a1fc51da6deefd962729b6e51f980163b5",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
+    },
+    "extensions/services/app-storage/model/tests/ontology.rs": {
+      "status": "unproved",
+      "sha256": "3483d1f953ba0e7c23bfb0467910e86b88bbfab1e80238c82b47491135f199bc",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
+    },
     "extensions/services/app-storage/model/tests/package_actions.rs": {
       "status": "unproved",
       "sha256": "98952445b76f90794d2262ed6ac1feb99416ed8dc57ff9c4721c29a1ffbb0e7c",
@@ -1483,6 +1513,11 @@
       "status": "unproved",
       "sha256": "ff08a57a2d380b63f5c5ffa13086ff3e4bb05babd4111e6a1b3f4c694b71897f",
       "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+    },
+    "extensions/services/app-storage/model/tests/support/graph.rs": {
+      "status": "unproved",
+      "sha256": "317393c88516b763b18c9ec7e3e923532e5d14430cfda0cdab5c2a3ecd161912",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/model/tests/support/package.rs": {
       "status": "unproved",
@@ -1916,8 +1951,8 @@
     },
     "src/apps/core_extensions.rs": {
       "status": "reviewed-binding",
-      "sha256": "e7982cec528c30e9c2ad4809a63b4bd5bf8ec754a887097ca0af4c895d7cb3d2",
-      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+      "sha256": "68668d8f604981a9cf891ca10c88eff9d7d8e28f7b0f70db9c988d3aebe1f1ce",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "src/apps/credentials.rs": {
       "status": "reviewed-binding",
@@ -2046,8 +2081,8 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "a0ffbb2c4a48a5dc2bde64e3973f503fe1745b6790bab5f36b7b497a1de946ee",
-      "review": "Additional review of expanded existing bundled-package unit case: all 34 canonical public manifests now pass the complete native compiler, replacing its previous 16-entry corpus. Package type/wire and all 34 fingerprints remain unchanged. No production logic changed since the reviewed shared compiler extraction; native 74 app units pass. Kernel policies and their proved boundary are unchanged."
+      "sha256": "a4b1b46e6bae14a4cb6288d9812c1d38430ab2db761170bfd26e461462346c89",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
@@ -2106,8 +2141,8 @@
     },
     "src/apps/ontology.rs": {
       "status": "unproved",
-      "sha256": "ad9f9548b5624e6d0d72a3256ffc518309554ee0c623dc7d391acd6aad985a4b",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "3ca009aadbd2f4e78ccc249c5b74ab63c7807a89366abe5a0ad71fb4322c04a0",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "src/apps/package_fence.rs": {
       "status": "unproved",
@@ -2246,8 +2281,8 @@
     },
     "src/apps/surfaces.rs": {
       "status": "reviewed-binding",
-      "sha256": "37660c0ceea139d461420f290dfe68bcddd5bd8cb786c2a352898c8bef2805b8",
-      "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
+      "sha256": "c87790e29b0bc44cd7bbcc5415e155950391b471a0746b64bfce5ac780295453",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "src/apps/tool_contract.rs": {
       "status": "unproved",
@@ -4661,16 +4696,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "0713b73c4a7dc1b76411fc02e264206c36f646769472496b3d974e7572d2f08b",
-      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+      "sha256": "400dd969ff7f911951cdaaf3fd29deca01f9a0f33d183a37868091757bc5bd71",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "Cargo.toml": {
       "sha256": "0b6cd31c1e58e4e06a90eba1b44505343c0b9f14a2e8f7958d0d00ca9486d091",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
     },
     "components.lock.json": {
-      "sha256": "22320ad26a64e6087e695c889146e951a356863141c2038490d6b9be79e86ab5",
-      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+      "sha256": "1e82fa6c5b6584151f1aaa647a3db8eb05f06ae6aae10c1e265ef832706007fc",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "496067ed6a47c2778baed402bd51378c139687fbb3b36f8f965bf880129de013",
@@ -4821,16 +4856,16 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "3e61698e6d6de0d2697b5b51910b04cb8190fbbb4ed3c0793c215b16e85489ea",
-      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+      "sha256": "7fde686479b8ec0e5992e0f72161477b2998a5c310ab52b49c1796f5b78c64be",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "c435d27634329cb51fab71cff21896eb6a8f73824d15a77dc033460f8ed653f8",
-      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+      "sha256": "0190ef74cbeceda14149be904b15e36a3163a296ebf361eae34b7af0efd60597",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
-      "sha256": "23b08550bbc3630a414b3031cd7e7a603518ee19137e9c6b265919d2678a15cc",
-      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+      "sha256": "73f9cc6fcd55266839fc3fb00344dcf076175ddd54563382dfd3f193ca1f360a",
+      "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/tests/schema.sql": {
       "sha256": "ae91a4670e8da43e7401f46453d0f78b3559908b8b2b6458b333c70a59d8ef32",

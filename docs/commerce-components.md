@@ -281,6 +281,8 @@ owners require an explicit reservation/compensation design and corresponding tes
     planning/conversion, including operational/core-binding compatibility.
     Apps 0.8.0 shares event subscription/privacy/filter/delivery contracts and
     UTC schedule/private webhook declarations with mandatory destination policy.
+    Apps 0.9.0 shares object-binding declarations, strict AI metadata and current-row
+    graph mapping/projection with native object rights and scoped lists retained.
     Authentication, the remaining typed domain extension compiler and lifecycle,
     standalone service/schema and API/MCP hosting remain open.
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
@@ -298,6 +300,10 @@ owners require an explicit reservation/compensation design and corresponding tes
       bounded delivery contracts, UTC cron and private webhook declarations;
       actual native dispatch/signatures/queues/current authority remain attached.
       [Event contract evidence](evidence/app-event-contracts-2026-11-05.md).
+    - [x] Product/customer/order/company extension declarations, AI tool/entity
+      metadata and bounded namespaced graph projections from admitted current rows;
+      native object authority and verified configuration release remain attached.
+      [Object and graph evidence](evidence/app-object-graph-contracts-2026-11-05.md).
     - [ ] Complete typed domain extension compiler, identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -364,6 +370,18 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### Shared object bindings and intelligence graph contracts, 5 November 2026
+
+- Apps 0.9.0/model 0.6.0 extracts native object-binding declaration rules and strict
+  AI tool/entity/mapping types. Exact object and PII scopes remain declared on
+  private native list/save actions with unique required reference anchors.
+- Graph validation/projection uses the same declared fields, namespaced node/edge
+  types, source version/revision and budgets. Native lists and object projections
+  feed already-authorized current rows into that same component implementation.
+- Native current rights, immutable reference ownership, MCP/agent admission,
+  tenant-scoped lists and the verified configuration-release predicate stay native.
+- [Implementation and acceptance](evidence/app-object-graph-contracts-2026-11-05.md).
 
 ### Shared event, schedule and webhook contracts, 5 November 2026
 

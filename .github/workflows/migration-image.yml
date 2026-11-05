@@ -48,7 +48,7 @@ jobs:
           cache-from: type=gha,scope=migration
           cache-to: type=gha,scope=migration,mode=max
           labels: |
-            org.opencontainers.image.source=https://github.com/sthamann/veyndo
+            org.opencontainers.image.source=https://github.com/veyndo/veyndo
             org.opencontainers.image.revision=${{ github.sha }}
       - name: Check the actual non-root Rust runtime without source credentials or interpreters
         run: |
@@ -73,6 +73,6 @@ jobs:
         env:
           SOURCE_SHA: ${{ github.sha }}
         run: |
-          docker tag veyndo-migration:test "ghcr.io/sthamann/veyndo-migration:sha-$SOURCE_SHA"
-          docker push "ghcr.io/sthamann/veyndo-migration:sha-$SOURCE_SHA"
-          echo "Rust migration service: ghcr.io/sthamann/veyndo-migration:sha-$SOURCE_SHA" >> "$GITHUB_STEP_SUMMARY"
+          docker tag veyndo-migration:test "ghcr.io/veyndo/migration:sha-$SOURCE_SHA"
+          docker push "ghcr.io/veyndo/migration:sha-$SOURCE_SHA"
+          echo "Rust migration service: ghcr.io/veyndo/migration:sha-$SOURCE_SHA" >> "$GITHUB_STEP_SUMMARY"

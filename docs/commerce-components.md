@@ -326,3 +326,7 @@ owners require an explicit reservation/compensation design and corresponding tes
   GitHub's pending Passkey confirmation; this fix is not yet publicly deployed.
 - Existing integration/proof tests remain authoritative; this planning work does
   not claim a new full-system test run.
+- After the transfer, the old personal GHCR destination rejected the new
+  organization's workflow token. Update future image publication to
+  `ghcr.io/veyndo/veyndo` and `ghcr.io/veyndo/migration`; keep already deployed
+  images and the documented tour pin until the new immutable images are tested.

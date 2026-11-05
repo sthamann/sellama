@@ -37,6 +37,14 @@ service adapters must reuse their implementation rather than duplicate rules.
   links; verify public homepage, handbook, screenshots, videos and old links.
 - [ ] ORG-07 Reconnect hosting source integrations to new repository ownership;
   preserve running versions, private submodule pins, deploy keys and rollbacks.
+  - [x] GitHub app installation linked to Northflank for exactly `veyndo/veyndo`,
+    `veyndo/experience` and `veyndo/shopware-payments`, with the explicitly approved
+    organization rights. SDK, Apps and Marketplace repositories are not granted.
+  - [x] Remap existing Core build, Experience and Payments build sources to the
+    transferred repositories. Existing CI/CD settings and running deployment
+    versions are retained; the Payments service starts its normal enabled build.
+    Source mapping is not acceptance of a new runtime deployment.
+  - [ ] Complete source/build/runtime acceptance and remaining deployment links.
 - [ ] ORG-08 Verify repository permissions, rules, Actions settings, webhooks and
   secret/deploy-key availability without exporting secret values.
 - [ ] ORG-09 Give each extracted repository its source history/provenance,
@@ -260,8 +268,17 @@ owners require an explicit reservation/compensation design and corresponding tes
     queries are extracted and consumed by Core. Apps 0.3.0 also supplies the pure
     model declaration/field/schema/language/workflow compiler, with required host
     policy ports. Apps 0.4.0 adds current-authority action/callback rules and the
-    scoped active-package fence. Authentication, complete package lifecycle,
+    scoped active-package fence. Apps 0.5.0 supplies the original atomic installer
+    through required compiler/commerce/migration/model/default/schedule hooks.
+    Authentication, the complete package compiler and remaining lifecycle,
     standalone service/schema and API/MCP hosting remain open.
+    - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
+    - [x] Independent model compiler and required current-authority ports.
+    - [x] Atomic installation, immutable versions, quota and original package locks;
+      integrated preview/staging/upgrade consumers use the same component.
+    - [ ] Complete package compiler, identity and remaining lifecycle hosting.
+    - [ ] Supported independent schema/service with API/MCP and SDK examples.
+    [Installation evidence](evidence/app-installation-component-2026-11-05.md).
     [Admission and package fence evidence](evidence/app-admission-component-2026-11-05.md).
     [Model extraction evidence](evidence/app-model-component-2026-11-05.md).
     [Record operation evidence](evidence/app-record-operations-2026-11-05.md).
@@ -325,6 +342,21 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### Shared atomic app installation, 5 November 2026
+
+- Apps 0.5.0 owns the original package installation transaction sequence: tenant
+  and package locks, quota, immutable version check, package/model attachment,
+  version/event persistence and configuration/schedule completion through required
+  host hooks. Core calls that exact implementation.
+- Native compiler, signed package/provider trust, actor/consent, commerce admission,
+  downgrade/schema migration and preview authorization retain their existing owners.
+- Independent PostgreSQL cases cover ordering, every hook failure rollback,
+  concurrent quota contention, foreign version identity and writer/upgrade fencing.
+  Native install/upgrade, App Studio, F5, staging/release, signed distribution,
+  callback/consent, models/jobs, tenant isolation, visual workspace and Marketplace
+  composition pass. Full standalone service acceptance remains open under MKT-03b.
+- [Exact source and acceptance](evidence/app-installation-component-2026-11-05.md).
 
 ### Shared app admission, 5 November 2026
 

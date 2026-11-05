@@ -26,6 +26,14 @@ call native money/content/relation validators and the verified reference guard
 in `editor_contract.rs`. No database or transport dependency enters the model.
 [Wire and workflow evidence](evidence/app-model-component-2026-11-05.md).
 
+**App installation:** Pinned Apps `src/installation.rs` owns tenant/package locks,
+quota, immutable version checks, package/version writes and installation outbox.
+Native `package_install.rs` supplies mandatory compiler/trust, commerce/dependency,
+checked migration, model, default and schedule hooks on the original transaction.
+`registry.rs` preserves admitted entry paths, private preview checks and commit
+ownership. No second installer or transaction is introduced.
+[Evidence](evidence/app-installation-component-2026-11-05.md).
+
 **App authority ports:** Apps `model/src/admission.rs` owns the shared action and
 callback-scope rules. Native `action_admission.rs` adapts current authenticated
 rights; `credentials.rs` retains key issuance/revocation and the verified callback

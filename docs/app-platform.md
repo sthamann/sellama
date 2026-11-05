@@ -31,6 +31,18 @@ flowchart LR
   Component --> Quote[Native cart and checkout calculation]
 ```
 
+## Shared atomic installation
+
+Apps 0.5.0 owns the installation sequence consumed by native installation, hosted
+app setup, private preview, staging/release and upgrade review. Required host hooks
+preserve the existing compiler/trust and commerce lock before package locks,
+dependency/lifecycle checks under those locks, checked data migration, model
+attachment, default configuration and schedule synchronization. The component
+owns the original tenant/package locks, quota, immutable version check and package,
+version and `app.installed` persistence. Every stage uses the caller transaction;
+any error must roll it back. Native private preview authorization controls the
+mutable version mode. [Acceptance and remaining host work](evidence/app-installation-component-2026-11-05.md).
+
 ## Shared admission and package fence
 
 The Apps 0.4.0 component supplies Action types and shared admission through

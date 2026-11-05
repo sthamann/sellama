@@ -43,6 +43,19 @@ record IDs or different schema versions in unrelated shops cannot collide.
 Public reads project current declared fields only; storage metadata, removed fields,
 private form answers and credentials do not become public data.
 
+## Atomic package installation
+
+The Apps 0.5.0 `installation` module orchestrates the original package transaction
+through required host hooks. Its tenant installation lock prevents competing
+installs from exceeding the 128-package quota. Its exclusive app lock matches the
+existing shared writer fence. Package/version persistence and `app.installed`
+share the transaction with native compiler/commerce/schema/model/configuration
+and schedule work. Hook failures propagate; the host rolls back every effect.
+Published version immutability and host-checked schema/downgrade rules remain in
+force; private preview must be admitted by the host before mutable version mode.
+No production schema migration is introduced by the extraction.
+[Independent and integrated evidence](evidence/app-installation-component-2026-11-05.md).
+
 ## Current authority and package identity
 
 Apps 0.4.0 shares the action/right/callback rules through explicit host authority

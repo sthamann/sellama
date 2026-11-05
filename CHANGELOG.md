@@ -1,5 +1,15 @@
 # Changelog
 
+## Shared atomic app installation, 5 November 2026
+
+Apps 0.5.0 extracts the existing installer behind required native host hooks.
+Tenant/package locks, quota, immutable versions and package/version/outbox writes
+now use one component implementation. Native compiler/trust, commerce admission,
+checked schema migration, models, defaults and schedules remain attached to the
+same transaction. Independent rollback/concurrency and native Studio, preview,
+release, schema, distribution and composed Marketplace fixtures pass.
+[Evidence](docs/evidence/app-installation-component-2026-11-05.md).
+
 ## Shared app authority and package fence, 5 November 2026
 
 Apps 0.4.0 shares Action DTOs, current-authority admission, compound permissions,

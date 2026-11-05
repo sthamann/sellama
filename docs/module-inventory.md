@@ -99,6 +99,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/observability.rs](../src/apps/observability.rs) | Bounded metadata-only app telemetry, storage usage and explicitly approved cursor-based event replay. |
 | [src/apps/ontology.rs](../src/apps/ontology.rs) | Namespaced graph views over current authorized app records; no duplicated source or public-claim authority. |
 | [src/apps/package_fence.rs](../src/apps/package_fence.rs) | Shared package fence prevents native record or document writes racing contract upgrades. |
+| [src/apps/package_install.rs](../src/apps/package_install.rs) | Required native installation hooks preserve compiler/trust, commerce, schema, default-record and schedule admission in the shared transaction. |
 | [src/apps/persistence.rs](../src/apps/persistence.rs) | Translate storage-port failures into the existing native HTTP/MCP domain errors. |
 | [src/apps/planning.rs](../src/apps/planning.rs) | Registered managed app actions join the same preview/approve transaction as core changes. |
 | [src/apps/planning_contracts.rs](../src/apps/planning_contracts.rs) | Current authorized managed-save models accompany proposals; no records, secrets or new authority. |
@@ -1828,6 +1829,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/services/app-storage/model/tests/admission.rs](../extensions/services/app-storage/model/tests/admission.rs) | Trusted-host action/grant ports are exercised with revocation, compound rights and untrusted body fields. |
 | [extensions/services/app-storage/model/tests/contracts.rs](../extensions/services/app-storage/model/tests/contracts.rs) | Independent model admission, host-policy boundaries, wire stability, typed values and language cases. |
 | [extensions/services/app-storage/src/error.rs](../extensions/services/app-storage/src/error.rs) | Preserve database errors and explicit idempotency/quota conflicts without inventing HTTP or transport authority. |
+| [extensions/services/app-storage/src/installation.rs](../extensions/services/app-storage/src/installation.rs) | Original atomic package installation sequence; mandatory host hooks retain compiler, commerce, migration and configuration authority. |
 | [extensions/services/app-storage/src/jobs.rs](../extensions/services/app-storage/src/jobs.rs) | Original native app job persistence and transactional event handoff; no worker, principal or provider execution. |
 | [extensions/services/app-storage/src/lib.rs](../extensions/services/app-storage/src/lib.rs) | Scoped storage ports for trusted hosts; no identity resolution, pool creation, service dispatch or schema installation. |
 | [extensions/services/app-storage/src/mutations.rs](../extensions/services/app-storage/src/mutations.rs) | Shared record CAS/replay transaction; host admission, typed validation and audit hooks remain mandatory caller ports. |
@@ -1835,6 +1837,8 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/services/app-storage/src/progress.rs](../extensions/services/app-storage/src/progress.rs) | Lease-fenced native progress persistence, called only after host current-actor and package admission. |
 | [extensions/services/app-storage/src/queries.rs](../extensions/services/app-storage/src/queries.rs) | Parameter-bound app record pages; the host admits model indexes, public scope and field projection. |
 | [extensions/services/app-storage/src/records.rs](../extensions/services/app-storage/src/records.rs) | Original fixed-table record SQL; host admission, signed scope, field rules and commit stay with the caller. |
+| [extensions/services/app-storage/tests/cases/installation.rs](../extensions/services/app-storage/tests/cases/installation.rs) | Independent installation uses required hooks and checks ordering, rollback, versions, preview history and tenant quotas under contention. |
+| [extensions/services/app-storage/tests/cases/installation_concurrency.rs](../extensions/services/app-storage/tests/cases/installation_concurrency.rs) | Real concurrent installs retain the original tenant quota lock and shared-writer/package-upgrade exclusion. |
 | [extensions/services/app-storage/tests/cases/mutations.rs](../extensions/services/app-storage/tests/cases/mutations.rs) | Actual PostgreSQL record mutation concurrency, hook rollback, scoped identity and immutable replay cases. |
 | [extensions/services/app-storage/tests/cases/packages.rs](../extensions/services/app-storage/tests/cases/packages.rs) | Real installed-package locks distinguish scope, active state and upgrades while retaining canonical content fingerprints. |
 | [extensions/services/app-storage/tests/cases/queries.rs](../extensions/services/app-storage/tests/cases/queries.rs) | PostgreSQL keyset/equality and public window projections with hostile bound values and foreign namespaces. |

@@ -27,8 +27,10 @@ split, deeper commerce domains, marketplaces and additional services, independen
 API/MCP/SDK use and mandatory assembled-product regression. Knowledge and the other
 planned services have not yet completed standalone extraction. The SDK retains uncertain tool/write outcomes; both Node CI versions pass. Core and migration
 image publication now succeeds under `ghcr.io/veyndo` with their packaged smoke checks.
-Hosting repository relinking still awaits final organization app authorization;
-the merged website proxy fix is not deployed yet. The handbook is available at
+The Northflank GitHub organization connection is now saved for exactly the three
+authorized repositories. Build-source remapping is recorded in the component
+plan; complete hosted rollout acceptance remains open. The merged website proxy
+fix is not deployed yet. The handbook is available at
 <https://veyndo.github.io/veyndo/docs/> during that transition.
 
 ## Shared app persistence, 5 November 2026
@@ -47,6 +49,20 @@ tenant isolation checks and native marketplace HTTP/MCP order, stock, invoice an
 Flow fixture also pass. A separately authenticated app host, its supported schema
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
+
+## Shared atomic app installation, 5 November 2026
+
+Apps [0.5.0](https://github.com/veyndo/apps/releases/tag/v0.5.0) supplies the original
+installation transaction to the complete platform. Required host hooks preserve
+compiler/trust, commerce/dependencies, checked schema migration, models, default
+configuration and schedules. Tenant/package locks, quota, immutable versions,
+package/version persistence and the outbox event share the original transaction.
+
+Independent PostgreSQL tests and native installation/upgrade, private preview,
+Studio, staging/release, signed package, model/job, tenant, visual-workspace and
+Marketplace fixtures pass. Authentication, the complete package compiler and
+remaining lifecycle, supported independent schema/service and hosted API/MCP are
+still open. [Evidence](evidence/app-installation-component-2026-11-05.md).
 
 ## Shared app admission, 5 November 2026
 

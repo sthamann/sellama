@@ -153,7 +153,10 @@ try:
  assert any(j['flow']=='form_review' and j['state']=='completed' for j in jobs),jobs
  print('PASS published form → native cart → private append-only app inbox; no public read, PII bypass, mutation or release of operational answers')
  state['fields']=staged
- plan=call('/api/merchant/site/plan',{'id':'home','revision':stage_revision,'instruction':'Make it airier','urls':['http://127.0.0.1/private'],'style':True,'content':True},sh)
+ calls_before=len(seen)
+ call('/api/merchant/site/plan',{'id':'home','revision':stage_revision,'instruction':'Make it airier','urls':['http://127.0.0.1/private'],'style':True,'content':True},sh,400)
+ assert len(seen)==calls_before,'Unsafe reference must not reach the model'
+ plan=call('/api/merchant/site/plan',{'id':'home','revision':stage_revision,'instruction':'Make it airier','style':True,'content':True},sh)
  assert len(plan['variants'])==2 and plan['approvalRequired'];assert rows(sh)[0]['content']['blocks'][0]['text']['de-DE']=='Neue Kollektion'
  image='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aS5cAAAAASUVORK5CYII='
  state['styleOnly']=True

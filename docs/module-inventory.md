@@ -106,6 +106,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/record_history.rs](../src/apps/record_history.rs) | Bounded app-record history, current entity rights and restoration through the normal managed save path. |
 | [src/apps/record_import.rs](../src/apps/record_import.rs) | Private source-record intake reuses an installed app's declared native save action, schema, rights and package fence. |
 | [src/apps/record_lifecycle.rs](../src/apps/record_lifecycle.rs) | Generic app-owned record lifecycle contracts. Status vocabulary and transitions belong to the app Manifest. |
+| [src/apps/record_write.rs](../src/apps/record_write.rs) | Native lifecycle/history hooks around the shared record mutation engine; package and typed field validation stay in data.rs. |
 | [src/apps/records.rs](../src/apps/records.rs) | One fixed PostgreSQL record store; every operation retains tenant/app/model identity and original wire values. |
 | [src/apps/registry.rs](../src/apps/registry.rs) | Atomic installation and additive schema upgrades; immutable version digests preserve history. |
 | [src/apps/relations.rs](../src/apps/relations.rs) | Shared relation projections are maintained transactionally by app_record_project; wire values remain bounded ordered arrays. |
@@ -1815,8 +1816,12 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/services/app-storage/src/error.rs](../extensions/services/app-storage/src/error.rs) | Preserve database errors and explicit idempotency/quota conflicts without inventing HTTP or transport authority. |
 | [extensions/services/app-storage/src/jobs.rs](../extensions/services/app-storage/src/jobs.rs) | Original native app job persistence and transactional event handoff; no worker, principal or provider execution. |
 | [extensions/services/app-storage/src/lib.rs](../extensions/services/app-storage/src/lib.rs) | Scoped storage ports for trusted hosts; no identity resolution, pool creation, service dispatch or schema installation. |
+| [extensions/services/app-storage/src/mutations.rs](../extensions/services/app-storage/src/mutations.rs) | Shared record CAS/replay transaction; host admission, typed validation and audit hooks remain mandatory caller ports. |
 | [extensions/services/app-storage/src/progress.rs](../extensions/services/app-storage/src/progress.rs) | Lease-fenced native progress persistence, called only after host current-actor and package admission. |
+| [extensions/services/app-storage/src/queries.rs](../extensions/services/app-storage/src/queries.rs) | Parameter-bound app record pages; the host admits model indexes, public scope and field projection. |
 | [extensions/services/app-storage/src/records.rs](../extensions/services/app-storage/src/records.rs) | Original fixed-table record SQL; host admission, signed scope, field rules and commit stay with the caller. |
+| [extensions/services/app-storage/tests/cases/mutations.rs](../extensions/services/app-storage/tests/cases/mutations.rs) | Actual PostgreSQL record mutation concurrency, hook rollback, scoped identity and immutable replay cases. |
+| [extensions/services/app-storage/tests/cases/queries.rs](../extensions/services/app-storage/tests/cases/queries.rs) | PostgreSQL keyset/equality and public window projections with hostile bound values and foreign namespaces. |
 | [extensions/services/app-storage/tests/postgres.rs](../extensions/services/app-storage/tests/postgres.rs) | Actual independent PostgreSQL persistence: composite scope, atomic handoff, replay, quota, restart and lease fences. |
 | [extensions/services/connectors/src/actions.rs](../extensions/services/connectors/src/actions.rs) | Existing standard-app actions and event/export endpoints share validated tenant-bound dispatch. |
 | [extensions/services/connectors/src/crypto.rs](../extensions/services/connectors/src/crypto.rs) | Authenticated encryption binds config, OAuth verifiers, messages and receipts to tenant and app. |

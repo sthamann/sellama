@@ -9,7 +9,10 @@ accepted. Moving a repository does not establish standalone service behavior.
 snapshot in `extensions/services/app-storage/` is verified by
 `components.lock.json`. `src/apps/records.rs`, `jobs.rs` and `job_callbacks.rs`
 use its record/job SQL through the same scoped transaction. Native admission,
-field/reference validation, CAS, history, evidence and publication remain in Core.
+field/reference validation, history, evidence and publication admission remain in
+Core. Apps 0.2.0 also owns record CAS/replay and page/filter/window SQL;
+`src/apps/record_write.rs` supplies native lifecycle and history hooks to that
+shared mutation engine.
 The trusted storage crate is distinct from the no-SQL Wasm `veyndo-apps` crate;
 Cargo boundary controls prohibit guest/domain imports of the storage package.
 [Independent and assembled tests](evidence/app-storage-component-2026-11-05.md).

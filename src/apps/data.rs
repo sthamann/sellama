@@ -32,24 +32,15 @@ pub(super) async fn list_scoped(
     if after.len() > 100 {
         return Err(bad("App cursor exceeds limit"));
     }
-    let mut query = sqlx::QueryBuilder::<sqlx::Postgres>::new(
-        "SELECT fields||jsonb_build_object('id',id,'revision',revision) AS data FROM app_records r WHERE tenant=",
-    );
-    query
-        .push_bind(t)
-        .push(" AND app=")
-        .push_bind(&m.id)
-        .push(" AND entity=")
-        .push_bind(&e.name)
-        .push(" AND id > ")
-        .push_bind(after);
-    if let Some(id) = input.get("id") {
-        let id = id
-            .as_str()
-            .filter(|s| !s.is_empty() && s.len() <= 100)
-            .ok_or(bad("Invalid app record ID"))?;
-        query.push(" AND id = ").push_bind(id);
-    }
+    let id = input
+        .get("id")
+        .map(|id| {
+            id.as_str()
+                .filter(|s| !s.is_empty() && s.len() <= 100)
+                .ok_or(bad("Invalid app record ID"))
+        })
+        .transpose()?;
+    let mut filters = Vec::new();
     if let Some(filter) = input.get("filter") {
         let filter = filter
             .as_object()
@@ -72,33 +63,52 @@ pub(super) async fn list_scoped(
             if !valid {
                 return Err(bad("Invalid indexed app filter"));
             }
-            query.push(" AND EXISTS(SELECT 1 FROM app_record_indexes ix WHERE ix.tenant=r.tenant AND ix.app=r.app AND ix.entity=r.entity AND ix.record_id=r.id AND ix.field=")
-                .push_bind(&f.name).push(" AND ix.value_hash=sha256(jsonb_send(").push_bind(value.clone())
-                .push("::jsonb)) AND ix.value=").push_bind(value.clone()).push("::jsonb)");
+            filters.push(veyndo_app_storage::queries::Filter {
+                field: &f.name,
+                value,
+            });
         }
     }
-    if let Some(channel) = public_channel {
-        publication::predicate(&mut query, e, channel);
-    }
-    query.push(" ORDER BY id LIMIT ").push_bind(limit + 1);
     let mut tx = a.db.begin().await?;
     sqlx::query("SELECT set_config('rac.tenant',$1,true)")
         .bind(t)
         .execute(&mut *tx)
         .await?;
-    let rows = query.build().fetch_all(&mut *tx).await?;
+    let publication = public_channel.and_then(|channel| {
+        e.publication
+            .as_ref()
+            .map(|p| veyndo_app_storage::queries::Window {
+                status_field: &p.status_field,
+                channel_field: &p.channel_field,
+                starts_at: &p.starts_at,
+                channel,
+            })
+    });
+    let page = veyndo_app_storage::queries::list(
+        &mut tx,
+        veyndo_app_storage::Scope {
+            tenant: t,
+            app: &m.id,
+        },
+        &e.name,
+        &veyndo_app_storage::queries::Query {
+            limit,
+            after,
+            id,
+            filters: &filters,
+            publication,
+        },
+    )
+    .await
+    .map_err(persistence::error)?;
     tx.commit().await?;
-    let has_more = rows.len() > limit as usize;
-    let elements = rows
+    let has_more = page.has_more;
+    let elements = page
+        .rows
         .iter()
-        .take(limit as usize)
-        .map(|r| records::project(e, &r.get::<Value, _>("data")))
+        .map(|row| records::project(e, row))
         .collect::<Vec<_>>();
-    let next = if has_more {
-        elements.last().and_then(|r| r["id"].as_str())
-    } else {
-        None
-    };
+    let next = page.next_cursor;
     let mut result =
         json!({"elements":elements,"limit":limit,"hasMore":has_more,"nextCursor":next});
     if let Some(graph) = ontology::project(t, m, e, &result["elements"]) {
@@ -200,60 +210,11 @@ async fn write_tx(
         .as_str()
         .filter(|s| !s.is_empty() && s.len() <= 100)
         .ok_or(bad("Record id required"))?;
-    let expected = v["revision"].as_i64().unwrap_or(0);
-    let key = records::lock_key(t, &m.id, &e.name, id);
     sqlx::query("SELECT set_config('rac.tenant',$1,true)")
         .bind(t)
         .execute(&mut **tx)
         .await?;
-    sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,8))")
-        .bind(key)
-        .execute(&mut **tx)
-        .await?;
-    let current = records::get(tx, t, &m.id, &e.name, id, true).await?;
-    let revision = current
-        .as_ref()
-        .and_then(|r| r["revision"].as_i64())
-        .unwrap_or(0);
-    if replay && let Some(row) = &current {
-        let prior: Value = e
-            .fields
-            .iter()
-            .map(|f| (f.name.clone(), row[&f.name].clone()))
-            .collect();
-        let incoming: Value = e
-            .fields
-            .iter()
-            .map(|f| (f.name.clone(), v["fields"][&f.name].clone()))
-            .collect();
-        if prior != incoming {
-            return Err(conflict(
-                "Imported app content differs; review an explicit update",
-            ));
-        }
-        return Ok(json!({"id":id,"revision":revision,"fields":v["fields"],"replayed":true}));
-    }
-    if revision != expected {
-        return Err(Error::revision(revision, "App record revision changed"));
-    }
-    record_lifecycle::change(e, current.as_ref(), &v["fields"])?;
-    if let Some(before) = &current {
-        let prior: Value = e
-            .fields
-            .iter()
-            .map(|f| (f.name.clone(), before[&f.name].clone()))
-            .collect();
-        record_history::capture(tx, t, m, e, id, expected, &prior).await?;
-    }
-    let revision = revision + 1;
-    records::put(tx, t, &m.id, &e.name, id, revision, &v["fields"]).await?;
-    sqlx::query("INSERT INTO outbox(tenant,kind,data) VALUES($1,'app.record.changed',$2)")
-        .bind(t)
-        .bind(json!({"app":m.id,"entity":e.name,"id":id,"revision":revision}))
-        .execute(&mut **tx)
-        .await?;
-    record_history::capture(tx, t, m, e, id, revision, &v["fields"]).await?;
-    Ok(json!({"id":id,"revision":revision,"fields":v["fields"]}))
+    record_write::apply(tx, t, m, e, id, v, replay).await
 }
 /// Every generic import and ordinary save uses the same app-owned normalization.
 pub(crate) fn normalize_input(m: &Manifest, v: &Value) -> Result<Value> {

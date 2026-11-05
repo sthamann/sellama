@@ -29,6 +29,14 @@ history and publication remain in the native host. This introduces no second
 store, production schema migration or plugin SQL access.
 [Extraction tests and remaining standalone host work](evidence/app-storage-component-2026-11-05.md).
 
+Version 0.2.0 also owns the shared record mutation and page-query sequence. Native
+writers keep package/model/reference/language checks, then call the common
+record lock, revision check, exact replay and atomic event path. Mandatory host
+hooks enforce lifecycle rules and retain bounded history in that transaction.
+List queries bind filter values and publication field names; the native host
+still admits declared indexes and projects only currently visible fields.
+[Record operation acceptance](evidence/app-record-operations-2026-11-05.md).
+
 The full identity is `(tenant, app, entity, id)`. Sandboxes use their admitted
 private tenant and existing personal ownership/expiry checks. Equal app names,
 record IDs or different schema versions in unrelated shops cannot collide.

@@ -46,6 +46,21 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Shared record operations, 5 November 2026
+
+Apps [0.2.0](https://github.com/veyndo/apps/releases/tag/v0.2.0) now owns record
+revision checks, exact import replay, transactional writes/events and bounded
+record pages with indexed filters and publication windows. Core uses the same
+code through its existing lifecycle/history hooks and current admission.
+
+Independent PostgreSQL and component CI pass. Native app storage, jobs, schema
+changes, object extensions, isolation, visual editor publication/history/form
+privacy and the marketplace order fixture pass with this version. The visual
+workspace fixture now correctly expects unsafe reference URLs to be rejected
+before reaching a model. MKT-03b remains open for complete model/identity
+extraction and a separately authenticated API/MCP service.
+[Scope and evidence](evidence/app-record-operations-2026-11-05.md).
+
 ## Versioned component host exchange, 5 November 2026
 
 SDK 0.2.0 now exports the shared host contract and generated TypeScript inputs for

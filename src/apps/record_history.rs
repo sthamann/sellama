@@ -14,7 +14,7 @@ pub(super) fn router() -> Router<App> {
         )
 }
 pub(super) async fn capture(
-    tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,
+    tx: &mut sqlx::PgConnection,
     t: &str,
     m: &Manifest,
     e: &Entity,
@@ -24,7 +24,7 @@ pub(super) async fn capture(
 ) -> Result<()> {
     sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,948))")
         .bind(format!("{t}:{}", m.id))
-        .execute(&mut **tx)
+        .execute(&mut *tx)
         .await?;
     let scopes: Vec<String> = m
         .actions
@@ -38,12 +38,12 @@ pub(super) async fn capture(
         })
         .collect();
     sqlx::query("INSERT INTO app_record_versions(tenant,app,entity,record_id,revision,fields,read_scopes,actor,source) VALUES($1,$2,$3,$4,$5,$6,$7,nullif(current_setting('veyndo.actor',true),''),coalesce(nullif(current_setting('veyndo.source',true),''),'app.save')) ON CONFLICT DO NOTHING")
-        .bind(t).bind(&m.id).bind(&e.name).bind(id).bind(revision).bind(fields).bind(json!(scopes)).execute(&mut **tx).await?;
+        .bind(t).bind(&m.id).bind(&e.name).bind(id).bind(revision).bind(fields).bind(json!(scopes)).execute(&mut *tx).await?;
     sqlx::query("DELETE FROM app_record_versions WHERE tenant=$1 AND app=$2 AND entity=$3 AND record_id=$4 AND revision<=$5")
-        .bind(t).bind(&m.id).bind(&e.name).bind(id).bind(revision-20).execute(&mut **tx).await?;
+        .bind(t).bind(&m.id).bind(&e.name).bind(id).bind(revision-20).execute(&mut *tx).await?;
     // An app cannot grow retained version storage without bound. Current rows retain their independent quota.
     sqlx::query("DELETE FROM app_record_versions WHERE tenant=$1 AND app=$2 AND (entity,record_id,revision) IN (SELECT entity,record_id,revision FROM (SELECT entity,record_id,revision,sum(pg_column_size(fields)) OVER(ORDER BY created_at DESC,entity,record_id,revision DESC) AS size FROM app_record_versions WHERE tenant=$1 AND app=$2) r WHERE size>16777216)")
-        .bind(t).bind(&m.id).execute(&mut **tx).await?;
+        .bind(t).bind(&m.id).execute(&mut *tx).await?;
     Ok(())
 }
 fn entity<'a>(m: &'a Manifest, name: &str, h: &RequestContext, write: bool) -> Result<&'a Entity> {

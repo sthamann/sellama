@@ -1021,13 +1021,18 @@
     },
     "extensions/apps/marketplaces/service/main.rs": {
       "status": "unproved",
-      "sha256": "372feabcfcbed6854f9ebbbf85f45cdc8d66f19ac7aa528fb32717dd68ebec01",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "ebf9f56966498f58bbfc27cf0783441bee6989d637921d73924358777e265375",
+      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
     },
     "extensions/apps/marketplaces/service/mapping.rs": {
       "status": "unproved",
       "sha256": "91f9189c480a9bff47de3cbd12af914763e7f6575437544d2368844ff0922e4e",
       "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+    },
+    "extensions/apps/marketplaces/service/mcp.rs": {
+      "status": "unproved",
+      "sha256": "a15b0c588d318a8a6447bae001cdf81383ede4ecad404cfde4942d28f666fef0",
+      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
     },
     "extensions/apps/marketplaces/service/providers.rs": {
       "status": "unproved",
@@ -1041,8 +1046,8 @@
     },
     "extensions/apps/marketplaces/service/runtime.rs": {
       "status": "unproved",
-      "sha256": "32e15ae07befd2ed9ff4a6a6b13eee0c955da88c17211af265fcb64f58e4024f",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "b822dfd20f90aa2a7071e1c62e3cbd63cfa1a6487d8c5a8fbf6257aed8fd56a7",
+      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
     },
     "extensions/apps/marketplaces/service/sync.rs": {
       "status": "unproved",
@@ -4396,12 +4401,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "de01e9cdb5d3e16ec81ce7ce92898ab67d72f00f582fb0e658daf00f62f460c3",
-      "review": "Migration intake reviewed: native private catalogue/category/page owners, exact historical provenance without purchase effects, current package/creator/lease/hash fences and native replay lock order; independent Rust package uses shared money/network policy only; new HTML rich blocks preserve text and list structure. Real source/Core HTTP, signed roles, cancellation, replay, concurrent callbacks and simulated purchase regressions passed. External source completeness and SQL are not claimed proved."
+      "sha256": "8a70392bdd4b98eeb71cae6a82cf1cbe0a6e19db03cfb0e67e9c1568c57d27f4",
+      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
     },
     "Cargo.toml": {
-      "sha256": "c8d3a7dd743e6e24f8b1af7c96034a46f3e273c3493d44ec872734fd7df3c6a9",
-      "review": "Removed only Shopware app registration, manifest fixture, binary and suite; kept generic app UI and operational data controls; reviewed final Cargo formatting and source removal"
+      "sha256": "6612311bbb3893b6d755bb9eae5c0c74e4288bdce03c9934e927ea4244570aae",
+      "review": "Reviewed removal of the root marketplace binary target in favor of the pinned standalone workspace package; whitespace-only normalization after passing independent and native marketplace tests. The component lock and independent Cargo/container inputs remain reviewed, not mathematical proofs."
+    },
+    "components.lock.json": {
+      "sha256": "69435bb7d8bb6db777e2cce2fac16ed5b9164ee05ad65b86d9499e295b9ea873",
+      "review": "Reviewed Marketplace extraction at edc49f56: source changes share authenticated HTTP/MCP dispatch with original provider operations; seven Rust tests, standalone HTTP/MCP/SDK, real native PostgreSQL fixture and independent container CI passed. Build inputs now include the exact upstream snapshot lock and independent Cargo/container manifests. No mathematical proof of network/provider code is claimed."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "496067ed6a47c2778baed402bd51378c139687fbb3b36f8f965bf880129de013",
@@ -4530,6 +4539,18 @@
     "deploy/Dockerfile": {
       "sha256": "32cff221980fddc3973e774760e28c3bc7dff414234d8b400fea9683b465a99e",
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "extensions/apps/marketplaces/Cargo.lock": {
+      "sha256": "5b3cfa10f9063f31f90bbb806b06f7975f7f567c5bd7b5dc21e3bb849447b9b6",
+      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
+    },
+    "extensions/apps/marketplaces/Cargo.toml": {
+      "sha256": "06b963df11a4ba9f6790442472d4fd81bfa1897bb17aaffbc3cd7a289455f49f",
+      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
+    },
+    "extensions/apps/marketplaces/Dockerfile": {
+      "sha256": "8fb1cabdce8ca3c98b56aef92d9213e3316d5553cfeb92bd14fdbc632d662ea0",
+      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
     },
     "extensions/sdk/native-asset-actions.json": {
       "sha256": "7b5834f31ac0b86a3808ef11f4ae122e38457081cf06c782a8f6d60a1027ee77",
@@ -5088,8 +5109,8 @@
       "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "scripts/formal/registry.py": {
-      "sha256": "e16a5fbd178927c17e568eb3b98701a3a872cb4e5c4ce5c6aab9b1227a783342",
-      "review": "Native capture budget and receipt review; bounded generated conformance domains; SQL/network adapters remain unproved"
+      "sha256": "db7f16e5a1fe7b841535052ff474e5bef8c7ba00e62a70ce342b0ee64f9b0b8d",
+      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
     },
     "scripts/formal/runners.py": {
       "sha256": "30249280fde2b234aaa1fc6dfd6eff9c0423e7e8e5cca72cb4221325468dc58f",

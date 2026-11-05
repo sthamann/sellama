@@ -1,5 +1,16 @@
 # Changelog
 
+## Versioned component host API, 5 November 2026
+
+SDK 0.2.0 adds generated host input DTOs and a server client for record, channel,
+paid-order and durable-job exchanges. Marketplace HTTP/MCP now expose record
+actions and synchronization through an explicit native idempotency key. Fixed
+per-tenant host paths support independent commerce hosts. The native job callback
+reuses current compound permissions, package admission and the original queue
+and outbox. Independent and actual PostgreSQL fixtures cover replay, conflict,
+revocation, isolation and the existing order/stock/document effects.
+[Contract and evidence](docs/evidence/marketplace-host-2026-11-05.md).
+
 ## Independent Marketplace component, 5 November 2026
 
 Extracted the original provider, Studio and test history into `veyndo/marketplaces`.

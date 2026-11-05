@@ -81,6 +81,17 @@ The public website's shared styles live in nine documented modules under
 handbook keep their existing asset URLs and identical CSS. `scripts/check_site.py`
 compares both published assets to that bundle. [Extraction evidence](evidence/formal-modularity-2026-10-23.md#website-stylesheet-follow-up).
 
+## Versioned component host inputs
+
+`extensions/sdk/host-exchange-v1.json` owns generic record/channel/order/job input
+contracts. The independent SDK derives its host TypeScript inputs and closed
+operation names from that source, with an exact provenance pin. The structure
+check compares exported order/address fields to the existing native Rust DTOs.
+`src/apps/job_enqueue.rs` admits only declared job actions with `jobs.write`,
+preserves the authenticated actor and delegates to the ordinary app gateway.
+`core_callbacks.rs` checks explicit host versions; legacy callers retain v1.
+Native durable jobs, leases, rights, consent, order and stock owners remain unchanged.
+
 ## Marketplace app and generic intake
 
 The upstream owner is [veyndo/marketplaces](https://github.com/veyndo/marketplaces).

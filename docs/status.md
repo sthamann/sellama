@@ -25,12 +25,25 @@ durable host storage and separately embeddable Studio UI remain open.
 The [component task list](commerce-components.md) tracks the complete repository
 split, deeper commerce domains, marketplaces and additional services, independent
 API/MCP/SDK use and mandatory assembled-product regression. Knowledge and the other
-planned services have not yet completed standalone extraction. SDK 0.1.1 additionally
-retains uncertain tool/write outcomes; both Node CI versions pass. Core and migration
+planned services have not yet completed standalone extraction. The SDK retains uncertain tool/write outcomes; both Node CI versions pass. Core and migration
 image publication now succeeds under `ghcr.io/veyndo` with their packaged smoke checks.
 Hosting repository relinking still awaits final organization app authorization;
 the merged website proxy fix is not deployed yet. The handbook is available at
 <https://veyndo.github.io/veyndo/docs/> during that transition.
+
+## Versioned component host exchange, 5 November 2026
+
+SDK 0.2.0 now exports the shared host contract and generated TypeScript inputs for
+records, channel/product projections, exact paid-order snapshots and durable job
+operations. Marketplace HTTP/MCP expose record list/save and synchronization with
+an explicit request key. Independent hosts can use their own fixed route prefix.
+Veyndo's callback reuses the original action gateway, actor permissions, quotas,
+idempotency, package checks and transactional outbox. No second queue was added.
+
+Independent HTTP/MCP/SDK tests and the actual Core/PostgreSQL marketplace fixture
+pass, including duplicate/conflicting requests, missing job/PII capabilities,
+revoked keys, foreign tenants, version mismatch and stale record revisions.
+[Evidence and remaining durable-host work](evidence/marketplace-host-2026-11-05.md).
 
 ## Canvas editing context, 5 November 2026
 

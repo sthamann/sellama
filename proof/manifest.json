@@ -991,13 +991,13 @@
     },
     "extensions/apps/marketplaces/service/config.rs": {
       "status": "unproved",
-      "sha256": "1ba0c4346b00220ee1e307627fe7b0c9355ec968aa4ad3bf246964bb8d0b2c87",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "b2a355e6783645f0b3851c584200c517731b3324cc56d696b87a7bb390ec5a82",
+      "review": "Reviewed Marketplace 0.2.0 at f653e89e and host exchange v1: fixed hostPath/version header, manifest-derived record/sync API and native declared-job enqueue preserve current capability/compound rights, actor, package, CAS, quotas and atomic job/outbox. Eight provider tests, SDK Node22/24 wire/type/provenance CI, independent HTTP/MCP/SDK and fresh Core/PostgreSQL replay/revocation/foreign/version/PII denial plus native stock/order/document/Flow/restart passed. Existing extracted policy Lean/conformance and mutation audit also passed; async/provider code remains unproved."
     },
     "extensions/apps/marketplaces/service/core.rs": {
       "status": "unproved",
-      "sha256": "527324cf8b5a247b9b64d99d0d3472f41cde3614393b79dad81e40479268ae89",
-      "review": "Reviewed generic tenant-scoped paid external-order/channel exchange, native exact source amounts, existing stock/customer/document/outbox ownership, app capability/FK/ID lookup boundaries and app-owned bounded seller protocols/jobs; local provider PostgreSQL replay restart isolation and UI regressions. Async provider integration remains unproved."
+      "sha256": "63f8a9d99efb5dad73a23dc1a42478f53ef1770cb1ab6e2ac03cdac0bb620f9c",
+      "review": "Reviewed Marketplace 0.2.0 at f653e89e and host exchange v1: fixed hostPath/version header, manifest-derived record/sync API and native declared-job enqueue preserve current capability/compound rights, actor, package, CAS, quotas and atomic job/outbox. Eight provider tests, SDK Node22/24 wire/type/provenance CI, independent HTTP/MCP/SDK and fresh Core/PostgreSQL replay/revocation/foreign/version/PII denial plus native stock/order/document/Flow/restart passed. Existing extracted policy Lean/conformance and mutation audit also passed; async/provider code remains unproved."
     },
     "extensions/apps/marketplaces/service/ebay.rs": {
       "status": "unproved",
@@ -1031,8 +1031,8 @@
     },
     "extensions/apps/marketplaces/service/mcp.rs": {
       "status": "unproved",
-      "sha256": "a15b0c588d318a8a6447bae001cdf81383ede4ecad404cfde4942d28f666fef0",
-      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
+      "sha256": "03bdd4a773ab842065e48f40c68f92c3873ca121a9345d0ee2fc6d1bb81a6065",
+      "review": "Reviewed Marketplace 0.2.0 at f653e89e and host exchange v1: fixed hostPath/version header, manifest-derived record/sync API and native declared-job enqueue preserve current capability/compound rights, actor, package, CAS, quotas and atomic job/outbox. Eight provider tests, SDK Node22/24 wire/type/provenance CI, independent HTTP/MCP/SDK and fresh Core/PostgreSQL replay/revocation/foreign/version/PII denial plus native stock/order/document/Flow/restart passed. Existing extracted policy Lean/conformance and mutation audit also passed; async/provider code remains unproved."
     },
     "extensions/apps/marketplaces/service/providers.rs": {
       "status": "unproved",
@@ -1046,8 +1046,8 @@
     },
     "extensions/apps/marketplaces/service/runtime.rs": {
       "status": "unproved",
-      "sha256": "b822dfd20f90aa2a7071e1c62e3cbd63cfa1a6487d8c5a8fbf6257aed8fd56a7",
-      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
+      "sha256": "7b96fed646f754a0efc18e7fae4f5b028ca8f7464013799c2875a26526cc1953",
+      "review": "Reviewed Marketplace 0.2.0 at f653e89e and host exchange v1: fixed hostPath/version header, manifest-derived record/sync API and native declared-job enqueue preserve current capability/compound rights, actor, package, CAS, quotas and atomic job/outbox. Eight provider tests, SDK Node22/24 wire/type/provenance CI, independent HTTP/MCP/SDK and fresh Core/PostgreSQL replay/revocation/foreign/version/PII denial plus native stock/order/document/Flow/restart passed. Existing extracted policy Lean/conformance and mutation audit also passed; async/provider code remains unproved."
     },
     "extensions/apps/marketplaces/service/sync.rs": {
       "status": "unproved",
@@ -1661,8 +1661,8 @@
     },
     "src/apps/core_callbacks.rs": {
       "status": "unproved",
-      "sha256": "92a40dc9f3740da323e7699ea23b9895cb32517bca4700657a1d9cb44492fe9b",
-      "review": "2026-10-19 reviewed native read-only import projection against shared product/category/address owners; paired CRM/history PII and private target/package/digest checks; generic completion evidence atomically uses existing job creator/lease/package and record CAS, platform AEAD, native actual-field verification, no new app table or queue. Actual eight-domain migration/archival/restart/tamper and native app callback/jobs/admin creation tests pass; pure cancelled-success policy has exact Lean claim, all boolean cases and a true-return negative mutation. SQL, cryptography, async service correctness and public hosting remain outside formal proof."
+      "sha256": "466eaf4a368e0fb2566e0b5da1c9a321c57c01618faca40f715455fba214810b",
+      "review": "Reviewed host exchange v1 inputs and declared job enqueue callback: preserves authenticated principal, explicit jobs.write capability, registered job handler, current compound action rights, schema validation, live-only quota/idempotency/outbox path. Actual native PostgreSQL marketplace fixture passed replay, changed-key conflict, missing capability/PII, revoked key, foreign tenant and version rejection with no queued side effects; native orders/stock/Flow/invoice/restart remain passing. No new mathematical proof of async/network code is claimed."
     },
     "src/apps/core_documents.rs": {
       "status": "unproved",
@@ -1784,6 +1784,11 @@
       "sha256": "57c90762326cb0b41f691267eff54499f1830527015ed12fb48149f37114aa43",
       "review": "2026-10-19 reviewed native read-only import projection against shared product/category/address owners; paired CRM/history PII and private target/package/digest checks; generic completion evidence atomically uses existing job creator/lease/package and record CAS, platform AEAD, native actual-field verification, no new app table or queue. Actual eight-domain migration/archival/restart/tamper and native app callback/jobs/admin creation tests pass; pure cancelled-success policy has exact Lean claim, all boolean cases and a true-return negative mutation. SQL, cryptography, async service correctness and public hosting remain outside formal proof."
     },
+    "src/apps/job_enqueue.rs": {
+      "status": "unproved",
+      "sha256": "0648d074ad0f5f74218c653245378e037697c880d244900c5d6b44b59e8b3f26",
+      "review": "Reviewed host exchange v1 inputs and declared job enqueue callback: preserves authenticated principal, explicit jobs.write capability, registered job handler, current compound action rights, schema validation, live-only quota/idempotency/outbox path. Actual native PostgreSQL marketplace fixture passed replay, changed-key conflict, missing capability/PII, revoked key, foreign tenant and version rejection with no queued side effects; native orders/stock/Flow/invoice/restart remain passing. No new mathematical proof of async/network code is claimed."
+    },
     "src/apps/job_evidence.rs": {
       "status": "unproved",
       "sha256": "e3ae172e1ada5e60071840d88f02ddd975f9a7c4d27c9516652d10f22f21abc6",
@@ -1811,8 +1816,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "3c70c6459e1690c81ad319999177264d8bc83fa1d62125ca37d3fee4adfc5805",
-      "review": "App upgrade final review: current saved Flow membership and shared additional/core rights on the existing locked connection; explicit validation-rule schema migration reuses bounded native field checks; payment registry preserves active basis/channel method coverage. Real PostgreSQL negative fixtures reproduced old admission and pass after fixes. SQL/async admission remains unproved."
+      "sha256": "c6702fad9758e0ec3b1dd9b2205765c30a3206439d9dd537bbd635ee2fc948e0",
+      "review": "Reviewed host exchange v1 inputs and declared job enqueue callback: preserves authenticated principal, explicit jobs.write capability, registered job handler, current compound action rights, schema validation, live-only quota/idempotency/outbox path. Actual native PostgreSQL marketplace fixture passed replay, changed-key conflict, missing capability/PII, revoked key, foreign tenant and version rejection with no queued side effects; native orders/stock/Flow/invoice/restart remain passing. No new mathematical proof of async/network code is claimed."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -4401,16 +4406,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "8a70392bdd4b98eeb71cae6a82cf1cbe0a6e19db03cfb0e67e9c1568c57d27f4",
-      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
+      "sha256": "d8fd757468f2a4ccbb8bc7c18a9626f5ba1e39cef3d3e8d9959f56ae6c722c65",
+      "review": "Reviewed Marketplace 0.2.0 at f653e89e and host exchange v1: fixed hostPath/version header, manifest-derived record/sync API and native declared-job enqueue preserve current capability/compound rights, actor, package, CAS, quotas and atomic job/outbox. Eight provider tests, SDK Node22/24 wire/type/provenance CI, independent HTTP/MCP/SDK and fresh Core/PostgreSQL replay/revocation/foreign/version/PII denial plus native stock/order/document/Flow/restart passed. Existing extracted policy Lean/conformance and mutation audit also passed; async/provider code remains unproved."
     },
     "Cargo.toml": {
       "sha256": "6612311bbb3893b6d755bb9eae5c0c74e4288bdce03c9934e927ea4244570aae",
       "review": "Reviewed removal of the root marketplace binary target in favor of the pinned standalone workspace package; whitespace-only normalization after passing independent and native marketplace tests. The component lock and independent Cargo/container inputs remain reviewed, not mathematical proofs."
     },
     "components.lock.json": {
-      "sha256": "69435bb7d8bb6db777e2cce2fac16ed5b9164ee05ad65b86d9499e295b9ea873",
-      "review": "Reviewed Marketplace extraction at edc49f56: source changes share authenticated HTTP/MCP dispatch with original provider operations; seven Rust tests, standalone HTTP/MCP/SDK, real native PostgreSQL fixture and independent container CI passed. Build inputs now include the exact upstream snapshot lock and independent Cargo/container manifests. No mathematical proof of network/provider code is claimed."
+      "sha256": "5e8ac835d8e1f56aa56fb3c1f44d8141aaaf1d5353efa0a4a048dd2c83f964a4",
+      "review": "Reviewed Marketplace 0.2.0 at f653e89e and host exchange v1: fixed hostPath/version header, manifest-derived record/sync API and native declared-job enqueue preserve current capability/compound rights, actor, package, CAS, quotas and atomic job/outbox. Eight provider tests, SDK Node22/24 wire/type/provenance CI, independent HTTP/MCP/SDK and fresh Core/PostgreSQL replay/revocation/foreign/version/PII denial plus native stock/order/document/Flow/restart passed. Existing extracted policy Lean/conformance and mutation audit also passed; async/provider code remains unproved."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "496067ed6a47c2778baed402bd51378c139687fbb3b36f8f965bf880129de013",
@@ -4541,16 +4546,20 @@
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "extensions/apps/marketplaces/Cargo.lock": {
-      "sha256": "5b3cfa10f9063f31f90bbb806b06f7975f7f567c5bd7b5dc21e3bb849447b9b6",
-      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
+      "sha256": "2b38dfedc96b9acb5ff19003964e3fcb1daa33df27ef594eb29bf4cdd1821e81",
+      "review": "Reviewed Marketplace 0.2.0 at f653e89e and host exchange v1: fixed hostPath/version header, manifest-derived record/sync API and native declared-job enqueue preserve current capability/compound rights, actor, package, CAS, quotas and atomic job/outbox. Eight provider tests, SDK Node22/24 wire/type/provenance CI, independent HTTP/MCP/SDK and fresh Core/PostgreSQL replay/revocation/foreign/version/PII denial plus native stock/order/document/Flow/restart passed. Existing extracted policy Lean/conformance and mutation audit also passed; async/provider code remains unproved."
     },
     "extensions/apps/marketplaces/Cargo.toml": {
-      "sha256": "06b963df11a4ba9f6790442472d4fd81bfa1897bb17aaffbc3cd7a289455f49f",
-      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
+      "sha256": "c8d6d70ce9803d8728ccff4779530998eb1916bad8442064d02db98a3c203b85",
+      "review": "Reviewed Marketplace 0.2.0 at f653e89e and host exchange v1: fixed hostPath/version header, manifest-derived record/sync API and native declared-job enqueue preserve current capability/compound rights, actor, package, CAS, quotas and atomic job/outbox. Eight provider tests, SDK Node22/24 wire/type/provenance CI, independent HTTP/MCP/SDK and fresh Core/PostgreSQL replay/revocation/foreign/version/PII denial plus native stock/order/document/Flow/restart passed. Existing extracted policy Lean/conformance and mutation audit also passed; async/provider code remains unproved."
     },
     "extensions/apps/marketplaces/Dockerfile": {
       "sha256": "8fb1cabdce8ca3c98b56aef92d9213e3316d5553cfeb92bd14fdbc632d662ea0",
       "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
+    },
+    "extensions/sdk/host-exchange-v1.json": {
+      "sha256": "27670dc38eb82e335e6a35c4064833a661a2b650dc9a3ae931d4d369d3e14212",
+      "review": "Reviewed host exchange v1 inputs and declared job enqueue callback: preserves authenticated principal, explicit jobs.write capability, registered job handler, current compound action rights, schema validation, live-only quota/idempotency/outbox path. Actual native PostgreSQL marketplace fixture passed replay, changed-key conflict, missing capability/PII, revoked key, foreign tenant and version rejection with no queued side effects; native orders/stock/Flow/invoice/restart remain passing. No new mathematical proof of async/network code is claimed."
     },
     "extensions/sdk/native-asset-actions.json": {
       "sha256": "7b5834f31ac0b86a3808ef11f4ae122e38457081cf06c782a8f6d60a1027ee77",
@@ -5109,8 +5118,8 @@
       "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "scripts/formal/registry.py": {
-      "sha256": "db7f16e5a1fe7b841535052ff474e5bef8c7ba00e62a70ce342b0ee64f9b0b8d",
-      "review": "Reviewed Marketplace extraction into veyndo/marketplaces at 44610b9f: unchanged provider algorithms and native callbacks; HTTP and MCP share authenticated dispatch. Standalone HTTP/MCP/SDK and native PostgreSQL marketplace fixture passed, including paid-order replay, stock, localization, invoice and Flow. Component snapshot and new Cargo owner are pinned; no new mathematical proof is claimed."
+      "sha256": "c2de659a396409f1ebb39e1c3d5063579cda28e76532523c8cbdbaca9387c9f1",
+      "review": "Reviewed host exchange v1 inputs and declared job enqueue callback: preserves authenticated principal, explicit jobs.write capability, registered job handler, current compound action rights, schema validation, live-only quota/idempotency/outbox path. Actual native PostgreSQL marketplace fixture passed replay, changed-key conflict, missing capability/PII, revoked key, foreign tenant and version rejection with no queued side effects; native orders/stock/Flow/invoice/restart remain passing. No new mathematical proof of async/network code is claimed."
     },
     "scripts/formal/runners.py": {
       "sha256": "30249280fde2b234aaa1fc6dfd6eff9c0423e7e8e5cca72cb4221325468dc58f",

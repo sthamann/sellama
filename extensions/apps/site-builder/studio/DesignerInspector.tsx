@@ -1,5 +1,6 @@
 /** Visible edit, element, agent and history modes share the same native draft and approval path. */
 import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { AppPanelHandle } from "../../../../frontend/src/admin/developer/AppPanelSizing";
 import { useContentLanguage } from "../../../../frontend/src/shared/i18n/ContentLanguage";
 import ContentLanguagePicker from "../../../../frontend/src/shared/i18n/ContentLanguagePicker";
 import Icon from "../../../../frontend/src/shared/ui/Icon";
@@ -17,6 +18,8 @@ import { useWorkspaceText } from "./workspace-i18n";
 import { useBlocks } from "./useBlockEditing";
 export type DesignerMode = "edit" | "blocks" | "agent" | "history";
 export default function DesignerInspector({
+  width,
+  onWidth,
   d,
   request,
   rights,
@@ -33,6 +36,8 @@ export default function DesignerInspector({
   onViewport,
   initialReference,
 }: {
+  width: number;
+  onWidth: (value: number) => void;
   scopeKey: string;
   initialReference?: string;
   onViewport: (device: "desktop" | "mobile") => void;
@@ -55,11 +60,12 @@ export default function DesignerInspector({
   const panel = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     if (panel.current) panel.current.scrollTop = 0;
-  }, [mode]);
+  }, [mode, d.selected, d.draft?.id]);
   const block = d.draft?.content.blocks.find((b) => b.id === d.selected);
   const editing = useBlocks();
   return (
     <aside className="designer-inspector" aria-label={t("tools")}>
+      <AppPanelHandle side="inspector" value={width} onChange={onWidth} />
       <div className="designer-modes" role="tablist" aria-label={t("tools")}>
         {(["edit", "blocks", "agent", "history"] as const).map((value) => (
           <button

@@ -38,11 +38,13 @@ export default function ProductEditor({
   request,
   categories,
   onBack,
+  backLabel,
   onCreated,
   canWrite = true,
   initialTab = "general",
   onDirtyChange,
 }: {
+  backLabel?: string;
   onDirtyChange?: (dirty: boolean) => void;
   canWrite?: boolean;
   initialTab?: string;
@@ -221,6 +223,7 @@ export default function ProductEditor({
       >
         <div className="studio-page catalog-workspace product-editor">
           <ProductEditorHeader
+            backLabel={backLabel}
             draft={draft}
             id={id}
             lang={safeLang}

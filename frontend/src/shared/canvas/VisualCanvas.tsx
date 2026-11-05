@@ -15,6 +15,7 @@ export type CanvasScene = {
   detail?: string;
   badge?: string;
   disabled?: boolean;
+  actionLabel?: string;
   preview: ReactNode;
   onOpen: () => void;
 };
@@ -152,7 +153,7 @@ export default function VisualCanvas({
               disabled={chosen.disabled}
               onClick={chosen.onOpen}
             >
-              {t("edit")}
+              {chosen.actionLabel ?? t("edit")}
               <Icon name="arrow" size={16} />
             </button>
           </div>
@@ -231,7 +232,7 @@ export default function VisualCanvas({
                 onClick={scene.onOpen}
                 aria-label={`${t("open")}: ${scene.title}`}
               >
-                {t("edit")}
+                {scene.actionLabel ?? t("edit")}
                 <Icon name="arrow" size={16} />
               </button>
               <div className="visual-canvas-scene-preview">{scene.preview}</div>

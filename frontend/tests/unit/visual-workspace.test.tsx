@@ -10,6 +10,7 @@ import {
   act,
 } from "@testing-library/react";
 import { it, expect, vi } from "vitest";
+import AppInspector from "../../src/admin/developer/AppInspector";
 import AppCanvas from "../../src/admin/developer/AppCanvas";
 import VisualCanvas from "../../src/shared/canvas/VisualCanvas";
 import AppDesignWorkspace from "../../src/admin/developer/AppDesignWorkspace";
@@ -67,6 +68,7 @@ it("opens the chosen scene from the unscaled toolbar and preserves disabled admi
         {
           id: "product",
           title: "Product",
+          actionLabel: "Edit product data",
           preview: <p>Product preview</p>,
           onOpen: () => open("product"),
         },
@@ -88,6 +90,10 @@ it("opens the chosen scene from the unscaled toolbar and preserves disabled admi
     name: "Edit",
   });
   fireEvent.change(picker, { target: { value: "product" } });
+  expect(edit).toHaveTextContent("Edit product data");
+  expect(
+    screen.getByRole("button", { name: "Open editor: Product" }),
+  ).toHaveTextContent("Edit product data");
   fireEvent.change(screen.getByRole("slider"), { target: { value: "35" } });
   expect(open).not.toHaveBeenCalled();
   fireEvent.click(edit);
@@ -271,4 +277,37 @@ it("uses the visible insertion target when a drop lands on canvas chrome instead
   });
   expect(change.mock.calls[0][0].views[0].blocks[0].kind).toBe("button");
   expect(screen.queryByText(/Drop here/)).toBeNull();
+});
+
+it("edits the selected element before app metadata and writes to its existing definition", () => {
+  const m = template(),
+    view = m.views![0],
+    change = vi.fn();
+  view.blocks = [
+    {
+      id: "intro",
+      kind: "text",
+      title: { "en-GB": "Introduction" },
+      text: { "en-GB": "Original copy" },
+    },
+  ];
+  render(
+    <AppInspector
+      manifest={m}
+      view={view}
+      selected="intro"
+      onChange={change}
+    />,
+    { wrapper },
+  );
+  const title = screen.getAllByRole("textbox", { name: "Title" })[0];
+  const metadata = document.querySelector(".app-inspector > details")!;
+  expect(
+    title.compareDocumentPosition(metadata) & Node.DOCUMENT_POSITION_FOLLOWING,
+  ).toBeTruthy();
+  fireEvent.change(title, { target: { value: "New introduction" } });
+  expect(change.mock.calls[0][0].views[0].blocks[0].title).toMatchObject({
+    "en-GB": "New introduction",
+  });
+  expect(change.mock.calls[0][0].id).toBe(m.id);
 });

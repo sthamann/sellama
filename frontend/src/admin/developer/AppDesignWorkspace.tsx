@@ -1,5 +1,11 @@
 /** One Manifest drives the shared scene overview, direct editor, contextual agent and proposal comparison. */
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { useGridAccess } from "../../shared/grid/useGridAccess";
 import { useAppPanelSizing, AppPanelHandle } from "./AppPanelSizing";
 import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
@@ -72,7 +78,11 @@ export default function AppDesignWorkspace({
     setProperties(false);
     setSceneId("");
   }, [m.id]);
-  const agentDock = useRef<HTMLDivElement>(null);
+  const agentDock = useRef<HTMLDivElement>(null),
+    inspectorDock = useRef<HTMLElement>(null);
+  useLayoutEffect(() => {
+    if (inspectorDock.current) inspectorDock.current.scrollTop = 0;
+  }, [selected, view?.id, properties]);
   useEffect(() => {
     if (agentOpen) {
       agentDock.current
@@ -252,7 +262,7 @@ export default function AppDesignWorkspace({
           {agent}
         </div>
         {!overview && properties && !agentOpen && view && !comparing && (
-          <aside className="app-canvas-properties">
+          <aside className="app-canvas-properties" ref={inspectorDock}>
             <div className="visual-workspace-toolbar">
               <strong>
                 {selectedBlock ? a(selectedBlock.kind) : t("properties")}

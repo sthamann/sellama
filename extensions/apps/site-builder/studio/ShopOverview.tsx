@@ -94,6 +94,7 @@ export default function ShopOverview(props: OverviewProps) {
     {
       id: home?.id ?? "native-home",
       title: t("home"),
+      actionLabel: c("editPage"),
       detail: t(home ? "base" : "native"),
       badge: d.dirty && home?.id === d.draft?.id ? t("draft") : undefined,
       preview: <PagePreview {...props} page={home} pages={pages} />,
@@ -105,7 +106,8 @@ export default function ShopOverview(props: OverviewProps) {
       id: "native-product",
       disabled: !props.onCommerce,
       title: c("product"),
-      detail: t("shared"),
+      actionLabel: c("editProductData"),
+      detail: c("productDataHint"),
       preview: (
         <>
           <label className="designer-overview-product">
@@ -148,7 +150,8 @@ export default function ShopOverview(props: OverviewProps) {
     id: "native-category",
     disabled: !props.onCommerce,
     title: c("category"),
-    detail: t("shared"),
+    actionLabel: c("editCategoryData"),
+    detail: c("categoryDataHint"),
     preview: (
       <StorefrontCanvas
         request={request}
@@ -181,6 +184,7 @@ export default function ShopOverview(props: OverviewProps) {
     scenes.push({
       id: page.id,
       title: contentText(page.title, language, props.mainLocale) || page.slug,
+      actionLabel: c("editPage"),
       detail: t("base"),
       badge: d.dirty && page.id === d.draft?.id ? t("draft") : undefined,
       preview: <PagePreview {...props} page={page} pages={pages} />,

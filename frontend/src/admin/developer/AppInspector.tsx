@@ -42,94 +42,6 @@ export default function AppInspector({
   return (
     <aside className="app-inspector">
       <span className="app-panel-label">{a("inspector")}</span>
-      <details className="app-metadata">
-        <summary>{a("name")}</summary>
-        <LocalizedField
-          label={a("name")}
-          value={manifest.name}
-          onChange={(v) => onChange({ ...manifest, name: textMap(v) })}
-          required
-          maxLength={100}
-        />
-        <label>
-          {a("id")}
-          <input
-            value={manifest.id}
-            maxLength={32}
-            onChange={(e) => onChange({ ...manifest, id: e.target.value })}
-          />
-        </label>
-        <label>
-          {a("version")}
-          <input
-            value={manifest.version}
-            maxLength={32}
-            onChange={(e) => onChange({ ...manifest, version: e.target.value })}
-          />
-        </label>
-      </details>
-      <div className="app-inspector-divider" />
-      <details className="app-metadata">
-        <summary>
-          {a("layout")} · {a("location")}
-        </summary>
-        <label>
-          {a("layout")}
-          <select
-            value={view.layout}
-            onChange={(e) =>
-              patch({ layout: e.target.value as NativeView["layout"] })
-            }
-          >
-            <option value="stack">{a("stack")}</option>
-            <option value="grid">{a("grid")}</option>
-            <option value="form">{a("formDesigner")}</option>
-          </select>
-        </label>
-        {surface && (
-          <>
-            <label>
-              {a("location")}
-              <select
-                value={surface.location}
-                onChange={(e) =>
-                  onChange({
-                    ...manifest,
-                    surfaces: manifest.surfaces?.map((s) =>
-                      s.id === surface.id
-                        ? { ...s, location: e.target.value }
-                        : s,
-                    ),
-                  })
-                }
-              >
-                {Object.keys({ ...locations, ...placements })
-                  .map((value) => [value, value] as const)
-                  .map(([value, key]) => (
-                    <option value={value} key={value}>
-                      {placements[key] ? t(placements[key]) : a(locations[key])}
-                    </option>
-                  ))}
-              </select>
-            </label>
-            <LocalizedField
-              label={a("title")}
-              value={surface.label}
-              onChange={(v) =>
-                onChange({
-                  ...manifest,
-                  surfaces: manifest.surfaces?.map((s) =>
-                    s.id === surface.id ? { ...s, label: textMap(v) } : s,
-                  ),
-                })
-              }
-              required
-              maxLength={100}
-            />
-          </>
-        )}
-        <div className="app-inspector-divider" />
-      </details>
       {block ? (
         <>
           <span className="soft-tag">
@@ -234,6 +146,94 @@ export default function AppInspector({
       ) : (
         <p className="muted">{a("select")}</p>
       )}
+      <details className="app-metadata">
+        <summary>{a("name")}</summary>
+        <LocalizedField
+          label={a("name")}
+          value={manifest.name}
+          onChange={(v) => onChange({ ...manifest, name: textMap(v) })}
+          required
+          maxLength={100}
+        />
+        <label>
+          {a("id")}
+          <input
+            value={manifest.id}
+            maxLength={32}
+            onChange={(e) => onChange({ ...manifest, id: e.target.value })}
+          />
+        </label>
+        <label>
+          {a("version")}
+          <input
+            value={manifest.version}
+            maxLength={32}
+            onChange={(e) => onChange({ ...manifest, version: e.target.value })}
+          />
+        </label>
+      </details>
+      <div className="app-inspector-divider" />
+      <details className="app-metadata">
+        <summary>
+          {a("layout")} · {a("location")}
+        </summary>
+        <label>
+          {a("layout")}
+          <select
+            value={view.layout}
+            onChange={(e) =>
+              patch({ layout: e.target.value as NativeView["layout"] })
+            }
+          >
+            <option value="stack">{a("stack")}</option>
+            <option value="grid">{a("grid")}</option>
+            <option value="form">{a("formDesigner")}</option>
+          </select>
+        </label>
+        {surface && (
+          <>
+            <label>
+              {a("location")}
+              <select
+                value={surface.location}
+                onChange={(e) =>
+                  onChange({
+                    ...manifest,
+                    surfaces: manifest.surfaces?.map((s) =>
+                      s.id === surface.id
+                        ? { ...s, location: e.target.value }
+                        : s,
+                    ),
+                  })
+                }
+              >
+                {Object.keys({ ...locations, ...placements })
+                  .map((value) => [value, value] as const)
+                  .map(([value, key]) => (
+                    <option value={value} key={value}>
+                      {placements[key] ? t(placements[key]) : a(locations[key])}
+                    </option>
+                  ))}
+              </select>
+            </label>
+            <LocalizedField
+              label={a("title")}
+              value={surface.label}
+              onChange={(v) =>
+                onChange({
+                  ...manifest,
+                  surfaces: manifest.surfaces?.map((s) =>
+                    s.id === surface.id ? { ...s, label: textMap(v) } : s,
+                  ),
+                })
+              }
+              required
+              maxLength={100}
+            />
+          </>
+        )}
+        <div className="app-inspector-divider" />
+      </details>
     </aside>
   );
 }

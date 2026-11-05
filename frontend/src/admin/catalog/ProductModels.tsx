@@ -120,13 +120,16 @@ export default function ProductModels({
       </header>
       <p>{t("variantHint")}</p>
       {!draft.id && <p>{t("saveFirst")}</p>}
-      <input
-        ref={input}
-        type="file"
-        hidden
-        accept=".glb,model/gltf-binary"
-        onChange={(e) => void upload(e.target.files?.[0])}
-      />
+      {canWrite && draft.id && (
+        <input
+          disabled={busy}
+          ref={input}
+          type="file"
+          hidden
+          accept=".glb,model/gltf-binary"
+          onChange={(e) => void upload(e.target.files?.[0])}
+        />
+      )}
       {canWrite && draft.catalog.parentId && (
         <button
           type="button"

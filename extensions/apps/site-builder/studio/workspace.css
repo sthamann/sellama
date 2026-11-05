@@ -1,15 +1,22 @@
 /* Visual workspace panels: one scroll region per rail, stable mode controls and graphical element cards. */
 .designer-layout {
-  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-columns: minmax(0, 1fr) var(--app-inspector-width, 360px);
 }
 .designer-layout.with-pages {
-  grid-template-columns: 235px minmax(0, 1fr) 360px;
+  grid-template-columns: 235px minmax(0, 1fr) var(--app-inspector-width, 360px);
 }
 .designer-inspector {
+  position: relative;
   padding: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+.designer-inspector > .app-panel-resize {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 8px;
+  z-index: 8;
 }
 .designer-modes {
   display: grid;
@@ -253,10 +260,13 @@
 }
 @media (max-width: 1400px) {
   .designer-layout {
-    grid-template-columns: minmax(0, 1fr) 330px;
+    grid-template-columns: minmax(0, 1fr) var(--app-inspector-width, 330px);
   }
   .designer-layout.with-pages {
-    grid-template-columns: 210px minmax(0, 1fr) 330px;
+    grid-template-columns: 210px minmax(0, 1fr) var(
+        --app-inspector-width,
+        330px
+      );
   }
   .designer-inspector,
   .designer-tree {
@@ -267,6 +277,9 @@
   }
 }
 @media (max-width: 1000px) {
+  .designer-inspector > .app-panel-resize {
+    display: none;
+  }
   .designer-layout,
   .designer-layout.with-pages {
     display: flex;

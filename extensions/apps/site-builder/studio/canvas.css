@@ -31,6 +31,9 @@
 .designer-canvas {
   height: calc(100dvh - 285px);
 }
+.designer-canvas.is-data-editor {
+  padding: 0;
+}
 .designer-preview-bar {
   flex-wrap: wrap;
 }

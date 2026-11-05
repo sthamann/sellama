@@ -171,3 +171,53 @@ it("returns to the same unsaved page without discarding its dirty state or undo 
     false,
   );
 });
+
+it("opens native data editing without page tools or page navigation and returns to the unchanged page draft", async () => {
+  const product = { id: "chair", name: "Chair", price: 99, media: [] };
+  const request = vi.fn(async (path: string) =>
+    path.includes("/context")
+      ? {
+          channels: [{ id: "default", data: { name: { "en-GB": "Main" } } }],
+          mainLocale: "en-GB",
+          locales: ["en-GB"],
+          installed: ["site_builder"],
+          catalogue: { elements: [product] },
+        }
+      : path.startsWith("/store-api/")
+        ? { elements: [] }
+        : { elements: [home] },
+  );
+  render(
+    <LocaleScope locale="en-GB">
+      <ShopDesigner
+        request={request}
+        workspace="native-handoff"
+        rights={["channels.manage", "catalog.read", "catalog.write"]}
+        sandbox
+        onEnvironments={() => {}}
+      />
+    </LocaleScope>,
+  );
+  fireEvent.click(
+    await screen.findByRole("button", { name: "Open editor: Home" }),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Pages & sections" }));
+  expect(document.querySelector(".designer-tree")).not.toBeNull();
+  fireEvent.click(screen.getByRole("button", { name: "Page overview" }));
+  fireEvent.click(
+    screen.getByRole("button", { name: "Open editor: Product page" }),
+  );
+  expect(
+    await screen.findByRole("heading", { name: "Native data editor" }),
+  ).toBeVisible();
+  expect(document.querySelector(".designer-preview-bar")).toBeNull();
+  expect(document.querySelector(".designer-tree")).toBeNull();
+  expect(screen.queryByRole("button", { name: "Save draft" })).toBeNull();
+  fireEvent.click(screen.getByRole("button", { name: "Back to canvas" }));
+  expect(
+    await screen.findByRole("button", { name: "Open editor: Home" }),
+  ).toBeVisible();
+  expect(request.mock.calls.some(([path]) => path.includes("save_page"))).toBe(
+    false,
+  );
+});

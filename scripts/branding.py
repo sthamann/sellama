@@ -29,7 +29,8 @@ for name in ('veyndo-logo.svg', 'veyndo-logo-dark.svg'):
     assert (ROOT / 'frontend/public/brand' / name).read_bytes() == (ROOT / 'docs/brand' / name).read_bytes(), f'Divergent wordmark: {name}'
 for file in (ROOT / 'docs/brand').glob('*.svg'):
     svg = ElementTree.fromstring(file.read_text())
-    assert svg.tag.endswith('svg') and svg.attrib.get('aria-label') == 'VEYNDO'
+    label = 'Veyndo Commerce' if file.name == 'veyndo-readme.svg' else 'VEYNDO'
+    assert svg.tag.endswith('svg') and svg.attrib.get('aria-label') == label
     assert not any(n.tag.endswith('script') for n in svg.iter())
     assert not re.search(r'\b(?:href|src)=["\'](?:https?:|data:|javascript:)', file.read_text())
 for folder in ('src', 'scripts', 'deploy', '.github'):
@@ -39,7 +40,7 @@ for folder in ('src', 'scripts', 'deploy', '.github'):
             assert 'target/debug/rust-ai-commerce' not in path.read_text(), path
             assert '/app/rust-ai-commerce' not in path.read_text(), path
 assert '/brand/veyndo-mark.svg' in (ROOT / 'frontend/index.html').read_text()
-assert 'https://github.com/sthamann/veyndo' in (ROOT / 'site/llms.txt').read_text()
+assert 'https://github.com/veyndo/veyndo' in (ROOT / 'site/llms.txt').read_text()
 assert 'veyndo-postgres-1' in (ROOT / '.github/workflows/verify.yml').read_text()
 
 # Execute the real launcher through a fake Docker boundary; stop before any database or install mutation.

@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: Questions and app ideas
-    url: https://github.com/sthamann/veyndo/discussions
+    url: https://github.com/veyndo/veyndo/discussions
     about: Ask how something works or discuss an app before opening a feature request.
   - name: Start a shop and try the local tour
     url: https://www.veyndo.ai/docs/first-tour.html

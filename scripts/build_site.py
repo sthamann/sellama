@@ -15,8 +15,8 @@ from site_navigation import shell
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / '.site'
-BASE = 'https://sthamann.github.io/veyndo/'
-REPO = 'https://github.com/sthamann/veyndo'
+BASE = 'https://veyndo.github.io/veyndo/'
+REPO = 'https://github.com/veyndo/veyndo'
 
 
 def stylesheet():

@@ -4,6 +4,22 @@ Updated 5 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Independent commerce components, 5 November 2026
+
+The complete platform now lives at [veyndo/veyndo](https://github.com/veyndo/veyndo).
+Experience and Shopware Payments have moved into the same organization and remain
+private. The new [JavaScript/TypeScript SDK](https://github.com/veyndo/sdk) exports
+202 canonical native operation input contracts, HTTP/stateless MCP transport and
+the existing guest app bridge. Eight independent wire tests, negative TypeScript
+controls and Node 22/24 CI pass. A public native MCP catalog read also completed;
+this does not constitute a new checkout or full-platform acceptance.
+
+The [component task list](commerce-components.md) tracks the complete repository
+split, deeper commerce domains, marketplaces and additional services, independent
+API/MCP/SDK use and mandatory assembled-product regression. Knowledge and the other
+planned services have not yet completed standalone extraction. The website proxy
+and hosting repository links require follow-up after the organization transfer.
+
 ## Canvas editing context, 5 November 2026
 
 Page design, product data and category data now have explicit actions and matching

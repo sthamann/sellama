@@ -42,9 +42,9 @@
 - [Five illustrated app workshops](https://www.veyndo.ai/docs/app-tutorials/README.html): Product advice, private returns, customer fields, UTC review flows and ERP handoff; current English screenshots, agent prompts, rights and staging/release steps.
 
 ## Original documentation
-- [Repository](https://github.com/sthamann/veyndo)
+- [Repository](https://github.com/veyndo/veyndo)
 - [Feature matrix](https://www.veyndo.ai/docs/shopware-parity.html)
-- [Recorded verification](https://github.com/sthamann/veyndo/blob/main/docs/verification.json)
+- [Recorded verification](https://github.com/veyndo/veyndo/blob/main/docs/verification.json)
 - [Security and SaaS boundaries](https://www.veyndo.ai/docs/security.html)
 
 - [Rules and durable flows](https://www.veyndo.ai/docs/automation.html)
@@ -62,5 +62,5 @@ Live cloud quality, production scale and causal sales uplift are unverified.
 Own-business storefronts are permitted. Commercial shop platforms, managed hosting,
 white-label or embedded commerce SaaS for independent merchants need separate written permission.
 Previously distributed MIT versions retain their terms. Third-party licenses remain intact.
-- [License](https://github.com/sthamann/veyndo/blob/main/LICENSE)
+- [License](https://github.com/veyndo/veyndo/blob/main/LICENSE)
 - [Usage guide](https://www.veyndo.ai/docs/licensing.html)

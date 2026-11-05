@@ -40,6 +40,7 @@ passed the actual container build and runtime smoke as well as Rust/SDK checks.
 | Published package consumer | SDK 0.2.0 installed from its release archive; provider prepare and independent host channel examples execute successfully. |
 | Native Core/PostgreSQL | Freshly compiled Core and provider binaries. Direct HTTP and MCP sync return one native job on replay. Changed content under the same key conflicts. |
 | Negative authority | Missing job capability, missing additional PII permission, revoked callback key, foreign tenant, non-job target, invalid job input and explicit version 2 are rejected. Denied attempts add no jobs. |
+| Registered tenant isolation | 43 checks pass against actual PostgreSQL: API/MCP/UCP and object boundaries, unchanged victim state, scoped foreign keys, revoked keys and app RLS under a restricted role. The serving Core fixture used its local owner login; this is not a new strict Core runtime-role rollout. |
 | Existing marketplace effects | Amazon/eBay/Kaufland fixture synchronization, native paid order, exact tax/money, guest snapshot, concurrent replay, one stock decrement, order event/Flow, invoice/PDF and service restart pass. |
 | Localization/stock regression | One translation query for 1/20/24 lines; short/fifth locale, variant inheritance, foreign names, immutable replay and atomic concurrent stock pass. |
 
@@ -54,6 +55,11 @@ surface. MKT-03 remains open: a separately maintained durable host implementatio
 must be extracted from the existing app storage/jobs owner and accepted without
 creating a copied commerce ledger or parallel queue. Separate Studio packaging,
 refund depth and complete composed browser acceptance remain MKT-04/MKT-05.
+
+Deploy the updated Core host callback before enabling direct service sync in
+Marketplace 0.2.0. Existing native merchant sync continues to use its original job
+path during a rolling update; callback credentials keep their installed digest
+and existing grants because the app manifest is unchanged.
 
 The direct service and host clients use trusted server credentials. End users and
 agents continue through current host actor permissions. Passing these focused

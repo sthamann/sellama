@@ -13,30 +13,8 @@ pub(super) fn router() -> Router<App> {
             axum::routing::delete(revoke),
         )
 }
-pub(super) fn scope(permission: &str) -> Option<&'static str> {
-    Some(match permission {
-        "data.read" | "data.write" => "apps.manage",
-        "b2b.manage" => "b2b.manage",
-        "b2b.read" => "b2b.read",
-        "orders.read" => "orders.read",
-        "orders.import" | "deliveries.write" => "orders.write",
-        "documents.create" => "documents.create",
-        "payments.record" => "payments.manage",
-        "channels.read" => "settings.read",
-        "documents.read" => "documents.read",
-        "customers.read" => "customers.read",
-        "customers.write" => "customers.write",
-        "settings.read" => "team.manage",
-        "customers.pii" => "customers.pii",
-        "products.read" => "catalog.read",
-        "products.write" | "reviews.write" => "catalog.write",
-        "promotions.write" => "automation.manage",
-        "jobs.read" | "jobs.write" => "apps.manage",
-        "assets.read" => "catalog.read",
-        "assets.write" => "catalog.write",
-        _ => return None,
-    })
-}
+pub(super) use veyndo_app_model::admission::callback_scope as scope;
+
 async fn list(
     State(a): State<App>,
     h: RequestContext,
@@ -73,30 +51,16 @@ async fn create(
             "Approve the current app package digest and its requested callback permissions",
         ));
     }
-    let requested = v["permissions"]
-        .as_array()
-        .filter(|v| !v.is_empty() && v.len() <= 32)
-        .ok_or(bad("Explicit callback permissions required"))?;
-    let mut scopes = Vec::new();
-    for value in requested {
-        let p = value.as_str().ok_or(bad("Invalid callback permission"))?;
-        let s = scope(p)
-            .filter(|_| m.permissions.iter().any(|v| v == p))
-            .ok_or(bad("Callback permission is not declared by this app"))?;
-        if p == "customers.pii"
-            && !requested
-                .iter()
-                .any(|v| v == "customers.read" || v == "orders.read")
-        {
-            return Err(bad(
-                "PII needs an explicit customer or order read permission",
-            ));
-        }
-        auth::permit(&h, s)?;
-        if !scopes.contains(&s) {
-            scopes.push(s);
-        }
-    }
+    let scopes = veyndo_app_model::admission::requested_scopes(
+        &action_admission::Authority {
+            app: &a,
+            context: &h,
+        },
+        &m.permissions,
+        &v["permissions"],
+    )
+    .map_err(action_admission::error)?;
+    let requested = &v["permissions"];
     let days = v["expiresInDays"]
         .as_i64()
         .filter(|n| (1..=90).contains(n))
@@ -146,13 +110,18 @@ async fn revoke(
 
 /// Callback consent is an app capability, not merely its mapped native role scope.
 pub(super) fn permit(h: &RequestContext, capability: &str) -> Result<()> {
-    let capability_approved = h.principal.app.is_none()
-        || h.principal
-            .app_permissions
-            .as_deref()
-            .and_then(|s| serde_json::from_str::<Vec<String>>(s).ok())
-            .is_some_and(|v| v.iter().any(|p| p == capability));
-    let role_approved = scope(capability).is_some_and(|s| auth::permit(h, s).is_ok());
+    let grants = h
+        .principal
+        .app
+        .as_ref()
+        .and(h.principal.app_permissions.as_deref())
+        .and_then(|s| serde_json::from_str::<Vec<String>>(s).ok());
+    let (capability_approved, role_approved) = veyndo_app_model::admission::callback_facts(
+        h.principal.app.is_some(),
+        grants.as_deref(),
+        capability,
+        |scope| auth::permit(h, scope).is_ok(),
+    );
     if !crate::verified_kernel::app_callback_admissible(capability_approved, role_approved) {
         return Err(Error(
             StatusCode::FORBIDDEN,

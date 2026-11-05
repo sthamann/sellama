@@ -303,11 +303,5 @@ pub(super) fn action_authorized(a: &App, h: &RequestContext, action: &Action) ->
 
 /// Additional current team rights apply equally to UI, HTTP, MCP, Flow and leased workers.
 pub(crate) fn additional_permissions(h: &RequestContext, action: &Action) -> Result<()> {
-    if action.handler == "configurations" {
-        auth::permit(h, "orders.read")?;
-    }
-    for scope in &action.required_permissions {
-        auth::permit(h, scope)?;
-    }
-    Ok(())
+    veyndo_app_model::admission::additional(&action_admission::Current(h), action)
 }

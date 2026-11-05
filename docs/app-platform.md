@@ -31,6 +31,19 @@ flowchart LR
   Component --> Quote[Native cart and checkout calculation]
 ```
 
+## Shared admission and package fence
+
+The Apps 0.4.0 component supplies Action types and shared admission through
+trusted-host current-identity/scope ports. Native authentication resolves the
+principal; app input cannot provide its authority implementation. Callback scope
+planning retains declared consent, PII pairing and current role checks. The native
+verified callback predicate still combines separate consent and role facts.
+
+The component also supplies the existing active-package lock/read and canonical
+fingerprint. Native full typed digest comparison, reserved/provider trust,
+installation consent, key issuance and revocation remain with their existing
+owners. [Integrated tests and remaining standalone host work](evidence/app-admission-component-2026-11-05.md).
+
 ## Install and update
 
 `POST /api/apps/review` with `builtIn` or `manifest` returns the Rust-canonical

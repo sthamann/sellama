@@ -1,5 +1,17 @@
 # Changelog
 
+## Shared app authority and package fence, 5 November 2026
+
+Apps 0.4.0 shares Action DTOs, current-authority admission, compound permissions,
+callback scope mappings and key-scope consent planning. Native authentication,
+verified callback policy, credential issuance/revocation and package trust retain
+their owners. Canonical fingerprinting and the original scoped active-package
+lock/read now live in the component; typed digest comparison remains native.
+Independent model/PostgreSQL and integrated consent/callback/surface/job tests
+pass; all 34 public package fingerprints are unchanged. The slow-service fixture
+now uses explicit release coordination instead of a timing assumption.
+[Evidence and remaining host work](docs/evidence/app-admission-component-2026-11-05.md).
+
 ## Independent app model contracts, 5 November 2026
 
 Apps 0.3.0 introduces the pure `veyndo-app-model` crate. Core now reuses its exact

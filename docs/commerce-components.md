@@ -259,8 +259,10 @@ owners require an explicit reservation/compensation design and corresponding tes
     Shared record CAS/replay/write/outbox and bounded page/filter/publication
     queries are extracted and consumed by Core. Apps 0.3.0 also supplies the pure
     model declaration/field/schema/language/workflow compiler, with required host
-    policy ports. Full package/identity admission, standalone service/schema and
-    API/MCP hosting remain open.
+    policy ports. Apps 0.4.0 adds current-authority action/callback rules and the
+    scoped active-package fence. Authentication, complete package lifecycle,
+    standalone service/schema and API/MCP hosting remain open.
+    [Admission and package fence evidence](evidence/app-admission-component-2026-11-05.md).
     [Model extraction evidence](evidence/app-model-component-2026-11-05.md).
     [Record operation evidence](evidence/app-record-operations-2026-11-05.md).
   - [ ] MKT-03c Accept independent durable-host operation, restricted database
@@ -323,6 +325,23 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### Shared app admission, 5 November 2026
+
+- Apps 0.4.0 shares Action wire types, current-authority ports, primary/compound
+  rights, callback capability mappings and callback-key scope planning. Native
+  authentication, verified callback policy and credential issuance remain native.
+- The same component owns canonical content fingerprints and the scoped active
+  package lock/read. Full typed digest comparison and reserved/provider package
+  approval retain their host owner. PostgreSQL verifies upgrade/write exclusion
+  without blocking another tenant.
+- Twenty-two independent model tests, 74 native app units and the affected native
+  callback/consent/surface/job/state/schema/isolation/visual and marketplace
+  fixtures pass. All 34 public package fingerprints remain unchanged.
+- The surface concurrency fixture now holds/releases calls explicitly instead of
+  depending on a one-second polling window. The production ceiling is unchanged.
+- MKT-03b remains open for complete package/identity hosting and standalone API/MCP.
+
 
 ### Pure app model component, 5 November 2026
 

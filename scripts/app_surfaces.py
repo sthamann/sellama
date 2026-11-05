@@ -68,6 +68,7 @@ def run():
         settings_received = []
         active = 0
         lock = threading.Lock()
+        release_slow = threading.Event()
 
         class Fixture(module.Handler):
             def do_POST(self):
@@ -84,13 +85,15 @@ def run():
                 with lock:
                     active += 1
                 try:
-                    time.sleep(2)
+                    assert release_slow.wait(timeout=20), "Test did not release held service calls"
                     self.send(200, {"done": True})
                 finally:
                     with lock:
                         active -= 1
 
-        server = module.ThreadingHTTPServer(("127.0.0.1", service_port), Fixture)
+        class FixtureServer(module.ThreadingHTTPServer):
+            request_queue_size = 16
+        server = FixtureServer(("127.0.0.1", service_port), Fixture)
         thread = threading.Thread(target=server.serve_forever)
         thread.start()
         config = {app_id: {"url": f"http://127.0.0.1:{service_port}", "uiUrl": f"http://127.0.0.1:{service_port}", "token": module.TOKEN}}
@@ -296,19 +299,22 @@ def run():
             call("/api/apps", {"manifest": busy}, h)
             with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
                 tasks = [pool.submit(call, f"/api/apps/{app_id}/actions/slow", {}, h) for _ in range(8)]
-                for _ in range(100):
+                try:
+                    for _ in range(500):
+                        with lock:
+                            if active == 8:
+                                break
+                        time.sleep(.01)
                     with lock:
-                        if active == 8:
-                            break
-                    time.sleep(.01)
-                with lock:
-                    assert active == 8
-                call(f"/api/apps/{app_id}/actions/slow", {}, h, expected=429)
-                started = time.perf_counter()
-                cart = call("/store-api/checkout/cart", {"session": uuid.uuid4().hex}, public)
-                core_ms = (time.perf_counter() - started) * 1000
-                assert cart["status"] == "open" and not all(t.done() for t in tasks)
-                assert call(f"/store-api/apps/{app_id}/http/advice", args, {"x-tenant": other["workspace"]})["answer"]
+                        assert active == 8
+                    call(f"/api/apps/{app_id}/actions/slow", {}, h, expected=429)
+                    started = time.perf_counter()
+                    cart = call("/store-api/checkout/cart", {"session": uuid.uuid4().hex}, public)
+                    core_ms = (time.perf_counter() - started) * 1000
+                    assert cart["status"] == "open" and not all(t.done() for t in tasks)
+                    assert call(f"/store-api/apps/{app_id}/http/advice", args, {"x-tenant": other["workspace"]})["answer"]
+                finally:
+                    release_slow.set()
                 for task in tasks:
                     assert task.result()["done"]
             passed("Eight slow app calls trigger bounded admission; real cart creation and a second tenant continue independently")

@@ -35,9 +35,11 @@ the merged website proxy fix is not deployed yet. The handbook is available at
 
 The [Apps repository](https://github.com/veyndo/apps) now contains the native record
 and job persistence as the independent Rust package `veyndo-app-storage`. Veyndo
-uses that same pinned code. Current actor/package admission, record validation,
-CAS, history, references and signed database scope stay in their existing owners.
-No production schema or role change is required for this extraction.
+uses that same pinned code. Subsequent releases also share record CAS/write/query
+operations, model validation and action/callback admission through required host
+ports, as detailed below. Authentication, full package lifecycle, history hooks,
+reference ownership and signed database scope retain their native authority.
+No production schema or role change is required for these extractions.
 
 Independent PostgreSQL tests cover atomic job/outbox rollback, concurrent replay,
 quotas, expired leases and reconnection. The integrated storage/jobs tests, 43
@@ -45,6 +47,20 @@ tenant isolation checks and native marketplace HTTP/MCP order, stock, invoice an
 Flow fixture also pass. A separately authenticated app host, its supported schema
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
+
+## Shared app admission, 5 November 2026
+
+Apps [0.4.0](https://github.com/veyndo/apps/releases/tag/v0.4.0) shares action and
+callback scope rules through required trusted-host authority ports. Veyndo uses
+its current authenticated context in those ports. Key creation still requires its
+personal account, package approval and live-workspace checks; callback consent
+and current rights remain separate facts for the existing verified predicate.
+
+The component also owns the original scoped active-package lock/read and canonical
+content fingerprint. Twenty-two independent model tests, 74 native app units and
+the affected PostgreSQL/API/MCP suites pass. Existing fingerprints match all 34
+public packages. Authentication, complete package lifecycle and separately hosted
+API/MCP remain open. [Evidence](evidence/app-admission-component-2026-11-05.md).
 
 ## Pure app model component, 5 November 2026
 

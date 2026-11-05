@@ -7,14 +7,14 @@ import tomllib
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def build_inputs(dockerfile):
+def build_inputs(dockerfile, context=ROOT):
     copying = False
     inputs = []
     for line in dockerfile.splitlines():
         if line.startswith('FROM '):
             copying = line.split()[1].startswith('rust:')
         elif copying and line.startswith('COPY '):
-            inputs.extend(ROOT / value for value in line.split()[1:-1])
+            inputs.extend(context / value for value in line.split()[1:-1])
     return inputs
 
 
@@ -22,10 +22,23 @@ def copied(target, inputs):
     return any(target == p.resolve() or (p.is_dir() and target.is_relative_to(p.resolve())) for p in inputs)
 
 
-def missing_workspace(dockerfile):
-    inputs = build_inputs(dockerfile)
-    manifest = tomllib.loads((ROOT / 'Cargo.toml').read_text())
-    required = [ROOT / 'Cargo.toml', ROOT / 'Cargo.lock', ROOT / 'LICENSE']
+def missing_workspace(dockerfile, context=ROOT):
+    inputs = build_inputs(dockerfile, context)
+    manifest = tomllib.loads((context / 'Cargo.toml').read_text())
+    required = [context / 'Cargo.toml', context / 'Cargo.lock', context / 'LICENSE']
+    if context != ROOT:
+        # This independently owned binary has its own Cargo root and no native path dependencies.
+        for section in ('dependencies', 'dev-dependencies', 'build-dependencies'):
+            assert not any(isinstance(v, dict) and 'path' in v for v in manifest.get(section, {}).values()), 'Independent image acquired a local path dependency'
+        targets = [context / t['path'] for t in manifest.get('bin', [])]
+        required.extend(targets)
+        roots = {p.parent for p in targets}
+        assert roots and all(p.resolve().is_relative_to(context.resolve()) for p in roots), 'Independent target escaped its context'
+        required.extend(p for root in roots for p in root.rglob('*.rs'))
+        includes = [(source.parent / value).resolve() for source in required if source.suffix == '.rs'
+                    for value in re.findall(r'include_(?:str|bytes)!\s*\(\s*"([^"\n]+)"', source.read_text())]
+        required.extend(includes)
+        return [str(p.relative_to(ROOT)) for p in required if not p.is_file() or not copied(p.resolve(), inputs)]
     for pattern in manifest.get('workspace', {}).get('members', []):
         if pattern == '.':
             continue
@@ -62,14 +75,20 @@ def main():
     count = 0
     for image in images:
         text = image.read_text()
-        if not build_inputs(text):
+        context = image.parent if image == ROOT / 'extensions/apps/marketplaces/Dockerfile' else ROOT
+        if not build_inputs(text, context):
             continue
-        assert not missing_workspace(text), (str(image.relative_to(ROOT)), missing_workspace(text))
-        if '[workspace]' in (ROOT / 'Cargo.toml').read_text():
+        assert not missing_workspace(text, context), (str(image.relative_to(ROOT)), missing_workspace(text, context))
+        if context == ROOT:
             broken = '\n'.join(line for line in text.splitlines() if not line.startswith('COPY crates'))
             assert missing_workspace(broken), ('Missing workspace COPY not detected', image)
+        else:
+            broken = text.replace('COPY service ./service', '')
+            assert missing_workspace(broken, context), ('Missing independent source COPY not detected', image)
+            broken = text.replace('Cargo.lock ', '')
+            assert missing_workspace(broken, context), ('Missing independent lock COPY not detected', image)
         count += 1
-    print(f'PASS {count} Rust image contexts include every Cargo workspace member; missing-crate negative controls')
+    print(f'PASS {count} Rust image contexts include their own workspace/package closure; missing-source/lock negative controls')
     print(f'PASS production Rust image inputs; historical manifests and app package resources required ({len(lost)} legacy files)')
 
 

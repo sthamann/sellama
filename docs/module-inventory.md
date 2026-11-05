@@ -608,12 +608,9 @@ This lists every checked-in source module in these roots, including files with n
 
 | Module | Responsibility |
 |---|---|
-| [crates/apps/src/component_runtime/abi.rs](../crates/apps/src/component_runtime/abi.rs) | Exact, operator-configured WIT namespace compatibility with the same bounded host. |
-| [crates/apps/src/component_runtime.rs](../crates/apps/src/component_runtime.rs) | WIT-typed read-only commerce guest. Snapshots are prepared by domain owners; no WASI, HTTP, DB or merchant credentials reach components. |
+| [crates/apps/src/component_runtime.rs](../crates/apps/src/component_runtime.rs) | Native namespace/configuration adapter for the independent typed read-only commerce component runtime. |
 | [crates/apps/src/lib.rs](../crates/apps/src/lib.rs) | Isolated app component execution; no HTTP, SQL or inference authority. |
-| [crates/apps/src/sandbox/configuration.rs](../crates/apps/src/sandbox/configuration.rs) | Bounded integer configuration arguments share the existing no-import Wasmtime engine and resource budgets. |
-| [crates/apps/src/sandbox.rs](../crates/apps/src/sandbox.rs) | Pure Wasmtime guest execution with bounded resources and no host imports. |
-| [crates/apps/src/sandbox_engine.rs](../crates/apps/src/sandbox_engine.rs) | One bounded Wasmtime engine per process, with independent fuel and wall-clock interruption. |
+| [crates/apps/src/sandbox.rs](../crates/apps/src/sandbox.rs) | Native verified resource admission adapter for the independent bounded Wasm/WIT executor. |
 | [crates/cognition/src/inference/budget.rs](../crates/cognition/src/inference/budget.rs) | Durable conservative model allocations use existing agent keys and the live shop stop switch. |
 | [crates/cognition/src/inference/error.rs](../crates/cognition/src/inference/error.rs) | Typed admission failures survive provider adapters; HTTP status never depends on parsing message text. |
 | [crates/cognition/src/inference/protocol.rs](../crates/cognition/src/inference/protocol.rs) | Self-hosted chat-completions adapter and opt-in provider prompt caching; neither caches private commerce responses. |
@@ -1862,6 +1859,22 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/services/app-storage/model/tests/support/package.rs](../extensions/services/app-storage/model/tests/support/package.rs) | Test-only complete-input projection and explicit host policies; never a production package decoder or identity source. |
 | [extensions/services/app-storage/model/tests/surfaces.rs](../extensions/services/app-storage/model/tests/surfaces.rs) | Placement/route admission scenarios keep public/private actions, explicit host authority and precise native problem pointers. |
 | [extensions/services/app-storage/model/tests/triggers.rs](../extensions/services/app-storage/model/tests/triggers.rs) | Clock-injected cron and private webhook declarations remain bounded and share strict action input validation. |
+| [extensions/services/app-storage/runtime/examples/quote.rs](../extensions/services/app-storage/runtime/examples/quote.rs) | Run a real read-only commerce hook independently; the caller supplies its admitted snapshot and resource policy. |
+| [extensions/services/app-storage/runtime/src/component_runtime/abi.rs](../extensions/services/app-storage/runtime/src/component_runtime/abi.rs) | Exact, operator-configured WIT namespace compatibility with the same bounded host. |
+| [extensions/services/app-storage/runtime/src/component_runtime.rs](../extensions/services/app-storage/runtime/src/component_runtime.rs) | WIT-typed read-only commerce guest. Snapshots are prepared by domain owners; no WASI, HTTP, DB or merchant credentials reach components. |
+| [extensions/services/app-storage/runtime/src/lib.rs](../extensions/services/app-storage/runtime/src/lib.rs) | Bounded core-Wasm and WIT component execution; no database, HTTP, identity, WASI or environment authority. |
+| [extensions/services/app-storage/runtime/src/policy.rs](../extensions/services/app-storage/runtime/src/policy.rs) | Mandatory trusted-host resource admission; runtime limits also apply independently to every guest store. |
+| [extensions/services/app-storage/runtime/src/sandbox/configuration.rs](../extensions/services/app-storage/runtime/src/sandbox/configuration.rs) | Bounded integer configuration arguments share the existing no-import Wasmtime engine and resource budgets. |
+| [extensions/services/app-storage/runtime/src/sandbox.rs](../extensions/services/app-storage/runtime/src/sandbox.rs) | Pure Wasmtime guest execution with bounded resources and no host imports. |
+| [extensions/services/app-storage/runtime/src/sandbox_engine.rs](../extensions/services/app-storage/runtime/src/sandbox_engine.rs) | One bounded Wasmtime engine per process, with independent fuel and wall-clock interruption. |
+| [extensions/services/app-storage/runtime/src/test_host.rs](../extensions/services/app-storage/runtime/src/test_host.rs) | Synthetic trusted host for independent guest regressions; production consumers supply their own canonical policy. |
+| [extensions/services/app-storage/runtime/tests/admission.rs](../extensions/services/app-storage/runtime/tests/admission.rs) | Actual guest execution must retain mandatory resource admission, fresh stores and bounded snapshots independently of Core. |
+| [extensions/services/app-storage/runtime/tests/fixtures/budget-reserve.wat](../extensions/services/app-storage/runtime/tests/fixtures/budget-reserve.wat) | Keep EUR 100 of the supplied budget unused. Inputs are integer cents. |
+| [extensions/services/app-storage/runtime/tests/fixtures/company-limit.wat](../extensions/services/app-storage/runtime/tests/fixtures/company-limit.wat) | Independent app entry; see extensions/README.md for its public contract. |
+| [extensions/services/app-storage/runtime/tests/fixtures/engraving.wat](../extensions/services/app-storage/runtime/tests/fixtures/engraving.wat) | Engraving-owned rules: printable input is checked by the host; app defines length and fee. |
+| [extensions/services/app-storage/runtime/tests/fixtures/minimum-order.wat](../extensions/services/app-storage/runtime/tests/fixtures/minimum-order.wat) | Business orders must reach EUR 50 and stay inside the supplied budget. |
+| [extensions/services/app-storage/runtime/tests/fixtures/single-order-cap.wat](../extensions/services/app-storage/runtime/tests/fixtures/single-order-cap.wat) | Limit any individual business purchase to EUR 250, within its budget. |
+| [extensions/services/app-storage/runtime/tests/fixtures/snapshot-price.component.wat](../extensions/services/app-storage/runtime/tests/fixtures/snapshot-price.component.wat) | Typed fixture: calls the real host cart snapshot and returns one percent of its subtotal. |
 | [extensions/services/app-storage/src/error.rs](../extensions/services/app-storage/src/error.rs) | Preserve database errors and explicit idempotency/quota conflicts without inventing HTTP or transport authority. |
 | [extensions/services/app-storage/src/installation.rs](../extensions/services/app-storage/src/installation.rs) | Original atomic package installation sequence; mandatory host hooks retain compiler, commerce, migration and configuration authority. |
 | [extensions/services/app-storage/src/jobs.rs](../extensions/services/app-storage/src/jobs.rs) | Original native app job persistence and transactional event handoff; no worker, principal or provider execution. |

@@ -8,6 +8,12 @@ for the current implementation and performance limits.
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.
 
+The app executor is also independently usable as `veyndo-app-runtime` in
+[veyndo/apps](https://github.com/veyndo/apps/tree/main/runtime). Core consumes the
+same pinned source with its native verified resource policy; admitted snapshots,
+current rights and commerce writes retain their original owners.
+[Execution boundary and tests](evidence/app-wasm-runtime-component-2026-11-05.md).
+
 ## One transactional core, independently deployable workers
 
 Fresh installations use Rust/Axum, ordinary PostgreSQL 17 and private Qdrant

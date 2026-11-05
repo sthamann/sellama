@@ -14,7 +14,13 @@ parallel SQL stores, upload owners or direct core-API bypasses.
 External credentials must bind to canonical approved package digests; remote UI
 bytes need operator hash pins. Publication must not bypass installation consent,
 current creator permissions, dependency checks, row/byte quotas or forced RLS.
-`crates/apps/src/sandbox_engine.rs` is the shared Wasm engine. Prepare/probe bounded modules
+Pinned `veyndo-app-runtime` in `extensions/services/app-storage/runtime/` owns the
+single shared Wasmtime engine and actual core-Wasm/WIT executor. `crates/apps` only
+adapts the direct verified resource policy and operator namespace configuration;
+its native public reexports stay stable. The runtime has no SQL, network, identity,
+WASI or environment authority. Preserve required host policy calls on both module
+constructors, all store/fuel/epoch/snapshot/output limits and exact SDK/WIT parity.
+Prepare/probe bounded modules
 before commerce transactions; WIT hooks consume bounded read-only snapshots and
 use the existing native money/tax calculation owner.
 

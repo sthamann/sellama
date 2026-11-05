@@ -8,7 +8,7 @@ before adding runtimes, stores or credentials. [Architecture](app-platform.md) a
 
 | Finding | Current owner and protection | Regression |
 |---|---|---|
-| B1 table bomb | `sandbox_engine.rs`, `sandbox.rs`, `component_runtime.rs`: preflight, element/memory limits, pooling, fuel, epochs | Rust oversized private table/growth/host-loop tests; `app_components` |
+| B1 table bomb | Pinned Apps `runtime/`, native verified resource adapter: preflight, element/memory limits, pooling, fuel, epochs | Rust oversized private table/growth/host-loop tests; `app_components` |
 | B2 shared app storage | `apps/records.rs`, migrations 101–102: fixed tables, full logical keys, signed RLS, managed unique/reference projections and own-version compatibility | `app_shared_storage`, `app_storage_migration`, `apps`, `app_schema`, `tenant_isolation` |
 | B3 service ID impersonation | `apps/approval.rs`: exact Rust-canonical approved digest; reserved names include Payments | `apps`, `app_surfaces`, `payment_providers` |
 | B4 wrong webhook tenant | `webhook_scope.rs`, auth middleware: route tenant admission, reject conflicting header | `app_secrets` strict non-owner RLS |
@@ -16,6 +16,19 @@ before adding runtimes, stores or credentials. [Architecture](app-platform.md) a
 | B6 event disclosure | `event_contract.rs`, `event_projection.rs`: family/own scopes plus minimized payloads | `app_events`, Rust projection tests |
 | B7 client-only surface ACL | `surface_grants.rs`: actor/package/context/action-bound five-minute grant | `apps`, `app_surfaces`, `app_assets` |
 | B8 input/storage/drafts | `input_schema.rs`, `storage.rs`, `developer/drafts.rs`: recursive bounds, database quotas, actor-private CAS autosave | `apps`, `app_preview`, frontend safety tests |
+
+## Independent execution and native authority
+
+`veyndo/apps` owns the pinned `veyndo-app-runtime` executor. Native `crates/apps`
+passes the direct verified resource predicate to both core-Wasm and component
+constructors and supplies operator namespace configuration. It keeps no duplicate
+engine. The runtime itself retains all fuel, epoch, memory/table, host-call,
+snapshot and output bounds. It has no SQL/network/identity or guest WASI authority.
+The SDK WIT mirror must have exactly the same bytes as the runtime compiler input.
+Current package rights and authorized snapshots are checked before invocation;
+returning an outcome does not authorize a write. The existing native cache compiles
+outside commerce locks and preserves digest checks inside checkout.
+[Actual extraction and tests](evidence/app-wasm-runtime-component-2026-11-05.md).
 
 ## Operator service configuration
 

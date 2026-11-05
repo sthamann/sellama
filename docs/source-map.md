@@ -13,9 +13,19 @@ field/reference validation, history, evidence and publication admission remain i
 Core. Apps 0.2.0 also owns record CAS/replay and page/filter/window SQL;
 `src/apps/record_write.rs` supplies native lifecycle and history hooks to that
 shared mutation engine.
-The trusted storage crate is distinct from the no-SQL Wasm `veyndo-apps` crate;
+The trusted storage crate is distinct from no-SQL `veyndo-app-runtime` and its native `veyndo-apps` adapter;
 Cargo boundary controls prohibit guest/domain imports of the storage package.
 [Independent and assembled tests](evidence/app-storage-component-2026-11-05.md).
+
+**Actual app execution:** Pinned Apps `runtime/` owns `veyndo-app-runtime`:
+`sandbox.rs`/`configuration.rs`, `component_runtime.rs`/`abi.rs` and
+`sandbox_engine.rs` own actual guest execution, typed read-only host calls and
+bounded pooled stores. Its `wit/commerce.wit` is the compiler input; snapshot checks
+require exact bytes in the native SDK mirror. Native `crates/apps` supplies the
+required verified resource policy and operator-configured namespaces through small
+adapters; it contains no duplicate engine. `src/sandbox_cache.rs`, app/runtime and
+commerce hook owners retain preparation/cache, admitted snapshots and current
+package/checkout authority. [Evidence](evidence/app-wasm-runtime-component-2026-11-05.md).
 
 **Pure app model:** `extensions/services/app-storage/model/` is the exact pinned
 `veyndo-app-model` package from `veyndo/apps`. Native `manifest.rs`,
@@ -286,7 +296,7 @@ See [international commerce](international-commerce.md) for the exact contract.
 | [`src/proposal_model.rs`](../src/proposal_model.rs) | Typed proposals and validation before persistence or execution. | `providers.py + live intelligence.py/studio.py + protocols.py` |
 | [`src/proposal_routes.rs`](../src/proposal_routes.rs) | HTTP proposal creation, approval and task listing. | `providers.py + live intelligence.py/studio.py + protocols.py` |
 | [`src/routes.rs`](../src/routes.rs) | HTTP transport registry; domain behavior lives in dedicated modules. | `protocols.py + integration.py + commerce.py + users.py` |
-| [`crates/apps/src/sandbox.rs`](../crates/apps/src/sandbox.rs) | Pure Wasmtime guest execution with bounded resources and no host imports. | `Rust guest boundary tests + protocols.py + extensions.py + restart.py` |
+| [`crates/apps/src/sandbox.rs`](../crates/apps/src/sandbox.rs) | Native verified resource-policy adapter for independent app execution. | `Independent runtime and native adapter tests + app_components + business_capability` |
 | [`src/seed.rs`](../src/seed.rs) | Idempotent synthetic template catalogue initialization. | `integration.py + users.py + extensions.py + restart.py` |
 | [`src/studio.rs`](../src/studio.rs) | Verified merchant overview facts consumed by the chat and activity views. | `studio.py + users.py` |
 | [`src/ucp/`](../src/ucp/) | Checkout transport, native projection, profile/version selection and vendor B2B negotiation adapter. | `protocols.py + b2b_ucp.py + b2b.py + tenant_isolation.py` |

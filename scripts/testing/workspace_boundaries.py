@@ -9,27 +9,30 @@ OWNERS = {name: ROOT / 'crates' / name.removeprefix('veyndo-') for name in (
 OWNERS.update({'veyndo': ROOT, 'veyndo-migration': ROOT / 'extensions/apps/migration',
                'veyndo-marketplaces': ROOT / 'extensions/apps/marketplaces',
                'veyndo-app-storage': ROOT / 'extensions/services/app-storage',
-               'veyndo-app-model': ROOT / 'extensions/services/app-storage/model'})
+               'veyndo-app-model': ROOT / 'extensions/services/app-storage/model',
+               'veyndo-app-runtime': ROOT / 'extensions/services/app-storage/runtime'})
 ALLOWED = {
     'veyndo-app-model': set(),
+    'veyndo-app-runtime': set(),
     'veyndo-app-storage': {'veyndo-app-model'},
     'veyndo-marketplaces': set(),
     'veyndo-kernel': set(),
     'veyndo-runtime': set(),
     'veyndo-commerce': {'veyndo-kernel'},
-    'veyndo-apps': {'veyndo-kernel'},
+    'veyndo-apps': {'veyndo-kernel', 'veyndo-app-runtime'},
     'veyndo-cognition': {'veyndo-runtime', 'veyndo-kernel'},
 }
 # Reviewed direct external capabilities. Cargo reports actual package names even
 # when a manifest renames sqlx as something innocuous. New dependencies need an
 # explicit architecture decision, including build/dev/optional/target variants.
 EXTERNAL = {
-    'veyndo-app-model': {'serde', 'serde_json', 'chrono'},
-    'veyndo-app-storage': {'sqlx', 'serde_json', 'sha2', 'tokio'},
+    'veyndo-app-model': {'serde', 'serde_json', 'chrono', 'cron'},
+    'veyndo-app-runtime': {'wasmtime', 'wat', 'sha2'},
+    'veyndo-app-storage': {'sqlx', 'serde_json', 'sha2', 'tokio', 'chrono'},
     'veyndo-marketplaces': {'axum', 'tokio', 'serde', 'serde_json', 'sha2', 'hmac', 'ring', 'chrono', 'reqwest'},
     'veyndo-kernel': set(),
     'veyndo-commerce': {'serde', 'serde_json'},
-    'veyndo-apps': {'wasmtime', 'wat', 'sha2'},
+    'veyndo-apps': set(),
     'veyndo-runtime': {'hmac', 'sha2', 'zeroize', 'sqlx', 'tokio', 'futures-util',
                        'serde_json', 'reqwest', 'async-stream', 'uuid'},
     'veyndo-cognition': {'serde', 'serde_json', 'tokio', 'reqwest', 'aes-gcm',

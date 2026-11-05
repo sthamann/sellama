@@ -31,6 +31,21 @@ flowchart LR
   Component --> Quote[Native cart and checkout calculation]
 ```
 
+## Independent execution package
+
+Apps 0.12.0 supplies `veyndo-app-runtime` 0.1.0. It executes the same core-Wasm
+approval/configuration and typed WIT commerce hooks used in Veyndo. Independent
+hosts pass a required resource policy, explicit namespace configuration and
+already-authorized snapshots. The runtime has no Core/kernel, SQL/network, WASI
+or environment dependency. Native `crates/apps` adapts the original verified
+predicate and operator configuration; preparation/cache, current identities,
+package/digest checks, applying outcomes and release remain native.
+
+The [standalone quote example](https://github.com/veyndo/apps/blob/main/runtime/examples/quote.rs)
+runs a real component without Core or PostgreSQL. Native and independent paths
+retain memory/table/fuel/epoch/host-call/snapshot/output limits and the same WIT
+bytes. [Runtime acceptance](evidence/app-wasm-runtime-component-2026-11-05.md).
+
 ## Common package compiler
 
 Apps 0.11.0/model 0.8.0 shares native view/control types, geometry, editor bindings

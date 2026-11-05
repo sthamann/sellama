@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = [".", "crates/*", "extensions/apps/migration", "extensions/apps/marketplaces", "extensions/services/app-storage", "extensions/services/app-storage/model"]
+members = [".", "crates/*", "extensions/apps/migration", "extensions/apps/marketplaces", "extensions/services/app-storage", "extensions/services/app-storage/model", "extensions/services/app-storage/runtime"]
 
 [workspace.package]
 version = "0.5.0"

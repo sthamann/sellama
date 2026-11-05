@@ -68,14 +68,14 @@ pub(super) fn function(
 }
 #[cfg(test)]
 mod tests {
-    use super::super::{Module, tests::snapshot};
+    use super::super::tests::snapshot;
     use super::*;
     #[test]
     fn configured_older_components_keep_snapshots_money_and_resource_guards() {
-        let source = include_str!("../../../../extensions/sdk/wit/snapshot-price.component.wat")
+        let source = include_str!("../../tests/fixtures/snapshot-price.component.wat")
             .replace("veyndo:commerce", "legacy:commerce");
-        assert!(Module::new_with_abi(&source, "").is_err());
-        let module = Module::new_with_abi(&source, "legacy").unwrap();
+        assert!(crate::test_host::component_with_namespaces(&source, "").is_err());
+        let module = crate::test_host::component_with_namespaces(&source, "legacy").unwrap();
         module.validate_interface().unwrap();
         for hook in [Kind::Price, Kind::Shipping, Kind::Discount] {
             assert_eq!(
@@ -95,16 +95,22 @@ mod tests {
                 .minor,
             0
         );
-        assert!(Module::new_with_abi(&source.replace("@1.0.0", "@2.0.0"), "legacy").is_err());
+        assert!(
+            crate::test_host::component_with_namespaces(
+                &source.replace("@1.0.0", "@2.0.0"),
+                "legacy"
+            )
+            .is_err()
+        );
         for invalid in ["../legacy", "legacy:other", "Legacy", "a,b,c,d,e"] {
-            assert!(Module::new_with_abi(&source, invalid).is_err());
+            assert!(crate::test_host::component_with_namespaces(&source, invalid).is_err());
         }
         let wrong = source.replace(
             "i32.const 528 i32.const 280 i32.load8_u",
             "i32.const 528 i32.const 3",
         );
         assert!(
-            Module::new_with_abi(&wrong, "legacy")
+            crate::test_host::component_with_namespaces(&wrong, "legacy")
                 .unwrap()
                 .evaluate(snapshot(25000), Kind::Price, "{}")
                 .is_err()
@@ -114,7 +120,7 @@ mod tests {
             "(loop $again i32.const 256 call $cart br $again)",
         );
         assert!(
-            Module::new_with_abi(&looped, "legacy")
+            crate::test_host::component_with_namespaces(&looped, "legacy")
                 .unwrap()
                 .evaluate(snapshot(25000), Kind::Price, "{}")
                 .is_err()

@@ -72,17 +72,16 @@ impl Sandbox {
 }
 #[cfg(test)]
 mod tests {
-    use super::*;
     #[test]
     fn declared_arguments_execute_real_guest_and_reject_wrong_abi_or_budget() {
-        let guest=Sandbox::new("(module (func (export \"validate_fee\") (param i64) (result i32) i32.const 1) (func (export \"configuration_fee\") (param $fee i64) (param $width i64) (param $depth i64) (result i64) local.get $fee local.get $width i64.add local.get $depth i64.add))").unwrap();
+        let guest=crate::test_host::sandbox("(module (func (export \"validate_fee\") (param i64) (result i32) i32.const 1) (func (export \"configuration_fee\") (param $fee i64) (param $width i64) (param $depth i64) (result i64) local.get $fee local.get $width i64.add local.get $depth i64.add))").unwrap();
         assert!(guest.validate_contribution_args(100, 2).unwrap());
         assert_eq!(guest.contribution_args(100, &[240, 80]).unwrap(), 420);
         assert_eq!(guest.contribution_args(100, &[260, 80]).unwrap(), 440);
         assert!(guest.contribution_args(100, &[1]).is_err());
         assert!(guest.contribution_args(100, &[]).is_err());
         assert!(guest.contribution_args(100, &[0; 9]).is_err());
-        let trap=Sandbox::new("(module (func (export \"configuration_fee\") (param i64 i64) (result i64) (loop br 0) i64.const 0))").unwrap();
+        let trap=crate::test_host::sandbox("(module (func (export \"configuration_fee\") (param i64 i64) (result i64) (loop br 0) i64.const 0))").unwrap();
         assert!(
             trap.contribution_args(1, &[1])
                 .unwrap_err()

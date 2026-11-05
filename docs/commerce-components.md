@@ -287,6 +287,8 @@ owners require an explicit reservation/compensation design and corresponding tes
     native-view, known-scope and read-only effect policies.
     Apps 0.11.0 shares strict native views/controls, geometry, editor bindings and
     bounded typed UI behavior with required native field/public-read policies.
+    Apps 0.12.0 adds the actual independent Wasm/WIT executor with required native
+    resource admission, explicit namespace configuration and preserved call budgets.
     Authentication, the remaining typed domain extension compiler and lifecycle,
     standalone service/schema and API/MCP hosting remain open.
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
@@ -314,6 +316,10 @@ owners require an explicit reservation/compensation design and corresponding tes
     - [x] Native views/controls, layout, context bindings, bounded UI AST/type checks
       and scoped view projections; actual runtime/current grants remain attached.
       [Native view evidence](evidence/app-native-views-component-2026-11-05.md).
+    - [x] Actual core-Wasm/WIT runtime, required resource policy, bounded execution,
+      explicit namespace configuration and standalone quote example; native verified
+      predicate, authorized snapshots and outcome application stay attached.
+      [Runtime evidence](evidence/app-wasm-runtime-component-2026-11-05.md).
     - [ ] Complete typed domain extension compiler, identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -380,6 +386,20 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### Independent app Wasm runtime, 5 November 2026
+
+- Apps 0.12.0 publishes `veyndo-app-runtime` 0.1.0 with the actual core-Wasm/WIT
+  executor. It has no Core/kernel, SQL/network or environment dependency.
+- Native `crates/apps` adapts its required resource policy using the original
+  verified predicate and supplies configured legacy namespaces. Original cache,
+  admitted snapshots, checkout, current package rights and release remain native.
+- Own locked runtime CI, executable quote example and real guest regressions are
+  paired with native adapter, checkout/B2B/configuration, preview/release and
+  marketplace composition. Core rejects drift between the runtime WIT input
+  and SDK mirror. [Evidence](evidence/app-wasm-runtime-component-2026-11-05.md).
+- Identity/lifecycle hosting and a standalone API/MCP service remain open.
+
 
 ### App native view and UI behavior contracts, 5 November 2026
 

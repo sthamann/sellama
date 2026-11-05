@@ -1,5 +1,14 @@
 # Changelog
 
+## Independent app Wasm and WIT runtime, 5 November 2026
+
+Apps 0.12.0 supplies `veyndo-app-runtime` 0.1.0 with the actual bounded executor,
+required resource admission and explicit namespace configuration. Native adapters
+keep the direct verified resource predicate, original preparation/cache, current
+package authority, snapshots and checkout/release consumers. Independent guest and
+quote examples, SDK/WIT byte parity and native composition checks cover the move.
+[Implementation and acceptance](docs/evidence/app-wasm-runtime-component-2026-11-05.md).
+
 ## Shared native app editors and behavior, 5 November 2026
 
 Apps 0.11.0/model 0.8.0 shares strict localized view/control/geometry types,

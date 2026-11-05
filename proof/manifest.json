@@ -619,35 +619,20 @@
     }
   },
   "sources": {
-    "crates/apps/src/component_runtime/abi.rs": {
-      "status": "unproved",
-      "sha256": "66070ed3fb9019bd4691917384a40df217d0875bcc7896758e49284e1f8060c4",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
-    },
     "crates/apps/src/component_runtime.rs": {
       "status": "unproved",
-      "sha256": "7a79f564a855b4b1c197c54610bc659bc5045b61345d725dea54390025a22f5d",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "4cc79b79b8e7395ad8d66f8f7bbfe57082da9c100c6c3215c86748c9bcb61aec",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "crates/apps/src/lib.rs": {
       "status": "unproved",
-      "sha256": "6b51d1587d92072800110109675bf79b9bf2fb18c900e8d961b7851e1ce54270",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
-    },
-    "crates/apps/src/sandbox/configuration.rs": {
-      "status": "unproved",
-      "sha256": "0b16726f38707edd4a51bc7c1315282381cafa871755e53c0525c3567eaaf6b7",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
+      "sha256": "69098b5ae608ff3a7523de6cf2c9befdfbdc4c7578f54d98a3ef850f1777cd1e",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "crates/apps/src/sandbox.rs": {
       "status": "reviewed-binding",
-      "sha256": "8557a0491feccaab91c76f0e01ebf3fa69af9b25daae6c02ecbb7db1c3d5b367",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
-    },
-    "crates/apps/src/sandbox_engine.rs": {
-      "status": "unproved",
-      "sha256": "4ce2449f3aac161d6a34f1de770a83ecaa4ac8fc2b902186a458e8e422475610",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "9f393d24b48d41baf2f4361cca70ed5593c42f5d833afed2fc98bc556fc94877",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "crates/cognition/src/inference/budget.rs": {
       "status": "unproved",
@@ -1593,6 +1578,56 @@
       "status": "unproved",
       "sha256": "fec61f9afb06b0e5fc5dd0bc0e42b0b55e5922d557348fff394931b0948a2800",
       "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+    },
+    "extensions/services/app-storage/runtime/examples/quote.rs": {
+      "status": "unproved",
+      "sha256": "e2fc6aacc85947616b06ff9023c588779c2afeb5adfd63e107926204d830adb5",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/src/component_runtime/abi.rs": {
+      "status": "unproved",
+      "sha256": "9b98d59919df94fc6a7717e46d18c29bdb167aa5ce797409688be58eb618c4f3",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/src/component_runtime.rs": {
+      "status": "unproved",
+      "sha256": "e1e243c51eb0214f51b8f4f427932d7c2779f5749dfc66d8807005f1c0e2c107",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/src/lib.rs": {
+      "status": "unproved",
+      "sha256": "900a5dfc6963fc7fbf879539a4383be79af79dc871c9cfe1231fa9626543274f",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/src/policy.rs": {
+      "status": "unproved",
+      "sha256": "f00b7c63ecb5e0f02fe3f6dd31fcb07beda7a47c1c2747d06c2f6a5913a28c78",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/src/sandbox/configuration.rs": {
+      "status": "unproved",
+      "sha256": "d337f34c795b7e44ba901ed8482249770cc60c7991ceef857b509aed4633665a",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/src/sandbox.rs": {
+      "status": "unproved",
+      "sha256": "d810e118ce4bfde2c37a52fb3142926bc1cb00540120f511247e3dc205547db5",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/src/sandbox_engine.rs": {
+      "status": "unproved",
+      "sha256": "4ce2449f3aac161d6a34f1de770a83ecaa4ac8fc2b902186a458e8e422475610",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/src/test_host.rs": {
+      "status": "unproved",
+      "sha256": "d564a2c5f163434b9bfc32cc5579e06b8806492907a27c6d41ce0a987bfb36cd",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/tests/admission.rs": {
+      "status": "unproved",
+      "sha256": "9e7aa35f27afef9f31e2168a8ae8de677979023757e00e4c36bcab4e6ab37fb1",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "extensions/services/app-storage/src/error.rs": {
       "status": "unproved",
@@ -4741,20 +4776,20 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "e51eeceb7d7dc5ed19a1a3dad58e648b6e1acda99480608796183e6f11245e89",
-      "review": "Reviewed exact native view/control/geometry/UI AST extraction into pinned Apps model 0.8.0; native compiler order, error pointers, canonical digests, canonical field policy and direct verified public-read predicate preserved. Independent compiler negatives, 74 native app unit tests and twelve real PostgreSQL/HTTP composition modules pass. Shared model, host adapters and SQL remain outside extracted proof scope."
+      "sha256": "3faee9407e6df01541a82ff094a576ababa67f9334af88d1b52ec1ead10b8aaa",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "Cargo.toml": {
-      "sha256": "0b6cd31c1e58e4e06a90eba1b44505343c0b9f14a2e8f7958d0d00ca9486d091",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "a217ec927488adc4b5e1430e7cee5e92455edf1018c678096fec13c3466398b5",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "components.lock.json": {
-      "sha256": "95525ad64a34a620214a6058be4e6a063312e677947ad13eee59405080c9c346",
-      "review": "Reviewed exact native view/control/geometry/UI AST extraction into pinned Apps model 0.8.0; native compiler order, error pointers, canonical digests, canonical field policy and direct verified public-read predicate preserved. Independent compiler negatives, 74 native app unit tests and twelve real PostgreSQL/HTTP composition modules pass. Shared model, host adapters and SQL remain outside extracted proof scope."
+      "sha256": "31a1eeb09d45f681af929c93eadd2e69be0555933316a984cbe9a8c85bfede2b",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "crates/apps/Cargo.toml": {
-      "sha256": "496067ed6a47c2778baed402bd51378c139687fbb3b36f8f965bf880129de013",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "crates/cognition/Cargo.toml": {
       "sha256": "2da5c9476309e68931aad63e274dec829f8a1ed0fe140cb5cdea0e126eaf2e4a",
@@ -4901,12 +4936,12 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "978f94b8c87437fcaf0caaa5f28aa1e94ccba3668d636412c8df66688bb08c68",
-      "review": "Reviewed exact native view/control/geometry/UI AST extraction into pinned Apps model 0.8.0; native compiler order, error pointers, canonical digests, canonical field policy and direct verified public-read predicate preserved. Independent compiler negatives, 74 native app unit tests and twelve real PostgreSQL/HTTP composition modules pass. Shared model, host adapters and SQL remain outside extracted proof scope."
+      "sha256": "792853022ddd44752186462caea38740209fa8821d194c79b657e19004ac440a",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "e6b680177660a41fe871e724048f036810ad0bdb97944bbeb44fe50621ddd68f",
-      "review": "Reviewed exact native view/control/geometry/UI AST extraction into pinned Apps model 0.8.0; native compiler order, error pointers, canonical digests, canonical field policy and direct verified public-read predicate preserved. Independent compiler negatives, 74 native app unit tests and twelve real PostgreSQL/HTTP composition modules pass. Shared model, host adapters and SQL remain outside extracted proof scope."
+      "sha256": "a4dbd51358e62f5eb48b4efb568f067f51d2e86245f9637bf28db961deedb71b",
+      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
       "sha256": "9cf615f52b2741f0991f6adc19f980837cae7381a640c086ee8a6d3bf1ca602f",

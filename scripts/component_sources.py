@@ -43,7 +43,12 @@ def verify(root=ROOT):
         for file in row['files']:
             safe_path(file)
         assert actual == row['files'], f'{name}: source snapshot differs from its reviewed commit; import upstream changes explicitly'
-    print('PASS exact component commits, owner paths, file sets and SHA-256 contents')
+    runtime_wit = root / OWNERS['apps'] / 'runtime/wit/commerce.wit'
+    sdk_wit = root / 'extensions/sdk/wit/commerce.wit'
+    assert not runtime_wit.is_symlink() and not sdk_wit.is_symlink(), 'Linked WIT contract mirror'
+    assert runtime_wit.is_file() and sdk_wit.is_file(), 'Missing runtime/SDK WIT contract'
+    assert runtime_wit.read_bytes() == sdk_wit.read_bytes(), 'Runtime/SDK WIT contract drift'
+    print('PASS exact component commits, owner paths, file sets, SHA-256 contents and runtime/SDK WIT parity')
 
 
 def import_source(name, checkout, commit):

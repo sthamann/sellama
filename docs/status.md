@@ -51,6 +51,16 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Independent bounded app runtime, 5 November 2026
+
+Apps [0.12.0](https://github.com/veyndo/apps/releases/tag/v0.12.0) adds
+`veyndo-app-runtime` 0.1.0: the actual core-Wasm/WIT executor with isolated stores,
+limited fuel/memory/host calls and typed snapshots/results. Independent developers
+can execute a commerce hook without Core or a database. Native `crates/apps`
+supplies required verified resource admission and operator namespace configuration;
+current rights, snapshots, cache, checkout and release stay with their owners.
+[Evidence and remaining scope](evidence/app-wasm-runtime-component-2026-11-05.md).
+
 ## Shared native app views and behavior, 5 November 2026
 
 Apps [0.11.0](https://github.com/veyndo/apps/releases/tag/v0.11.0), model 0.8.0,

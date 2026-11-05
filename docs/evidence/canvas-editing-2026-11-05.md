@@ -30,7 +30,8 @@ read-only catalogue controls and 3D media upload admission. The TypeScript and
 production build, frontend architecture, EN/DE/FR/ES localization, source inventory,
 documentation hygiene and reviewed-source registry passed. The Impeccable source
 detector found no issues in the scanned changed surfaces; responsive browser
-inspection provided the visual checks. The daily full suite is unchanged.
+inspection provided the visual checks. Light and dark Studio colors use the same
+existing theme tokens; storefront preview colors remain owned by the shop design. The daily full suite is unchanged.
 
 Screenshots in the [visual guide](../visual-workspace-canvas.md) show the local
 synthetic acceptance shop. Public deployment is recorded separately in status.md.

@@ -284,7 +284,10 @@ def run():
             mcp = call("/mcp", {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": f"app.{app_id}.recommend", "arguments": args}}, h)["result"]["structuredContent"]
             assert answer == mcp and "spülmaschinen" in answer["answer"]
             passed("HTTP and agent/MCP consume the same custom service action; app data remains tenant-isolated")
-            for mutate in (lambda x: x["surfaces"][1]["actions"].append("save_entry"), lambda x: x["surfaces"][0].update(uiPath="../other"), lambda x: x["apiRoutes"][0].update(method="GET", action="support_received")):
+            def fake_readonly_get(x):
+                next(a for a in x['actions'] if a['name']=='support_received')['readOnly']=True
+                x['apiRoutes'][0].update(method='GET',action='support_received')
+            for mutate in (lambda x: x["surfaces"][1]["actions"].append("save_entry"), lambda x: x["surfaces"][0].update(uiPath="../other"), lambda x: x["apiRoutes"][0].update(method="GET", action="support_received"), fake_readonly_get):
                 broken = copy.deepcopy(m)
                 broken["version"] = "2.0.0"
                 mutate(broken)

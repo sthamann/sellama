@@ -1,5 +1,14 @@
 # Changelog
 
+## Shared app placement and route contracts, 5 November 2026
+
+Apps 0.10.0/model 0.7.0 shares strict Surface/ApiRoute wire types and the original
+placement/action/path/scope/method grammar through required native-view, known-team-
+scope and read-only effect policies. Native current grants, pinned UI/dispatch and
+complete view compilation retain their owners. Error pointers and legacy package
+serialization remain unchanged; native regressions check forged readOnly metadata.
+[Implementation and acceptance](docs/evidence/app-surface-contracts-2026-11-05.md).
+
 ## Shared object and intelligence graph contracts, 5 November 2026
 
 Apps 0.9.0/model 0.6.0 shares private native object-binding declarations, strict

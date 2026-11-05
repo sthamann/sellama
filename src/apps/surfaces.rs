@@ -34,120 +34,28 @@ pub(crate) fn readonly(action: &Action) -> bool {
         ["save", "emit", "submit"].contains(&action.handler.as_str()),
     )
 }
+struct SurfacePolicy<'a>(&'a Manifest);
+impl veyndo_app_model::surfaces::Policy for SurfacePolicy<'_> {
+    fn native_view(&self, surface: &Surface) -> bool {
+        native_views::is_native(self.0, surface)
+    }
+    fn known_scope(&self, scope: &str) -> bool {
+        auth::SCOPES.contains(&scope)
+    }
+    fn readonly(&self, action: &Action) -> bool {
+        readonly(action)
+    }
+}
 pub(crate) fn validate_contract(m: &Manifest) -> Result<()> {
-    let mut ids = std::collections::HashSet::new();
-    if m.surfaces.len() > 16 || m.api_routes.len() > 24 {
-        return Err(bad("App surface/route limit exceeded"));
-    }
-    for (surface_index, s) in m.surfaces.iter().enumerate() {
-        let private = s.location.starts_with("admin.");
-        for (action_index, name) in s.actions.iter().enumerate() {
-            if !m
-                .actions
-                .iter()
-                .any(|a| a.name == *name && (private || a.public))
-            {
-                return Err(Error::validation(
-                    &format!("/surfaces/{surface_index}/actions/{action_index}"),
-                    format!(
-                        "Surface {} refers to unavailable action {name}; use a declared action allowed for this surface",
-                        s.id
-                    ),
-                ));
-            }
-        }
-        if (m.runtime != "service" || s.location == "storefront.block")
-            && !native_views::is_native(m, s)
-        {
-            return Err(Error::validation(
-                &format!("/surfaces/{surface_index}/uiPath"),
-                "Native surface uiPath must be native/ followed by an existing view ID".into(),
-            ));
-        }
-        let slot_permission = if private {
-            "admin.slot"
-        } else {
-            "storefront.slot"
-        };
-        if !m.permissions.iter().any(|p| p == slot_permission) {
-            return Err(Error::validation(
-                "/permissions",
-                format!(
-                    "Surface {} requires declared permission {slot_permission}",
-                    s.id
-                ),
-            ));
-        }
-        if s.permission
-            .as_deref()
-            .is_some_and(|p| !private || !auth::SCOPES.contains(&p))
-        {
-            return Err(Error::validation(&format!("/surfaces/{surface_index}/permission"), "Surface permission must be a current team scope for private admin surfaces or null for public surfaces".into()));
-        }
-        if !identifier(&s.id)
-            || !ids.insert(&s.id)
-            || ![
-                "admin.navigation",
-                "admin.b2b.company",
-                "admin.b2b.unit",
-                "account.b2b",
-                "admin.pos.catalog",
-                "admin.pos.cart",
-                "admin.pos.receipt",
-                "admin.order",
-                "admin.product",
-                "admin.product.general",
-                "admin.product.tab",
-                "admin.customer",
-                "admin.order.general",
-                "storefront.page",
-                "storefront.block",
-                "storefront.home",
-                "storefront.header",
-                "product.detail",
-                "cart.summary",
-                "checkout.content",
-                "checkout.summary",
-                "account.overview",
-            ]
-            .contains(&s.location.as_str())
-            || s.ui_path.is_empty()
-            || s.ui_path.len() > 160
-            || s.ui_path.split('/').any(|p| {
-                p.is_empty()
-                    || p == "."
-                    || p == ".."
-                    || !p
-                        .bytes()
-                        .all(|b| b.is_ascii_alphanumeric() || b == b'-' || b == b'_' || b == b'.')
-            })
-            || s.actions.len() > 24
-        {
-            return Err(Error::validation(
-                &format!("/surfaces/{surface_index}"),
-                "Invalid app UI surface or exposed action".into(),
-            ));
-        }
-    }
-    let mut routes = std::collections::HashSet::new();
-    for r in &m.api_routes {
-        let action = m
-            .actions
-            .iter()
-            .find(|a| a.name == r.action)
-            .ok_or(bad("Unknown route action"))?;
-        if !identifier(&r.path)
-            || !routes.insert((&r.scope, &r.method, &r.path))
-            || !["admin", "storefront"].contains(&r.scope.as_str())
-            || !["GET", "POST"].contains(&r.method.as_str())
-            || (r.scope == "storefront" && !action.public)
-            || (r.method == "GET" && !readonly(action))
-        {
-            return Err(bad(
-                "Invalid app HTTP route; GET requires a read-only action",
-            ));
-        }
-    }
+    let contract = veyndo_app_model::surfaces::Contract {
+        runtime: &m.runtime,
+        permissions: &m.permissions,
+        actions: &m.actions,
+        surfaces: &m.surfaces,
+        api_routes: &m.api_routes,
+    };
+    veyndo_app_model::surfaces::validate(&contract, &SurfacePolicy(m))
+        .map_err(model_contract::error)?;
     veyndo_app_model::intelligence::validate(m.intelligence.as_ref(), &m.actions, &m.entities)
         .map_err(model_contract::error)?;
     Ok(())
@@ -264,4 +172,31 @@ async fn write_route(
         )
         .await?,
     ))
+}
+
+#[cfg(test)]
+mod policy_tests {
+    use super::*;
+    #[test]
+    fn native_surface_policy_retains_verified_effect_guards() {
+        let m: Manifest = serde_json::from_str(include_str!(
+            "../../extensions/apps/care-studio/manifest.json"
+        ))
+        .unwrap();
+        let mut action: Action = serde_json::from_value(json!({"name":"effect","description":"Effect","handler":"save","readOnly":true,"inputSchema":{"type":"object"}})).unwrap();
+        let policy = SurfacePolicy(&m);
+        for handler in ["save", "emit", "submit"] {
+            action.handler = handler.into();
+            assert!(!veyndo_app_model::surfaces::Policy::readonly(
+                &policy, &action
+            ));
+        }
+        action.read_only = false;
+        for handler in ["list", "configurations"] {
+            action.handler = handler.into();
+            assert!(veyndo_app_model::surfaces::Policy::readonly(
+                &policy, &action
+            ));
+        }
+    }
 }

@@ -49,7 +49,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           labels: |
-            org.opencontainers.image.source=https://github.com/sthamann/veyndo
+            org.opencontainers.image.source=https://github.com/veyndo/veyndo
             org.opencontainers.image.revision=${{ github.sha }}
       - name: Start the actual packaged local tour and verify HTTP readiness
         env:
@@ -106,12 +106,12 @@ jobs:
         env:
           SOURCE_SHA: ${{ github.sha }}
         run: |
-          docker tag veyndo-preview:test "ghcr.io/sthamann/veyndo:sha-$SOURCE_SHA"
-          docker push "ghcr.io/sthamann/veyndo:sha-$SOURCE_SHA"
+          docker tag veyndo-preview:test "ghcr.io/veyndo/veyndo:sha-$SOURCE_SHA"
+          docker push "ghcr.io/veyndo/veyndo:sha-$SOURCE_SHA"
           git fetch --no-tags origin main
           main_sha=$(git rev-parse FETCH_HEAD)
           if python3 scripts/testing/ci_scope.py --promote-preview "$SOURCE_SHA" "$main_sha"; then
-            docker tag veyndo-preview:test ghcr.io/sthamann/veyndo:preview
-            docker push ghcr.io/sthamann/veyndo:preview
+            docker tag veyndo-preview:test ghcr.io/veyndo/veyndo:preview
+            docker push ghcr.io/veyndo/veyndo:preview
           fi
           echo "Published source $SOURCE_SHA; Linux amd64. Use the sha tag to pin an installation." >> "$GITHUB_STEP_SUMMARY"

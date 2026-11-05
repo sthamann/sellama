@@ -1,46 +1,8 @@
 //! Namespaced core-object extension contracts; native records, rights and app storage keep their owners.
 use super::{Entity, Manifest};
 use crate::{RequestContext, Result, auth, bad, conflict};
-use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct Extension {
-    pub version: u8,
-    pub object: Object,
-    pub field: String,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub(crate) enum Object {
-    Product,
-    Customer,
-    Order,
-    Company,
-}
-impl Object {
-    pub(crate) fn reference(self) -> &'static str {
-        match self {
-            Self::Product => "product",
-            Self::Customer => "customer",
-            Self::Order => "order",
-            Self::Company => "b2bCompany",
-        }
-    }
-    pub(crate) fn scopes(self, write: bool) -> &'static [&'static str] {
-        match (self, write) {
-            (Self::Product, false) => &["catalog.read"],
-            (Self::Product, true) => &["catalog.read", "catalog.write"],
-            (Self::Customer, false) => &["customers.read", "customers.pii"],
-            (Self::Customer, true) => &["customers.read", "customers.pii", "customers.write"],
-            (Self::Order, false) => &["orders.read", "customers.pii"],
-            (Self::Order, true) => &["orders.read", "customers.pii", "orders.write"],
-            (Self::Company, false) => &["b2b.read"],
-            (Self::Company, true) => &["b2b.read", "b2b.manage"],
-        }
-    }
-}
+pub(crate) use veyndo_app_model::Object;
 
 pub(super) fn validate(m: &Manifest) -> Result<()> {
     for e in &m.entities {

@@ -18,6 +18,13 @@ current creator permissions, dependency checks, row/byte quotas or forced RLS.
 before commerce transactions; WIT hooks consume bounded read-only snapshots and
 use the existing native money/tax calculation owner.
 
+Pure model types, declarations, bounded schemas, field/language checks, publication
+contracts and record workflows belong to `veyndo/apps` model/. Core consumes its
+pinned `veyndo-app-model` package. Native adapters preserve problem kinds/pointers
+and call existing currency/content/reference policy owners; actual identity,
+package authority, referenced-object ownership and database scope remain native.
+Never duplicate validators or introduce permissive policy defaults.
+
 Visual edits and coding-agent output share the same Manifest/AST. F5 is actor-private
 and expires; it cannot call services, change live core data or release packages.
 Draft CAS conflicts remain visible and do not overwrite another editor. Interface

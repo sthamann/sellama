@@ -1,51 +1,30 @@
-//! Exact app field values reuse commerce money, rich content and tenant-owned assets; no HTML or float decimal coercion.
+//! Native currency/content/asset policy adapters for the shared pure field validator.
 use super::*;
-pub(super) const KINDS: &[&str] = &[
-    "string",
-    "integer",
-    "boolean",
-    "json",
-    "date",
-    "datetime",
-    "money",
-    "decimal",
-    "image",
-    "file",
-    "richtext",
-    "relations",
-];
-pub(super) fn json(f: &Field) -> bool {
-    f.translatable || matches!(f.kind.as_str(), "json" | "money" | "richtext" | "relations")
+pub(super) use veyndo_app_model::fields::json;
+struct Policy;
+impl veyndo_app_model::fields::ValuePolicy for Policy {
+    fn locale(&self, key: &str) -> bool {
+        commerce::valid_locale_key(key)
+    }
+    fn money(&self, value: &Value) -> bool {
+        money(value)
+    }
+    fn richtext(&self, value: &Value) -> bool {
+        assets::validate_rich(value).is_ok()
+    }
+    fn relations(&self, value: &Value) -> bool {
+        relations::valid(value)
+    }
 }
 pub(super) fn contract(e: &Entity) -> Result<()> {
-    record_lifecycle::contract(e)?;
-    for f in &e.fields {
-        if f.unique && (json(f) || f.translatable) {
-            return Err(bad("Unique fields must use scalar values"));
-        }
-        if let Some(v) = &f.validation {
-            input_schema::validate_contract(v)?;
-        }
-        if f.validation
-            .as_ref()
-            .is_some_and(|v| v.get("type").is_some())
-        {
-            return Err(bad(
-                "Field validation cannot override the declared field type",
-            ));
-        }
-    }
-    Ok(())
+    veyndo_app_model::fields::contract(e).map_err(model_contract::error)
 }
-fn decimal(s: &str) -> bool {
-    let s = s.strip_prefix('-').unwrap_or(s);
-    let (whole, fraction) = s.split_once('.').unwrap_or((s, ""));
-    !whole.is_empty()
-        && whole.len() <= 18
-        && whole.bytes().all(|b| b.is_ascii_digit())
-        && fraction.len() <= 8
-        && fraction.bytes().all(|b| b.is_ascii_digit())
-        && (!s.contains('.') || !fraction.is_empty())
+pub(super) fn validate(e: &Entity, value: &Value) -> Result<()> {
+    veyndo_app_model::fields::validate(e, value, &Policy).map_err(model_contract::error)
+}
+#[cfg(test)]
+fn value(f: &Field, value: &Value) -> bool {
+    veyndo_app_model::fields::value(f, value, &Policy)
 }
 fn money(v: &Value) -> bool {
     let Ok(m) = serde_json::from_value::<veyndo::money::Money>(v.clone()) else {
@@ -56,90 +35,6 @@ fn money(v: &Value) -> bool {
         && v["currency"].as_object().is_some_and(|o|o.len()==2)
         // JSON clients must not lose precision. Larger amounts require a future string minor-unit wire revision.
         && m.minor().unsigned_abs()<=9_007_199_254_740_991
-}
-fn value(f: &Field, v: &Value) -> bool {
-    match f.kind.as_str() {
-        "integer" => v.as_i64().is_some(),
-        "boolean" => v.is_boolean(),
-        "json" => (v.is_object() || v.is_array()) && v.to_string().len() <= 8192,
-        "money" => money(v),
-        "relations" => relations::valid(v) && (!f.required || !v.as_array().unwrap().is_empty()),
-        "richtext" => assets::validate_rich(v).is_ok() && v.to_string().len() <= 32768,
-        "decimal" => v.as_str().is_some_and(decimal),
-        "date" => v.as_str().is_some_and(|s| {
-            chrono::NaiveDate::parse_from_str(s, "%Y-%m-%d")
-                .is_ok_and(|v| v.format("%Y-%m-%d").to_string() == s)
-        }),
-        "datetime" => v
-            .as_str()
-            .is_some_and(|s| s.len() <= 40 && chrono::DateTime::parse_from_rfc3339(s).is_ok()),
-        "image" | "file" => v.as_str().is_some_and(|s| !s.is_empty() && s.len() <= 100),
-        _ => v.as_str().is_some_and(|s| s.len() <= 2000),
-    }
-}
-pub(super) fn validate(e: &Entity, v: &Value) -> Result<()> {
-    let o = v.as_object().ok_or(bad("fields must be an object"))?;
-    let unknown = o
-        .keys()
-        .filter(|k| !e.fields.iter().any(|f| f.name == **k))
-        .take(8)
-        .map(|k| k.chars().take(64).collect::<String>())
-        .collect::<Vec<_>>();
-    if !unknown.is_empty() {
-        return Err(bad(format!(
-            "Unknown entity field(s) in {}: {}",
-            e.name,
-            json!(unknown)
-        )));
-    }
-    for f in &e.fields {
-        let v = &v[&f.name];
-        if v.is_null() {
-            if f.required {
-                return Err(bad(format!("{} is required", f.name)));
-            }
-            continue;
-        }
-        let ok = if f.translatable {
-            v.as_object().is_some_and(|o| {
-                !o.is_empty()
-                    && o.len() <= 100
-                    && o.iter()
-                        .all(|(k, v)| commerce::valid_locale_key(k) && (v.is_null() || value(f, v)))
-            })
-        } else {
-            value(f, v)
-        };
-        if !ok {
-            return Err(bad(format!("Invalid {} field {}", f.kind, f.name)));
-        }
-        if !f.choices.is_empty()
-            && !f
-                .choices
-                .iter()
-                .any(|c| v.as_str() == Some(c.value.as_str()))
-        {
-            return Err(bad(format!("Unknown choice for {}", f.name)));
-        }
-        if let Some(schema) = &f.validation {
-            let values = if f.translatable {
-                v.as_object()
-                    .unwrap()
-                    .values()
-                    .filter(|v| !v.is_null())
-                    .collect::<Vec<_>>()
-            } else {
-                vec![v]
-            };
-            for v in values {
-                input_schema::validate(
-                    &json!({"type":"object","properties":{"value":schema}}),
-                    &json!({"value":v}),
-                )?;
-            }
-        }
-    }
-    Ok(())
 }
 pub(super) async fn references(
     tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,

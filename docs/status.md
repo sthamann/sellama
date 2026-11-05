@@ -46,6 +46,20 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Pure app model component, 5 November 2026
+
+Apps [0.3.0](https://github.com/veyndo/apps/releases/tag/v0.3.0) now includes the
+independent Rust package `veyndo-app-model`. Veyndo uses its exact entity/field
+types and shared declaration, action-schema, field, language, publication and
+workflow checks. Native money/rich-content/reference rules remain behind required
+host policy ports; current identity and object ownership stay with their owners.
+
+Fourteen independent model tests, 74 native app unit tests and the affected
+PostgreSQL/API/MCP suites pass. Canonical fingerprints of all 34 existing public
+app packages are unchanged. The model crate has no SQL or network dependency.
+Full package/identity authority and separately hosted API/MCP remain open under
+MKT-03b. [Evidence and boundaries](evidence/app-model-component-2026-11-05.md).
+
 ## Shared record operations, 5 November 2026
 
 Apps [0.2.0](https://github.com/veyndo/apps/releases/tag/v0.2.0) now owns record

@@ -1,13 +1,14 @@
 //! Optional server-enforced publication window and channel projection for public app records.
-use super::*;
+use crate::{Entity, Result, bad};
+use serde::{Deserialize, Serialize};
 #[derive(Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct Publication {
+pub struct Publication {
     pub status_field: String,
     pub channel_field: String,
     pub starts_at: String,
 }
-pub(super) fn validate(e: &Entity) -> Result<()> {
+pub fn validate(e: &Entity) -> Result<()> {
     let Some(p) = &e.publication else {
         return Ok(());
     };

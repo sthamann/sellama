@@ -99,55 +99,7 @@ pub(crate) struct ConfigurationContract {
     pub label: HashMap<String, String>,
     pub hint: HashMap<String, String>,
 }
-#[derive(Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct Entity {
-    /// Runtime receipts and locks never travel with sandbox configuration.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub operational: Option<bool>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub extends: Option<super::core_extensions::Extension>,
-    pub name: String,
-    #[serde(default, skip_serializing_if = "HashMap::is_empty")]
-    pub label: HashMap<String, String>,
-    pub fields: Vec<Field>,
-    #[serde(default)]
-    pub public_read: bool,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub publication: Option<super::publication::Publication>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub workflow: Option<super::record_lifecycle::Workflow>,
-}
-#[derive(Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct Field {
-    pub name: String,
-    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
-    pub translatable: bool,
-    #[serde(default, skip_serializing_if = "HashMap::is_empty")]
-    pub label: HashMap<String, String>,
-    pub kind: String,
-    #[serde(default)]
-    pub required: bool,
-    #[serde(default)]
-    pub indexed: bool,
-    #[serde(default)]
-    pub references: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub core_reference: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub choices: Vec<Choice>,
-    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
-    pub unique: bool,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub validation: Option<Value>,
-}
-#[derive(Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct Choice {
-    pub value: String,
-    pub label: HashMap<String, String>,
-}
+pub(crate) use veyndo_app_model::{Entity, Field};
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub(crate) struct Slot {
@@ -179,11 +131,7 @@ pub(crate) struct Action {
     pub mcp: Option<bool>,
 }
 pub(crate) fn identifier(s: &str) -> bool {
-    !s.is_empty()
-        && s.len() <= 32
-        && s.bytes()
-            .all(|c| c.is_ascii_lowercase() || c.is_ascii_digit() || c == b'_')
-        && s.as_bytes()[0].is_ascii_lowercase()
+    veyndo_app_model::declarations::identifier(s)
 }
 #[cfg(test)]
 mod tests {

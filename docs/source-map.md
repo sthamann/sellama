@@ -17,6 +17,15 @@ The trusted storage crate is distinct from the no-SQL Wasm `veyndo-apps` crate;
 Cargo boundary controls prohibit guest/domain imports of the storage package.
 [Independent and assembled tests](evidence/app-storage-component-2026-11-05.md).
 
+**Pure app model:** `extensions/services/app-storage/model/` is the exact pinned
+`veyndo-app-model` package from `veyndo/apps`. Native `manifest.rs`,
+`manifest_validation.rs`, `input_schema.rs`, `field_values.rs`, `native_data.rs`
+and `record_lifecycle.rs` now adapt its types/functions. `model_contract.rs`
+preserves native problem kinds and escaped JSON pointers. Required policy ports
+call native money/content/relation validators and the verified reference guard
+in `editor_contract.rs`. No database or transport dependency enters the model.
+[Wire and workflow evidence](evidence/app-model-component-2026-11-05.md).
+
 **Invoice checkout:** `src/payments/instructions.rs` owns the typed recipient
 projection and customer/compound merchant rights. `PaymentInstructions.tsx` and
 its adjacent stylesheet render it in the existing native completion checkout.

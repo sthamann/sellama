@@ -1,5 +1,16 @@
 # Changelog
 
+## Independent app model contracts, 5 November 2026
+
+Apps 0.3.0 introduces the pure `veyndo-app-model` crate. Core now reuses its exact
+entity/field types, declaration grammar, bounded action schemas, typed field and
+language validation, publication declarations and record workflows. Required host
+policy ports retain native money/content/relation checks and the verified reference
+guard; native errors preserve their kind and escaped JSON pointer. Fourteen
+independent model tests, 74 native app units and affected integrated suites pass.
+All 34 existing public app package fingerprints are unchanged.
+[Evidence and remaining standalone authority](docs/evidence/app-model-component-2026-11-05.md).
+
 ## Shared app record operations, 5 November 2026
 
 Apps 0.2.0 extracts record CAS, exact import replay, write/event sequencing and

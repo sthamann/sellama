@@ -8,9 +8,11 @@ OWNERS = {name: ROOT / 'crates' / name.removeprefix('veyndo-') for name in (
     'veyndo-kernel', 'veyndo-runtime', 'veyndo-commerce', 'veyndo-apps', 'veyndo-cognition')}
 OWNERS.update({'veyndo': ROOT, 'veyndo-migration': ROOT / 'extensions/apps/migration',
                'veyndo-marketplaces': ROOT / 'extensions/apps/marketplaces',
-               'veyndo-app-storage': ROOT / 'extensions/services/app-storage'})
+               'veyndo-app-storage': ROOT / 'extensions/services/app-storage',
+               'veyndo-app-model': ROOT / 'extensions/services/app-storage/model'})
 ALLOWED = {
-    'veyndo-app-storage': set(),
+    'veyndo-app-model': set(),
+    'veyndo-app-storage': {'veyndo-app-model'},
     'veyndo-marketplaces': set(),
     'veyndo-kernel': set(),
     'veyndo-runtime': set(),
@@ -22,6 +24,7 @@ ALLOWED = {
 # when a manifest renames sqlx as something innocuous. New dependencies need an
 # explicit architecture decision, including build/dev/optional/target variants.
 EXTERNAL = {
+    'veyndo-app-model': {'serde', 'serde_json', 'chrono'},
     'veyndo-app-storage': {'sqlx', 'serde_json', 'sha2', 'tokio'},
     'veyndo-marketplaces': {'axum', 'tokio', 'serde', 'serde_json', 'sha2', 'hmac', 'ring', 'chrono', 'reqwest'},
     'veyndo-kernel': set(),

@@ -1,88 +1,11 @@
-//! Generic app-owned record lifecycle contracts. Status vocabulary and transitions belong to the app Manifest.
+//! Native transport mapping for shared app-owned workflow contracts and state transitions.
 use super::*;
-#[derive(Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct Workflow {
-    pub field: String,
-    pub initial: String,
-    pub transitions: Vec<Transition>,
-    #[serde(default)]
-    pub immutable_fields: Vec<String>,
-}
-#[derive(Clone, Serialize, Deserialize, PartialEq)]
-#[serde(deny_unknown_fields)]
-pub(crate) struct Transition {
-    pub from: String,
-    pub to: String,
-}
-pub(super) fn contract(e: &Entity) -> Result<()> {
-    let Some(w) = &e.workflow else {
-        return Ok(());
-    };
-    let field = e
-        .fields
-        .iter()
-        .find(|f| f.name == w.field)
-        .ok_or(bad("Workflow field is missing"))?;
-    let choices = field
-        .choices
-        .iter()
-        .map(|c| c.value.as_str())
-        .collect::<Vec<_>>();
-    if field.kind != "string"
-        || field.translatable
-        || !field.required
-        || choices.is_empty()
-        || choices.len() > 16
-        || !choices.contains(&w.initial.as_str())
-        || w.transitions.len() > 32
-        || w.immutable_fields.len() > 16
-        || w.transitions.iter().any(|t| {
-            t.from == t.to
-                || !choices.contains(&t.from.as_str())
-                || !choices.contains(&t.to.as_str())
-        })
-        || w.immutable_fields
-            .iter()
-            .any(|name| name == &w.field || !e.fields.iter().any(|f| &f.name == name))
-    {
-        return Err(bad(
-            "Workflow needs a required untranslated choice field, valid transitions and declared immutable fields",
-        ));
-    }
-    Ok(())
+#[cfg(test)]
+fn contract(e: &Entity) -> Result<()> {
+    veyndo_app_model::lifecycle::contract(e).map_err(model_contract::error)
 }
 pub(super) fn change(e: &Entity, old: Option<&Value>, fields: &Value) -> Result<()> {
-    let Some(w) = &e.workflow else {
-        return Ok(());
-    };
-    let to = fields[&w.field]
-        .as_str()
-        .ok_or(bad("Workflow status is required"))?;
-    let Some(old) = old else {
-        return if to == w.initial {
-            Ok(())
-        } else {
-            Err(bad(format!("New records must start at {}", w.initial)))
-        };
-    };
-    if w.immutable_fields
-        .iter()
-        .any(|name| old[name] != fields[name])
-    {
-        return Err(conflict(
-            "Workflow record identity fields cannot be changed",
-        ));
-    }
-    let from = old[&w.field]
-        .as_str()
-        .ok_or(conflict("Stored workflow status is missing"))?;
-    if from != to && !w.transitions.iter().any(|t| t.from == from && t.to == to) {
-        return Err(conflict(&format!(
-            "Workflow transition {from} → {to} is not allowed"
-        )));
-    }
-    Ok(())
+    veyndo_app_model::lifecycle::change(e, old, fields).map_err(model_contract::error)
 }
 #[cfg(test)]
 mod tests {

@@ -1,5 +1,10 @@
 # Source responsibilities and verification map
 
+**Independent components:** [Repository ownership, detailed extraction tasks,
+SDK, test requirements and complete-product acceptance](commerce-components.md).
+Existing owners remain authoritative until their replacement is integrated and
+accepted. Moving a repository does not establish standalone service behavior.
+
 **Invoice checkout:** `src/payments/instructions.rs` owns the typed recipient
 projection and customer/compound merchant rights. `PaymentInstructions.tsx` and
 its adjacent stylesheet render it in the existing native completion checkout.

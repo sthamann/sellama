@@ -14,7 +14,7 @@ import markdown
 from site_navigation import sidebar, onward, hub, chrome
 
 ROOT = Path(__file__).resolve().parents[1]
-REPO = 'https://github.com/sthamann/veyndo'
+REPO = 'https://github.com/veyndo/veyndo'
 MEDIA = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.mp4', '.webm', '.pdf'}
 
 
@@ -76,7 +76,7 @@ class Document(HTMLParser):
                 output.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(target, output)
         else:
-            return urlunsplit(('https', 'github.com', '/sthamann/veyndo/' +
+            return urlunsplit(('https', 'github.com', '/veyndo/veyndo/' +
                               ('tree' if target.is_dir() else 'blob') + '/main/' +
                               quote(relative.as_posix(), safe='/'), url.query, url.fragment))
         path = os.path.relpath(mapped, destination(self.source).parent).replace(os.sep, '/')

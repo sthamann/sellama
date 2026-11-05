@@ -1,5 +1,16 @@
 # Changelog
 
+## AI Commerce Components foundation, 5 November 2026
+
+Moved the complete product to `veyndo/veyndo` and the private Experience and
+Shopware Payments repositories into the same organization without changing their
+visibility. Added the [complete extraction task list](docs/commerce-components.md),
+including transactional commerce domains, marketplaces, additional channels,
+standalone API/MCP/SDK use and assembled-product acceptance. The independent
+[JavaScript/TypeScript SDK](https://github.com/veyndo/sdk) exports the current
+native input contracts, guest bridge and bounded HTTP/stateless MCP client.
+Wire/type tests and Node 22/24 CI pass. Component extraction remains in progress.
+
 ## Clear Canvas editing context, 5 November 2026
 
 Shop design distinguishes page design from product and category data. Native data

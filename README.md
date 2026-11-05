@@ -8,8 +8,8 @@
 
 **An AI native ecommerce platform built in Rust.**
 
-[![Quick checks](https://github.com/sthamann/veyndo/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/sthamann/veyndo/actions/workflows/verify.yml)
-[![Documentation](https://github.com/sthamann/veyndo/actions/workflows/pages.yml/badge.svg?branch=main)](https://veyndo.ai/docs/)
+[![Quick checks](https://github.com/veyndo/veyndo/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/veyndo/veyndo/actions/workflows/verify.yml)
+[![Documentation](https://github.com/veyndo/veyndo/actions/workflows/pages.yml/badge.svg?branch=main)](https://veyndo.ai/docs/)
 [![Working prototype](https://img.shields.io/badge/status-working_prototype-189EFF)](#current-boundaries)
 [![Sustainable Use License](https://img.shields.io/badge/license-Sustainable_Use-189EFF)](LICENSE)
 
@@ -17,10 +17,9 @@
 
 </div>
 
-Create a shop, design its storefront and build apps with a visual workspace and
-agents. Products, orders, business knowledge and automation share one commerce
-core. People and agents use the same native operations, permissions and versioned
-changes; prices and stock remain authoritative.
+Create a shop, design its storefront and build apps with agents and a visual
+workspace. Products, orders, knowledge and automation share one commerce core.
+People and agents use the same operations, permissions and versioned changes.
 
 **Start here: [current status, tested scope and open acceptance](docs/status.md).**
 Built in public. Implementation, CI and public acceptance are recorded separately.
@@ -43,8 +42,8 @@ Built in public. Implementation, CI and public acceptance are recorded separatel
 
 **Films:** [AI commerce · 1:56](docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4) · [Concept · 1:12](docs/assets/showcase/product-films-20261102/veyndo-concept.mp4) · [Product workspace · 1:36](docs/assets/showcase/product-films-20261102/veyndo-workspace.mp4) · [Product advisor app · 1:24](docs/assets/showcase/product-films-20261102/veyndo-app-platform.mp4). English subtitles, no sound.
 
-Films were refreshed on 2 November with actual UI captures from that day,
-English subtitles and no sound. Demo data and simulated payments; timing is editorial.
+Films use actual UI captures from 2 November, English subtitles and no sound.
+Demo data and simulated payments; timing is editorial.
 [Latest public journey and screenshots](docs/status.md#current-product-films-and-screenshots) · [Film sources](docs/assets/showcase/product-films-20261102/README.md).
 
 ## Try one complete round
@@ -57,7 +56,7 @@ External models, payment providers and mail require their own configuration.
 **Container tour:** Git, Docker Compose and OpenSSL; no local Rust/Node build.
 
 ```sh
-git clone --depth 1 https://github.com/sthamann/veyndo.git
+git clone --depth 1 https://github.com/veyndo/veyndo.git
 cd veyndo
 ./scripts/try.sh
 ```
@@ -75,6 +74,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 
 | Area | Start here |
 | --- | --- |
+| AI Commerce Components | [Extraction tasks and acceptance](docs/commerce-components.md) · [JavaScript/TypeScript SDK](https://github.com/veyndo/sdk) |
 | AI shopping channels and inward shop imports | [Cart transfer, consent and Shopify/supplier intake](docs/agentic-commerce.md) |
 | Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |
@@ -83,9 +83,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 | Agents and shared operations | [Connections](docs/connectors.md) · [Agent identities & limits](docs/agent-authority-controls.md) · [MCP workshop](docs/agent-workshop.md) · [UCP B2B](docs/b2b-ucp-negotiation.md) |
 | Operation and verification | [Architecture](docs/production-architecture.md) · [Integrations](docs/service-integrations.md) · [Testing](docs/testing.md) · [Proof boundaries](docs/formal-verification.md) |
 
-The [handbook](https://veyndo.ai/docs/) has seven chapters with search and article
-navigation. Articles retain their source language; navigation supports English,
-German, French and Spanish.
+The searchable [handbook](https://veyndo.ai/docs/) has English, German, French and Spanish navigation.
 
 ## Current boundaries
 
@@ -96,8 +94,8 @@ each OAuth provider, disaster recovery and capacity require separate evidence. S
 pure policies, not the whole system. Source builds, app lifecycle completeness and
 operational controls are tracked explicitly in [the current status](docs/status.md).
 
-[First contributions](docs/early-contributors.md) · [Contribute](CONTRIBUTING.md) · [Discussions](https://github.com/sthamann/veyndo/discussions)
-· [Report an issue](https://github.com/sthamann/veyndo/issues/new/choose) · [Changelog](CHANGELOG.md).
+[First contributions](docs/early-contributors.md) · [Contribute](CONTRIBUTING.md) · [Discussions](https://github.com/veyndo/veyndo/discussions)
+· [Report an issue](https://github.com/veyndo/veyndo/issues/new/choose) · [Changelog](CHANGELOG.md).
 
 ## License
 

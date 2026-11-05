@@ -108,7 +108,7 @@ def shell(prefix, docs):
            ('navTour', prefix + 'docs/first-tour.html', 'Try it'),
            ('navBenchmarks', prefix + ('docs/benchmarks.html' if docs else 'benchmarks.html'), 'Benchmarks'),
            ('navDocs', prefix + 'docs/index.html', 'Handbook'),
-           ('github', 'https://github.com/sthamann/veyndo', 'GitHub ↗')]
+           ('github', 'https://github.com/veyndo/veyndo', 'GitHub ↗')]
     header = f'<header class="header wrap"><a class="brand" href="{home}"><img class="brand-wordmark" src="{brand}?v=blue-20261014" alt="VEYNDO" /></a><nav aria-label="Main navigation">' + ''.join(
         f'<a href="{href}"{copy(key, text)}>{text}</a>' for key, href, text in nav) + '</nav></header>'
     footer = '<footer class="wrap footer"><span' + copy('ownership', '') + '>Source available. Merchant control.</span> <a href="' + prefix + 'docs/licensing.html">Sustainable Use License</a><div>' + ''.join(

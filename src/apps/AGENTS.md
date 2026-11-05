@@ -30,6 +30,11 @@ never app input. Component package locking reuses the original transaction/key;
 full typed digest comparison, reserved package trust, credential persistence and
 the verified callback predicate remain native. Do not replace them with caller
 flags, cached approvals or a second token issuer.
+The component installation sequence owns the existing locks/quota/version/event
+writes. `package_install.rs` must provide all native compiler/trust, commerce,
+dependency, checked migration, model, default and schedule hooks on the original
+transaction, with original lock order and error rollback. Do not introduce a
+no-op production hook, early commit or caller-selected mutable preview mode.
 
 Visual edits and coding-agent output share the same Manifest/AST. F5 is actor-private
 and expires; it cannot call services, change live core data or release packages.

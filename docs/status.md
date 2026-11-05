@@ -48,6 +48,20 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Shared atomic app installation, 5 November 2026
+
+Apps [0.5.0](https://github.com/veyndo/apps/releases/tag/v0.5.0) supplies the original
+installation transaction to the complete platform. Required host hooks preserve
+compiler/trust, commerce/dependencies, checked schema migration, models, default
+configuration and schedules. Tenant/package locks, quota, immutable versions,
+package/version persistence and the outbox event share the original transaction.
+
+Independent PostgreSQL tests and native installation/upgrade, private preview,
+Studio, staging/release, signed package, model/job, tenant, visual-workspace and
+Marketplace fixtures pass. Authentication, the complete package compiler and
+remaining lifecycle, supported independent schema/service and hosted API/MCP are
+still open. [Evidence](evidence/app-installation-component-2026-11-05.md).
+
 ## Shared app admission, 5 November 2026
 
 Apps [0.4.0](https://github.com/veyndo/apps/releases/tag/v0.4.0) shares action and

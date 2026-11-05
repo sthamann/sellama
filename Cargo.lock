@@ -3503,17 +3503,19 @@ dependencies = [
 
 [[package]]
 name = "veyndo-app-model"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "chrono",
+ "cron",
  "serde",
  "serde_json",
 ]
 
 [[package]]
 name = "veyndo-app-storage"
-version = "0.7.0"
+version = "0.8.0"
 dependencies = [
+ "chrono",
  "serde_json",
  "sha2 0.10.9",
  "sqlx",

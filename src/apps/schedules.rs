@@ -1,46 +1,12 @@
 //! Durable UTC cron ticks emit namespaced outbox events; replicas lock due rows and staging never runs them.
 use super::*;
-use std::str::FromStr;
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct AppSchedule {
-    pub id: String,
-    pub cron: String,
-    pub action: String,
-    pub input: Value,
-    pub enabled: bool,
-}
+pub(crate) use veyndo_app_model::triggers::AppSchedule;
 fn parse(expression: &str) -> Result<cron::Schedule> {
-    // Six fields including a single seconds value: at most one tick per minute per schedule.
-    let parts = expression.split_whitespace().collect::<Vec<_>>();
-    if expression.len() > 100 || parts.len() != 6 || parts[0].parse::<u8>().is_err() {
-        return Err(bad(
-            "Cron requires six UTC fields with a single seconds value",
-        ));
-    }
-    cron::Schedule::from_str(expression).map_err(|_| bad("Invalid cron expression"))
+    veyndo_app_model::triggers::parse(expression).map_err(model_contract::error)
 }
 pub(super) fn validate(m: &Manifest) -> Result<()> {
-    let mut ids = std::collections::HashSet::new();
-    if m.schedules.len() > 8 {
-        return Err(bad("Maximum eight app schedules"));
-    }
-    for s in &m.schedules {
-        let action = m
-            .actions
-            .iter()
-            .find(|a| a.name == s.action && a.handler == "emit")
-            .ok_or(bad("Schedule requires a declared emit action"))?;
-        if !identifier(&s.id)
-            || !ids.insert(&s.id)
-            || s.input.to_string().len() > 16384
-            || parse(&s.cron)?.upcoming(chrono::Utc).next().is_none()
-        {
-            return Err(bad("Invalid or exhausted app schedule"));
-        }
-        validate_input(&action.input_schema, &s.input)?;
-    }
-    Ok(())
+    veyndo_app_model::triggers::schedules(&m.schedules, &m.actions, chrono::Utc::now())
+        .map_err(model_contract::error)
 }
 pub(super) async fn sync(
     tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,

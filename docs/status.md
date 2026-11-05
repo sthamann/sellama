@@ -51,6 +51,16 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Shared event and trigger contracts, 5 November 2026
+
+Apps [0.8.0](https://github.com/veyndo/apps/releases/tag/v0.8.0), model 0.5.0,
+shares strict event filter/delivery contracts, subscription and payload minimization,
+UTC schedules and private webhook declarations. Native package validation and
+actual event eligibility/projection now call those same rules. Required host
+URL admission, actual pinned egress, signatures, current installed authority,
+leased delivery, replay receipts, durable ticks and SQL stay connected to their
+original owners. [Evidence and remaining scope](evidence/app-event-contracts-2026-11-05.md).
+
 ## Shared app settings and schema evolution, 5 November 2026
 
 Apps [0.7.0](https://github.com/veyndo/apps/releases/tag/v0.7.0), model 0.4.0,

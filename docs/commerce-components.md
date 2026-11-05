@@ -279,6 +279,8 @@ owners require an explicit reservation/compensation design and corresponding tes
     reference/Wasm-kind policies and ordered full-domain extension validators.
     Apps 0.7.0 shares settings declaration/value/projection and schema evolution
     planning/conversion, including operational/core-binding compatibility.
+    Apps 0.8.0 shares event subscription/privacy/filter/delivery contracts and
+    UTC schedule/private webhook declarations with mandatory destination policy.
     Authentication, the remaining typed domain extension compiler and lifecycle,
     standalone service/schema and API/MCP hosting remain open.
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
@@ -292,6 +294,10 @@ owners require an explicit reservation/compensation design and corresponding tes
       explicit schema evolution planning/conversion, reused by native settings and
       upgrade review/install consumers.
       [Settings and evolution evidence](evidence/app-evolution-settings-2026-11-05.md).
+    - [x] Event subscription and minimized payload rules, projected filters,
+      bounded delivery contracts, UTC cron and private webhook declarations;
+      actual native dispatch/signatures/queues/current authority remain attached.
+      [Event contract evidence](evidence/app-event-contracts-2026-11-05.md).
     - [ ] Complete typed domain extension compiler, identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -358,6 +364,18 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### Shared event, schedule and webhook contracts, 5 November 2026
+
+- Apps 0.8.0/model 0.5.0 extracts strict event filter/delivery types, declared
+  subscriptions, own-app binding and existing privacy projections. Filters use
+  projected data. The destination validator remains a mandatory host policy.
+- UTC cron parsing/validation accepts a host clock; private incoming webhook
+  declarations bind existing emit actions. Native durable delivery/ticks,
+  signatures, replay, current package authority and SQL remain their owners.
+- Independent model builds have their own lockfile and direct CI; tracked Rust
+  build artifacts are ignored at every depth and explicitly rejected by CI.
+- [Implementation and acceptance](evidence/app-event-contracts-2026-11-05.md).
 
 ### Shared settings and schema evolution, 5 November 2026
 

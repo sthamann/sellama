@@ -32,6 +32,15 @@ and upgrade_review retain selected version paths, scoped locks, bounded recovery
 actual field/reference/language validation and all-or-nothing record/package/events.
 Do not treat a pure plan or encoded settings result as storage/authority approval.
 
+Shared event subscription/privacy/filter/delivery declarations and cron/webhook
+contracts belong to model/events, subscriptions and triggers. Event Context must
+come from the complete admitted package, never request permissions. Native destination
+policy remains mandatory; actual DNS/pinned egress, current package/roles, secrets,
+signatures, replay receipts, SQL leases and durable ticks keep their original owners.
+Filters evaluate projected payloads only. Schedule validation receives host UTC time;
+private environments and tenant pauses still block native effects. Never treat
+pure eligibility or a declared scope as current dispatch authority.
+
 The shared `package::compile` grammar requires native before/after domain extension
 validators and scope/Wasm-kind/reference policies. Preserve their complete original
 order and typed Manifest projection in `manifest_validation.rs`; never approve

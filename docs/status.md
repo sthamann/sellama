@@ -51,6 +51,16 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Shared native app views and behavior, 5 November 2026
+
+Apps [0.11.0](https://github.com/veyndo/apps/releases/tag/v0.11.0), model 0.8.0,
+shares localized native views/controls, geometry, editor bindings, bounded UI
+behavior and its type checks. The native compiler consumes this same package with
+required field policies and its verified public-read predicate. The existing
+renderer/interpreter, current grants, action gateway, records and sandbox/release
+remain attached. Developers can run the independent native editor example.
+[Evidence and remaining scope](evidence/app-native-views-component-2026-11-05.md).
+
 ## Shared placement and HTTP contracts, 5 November 2026
 
 Apps [0.10.0](https://github.com/veyndo/apps/releases/tag/v0.10.0), model 0.7.0,

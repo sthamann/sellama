@@ -1,5 +1,15 @@
 # Changelog
 
+## Shared native app editors and behavior, 5 November 2026
+
+Apps 0.11.0/model 0.8.0 shares strict localized view/control/geometry types,
+context bindings, bounded UI behavior and static type checks. The Core adapter
+uses the same compiler with existing field policies and the direct verified
+public-read predicate. Rendering, execution, current grants, data and release
+retain their existing owners. Independent Rust editor example and rejection
+cases accompany unchanged native package digests.
+[Implementation and acceptance](docs/evidence/app-native-views-component-2026-11-05.md).
+
 ## Shared app placement and route contracts, 5 November 2026
 
 Apps 0.10.0/model 0.7.0 shares strict Surface/ApiRoute wire types and the original

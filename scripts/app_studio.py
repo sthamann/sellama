@@ -32,21 +32,28 @@ shopper=next(surface for surface in m['surfaces'] if not surface['location'].sta
 for i,location in enumerate(['storefront.header','checkout.content','checkout.summary']):
  surface=copy.deepcopy(shopper);surface.update(id='mount_'+str(i),location=location);m['surfaces'].append(surface)
 
+# The actual Studio import/release path carries the same typed behavior as the independent compiler.
+form=next(block for block in m['views'][0]['blocks'] if block['kind']=='form')['id']
+m['views'][0]['blocks'].append({'id':'save_button','kind':'button','title':m['name'],'handlers':{'click':[{'op':'validate','target':form},{'op':'call','action':'save_guides','input':{'kind':'record','block':form}}]}})
+
 def save(manifest,expected=200):return call('/api/developer/import',{'environment':stage,'prompt':'Native care app','summary':manifest['name'],'manifest':manifest},a,expected=expected)
 b=save(m);assert b['manifest']['views'] and b['digest'];save(m,409)
 task=call('/api/developer/task',{'environment':stage,'prompt':'Extend the same app','manifest':m,'agent':'codex'},a)
 assert task['currentManifest']==m and 'it-IT' in task['appSchema']['properties']['summary']['required'] and a['token'] not in json.dumps(task)
 passed('Visual and agent builds share native Manifest IR; schema uses actual languages, immutable versions and no credential export')
-for mutation in ['write','entity','allowlist','html','script']:
+for mutation in ['write','entity','allowlist','html','script','behavior','geometry','budget']:
  bad=copy.deepcopy(m);bad['version']='1.0.1'
  if mutation=='write':bad['views'][1]['blocks'][0]={'id':'bad','kind':'form','title':m['name'],'entity':'guides','readAction':'list_guides','writeAction':'save_guides'}
  elif mutation=='entity':bad['views'][0]['blocks'][0]['entity']='unknown'
  elif mutation=='allowlist':bad['surfaces'][0]['actions']=[]
  elif mutation=='html':bad['views'][0]['blocks'][0]['html']='<script>bad</script>'
- else:bad['views'][0]['blocks'][0]['kind']='javascript'
+ elif mutation=='script':bad['views'][0]['blocks'][0]['kind']='javascript'
+ elif mutation=='behavior':bad['views'][0]['blocks'][-1]['handlers']['click'][1]['action']='undeclared'
+ elif mutation=='geometry':bad['views'][0]['blocks'][0]['geometry']={'x':65535,'y':0,'w':65535,'h':1}
+ else:bad['views'][0]['blocks'][-1]['handlers']['click']=[{'op':'validate','target':form}]*257
  save(bad,400)
 call('/api/developer/builds/'+b['id']+'/stage',{'approve':True,'digest':b['digest']},a)
-private=call('/api/apps/surfaces',session=a,tenant=stage)['surfaces'];assert next(v for v in private if v['app']==m['id'])['native']['view']['id']=='workspace'
+private=call('/api/apps/surfaces',session=a,tenant=stage)['surfaces'];native=next(v for v in private if v['app']==m['id'])['native'];assert native['view']['blocks'][-1]['handlers']['click'][1]['action']=='save_guides';assert next(v for v in private if v['app']==m['id'])['native']['view']['id']=='workspace'
 public=call('/store-api/apps/surfaces',session=a,tenant=stage)['surfaces'];assert {'storefront.header','checkout.content','checkout.summary'} <= {s['surface']['location'] for s in public if s['app']==m['id']};v=next(v for v in public if v['app']==m['id']);assert v['mainLocale']=='es-ES' and 'it-IT' in v['locales'] and all(b['kind']!='form' for b in v['native']['view']['blocks'])
 call('/store-api/apps/surfaces',tenant=stage,expected=401)
 passed('Native admin/shop registries resolve installed definitions and reject public forms, wrong bindings, unlisted actions and code injection')

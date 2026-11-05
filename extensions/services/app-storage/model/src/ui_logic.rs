@@ -1,64 +1,10 @@
-//! Declarative UI code-behind validates a bounded AST; calls retain surface grants and server domain authorization.
-use super::*;
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(tag = "kind", rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) enum Expression {
-    Literal {
-        value: Value,
-    },
-    Value {
-        block: String,
-        #[serde(default, skip_serializing_if = "Option::is_none")]
-        field: Option<String>,
-    },
-    Record {
-        block: String,
-    },
-    Object {
-        fields: HashMap<String, Expression>,
-    },
-}
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(tag = "op", rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) enum Statement {
-    Set {
-        target: String,
-        value: Expression,
-    },
-    If {
-        left: Expression,
-        compare: String,
-        right: Expression,
-        then: Vec<Statement>,
-        #[serde(default)]
-        otherwise: Vec<Statement>,
-    },
-    Call {
-        action: String,
-        input: Expression,
-    },
-    MsgBox {
-        text: HashMap<String, String>,
-    },
-    Navigate {
-        view: String,
-    },
-    Refresh {
-        target: String,
-    },
-    Validate {
-        target: String,
-    },
-}
-#[derive(Clone, Serialize, Deserialize, Default)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct Handlers {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub click: Vec<Statement>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub change: Vec<Statement>,
-}
-pub(super) const CONTROLS: &[&str] = &[
+//! UI behavior validation preserves bounded ASTs, typed controls and every surface action allowlist.
+use crate::ui_ast::{Expression, Statement};
+use crate::{
+    Result, bad, ui_logic_types,
+    views::{Contract, NativeBlock, NativeView, Policy},
+};
+pub(crate) const CONTROLS: &[&str] = &[
     "button",
     "textbox",
     "combobox",
@@ -70,10 +16,11 @@ pub(super) const CONTROLS: &[&str] = &[
     "kpi",
     "chart",
 ];
-pub(super) fn validate(
-    m: &Manifest,
-    v: &native_views::NativeView,
-    b: &native_views::NativeBlock,
+pub(crate) fn validate<P: Policy>(
+    m: &Contract<'_>,
+    v: &NativeView,
+    b: &NativeBlock,
+    policy: &P,
 ) -> Result<()> {
     if let Some(field) = &b.data_field {
         let e = m
@@ -143,20 +90,20 @@ pub(super) fn validate(
             return Err(bad("Control event is not supported"));
         }
         let mut count = 0;
-        statements(m, v, &h.click, 0, &mut count)?;
-        statements(m, v, &h.change, 0, &mut count)?;
+        statements(m, v, &h.click, 0, &mut count, policy)?;
+        statements(m, v, &h.change, 0, &mut count, policy)?;
     }
     Ok(())
 }
-fn block<'a>(v: &'a native_views::NativeView, id: &str) -> Result<&'a native_views::NativeBlock> {
+fn block<'a>(v: &'a NativeView, id: &str) -> Result<&'a NativeBlock> {
     v.blocks
         .iter()
         .find(|b| b.id == id)
         .ok_or(bad("Code-behind references an unknown block"))
 }
 fn expression(
-    m: &Manifest,
-    v: &native_views::NativeView,
+    m: &Contract<'_>,
+    v: &NativeView,
     e: &Expression,
     depth: usize,
     count: &mut usize,
@@ -215,12 +162,13 @@ fn object_key(name: &str) -> bool {
         && name.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'_')
 }
 
-fn statements(
-    m: &Manifest,
-    v: &native_views::NativeView,
+fn statements<P: Policy>(
+    m: &Contract<'_>,
+    v: &NativeView,
     items: &[Statement],
     depth: usize,
     count: &mut usize,
+    policy: &P,
 ) -> Result<()> {
     if depth > 8 {
         return Err(bad("Code-behind nesting exceeds eight"));
@@ -238,7 +186,7 @@ fn statements(
                     return Err(bad("Set needs an input control"));
                 }
                 expression(m, v, value, depth + 1, count)?;
-                ui_logic_types::set(m, v, target, value)?;
+                ui_logic_types::set(m, v, target, value, policy)?;
             }
             Statement::If {
                 left,
@@ -253,8 +201,8 @@ fn statements(
                 expression(m, v, left, depth + 1, count)?;
                 expression(m, v, right, depth + 1, count)?;
                 ui_logic_types::comparison(m, v, left, right, compare)?;
-                statements(m, v, then, depth + 1, count)?;
-                statements(m, v, otherwise, depth + 1, count)?;
+                statements(m, v, then, depth + 1, count, policy)?;
+                statements(m, v, otherwise, depth + 1, count, policy)?;
             }
             Statement::Call { action, input } => {
                 if !m.actions.iter().any(|a| &a.name == action) {

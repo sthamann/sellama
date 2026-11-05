@@ -1,7 +1,6 @@
 //! Native currency/content/asset policy adapters for the shared pure field validator.
 use super::*;
-pub(super) use veyndo_app_model::fields::json;
-struct Policy;
+pub(super) struct Policy;
 impl veyndo_app_model::fields::ValuePolicy for Policy {
     fn locale(&self, key: &str) -> bool {
         commerce::valid_locale_key(key)

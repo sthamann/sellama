@@ -65,9 +65,18 @@ configuration-release predicate retains its direct consumer.
 Surface/ApiRoute wire types and the original placement/route grammar. Native
 `manifest.rs` reexports them; `surfaces.rs` provides required actual view/scope/
 read-only policies and maps native error kinds/pointers. The verified native read
-predicate remains directly consumed. `native_views.rs`, surface grants/registry,
+predicate remains directly consumed. `native_views.rs` now adapts the shared view compiler below; surface grants/registry,
 UI pinning, routing and action execution retain their complete native checks.
 [Evidence](evidence/app-surface-contracts-2026-11-05.md).
+
+**Native app views and behavior:** Pinned Apps `model/src/views.rs` owns view
+validation and selected payload projection; `view_types.rs`, `form_layout.rs` and
+`ui_ast.rs` own strict wire types. `view_binding.rs`, `ui_logic.rs` and
+`ui_logic_types.rs` retain editor mounts, bounded statements and type checks.
+Native `native_views.rs` provides its borrowed package plus `field_values::Policy`
+and direct verified public-read predicate. Original compiler order, current
+surface grants, renderer/interpreter, action gateway and release remain native.
+[Evidence](evidence/app-native-views-component-2026-11-05.md).
 
 **App installation:** Pinned Apps `src/installation.rs` owns tenant/package locks,
 quota, immutable version checks, package/version writes and installation outbox.

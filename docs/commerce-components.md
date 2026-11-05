@@ -285,6 +285,8 @@ owners require an explicit reservation/compensation design and corresponding tes
     graph mapping/projection with native object rights and scoped lists retained.
     Apps 0.10.0 shares placement/named HTTP route DTOs and grammar through required
     native-view, known-scope and read-only effect policies.
+    Apps 0.11.0 shares strict native views/controls, geometry, editor bindings and
+    bounded typed UI behavior with required native field/public-read policies.
     Authentication, the remaining typed domain extension compiler and lifecycle,
     standalone service/schema and API/MCP hosting remain open.
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
@@ -309,6 +311,9 @@ owners require an explicit reservation/compensation design and corresponding tes
     - [x] Surface and named HTTP route wire types/grammar with mandatory host view,
       team-scope and read-only policies; native grants/pinned UI/dispatch remain attached.
       [Surface and route evidence](evidence/app-surface-contracts-2026-11-05.md).
+    - [x] Native views/controls, layout, context bindings, bounded UI AST/type checks
+      and scoped view projections; actual runtime/current grants remain attached.
+      [Native view evidence](evidence/app-native-views-component-2026-11-05.md).
     - [ ] Complete typed domain extension compiler, identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -375,6 +380,19 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### App native view and UI behavior contracts, 5 November 2026
+
+- Apps 0.11.0/model 0.8.0 extracts strict view/control/geometry wire types,
+  editor context bindings, bounded UI behavior and static type checks.
+- Core uses the same source through its native adapter with canonical field
+  policies and the direct verified public-read predicate. Current grants,
+  execution, scoped records, runtime actions and release remain connected.
+- Independent compiler/example and actual PostgreSQL acceptance, native package
+  fingerprints, app unit tests and affected composed HTTP/MCP flows are recorded
+  in the [evidence](evidence/app-native-views-component-2026-11-05.md).
+- Complete identity/lifecycle hosting and standalone API/MCP remain open in MKT-03b.
+
 
 ### Shared placement and HTTP route contracts, 5 November 2026
 

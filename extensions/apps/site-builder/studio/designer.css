@@ -1,5 +1,11 @@
 /* Native three-panel designer; responsive canvas and independently scrollable properties. */
 .shop-designer {
+  --studio-text: var(--text, #14283d);
+  --studio-card: var(--surface, #fff);
+  --studio-surface: var(--surface, #fff);
+  --studio-muted: var(--muted, #60768d);
+  --studio-bg: var(--panel, #edf2f8);
+  --studio-border: var(--border, #ccdded);
   padding: 20px;
   box-sizing: border-box;
   width: 100%;
@@ -37,7 +43,7 @@
   min-height: 44px;
   box-sizing: border-box;
   padding: 12px 14px;
-  border: 1px solid #cfdeee;
+  border: 1px solid var(--studio-border, #cfdeee);
   border-radius: 10px;
   color: inherit;
   background: var(--studio-card, #fff);
@@ -65,7 +71,7 @@
   align-items: center;
 }
 .designer-toolbar > button {
-  border: 1px solid #c4dbef;
+  border: 1px solid var(--studio-border, #c4dbef);
   border-radius: 12px;
   padding: 10px 16px;
   background: var(--studio-card, #fff);
@@ -94,7 +100,7 @@
 .designer-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
-  border: 1px solid #ccdded;
+  border: 1px solid var(--studio-border, #ccdded);
   border-radius: 22px;
   overflow: clip;
   min-height: 500px;
@@ -107,7 +113,7 @@
   min-width: 0;
 }
 .designer-tree {
-  border-right: 1px solid #dce6f0;
+  border-right: 1px solid var(--studio-border, #dce6f0);
 }
 .designer-tree h2,
 .designer-inspector h2 {
@@ -169,7 +175,7 @@
   color: #0869bd;
 }
 .designer-canvas {
-  background: #edf2f8;
+  background: var(--studio-bg, #edf2f8);
   min-width: 0;
   padding: 0 18px 30px;
   overflow: auto;
@@ -180,7 +186,7 @@
   position: sticky;
   top: 0;
   z-index: 5;
-  background: #edf2f8;
+  background: var(--studio-bg, #edf2f8);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -189,10 +195,10 @@
 }
 .designer-preview-bar button {
   border: 0;
-  background: #fff;
+  background: var(--studio-card, #fff);
   border-radius: 8px;
   padding: 8px 12px;
-  color: #243a50;
+  color: var(--studio-text, #243a50);
   font-size: 12px;
 }
 .designer-preview-bar button[aria-pressed="true"] {
@@ -220,7 +226,7 @@
   width: 390px;
 }
 .designer-inspector {
-  border-left: 1px solid #dce6f0;
+  border-left: 1px solid var(--studio-border, #dce6f0);
   max-height: calc(100dvh - 285px);
   min-height: 500px;
   overflow: auto;

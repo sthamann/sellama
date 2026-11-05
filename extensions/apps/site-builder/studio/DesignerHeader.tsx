@@ -20,7 +20,9 @@ export default function DesignerHeader({
   onAgent,
   agentOpen,
   onTest,
+  dataEditing = false,
 }: {
+  dataEditing?: boolean;
   d: Designer;
   rights: string[];
   sandbox: boolean;
@@ -68,64 +70,68 @@ export default function DesignerHeader({
           {d.error}
         </p>
       )}
-      {selectionError && (
+      {!dataEditing && selectionError && (
         <p className="designer-error" role="alert">
           {e("unavailable")}
         </p>
       )}
-      {d.saved && <p role="status">{t("saved")}</p>}
-      <div className="designer-toolbar">
-        <span className={`designer-scope ${sandbox ? "is-private" : ""}`}>
-          <Icon name={sandbox ? "lock" : "globe"} />
-          {sandbox ? t("sandbox") : t("readOnly")}
-        </span>
-        {!sandbox && (
-          <button
-            disabled={!rights.includes("environments.manage") || creating}
-            onClick={onSandbox}
-          >
-            {t("sandbox")} ↗
-          </button>
-        )}
-        {d.draft && (
-          <button
-            className="studio-primary"
-            disabled={!writable || !d.dirty || d.busy}
-            onClick={() => void d.save()}
-          >
-            <Icon name="check" />
-            {t("save")}
-          </button>
-        )}
-        <button
-          disabled={!rights.includes("environments.read")}
-          onClick={onEnvironments}
-        >
-          {t("publish")} ↗
-        </button>
-        <button
-          type="button"
-          className="designer-agent-entry"
-          aria-pressed={agentOpen}
-          onClick={onAgent}
-        >
-          <Icon name="spark" size={17} />
-          {w("agent")}
-        </button>
-        {onTest && sandbox && canTestCustomers(rights) && (
-          <button
-            disabled={d.dirty || d.busy || d.channel === "*"}
-            title={d.dirty ? t("saveBeforeTest") : undefined}
-            onClick={() => onTest(d.channel)}
-          >
-            <Icon name="people" />
-            {t("testCustomers")}
-          </button>
-        )}
-      </div>
-      <p className="designer-scope-hint">
-        {d.draft && sandbox ? t("draftHint") : t("previewHint")}
-      </p>
+      {!dataEditing && d.saved && <p role="status">{t("saved")}</p>}
+      {!dataEditing && (
+        <>
+          <div className="designer-toolbar">
+            <span className={`designer-scope ${sandbox ? "is-private" : ""}`}>
+              <Icon name={sandbox ? "lock" : "globe"} />
+              {sandbox ? t("sandbox") : t("readOnly")}
+            </span>
+            {!sandbox && (
+              <button
+                disabled={!rights.includes("environments.manage") || creating}
+                onClick={onSandbox}
+              >
+                {t("sandbox")} ↗
+              </button>
+            )}
+            {d.draft && (
+              <button
+                className="studio-primary"
+                disabled={!writable || !d.dirty || d.busy}
+                onClick={() => void d.save()}
+              >
+                <Icon name="check" />
+                {t("save")}
+              </button>
+            )}
+            <button
+              disabled={!rights.includes("environments.read")}
+              onClick={onEnvironments}
+            >
+              {t("publish")} ↗
+            </button>
+            <button
+              type="button"
+              className="designer-agent-entry"
+              aria-pressed={agentOpen}
+              onClick={onAgent}
+            >
+              <Icon name="spark" size={17} />
+              {w("agent")}
+            </button>
+            {onTest && sandbox && canTestCustomers(rights) && (
+              <button
+                disabled={d.dirty || d.busy || d.channel === "*"}
+                title={d.dirty ? t("saveBeforeTest") : undefined}
+                onClick={() => onTest(d.channel)}
+              >
+                <Icon name="people" />
+                {t("testCustomers")}
+              </button>
+            )}
+          </div>
+          <p className="designer-scope-hint">
+            {d.draft && sandbox ? t("draftHint") : t("previewHint")}
+          </p>
+        </>
+      )}
     </>
   );
 }

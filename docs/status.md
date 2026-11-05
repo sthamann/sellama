@@ -1,8 +1,18 @@
 # Veyndo: current status
 
-Updated 4 November 2026. Start here for the public product, observed journeys and
+Updated 5 November 2026. Start here for the public product, observed journeys and
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
+
+## Canvas editing context, 5 November 2026
+
+Page design, product data and category data now have explicit actions and matching
+save controls. Native data editing hides unrelated page tools and retains the
+underlying page draft. Embedded product navigation responds to available width;
+Shop design shares the resizable properties control with App Studio. Selected
+element fields appear before general app metadata. Current local browser checks
+and focused regressions are tracked in the [Canvas workflow](visual-workspace-canvas.md) and [acceptance](evidence/canvas-editing-2026-11-05.md).
+Public rollout is pending this change's build and deployment.
 
 ## Actual PayPal Sandbox acceptance, 4 November 2026
 

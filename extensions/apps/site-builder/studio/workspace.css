@@ -1,15 +1,22 @@
 /* Visual workspace panels: one scroll region per rail, stable mode controls and graphical element cards. */
 .designer-layout {
-  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-columns: minmax(0, 1fr) var(--app-inspector-width, 360px);
 }
 .designer-layout.with-pages {
-  grid-template-columns: 235px minmax(0, 1fr) 360px;
+  grid-template-columns: 235px minmax(0, 1fr) var(--app-inspector-width, 360px);
 }
 .designer-inspector {
+  position: relative;
   padding: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+.designer-inspector > .app-panel-resize {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 8px;
+  z-index: 8;
 }
 .designer-modes {
   display: grid;
@@ -36,7 +43,7 @@
   color: var(--studio-muted, #64788c);
 }
 .designer-inspector .designer-modes button[aria-selected="true"] {
-  color: #0869bd;
+  color: var(--accent, #0869bd);
   background: var(--studio-card, #fff);
   box-shadow: 0 2px 8px #163c6912;
 }
@@ -149,7 +156,7 @@
 }
 .designer-inspector .catalog-editor-mode button[aria-pressed="true"] {
   background: var(--studio-card, #fff);
-  color: #0767b2;
+  color: var(--accent, #0767b2);
 }
 .designer-inspector .catalog-rich .catalog-rich-toolbar button {
   min-height: 32px;
@@ -253,10 +260,13 @@
 }
 @media (max-width: 1400px) {
   .designer-layout {
-    grid-template-columns: minmax(0, 1fr) 330px;
+    grid-template-columns: minmax(0, 1fr) var(--app-inspector-width, 330px);
   }
   .designer-layout.with-pages {
-    grid-template-columns: 210px minmax(0, 1fr) 330px;
+    grid-template-columns: 210px minmax(0, 1fr) var(
+        --app-inspector-width,
+        330px
+      );
   }
   .designer-inspector,
   .designer-tree {
@@ -267,6 +277,9 @@
   }
 }
 @media (max-width: 1000px) {
+  .designer-inspector > .app-panel-resize {
+    display: none;
+  }
   .designer-layout,
   .designer-layout.with-pages {
     display: flex;

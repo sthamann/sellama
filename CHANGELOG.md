@@ -1,5 +1,14 @@
 # Changelog
 
+## Clear Canvas editing context, 5 November 2026
+
+Shop design distinguishes page design from product and category data. Native data
+views keep their own save and return controls; unrelated page tools stay hidden.
+Embedded product navigation responds to available space. Shop properties can be
+resized with the same control as App Studio. Selected element fields appear first
+and reset their scroll position when selection changes. Read-only media controls
+respect catalogue write access. Designer colors follow the active Studio theme. [Illustrated workflow](docs/visual-workspace-canvas.md).
+
 ## Clear payment activation diagnostics, 4 November 2026
 
 The shared payment history and command feedback now explain missing provider

@@ -1,4 +1,5 @@
 /** Local panel widths contain presentation only; pointer and keyboard resizing never change the Manifest. */
+import "./AppPanelSizing.css";
 import { useState, type CSSProperties } from "react";
 import { useAppWorkspaceText } from "../../shared/i18n/app-workspace-i18n";
 export function useAppPanelSizing() {

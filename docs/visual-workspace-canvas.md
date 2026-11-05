@@ -48,7 +48,7 @@ catalogue is never loaded just to fill the overview.
 
 1. Open **Shop design** and choose the sale channel. The board shows its real home,
    a selectable product, a category listing and its content pages.
-2. Choose **Edit** on a page. Click a section to reveal its properties.
+2. Choose **Design page** on a page. Click a section to reveal its properties.
    Collapse **Properties** and **Pages & sections** whenever the preview needs room.
 3. Drag an element to the insertion line. Selected sections expose move, duplicate
    and delete controls. These edit the existing page document and undo history.
@@ -57,12 +57,38 @@ catalogue is never loaded just to fill the overview.
    before discarding unfinished work. Save each page explicitly before reloading.
 5. Review the existing selected sandbox publication when ready.
 
-Product and category tiles open their existing native data editors within the
+**Edit product data** and **Edit category data** open their existing native data editors within the
 workspace, retaining the page draft behind them. Native product/category writes
 keep their normal permissions, revision checks and history. Those editors change
 product/category data; the board does not introduce arbitrary product-detail or
 category layout templates. Global shop design remains inherited from the home.
 Original Storyfront Experiences continue to use their own editor.
+
+### Clear editing context
+
+The native data view has a **Back to page overview** action and its own product or
+category save. Page navigation, device controls, page save and page agent tools
+stay in the page designer. This prevents a product change from being confused
+with an unrelated page draft. Returning restores the retained page workspace;
+leaving unfinished native data requires a choice to stay or discard.
+
+The embedded product form uses its actual available width. When space is narrow,
+**Product section** replaces the side navigation, keeping media, prices, variants
+and every other permitted section reachable. Read-only views explain that editing
+requires a private sandbox and the existing catalogue write permission still
+applies. File upload controls are absent without that permission.
+
+Both designers offer the same bounded, keyboard-accessible properties resize
+handle. In Shop design, drag the left edge of the properties rail or focus its
+separator and use the arrow keys. The width is a local display preference; it
+does not modify or publish content. Choosing another element returns its
+properties to the top. App Studio presents the selected element's editable fields
+first; general app identity and placement settings remain available below.
+
+
+![Native product editor inside Shop design, local browser check on 5 November](assets/canvas-editing-20261105/product-data.jpg)
+
+![Selected form fields appear first in App Studio, local browser check on 5 November](assets/canvas-editing-20261105/app-properties.jpg)
 
 ### Shape every app placement together
 

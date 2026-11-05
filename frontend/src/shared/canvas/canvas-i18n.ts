@@ -1,6 +1,66 @@
 /** Shared visual-workspace controls use the Studio interface language, independently of content. */
 import { useLocale } from "../i18n/i18n";
 const words = {
+  editPage: [
+    "Design page",
+    "Seite gestalten",
+    "Concevoir la page",
+    "Diseñar página",
+  ],
+  editProductData: [
+    "Edit product data",
+    "Produktdaten bearbeiten",
+    "Modifier les données produit",
+    "Editar datos del producto",
+  ],
+  editCategoryData: [
+    "Edit category data",
+    "Kategoriedaten bearbeiten",
+    "Modifier les données de catégorie",
+    "Editar datos de categoría",
+  ],
+  productData: [
+    "Product data",
+    "Produktdaten",
+    "Données produit",
+    "Datos del producto",
+  ],
+  categoryData: [
+    "Category data",
+    "Kategoriedaten",
+    "Données de catégorie",
+    "Datos de categoría",
+  ],
+  productDataHint: [
+    "Content, images, prices and variants. Appearance follows the home design.",
+    "Inhalte, Bilder, Preise und Varianten. Das Aussehen folgt der Startseite.",
+    "Contenu, images, prix et variantes. L’apparence suit la page d’accueil.",
+    "Contenido, imágenes, precios y variantes. La apariencia sigue la página de inicio.",
+  ],
+  categoryDataHint: [
+    "Categories, content and product assignments. Appearance follows the home design.",
+    "Kategorien, Inhalte und Produktzuordnung. Das Aussehen folgt der Startseite.",
+    "Catégories, contenu et produits associés. L’apparence suit la page d’accueil.",
+    "Categorías, contenido y productos asignados. La apariencia sigue la página de inicio.",
+  ],
+  backToPages: [
+    "Back to page overview",
+    "Zur Seitenübersicht",
+    "Retour aux pages",
+    "Volver a las páginas",
+  ],
+  dataEditorHint: [
+    "These are the shared catalogue details. Design the shop’s appearance on the home page.",
+    "Hier bearbeitest du die gemeinsamen Katalogdaten. Das Aussehen des Shops gestaltest du auf der Startseite.",
+    "Modifiez ici les données communes du catalogue. Concevez l’apparence de la boutique sur la page d’accueil.",
+    "Aquí editas los datos compartidos del catálogo. Diseña la apariencia de la tienda en la página de inicio.",
+  ],
+  dataReadOnly: [
+    "Read-only · editing requires catalogue write access in a private sandbox",
+    "Nur ansehen · zum Bearbeiten brauchst du Katalogrechte in einer privaten Sandbox",
+    "Lecture seule · la modification exige un droit d’écriture du catalogue dans un environnement privé",
+    "Solo lectura · editar requiere permiso de escritura del catálogo en un entorno privado",
+  ],
   chooseView: [
     "Choose a view",
     "Ansicht wählen",

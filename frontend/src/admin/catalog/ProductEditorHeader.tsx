@@ -11,8 +11,10 @@ export default function ProductEditorHeader({
   lang,
   saved,
   onBack,
+  backLabel,
   ...actions
 }: ComponentProps<typeof ProductEditorActions> & {
+  backLabel?: string;
   lang: string;
   saved: boolean;
   onBack: () => void;
@@ -27,8 +29,8 @@ export default function ProductEditorHeader({
         <button
           type="button"
           className="product-editor-back"
-          aria-label={e("back")}
-          title={e("back")}
+          aria-label={backLabel ?? e("back")}
+          title={backLabel ?? e("back")}
           onClick={onBack}
         >
           <Icon name="arrow" />

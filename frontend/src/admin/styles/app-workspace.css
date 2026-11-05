@@ -6,29 +6,6 @@
 .app-designer {
   grid-template-columns: var(--app-palette-width, 180px) 10px minmax(0, 1fr);
 }
-.app-panel-resize {
-  background: var(--surface-alt);
-  cursor: col-resize;
-  touch-action: none;
-  position: relative;
-  border-inline: 1px solid var(--border);
-}
-.app-panel-resize::after {
-  content: "";
-  position: absolute;
-  top: 45%;
-  left: 3px;
-  width: 2px;
-  height: 36px;
-  border-radius: 4px;
-  background: var(--muted);
-  opacity: 0.4;
-}
-.app-panel-resize:hover,
-.app-panel-resize:focus {
-  background: var(--hover);
-  outline-color: var(--accent);
-}
 .app-palette {
   padding: 18px 12px;
   max-height: 850px;

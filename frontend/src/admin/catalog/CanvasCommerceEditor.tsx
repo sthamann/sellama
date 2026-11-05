@@ -6,6 +6,7 @@ import type { Category } from "./catalog-model";
 import { useCanvasText } from "../../shared/canvas/canvas-i18n";
 import { useCatalogText } from "../../shared/i18n/catalog-i18n";
 import ConfirmDialog from "../../shared/ui/ConfirmDialog";
+import Icon from "../../shared/ui/Icon";
 const ProductEditor = lazy(() => import("./ProductEditor"));
 const CategoriesWorkspace = lazy(() => import("./CategoriesWorkspace"));
 export default function CanvasCommerceEditor({
@@ -54,20 +55,33 @@ export default function CanvasCommerceEditor({
   }, [request]);
   return (
     <section className="canvas-commerce-editor">
-      <div className="visual-workspace-toolbar">
+      <header className="canvas-commerce-heading">
         <button
           type="button"
+          className="studio-secondary"
           onClick={() => (dirty ? setLeaving(true) : onBack())}
         >
-          {t("overview")}
+          <Icon name="chevron-left" size={16} />
+          {t("backToPages")}
         </button>
-      </div>
+        <div>
+          <h2>{t(kind === "product" ? "productData" : "categoryData")}</h2>
+          <p>{t("dataEditorHint")}</p>
+        </div>
+        {!canWrite && (
+          <span className="canvas-commerce-readonly">
+            <Icon name="lock" size={16} />
+            {t("dataReadOnly")}
+          </span>
+        )}
+      </header>
       {error && <p role="alert">{error}</p>}
       <Suspense fallback={<p role="status">{c("loading")}</p>}>
         {categories &&
           (kind === "product" ? (
             <ProductEditor
               id={id}
+              backLabel={t("backToPages")}
               categories={categories}
               request={request}
               canWrite={canWrite}

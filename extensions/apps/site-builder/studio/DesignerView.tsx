@@ -1,5 +1,6 @@
 /** Three-panel standard-shop editor inside the native shell; Storyfront retains its separate original editor. */
 import { useEffect, useRef, useState } from "react";
+import { useAppPanelSizing } from "../../../../frontend/src/admin/developer/AppPanelSizing";
 import { useContentLanguage } from "../../../../frontend/src/shared/i18n/ContentLanguage";
 import ConfirmDialog from "../../../../frontend/src/shared/ui/ConfirmDialog";
 import type { SiteProduct } from "../Renderer";
@@ -49,6 +50,7 @@ export default function DesignerView({
 }: Props & { d: Designer }) {
   const t = useDesignText(),
     e = useEditorText(),
+    panels = useAppPanelSizing(),
     { language, mainLocale } = useContentLanguage();
   useEffect(() => {
     d.setCatalogueLanguage(language);
@@ -193,6 +195,7 @@ export default function DesignerView({
       <div className="shop-designer">
         <DesignerHeader
           d={d}
+          dataEditing={commerce.visible && !overview}
           rights={rights}
           sandbox={sandbox}
           writable={writable}
@@ -217,8 +220,9 @@ export default function DesignerView({
 
         <div
           className={`designer-layout ${overview || commerce.visible || !toolsOpen ? "is-overview" : showPages ? "with-pages" : ""}`}
+          style={panels.style}
         >
-          {showPages && !overview && (
+          {showPages && !overview && !commerce.visible && (
             <PageTree
               d={d}
               writable={writable}
@@ -231,26 +235,30 @@ export default function DesignerView({
               }}
             />
           )}
-          <section className="designer-canvas">
-            <DesignerPreviewBar
-              d={d}
-              writable={writable}
-              overview={overview}
-              showPages={showPages}
-              device={device}
-              onDevice={setDevice}
-              onOverview={() => {
-                setOverview(!overview);
-                commerce.setVisible(false);
-              }}
-              toolsOpen={toolsOpen}
-              onTools={() => setToolsOpen(!toolsOpen)}
-              onPages={() => {
-                setOverview(false);
-                setShowPages(!showPages);
-                commerce.setVisible(false);
-              }}
-            />
+          <section
+            className={`designer-canvas${commerce.visible && !overview ? " is-data-editor" : ""}`}
+          >
+            {(!commerce.visible || overview) && (
+              <DesignerPreviewBar
+                d={d}
+                writable={writable}
+                overview={overview}
+                showPages={showPages}
+                device={device}
+                onDevice={setDevice}
+                onOverview={() => {
+                  setOverview(!overview);
+                  commerce.setVisible(false);
+                }}
+                toolsOpen={toolsOpen}
+                onTools={() => setToolsOpen(!toolsOpen)}
+                onPages={() => {
+                  setOverview(false);
+                  setShowPages(!showPages);
+                  commerce.setVisible(false);
+                }}
+              />
+            )}
             {overview ? (
               <ShopOverview
                 key={scopeKey}
@@ -325,6 +333,8 @@ export default function DesignerView({
             }}
           >
             <DesignerInspector
+              width={panels.widths.inspector}
+              onWidth={(value) => panels.resize("inspector", value)}
               initialReference={initialReference}
               onViewport={setDevice}
               scopeKey={`${workspace}:${d.channel}`}

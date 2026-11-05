@@ -12,7 +12,10 @@ underlying page draft. Embedded product navigation responds to available width;
 Shop design shares the resizable properties control with App Studio. Selected
 element fields appear before general app metadata. Current local browser checks
 and focused regressions are tracked in the [Canvas workflow](visual-workspace-canvas.md) and [acceptance](evidence/canvas-editing-2026-11-05.md).
-Public rollout is pending this change's build and deployment.
+Public Core `04cbac2e` is running from build `heady-finger-159`. Its ready replica
+passed the public product save/reload/return check; the temporary test name was
+restored afterward. Native category editing and the updated online guide also
+passed the public check.
 
 ## Actual PayPal Sandbox acceptance, 4 November 2026
 

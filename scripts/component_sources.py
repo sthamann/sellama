@@ -9,8 +9,8 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCK = ROOT / 'components.lock.json'
-# A component may write only its declared app package, never Core or another app.
-OWNERS = {'marketplaces': 'extensions/apps/marketplaces'}
+# A component may write only its reviewed package/service owner, never Core or another component.
+OWNERS = {'marketplaces': 'extensions/apps/marketplaces', 'apps': 'extensions/services/app-storage'}
 IGNORED = {'__pycache__', 'node_modules', 'target'}
 
 

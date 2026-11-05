@@ -98,6 +98,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/observability.rs](../src/apps/observability.rs) | Bounded metadata-only app telemetry, storage usage and explicitly approved cursor-based event replay. |
 | [src/apps/ontology.rs](../src/apps/ontology.rs) | Namespaced graph views over current authorized app records; no duplicated source or public-claim authority. |
 | [src/apps/package_fence.rs](../src/apps/package_fence.rs) | Shared package fence prevents native record or document writes racing contract upgrades. |
+| [src/apps/persistence.rs](../src/apps/persistence.rs) | Translate storage-port failures into the existing native HTTP/MCP domain errors. |
 | [src/apps/planning.rs](../src/apps/planning.rs) | Registered managed app actions join the same preview/approve transaction as core changes. |
 | [src/apps/planning_contracts.rs](../src/apps/planning_contracts.rs) | Current authorized managed-save models accompany proposals; no records, secrets or new authority. |
 | [src/apps/presentation.rs](../src/apps/presentation.rs) | Optional passive app artwork and localized summaries; omitted metadata preserves published legacy digests. |
@@ -1811,6 +1812,12 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/sdk/rust-events.rs](../extensions/sdk/rust-events.rs) | Language-neutral public event-signature contract for independent Rust app services; no commerce implementation. |
 | [extensions/sdk/ui_bundle.py](../extensions/sdk/ui_bundle.py) | Build self-contained vanilla example UIs from the shared SDK; no remote imports at runtime. |
 | [extensions/sdk/wit/snapshot-price.component.wat](../extensions/sdk/wit/snapshot-price.component.wat) | Typed fixture: calls the real host cart snapshot and returns one percent of its subtotal. |
+| [extensions/services/app-storage/src/error.rs](../extensions/services/app-storage/src/error.rs) | Preserve database errors and explicit idempotency/quota conflicts without inventing HTTP or transport authority. |
+| [extensions/services/app-storage/src/jobs.rs](../extensions/services/app-storage/src/jobs.rs) | Original native app job persistence and transactional event handoff; no worker, principal or provider execution. |
+| [extensions/services/app-storage/src/lib.rs](../extensions/services/app-storage/src/lib.rs) | Scoped storage ports for trusted hosts; no identity resolution, pool creation, service dispatch or schema installation. |
+| [extensions/services/app-storage/src/progress.rs](../extensions/services/app-storage/src/progress.rs) | Lease-fenced native progress persistence, called only after host current-actor and package admission. |
+| [extensions/services/app-storage/src/records.rs](../extensions/services/app-storage/src/records.rs) | Original fixed-table record SQL; host admission, signed scope, field rules and commit stay with the caller. |
+| [extensions/services/app-storage/tests/postgres.rs](../extensions/services/app-storage/tests/postgres.rs) | Actual independent PostgreSQL persistence: composite scope, atomic handoff, replay, quota, restart and lease fences. |
 | [extensions/services/connectors/src/actions.rs](../extensions/services/connectors/src/actions.rs) | Existing standard-app actions and event/export endpoints share validated tenant-bound dispatch. |
 | [extensions/services/connectors/src/crypto.rs](../extensions/services/connectors/src/crypto.rs) | Authenticated encryption binds config, OAuth verifiers, messages and receipts to tenant and app. |
 | [extensions/services/connectors/src/error.rs](../extensions/services/connectors/src/error.rs) | Sanitized failures distinguish explicit rejection from ambiguous external side effects. |

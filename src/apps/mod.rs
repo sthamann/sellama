@@ -110,6 +110,7 @@ mod ui_logic;
 mod ui_logic_tests;
 mod ui_logic_types;
 pub(crate) use manifest_validation::validate;
+mod persistence;
 pub(crate) mod records;
 mod registry;
 mod relations;

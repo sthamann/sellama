@@ -20,6 +20,15 @@ API, MCP, Flows, callbacks, AI proposals and selected sandbox releases. Apps can
 send SQL or create PostgreSQL objects. `apps/records.rs` is the shared internal
 storage adapter; app-specific behavior remains under its package directory.
 
+The low-level record and job SQL now belongs to the independent
+[`veyndo-app-storage` package](https://github.com/veyndo/apps). Core imports an exact
+source snapshot in `extensions/services/app-storage/` and passes its existing
+scoped transaction to it. `Scope` and `RecordKey` are admitted storage keys, not
+credentials. Current identity/package checks, model rules, CAS, projections,
+history and publication remain in the native host. This introduces no second
+store, production schema migration or plugin SQL access.
+[Extraction tests and remaining standalone host work](evidence/app-storage-component-2026-11-05.md).
+
 The full identity is `(tenant, app, entity, id)`. Sandboxes use their admitted
 private tenant and existing personal ownership/expiry checks. Equal app names,
 record IDs or different schema versions in unrelated shops cannot collide.

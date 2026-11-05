@@ -250,6 +250,14 @@ owners require an explicit reservation/compensation design and corresponding tes
   connected fixtures pass. [Host contract evidence](evidence/marketplace-host-2026-11-05.md).
 - [ ] MKT-03 Replace dependence on native app records/jobs with host interfaces and
   an independent supported implementation; no copied native order ledger.
+  - [x] MKT-03a Extract native record/job persistence to `veyndo/apps`, consume the
+    exact same Rust package in Core and verify independent PostgreSQL plus the
+    native storage/jobs/tenant and marketplace fixtures.
+    [Storage evidence](evidence/app-storage-component-2026-11-05.md).
+  - [ ] MKT-03b Extract the validated host operations and identity adapter, with a
+    supported production schema, current permissions, API/MCP and SDK examples.
+  - [ ] MKT-03c Accept independent durable-host operation, restricted database
+    roles, migration/restore and complete Veyndo composition before cutover.
 - [ ] MKT-04 Test listing overrides, mapping, stock sync, changed revisions,
   duplicate external orders, refunds, events and restart against provider fixtures.
 - [ ] MKT-05 Prove standalone SDK integration and complete Veyndo channel creation,
@@ -308,6 +316,22 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### App persistence extraction, 5 November 2026
+
+- Published the initial `veyndo/apps` storage package with extracted source history,
+  original license, provenance, its own PostgreSQL CI and native connection/scope
+  ports. Core consumes its pinned source through `components.lock.json`.
+- Record storage, job admission persistence and job/outbox handoff now use this
+  package. Native current identity, package, CAS, field/reference validation,
+  history and signed database scope remain on the original execution path.
+- Independent PostgreSQL verifies rollback, concurrent request replay, failed
+  outbox rollback, quotas, expired leases and persistence after reconnection.
+  Native shared storage, jobs, 43 tenant checks and the marketplace HTTP/MCP
+  order/stock/Flow/invoice fixture pass with the extracted code.
+- MKT-03a is complete. MKT-03, APP-02 and standalone host acceptance remain open;
+  this Rust library does not yet supply a standalone authenticated app service.
+
 
 ### 5 November 2026
 

@@ -55,6 +55,30 @@
         "tests/order_localization.py": "3c203bf3207605149ddc8a1a8632c3e363a80afaae3b857ee4d52ad98174a6df",
         "tests/standalone.py": "486e1d0bc9e879b87d8df07985867d452b908b90b40da333ea1183dd0f37fb27"
       }
+    },
+    "apps": {
+      "repository": "https://github.com/veyndo/apps",
+      "commit": "8b04beb7e8ea3f615d37d46a1bd3cd3fe4a2fdfd",
+      "path": "extensions/services/app-storage",
+      "files": {
+        ".github/CODEOWNERS": "7cdbaae40b6d894ef5154a74cfeb40bc2da025f6c80cd8e1f857cf68c2776c5e",
+        ".github/workflows/verify.yml": "6e20d088d506c520e834c5da200053adf8b1a9bb9ba9ce01b6421dc59d901746",
+        ".gitignore": "02e7b40893c74a993a139de7b0f85d8cf2eaea57d544effd576920a514872af4",
+        "AGENTS.md": "39d708619a46c3b2dff2869c5b02b5f0b861d4879ea70cb2eda2d8a40efdf14e",
+        "Cargo.lock": "bb6de94e0f2847d31ea550094e4d20b9f92a3bb391e6324267d85b676e511fd0",
+        "Cargo.toml": "e756df15a758d56fb74bd3127550f04dce41e2eec4f7e6ad26b533c60e117979",
+        "LICENSE": "0d23edbf3c7fa0daf472c04bc952f4d62216c5d49f08be1b3c69a86689eb46df",
+        "PROVENANCE.json": "e5e8e33c6932304c6c60ff644f32bd6d6184a64675c7bf06a9d27ce695b9e527",
+        "README.md": "ac6ee49649961ef87bb1f1558989ec1c11907ea152b998c047829fa089e69b6f",
+        "SECURITY.md": "8b5732fbaf08cfd78cc7f42b955511f767a12fc20260181ec440981826987def",
+        "src/error.rs": "4bde95d196e18a740c4a114b18463a780bd79625d1372a0e94c7dfb3c70c092a",
+        "src/jobs.rs": "94ec88131a206cf85a4325c7c3cee58ce2199cdf85d340edcb73ea144df494cb",
+        "src/lib.rs": "ca5fc35431f3a8c4d4a42d316ca0da4e507b8bd1e13cccfe5c4eeb213372a535",
+        "src/progress.rs": "f0ca8a83abd5af4ef6e400889dae962d6f4b287a23f7bc454d7192ba5e2fd915",
+        "src/records.rs": "9011d65b21ed7bc81d5c94065fe33ba328e12469ba926540aea24f173bf402b2",
+        "tests/postgres.rs": "7ca143817dcb2468e804bacdb67b25f46db35942ef459eff86c8ea154ce01b22",
+        "tests/schema.sql": "b288bc05f61ba254ba938a92f64af0d625f6f46a5b4847b5077a4ef740240830"
+      }
     }
   }
 }

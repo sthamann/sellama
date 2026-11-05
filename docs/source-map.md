@@ -5,6 +5,15 @@ SDK, test requirements and complete-product acceptance](commerce-components.md).
 Existing owners remain authoritative until their replacement is integrated and
 accepted. Moving a repository does not establish standalone service behavior.
 
+**App persistence:** `veyndo/apps` owns `veyndo-app-storage`; the exact source
+snapshot in `extensions/services/app-storage/` is verified by
+`components.lock.json`. `src/apps/records.rs`, `jobs.rs` and `job_callbacks.rs`
+use its record/job SQL through the same scoped transaction. Native admission,
+field/reference validation, CAS, history, evidence and publication remain in Core.
+The trusted storage crate is distinct from the no-SQL Wasm `veyndo-apps` crate;
+Cargo boundary controls prohibit guest/domain imports of the storage package.
+[Independent and assembled tests](evidence/app-storage-component-2026-11-05.md).
+
 **Invoice checkout:** `src/payments/instructions.rs` owns the typed recipient
 projection and customer/compound merchant rights. `PaymentInstructions.tsx` and
 its adjacent stylesheet render it in the existing native completion checkout.

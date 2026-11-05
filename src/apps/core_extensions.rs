@@ -1,6 +1,6 @@
 //! Namespaced core-object extension contracts; native records, rights and app storage keep their owners.
-use super::{Entity, Manifest};
-use crate::{RequestContext, Result, auth, bad, conflict};
+use super::{Entity, Manifest, model_contract};
+use crate::{RequestContext, Result, auth, bad};
 
 pub(crate) use veyndo_app_model::Object;
 
@@ -79,17 +79,7 @@ pub(crate) fn configuration(e: &Entity) -> bool {
 }
 
 pub(super) fn compatible(old: &Entity, next: &Entity) -> Result<()> {
-    if old.operational == Some(true) && next.operational != Some(true) {
-        return Err(conflict(
-            "Operational records cannot become publishable configuration",
-        ));
-    }
-    if old.extends != next.extends {
-        return Err(conflict(
-            "Changing an installed extension binding requires an explicit offline migration",
-        ));
-    }
-    Ok(())
+    veyndo_app_model::evolution::compatible(old, next).map_err(model_contract::error)
 }
 
 pub(crate) async fn descriptions(

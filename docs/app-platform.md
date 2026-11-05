@@ -33,6 +33,13 @@ flowchart LR
 
 ## Common package compiler
 
+Apps 0.7.0/model 0.4.0 also owns strict settings declarations/updates and
+secret-safe projections, plus explicit schema evolution planning and exact value
+conversion. The native setting routes and upgrade review/install paths reuse the
+same implementation. Encryption, authenticated authority and actual checked
+transactional data changes remain native.
+[Settings and upgrade extraction](evidence/app-evolution-settings-2026-11-05.md).
+
 Apps 0.6.0/model 0.3.0 supplies `package::compile`: the original common metadata,
 capability, model/index/configuration, action schema/privacy/effect, legacy-slot
 and event grammar. It requires trusted scope/reference/Wasm-kind policies and

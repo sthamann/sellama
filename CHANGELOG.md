@@ -1,5 +1,14 @@
 # Changelog
 
+## Shared app settings and schema evolution, 5 November 2026
+
+Apps 0.7.0/model 0.4.0 extracts strict setting declarations, bounded updates and
+secret-safe projections plus explicit schema evolution planning and exact
+conversions. Native settings and upgrade review/install reuse those same rules;
+current authority, encrypted storage, recovery snapshots and actual checked
+transactional writes retain their original owners. Existing shared tables remain
+unchanged. [Implementation and acceptance](docs/evidence/app-evolution-settings-2026-11-05.md).
+
 ## Shared common app package compiler, 5 November 2026
 
 Apps 0.6.0/model 0.3.0 shares the original common package limits, capabilities,

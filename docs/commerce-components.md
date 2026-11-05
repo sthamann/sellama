@@ -277,6 +277,8 @@ owners require an explicit reservation/compensation design and corresponding tes
     through required compiler/commerce/migration/model/default/schedule hooks.
     Apps 0.6.0 adds the common package compiler with required native scope,
     reference/Wasm-kind policies and ordered full-domain extension validators.
+    Apps 0.7.0 shares settings declaration/value/projection and schema evolution
+    planning/conversion, including operational/core-binding compatibility.
     Authentication, the remaining typed domain extension compiler and lifecycle,
     standalone service/schema and API/MCP hosting remain open.
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
@@ -286,6 +288,10 @@ owners require an explicit reservation/compensation design and corresponding tes
     - [x] Common package metadata/model/action/slot/event compiler; required native
       extension checks and policy owners remain in their original order.
       [Compiler evidence](evidence/app-package-compiler-2026-11-05.md).
+    - [x] Strict settings declarations/partial updates/secret-safe projections and
+      explicit schema evolution planning/conversion, reused by native settings and
+      upgrade review/install consumers.
+      [Settings and evolution evidence](evidence/app-evolution-settings-2026-11-05.md).
     - [ ] Complete typed domain extension compiler, identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -352,6 +358,18 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### Shared settings and schema evolution, 5 November 2026
+
+- Apps 0.7.0/model 0.4.0 extracts strict localized setting declarations, bounded
+  updates and secret-safe projections from native settings, plus explicit migration
+  declarations, compatibility planning and exact conversions from schema changes.
+- Existing encrypted settings and native upgrade review/install transactions use
+  that same pinned code. Identity, package consent, secrets, actual checked record
+  changes, recovery snapshots and atomic commit remain with their original owners.
+- The independent Rust example prepares settings and an explicit model plan without
+  Core or SQL. Full standalone identity/runtime/schema/API/MCP remains open.
+- [Acceptance evidence](evidence/app-evolution-settings-2026-11-05.md).
 
 ### Shared common package compiler, 5 November 2026
 

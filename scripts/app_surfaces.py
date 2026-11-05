@@ -169,6 +169,13 @@ def run():
             assert saved_settings['values']=={'account':'local-provider-fixture'} and 'api_token' in saved_settings['configured'] and secret not in json.dumps(saved_settings)
             call(settings_path,settings_body,h,expected=409,method='PUT')
             call(settings_path,{**settings_body,'revision':1,'values':{'undeclared':'x'}},h,expected=400,method='PUT')
+            # Shared settings updates retain omitted secrets and reject clearing required values.
+            call(settings_path,{**settings_body,'revision':1,'values':{'api_token':None}},h,expected=400,method='PUT')
+            unchanged=call(settings_path,headers=h)
+            assert unchanged['revision']==1 and secret not in json.dumps(unchanged)
+            call(settings_path,{**settings_body,'revision':1,'values':{'account':'local-provider-fixture'}},h,method='PUT')
+            partial=call(settings_path,headers=h)
+            assert partial['revision']==2 and partial['values']=={'account':'local-provider-fixture'} and secret not in json.dumps(partial)
             assert call(f"/api/apps/{app_id}/actions/settings_probe",{},h)=={'configured':True}
             assert settings_received[-1]['_appSettings']==settings_body['values']
             invalid=call(f"/api/apps/{app_id}/actions/settings_probe",{'invalidResult':True},h,expected=502)

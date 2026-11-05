@@ -1334,6 +1334,11 @@
       "sha256": "9d3e944a0a7dd0a3533925b3a5aa64071ef2af32d2bf7c496922f2e03cc10735",
       "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
+    "extensions/services/app-storage/examples/upgrade_settings.rs": {
+      "status": "unproved",
+      "sha256": "2bb8b686a6cc75462159379926b60ff71ff895d1ef041fdd2fcaf779fe45c30e",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+    },
     "extensions/services/app-storage/model/src/admission.rs": {
       "status": "unproved",
       "sha256": "e89625bc9faf9693a1275424d2b0360d1991c53f7e38bc4ac95335d4ad7a6588",
@@ -1349,6 +1354,11 @@
       "sha256": "749e10f71c222b18b4190d3debdb3d23f8aa8179e18929390dc5134b3646fe8e",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
     },
+    "extensions/services/app-storage/model/src/evolution.rs": {
+      "status": "unproved",
+      "sha256": "cd1362bd4774ff459e70d36b32f1115fd772a31e55a69901fcd404e20350de5a",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+    },
     "extensions/services/app-storage/model/src/fields.rs": {
       "status": "unproved",
       "sha256": "88fc819bfa47e6bb740a727f70d8f73a24f28fa4bd0bcc175f8fc0c550321858",
@@ -1361,8 +1371,8 @@
     },
     "extensions/services/app-storage/model/src/lib.rs": {
       "status": "unproved",
-      "sha256": "4bd9bcbc649eed5981f2a50e9b557b94ba8ab347f591a9adc7928861d9721c68",
-      "review": "Reviewed extraction of original common Manifest grammar, model/index/configuration checks, action schema/privacy/Flow/job/payment/asset restrictions, strict legacy Slot type and event name rules into pinned model 0.3. Native required before/after validators retain original ordering, strict full decoder, complete domain/provider/UI/hook/lifecycle/distribution checks; host policy uses exact native auth scope registry, Sandbox component discriminator and verified reference guard. Independent 34 model tests, actual storage PG contract, native build/clippy/74 app units and app/consent/callback/assets/storage/schema/jobs/Studio/F5/lifecycle/staging/distribution/tenant/surface/visual/Marketplace fixtures pass; 34 canonical package digests unchanged. Removed redundant contract-only native schema wrapper; same pure validator runs directly in schema tests. New generic compiler and adapters remain unproved; kernel policies unchanged."
+      "sha256": "99d0093449d68bbfa6644b2d7868d2e2f8793b1e6ae3b022036caa80590a06d9",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/model/src/lifecycle.rs": {
       "status": "unproved",
@@ -1399,6 +1409,11 @@
       "sha256": "2b3958eeeaf04e24dc1c8cc56de4ebf55e5e6348a443e825e4b109577f9f28a9",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
     },
+    "extensions/services/app-storage/model/src/settings.rs": {
+      "status": "unproved",
+      "sha256": "decd37718061f7f1044507d23b3b400a9954a5143eb3784254d0dd1f7049d399",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+    },
     "extensions/services/app-storage/model/src/types.rs": {
       "status": "unproved",
       "sha256": "622aef919caa64dae6b1920cb7f5e83384711db7d509cdf33c846c7224afea48",
@@ -1414,6 +1429,11 @@
       "sha256": "307bdbcc9c96d9191868eed3b76161b3ef8a8f411a8859bab7b6b634677b3492",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
     },
+    "extensions/services/app-storage/model/tests/evolution.rs": {
+      "status": "unproved",
+      "sha256": "7c6f4a0fb060e5302e5dbd0c93668f76b87aaba0b40e21335f7ca62204cd81db",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+    },
     "extensions/services/app-storage/model/tests/package_actions.rs": {
       "status": "unproved",
       "sha256": "98952445b76f90794d2262ed6ac1feb99416ed8dc57ff9c4721c29a1ffbb0e7c",
@@ -1423,6 +1443,11 @@
       "status": "unproved",
       "sha256": "63a35fb304044b6648e9be63a852852841cb6a335422f5c7d8168eb7894927ea",
       "review": "Reviewed extraction of original common Manifest grammar, model/index/configuration checks, action schema/privacy/Flow/job/payment/asset restrictions, strict legacy Slot type and event name rules into pinned model 0.3. Native required before/after validators retain original ordering, strict full decoder, complete domain/provider/UI/hook/lifecycle/distribution checks; host policy uses exact native auth scope registry, Sandbox component discriminator and verified reference guard. Independent 34 model tests, actual storage PG contract, native build/clippy/74 app units and app/consent/callback/assets/storage/schema/jobs/Studio/F5/lifecycle/staging/distribution/tenant/surface/visual/Marketplace fixtures pass; 34 canonical package digests unchanged. Removed redundant contract-only native schema wrapper; same pure validator runs directly in schema tests. New generic compiler and adapters remain unproved; kernel policies unchanged."
+    },
+    "extensions/services/app-storage/model/tests/settings.rs": {
+      "status": "unproved",
+      "sha256": "9fd261d647bb4e383d049433d6f7d538cf6ef65244d9608d65547ddc1457b472",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/model/tests/support/package.rs": {
       "status": "unproved",
@@ -1851,8 +1876,8 @@
     },
     "src/apps/core_extensions.rs": {
       "status": "reviewed-binding",
-      "sha256": "be3992857a07499623df42286b7da593f60387de8da501fbdc5893850b2ae964",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "e7982cec528c30e9c2ad4809a63b4bd5bf8ec754a887097ca0af4c895d7cb3d2",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
     "src/apps/credentials.rs": {
       "status": "reviewed-binding",
@@ -2126,8 +2151,8 @@
     },
     "src/apps/schema_changes.rs": {
       "status": "unproved",
-      "sha256": "ac89e48ec8d1e5d6306da944ebe2be322f724685736a87be1cd3cbea7a651a90",
-      "review": "App upgrade final review: current saved Flow membership and shared additional/core rights on the existing locked connection; explicit validation-rule schema migration reuses bounded native field checks; payment registry preserves active basis/channel method coverage. Real PostgreSQL negative fixtures reproduced old admission and pass after fixes. SQL/async admission remains unproved."
+      "sha256": "c30c9fd954f2b5ca4a9eb83d80e61a77b7c4f77c9dc83bc09645ed8e0738cabc",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
     "src/apps/schema_upgrade.rs": {
       "status": "unproved",
@@ -2151,8 +2176,8 @@
     },
     "src/apps/settings.rs": {
       "status": "reviewed-binding",
-      "sha256": "c4ac0b0026293c1b2916eaea5232e68c573d84f48ff250642701359c59e20afa",
-      "review": "App Studio integration review: existing multi-surface native views now include checkout mounts; declared settings reuse encrypted digest/CAS-bound app secrets and private service admission, redact secret reads, deny foreign/nonpersonal/stage writes. Permanent integration keys require the extracted personal/current-admin predicate, retain current membership intersection and revocation; explicit null expiry only at API presentation. Real app_surfaces, merchant_operations, app_studio and tenant_isolation HTTP/PostgreSQL assertions passed before the final inventory check. UI 530 tests passed. Added bounded package/index admission; SQL, crypto, browser and provider adapters remain unproved."
+      "sha256": "5b227069f29278b434bf3efed9877c4c0dec5adcc8b59009b4cb78ff39a8b1c7",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
     "src/apps/storage.rs": {
       "status": "unproved",
@@ -4596,16 +4621,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "2b652b98d9e0c4fac56cfed3a9de84da87ce48eb7da912eda0e6e7950982ff6b",
-      "review": "Reviewed extraction of original common Manifest grammar, model/index/configuration checks, action schema/privacy/Flow/job/payment/asset restrictions, strict legacy Slot type and event name rules into pinned model 0.3. Native required before/after validators retain original ordering, strict full decoder, complete domain/provider/UI/hook/lifecycle/distribution checks; host policy uses exact native auth scope registry, Sandbox component discriminator and verified reference guard. Independent 34 model tests, actual storage PG contract, native build/clippy/74 app units and app/consent/callback/assets/storage/schema/jobs/Studio/F5/lifecycle/staging/distribution/tenant/surface/visual/Marketplace fixtures pass; 34 canonical package digests unchanged. Removed redundant contract-only native schema wrapper; same pure validator runs directly in schema tests. New generic compiler and adapters remain unproved; kernel policies unchanged."
+      "sha256": "52066f2dca31c54d3f97ce0c7a5763f4819065cc8e15509e13fb60594adce119",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
     "Cargo.toml": {
       "sha256": "0b6cd31c1e58e4e06a90eba1b44505343c0b9f14a2e8f7958d0d00ca9486d091",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
     },
     "components.lock.json": {
-      "sha256": "8b2a76f5b4577032f1007329cb2b12c63769c55c9a8e2a2e8cb45dfbbd599e84",
-      "review": "Reviewed extraction of original common Manifest grammar, model/index/configuration checks, action schema/privacy/Flow/job/payment/asset restrictions, strict legacy Slot type and event name rules into pinned model 0.3. Native required before/after validators retain original ordering, strict full decoder, complete domain/provider/UI/hook/lifecycle/distribution checks; host policy uses exact native auth scope registry, Sandbox component discriminator and verified reference guard. Independent 34 model tests, actual storage PG contract, native build/clippy/74 app units and app/consent/callback/assets/storage/schema/jobs/Studio/F5/lifecycle/staging/distribution/tenant/surface/visual/Marketplace fixtures pass; 34 canonical package digests unchanged. Removed redundant contract-only native schema wrapper; same pure validator runs directly in schema tests. New generic compiler and adapters remain unproved; kernel policies unchanged."
+      "sha256": "4b0e526549c0cf1702cf73c8c2b64ef0d0ada90cf7188839920f2a20d8f8da0d",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "496067ed6a47c2778baed402bd51378c139687fbb3b36f8f965bf880129de013",
@@ -4756,16 +4781,16 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "5309d9c3d9efe511931b84c88a367931ab65ac88e6054eba1a9e563f3d222017",
-      "review": "Reviewed extraction of original common Manifest grammar, model/index/configuration checks, action schema/privacy/Flow/job/payment/asset restrictions, strict legacy Slot type and event name rules into pinned model 0.3. Native required before/after validators retain original ordering, strict full decoder, complete domain/provider/UI/hook/lifecycle/distribution checks; host policy uses exact native auth scope registry, Sandbox component discriminator and verified reference guard. Independent 34 model tests, actual storage PG contract, native build/clippy/74 app units and app/consent/callback/assets/storage/schema/jobs/Studio/F5/lifecycle/staging/distribution/tenant/surface/visual/Marketplace fixtures pass; 34 canonical package digests unchanged. Removed redundant contract-only native schema wrapper; same pure validator runs directly in schema tests. New generic compiler and adapters remain unproved; kernel policies unchanged."
+      "sha256": "2d60f084a5ba4b3ebb182f59b3e7d5072a172ea474d81cc0656369384c439748",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "029da949241e22a6fe58849029be228e93fc9ff1a8815bf8adb5349e0d434a97",
-      "review": "Reviewed extraction of original common Manifest grammar, model/index/configuration checks, action schema/privacy/Flow/job/payment/asset restrictions, strict legacy Slot type and event name rules into pinned model 0.3. Native required before/after validators retain original ordering, strict full decoder, complete domain/provider/UI/hook/lifecycle/distribution checks; host policy uses exact native auth scope registry, Sandbox component discriminator and verified reference guard. Independent 34 model tests, actual storage PG contract, native build/clippy/74 app units and app/consent/callback/assets/storage/schema/jobs/Studio/F5/lifecycle/staging/distribution/tenant/surface/visual/Marketplace fixtures pass; 34 canonical package digests unchanged. Removed redundant contract-only native schema wrapper; same pure validator runs directly in schema tests. New generic compiler and adapters remain unproved; kernel policies unchanged."
+      "sha256": "e07dbf8d3b10558b849c0e9d3b5920c19de42fc319792db5abaf43ac72046cf6",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
-      "sha256": "d0daca7015d0899b71732cd50955641f6504f5e357d144eba50907b5814db892",
-      "review": "Reviewed extraction of original common Manifest grammar, model/index/configuration checks, action schema/privacy/Flow/job/payment/asset restrictions, strict legacy Slot type and event name rules into pinned model 0.3. Native required before/after validators retain original ordering, strict full decoder, complete domain/provider/UI/hook/lifecycle/distribution checks; host policy uses exact native auth scope registry, Sandbox component discriminator and verified reference guard. Independent 34 model tests, actual storage PG contract, native build/clippy/74 app units and app/consent/callback/assets/storage/schema/jobs/Studio/F5/lifecycle/staging/distribution/tenant/surface/visual/Marketplace fixtures pass; 34 canonical package digests unchanged. Removed redundant contract-only native schema wrapper; same pure validator runs directly in schema tests. New generic compiler and adapters remain unproved; kernel policies unchanged."
+      "sha256": "b0e906e343ebc705b29282ab9b76ae4936e2ba907d9063bc22159dde131b6120",
+      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/tests/schema.sql": {
       "sha256": "ae91a4670e8da43e7401f46453d0f78b3559908b8b2b6458b333c70a59d8ef32",

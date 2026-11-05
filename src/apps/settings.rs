@@ -1,31 +1,8 @@
 //! Declared app settings reuse the digest-bound encrypted secret owner; secret values never have a browser read path.
 use super::*;
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct Setting {
-    pub key: String,
-    pub label: HashMap<String, String>,
-    pub kind: String,
-    #[serde(default)]
-    pub required: bool,
-}
+pub(crate) use veyndo_app_model::settings::Setting;
 pub(super) fn validate(m: &Manifest) -> Result<()> {
-    let mut names = std::collections::HashSet::new();
-    if m.settings.len() > 16 {
-        return Err(bad("Maximum 16 app settings"));
-    }
-    for f in &m.settings {
-        if !identifier(&f.key)
-            || !names.insert(&f.key)
-            || f.label.is_empty()
-            || f.label.len() > 100
-            || f.label.values().any(|s| s.is_empty() || s.len() > 100)
-            || !["string", "secret", "boolean", "integer"].contains(&f.kind.as_str())
-        {
-            return Err(bad("Invalid app setting declaration"));
-        }
-    }
-    Ok(())
+    veyndo_app_model::settings::validate(&m.settings).map_err(model_contract::error)
 }
 pub(super) fn router() -> Router<App> {
     Router::new().secure_route(
@@ -65,18 +42,8 @@ async fn read(
     } else {
         json!({})
     };
-    let visible: serde_json::Map<String, Value> = m
-        .settings
-        .iter()
-        .filter(|f| f.kind != "secret")
-        .filter_map(|f| values.get(&f.key).map(|v| (f.key.clone(), v.clone())))
-        .collect();
-    let configured = m
-        .settings
-        .iter()
-        .filter(|f| values.get(&f.key).is_some_and(|v| !v.is_null()))
-        .map(|f| f.key.clone())
-        .collect::<Vec<_>>();
+    let visible = veyndo_app_model::settings::visible(&m.settings, &values);
+    let configured = veyndo_app_model::settings::configured(&m.settings, &values);
     Ok(Json(
         json!({"fields":m.settings,"values":visible,"configured":configured,"revision":revision,"digest":digest,"current":current,"canManage":staging::parent(&a,&t).await?.is_none(),"encryptionReady":veyndo::inference::settings::encryption_ready()}),
     ))
@@ -110,42 +77,9 @@ async fn save(
         .as_i64()
         .filter(|n| *n >= 0)
         .ok_or(bad("Settings revision required"))?;
-    let mut values=if sqlx::query_scalar::<_,bool>("SELECT EXISTS(SELECT 1 FROM app_service_secrets WHERE tenant=$1 AND app=$2 AND kind='settings' AND package_digest=$3)").bind(&t).bind(&id).bind(&digest).fetch_one(&a.db).await? {resolve(&a,&t,&m).await?} else {json!({})};
-    let input = v["values"]
-        .as_object()
-        .filter(|vs| vs.len() <= 16)
-        .ok_or(bad("Settings object required"))?;
-    for (key, value) in input {
-        let f = m
-            .settings
-            .iter()
-            .find(|f| f.key == *key)
-            .ok_or(bad("Undeclared app setting"))?;
-        let valid = match f.kind.as_str() {
-            "boolean" => value.is_boolean(),
-            "integer" => value.as_i64().is_some(),
-            _ => value
-                .as_str()
-                .is_some_and(|s| s.len() <= 4096 && !s.chars().any(char::is_control)),
-        };
-        if !valid && !value.is_null() {
-            return Err(bad("Invalid app setting value"));
-        }
-        values[key] = value.clone();
-    }
-    for f in &m.settings {
-        if f.required
-            && values
-                .get(&f.key)
-                .is_none_or(|v| v.is_null() || v.as_str().is_some_and(str::is_empty))
-        {
-            return Err(bad(format!("Required app setting: {}", f.key)));
-        }
-    }
-    let encoded = serde_json::to_string(&values).map_err(|_| bad("Invalid settings"))?;
-    if encoded.len() > 16384 {
-        return Err(bad("Settings exceed 16 KiB"));
-    }
+    let values=if sqlx::query_scalar::<_,bool>("SELECT EXISTS(SELECT 1 FROM app_service_secrets WHERE tenant=$1 AND app=$2 AND kind='settings' AND package_digest=$3)").bind(&t).bind(&id).bind(&digest).fetch_one(&a.db).await? {resolve(&a,&t,&m).await?} else {json!({})};
+    let encoded = veyndo_app_model::settings::prepare(&m.settings, &values, &v["values"])
+        .map_err(model_contract::error)?;
     let revision = secrets::store(
         &a,
         &t,
@@ -172,10 +106,5 @@ pub(super) async fn resolve(a: &App, t: &str, m: &Manifest) -> Result<Value> {
     let values: Value =
         serde_json::from_str(&encoded).map_err(|_| bad("Invalid encrypted app settings"))?;
     // A removed declaration never becomes available to a new package or remote service.
-    Ok(Value::Object(
-        m.settings
-            .iter()
-            .filter_map(|f| values.get(&f.key).map(|v| (f.key.clone(), v.clone())))
-            .collect(),
-    ))
+    Ok(veyndo_app_model::settings::declared(&m.settings, &values))
 }

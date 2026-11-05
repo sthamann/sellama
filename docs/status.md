@@ -51,6 +51,18 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Shared app settings and schema evolution, 5 November 2026
+
+Apps [0.7.0](https://github.com/veyndo/apps/releases/tag/v0.7.0), model 0.4.0,
+shares strict setting declarations, bounded partial updates, secret-safe browser
+projections and the explicit schema evolution planner. Native settings and upgrade
+review/install paths call those same functions. Rename/remove/convert/fill steps,
+exact conversions, operational-record restrictions and core-extension binding
+compatibility retain the existing rules. Encryption, package consent, current
+administrator rights, recovery snapshots, reference/language validation and all
+transactional writes remain attached to their native owners.
+[Implementation and acceptance](evidence/app-evolution-settings-2026-11-05.md).
+
 ## Shared common app package compiler, 5 November 2026
 
 Apps [0.6.0](https://github.com/veyndo/apps/releases/tag/v0.6.0) supplies the model

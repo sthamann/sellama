@@ -24,6 +24,14 @@ pinned `veyndo-app-model` package. Native adapters preserve problem kinds/pointe
 and call existing currency/content/reference policy owners; actual identity,
 package authority, referenced-object ownership and database scope remain native.
 Never duplicate validators or introduce permissive policy defaults.
+Shared settings declarations, partial updates and secret-safe projections belong
+to model/settings; schema change types, compatibility/shape planning and exact
+conversion belong to model/evolution. Native settings routes retain personal live
+administrator/digest/CAS checks and encrypted secret writes. Native schema_upgrade
+and upgrade_review retain selected version paths, scoped locks, bounded recovery,
+actual field/reference/language validation and all-or-nothing record/package/events.
+Do not treat a pure plan or encoded settings result as storage/authority approval.
+
 The shared `package::compile` grammar requires native before/after domain extension
 validators and scope/Wasm-kind/reference policies. Preserve their complete original
 order and typed Manifest projection in `manifest_validation.rs`; never approve

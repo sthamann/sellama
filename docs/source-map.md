@@ -34,6 +34,15 @@ remains in `manifest.rs`; Action/Entity/Field/Slot wire types come from the shar
 model. This is the compiler used by the existing install/Studio/API/MCP/release
 consumers. [Evidence](evidence/app-package-compiler-2026-11-05.md).
 
+**App settings and model evolution:** Pinned Apps `model/src/settings.rs` owns
+setting declarations, bounded value preparation and secret-safe projections;
+`model/src/evolution.rs` owns explicit migration types, model compatibility and
+exact conversion. Native `settings.rs`, `schema_changes.rs` and `core_extensions.rs`
+adapt these same rules. `schema_upgrade.rs` retains scoped transactions, recovery
+snapshots, actual record updates and native field/reference/language checks;
+`upgrade_review.rs` retains rollback-only review.
+[Evidence](evidence/app-evolution-settings-2026-11-05.md).
+
 **App installation:** Pinned Apps `src/installation.rs` owns tenant/package locks,
 quota, immutable version checks, package/version writes and installation outbox.
 Native `package_install.rs` supplies mandatory compiler/trust, commerce/dependency,

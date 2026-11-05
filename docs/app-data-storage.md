@@ -12,6 +12,11 @@ existing app history and the independent connector database contract stay separa
 | `app_record_indexes` | Declared scalar lookup/unique values using fixed bounded-size digest indexes |
 | `app_record_references` | Ordered app relationships and fixed native product/customer/order/channel/B2B/asset references |
 
+Apps 0.7.0 shares settings updates/projections and explicit schema evolution
+planning with the native host. All data stays in the existing shared tables;
+there is no per-app table or schema migration in this extraction.
+[Settings and evolution boundary](evidence/app-evolution-settings-2026-11-05.md).
+
 ## One contract across every consumer
 
 The canonical Manifest still defines types, required fields, translation, choices,

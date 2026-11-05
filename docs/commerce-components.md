@@ -37,6 +37,10 @@ service adapters must reuse their implementation rather than duplicate rules.
   links; verify public homepage, handbook, screenshots, videos and old links.
 - [ ] ORG-07 Reconnect hosting source integrations to new repository ownership;
   preserve running versions, private submodule pins, deploy keys and rollbacks.
+  - [x] GitHub app installation linked to Northflank for exactly `veyndo/veyndo`,
+    `veyndo/experience` and `veyndo/shopware-payments`, with the explicitly approved
+    organization rights. SDK, Apps and Marketplace repositories are not granted.
+  - [ ] Complete source/build/runtime acceptance and remaining deployment links.
 - [ ] ORG-08 Verify repository permissions, rules, Actions settings, webhooks and
   secret/deploy-key availability without exporting secret values.
 - [ ] ORG-09 Give each extracted repository its source history/provenance,

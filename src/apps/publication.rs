@@ -34,17 +34,3 @@ pub(super) fn validate(e: &Entity) -> Result<()> {
     }
     Ok(())
 }
-pub(super) fn predicate(query: &mut sqlx::QueryBuilder<sqlx::Postgres>, e: &Entity, channel: &str) {
-    if let Some(p) = &e.publication {
-        query
-            .push(format!(
-                " AND fields->>'{}'='published' AND (fields->>'{}'='*' OR fields->>'{}'=",
-                p.status_field, p.channel_field, p.channel_field
-            ))
-            .push_bind(channel)
-            .push(format!(
-                ") AND (fields->>'{}' IS NULL OR (fields->>'{}')::timestamptz<=now())",
-                p.starts_at, p.starts_at
-            ));
-    }
-}

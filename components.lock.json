@@ -58,26 +58,30 @@
     },
     "apps": {
       "repository": "https://github.com/veyndo/apps",
-      "commit": "8b04beb7e8ea3f615d37d46a1bd3cd3fe4a2fdfd",
+      "commit": "135caaffd82814c7f374cecad9ad30ad52100f44",
       "path": "extensions/services/app-storage",
       "files": {
         ".github/CODEOWNERS": "7cdbaae40b6d894ef5154a74cfeb40bc2da025f6c80cd8e1f857cf68c2776c5e",
         ".github/workflows/verify.yml": "6e20d088d506c520e834c5da200053adf8b1a9bb9ba9ce01b6421dc59d901746",
         ".gitignore": "02e7b40893c74a993a139de7b0f85d8cf2eaea57d544effd576920a514872af4",
         "AGENTS.md": "39d708619a46c3b2dff2869c5b02b5f0b861d4879ea70cb2eda2d8a40efdf14e",
-        "Cargo.lock": "bb6de94e0f2847d31ea550094e4d20b9f92a3bb391e6324267d85b676e511fd0",
-        "Cargo.toml": "e756df15a758d56fb74bd3127550f04dce41e2eec4f7e6ad26b533c60e117979",
+        "Cargo.lock": "f95e00b8cc00f18463fdbe87d872873a2e6d607ce3abeeebfbfac37e949ff424",
+        "Cargo.toml": "fe1474fec8920b83d02fcf704b5498691be25b9c824714abb9f2c7977985cb2a",
         "LICENSE": "0d23edbf3c7fa0daf472c04bc952f4d62216c5d49f08be1b3c69a86689eb46df",
-        "PROVENANCE.json": "e5e8e33c6932304c6c60ff644f32bd6d6184a64675c7bf06a9d27ce695b9e527",
-        "README.md": "ac6ee49649961ef87bb1f1558989ec1c11907ea152b998c047829fa089e69b6f",
+        "PROVENANCE.json": "53b373a0fb5c4e0fe045e532a67103b322b9f622aef752187250237781f7d5ce",
+        "README.md": "8bf2d42ea3515bf0004ec8a4103c4690ab8749bc6b2f0f248c0c78a89863b231",
         "SECURITY.md": "8b5732fbaf08cfd78cc7f42b955511f767a12fc20260181ec440981826987def",
-        "src/error.rs": "4bde95d196e18a740c4a114b18463a780bd79625d1372a0e94c7dfb3c70c092a",
+        "src/error.rs": "ff0da93ca08deb300524c90182cd6880e0fb897da5500718a3a7a7a23813ee16",
         "src/jobs.rs": "94ec88131a206cf85a4325c7c3cee58ce2199cdf85d340edcb73ea144df494cb",
-        "src/lib.rs": "ca5fc35431f3a8c4d4a42d316ca0da4e507b8bd1e13cccfe5c4eeb213372a535",
+        "src/lib.rs": "8912303f9a9df3c6139d3c9f0d6ce6db091e8863d0d74e5d39e55bc6ea5e791b",
+        "src/mutations.rs": "a871c2d535e8250a76dad586b82fcb9fe944bec6895cd1faa4da3212a861084e",
         "src/progress.rs": "f0ca8a83abd5af4ef6e400889dae962d6f4b287a23f7bc454d7192ba5e2fd915",
+        "src/queries.rs": "bb7ae1421c83fc5a8549d8aa54efa9a106c40b7a69ce61ecf36e882990bd6579",
         "src/records.rs": "9011d65b21ed7bc81d5c94065fe33ba328e12469ba926540aea24f173bf402b2",
-        "tests/postgres.rs": "7ca143817dcb2468e804bacdb67b25f46db35942ef459eff86c8ea154ce01b22",
-        "tests/schema.sql": "b288bc05f61ba254ba938a92f64af0d625f6f46a5b4847b5077a4ef740240830"
+        "tests/cases/mutations.rs": "9bdb681a0101b34f9dd2b844f936904ab54a22d33c980723aef2383b53a10366",
+        "tests/cases/queries.rs": "d89b663406d997026a6cdba9d96b97dd43c221b63502593cd7c0cb252a1393b2",
+        "tests/postgres.rs": "c750b8268d506b6517894fd8a90f92d64e5c4a12177ffc12d15e212195a16059",
+        "tests/schema.sql": "cb2d3ff6eb802294e8250c3e4804d4f9f180a1a5fee18093829f939ba06fab91"
       }
     }
   }

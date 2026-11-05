@@ -256,6 +256,10 @@ owners require an explicit reservation/compensation design and corresponding tes
     [Storage evidence](evidence/app-storage-component-2026-11-05.md).
   - [ ] MKT-03b Extract the validated host operations and identity adapter, with a
     supported production schema, current permissions, API/MCP and SDK examples.
+    Shared record CAS/replay/write/outbox and bounded page/filter/publication
+    queries are now extracted and consumed by Core in Apps 0.2.0. Model and
+    identity admission, standalone service/schema and API/MCP hosting remain open.
+    [Record operation evidence](evidence/app-record-operations-2026-11-05.md).
   - [ ] MKT-03c Accept independent durable-host operation, restricted database
     roles, migration/restore and complete Veyndo composition before cutover.
 - [ ] MKT-04 Test listing overrides, mapping, stock sync, changed revisions,
@@ -316,6 +320,21 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### Shared record operations, 5 November 2026
+
+- Apps 0.2.0 owns the original record CAS/import replay/write/outbox sequence and
+  bounded keyset/filter/publication queries. Core API/MCP/Flow and site/app editing
+  use these functions; lifecycle/history hooks run in the existing transaction.
+- Independent PostgreSQL and component CI cover CAS races, replay, hook/outbox
+  rollback, typed filters, hostile bound field names and public windows. Native
+  app storage/jobs/schema/object extensions, 43 tenant checks, visual workspace
+  and the marketplace order/stock/Flow/invoice fixture pass.
+- Corrected the visual workspace fixture to expect rejection of an unsafe local
+  HTTP reference before model invocation; kept the existing server URL protection.
+- MKT-03b progressed; complete model/identity extraction and authenticated
+  standalone API/MCP deployment remain open.
+
 
 ### App persistence extraction, 5 November 2026
 

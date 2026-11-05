@@ -1,5 +1,17 @@
 # Changelog
 
+## Shared app record operations, 5 November 2026
+
+Apps 0.2.0 extracts record CAS, exact import replay, write/event sequencing and
+bounded page/filter/publication queries. Core uses that shared owner through
+native lifecycle/history hooks without splitting its transaction or bypassing
+current package, model, reference and language admission. Publication field names
+and channel values are bound parameters. Independent PostgreSQL and native
+storage/jobs/schema/extensions/isolation/visual-workspace/marketplace fixtures
+pass. The visual workspace test now expects unsafe local reference URLs to fail
+before model invocation, matching the existing server protection.
+[Evidence and remaining host extraction](docs/evidence/app-record-operations-2026-11-05.md).
+
 ## Shared app persistence component, 5 November 2026
 
 Extracted the native app record and job SQL to `veyndo/apps` as the independently

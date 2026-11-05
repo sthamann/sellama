@@ -35,9 +35,11 @@ the merged website proxy fix is not deployed yet. The handbook is available at
 
 The [Apps repository](https://github.com/veyndo/apps) now contains the native record
 and job persistence as the independent Rust package `veyndo-app-storage`. Veyndo
-uses that same pinned code. Current actor/package admission, record validation,
-CAS, history, references and signed database scope stay in their existing owners.
-No production schema or role change is required for this extraction.
+uses that same pinned code. Subsequent releases also share record CAS/write/query
+operations, model validation and action/callback admission through required host
+ports, as detailed below. Authentication, full package lifecycle, history hooks,
+reference ownership and signed database scope retain their native authority.
+No production schema or role change is required for these extractions.
 
 Independent PostgreSQL tests cover atomic job/outbox rollback, concurrent replay,
 quotas, expired leases and reconnection. The integrated storage/jobs tests, 43

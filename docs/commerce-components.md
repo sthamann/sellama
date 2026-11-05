@@ -275,13 +275,18 @@ owners require an explicit reservation/compensation design and corresponding tes
     policy ports. Apps 0.4.0 adds current-authority action/callback rules and the
     scoped active-package fence. Apps 0.5.0 supplies the original atomic installer
     through required compiler/commerce/migration/model/default/schedule hooks.
-    Authentication, the complete package compiler and remaining lifecycle,
+    Apps 0.6.0 adds the common package compiler with required native scope,
+    reference/Wasm-kind policies and ordered full-domain extension validators.
+    Authentication, the remaining typed domain extension compiler and lifecycle,
     standalone service/schema and API/MCP hosting remain open.
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
     - [x] Independent model compiler and required current-authority ports.
     - [x] Atomic installation, immutable versions, quota and original package locks;
       integrated preview/staging/upgrade consumers use the same component.
-    - [ ] Complete package compiler, identity and remaining lifecycle hosting.
+    - [x] Common package metadata/model/action/slot/event compiler; required native
+      extension checks and policy owners remain in their original order.
+      [Compiler evidence](evidence/app-package-compiler-2026-11-05.md).
+    - [ ] Complete typed domain extension compiler, identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
     [Admission and package fence evidence](evidence/app-admission-component-2026-11-05.md).
@@ -347,6 +352,22 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### Shared common package compiler, 5 November 2026
+
+- Apps 0.6.0/model 0.3.0 owns common package metadata, budgets, capability grammar,
+  model/index/configuration bindings, action schemas and cross-feature action
+  restrictions, strict legacy slots and event names. Native validation delegates
+  to this exact implementation.
+- Mandatory host before/after validators keep the complete native extension
+  checks. Scope registry, Wasm-kind and verified reference policies retain their
+  host owners; full decoding, identity, trust and standalone service remain open.
+- All 34 independent model tests, actual PostgreSQL, 74 native app units, affected
+  Studio/preview/release/app/Marketplace fixtures and the local payment-provider
+  checkout/capture/refund/callback fixture pass. Published package digests remain
+  unchanged for all 34 bundled packages. Component CI no longer runs library tests
+  twice: --tests includes the original unit and all integration tests.
+- [Exact source and acceptance](evidence/app-package-compiler-2026-11-05.md).
 
 ### Shared atomic app installation, 5 November 2026
 

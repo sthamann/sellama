@@ -86,7 +86,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/job_import.rs](../src/apps/job_import.rs) | Reviewed job records use current creator rights and a locked live package; private targets never become app credentials. |
 | [src/apps/jobs.rs](../src/apps/jobs.rs) | Durable long actions piggyback on the existing outbox. Apps claim a fenced lease; unknown side effects are never retried automatically. |
 | [src/apps/manifest.rs](../src/apps/manifest.rs) | Strict package contract; identifiers and limits are checked before logical model registration. |
-| [src/apps/manifest_validation.rs](../src/apps/manifest_validation.rs) | Package capability, schema and action validation; no executable behavior is inferred from names. |
+| [src/apps/manifest_validation.rs](../src/apps/manifest_validation.rs) | Native complete-package extension and policy adapter for the independent ordered package compiler. |
 | [src/apps/mod.rs](../src/apps/mod.rs) | Versioned app packages: managed data, UI slots, agent tools and isolated service calls. |
 | [src/apps/model_contract.rs](../src/apps/model_contract.rs) | Preserve native problem kinds, revision-conflict status and escaped JSON pointers across the pure model boundary. |
 | [src/apps/native_data.rs](../src/apps/native_data.rs) | App record translations use configured shop languages and field-level main-language inheritance. |
@@ -1821,6 +1821,8 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/services/app-storage/model/src/language.rs](../extensions/services/app-storage/model/src/language.rs) | Enabled content-language and main-language requirements with the original native inheritance rules. |
 | [extensions/services/app-storage/model/src/lib.rs](../extensions/services/app-storage/model/src/lib.rs) | Pure app data contracts and validation; no database, network, identity resolution or commerce mutation authority. |
 | [extensions/services/app-storage/model/src/lifecycle.rs](../extensions/services/app-storage/model/src/lifecycle.rs) | Generic app-owned record lifecycle contracts. Status vocabulary and transitions belong to the app Manifest. |
+| [extensions/services/app-storage/model/src/package.rs](../extensions/services/app-storage/model/src/package.rs) | Common package grammar and ordered extension compiler; full host extension, identity and trust owners remain mandatory ports. |
+| [extensions/services/app-storage/model/src/package_actions.rs](../extensions/services/app-storage/model/src/package_actions.rs) | Original bounded action grammar and cross-feature restrictions shared by every package compiler consumer. |
 | [extensions/services/app-storage/model/src/publication.rs](../extensions/services/app-storage/model/src/publication.rs) | Optional server-enforced publication window and channel projection for public app records. |
 | [extensions/services/app-storage/model/src/schema.rs](../extensions/services/app-storage/model/src/schema.rs) | Bounded recursive action-input contract. Untyped managed fields still receive depth/size budgets. |
 | [extensions/services/app-storage/model/src/schema_contract.rs](../extensions/services/app-storage/model/src/schema_contract.rs) | Closed supported schema grammar, bounds and recursive declaration admission. |
@@ -1828,6 +1830,9 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/services/app-storage/model/src/types.rs](../extensions/services/app-storage/model/src/types.rs) | Exact native entity/field/extension wire types; serialization defaults preserve immutable package digests. |
 | [extensions/services/app-storage/model/tests/admission.rs](../extensions/services/app-storage/model/tests/admission.rs) | Trusted-host action/grant ports are exercised with revocation, compound rights and untrusted body fields. |
 | [extensions/services/app-storage/model/tests/contracts.rs](../extensions/services/app-storage/model/tests/contracts.rs) | Independent model admission, host-policy boundaries, wire stability, typed values and language cases. |
+| [extensions/services/app-storage/model/tests/package_actions.rs](../extensions/services/app-storage/model/tests/package_actions.rs) | Cross-feature action scenarios retain private/public, job, payment, asset and configurator contracts in the independent compiler. |
+| [extensions/services/app-storage/model/tests/package_contract.rs](../extensions/services/app-storage/model/tests/package_contract.rs) | Independent package assembly checks preserve host validation order, budgets, grammar and reference/Wasm policy ports. |
+| [extensions/services/app-storage/model/tests/support/package.rs](../extensions/services/app-storage/model/tests/support/package.rs) | Test-only complete-input projection and explicit host policies; never a production package decoder or identity source. |
 | [extensions/services/app-storage/src/error.rs](../extensions/services/app-storage/src/error.rs) | Preserve database errors and explicit idempotency/quota conflicts without inventing HTTP or transport authority. |
 | [extensions/services/app-storage/src/installation.rs](../extensions/services/app-storage/src/installation.rs) | Original atomic package installation sequence; mandatory host hooks retain compiler, commerce, migration and configuration authority. |
 | [extensions/services/app-storage/src/jobs.rs](../extensions/services/app-storage/src/jobs.rs) | Original native app job persistence and transactional event handoff; no worker, principal or provider execution. |

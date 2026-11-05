@@ -26,6 +26,14 @@ call native money/content/relation validators and the verified reference guard
 in `editor_contract.rs`. No database or transport dependency enters the model.
 [Wire and workflow evidence](evidence/app-model-component-2026-11-05.md).
 
+**App package compiler:** Pinned Apps `model/src/package.rs` and
+`package_actions.rs` own the common package grammar and ordered host-extension
+ports. Native `manifest_validation.rs` supplies the complete original extension
+validators and exact scope/Wasm-kind/reference policies. The strict native decoder
+remains in `manifest.rs`; Action/Entity/Field/Slot wire types come from the shared
+model. This is the compiler used by the existing install/Studio/API/MCP/release
+consumers. [Evidence](evidence/app-package-compiler-2026-11-05.md).
+
 **App installation:** Pinned Apps `src/installation.rs` owns tenant/package locks,
 quota, immutable version checks, package/version writes and installation outbox.
 Native `package_install.rs` supplies mandatory compiler/trust, commerce/dependency,

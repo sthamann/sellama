@@ -99,15 +99,9 @@ pub(crate) struct ConfigurationContract {
     pub label: HashMap<String, String>,
     pub hint: HashMap<String, String>,
 }
-pub(crate) use veyndo_app_model::{Entity, Field};
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub(crate) struct Slot {
-    pub location: String,
-    pub component: String,
-    pub label: HashMap<String, String>,
-}
 pub(crate) use veyndo_app_model::Action;
+pub(crate) use veyndo_app_model::Slot;
+pub(crate) use veyndo_app_model::{Entity, Field};
 pub(crate) fn identifier(s: &str) -> bool {
     veyndo_app_model::declarations::identifier(s)
 }
@@ -172,22 +166,40 @@ mod tests {
     #[test]
     fn built_in_packages_are_valid() {
         for s in [
-            include_str!("../../extensions/apps/vercel/manifest.json"),
-            include_str!("../../extensions/apps/klaviyo/manifest.json"),
-            include_str!("../../extensions/apps/hubspot/manifest.json"),
-            include_str!("../../extensions/apps/contentful/manifest.json"),
             include_str!("../../extensions/apps/algolia/manifest.json"),
-            include_str!("../../extensions/apps/migration/manifest.json"),
-            include_str!("../../extensions/apps/engraving/manifest.json"),
-            include_str!("../../extensions/apps/paypal/manifest.json"),
-            include_str!("../../extensions/apps/gift-message/manifest.json"),
-            include_str!("../../extensions/apps/storyfront/manifest.json"),
-            include_str!("../../extensions/apps/google-analytics/manifest.json"),
-            include_str!("../../extensions/apps/gmail/manifest.json"),
-            include_str!("../../extensions/apps/slack/manifest.json"),
+            include_str!("../../extensions/apps/care-studio/manifest.json"),
+            include_str!("../../extensions/apps/catalog-export/manifest.json"),
+            include_str!("../../extensions/apps/contentful/manifest.json"),
+            include_str!("../../extensions/apps/edi/manifest.json"),
             include_str!("../../extensions/apps/email/manifest.json"),
+            include_str!("../../extensions/apps/engraving/manifest.json"),
+            include_str!("../../extensions/apps/erp-handoff/manifest.json"),
+            include_str!("../../extensions/apps/furniture-configurator/manifest.json"),
+            include_str!("../../extensions/apps/gift-message/manifest.json"),
+            include_str!("../../extensions/apps/gmail/manifest.json"),
+            include_str!("../../extensions/apps/google-analytics/manifest.json"),
+            include_str!("../../extensions/apps/hubspot/manifest.json"),
+            include_str!("../../extensions/apps/klaviyo/manifest.json"),
+            include_str!("../../extensions/apps/marketplaces/manifest.json"),
+            include_str!("../../extensions/apps/migration/manifest.json"),
+            include_str!("../../extensions/apps/object-context/manifest.json"),
+            include_str!("../../extensions/apps/ontology-care/manifest.json"),
+            include_str!("../../extensions/apps/order-alerts/manifest.json"),
+            include_str!("../../extensions/apps/packing-helper/manifest.json"),
+            include_str!("../../extensions/apps/payment-provider/manifest.json"),
+            include_str!("../../extensions/apps/paypal/manifest.json"),
+            include_str!("../../extensions/apps/product-advisor/manifest.json"),
+            include_str!("../../extensions/apps/product-lab/manifest.json"),
+            include_str!("../../extensions/apps/production-review/manifest.json"),
+            include_str!("../../extensions/apps/returns-workspace/manifest.json"),
+            include_str!("../../extensions/apps/service-example/manifest.json"),
+            include_str!("../../extensions/apps/shopware-payments/manifest.json"),
             include_str!("../../extensions/apps/site-builder/manifest.json"),
             include_str!("../../extensions/apps/site-forms/manifest.json"),
+            include_str!("../../extensions/apps/slack/manifest.json"),
+            include_str!("../../extensions/apps/snapshot-pricing/manifest.json"),
+            include_str!("../../extensions/apps/storyfront/manifest.json"),
+            include_str!("../../extensions/apps/vercel/manifest.json"),
         ] {
             validate(&serde_json::from_str(s).unwrap()).unwrap();
         }

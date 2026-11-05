@@ -24,6 +24,12 @@ pinned `veyndo-app-model` package. Native adapters preserve problem kinds/pointe
 and call existing currency/content/reference policy owners; actual identity,
 package authority, referenced-object ownership and database scope remain native.
 Never duplicate validators or introduce permissive policy defaults.
+The shared `package::compile` grammar requires native before/after domain extension
+validators and scope/Wasm-kind/reference policies. Preserve their complete original
+order and typed Manifest projection in `manifest_validation.rs`; never approve
+provider or extension metadata from a projection presence flag. Full strict decoder,
+identity and trust remain native. Do not add a parallel common grammar or default
+acceptors for domains a host has not implemented.
 Shared action/current-scope and callback grant planning now live in the component
 admission module; native adapters must derive their authority from RequestContext,
 never app input. Component package locking reuses the original transaction/key;

@@ -51,6 +51,22 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Shared common app package compiler, 5 November 2026
+
+Apps [0.6.0](https://github.com/veyndo/apps/releases/tag/v0.6.0) supplies the model
+0.3.0 common package compiler used by native installation, Studio, agents, API,
+MCP and release consumers. Package limits, declaration grammar, model/index and
+configuration checks, action schema/privacy/Flow/job/payment/asset restrictions,
+strict legacy Slot types and event names now have one component owner.
+
+The required host extension checks still run before and after the common grammar
+in their original order. Scope/reference/Wasm-kind policies come from trusted
+native owners. Thirty-four independent model tests, 74 native app units, affected
+PostgreSQL/API fixtures, Marketplace composition and the local payment-provider
+fixture pass; all 34 public package fingerprints remain unchanged. Full typed
+extension compilation, identity/lifecycle hosting and standalone API/MCP remain
+open. [Evidence](evidence/app-package-compiler-2026-11-05.md).
+
 ## Shared atomic app installation, 5 November 2026
 
 Apps [0.5.0](https://github.com/veyndo/apps/releases/tag/v0.5.0) supplies the original

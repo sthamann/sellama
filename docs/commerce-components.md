@@ -322,11 +322,22 @@ owners require an explicit reservation/compensation design and corresponding tes
   contract checks passed. Main requires successful Node 22/24 checks and prohibits
   force pushes/deletion. The SDK package is a GitHub prerelease, not an npm release.
 - Experience website-origin changes passed 254 tests, type/localization/structure
-  checks and the production frontend build locally. Hosting reconnection requires
-  GitHub's pending Passkey confirmation; this fix is not yet publicly deployed.
+  checks and the production frontend build locally, then private CI and merge
+  [85](https://github.com/veyndo/experience/pull/85). The final hosting organization
+  app authorization is pending; this fix is not yet publicly deployed. The public
+  handbook remains available at <https://veyndo.github.io/veyndo/docs/> meanwhile.
 - Existing integration/proof tests remain authoritative; this planning work does
   not claim a new full-system test run.
 - After the transfer, the old personal GHCR destination rejected the new
-  organization's workflow token. Update future image publication to
-  `ghcr.io/veyndo/veyndo` and `ghcr.io/veyndo/migration`; keep already deployed
-  images and the documented tour pin until the new immutable images are tested.
+  organization's workflow token. Image publication now uses `ghcr.io/veyndo/veyndo`
+  and `ghcr.io/veyndo/migration`. The real packaged Core signup/private preview/
+  restart and migration non-root health checks, followed by publication, passed
+  at source `43aae905`: [Core image](https://github.com/veyndo/veyndo/actions/runs/42028917700),
+  [migration image](https://github.com/veyndo/veyndo/actions/runs/42028917797).
+  Already deployed images and the documented tour pin remain unchanged until
+  independent pull access and the new deployment coordinates are accepted.
+- SDK [0.1.1](https://github.com/veyndo/sdk/releases/tag/v0.1.1) preserves uncertain
+  outcomes for domain/tool and internal RPC failures after possible external
+  effects. The added regression failed before the fix and passed afterward;
+  [Node 22/24 CI](https://github.com/veyndo/sdk/actions/runs/42029426645) also passed.
+  Actual old Git clone URLs resolve to the transferred repositories' current HEADs.

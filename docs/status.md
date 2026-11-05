@@ -17,8 +17,12 @@ this does not constitute a new checkout or full-platform acceptance.
 The [component task list](commerce-components.md) tracks the complete repository
 split, deeper commerce domains, marketplaces and additional services, independent
 API/MCP/SDK use and mandatory assembled-product regression. Knowledge and the other
-planned services have not yet completed standalone extraction. The website proxy
-and hosting repository links require follow-up after the organization transfer.
+planned services have not yet completed standalone extraction. SDK 0.1.1 additionally
+retains uncertain tool/write outcomes; both Node CI versions pass. Core and migration
+image publication now succeeds under `ghcr.io/veyndo` with their packaged smoke checks.
+Hosting repository relinking still awaits final organization app authorization;
+the merged website proxy fix is not deployed yet. The handbook is available at
+<https://veyndo.github.io/veyndo/docs/> during that transition.
 
 ## Canvas editing context, 5 November 2026
 

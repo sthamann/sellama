@@ -1,5 +1,13 @@
 # Changelog
 
+## Restored component documentation and hosting source links, 5 November 2026
+
+Northflank now links exactly the three authorized organization repositories.
+Existing Core build, Experience and Payments source mappings use their transferred
+addresses. The tested organization-aware website proxy is deployed; current
+component docs, their actual assets and streamed video ranges work on veyndo.ai.
+[Acceptance and remaining rollout scope](docs/evidence/component-hosting-2026-11-05.md).
+
 ## Shared atomic app installation, 5 November 2026
 
 Apps 0.5.0 extracts the existing installer behind required native host hooks.

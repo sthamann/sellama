@@ -29,9 +29,10 @@ planned services have not yet completed standalone extraction. The SDK retains u
 image publication now succeeds under `ghcr.io/veyndo` with their packaged smoke checks.
 The Northflank GitHub organization connection is now saved for exactly the three
 authorized repositories. Build-source remapping is recorded in the component
-plan; complete hosted rollout acceptance remains open. The merged website proxy
-fix is not deployed yet. The handbook is available at
-<https://veyndo.github.io/veyndo/docs/> during that transition.
+plan; complete hosted rollout acceptance remains open. The organization-aware
+website proxy is now deployed: handbook, source links, assets and streamed video
+ranges pass at <https://www.veyndo.ai/docs/>.
+[Hosting and public documentation evidence](evidence/component-hosting-2026-11-05.md).
 
 ## Shared app persistence, 5 November 2026
 

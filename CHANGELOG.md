@@ -1,5 +1,17 @@
 # Changelog
 
+## Shared common app package compiler, 5 November 2026
+
+Apps 0.6.0/model 0.3.0 shares the original common package limits, capabilities,
+models/configuration, action schema/privacy/Flow/job/payment/asset contracts,
+strict legacy Slot wire type and event names. Required native domain validators
+and scope/reference/Wasm-kind policies remain attached in their original order.
+Independent model and integrated native/Marketplace/local payment-provider tests
+pass; the native package unit case now validates all 34 bundles, and their
+fingerprints remain unchanged. Component CI removes the
+redundant model-lib command while --tests retains unit and integration coverage.
+[Evidence and remaining host boundary](docs/evidence/app-package-compiler-2026-11-05.md).
+
 ## Restored component documentation and hosting source links, 5 November 2026
 
 Northflank now links exactly the three authorized organization repositories.

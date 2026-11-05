@@ -43,6 +43,16 @@ record IDs or different schema versions in unrelated shops cannot collide.
 Public reads project current declared fields only; storage metadata, removed fields,
 private form answers and credentials do not become public data.
 
+## Package compiler before installation
+
+The shared Apps 0.6.0/model 0.3.0 compiler checks metadata and declared limits,
+capabilities, models/index budgets, configuration and action cross-references,
+closed schemas, action privacy/effect rules, legacy slots and event names before
+installation. Required host extension validators and reference/scope/Wasm-kind
+policies preserve the remaining native checks. This does not create SQL objects,
+replace runtime rights/reference ownership, or authenticate a caller.
+[Compiler evidence](evidence/app-package-compiler-2026-11-05.md).
+
 ## Atomic package installation
 
 The Apps 0.5.0 `installation` module orchestrates the original package transaction

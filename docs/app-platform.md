@@ -31,6 +31,17 @@ flowchart LR
   Component --> Quote[Native cart and checkout calculation]
 ```
 
+## Common package compiler
+
+Apps 0.6.0/model 0.3.0 supplies `package::compile`: the original common metadata,
+capability, model/index/configuration, action schema/privacy/effect, legacy-slot
+and event grammar. It requires trusted scope/reference/Wasm-kind policies and
+ordered before/after host extension checks. Native `manifest_validation.rs`
+provides every original domain extension validator around that shared grammar.
+The borrowed Contract projection is not a replacement full JSON decoder or
+provider approval. Full native typed Manifest decoding and installation/current
+actor consent remain authoritative. [Independent and integrated acceptance](evidence/app-package-compiler-2026-11-05.md).
+
 ## Shared atomic installation
 
 Apps 0.5.0 owns the installation sequence consumed by native installation, hosted

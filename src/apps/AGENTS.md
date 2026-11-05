@@ -57,6 +57,15 @@ current actor/context/digest grants, pinned UI/CSP and action input/output admis
 A declaration is neither a running route nor a grant. Native problem kinds and
 exact JSON pointers retain their original API/UI meaning.
 
+Shared native view/control/geometry/behavior types and compilation belong to
+model/views, ui_ast, form_layout, view_binding and ui_logic/type checks. Native
+native_views adapts the exact shared compiler with field_values::Policy and the
+direct verified public-read predicate. Preserve native field policies, validation
+order, error pointers and canonical package bytes. Project view payload only after
+current surface admission; actual rendering/interpreting, actor/context/digest
+grants, gateway effects, reference ownership and release keep their native owners.
+Never treat validated UI code or a projected payload as execution authority.
+
 The shared `package::compile` grammar requires native before/after domain extension
 validators and scope/Wasm-kind/reference policies. Preserve their complete original
 order and typed Manifest projection in `manifest_validation.rs`; never approve

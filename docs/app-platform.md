@@ -33,10 +33,19 @@ flowchart LR
 
 ## Common package compiler
 
+Apps 0.11.0/model 0.8.0 shares native view/control types, geometry, editor bindings
+and bounded typed UI behavior. Native validation calls the same compiler with
+its canonical field policies and verified public-read predicate. Payload projection
+follows existing surface admission; runtime execution, current grants, records
+and publication retain their native owners. The independent
+[native editor example](https://github.com/veyndo/apps/blob/main/examples/native_views.rs)
+runs without a Core binary or database.
+[Native view/behavior evidence](evidence/app-native-views-component-2026-11-05.md).
+
 Apps 0.10.0/model 0.7.0 shares Surface/ApiRoute types and placement/route
 validation. Required host policies resolve native views, team scopes and read-only
-effects; the native adapter retains the verified predicate. Full view compilation,
-actor/context grants, pinned UI, current package authority and action execution
+effects; the native adapter retains the verified predicate. Shared native view
+compilation is described above; actor/context grants, pinned UI, current package authority and action execution
 remain separate native owners.
 [Placement/HTTP component evidence](evidence/app-surface-contracts-2026-11-05.md).
 

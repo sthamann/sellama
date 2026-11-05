@@ -75,7 +75,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/extension_filter.rs](../src/apps/extension_filter.rs) | Exact app-field predicates validated against current packages and applied before native pagination. |
 | [src/apps/extension_projection.rs](../src/apps/extension_projection.rs) | Bounded native-object read projection from existing app models, references and current package permissions. |
 | [src/apps/field_values.rs](../src/apps/field_values.rs) | Native currency/content/asset policy adapters for the shared pure field validator. |
-| [src/apps/form_layout.rs](../src/apps/form_layout.rs) | Bounded twelve-column form geometry, presentation flags and tab order shared by every native app surface. |
 | [src/apps/gateway.rs](../src/apps/gateway.rs) | One permission-aware action gateway serves HTTP, UI and MCP; service egress is operator configured. |
 | [src/apps/hosted.rs](../src/apps/hosted.rs) | Persist hosted-app dependencies through the existing package installer; no private renderer or parallel registry. |
 | [src/apps/input_schema.rs](../src/apps/input_schema.rs) | Native API/MCP error adapter for the independent bounded schema validator. |
@@ -95,7 +94,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/native_lifecycle/tests.rs](../src/apps/native_lifecycle/tests.rs) | Contract and native-boundary negative controls; operational tests exercise the actual owners separately. |
 | [src/apps/native_lifecycle.rs](../src/apps/native_lifecycle.rs) | Versioned declarative native lifecycles; packages narrow native admission and never execute effects. |
 | [src/apps/native_view_tests.rs](../src/apps/native_view_tests.rs) | Native schema security regressions: bindings, public writes, allowlists, bounded blocks and legacy digests. |
-| [src/apps/native_views.rs](../src/apps/native_views.rs) | Bounded native view definitions; every data binding resolves to the same authorized app action gateway. |
+| [src/apps/native_views.rs](../src/apps/native_views.rs) | Native adapter for shared view contracts; actual grants, runtime execution and current rights remain native. |
 | [src/apps/observability.rs](../src/apps/observability.rs) | Bounded metadata-only app telemetry, storage usage and explicitly approved cursor-based event replay. |
 | [src/apps/ontology.rs](../src/apps/ontology.rs) | Native complete-package adapter for graph mapping; the existing authorized list supplies every projected row. |
 | [src/apps/package_fence.rs](../src/apps/package_fence.rs) | Shared package fence prevents native record or document writes racing contract upgrades. |
@@ -129,10 +128,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/tool_contract.rs](../src/apps/tool_contract.rs) | Installed app tools share native wire metadata and validate declared results without disclosing provider payloads. |
 | [src/apps/ui_bundles.rs](../src/apps/ui_bundles.rs) | Operator-pinned, bounded self-contained UI bundles use the same actor/context grant as app actions. |
 | [src/apps/ui_documents.rs](../src/apps/ui_documents.rs) | Secret-free, operator-pinned guest code in a response-enforced opaque sandbox, never srcdoc. |
-| [src/apps/ui_logic.rs](../src/apps/ui_logic.rs) | Declarative UI code-behind validates a bounded AST; calls retain surface grants and server domain authorization. |
 | [src/apps/ui_logic_tests.rs](../src/apps/ui_logic_tests.rs) | UI programs must keep static types, same-model saves, surface allowlists and acyclic ownership before install or preview. |
-| [src/apps/ui_logic_types.rs](../src/apps/ui_logic_types.rs) | Static UI expression types prevent control coercion and invoking save with a different model; runtime still validates actual values. |
-| [src/apps/ui_object_key_tests.rs](../src/apps/ui_object_key_tests.rs) | Object-expression keys accept API casing without prototype or path injection. |
 | [src/apps/upgrade_review.rs](../src/apps/upgrade_review.rs) | Probe the actual transactional installer and roll it back; return admission metadata, never app record contents. |
 | [src/apps/webhook_scope.rs](../src/apps/webhook_scope.rs) | Scope signed app ingress from its route before identity, tenant lifecycle and forced-RLS admission. |
 | [src/apps/webhooks.rs](../src/apps/webhooks.rs) | Operator-signed incoming events: tenant-bound HMAC, five-minute freshness and atomic replay receipts. |
@@ -1815,6 +1811,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/sdk/ui_bundle.py](../extensions/sdk/ui_bundle.py) | Build self-contained vanilla example UIs from the shared SDK; no remote imports at runtime. |
 | [extensions/sdk/wit/snapshot-price.component.wat](../extensions/sdk/wit/snapshot-price.component.wat) | Typed fixture: calls the real host cart snapshot and returns one percent of its subtotal. |
 | [extensions/services/app-storage/examples/event_contracts.rs](../extensions/services/app-storage/examples/event_contracts.rs) | Execute privacy projections and deterministic schedule validation without Core, SQL or external services. |
+| [extensions/services/app-storage/examples/native_views.rs](../extensions/services/app-storage/examples/native_views.rs) | Compile a native editor and its behavior independently; execution and current identity belong to the embedding host. |
 | [extensions/services/app-storage/examples/object_graph.rs](../extensions/services/app-storage/examples/object_graph.rs) | Validate an app-owned product extension and derive a graph from synthetic already-authorized rows without Core or SQL. |
 | [extensions/services/app-storage/examples/surface_routes.rs](../extensions/services/app-storage/examples/surface_routes.rs) | Validate standalone placement and route declarations with explicit host policies; this example does not serve or render an app. |
 | [extensions/services/app-storage/examples/upgrade_settings.rs](../extensions/services/app-storage/examples/upgrade_settings.rs) | Run a standalone settings update and explicit model upgrade without Core, SQL, network or credentials. |
@@ -1824,6 +1821,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/services/app-storage/model/src/events.rs](../extensions/services/app-storage/model/src/events.rs) | Strict event filter/delivery declarations with a mandatory trusted destination-policy port; no network or queue owner. |
 | [extensions/services/app-storage/model/src/evolution.rs](../extensions/services/app-storage/model/src/evolution.rs) | Bounded schema evolution declarations, compatibility planning and exact value conversions; no SQL execution. |
 | [extensions/services/app-storage/model/src/fields.rs](../extensions/services/app-storage/model/src/fields.rs) | Exact app field values reuse commerce money, rich content and tenant-owned assets; no HTML or float decimal coercion. |
+| [extensions/services/app-storage/model/src/form_layout.rs](../extensions/services/app-storage/model/src/form_layout.rs) | Bounded twelve-column form geometry, presentation flags and tab order shared by every native app surface. |
 | [extensions/services/app-storage/model/src/intelligence.rs](../extensions/services/app-storage/model/src/intelligence.rs) | Strict app AI tool/model declarations and a borrowed projection from the complete admitted host package. |
 | [extensions/services/app-storage/model/src/language.rs](../extensions/services/app-storage/model/src/language.rs) | Enabled content-language and main-language requirements with the original native inheritance rules. |
 | [extensions/services/app-storage/model/src/lib.rs](../extensions/services/app-storage/model/src/lib.rs) | Pure app data contracts and validation; no database, network, identity resolution or commerce mutation authority. |
@@ -1841,11 +1839,19 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/services/app-storage/model/src/surfaces.rs](../extensions/services/app-storage/model/src/surfaces.rs) | Strict app placement and named HTTP route contracts; view, team-scope and effect authority are mandatory trusted host policies. |
 | [extensions/services/app-storage/model/src/triggers.rs](../extensions/services/app-storage/model/src/triggers.rs) | Bounded UTC cron and private incoming webhook declarations; clock and durable execution belong to the host. |
 | [extensions/services/app-storage/model/src/types.rs](../extensions/services/app-storage/model/src/types.rs) | Exact native entity/field/extension wire types; serialization defaults preserve immutable package digests. |
+| [extensions/services/app-storage/model/src/ui_ast.rs](../extensions/services/app-storage/model/src/ui_ast.rs) | Strict bounded UI behavior syntax; serialized declarations confer no action authority. |
+| [extensions/services/app-storage/model/src/ui_logic.rs](../extensions/services/app-storage/model/src/ui_logic.rs) | UI behavior validation preserves bounded ASTs, typed controls and every surface action allowlist. |
+| [extensions/services/app-storage/model/src/ui_logic_types.rs](../extensions/services/app-storage/model/src/ui_logic_types.rs) | Static UI expression types prevent control coercion and invoking save with a different model; runtime still validates actual values. |
+| [extensions/services/app-storage/model/src/ui_object_key_tests.rs](../extensions/services/app-storage/model/src/ui_object_key_tests.rs) | Object-expression keys accept API casing without prototype or path injection. |
+| [extensions/services/app-storage/model/src/view_binding.rs](../extensions/services/app-storage/model/src/view_binding.rs) | Native editor bindings require declared owned core references and corresponding mount locations. |
+| [extensions/services/app-storage/model/src/view_types.rs](../extensions/services/app-storage/model/src/view_types.rs) | Strict localized native view and control wire types shared by visual, agent and API editors. |
+| [extensions/services/app-storage/model/src/views.rs](../extensions/services/app-storage/model/src/views.rs) | Bounded native views and projections; validation is shared, runtime grants and execution remain host authority. |
 | [extensions/services/app-storage/model/tests/admission.rs](../extensions/services/app-storage/model/tests/admission.rs) | Trusted-host action/grant ports are exercised with revocation, compound rights and untrusted body fields. |
 | [extensions/services/app-storage/model/tests/contracts.rs](../extensions/services/app-storage/model/tests/contracts.rs) | Independent model admission, host-policy boundaries, wire stability, typed values and language cases. |
 | [extensions/services/app-storage/model/tests/event_delivery.rs](../extensions/services/app-storage/model/tests/event_delivery.rs) | Independent delivery declarations and privacy-safe filters retain bounded grammar and required host destination rejection. |
 | [extensions/services/app-storage/model/tests/events.rs](../extensions/services/app-storage/model/tests/events.rs) | Independent event subscription and minimized payload scenarios, including own-app, B2B and dual PII/financial grants. |
 | [extensions/services/app-storage/model/tests/evolution.rs](../extensions/services/app-storage/model/tests/evolution.rs) | Independent upgrade scenarios retain explicit transformations and reject destructive or relational shortcuts. |
+| [extensions/services/app-storage/model/tests/native_views.rs](../extensions/services/app-storage/model/tests/native_views.rs) | Independent native view compiler tests exercise strict wire syntax, typed UI behavior, host policy and shared projections. |
 | [extensions/services/app-storage/model/tests/object_extensions.rs](../extensions/services/app-storage/model/tests/object_extensions.rs) | Object binding scenarios preserve native object rights, PII requirements and private unique anchors. |
 | [extensions/services/app-storage/model/tests/ontology.rs](../extensions/services/app-storage/model/tests/ontology.rs) | Independent graph mappings retain selected fields/current revision, namespaces, bounded projections and reference-only edges. |
 | [extensions/services/app-storage/model/tests/package_actions.rs](../extensions/services/app-storage/model/tests/package_actions.rs) | Cross-feature action scenarios retain private/public, job, payment, asset and configurator contracts in the independent compiler. |

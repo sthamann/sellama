@@ -1,7 +1,11 @@
 //! Static UI expression types prevent control coercion and invoking save with a different model; runtime still validates actual values.
-use super::native_views::{NativeBlock, NativeView};
-use super::ui_logic::Expression;
-use super::*;
+use crate::{
+    Entity, Field, Result, bad, fields, schema,
+    ui_ast::Expression,
+    views::{Contract, NativeBlock, NativeView, Policy},
+};
+use serde_json::Value;
+use std::collections::HashMap;
 #[derive(PartialEq)]
 enum Type {
     String,
@@ -16,7 +20,7 @@ fn field_type(f: &Field) -> Type {
     if f.kind == "relations" {
         return Type::Array;
     }
-    if f.translatable || field_values::json(f) {
+    if f.translatable || fields::json(f) {
         return Type::Object;
     }
     match f.kind.as_str() {
@@ -32,14 +36,14 @@ fn find<'a>(v: &'a NativeView, id: &str) -> Result<&'a NativeBlock> {
         .find(|b| b.id == id)
         .ok_or(bad("Unknown expression block"))
 }
-fn field<'a>(m: &'a Manifest, b: &NativeBlock, name: &str) -> Result<&'a Field> {
+fn field<'a>(m: &'a Contract<'_>, b: &NativeBlock, name: &str) -> Result<&'a Field> {
     m.entities
         .iter()
         .find(|e| Some(&e.name) == b.entity.as_ref())
         .and_then(|e| e.fields.iter().find(|f| f.name == name))
         .ok_or(bad("Unknown expression field"))
 }
-fn infer(m: &Manifest, v: &NativeView, e: &Expression) -> Result<Type> {
+fn infer(m: &Contract<'_>, v: &NativeView, e: &Expression) -> Result<Type> {
     Ok(match e {
         Expression::Literal { value } => match value {
             Value::String(_) => Type::String,
@@ -63,7 +67,13 @@ fn infer(m: &Manifest, v: &NativeView, e: &Expression) -> Result<Type> {
         Expression::Object { .. } | Expression::Record { .. } => Type::Object,
     })
 }
-pub(super) fn set(m: &Manifest, v: &NativeView, target: &str, e: &Expression) -> Result<()> {
+pub(crate) fn set<P: Policy>(
+    m: &Contract<'_>,
+    v: &NativeView,
+    target: &str,
+    e: &Expression,
+    policy: &P,
+) -> Result<()> {
     let b = find(v, target)?;
     let f = field(
         m,
@@ -87,15 +97,15 @@ pub(super) fn set(m: &Manifest, v: &NativeView, target: &str, e: &Expression) ->
         };
         let mut fields = serde_json::Map::new();
         fields.insert(f.name.clone(), value.clone());
-        return field_values::validate(&entity, &Value::Object(fields));
+        return fields::validate(&entity, &Value::Object(fields), policy);
     }
     if infer(m, v, e)? != field_type(f) {
         return Err(bad("Set expression type differs from its control field"));
     }
     Ok(())
 }
-pub(super) fn comparison(
-    m: &Manifest,
+pub(crate) fn comparison(
+    m: &Contract<'_>,
     v: &NativeView,
     left: &Expression,
     right: &Expression,
@@ -113,7 +123,7 @@ pub(super) fn comparison(
     }
     Ok(())
 }
-pub(super) fn call(m: &Manifest, v: &NativeView, name: &str, e: &Expression) -> Result<()> {
+pub(crate) fn call(m: &Contract<'_>, v: &NativeView, name: &str, e: &Expression) -> Result<()> {
     let action = m
         .actions
         .iter()
@@ -123,7 +133,7 @@ pub(super) fn call(m: &Manifest, v: &NativeView, name: &str, e: &Expression) -> 
         return Err(bad("Action input must be an object"));
     }
     if let Expression::Literal { value } = e {
-        input_schema::validate(&action.input_schema, value)?;
+        schema::validate(&action.input_schema, value)?;
     }
     if let Expression::Record { block } = e
         && action.handler == "save"

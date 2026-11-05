@@ -5,6 +5,18 @@ app. One VEYNDO catalogue remains authoritative for product identity, native
 currency pricing, available stock and orders. Every connection belongs to an
 existing `marketplace` sales channel in the same merchant workspace.
 
+## Independent component
+
+Provider code, Studio views and tests are maintained in
+[veyndo/marketplaces](https://github.com/veyndo/marketplaces). Veyndo builds the exact
+source snapshot recorded in `components.lock.json`; updates are imported explicitly
+and CI rejects local drift. Build the provider alone with
+`cargo build --locked -p veyndo-marketplaces --bin marketplace-gateway`.
+For the component container, use `extensions/apps/marketplaces` as the build
+context, not the entire Veyndo repository. The independent repository includes
+HTTP/MCP documentation, a server-side Node SDK example and automated host fixtures.
+[Extraction and connected acceptance](evidence/marketplace-component-2026-11-05.md).
+
 ## What is implemented
 
 | Area | Actual behavior |

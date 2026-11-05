@@ -83,7 +83,11 @@ compares both published assets to that bundle. [Extraction evidence](evidence/fo
 
 ## Marketplace app and generic intake
 
-`extensions/apps/marketplaces/` owns provider protocols, mapping, inbox/review, worker,
+The upstream owner is [veyndo/marketplaces](https://github.com/veyndo/marketplaces).
+`components.lock.json` pins its commit and every source hash; `scripts/component_sources.py`
+imports reviewed source into `extensions/apps/marketplaces/` for reproducible Core/UI
+builds. CI rejects snapshot drift. Its independent Cargo package prohibits Core and
+SQL dependencies. The package owns provider protocols, mapping, inbox/review, worker,
 Studio vocabulary/UI, container packaging and local provider tests. Core only adds the
 provider-neutral `apps/core_exchange.rs`, `commerce/external_order_input.rs` and
 `commerce/external_orders.rs` host contracts, with its bounded

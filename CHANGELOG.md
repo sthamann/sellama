@@ -1,5 +1,15 @@
 # Changelog
 
+## Independent Marketplace component, 5 November 2026
+
+Extracted the original provider, Studio and test history into `veyndo/marketplaces`.
+The gateway builds without Core source, shares authorized HTTP/MCP dispatch and
+supplies a tested JavaScript SDK example. Veyndo consumes an exact source snapshot
+with drift and owner checks. Cargo enforces that the provider package cannot import
+Core or SQL storage. Standalone tests and the native PostgreSQL fixture verify
+listing synchronization, paid order replay, stock, documents and Flow effects.
+[Ownership and evidence](docs/evidence/marketplace-component-2026-11-05.md).
+
 ## AI Commerce Components foundation, 5 November 2026
 
 Moved the complete product to `veyndo/veyndo` and the private Experience and

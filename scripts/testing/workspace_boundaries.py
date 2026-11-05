@@ -6,8 +6,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 OWNERS = {name: ROOT / 'crates' / name.removeprefix('veyndo-') for name in (
     'veyndo-kernel', 'veyndo-runtime', 'veyndo-commerce', 'veyndo-apps', 'veyndo-cognition')}
-OWNERS.update({'veyndo': ROOT, 'veyndo-migration': ROOT / 'extensions/apps/migration'})
+OWNERS.update({'veyndo': ROOT, 'veyndo-migration': ROOT / 'extensions/apps/migration',
+               'veyndo-marketplaces': ROOT / 'extensions/apps/marketplaces'})
 ALLOWED = {
+    'veyndo-marketplaces': set(),
     'veyndo-kernel': set(),
     'veyndo-runtime': set(),
     'veyndo-commerce': {'veyndo-kernel'},
@@ -18,6 +20,7 @@ ALLOWED = {
 # when a manifest renames sqlx as something innocuous. New dependencies need an
 # explicit architecture decision, including build/dev/optional/target variants.
 EXTERNAL = {
+    'veyndo-marketplaces': {'axum', 'tokio', 'serde', 'serde_json', 'sha2', 'hmac', 'ring', 'chrono', 'reqwest'},
     'veyndo-kernel': set(),
     'veyndo-commerce': {'serde', 'serde_json'},
     'veyndo-apps': {'wasmtime', 'wat', 'sha2'},

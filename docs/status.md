@@ -14,6 +14,14 @@ the existing guest app bridge. Eight independent wire tests, negative TypeScript
 controls and Node 22/24 CI pass. A public native MCP catalog read also completed;
 this does not constitute a new checkout or full-platform acceptance.
 
+The first provider component now lives at [veyndo/marketplaces](https://github.com/veyndo/marketplaces).
+It builds independently, exposes shared HTTP/MCP actions and has a working Node
+SDK example. Its pinned source snapshot remains integrated into Veyndo. Standalone
+wire tests, seven Rust tests and the real PostgreSQL/native marketplace fixture
+pass, including order replay, stock, invoice/PDF and Flow effects. Independent
+durable host storage and separately embeddable Studio UI remain open.
+[Exact extraction evidence](evidence/marketplace-component-2026-11-05.md).
+
 The [component task list](commerce-components.md) tracks the complete repository
 split, deeper commerce domains, marketplaces and additional services, independent
 API/MCP/SDK use and mandatory assembled-product regression. Knowledge and the other

@@ -22,7 +22,6 @@ workspace. Products, orders, knowledge and automation share one commerce core.
 People and agents use the same operations, permissions and versioned changes.
 
 **Start here: [current status, tested scope and open acceptance](docs/status.md).**
-Built in public. Implementation, CI and public acceptance are recorded separately.
 
 ## What you can do
 
@@ -74,7 +73,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 
 | Area | Start here |
 | --- | --- |
-| AI Commerce Components | [Extraction tasks and acceptance](docs/commerce-components.md) · [JavaScript/TypeScript SDK](https://github.com/veyndo/sdk) |
+| AI Commerce Components | [Extraction tasks and acceptance](docs/commerce-components.md) · [JavaScript/TypeScript SDK](https://github.com/veyndo/sdk) · [Marketplace component](https://github.com/veyndo/marketplaces) |
 | AI shopping channels and inward shop imports | [Cart transfer, consent and Shopify/supplier intake](docs/agentic-commerce.md) |
 | Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |

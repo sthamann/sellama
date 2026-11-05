@@ -238,8 +238,11 @@ owners require an explicit reservation/compensation design and corresponding tes
 
 ## MARKETPLACES and other additional channels
 
-- [ ] MKT-01 Move `extensions/apps/marketplaces` source/providers/UI/tests into
-  `veyndo/marketplaces`, preserving package ownership and provenance.
+- [x] MKT-01 Move `extensions/apps/marketplaces` source/providers/UI/tests into
+  `veyndo/marketplaces`, preserving package ownership and provenance. Extracted
+  Git history, standalone Cargo package/container, shared HTTP/MCP actions and
+  SDK fixture pass. Veyndo consumes commit `edc49f56` through a checked source
+  snapshot. [Extraction evidence](evidence/marketplace-component-2026-11-05.md).
 - [ ] MKT-02 Extract the generic host exchange/order-intake contract into the SDK;
   expose own mapping/listing/sync/review/order API and MCP tools.
 - [ ] MKT-03 Replace dependence on native app records/jobs with host interfaces and

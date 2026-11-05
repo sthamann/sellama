@@ -1564,6 +1564,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/marketplaces/service/kaufland.rs](../extensions/apps/marketplaces/service/kaufland.rs) | Official kaufland listing adapter, isolated inside the marketplace app. |
 | [extensions/apps/marketplaces/service/main.rs](../extensions/apps/marketplaces/service/main.rs) | Independent Marketplace Studio service; provider protocols stay in this app, native commerce stays in Core. |
 | [extensions/apps/marketplaces/service/mapping.rs](../extensions/apps/marketplaces/service/mapping.rs) | Explainable automatic field suggestions and per-channel overrides; mapping is reviewed data, never executable code. |
+| [extensions/apps/marketplaces/service/mcp.rs](../extensions/apps/marketplaces/service/mcp.rs) | Stateless JSON MCP adapter for the same trusted-gateway actions; schemas come from the installed manifest. |
 | [extensions/apps/marketplaces/service/providers.rs](../extensions/apps/marketplaces/service/providers.rs) | Distinct official listing payloads, provider prerequisites and order pages; more providers extend this app-level seam. |
 | [extensions/apps/marketplaces/service/review.rs](../extensions/apps/marketplaces/service/review.rs) | Source-derived SKU, quantity and address suggestions; absent financial facts stay null for explicit review. |
 | [extensions/apps/marketplaces/service/runtime.rs](../extensions/apps/marketplaces/service/runtime.rs) | Authenticated app actions and indexed native record access. |
@@ -1583,6 +1584,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/marketplaces/studio/marketplaces.css](../extensions/apps/marketplaces/studio/marketplaces.css) | App-owned responsive workspace uses Veyndo surface tokens; no global selectors or provider scripts. |
 | [extensions/apps/marketplaces/tests/integration.py](../extensions/apps/marketplaces/tests/integration.py) | Installed Marketplace app -> independent Rust service -> fixture seller APIs -> native PostgreSQL order effects. No external credentials or requests. |
 | [extensions/apps/marketplaces/tests/order_localization.py](../extensions/apps/marketplaces/tests/order_localization.py) | Native external-order language, batching, snapshot and stock regressions through the installed app callback. |
+| [extensions/apps/marketplaces/tests/standalone.py](../extensions/apps/marketplaces/tests/standalone.py) | Run the released gateway against an independent in-memory host, without Veyndo or PostgreSQL. |
 | [extensions/apps/migration/adapters/contacts.rs](../extensions/apps/migration/adapters/contacts.rs) | Source address aliases are converted here; the commerce host only receives canonical address fields. |
 | [extensions/apps/migration/adapters/coupons.rs](../extensions/apps/migration/adapters/coupons.rs) | Source coupon rules map to native inactive promotions; unsupported conditions stop instead of widening the original discount. |
 | [extensions/apps/migration/adapters/dates.rs](../extensions/apps/migration/adapters/dates.rs) | Historical timestamps retain their real timezone; ambiguous local DST times require explicit source evidence. |
@@ -1882,6 +1884,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/cognitive_experiments.py](../scripts/cognitive_experiments.py) | Real native consent/layout/payment paths with synthetic live-receipt fixtures, not a measured commerce experiment. |
 | [scripts/commerce.py](../scripts/commerce.py) | Real HTTP/PG tests for SKUs, moderated reviews, tax/shipping/payment and deliveries. |
 | [scripts/company_settings.py](../scripts/company_settings.py) | Real HTTP company basis/channel inheritance, immutable issuer snapshots, bounded logos and private staging. No external services. |
+| [scripts/component_sources.py](../scripts/component_sources.py) | Verify pinned component source snapshots; explicit imports use clean, reviewed Git commits, never mutable branches. |
 | [scripts/connected_apps.py](../scripts/connected_apps.py) | Registered connected-app suite: archived OAuth oracle to real Rust knowledge, MCP and Flow consumers. |
 | [scripts/connector_store_tests.py](../scripts/connector_store_tests.py) | Concurrent private state, settings/import fences and encrypted mailbox persistence. |
 | [scripts/connectors.py](../scripts/connectors.py) | Start the local connector apps with private generated keys; preserve all existing app services. |
@@ -1988,6 +1991,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/ci_gate.py](../scripts/testing/ci_gate.py) | Fail-closed required CI result and same-source coverage transfer between runners. |
 | [scripts/testing/ci_scope.py](../scripts/testing/ci_scope.py) | Choose prototype CI by the complete Git diff; unknown or sensitive changes retain full verification. |
 | [scripts/testing/collection_work.py](../scripts/testing/collection_work.py) | Exercise one reviewed collection task through native categories, pages and durable translation drafts. |
+| [scripts/testing/component_sources_test.py](../scripts/testing/component_sources_test.py) | Mutation checks for the exact upstream component snapshot consumed by the Veyndo composition. |
 | [scripts/testing/connected_contracts/__init__.py](../scripts/testing/connected_contracts/__init__.py) | OAuth, private retrieval and Slack-flow regression modules using local provider fixtures. |
 | [scripts/testing/connected_contracts/access.py](../scripts/testing/connected_contracts/access.py) | OAuth/PKCE, encrypted tenant binding, revision fences, channel tracking and read-only access. |
 | [scripts/testing/connected_contracts/client.py](../scripts/testing/connected_contracts/client.py) | Consent-aware native test API and scoped app actions; shared polling and result reporting. |

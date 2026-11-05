@@ -3,6 +3,8 @@
 import subprocess
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
+subprocess.run(['python3', 'scripts/component_sources.py'], cwd=root, check=True)
+subprocess.run(['python3', 'scripts/testing/component_sources_test.py'], cwd=root, check=True)
 files=[*(root/'src').rglob('*.rs'),*(root/'crates').rglob('*.rs'),*(root/'extensions').rglob('*.rs')]
 for path in files:
     lines=path.read_text().splitlines()

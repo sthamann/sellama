@@ -35,6 +35,11 @@ service adapters must reuse their implementation rather than duplicate rules.
   references in the running website proxy.
 - [ ] ORG-06 Update website proxy, media origins, CSP and canonical documentation
   links; verify public homepage, handbook, screenshots, videos and old links.
+  - [x] ORG-06a Deploy the organization-aware website/docs proxy and media CSP.
+    Verify the public homepage/Team/start/Experience entries, current handbook,
+    its actual logo/CSS/JS assets and video byte ranges without upstream cookies.
+    [Live evidence](evidence/component-hosting-2026-11-05.md).
+  - [ ] ORG-06b Complete the historical alias/link and full media compatibility audit.
 - [ ] ORG-07 Reconnect hosting source integrations to new repository ownership;
   preserve running versions, private submodule pins, deploy keys and rollbacks.
   - [x] GitHub app installation linked to Northflank for exactly `veyndo/veyndo`,
@@ -427,7 +432,8 @@ owners require an explicit reservation/compensation design and corresponding tes
   without changing visibility. Verified repository IDs, main commits and Core
   branch protection through GitHub API.
 - Rebuilt/deployed Pages successfully at the new organization. The existing
-  website proxy still needs its upstream and media origins changed (ORG-06).
+  website proxy initially required new upstream/media origins; its deployed repair
+  and remaining compatibility audit are now recorded under ORG-06.
 - Published `veyndo/sdk`: 202 canonical input contracts, original guest bridge,
   dependency-free HTTP/stateless MCP client, typed external operation configuration,
   Node/browser examples and source provenance. SDK main `2786e54` passed Node 22/24

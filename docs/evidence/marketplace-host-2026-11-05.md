@@ -29,7 +29,10 @@ passed the actual container build and runtime smoke as well as Rust/SDK checks.
 - The native `job_enqueue` callback accepts only a declared job action and uses
   the existing app action gateway. It preserves the authenticated principal and
   rechecks jobs.write, action/additional permissions, package, schema, live-only
-  admission, quotas, idempotency and atomic job/outbox persistence.
+  admission, quotas, idempotency and atomic job/outbox persistence. The admitted
+  manifest/action is held through enqueue, so a concurrent package replacement
+  cannot reclassify the callback as a service invocation. Native actions and this
+  callback share `action_admission.rs`.
 
 ## Observed checks
 

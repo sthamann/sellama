@@ -88,7 +88,9 @@ contracts. The independent SDK derives its host TypeScript inputs and closed
 operation names from that source, with an exact provenance pin. The structure
 check compares exported order/address fields to the existing native Rust DTOs.
 `src/apps/job_enqueue.rs` admits only declared job actions with `jobs.write`,
-preserves the authenticated actor and delegates to the ordinary app gateway.
+preserves the authenticated actor and admitted job type through enqueue.
+`action_admission.rs` shares ordinary actor/compound-right/schema checks with the
+app gateway, avoiding a second authorization implementation.
 `core_callbacks.rs` checks explicit host versions; legacy callers retain v1.
 Native durable jobs, leases, rights, consent, order and stock owners remain unchanged.
 

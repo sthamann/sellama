@@ -1584,6 +1584,11 @@
       "sha256": "f2d94123c9312efbcb1dfaaf6dc5f3bbc69d97d772429f6744bf09f0fbb17b3d",
       "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
     },
+    "src/apps/action_admission.rs": {
+      "status": "unproved",
+      "sha256": "ca4bb14a15ecaf7934cd1800dbdfe7d746de62d76e172ed6e1dabdf8c4d113a4",
+      "review": "Reviewed extraction of unchanged action permission/schema admission into action_admission.rs and a pinned gateway invoke_job lane. The callback cannot re-read a replacement package into a non-job/service dispatch; it holds the admitted manifest/action and reuses original jobs::enqueue. Fresh native PostgreSQL marketplace fixture and all 43 tenant isolation checks passed again after this change, including compound rights, revoked keys, foreign scope, CAS/replay, paid order, stock, invoice/Flow and restart. Rust build and clippy pass. Existing pure Lean policies are unchanged; surrounding async code remains unproved."
+    },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
       "sha256": "d5b14fa7b86b63afa66384bcfdf3f16a0e4dba693d1033f719c78803f7c1d562",
@@ -1761,8 +1766,8 @@
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
-      "sha256": "8331401ebe5e8ddb22ac6f4d8ddcbea8837aac762d395de7050436d3a1498e0a",
-      "review": "App upgrade final review: current saved Flow membership and shared additional/core rights on the existing locked connection; explicit validation-rule schema migration reuses bounded native field checks; payment registry preserves active basis/channel method coverage. Real PostgreSQL negative fixtures reproduced old admission and pass after fixes. SQL/async admission remains unproved."
+      "sha256": "f8e45b2c05962859f0cf326d3d9e012d038577b526c5fb8432fe134dc0f70e24",
+      "review": "Reviewed extraction of unchanged action permission/schema admission into action_admission.rs and a pinned gateway invoke_job lane. The callback cannot re-read a replacement package into a non-job/service dispatch; it holds the admitted manifest/action and reuses original jobs::enqueue. Fresh native PostgreSQL marketplace fixture and all 43 tenant isolation checks passed again after this change, including compound rights, revoked keys, foreign scope, CAS/replay, paid order, stock, invoice/Flow and restart. Rust build and clippy pass. Existing pure Lean policies are unchanged; surrounding async code remains unproved."
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
@@ -1786,8 +1791,8 @@
     },
     "src/apps/job_enqueue.rs": {
       "status": "unproved",
-      "sha256": "0648d074ad0f5f74218c653245378e037697c880d244900c5d6b44b59e8b3f26",
-      "review": "Reviewed host exchange v1 inputs and declared job enqueue callback: preserves authenticated principal, explicit jobs.write capability, registered job handler, current compound action rights, schema validation, live-only quota/idempotency/outbox path. Actual native PostgreSQL marketplace fixture passed replay, changed-key conflict, missing capability/PII, revoked key, foreign tenant and version rejection with no queued side effects; native orders/stock/Flow/invoice/restart remain passing. No new mathematical proof of async/network code is claimed."
+      "sha256": "61b75fc3a11fd0f9cd4d2372a56225f3dec3f4bac7c2fae52edbc88490cd482e",
+      "review": "Reviewed extraction of unchanged action permission/schema admission into action_admission.rs and a pinned gateway invoke_job lane. The callback cannot re-read a replacement package into a non-job/service dispatch; it holds the admitted manifest/action and reuses original jobs::enqueue. Fresh native PostgreSQL marketplace fixture and all 43 tenant isolation checks passed again after this change, including compound rights, revoked keys, foreign scope, CAS/replay, paid order, stock, invoice/Flow and restart. Rust build and clippy pass. Existing pure Lean policies are unchanged; surrounding async code remains unproved."
     },
     "src/apps/job_evidence.rs": {
       "status": "unproved",
@@ -1816,8 +1821,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "c6702fad9758e0ec3b1dd9b2205765c30a3206439d9dd537bbd635ee2fc948e0",
-      "review": "Reviewed host exchange v1 inputs and declared job enqueue callback: preserves authenticated principal, explicit jobs.write capability, registered job handler, current compound action rights, schema validation, live-only quota/idempotency/outbox path. Actual native PostgreSQL marketplace fixture passed replay, changed-key conflict, missing capability/PII, revoked key, foreign tenant and version rejection with no queued side effects; native orders/stock/Flow/invoice/restart remain passing. No new mathematical proof of async/network code is claimed."
+      "sha256": "7bb4c9ac6d29c8efd5a34943358a17cef1ac0a23676fbbe00dab4b8b18a25aed",
+      "review": "Reviewed extraction of unchanged action permission/schema admission into action_admission.rs and a pinned gateway invoke_job lane. The callback cannot re-read a replacement package into a non-job/service dispatch; it holds the admitted manifest/action and reuses original jobs::enqueue. Fresh native PostgreSQL marketplace fixture and all 43 tenant isolation checks passed again after this change, including compound rights, revoked keys, foreign scope, CAS/replay, paid order, stock, invoice/Flow and restart. Rust build and clippy pass. Existing pure Lean policies are unchanged; surrounding async code remains unproved."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",

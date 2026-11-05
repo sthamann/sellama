@@ -1,5 +1,14 @@
 # Changelog
 
+## Shared object and intelligence graph contracts, 5 November 2026
+
+Apps 0.9.0/model 0.6.0 shares private native object-binding declarations, strict
+AI tool/entity metadata and bounded namespaced graph mapping/projection. Native
+package, app-list and native-object consumers reuse those rules. Current actor/PII
+rights, immutable references, MCP/agent admission, scoped SQL and verified release
+retain their original owners; no duplicate graph or commerce store is introduced.
+[Implementation and acceptance](docs/evidence/app-object-graph-contracts-2026-11-05.md).
+
 ## Shared app event and trigger contracts, 5 November 2026
 
 Apps 0.8.0/model 0.5.0 shares strict event delivery/filter types, declared

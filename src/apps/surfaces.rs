@@ -148,21 +148,8 @@ pub(crate) fn validate_contract(m: &Manifest) -> Result<()> {
             ));
         }
     }
-    if let Some(ai) = &m.intelligence
-        && (ai.tools.len() > 24
-            || ai.entities.len() > 12
-            || ai.description.values().any(|s| s.len() > 1000)
-            || ai
-                .tools
-                .iter()
-                .any(|n| !m.actions.iter().any(|a| a.name == *n))
-            || ai
-                .entities
-                .iter()
-                .any(|n| !m.entities.iter().any(|e| e.name == *n)))
-    {
-        return Err(bad("Invalid app intelligence contract"));
-    }
+    veyndo_app_model::intelligence::validate(m.intelligence.as_ref(), &m.actions, &m.entities)
+        .map_err(model_contract::error)?;
     Ok(())
 }
 pub(super) fn surface_url(id: &str, path: &str) -> Option<String> {

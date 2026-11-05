@@ -52,6 +52,15 @@ consume the same code. Network destination admission/pinned egress, installed
 package/current authority, signatures, leased outbox/replay and transactionally
 durable ticks remain native. [Evidence](evidence/app-event-contracts-2026-11-05.md).
 
+**App object bindings and AI graph:** Pinned Apps `model/src/object_extensions.rs`
+owns native binding declarations, `intelligence.rs` owns strict AI metadata and
+`ontology.rs` owns mapping/selected-field graph projection. Native `core_extensions.rs`,
+`manifest.rs`, `surfaces.rs` and `ontology.rs` adapt the same types/functions.
+`data.rs` and `extension_projection.rs` retain current actor/object rights,
+scoped records and immutable references before projection. The verified native
+configuration-release predicate retains its direct consumer.
+[Evidence](evidence/app-object-graph-contracts-2026-11-05.md).
+
 **App installation:** Pinned Apps `src/installation.rs` owns tenant/package locks,
 quota, immutable version checks, package/version writes and installation outbox.
 Native `package_install.rs` supplies mandatory compiler/trust, commerce/dependency,

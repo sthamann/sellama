@@ -49,6 +49,14 @@ Current native object/PII checks, immutable reference ownership, MCP/agent opt-i
 and the verified configuration-release predicate stay attached. Edges are reference
 metadata, not target reads or confirmed product claims; do not add a graph ledger.
 
+Shared Surface/ApiRoute types and placement/route grammar belong to model/surfaces.
+Native policies must retain actual native view lookup, auth::SCOPES and the direct
+verified read predicate; never replace them with default approvals or readOnly
+metadata alone. Preserve complete native view/behavior validation after surfaces,
+current actor/context/digest grants, pinned UI/CSP and action input/output admission.
+A declaration is neither a running route nor a grant. Native problem kinds and
+exact JSON pointers retain their original API/UI meaning.
+
 The shared `package::compile` grammar requires native before/after domain extension
 validators and scope/Wasm-kind/reference policies. Preserve their complete original
 order and typed Manifest projection in `manifest_validation.rs`; never approve

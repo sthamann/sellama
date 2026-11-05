@@ -283,6 +283,8 @@ owners require an explicit reservation/compensation design and corresponding tes
     UTC schedule/private webhook declarations with mandatory destination policy.
     Apps 0.9.0 shares object-binding declarations, strict AI metadata and current-row
     graph mapping/projection with native object rights and scoped lists retained.
+    Apps 0.10.0 shares placement/named HTTP route DTOs and grammar through required
+    native-view, known-scope and read-only effect policies.
     Authentication, the remaining typed domain extension compiler and lifecycle,
     standalone service/schema and API/MCP hosting remain open.
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
@@ -304,6 +306,9 @@ owners require an explicit reservation/compensation design and corresponding tes
       metadata and bounded namespaced graph projections from admitted current rows;
       native object authority and verified configuration release remain attached.
       [Object and graph evidence](evidence/app-object-graph-contracts-2026-11-05.md).
+    - [x] Surface and named HTTP route wire types/grammar with mandatory host view,
+      team-scope and read-only policies; native grants/pinned UI/dispatch remain attached.
+      [Surface and route evidence](evidence/app-surface-contracts-2026-11-05.md).
     - [ ] Complete typed domain extension compiler, identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -370,6 +375,17 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### Shared placement and HTTP route contracts, 5 November 2026
+
+- Apps 0.10.0/model 0.7.0 extracts strict Surface/ApiRoute wire types and the
+  existing placement/action/path/scope/method grammar and error pointers.
+- Native view existence, known team scopes and read-only effects are required host
+  policies. Veyndo retains its actual native registry/scope catalog and verified
+  read predicate; full native view compilation still runs separately in order.
+- Actor/context-bound grants, installed-package admission, UI pins and execution
+  remain native. Standalone Rust example and independent model cases run in CI.
+- [Implementation and acceptance](evidence/app-surface-contracts-2026-11-05.md).
 
 ### Shared object bindings and intelligence graph contracts, 5 November 2026
 

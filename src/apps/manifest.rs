@@ -54,27 +54,8 @@ pub(crate) struct Manifest {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub webhooks: Vec<super::webhooks::AppWebhook>,
 }
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct Surface {
-    pub id: String,
-    pub location: String,
-    pub label: HashMap<String, String>,
-    pub ui_path: String,
-    #[serde(default)]
-    pub actions: Vec<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub permission: Option<String>,
-}
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct ApiRoute {
-    pub path: String,
-    pub method: String,
-    pub scope: String,
-    pub action: String,
-}
 pub(crate) use veyndo_app_model::intelligence::Contract as IntelligenceContract;
+pub(crate) use veyndo_app_model::surfaces::{ApiRoute, Surface};
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub(crate) struct ConfigurationContract {

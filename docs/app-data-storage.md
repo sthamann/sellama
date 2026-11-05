@@ -26,6 +26,11 @@ Apps 0.9.0 also shares object-binding/AI graph contracts. Graph output is derive
 from existing admitted current rows; no second record/graph store is introduced.
 [Object and graph boundary](evidence/app-object-graph-contracts-2026-11-05.md).
 
+Apps 0.10.0 adds shared placement and named HTTP route contracts through required
+host policies. This registers no route, creates no table and grants no data access;
+native runtime admission remains connected.
+[Placement/route boundary](evidence/app-surface-contracts-2026-11-05.md).
+
 ## One contract across every consumer
 
 The canonical Manifest still defines types, required fields, translation, choices,

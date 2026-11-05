@@ -61,6 +61,14 @@ scoped records and immutable references before projection. The verified native
 configuration-release predicate retains its direct consumer.
 [Evidence](evidence/app-object-graph-contracts-2026-11-05.md).
 
+**App placement and HTTP contracts:** Pinned Apps `model/src/surfaces.rs` owns
+Surface/ApiRoute wire types and the original placement/route grammar. Native
+`manifest.rs` reexports them; `surfaces.rs` provides required actual view/scope/
+read-only policies and maps native error kinds/pointers. The verified native read
+predicate remains directly consumed. `native_views.rs`, surface grants/registry,
+UI pinning, routing and action execution retain their complete native checks.
+[Evidence](evidence/app-surface-contracts-2026-11-05.md).
+
 **App installation:** Pinned Apps `src/installation.rs` owns tenant/package locks,
 quota, immutable version checks, package/version writes and installation outbox.
 Native `package_install.rs` supplies mandatory compiler/trust, commerce/dependency,

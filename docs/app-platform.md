@@ -33,6 +33,13 @@ flowchart LR
 
 ## Common package compiler
 
+Apps 0.10.0/model 0.7.0 shares Surface/ApiRoute types and placement/route
+validation. Required host policies resolve native views, team scopes and read-only
+effects; the native adapter retains the verified predicate. Full view compilation,
+actor/context grants, pinned UI, current package authority and action execution
+remain separate native owners.
+[Placement/HTTP component evidence](evidence/app-surface-contracts-2026-11-05.md).
+
 Apps 0.9.0/model 0.6.0 shares native object-binding declarations, strict AI
 metadata and namespaced graph mapping/projection. Native authorized lists and
 object-extension projections supply current rows; native current object/PII rights,

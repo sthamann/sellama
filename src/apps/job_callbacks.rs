@@ -27,7 +27,13 @@ pub(super) async fn execute(
     let t = merchant(a, h)?;
     let id = v["id"].as_str().unwrap();
     let mut tx = a.db.begin().await?;
-    let row=sqlx::query("SELECT action,actor,permission,package_digest,status,progress,lease,lease_until>now() AS valid,now()<started_at+interval '30 minutes' AS within_window,input,result FROM app_jobs WHERE tenant=$1 AND app=$2 AND id=$3 FOR UPDATE").bind(&t).bind(&m.id).bind(id).fetch_optional(&mut *tx).await?.ok_or(Error(StatusCode::NOT_FOUND,"App job not found".into()))?;
+    let scope = veyndo_app_storage::Scope {
+        tenant: &t,
+        app: &m.id,
+    };
+    let row = veyndo_app_storage::jobs::load(&mut tx, scope, id)
+        .await?
+        .ok_or(Error(StatusCode::NOT_FOUND, "App job not found".into()))?;
     if row.get::<String, _>("package_digest") != approval::canonical_digest(m) {
         return Err(conflict("Job package changed; review before retrying"));
     }
@@ -73,7 +79,11 @@ pub(super) async fn execute(
             ));
         }
         let lease = uid();
-        sqlx::query("UPDATE app_jobs SET status='running',lease=$4,lease_until=now()+interval '60 seconds',started_at=now(),updated_at=now(),revision=revision+1 WHERE tenant=$1 AND app=$2 AND id=$3").bind(&t).bind(&m.id).bind(id).bind(&lease).execute(&mut *tx).await?;
+        if !veyndo_app_storage::jobs::claim(&mut tx, scope, id, &lease).await? {
+            return Err(conflict(
+                "Job is already claimed/completed; uncertain outcomes require merchant review",
+            ));
+        }
         json!({"id":id,"actor":row.get::<String,_>("actor"),"packageDigest":row.get::<String,_>("package_digest"),"action":row.get::<String,_>("action"),"input":row.get::<Value,_>("input"),"lease":lease,"leaseSeconds":60,"maximumMinutes":30,"checkpoint":row.get::<Option<Value>,_>("result").unwrap_or(json!({}))})
     } else {
         if !["running", "cancel_requested"].contains(&state.as_str())
@@ -118,7 +128,29 @@ pub(super) async fn execute(
             return Err(bad("Job messages require bounded localized text"));
         }
         job_evidence::save(&mut tx, &t, h, &identity, m, &row, v).await?;
-        sqlx::query("UPDATE app_jobs SET status=$4,progress=$5,message=$6,result=CASE WHEN $4='succeeded' THEN $7 ELSE COALESCE($8,result) END,lease_until=CASE WHEN $4='running' THEN now()+interval '60 seconds' ELSE NULL END,revision=revision+1,updated_at=now() WHERE tenant=$1 AND app=$2 AND id=$3").bind(&t).bind(&m.id).bind(id).bind(status).bind(if status=="succeeded"{100}else{progress as i32}).bind(message).bind(&v["result"]).bind(v.get("checkpoint")).execute(&mut *tx).await?;
+        let changed = veyndo_app_storage::progress::advance(
+            &mut tx,
+            scope,
+            id,
+            &veyndo_app_storage::progress::Progress {
+                lease: v["lease"].as_str().unwrap(),
+                status,
+                progress: if status == "succeeded" {
+                    100
+                } else {
+                    progress as i32
+                },
+                message: &message,
+                result: &v["result"],
+                checkpoint: v.get("checkpoint"),
+            },
+        )
+        .await?;
+        if !changed {
+            return Err(conflict(
+                "Job progress lease or state changed; external outcome is uncertain",
+            ));
+        }
         json!({"accepted":true,"cancelRequested":false})
     };
     tx.commit().await?;

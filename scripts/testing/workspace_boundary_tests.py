@@ -12,7 +12,9 @@ def negative_controls(packages):
         return package
     for name, dependency in [('veyndo-apps', 'sqlx'), ('veyndo-commerce', 'veyndo-cognition'),
                               ('veyndo-cognition', 'veyndo'), ('veyndo-kernel', 'tokio'), ('veyndo-marketplaces', 'veyndo'),
-                              ('veyndo-marketplaces', 'sqlx')]:
+                              ('veyndo-marketplaces', 'sqlx'), ('veyndo-app-storage', 'veyndo'),
+                              ('veyndo-app-storage', 'reqwest'), ('veyndo-apps', 'veyndo-app-storage'),
+                              ('veyndo-commerce', 'veyndo-app-storage')]:
         variant(name)['dependencies'].append({'name': dependency})
     for kind in [None, 'dev', 'build']:
         variant('veyndo-apps')['dependencies'].append(

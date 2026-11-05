@@ -7,7 +7,7 @@ from pathlib import Path
 import tempfile
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from component_sources import digest, safe_path, verify
+from component_sources import OWNERS, digest, safe_path, verify
 
 with tempfile.TemporaryDirectory() as directory:
     root = Path(directory)
@@ -18,6 +18,13 @@ with tempfile.TemporaryDirectory() as directory:
     lock = {'version': 1, 'components': {'marketplaces': {
         'repository': 'https://github.com/veyndo/marketplaces', 'commit': 'a'*40,
         'path': 'extensions/apps/marketplaces', 'files': {'Cargo.toml': digest(b'original')}}}}
+    for name, folder in OWNERS.items():
+        if name == 'marketplaces': continue
+        destination = root / folder
+        destination.mkdir(parents=True)
+        (destination/'Cargo.toml').write_text('original')
+        lock['components'][name] = {'repository':'https://github.com/veyndo/'+name, 'commit':'b'*40,
+                                    'path':folder, 'files':{'Cargo.toml':digest(b'original')}}
     def save(value): (root / 'components.lock.json').write_text(json.dumps(value))
     def check():
         with contextlib.redirect_stdout(io.StringIO()): verify(root)

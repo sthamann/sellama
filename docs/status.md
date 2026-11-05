@@ -31,6 +31,21 @@ Hosting repository relinking still awaits final organization app authorization;
 the merged website proxy fix is not deployed yet. The handbook is available at
 <https://veyndo.github.io/veyndo/docs/> during that transition.
 
+## Shared app persistence, 5 November 2026
+
+The [Apps repository](https://github.com/veyndo/apps) now contains the native record
+and job persistence as the independent Rust package `veyndo-app-storage`. Veyndo
+uses that same pinned code. Current actor/package admission, record validation,
+CAS, history, references and signed database scope stay in their existing owners.
+No production schema or role change is required for this extraction.
+
+Independent PostgreSQL tests cover atomic job/outbox rollback, concurrent replay,
+quotas, expired leases and reconnection. The integrated storage/jobs tests, 43
+tenant isolation checks and native marketplace HTTP/MCP order, stock, invoice and
+Flow fixture also pass. A separately authenticated app host, its supported schema
+and independent deployment remain open under MKT-03.
+[Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
+
 ## Versioned component host exchange, 5 November 2026
 
 SDK 0.2.0 now exports the shared host contract and generated TypeScript inputs for

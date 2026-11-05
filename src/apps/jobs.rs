@@ -23,27 +23,41 @@ pub(super) async fn enqueue(
     if v.to_string().len() > 16384 {
         return Err(bad("App job input exceeds 16 KiB"));
     }
-    let digest = hash(&v.to_string());
     let package_digest = approval::canonical_digest(m);
-    let mut tx = a.db.begin().await?;
-    sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,545))")
-        .bind(&t)
-        .execute(&mut *tx)
-        .await?;
-    if let Some(row)=sqlx::query("SELECT id,input_digest,action,package_digest FROM app_jobs WHERE tenant=$1 AND app=$2 AND request_key=$3").bind(&t).bind(&m.id).bind(key).fetch_optional(&mut *tx).await? {
-        if row.get::<String,_>("input_digest")!=digest||row.get::<String,_>("action")!=action.name||row.get::<String,_>("package_digest")!=package_digest { return Err(conflict("Job idempotency key was used for a different request")); }
-        return Ok(json!({"jobId":row.get::<String,_>("id"),"accepted":true,"reused":true}));
-    }
-    let (shop,app,retained):(i64,i64,i64)=sqlx::query_as("SELECT count(*) FILTER(WHERE status IN ('queued','running','cancel_requested','uncertain')),count(*) FILTER(WHERE app=$2 AND status IN ('queued','running','cancel_requested','uncertain')),count(*) FROM app_jobs WHERE tenant=$1").bind(&t).bind(&m.id).fetch_one(&mut *tx).await?;
-    if shop >= 100 || app >= 10 || retained >= 1000 {
-        return Err(Error(StatusCode::TOO_MANY_REQUESTS,"App job quota reached: 10 active/app, 100/shop, 1000 retained/shop; finish or archive completed jobs".into()));
-    }
     let id = uid();
-    sqlx::query("INSERT INTO app_jobs(tenant,app,id,action,actor,permission,package_digest,request_key,input_digest,input) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)").bind(&t).bind(&m.id).bind(&id).bind(&action.name).bind(actor).bind(action.permission.as_deref().unwrap_or("apps.manage")).bind(package_digest).bind(key).bind(digest).bind(v).execute(&mut *tx).await?;
-    signal(&mut tx, &t, m, &id, &action.name).await?;
+    let event = event_kind(m, &action.name);
+    let mut tx = a.db.begin().await?;
+    let result = veyndo_app_storage::jobs::enqueue(
+        &mut tx,
+        &veyndo_app_storage::jobs::NewJob {
+            scope: veyndo_app_storage::Scope {
+                tenant: &t,
+                app: &m.id,
+            },
+            id: &id,
+            action: &action.name,
+            actor,
+            permission: action.permission.as_deref().unwrap_or("apps.manage"),
+            package_digest: &package_digest,
+            request_key: key,
+            input: v,
+            event_kind: &event,
+        },
+    )
+    .await
+    .map_err(persistence::error)?;
     tx.commit().await?;
-    Ok(json!({"jobId":id,"accepted":true,"reused":false}))
+    Ok(result)
 }
+fn event_kind(m: &Manifest, action: &str) -> String {
+    let grouped = format!("app.{}.job_queued", m.id);
+    if m.events.contains(&grouped) {
+        grouped
+    } else {
+        format!("app.{}.job_{action}", m.id)
+    }
+}
+
 async fn signal(
     tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,
     t: &str,
@@ -51,20 +65,18 @@ async fn signal(
     id: &str,
     action: &str,
 ) -> Result<()> {
-    let grouped = format!("app.{}.job_queued", m.id);
-    let event = if m.events.contains(&grouped) {
-        grouped
-    } else {
-        format!("app.{}.job_{action}", m.id)
-    };
-    sqlx::query("INSERT INTO outbox(tenant,kind,data) VALUES($1,$2,$3)")
-        .bind(t)
-        .bind(event)
-        .bind(json!({"jobId":id}))
-        .execute(&mut **tx)
-        .await?;
-    Ok(())
+    Ok(veyndo_app_storage::jobs::signal(
+        tx,
+        veyndo_app_storage::Scope {
+            tenant: t,
+            app: &m.id,
+        },
+        id,
+        &event_kind(m, action),
+    )
+    .await?)
 }
+
 pub(super) fn router() -> Router<App> {
     Router::new()
         .secure_route("/api/apps/{id}/jobs", &[("GET", "apps.manage")], get(list))

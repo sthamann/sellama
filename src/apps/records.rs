@@ -1,7 +1,19 @@
 //! One fixed PostgreSQL record store; every operation retains tenant/app/model identity and original wire values.
 use super::*;
+pub(crate) fn key<'a>(
+    t: &'a str,
+    app: &'a str,
+    entity: &'a str,
+    id: &'a str,
+) -> veyndo_app_storage::RecordKey<'a> {
+    veyndo_app_storage::RecordKey {
+        scope: veyndo_app_storage::Scope { tenant: t, app },
+        entity,
+        id,
+    }
+}
 pub(crate) fn lock_key(t: &str, app: &str, entity: &str, id: &str) -> String {
-    format!("{t}:{app}:{entity}:{id}")
+    veyndo_app_storage::records::lock_key(key(t, app, entity, id))
 }
 pub(crate) fn project(e: &Entity, row: &Value) -> Value {
     let mut out = serde_json::Map::new();
@@ -20,19 +32,9 @@ pub(crate) async fn get(
     id: &str,
     write: bool,
 ) -> Result<Option<Value>> {
-    let statement = if write {
-        "SELECT fields||jsonb_build_object('id',id,'revision',revision) FROM app_records WHERE tenant=$1 AND app=$2 AND entity=$3 AND id=$4 FOR UPDATE"
-    } else {
-        "SELECT fields||jsonb_build_object('id',id,'revision',revision) FROM app_records WHERE tenant=$1 AND app=$2 AND entity=$3 AND id=$4 FOR SHARE"
-    };
-    Ok(sqlx::query_scalar(statement)
-        .bind(t)
-        .bind(app)
-        .bind(entity)
-        .bind(id)
-        .fetch_optional(tx)
-        .await?)
+    Ok(veyndo_app_storage::records::get(tx, key(t, app, entity, id), write).await?)
 }
+
 pub(crate) async fn rows(
     tx: &mut sqlx::PgConnection,
     t: &str,
@@ -40,10 +42,16 @@ pub(crate) async fn rows(
     e: &Entity,
     limit: i64,
 ) -> Result<Vec<Value>> {
-    let rows: Vec<Value> = sqlx::query_scalar("SELECT fields||jsonb_build_object('id',id,'revision',revision) FROM app_records WHERE tenant=$1 AND app=$2 AND entity=$3 ORDER BY id LIMIT $4 FOR UPDATE")
-        .bind(t).bind(app).bind(&e.name).bind(limit).fetch_all(tx).await?;
+    let rows = veyndo_app_storage::records::rows(
+        tx,
+        veyndo_app_storage::Scope { tenant: t, app },
+        &e.name,
+        limit,
+    )
+    .await?;
     Ok(rows.iter().map(|row| project(e, row)).collect())
 }
+
 pub(super) async fn put(
     tx: &mut sqlx::PgConnection,
     t: &str,
@@ -53,10 +61,9 @@ pub(super) async fn put(
     revision: i64,
     fields: &Value,
 ) -> Result<()> {
-    sqlx::query("INSERT INTO app_records(tenant,app,entity,id,revision,version,fields) VALUES($1,$2,$3,$4,$5,'',$6) ON CONFLICT(tenant,app,entity,id) DO UPDATE SET fields=EXCLUDED.fields,revision=EXCLUDED.revision")
-        .bind(t).bind(app).bind(entity).bind(id).bind(revision).bind(fields).execute(tx).await?;
-    Ok(())
+    Ok(veyndo_app_storage::records::put(tx, key(t, app, entity, id), revision, fields).await?)
 }
+
 pub(super) async fn define(
     tx: &mut sqlx::PgConnection,
     t: &str,
@@ -64,10 +71,16 @@ pub(super) async fn define(
     version: &str,
     e: &Entity,
 ) -> Result<()> {
-    sqlx::query("INSERT INTO app_models(tenant,app,entity,version,definition) VALUES($1,$2,$3,$4,$5) ON CONFLICT(tenant,app,entity) DO UPDATE SET version=EXCLUDED.version,definition=EXCLUDED.definition")
-        .bind(t).bind(app).bind(&e.name).bind(version).bind(json!(e)).execute(tx).await?;
-    Ok(())
+    Ok(veyndo_app_storage::records::define(
+        tx,
+        veyndo_app_storage::Scope { tenant: t, app },
+        version,
+        &e.name,
+        &json!(e),
+    )
+    .await?)
 }
+
 pub(super) async fn install(tx: &mut sqlx::PgConnection, t: &str, m: &Manifest) -> Result<()> {
     for e in &m.entities {
         let old: Option<Value> = sqlx::query_scalar(
@@ -107,16 +120,11 @@ pub(super) async fn install(tx: &mut sqlx::PgConnection, t: &str, m: &Manifest) 
     Ok(())
 }
 pub(crate) async fn reset_preview(tx: &mut sqlx::PgConnection, t: &str, app: &str) -> Result<()> {
-    // Cyclic links are deferred; erase precisely this private app, never the shared tables.
-    sqlx::query("DELETE FROM app_records WHERE tenant=$1 AND app=$2")
-        .bind(t)
-        .bind(app)
-        .execute(&mut *tx)
-        .await?;
-    sqlx::query("DELETE FROM app_models WHERE tenant=$1 AND app=$2")
-        .bind(t)
-        .bind(app)
-        .execute(tx)
-        .await?;
-    Ok(())
+    Ok(
+        veyndo_app_storage::records::reset_preview(
+            tx,
+            veyndo_app_storage::Scope { tenant: t, app },
+        )
+        .await?,
+    )
 }

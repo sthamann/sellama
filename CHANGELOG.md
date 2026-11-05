@@ -1,5 +1,17 @@
 # Changelog
 
+## Shared app persistence component, 5 November 2026
+
+Extracted the native app record and job SQL to `veyndo/apps` as the independently
+buildable Rust package `veyndo-app-storage`. Core now uses its exact pinned source
+in the original scoped transactions. Current rights, package checks, record CAS,
+validation, history and signed database scope retain their owners. Standalone
+PostgreSQL tests and native storage, job, isolation and marketplace fixtures pass,
+including atomic outbox failure, concurrent replay, expired leases and native
+order/stock/Flow/document effects. MKT-03a is checked; a standalone authenticated
+app host and its production schema/restore acceptance remain open.
+[Evidence](docs/evidence/app-storage-component-2026-11-05.md).
+
 ## Versioned component host API, 5 November 2026
 
 SDK 0.2.0 adds generated host input DTOs and a server client for record, channel,

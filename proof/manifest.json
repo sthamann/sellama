@@ -1334,6 +1334,36 @@
       "sha256": "9d3e944a0a7dd0a3533925b3a5aa64071ef2af32d2bf7c496922f2e03cc10735",
       "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
+    "extensions/services/app-storage/src/error.rs": {
+      "status": "unproved",
+      "sha256": "4bde95d196e18a740c4a114b18463a780bd79625d1372a0e94c7dfb3c70c092a",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
+    },
+    "extensions/services/app-storage/src/jobs.rs": {
+      "status": "unproved",
+      "sha256": "94ec88131a206cf85a4325c7c3cee58ce2199cdf85d340edcb73ea144df494cb",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
+    },
+    "extensions/services/app-storage/src/lib.rs": {
+      "status": "unproved",
+      "sha256": "ca5fc35431f3a8c4d4a42d316ca0da4e507b8bd1e13cccfe5c4eeb213372a535",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
+    },
+    "extensions/services/app-storage/src/progress.rs": {
+      "status": "unproved",
+      "sha256": "f0ca8a83abd5af4ef6e400889dae962d6f4b287a23f7bc454d7192ba5e2fd915",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
+    },
+    "extensions/services/app-storage/src/records.rs": {
+      "status": "unproved",
+      "sha256": "9011d65b21ed7bc81d5c94065fe33ba328e12469ba926540aea24f173bf402b2",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
+    },
+    "extensions/services/app-storage/tests/postgres.rs": {
+      "status": "unproved",
+      "sha256": "7ca143817dcb2468e804bacdb67b25f46db35942ef459eff86c8ea154ce01b22",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
+    },
     "extensions/services/connectors/src/actions.rs": {
       "status": "unproved",
       "sha256": "f03bbcefaa2f19c8421f2f4e9053a61d8edf2fceb01651647c3a67dd17d9b136",
@@ -1786,8 +1816,8 @@
     },
     "src/apps/job_callbacks.rs": {
       "status": "reviewed-binding",
-      "sha256": "57c90762326cb0b41f691267eff54499f1830527015ed12fb48149f37114aa43",
-      "review": "2026-10-19 reviewed native read-only import projection against shared product/category/address owners; paired CRM/history PII and private target/package/digest checks; generic completion evidence atomically uses existing job creator/lease/package and record CAS, platform AEAD, native actual-field verification, no new app table or queue. Actual eight-domain migration/archival/restart/tamper and native app callback/jobs/admin creation tests pass; pure cancelled-success policy has exact Lean claim, all boolean cases and a true-return negative mutation. SQL, cryptography, async service correctness and public hosting remain outside formal proof."
+      "sha256": "1f914880fa77540539b1ea6dc7976ad0809c58fbe3f60d20b0aeb07017500422",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
     },
     "src/apps/job_enqueue.rs": {
       "status": "unproved",
@@ -1806,8 +1836,8 @@
     },
     "src/apps/jobs.rs": {
       "status": "unproved",
-      "sha256": "1652b6efc1efe61c8459342186608544e88929a6e64490d90e0e2c413a248b19",
-      "review": "Reviewed generic scoped job keyset/correlation read, held cursor position and explicit missing-anchor conflict; native HTTP105-job/archive/foreign checks, current action/PII redaction preserved. App work-plan schema and independent batch annotations carry no import/cutover authority. Native signed migration and focused independent boundary review pass; SQL/provider/async paths remain outside extracted proof."
+      "sha256": "2ac49419fcfb273c5bcfb20426baafd81a4ae13c4ce7dcfb4031547b9db056a8",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
@@ -1821,8 +1851,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "7bb4c9ac6d29c8efd5a34943358a17cef1ac0a23676fbbe00dab4b8b18a25aed",
-      "review": "Reviewed extraction of unchanged action permission/schema admission into action_admission.rs and a pinned gateway invoke_job lane. The callback cannot re-read a replacement package into a non-job/service dispatch; it holds the admitted manifest/action and reuses original jobs::enqueue. Fresh native PostgreSQL marketplace fixture and all 43 tenant isolation checks passed again after this change, including compound rights, revoked keys, foreign scope, CAS/replay, paid order, stock, invoice/Flow and restart. Rust build and clippy pass. Existing pure Lean policies are unchanged; surrounding async code remains unproved."
+      "sha256": "3e2f3da8f7a942d405446bf745b704de4ebfc0845a073bcd967af573bc86fab4",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -1874,6 +1904,11 @@
       "sha256": "642447c0c987a8ab20b541743615fe5c9feb1b9ef5cd91f54be95553a6d036f0",
       "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
     },
+    "src/apps/persistence.rs": {
+      "status": "unproved",
+      "sha256": "9d33754b1f3f7188c27e950ecabfa5509122ab07778797b1a8eee4bbcc0a7d91",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
+    },
     "src/apps/planning.rs": {
       "status": "unproved",
       "sha256": "3a0e19c4cdeb0c30269a0c2233695c11604bb7bd3b822992a3a5aef530705afe",
@@ -1911,8 +1946,8 @@
     },
     "src/apps/records.rs": {
       "status": "unproved",
-      "sha256": "eb71911bf3ecaa60f998f16f1a0062838e35c8df1944c4161475659f34fcd54b",
-      "review": "Reviewed native extension identity/private/unique anchors and current read/write/PII scopes; native projections use bounded fixed-store queries, exact indexed filters bind all input and fence the admitted package digest. Real four-object HTTP/MCP, role revocation, foreign reference, immutable upgrade, product/company clone and selected release tests passed. Added extracted configuration-only release predicate and operational false property; SQL and UI remain explicitly unproved. Reviewed canonical schema, preserved AI bindings and versioned grid prompt provenance without changing existing prompt revisions."
+      "sha256": "82e942408a9fdf867e3301db86e6ebe263ed4a9fb9401bd90b5cdcce7519e404",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
     },
     "src/apps/registry.rs": {
       "status": "unproved",
@@ -4411,16 +4446,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "d8fd757468f2a4ccbb8bc7c18a9626f5ba1e39cef3d3e8d9959f56ae6c722c65",
-      "review": "Reviewed Marketplace 0.2.0 at f653e89e and host exchange v1: fixed hostPath/version header, manifest-derived record/sync API and native declared-job enqueue preserve current capability/compound rights, actor, package, CAS, quotas and atomic job/outbox. Eight provider tests, SDK Node22/24 wire/type/provenance CI, independent HTTP/MCP/SDK and fresh Core/PostgreSQL replay/revocation/foreign/version/PII denial plus native stock/order/document/Flow/restart passed. Existing extracted policy Lean/conformance and mutation audit also passed; async/provider code remains unproved."
+      "sha256": "2ff1f7c6e5293a31ef0e10f38b2a7648b48421d7acf6c627d7dc7a1f51871626",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
     },
     "Cargo.toml": {
-      "sha256": "6612311bbb3893b6d755bb9eae5c0c74e4288bdce03c9934e927ea4244570aae",
-      "review": "Reviewed removal of the root marketplace binary target in favor of the pinned standalone workspace package; whitespace-only normalization after passing independent and native marketplace tests. The component lock and independent Cargo/container inputs remain reviewed, not mathematical proofs."
+      "sha256": "1c89f7ba4e70bf7fda4453432dac3ef6ac87cf68c5d7ab9a71abf79367471268",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
     },
     "components.lock.json": {
-      "sha256": "5e8ac835d8e1f56aa56fb3c1f44d8141aaaf1d5353efa0a4a048dd2c83f964a4",
-      "review": "Reviewed Marketplace 0.2.0 at f653e89e and host exchange v1: fixed hostPath/version header, manifest-derived record/sync API and native declared-job enqueue preserve current capability/compound rights, actor, package, CAS, quotas and atomic job/outbox. Eight provider tests, SDK Node22/24 wire/type/provenance CI, independent HTTP/MCP/SDK and fresh Core/PostgreSQL replay/revocation/foreign/version/PII denial plus native stock/order/document/Flow/restart passed. Existing extracted policy Lean/conformance and mutation audit also passed; async/provider code remains unproved."
+      "sha256": "1c310ab77b6eb074d222e3a86abd3b3be2a93cbf6ed8212633c3069506d0d7b8",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "496067ed6a47c2778baed402bd51378c139687fbb3b36f8f965bf880129de013",
@@ -4569,6 +4604,18 @@
     "extensions/sdk/native-asset-actions.json": {
       "sha256": "7b5834f31ac0b86a3808ef11f4ae122e38457081cf06c782a8f6d60a1027ee77",
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
+    },
+    "extensions/services/app-storage/Cargo.lock": {
+      "sha256": "bb6de94e0f2847d31ea550094e4d20b9f92a3bb391e6324267d85b676e511fd0",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
+    },
+    "extensions/services/app-storage/Cargo.toml": {
+      "sha256": "e756df15a758d56fb74bd3127550f04dce41e2eec4f7e6ad26b533c60e117979",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
+    },
+    "extensions/services/app-storage/tests/schema.sql": {
+      "sha256": "b288bc05f61ba254ba938a92f64af0d625f6f46a5b4847b5077a4ef740240830",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
     },
     "fixtures/app-studio-schema.json": {
       "sha256": "706f86aeb5ca2c8458c7a1d05be8dd03a7785bddca6b09c025337f2f5a308341",
@@ -5123,8 +5170,8 @@
       "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "scripts/formal/registry.py": {
-      "sha256": "c2de659a396409f1ebb39e1c3d5063579cda28e76532523c8cbdbaca9387c9f1",
-      "review": "Reviewed host exchange v1 inputs and declared job enqueue callback: preserves authenticated principal, explicit jobs.write capability, registered job handler, current compound action rights, schema validation, live-only quota/idempotency/outbox path. Actual native PostgreSQL marketplace fixture passed replay, changed-key conflict, missing capability/PII, revoked key, foreign tenant and version rejection with no queued side effects; native orders/stock/Flow/invoice/restart remain passing. No new mathematical proof of async/network code is claimed."
+      "sha256": "43e7a007c76833d953f0bbd75c48dda88d62a229eb18f0d41aeba1acfcd1e72f",
+      "review": "Reviewed app-storage extraction: original record/job SQL now runs in pinned veyndo/apps through existing scoped transactions; native identity/package/CAS/evidence validation retained. Independent PostgreSQL rollback/replay/lease/quota test, native app_shared_storage/app_jobs, 43 tenant checks and marketplace HTTP/MCP order-stock-Flow-invoice fixture pass. SQL and host adapters remain unproved."
     },
     "scripts/formal/runners.py": {
       "sha256": "30249280fde2b234aaa1fc6dfd6eff9c0423e7e8e5cca72cb4221325468dc58f",

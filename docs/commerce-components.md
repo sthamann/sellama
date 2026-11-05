@@ -40,6 +40,10 @@ service adapters must reuse their implementation rather than duplicate rules.
   - [x] GitHub app installation linked to Northflank for exactly `veyndo/veyndo`,
     `veyndo/experience` and `veyndo/shopware-payments`, with the explicitly approved
     organization rights. SDK, Apps and Marketplace repositories are not granted.
+  - [x] Remap existing Core build, Experience and Payments build sources to the
+    transferred repositories. Existing CI/CD settings and running deployment
+    versions are retained; the Payments service starts its normal enabled build.
+    Source mapping is not acceptance of a new runtime deployment.
   - [ ] Complete source/build/runtime acceptance and remaining deployment links.
 - [ ] ORG-08 Verify repository permissions, rules, Actions settings, webhooks and
   secret/deploy-key availability without exporting secret values.

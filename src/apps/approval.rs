@@ -60,7 +60,7 @@ pub(super) fn legacy_built_in(id: &str) -> Option<&'static str> {
     }
 }
 pub(super) fn canonical_digest(m: &Manifest) -> String {
-    hash(&json!(m).to_string())
+    veyndo_app_storage::packages::digest(&json!(m))
 }
 pub(super) fn approved(m: &Manifest, service: &Value) -> bool {
     let digest = canonical_digest(m);

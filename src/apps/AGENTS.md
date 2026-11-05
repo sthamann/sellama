@@ -24,6 +24,12 @@ pinned `veyndo-app-model` package. Native adapters preserve problem kinds/pointe
 and call existing currency/content/reference policy owners; actual identity,
 package authority, referenced-object ownership and database scope remain native.
 Never duplicate validators or introduce permissive policy defaults.
+Shared action/current-scope and callback grant planning now live in the component
+admission module; native adapters must derive their authority from RequestContext,
+never app input. Component package locking reuses the original transaction/key;
+full typed digest comparison, reserved package trust, credential persistence and
+the verified callback predicate remain native. Do not replace them with caller
+flags, cached approvals or a second token issuer.
 
 Visual edits and coding-agent output share the same Manifest/AST. F5 is actor-private
 and expires; it cannot call services, change live core data or release packages.

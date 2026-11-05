@@ -78,7 +78,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 | Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |
 | POS, B2B, EDI and marketplaces | [POS](docs/pos.md) · [B2B](docs/b2b-commerce.md) · [EDI](docs/edi.md) · [Marketplaces](docs/marketplaces.md) |
-| Apps, settings, storage and private releases | [App platform](docs/app-platform.md) · [Build five apps](docs/app-tutorials/README.md) · [Models & storage](docs/app-data-storage.md) |
+| Apps, settings, storage and private releases | [App platform](docs/app-platform.md) · [Build five apps](docs/app-tutorials/README.md) · [Models, access & storage](docs/app-data-storage.md) |
 | Agents and shared operations | [Connections](docs/connectors.md) · [Agent identities & limits](docs/agent-authority-controls.md) · [MCP workshop](docs/agent-workshop.md) · [UCP B2B](docs/b2b-ucp-negotiation.md) |
 | Operation and verification | [Architecture](docs/production-architecture.md) · [Integrations](docs/service-integrations.md) · [Testing](docs/testing.md) · [Proof boundaries](docs/formal-verification.md) |
 

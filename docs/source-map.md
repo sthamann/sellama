@@ -26,6 +26,14 @@ call native money/content/relation validators and the verified reference guard
 in `editor_contract.rs`. No database or transport dependency enters the model.
 [Wire and workflow evidence](evidence/app-model-component-2026-11-05.md).
 
+**App authority ports:** Apps `model/src/admission.rs` owns the shared action and
+callback-scope rules. Native `action_admission.rs` adapts current authenticated
+rights; `credentials.rs` retains key issuance/revocation and the verified callback
+predicate. Component `src/packages.rs` owns canonical fingerprints and the original
+scoped active-package shared lock/read. Native `approval.rs` and `package_fence.rs`
+retain reserved/provider trust and full typed installed-digest comparison.
+[Evidence](evidence/app-admission-component-2026-11-05.md).
+
 **Invoice checkout:** `src/payments/instructions.rs` owns the typed recipient
 projection and customer/compound merchant rights. `PaymentInstructions.tsx` and
 its adjacent stylesheet render it in the existing native completion checkout.

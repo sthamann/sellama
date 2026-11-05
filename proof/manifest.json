@@ -1334,6 +1334,11 @@
       "sha256": "9d3e944a0a7dd0a3533925b3a5aa64071ef2af32d2bf7c496922f2e03cc10735",
       "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
+    "extensions/services/app-storage/model/src/admission.rs": {
+      "status": "unproved",
+      "sha256": "e89625bc9faf9693a1275424d2b0360d1991c53f7e38bc4ac95335d4ad7a6588",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
+    },
     "extensions/services/app-storage/model/src/declarations.rs": {
       "status": "unproved",
       "sha256": "dec95f0d4ad104c2f4688de8a284f8c2c8d62b037ded32e17bd028b31b4bc376",
@@ -1356,8 +1361,8 @@
     },
     "extensions/services/app-storage/model/src/lib.rs": {
       "status": "unproved",
-      "sha256": "1d45cb108ed1db5557510561d1edd0a4ebf3cae48724c51f42011cae4f369862",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "edb70f84a4c9a9ef932782d0a324ef86096379b026a9b01717c1bdd55db6c4c6",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/model/src/lifecycle.rs": {
       "status": "unproved",
@@ -1386,8 +1391,13 @@
     },
     "extensions/services/app-storage/model/src/types.rs": {
       "status": "unproved",
-      "sha256": "05aabf051a7b45367e49f0b9fabe5dc45c3a5d68865ce8f354b5091b9b93e0ab",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "056219c811048367ff8056080434b621876d7de5c59f82ad1608ebd880271c76",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
+    },
+    "extensions/services/app-storage/model/tests/admission.rs": {
+      "status": "unproved",
+      "sha256": "b1e1a4972ce7ff017cdb041108958b4238fd48e330565fa1c67c552cf9f76221",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/model/tests/contracts.rs": {
       "status": "unproved",
@@ -1406,13 +1416,18 @@
     },
     "extensions/services/app-storage/src/lib.rs": {
       "status": "unproved",
-      "sha256": "e9a96efeecda48046209e0bae201f9c00f825f7b2475c215a919f055bde7bf17",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "0c472b2bbf0fef0c64bba2ad72ae99ce7510f91f03cc703e181b775380a1818e",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/src/mutations.rs": {
       "status": "unproved",
       "sha256": "a871c2d535e8250a76dad586b82fcb9fe944bec6895cd1faa4da3212a861084e",
       "review": "Reviewed shared record mutation and query extraction into pinned Apps 0.2.0. Native package/model/reference/language checks, workflow and bounded-history hooks remain on the original transaction. Independent PostgreSQL CAS/replay/hook-outbox rollback/typed-publication tests, native apps/storage/jobs/schema/extensions/visual workspace, 43 tenant checks and marketplace order-stock-Flow-invoice fixture pass. SQL and async adapters remain unproved."
+    },
+    "extensions/services/app-storage/src/packages.rs": {
+      "status": "unproved",
+      "sha256": "540c114550d46f73148b8c1998904a527c36801f8ce6f4386a84ed9093cf8c11",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/src/progress.rs": {
       "status": "unproved",
@@ -1434,6 +1449,11 @@
       "sha256": "9bdb681a0101b34f9dd2b844f936904ab54a22d33c980723aef2383b53a10366",
       "review": "Reviewed shared record mutation and query extraction into pinned Apps 0.2.0. Native package/model/reference/language checks, workflow and bounded-history hooks remain on the original transaction. Independent PostgreSQL CAS/replay/hook-outbox rollback/typed-publication tests, native apps/storage/jobs/schema/extensions/visual workspace, 43 tenant checks and marketplace order-stock-Flow-invoice fixture pass. SQL and async adapters remain unproved."
     },
+    "extensions/services/app-storage/tests/cases/packages.rs": {
+      "status": "unproved",
+      "sha256": "5e7a4d2b52b5e50dab0d35435e60fefa2e7ec4adc87b21faf0e96c81fa22c9e1",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
+    },
     "extensions/services/app-storage/tests/cases/queries.rs": {
       "status": "unproved",
       "sha256": "d89b663406d997026a6cdba9d96b97dd43c221b63502593cd7c0cb252a1393b2",
@@ -1441,8 +1461,8 @@
     },
     "extensions/services/app-storage/tests/postgres.rs": {
       "status": "unproved",
-      "sha256": "c750b8268d506b6517894fd8a90f92d64e5c4a12177ffc12d15e212195a16059",
-      "review": "Reviewed shared record mutation and query extraction into pinned Apps 0.2.0. Native package/model/reference/language checks, workflow and bounded-history hooks remain on the original transaction. Independent PostgreSQL CAS/replay/hook-outbox rollback/typed-publication tests, native apps/storage/jobs/schema/extensions/visual workspace, 43 tenant checks and marketplace order-stock-Flow-invoice fixture pass. SQL and async adapters remain unproved."
+      "sha256": "c6a8b5fab4cde5b78da9d5d64ff8e0a2202dba8f13f6d42de5baad341a434c2a",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "extensions/services/connectors/src/actions.rs": {
       "status": "unproved",
@@ -1696,13 +1716,13 @@
     },
     "src/apps/action_admission.rs": {
       "status": "unproved",
-      "sha256": "ca4bb14a15ecaf7934cd1800dbdfe7d746de62d76e172ed6e1dabdf8c4d113a4",
-      "review": "Reviewed extraction of unchanged action permission/schema admission into action_admission.rs and a pinned gateway invoke_job lane. The callback cannot re-read a replacement package into a non-job/service dispatch; it holds the admitted manifest/action and reuses original jobs::enqueue. Fresh native PostgreSQL marketplace fixture and all 43 tenant isolation checks passed again after this change, including compound rights, revoked keys, foreign scope, CAS/replay, paid order, stock, invoice/Flow and restart. Rust build and clippy pass. Existing pure Lean policies are unchanged; surrounding async code remains unproved."
+      "sha256": "00b20601e6ba48a5adb0d33ee719c31acd9cd37fcc5f071dfad0aead01a2d487",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
-      "sha256": "d5b14fa7b86b63afa66384bcfdf3f16a0e4dba693d1033f719c78803f7c1d562",
-      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+      "sha256": "58a75c41780b3c10108274308bd13d76f0135f9095b192835a7927cc569ecb88",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "src/apps/asset_surfaces.rs": {
       "status": "unproved",
@@ -1796,8 +1816,8 @@
     },
     "src/apps/credentials.rs": {
       "status": "reviewed-binding",
-      "sha256": "b7364cab5acfd095c2e794297580b0b0e5f2939841c674e8765d17496dfb2935",
-      "review": "Reviewed native historical review admission, immutable coupon provenance and explicit activation policy; independent review findings on malformed usage limits, imported-review PII projection and source-currency spend bounds reproduced and fixed with actual CLI/HTTP/checkout regressions. Existing package, creator, lease and tenant fences retained; SQL, networking and provider parity remain outside the extracted pure activation proof."
+      "sha256": "ee909f21dace8cb563b7cf5b13c5cb6ed345b720e89d13ac8173fc4c7584b68e",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "src/apps/data.rs": {
       "status": "unproved",
@@ -1876,8 +1896,8 @@
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
-      "sha256": "f8e45b2c05962859f0cf326d3d9e012d038577b526c5fb8432fe134dc0f70e24",
-      "review": "Reviewed extraction of unchanged action permission/schema admission into action_admission.rs and a pinned gateway invoke_job lane. The callback cannot re-read a replacement package into a non-job/service dispatch; it holds the admitted manifest/action and reuses original jobs::enqueue. Fresh native PostgreSQL marketplace fixture and all 43 tenant isolation checks passed again after this change, including compound rights, revoked keys, foreign scope, CAS/replay, paid order, stock, invoice/Flow and restart. Rust build and clippy pass. Existing pure Lean policies are unchanged; surrounding async code remains unproved."
+      "sha256": "928dbed4c54f52e8ecbe7bf678b6e519708d9ae0dc42a09cb2b9235c5569fe0a",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "src/apps/hosted.rs": {
       "status": "unproved",
@@ -1921,8 +1941,8 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "d298b35e08e47754e2ec6d535cfcc56c7b543f1380aa9edf5d4c8b4bdebbd204",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "b7f5746e96ba8fc8b7b995faaeab816a556d234a44896b9aceaf49c9ddde973e",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
@@ -1986,8 +2006,8 @@
     },
     "src/apps/package_fence.rs": {
       "status": "unproved",
-      "sha256": "642447c0c987a8ab20b541743615fe5c9feb1b9ef5cd91f54be95553a6d036f0",
-      "review": "Review 2026-10-14: native conserved strict-subset shipment binding, unchanged transition replay/quote snapshots, tenant/package/current-right document admission and immutable quota accounting; DHL stays app-owned with local protocol/restart/PII denial fixtures. Carrier effects, SQL and runtime remain unproved."
+      "sha256": "f40890333f9ad9f9b7b35cb88448a065048dd169b3c3afe69063b3c161d9143c",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "src/apps/persistence.rs": {
       "status": "unproved",
@@ -4531,16 +4551,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "0e306b77a2cef7434fb3095edf76f0f7f249fc77cabcb76c0a43c3e4f5a7e466",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "f0f1b9d43c729bca39fef24f591b82414d6e1f6559c9f7d3204eccb7b93108ac",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "Cargo.toml": {
       "sha256": "0b6cd31c1e58e4e06a90eba1b44505343c0b9f14a2e8f7958d0d00ca9486d091",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
     },
     "components.lock.json": {
-      "sha256": "bb76c0c67e9451e24b4e588342db3ae2e3c396727fa614fd1552452fcba0494d",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "4b785ac86d289bfc3fba9f72b4476a3d3f5fbe9401f867fcbfa0d1d1e65d2ab2",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "496067ed6a47c2778baed402bd51378c139687fbb3b36f8f965bf880129de013",
@@ -4691,16 +4711,16 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "6206c4d100750f1e59e2b077ca875d2181ad1b0ca2e7c09c0d506700672086e5",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "6e2237a3d0f86db014232ebc64fc0932f09d5a85e58130b288cb71031f3156f3",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "fb5ca21f58c3376979c45ae72b6ca0c3b20ccff205509640a572abfe11e264a2",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "e326db0834d1457f068e4871bd671835f5cdb743eef29276c1a6c92b22925545",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
-      "sha256": "5d7eaafea4534a843bef04e6a18b5b549b9bef469373be5a2e722ca225fd1881",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "443f3d589fa240429a903983393fbc1814dc62335223753f84514e2cf7c6810e",
+      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
     "extensions/services/app-storage/tests/schema.sql": {
       "sha256": "cb2d3ff6eb802294e8250c3e4804d4f9f180a1a5fee18093829f939ba06fab91",

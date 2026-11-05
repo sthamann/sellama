@@ -43,6 +43,16 @@ record IDs or different schema versions in unrelated shops cannot collide.
 Public reads project current declared fields only; storage metadata, removed fields,
 private form answers and credentials do not become public data.
 
+## Current authority and package identity
+
+Apps 0.4.0 shares the action/right/callback rules through explicit host authority
+ports. The storage package owns the original scoped active-package shared lock
+and read. Native writers keep the full typed digest comparison and hold the lock
+until their transaction ends; installs/upgrades use the same exclusive lock.
+This preserves package-before-record ordering and permits unrelated tenants to
+continue. The host still authenticates callers and authorizes full packages.
+[Package fence and consent evidence](evidence/app-admission-component-2026-11-05.md).
+
 ## Shared model compiler
 
 Apps 0.3.0 supplies `veyndo-app-model` alongside the storage package. Native app

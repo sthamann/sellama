@@ -1,26 +1,34 @@
-//! Shared actor, compound permission and schema admission for native app actions and pinned callbacks.
+//! Native authenticated-current-rights adapter for the shared action and callback grant rules.
 use super::*;
-pub(super) fn check(a: &App, h: &RequestContext, action: &Action, v: &Value) -> Result<()> {
-    if !action.public {
-        merchant(a, h)?;
+pub(super) struct Authority<'a> {
+    pub app: &'a App,
+    pub context: &'a RequestContext,
+}
+impl veyndo_app_model::admission::ScopeAuthority for Authority<'_> {
+    type Error = Error;
+    fn require_scope(&self, scope: &str) -> Result<()> {
+        auth::permit(self.context, scope)
     }
-    if !action.public
-        && (["save", "service", "emit", "job"].contains(&action.handler.as_str())
-            || action.permission.is_some())
-    {
-        auth::permit(
-            h,
-            action
-                .permission
-                .as_deref()
-                .unwrap_or(if action.handler == "job" {
-                    "apps.manage"
-                } else {
-                    "catalog"
-                }),
-        )?;
+}
+impl veyndo_app_model::admission::Authority for Authority<'_> {
+    fn require_merchant(&self) -> Result<()> {
+        merchant(self.app, self.context).map(|_| ())
     }
-    gateway::additional_permissions(h, action)?;
-    gateway::validate_input(&action.input_schema, v)?;
-    Ok(())
+}
+pub(super) struct Current<'a>(pub &'a RequestContext);
+impl veyndo_app_model::admission::ScopeAuthority for Current<'_> {
+    type Error = Error;
+    fn require_scope(&self, scope: &str) -> Result<()> {
+        auth::permit(self.0, scope)
+    }
+}
+pub(super) fn error(error: veyndo_app_model::admission::AdmissionError<Error>) -> Error {
+    match error {
+        veyndo_app_model::admission::AdmissionError::Authority(error) => error,
+        veyndo_app_model::admission::AdmissionError::Model(error) => model_contract::error(error),
+    }
+}
+pub(super) fn check(a: &App, h: &RequestContext, action: &Action, value: &Value) -> Result<()> {
+    veyndo_app_model::admission::check(&Authority { app: a, context: h }, action, value)
+        .map_err(error)
 }

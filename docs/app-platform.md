@@ -33,6 +33,13 @@ flowchart LR
 
 ## Common package compiler
 
+Apps 0.8.0/model 0.5.0 also shares strict event filter/delivery contracts,
+subscription and payload minimization, clock-injected UTC schedule validation and
+private webhook declarations. Destination admission requires the host's explicit
+policy. Native installed-package dispatch, signing/verification, current authority,
+durable queues/ticks and replay receipts retain their owners.
+[Event/trigger component evidence](evidence/app-event-contracts-2026-11-05.md).
+
 Apps 0.7.0/model 0.4.0 also owns strict settings declarations/updates and
 secret-safe projections, plus explicit schema evolution planning and exact value
 conversion. The native setting routes and upgrade review/install paths reuse the

@@ -1334,6 +1334,11 @@
       "sha256": "9d3e944a0a7dd0a3533925b3a5aa64071ef2af32d2bf7c496922f2e03cc10735",
       "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
+    "extensions/services/app-storage/examples/event_contracts.rs": {
+      "status": "unproved",
+      "sha256": "bb02cb358b23eb163d8b609026cd32eb40cb2c90efef8fb0fb7d910646890303",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+    },
     "extensions/services/app-storage/examples/upgrade_settings.rs": {
       "status": "unproved",
       "sha256": "2bb8b686a6cc75462159379926b60ff71ff895d1ef041fdd2fcaf779fe45c30e",
@@ -1354,6 +1359,11 @@
       "sha256": "749e10f71c222b18b4190d3debdb3d23f8aa8179e18929390dc5134b3646fe8e",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
     },
+    "extensions/services/app-storage/model/src/events.rs": {
+      "status": "unproved",
+      "sha256": "d03bfa965a8241f9ca586388f8c64b1358ccc42b2ad934eb2c234fd148d60299",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+    },
     "extensions/services/app-storage/model/src/evolution.rs": {
       "status": "unproved",
       "sha256": "cd1362bd4774ff459e70d36b32f1115fd772a31e55a69901fcd404e20350de5a",
@@ -1371,8 +1381,8 @@
     },
     "extensions/services/app-storage/model/src/lib.rs": {
       "status": "unproved",
-      "sha256": "99d0093449d68bbfa6644b2d7868d2e2f8793b1e6ae3b022036caa80590a06d9",
-      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+      "sha256": "2f5cd54fab69990d8b4052bbf46fdf4c9d5dd3be109c21074f860127447bd170",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "extensions/services/app-storage/model/src/lifecycle.rs": {
       "status": "unproved",
@@ -1414,6 +1424,16 @@
       "sha256": "decd37718061f7f1044507d23b3b400a9954a5143eb3784254d0dd1f7049d399",
       "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
+    "extensions/services/app-storage/model/src/subscriptions.rs": {
+      "status": "unproved",
+      "sha256": "80f63d8ccac1ec8a91d88bf122fd19818377db97a7b80ef9b01789b0ce31f9f0",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+    },
+    "extensions/services/app-storage/model/src/triggers.rs": {
+      "status": "unproved",
+      "sha256": "fdbc705f83cebfdfe4bd52cfaaf55406b816cc8c876be465bf334f2a1403590e",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+    },
     "extensions/services/app-storage/model/src/types.rs": {
       "status": "unproved",
       "sha256": "622aef919caa64dae6b1920cb7f5e83384711db7d509cdf33c846c7224afea48",
@@ -1428,6 +1448,16 @@
       "status": "unproved",
       "sha256": "307bdbcc9c96d9191868eed3b76161b3ef8a8f411a8859bab7b6b634677b3492",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+    },
+    "extensions/services/app-storage/model/tests/event_delivery.rs": {
+      "status": "unproved",
+      "sha256": "840fa17cce3a4fd4e1858c6c90f58282fa78abe6d8412bffe8301427bf1d8fcd",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+    },
+    "extensions/services/app-storage/model/tests/events.rs": {
+      "status": "unproved",
+      "sha256": "92cfd05aa898593ef071e8686a49f49849cced8696dc03397d498572dd4b809e",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "extensions/services/app-storage/model/tests/evolution.rs": {
       "status": "unproved",
@@ -1449,10 +1479,20 @@
       "sha256": "9fd261d647bb4e383d049433d6f7d538cf6ef65244d9608d65547ddc1457b472",
       "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
     },
+    "extensions/services/app-storage/model/tests/support/events.rs": {
+      "status": "unproved",
+      "sha256": "ff08a57a2d380b63f5c5ffa13086ff3e4bb05babd4111e6a1b3f4c694b71897f",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+    },
     "extensions/services/app-storage/model/tests/support/package.rs": {
       "status": "unproved",
       "sha256": "914c81e77426dd2f6dfc724e2fba3a0340140aea2c5f1b0cbc880b83d9fbf19c",
       "review": "Reviewed extraction of original common Manifest grammar, model/index/configuration checks, action schema/privacy/Flow/job/payment/asset restrictions, strict legacy Slot type and event name rules into pinned model 0.3. Native required before/after validators retain original ordering, strict full decoder, complete domain/provider/UI/hook/lifecycle/distribution checks; host policy uses exact native auth scope registry, Sandbox component discriminator and verified reference guard. Independent 34 model tests, actual storage PG contract, native build/clippy/74 app units and app/consent/callback/assets/storage/schema/jobs/Studio/F5/lifecycle/staging/distribution/tenant/surface/visual/Marketplace fixtures pass; 34 canonical package digests unchanged. Removed redundant contract-only native schema wrapper; same pure validator runs directly in schema tests. New generic compiler and adapters remain unproved; kernel policies unchanged."
+    },
+    "extensions/services/app-storage/model/tests/triggers.rs": {
+      "status": "unproved",
+      "sha256": "fec61f9afb06b0e5fc5dd0bc0e42b0b55e5922d557348fff394931b0948a2800",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "extensions/services/app-storage/src/error.rs": {
       "status": "unproved",
@@ -1916,13 +1956,13 @@
     },
     "src/apps/event_contract.rs": {
       "status": "unproved",
-      "sha256": "401051b04662e93ed33a755ea175efb053b9f8e823115f76ebc6e01ddfc40b91",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "40490e80aa49d18a0c242b4d84caf11c6418824c40fedc17ffa11e755b623e0e",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
-      "sha256": "df2c6aa87f34186817f0d90dfd7d6459ec808a58e344232017552a0c13c2324c",
-      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+      "sha256": "03579d5495cd16a19a4228fbb38ac211e855a44f7c8e140c4c36a506a3b259da",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "src/apps/events.rs": {
       "status": "unproved",
@@ -2146,8 +2186,8 @@
     },
     "src/apps/schedules.rs": {
       "status": "unproved",
-      "sha256": "eabe484e221b853eda763f6508e5642fc57a9f365d63829f1105342793f55d7b",
-      "review": "Reviewed global AES-GCM write-only inference configuration, personal operator guards, revisioned reversible availability policy and queue admission including stages; local two-shop/fresh-process tests, 100 Rust tests and affected tenant/provider/payment/flow/translation/image regressions passed. Surrounding async adapters remain unproved."
+      "sha256": "5ec4ac48c5c9e2b40435952a2ead2189515a73412e040a4ad5669b3e07998f9c",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "src/apps/schema_changes.rs": {
       "status": "unproved",
@@ -2256,8 +2296,8 @@
     },
     "src/apps/webhooks.rs": {
       "status": "unproved",
-      "sha256": "a258d9493e1132005f4016be84e5f476a57e903553f935109ccc4ce00d8d4635",
-      "review": "Reviewed app authority and current creator rights, isolated schemas/RLS and atomic migration rollback, fenced job/event leases, minimized payloads, signature/digest pins, opaque UI grants, pinned DNS egress and bounded Wasm/WIT quote adapters. Actual isolated PostgreSQL own/foreign callback, schema, jobs, events, assets, export, distribution and production-foundation regressions passed. Added extracted package, surface, resource and exact callback-consent policies with negative Lean claims; async/network/UI and general Rust modules remain explicitly unproved."
+      "sha256": "7f50ee62e52f3d3528e14621b00db19654bf2369d3b8fdf8db0102a88676739e",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "src/assets/app_files.rs": {
       "status": "unproved",
@@ -4621,16 +4661,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "52066f2dca31c54d3f97ce0c7a5763f4819065cc8e15509e13fb60594adce119",
-      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+      "sha256": "0713b73c4a7dc1b76411fc02e264206c36f646769472496b3d974e7572d2f08b",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "Cargo.toml": {
       "sha256": "0b6cd31c1e58e4e06a90eba1b44505343c0b9f14a2e8f7958d0d00ca9486d091",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
     },
     "components.lock.json": {
-      "sha256": "4b0e526549c0cf1702cf73c8c2b64ef0d0ada90cf7188839920f2a20d8f8da0d",
-      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+      "sha256": "22320ad26a64e6087e695c889146e951a356863141c2038490d6b9be79e86ab5",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "496067ed6a47c2778baed402bd51378c139687fbb3b36f8f965bf880129de013",
@@ -4781,16 +4821,16 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "2d60f084a5ba4b3ebb182f59b3e7d5072a172ea474d81cc0656369384c439748",
-      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+      "sha256": "3e61698e6d6de0d2697b5b51910b04cb8190fbbb4ed3c0793c215b16e85489ea",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "e07dbf8d3b10558b849c0e9d3b5920c19de42fc319792db5abaf43ac72046cf6",
-      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+      "sha256": "c435d27634329cb51fab71cff21896eb6a8f73824d15a77dc033460f8ed653f8",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
-      "sha256": "b0e906e343ebc705b29282ab9b76ae4936e2ba907d9063bc22159dde131b6120",
-      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+      "sha256": "23b08550bbc3630a414b3031cd7e7a603518ee19137e9c6b265919d2678a15cc",
+      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
     "extensions/services/app-storage/tests/schema.sql": {
       "sha256": "ae91a4670e8da43e7401f46453d0f78b3559908b8b2b6458b333c70a59d8ef32",

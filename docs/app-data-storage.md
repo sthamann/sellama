@@ -17,6 +17,11 @@ planning with the native host. All data stays in the existing shared tables;
 there is no per-app table or schema migration in this extraction.
 [Settings and evolution boundary](evidence/app-evolution-settings-2026-11-05.md).
 
+Apps 0.8.0 also shares event privacy/filter/delivery and schedule/webhook contracts.
+It introduces no new queue, event ledger or table. Actual durable processing still
+uses the existing native outbox, leases and replay receipts.
+[Event and trigger boundary](evidence/app-event-contracts-2026-11-05.md).
+
 ## One contract across every consumer
 
 The canonical Manifest still defines types, required fields, translation, choices,

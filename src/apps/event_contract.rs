@@ -1,41 +1,12 @@
 //! Explicit event filters, bounded batches and signed public HTTPS delivery extend the existing leased outbox, not a second queue.
 use super::*;
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct EventFilter {
-    pub event: String,
-    pub equals: HashMap<String, Value>,
-}
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct EventDelivery {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
-    #[serde(default = "single")]
-    pub batch_size: u16,
-}
-fn single() -> u16 {
-    1
-}
-pub(super) fn matches(pattern: &str, event: &str) -> bool {
-    pattern == event
-        || pattern
-            .strip_suffix(".*")
-            .is_some_and(|p| event.starts_with(&format!("{p}.")))
-}
-pub(super) fn filtered(m: &Manifest, kind: &str, data: &Value) -> bool {
-    let filters = m
-        .event_filters
-        .iter()
-        .filter(|f| matches(&f.event, kind))
-        .collect::<Vec<_>>();
-    if filters.is_empty() {
-        return true;
+pub(crate) use veyndo_app_model::events::{EventDelivery, EventFilter};
+struct Destination;
+impl veyndo_app_model::events::DestinationPolicy for Destination {
+    type Error = Error;
+    fn validate_destination(&self, url: &str) -> Result<()> {
+        destination(url).map(|_| ())
     }
-    let projected = event_projection::payload(m, kind, data.clone());
-    filters
-        .iter()
-        .any(|f| f.equals.iter().all(|(k, v)| projected.get(k) == Some(v)))
 }
 pub(super) fn destination(url: &str) -> Result<reqwest::Url> {
     let u = reqwest::Url::parse(url).map_err(|_| bad("Invalid event destination URL"))?;
@@ -58,41 +29,15 @@ pub(super) fn destination(url: &str) -> Result<reqwest::Url> {
     Ok(u)
 }
 pub(super) fn validate(m: &Manifest) -> Result<()> {
-    if m.event_filters.len() > 24 {
-        return Err(bad("Maximum 24 event filters"));
-    }
-    for f in &m.event_filters {
-        if !m.events.contains(&f.event)
-            || f.equals.is_empty()
-            || f.equals.len() > 4
-            || f.equals.iter().any(|(k, v)| {
-                !identifier(k)
-                    || !matches!(
-                        v,
-                        Value::String(_) | Value::Number(_) | Value::Bool(_) | Value::Null
-                    )
-                    || v.to_string().len() > 1000
-            })
-        {
-            return Err(bad(
-                "Filters require a declared event and 1..4 bounded scalar equalities",
-            ));
-        }
-    }
-    if let Some(d) = &m.event_delivery {
-        if m.events.is_empty() || !(1..=25).contains(&d.batch_size) {
-            return Err(bad(
-                "Event delivery needs subscriptions and batchSize 1..25",
-            ));
-        }
-        if let Some(url) = &d.url {
-            destination(url)?;
-            if !m.permissions.contains(&"events.send".into()) {
-                return Err(bad("Outgoing webhooks require events.send permission"));
-            }
-        }
-    }
-    Ok(())
+    veyndo_app_model::events::validate(
+        &event_projection::context(m),
+        m.event_delivery.as_ref(),
+        &Destination,
+    )
+    .map_err(|e| match e {
+        veyndo_app_model::package::CompileError::Host(e) => e,
+        veyndo_app_model::package::CompileError::Model(e) => model_contract::error(e),
+    })
 }
 pub(super) fn batch_size(m: &Manifest) -> i64 {
     m.event_delivery

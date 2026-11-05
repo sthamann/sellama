@@ -1,5 +1,15 @@
 # Changelog
 
+## Shared app event and trigger contracts, 5 November 2026
+
+Apps 0.8.0/model 0.5.0 shares strict event delivery/filter types, declared
+subscription and privacy projections, clock-injected UTC schedule parsing and
+private webhook declarations. Native consumers reuse these rules; current
+package authority, pinned network egress, signatures, leased processing/replay
+and transactional ticks remain connected. Independent model CI now uses its own
+lockfile and rejects tracked build artifacts.
+[Implementation and acceptance](docs/evidence/app-event-contracts-2026-11-05.md).
+
 ## Shared app settings and schema evolution, 5 November 2026
 
 Apps 0.7.0/model 0.4.0 extracts strict setting declarations, bounded updates and

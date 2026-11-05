@@ -3,29 +3,9 @@ use super::*;
 use axum::body::Bytes;
 use hmac::{Hmac, Mac};
 use sha2::Sha256;
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct AppWebhook {
-    pub id: String,
-    pub action: String,
-}
+pub(crate) use veyndo_app_model::triggers::AppWebhook;
 pub(super) fn validate(m: &Manifest) -> Result<()> {
-    let mut ids = std::collections::HashSet::new();
-    if m.webhooks.len() > 8 {
-        return Err(bad("Maximum eight app webhooks"));
-    }
-    for w in &m.webhooks {
-        if !identifier(&w.id)
-            || !ids.insert(&w.id)
-            || !m
-                .actions
-                .iter()
-                .any(|a| a.name == w.action && a.handler == "emit" && !a.public)
-        {
-            return Err(bad("Webhook requires a private emit action"));
-        }
-    }
-    Ok(())
+    veyndo_app_model::triggers::webhooks(&m.webhooks, &m.actions).map_err(model_contract::error)
 }
 pub(super) fn router() -> Router<App> {
     Router::new().route("/webhooks/apps/{tenant}/{app}/{webhook}", post(receive))

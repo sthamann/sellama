@@ -43,6 +43,15 @@ snapshots, actual record updates and native field/reference/language checks;
 `upgrade_review.rs` retains rollback-only review.
 [Evidence](evidence/app-evolution-settings-2026-11-05.md).
 
+**App events and triggers:** Pinned Apps `model/src/events.rs` owns strict
+filter/delivery types and a mandatory destination port; `subscriptions.rs` owns
+declared subscriptions, own-app binding, projections and projected filtering;
+`triggers.rs` owns schedule/webhook types and clock-injected cron/action validation.
+Native `event_contract.rs`, `event_projection.rs`, `schedules.rs` and `webhooks.rs`
+consume the same code. Network destination admission/pinned egress, installed
+package/current authority, signatures, leased outbox/replay and transactionally
+durable ticks remain native. [Evidence](evidence/app-event-contracts-2026-11-05.md).
+
 **App installation:** Pinned Apps `src/installation.rs` owns tenant/package locks,
 quota, immutable version checks, package/version writes and installation outbox.
 Native `package_install.rs` supplies mandatory compiler/trust, commerce/dependency,

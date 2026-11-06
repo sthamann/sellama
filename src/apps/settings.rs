@@ -1,6 +1,5 @@
 //! Declared app settings reuse the digest-bound encrypted secret owner; secret values never have a browser read path.
 use super::*;
-pub(crate) use veyndo_app_model::settings::Setting;
 pub(super) fn validate(m: &Manifest) -> Result<()> {
     veyndo_app_model::settings::validate(&m.settings).map_err(model_contract::error)
 }

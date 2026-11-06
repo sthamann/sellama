@@ -17,6 +17,17 @@ The trusted storage crate is distinct from no-SQL `veyndo-app-runtime` and its n
 Cargo boundary controls prohibit guest/domain imports of the storage package.
 [Independent and assembled tests](evidence/app-storage-component-2026-11-05.md).
 
+**Complete app package:** Pinned Apps `model/src/manifest.rs` owns the full strict
+Manifest, common projection and recursively ordered canonical fingerprint/signature message. Storage
+`src/packages.rs` delegates fingerprinting to that same owner. Shared
+`distribution.rs`, `presentation.rs` and `payment_provider.rs` own publisher/
+dependency graph, passive artwork and provider declaration grammar. Native
+`src/apps/manifest.rs` aliases the complete shared type; native distribution keeps
+its original current operator Ed25519 verifier, unsigned namespace policy, scoped
+queries/locks and deactivation. Native approval retains reserved/service pins and
+the direct verified predicate; actual payment effects stay in Payments.
+[Evidence](evidence/app-complete-package-component-2026-11-06.md).
+
 **Native app lifecycles:** Pinned Apps `model/src/native_lifecycle_types.rs` owns
 strict declaration/extended-graph/snapshot wire types; `native_lifecycle_compile.rs`
 owns bounded composition, namespace and frozen package policies;
@@ -61,9 +72,8 @@ in `editor_contract.rs`. No database or transport dependency enters the model.
 **App package compiler:** Pinned Apps `model/src/package.rs` and
 `package_actions.rs` own the common package grammar and ordered host-extension
 ports. Native `manifest_validation.rs` supplies the complete original extension
-validators and exact scope/Wasm-kind/reference policies. The strict native decoder
-remains in `manifest.rs`; Action/Entity/Field/Slot wire types come from the shared
-model. This is the compiler used by the existing install/Studio/API/MCP/release
+validators and exact scope/Wasm-kind/reference policies. The complete strict decoder now comes from shared `model/src/manifest.rs`;
+native `manifest.rs` reexports that type and the remaining shared helper types. This is the compiler used by the existing install/Studio/API/MCP/release
 consumers. [Evidence](evidence/app-package-compiler-2026-11-05.md).
 
 **App settings and model evolution:** Pinned Apps `model/src/settings.rs` owns

@@ -1339,6 +1339,11 @@
       "sha256": "2858a819f1e3f69c26f3b95e6612131a179403a2e900c9dfd38021263042089f",
       "review": "Reviewed Apps 0.9.0 exact source fab9d1c18faa43799278355582c6e47f7659a303: original native extension declaration rules, strict IntelligenceContract/Mapping types, tool/entity validation and bounded namespaced current-row graph projection now shared through pure model. Native complete Manifest ordering, current object/PII rights, immutable references, authorized list/extension projection, MCP/agent opt-in and direct verified configuration-release consumer retained. 71 independent model tests, 73 native app units, 34 unchanged bundle digests and 12 affected actual PostgreSQL/API/MCP/AI-generation/private-release/Marketplace fixtures pass. Pure graph and host/SQL remain unproved; kernel unchanged."
     },
+    "extensions/services/app-storage/examples/package_contracts.rs": {
+      "status": "unproved",
+      "sha256": "bea51a888070fc6cc576843113fc637b28efb1a11317b83b117a43cf072b8739",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
+    },
     "extensions/services/app-storage/examples/surface_routes.rs": {
       "status": "unproved",
       "sha256": "1d34af5bef2e1d640fc57fdd950c7a79eec7859f4e5825579bde722f3ebb730b",
@@ -1379,6 +1384,11 @@
       "sha256": "dec95f0d4ad104c2f4688de8a284f8c2c8d62b037ded32e17bd028b31b4bc376",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
     },
+    "extensions/services/app-storage/model/src/distribution.rs": {
+      "status": "unproved",
+      "sha256": "8a6338dd8aab5da16da3c468b6b74d60b9ef48699f7f0305bf0cc430befaa3d5",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
+    },
     "extensions/services/app-storage/model/src/error.rs": {
       "status": "unproved",
       "sha256": "749e10f71c222b18b4190d3debdb3d23f8aa8179e18929390dc5134b3646fe8e",
@@ -1416,13 +1426,18 @@
     },
     "extensions/services/app-storage/model/src/lib.rs": {
       "status": "unproved",
-      "sha256": "a2f6a1f9abc4f2ae3ed9c6652e6d615e2ddc4c20f7ad2315ecc5d7e20e520190",
-      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+      "sha256": "9ed02c48795c37cb824d2122daa7008ccbf79971c75cc656350ff6c7bf908fdc",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "extensions/services/app-storage/model/src/lifecycle.rs": {
       "status": "unproved",
       "sha256": "92a2d8f305c576a6677986c8099977efb9065287fc1515fa13b8ad17b919d961",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+    },
+    "extensions/services/app-storage/model/src/manifest.rs": {
+      "status": "unproved",
+      "sha256": "96a2bf8181b227270d94b5c5fd381b4d0c1434154c2828978dbff0bb972b7627",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "extensions/services/app-storage/model/src/native_lifecycle.rs": {
       "status": "unproved",
@@ -1463,6 +1478,16 @@
       "status": "unproved",
       "sha256": "bae6237d3460d8a203d24cd6f94266418337ba37764933056609b2bf1292d525",
       "review": "Reviewed extraction of original common Manifest grammar, model/index/configuration checks, action schema/privacy/Flow/job/payment/asset restrictions, strict legacy Slot type and event name rules into pinned model 0.3. Native required before/after validators retain original ordering, strict full decoder, complete domain/provider/UI/hook/lifecycle/distribution checks; host policy uses exact native auth scope registry, Sandbox component discriminator and verified reference guard. Independent 34 model tests, actual storage PG contract, native build/clippy/74 app units and app/consent/callback/assets/storage/schema/jobs/Studio/F5/lifecycle/staging/distribution/tenant/surface/visual/Marketplace fixtures pass; 34 canonical package digests unchanged. Removed redundant contract-only native schema wrapper; same pure validator runs directly in schema tests. New generic compiler and adapters remain unproved; kernel policies unchanged."
+    },
+    "extensions/services/app-storage/model/src/payment_provider.rs": {
+      "status": "unproved",
+      "sha256": "c68456dc2b1e94394c6e85038c6d37fb95e5805a0070ad69025a57e32ab274ea",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
+    },
+    "extensions/services/app-storage/model/src/presentation.rs": {
+      "status": "unproved",
+      "sha256": "2a0f6f66285725972e3daa1d754c71555395be4a7b41d2fb219d45e3bbdf0d00",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "extensions/services/app-storage/model/src/publication.rs": {
       "status": "unproved",
@@ -1559,6 +1584,11 @@
       "sha256": "307bdbcc9c96d9191868eed3b76161b3ef8a8f411a8859bab7b6b634677b3492",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
     },
+    "extensions/services/app-storage/model/tests/distribution.rs": {
+      "status": "unproved",
+      "sha256": "bf5ba381507f944f4cfdedab9e0d1f7e51a3e9a0ee67f72f1cd508258e62dc63",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
+    },
     "extensions/services/app-storage/model/tests/event_delivery.rs": {
       "status": "unproved",
       "sha256": "840fa17cce3a4fd4e1858c6c90f58282fa78abe6d8412bffe8301427bf1d8fcd",
@@ -1608,6 +1638,11 @@
       "status": "unproved",
       "sha256": "63a35fb304044b6648e9be63a852852841cb6a335422f5c7d8168eb7894927ea",
       "review": "Reviewed extraction of original common Manifest grammar, model/index/configuration checks, action schema/privacy/Flow/job/payment/asset restrictions, strict legacy Slot type and event name rules into pinned model 0.3. Native required before/after validators retain original ordering, strict full decoder, complete domain/provider/UI/hook/lifecycle/distribution checks; host policy uses exact native auth scope registry, Sandbox component discriminator and verified reference guard. Independent 34 model tests, actual storage PG contract, native build/clippy/74 app units and app/consent/callback/assets/storage/schema/jobs/Studio/F5/lifecycle/staging/distribution/tenant/surface/visual/Marketplace fixtures pass; 34 canonical package digests unchanged. Removed redundant contract-only native schema wrapper; same pure validator runs directly in schema tests. New generic compiler and adapters remain unproved; kernel policies unchanged."
+    },
+    "extensions/services/app-storage/model/tests/package_domains.rs": {
+      "status": "unproved",
+      "sha256": "715609bdc67525d0ac86229e9b0398427455fab3bc40ddb20560374d506dcbe6",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "extensions/services/app-storage/model/tests/settings.rs": {
       "status": "unproved",
@@ -1741,8 +1776,8 @@
     },
     "extensions/services/app-storage/src/packages.rs": {
       "status": "unproved",
-      "sha256": "540c114550d46f73148b8c1998904a527c36801f8ce6f4386a84ed9093cf8c11",
-      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
+      "sha256": "dcf68c2b9c8ebac672947ea98e20391241edbfe2f8bac56bab9c3c55b13c82b4",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "extensions/services/app-storage/src/progress.rs": {
       "status": "unproved",
@@ -2046,8 +2081,8 @@
     },
     "src/apps/approval.rs": {
       "status": "reviewed-binding",
-      "sha256": "58a75c41780b3c10108274308bd13d76f0135f9095b192835a7927cc569ecb88",
-      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
+      "sha256": "76c00e8ff83ad3d93805818e98d4da2b6299b58725b7c7d6e8a9fb8c48031791",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/asset_surfaces.rs": {
       "status": "unproved",
@@ -2056,8 +2091,8 @@
     },
     "src/apps/business_capability/mod.rs": {
       "status": "unproved",
-      "sha256": "31be0c7362afb0d6f49f10a0ed6714adb9749ff2fe51661dcd8ee91f105eb406",
-      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+      "sha256": "2cd5667c42fc540281f70e99b16b747d92cbf5f2f32d666e064abc96631015d0",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/business_capability/tests.rs": {
       "status": "unproved",
@@ -2071,8 +2106,8 @@
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
-      "sha256": "ecdda00bd78a7fed0866771352412e74b615ef8f0637fa2cf3eb893e06b0a485",
-      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+      "sha256": "d178e96fe8d5151065a998e1b3f2a3ab30d20449bde8d739aa772d2152aeb7d1",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/compatibility.rs": {
       "status": "unproved",
@@ -2151,8 +2186,8 @@
     },
     "src/apps/distribution.rs": {
       "status": "unproved",
-      "sha256": "16b9f3dad97a0a6a9aa5b279c4507837cd4a5f889894b11dc914d3098a35e9cf",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "b33dfe480f027eaa382a5dace73007e16f171d53be6230d1fcc9d1570ab2b903",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/editor_contract.rs": {
       "status": "reviewed-binding",
@@ -2171,8 +2206,8 @@
     },
     "src/apps/event_contract.rs": {
       "status": "unproved",
-      "sha256": "40490e80aa49d18a0c242b4d84caf11c6418824c40fedc17ffa11e755b623e0e",
-      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+      "sha256": "4f947c7352c67f14d4744ee1aa978a8d73cf3626b6c9c3c6efe8a2c656799cef",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/event_projection.rs": {
       "status": "unproved",
@@ -2256,23 +2291,23 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "6c74af3ef213777cdfe1791a46013854ed593bdbfc5e1c4c83edffc19920a3b6",
-      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+      "sha256": "f12f75dc84d96cb02e3f62bc63c992d3cd9a40a527c46f241506121d7a7fb3b6",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
-      "sha256": "080f5f4b35b84779366c20f420e42c8b204d4b5d32305da981253628b1ef278e",
-      "review": "Reviewed extraction of original common Manifest grammar, model/index/configuration checks, action schema/privacy/Flow/job/payment/asset restrictions, strict legacy Slot type and event name rules into pinned model 0.3. Native required before/after validators retain original ordering, strict full decoder, complete domain/provider/UI/hook/lifecycle/distribution checks; host policy uses exact native auth scope registry, Sandbox component discriminator and verified reference guard. Independent 34 model tests, actual storage PG contract, native build/clippy/74 app units and app/consent/callback/assets/storage/schema/jobs/Studio/F5/lifecycle/staging/distribution/tenant/surface/visual/Marketplace fixtures pass; 34 canonical package digests unchanged. Removed redundant contract-only native schema wrapper; same pure validator runs directly in schema tests. New generic compiler and adapters remain unproved; kernel policies unchanged."
+      "sha256": "3ea7ebe597bc6aefaf3e39f0d773312bc8e6b6be5f287417bd06ca4b8d356cef",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "26f810718aa84de98cf179db29791ce5e41d0291fa1a33cae7aa592c3364df46",
-      "review": "Reviewed exact native view/control/geometry/UI AST extraction into pinned Apps model 0.8.0; native compiler order, error pointers, canonical digests, canonical field policy and direct verified public-read predicate preserved. Independent compiler negatives, 74 native app unit tests and twelve real PostgreSQL/HTTP composition modules pass. Shared model, host adapters and SQL remain outside extracted proof scope."
+      "sha256": "3b1d4e28fca9ca3acce9d921fe2effdd218b4d52dd8a9ab19a69d76a35b4f587",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/model_contract.rs": {
       "status": "unproved",
-      "sha256": "14df701731f08252dd288980c89c14e9d10c9e9f32b3d8df24fbe2f823d6f142",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "1c83e7f489984761ba075c39885b8b40d24f7f237e986afe773f62832255d12a",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/native_data.rs": {
       "status": "unproved",
@@ -2296,8 +2331,8 @@
     },
     "src/apps/native_lifecycle.rs": {
       "status": "reviewed-binding",
-      "sha256": "29d0a9660e694e38cb4df933d80a1e3a6ffd5b3ec709fd2a0de470a0e652ec36",
-      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+      "sha256": "5e7eafb6628f485c913bfe6e0876217621b45be34bf7ffd4146f522f12b7a80a",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/native_view_tests.rs": {
       "status": "unproved",
@@ -2306,8 +2341,8 @@
     },
     "src/apps/native_views.rs": {
       "status": "reviewed-binding",
-      "sha256": "234cb538dd55baa93e641fdda8a8e868374e780377176bc52aa36846a435c2a0",
-      "review": "Reviewed exact native view/control/geometry/UI AST extraction into pinned Apps model 0.8.0; native compiler order, error pointers, canonical digests, canonical field policy and direct verified public-read predicate preserved. Independent compiler negatives, 74 native app unit tests and twelve real PostgreSQL/HTTP composition modules pass. Shared model, host adapters and SQL remain outside extracted proof scope."
+      "sha256": "9bf98a90ccc6adb7c60b886df0d972e86c9a6f4de3e9bc06c93c764d4639ca90",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/observability.rs": {
       "status": "unproved",
@@ -2346,8 +2381,8 @@
     },
     "src/apps/presentation.rs": {
       "status": "unproved",
-      "sha256": "07d112b154da4d3904316d27bb42c790118cc5d0fb9ed7eb5ab2749fe20ac5a2",
-      "review": "Reviewed optional passive app presentation bounds and legacy digest preservation, main-locale list metadata, configured-locale generation schema, and strict provider compatibility: summaries are required objects within optional presentation while icon/cover accept nullable provider output. 84 Rust tests and real app/developer PostgreSQL suites exercise parsing, unsafe assets, immutable versions and tenant isolation."
+      "sha256": "0d7b324afdc1530ecc2e4b34b562bcd0917f774d959856d5689569a4220a146a",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/record_history.rs": {
       "status": "unproved",
@@ -2426,8 +2461,8 @@
     },
     "src/apps/settings.rs": {
       "status": "reviewed-binding",
-      "sha256": "5b227069f29278b434bf3efed9877c4c0dec5adcc8b59009b4cb78ff39a8b1c7",
-      "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+      "sha256": "95a8c42ba7e765beeedcd03d09c44375986bd14919b51918574313a9111e258c",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/apps/storage.rs": {
       "status": "unproved",
@@ -2491,8 +2526,8 @@
     },
     "src/apps/webhooks.rs": {
       "status": "unproved",
-      "sha256": "7f50ee62e52f3d3528e14621b00db19654bf2369d3b8fdf8db0102a88676739e",
-      "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
+      "sha256": "1e7a16e96107b66c7d93b20d65b49a97f5d12c9220a0e93a481db916b9edabe8",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/assets/app_files.rs": {
       "status": "unproved",
@@ -4266,8 +4301,8 @@
     },
     "src/payments/contract.rs": {
       "status": "unproved",
-      "sha256": "f8d7f3eec2c80a4890f44bdb2752f40ebb7403b636b83d76c8ae769da713942d",
-      "review": "Reviewed typed recipient-only payment reads, customer capability and compound merchant rights, read-only registry/HTTP/MCP routing and order-payload omission. Actual native/private Rust PostgreSQL invoice fixtures, current rights, foreign cart/tenant, pending capture and immutable recipient checks passed. SQL/network adapters remain unproved; no extracted kernel policy changed."
+      "sha256": "1f686b2f52f116ce642a2e68c8f8064a12972742c995296c3bb8a188d2a58a06",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "src/payments/details.rs": {
       "status": "unproved",
@@ -4856,16 +4891,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "46ba07d2c36f997c3289fdb427a0084214e980a75f69bddfaadb00c37cfb9bf7",
-      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+      "sha256": "394816256c3eb2433917fa0bc4e242bb1d829aba5f49c95018be3ae2705654ea",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "Cargo.toml": {
       "sha256": "a217ec927488adc4b5e1430e7cee5e92455edf1018c678096fec13c3466398b5",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "components.lock.json": {
-      "sha256": "a5108af2b2c54ca8367b2316171279b0c3f860a063e2b36de11c508ab10ba690",
-      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+      "sha256": "c2b9a358e35797d9781b1d236a70d96dde6579c7d9db1e4f4ce273742dfb018f",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",
@@ -5016,16 +5051,16 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "19b2903f3604c53db28ba4b84d281308ee1d57370a6b00d360aa170350013db8",
-      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+      "sha256": "ee8ec8b59286d7ae282c06389de5a4b8212abc17c8a02ba7ff405e1451d621a6",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "891a9d010de18a6fe851d27287e8aee94aa869ef780ed548b8feed8280dede4a",
-      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+      "sha256": "47dd7f4a1b902b7eabfd2cdb73981f1c0bbb4c2ed3e4639a88cacec615b8d99b",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
-      "sha256": "698d6f3ac9070154b44179f2cb4f43ac050ef926288a4832f8497de464eeb2aa",
-      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+      "sha256": "fc368a972de7ee3c2337d72b935d43f00ac431d6e6114ed6e43a8aa56cbe7b5c",
+      "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
     },
     "extensions/services/app-storage/tests/schema.sql": {
       "sha256": "ae91a4670e8da43e7401f46453d0f78b3559908b8b2b6458b333c70a59d8ef32",

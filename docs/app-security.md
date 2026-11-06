@@ -30,6 +30,17 @@ returning an outcome does not authorize a write. The existing native cache compi
 outside commerce locks and preserves digest checks inside checkout.
 [Actual extraction and tests](evidence/app-wasm-runtime-component-2026-11-05.md).
 
+## Complete package decoding and publisher authority
+
+Apps model 0.11.0 owns the full strict package wire, original fingerprints and
+signing message. Native Veyndo reuses that same model. Distribution validation
+requires the host's current operator-key verification between metadata and
+individual dependency checks. Native Ed25519, unsigned reserved namespace checks,
+service digest pins and scoped dependency locks retain their authority. Shared
+graph rules reject cycles and upgrades that break active dependants. Artwork URL
+parsing performs no fetch; a provider declaration grants no financial authority.
+[Independent and composed checks](evidence/app-complete-package-component-2026-11-06.md).
+
 ## Shared lifecycle graphs and current authority
 
 Apps model 0.10.0 compiles the original bounded order/quote extension graphs and
@@ -44,7 +55,7 @@ Customer projections expose accepted labels, never graph policies/grants.
 
 ## Operator service configuration
 
-Use the server's serializer rather than an independent JSON hashing implementation:
+Use the shared strict Manifest and `manifest::canonical_digest`, or the native CLI below, for the original canonical package bytes:
 
 ```sh
 cargo run --bin veyndo -- --app-digest extensions/apps/service-example/manifest.json

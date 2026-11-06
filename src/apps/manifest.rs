@@ -1,70 +1,17 @@
 //! Strict package contract; identifiers and limits are checked before logical model registration.
+#[cfg(test)]
 use super::*;
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct Manifest {
-    pub id: String,
-    pub version: String,
-    pub core_api: String,
-    pub runtime: String,
-    pub name: HashMap<String, String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub category: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub distribution: Option<super::distribution::Distribution>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub presentation: Option<super::presentation::Presentation>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub capability: Option<super::business_capability::Contract>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub lifecycles: Vec<super::native_lifecycle::Contract>,
-    pub permissions: Vec<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub configuration: Option<ConfigurationContract>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub settings: Vec<super::settings::Setting>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub commerce_hooks: Option<super::commerce_hooks::Contract>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub payment_provider: Option<crate::payments::ProviderContract>,
-    #[serde(default)]
-    pub entities: Vec<Entity>,
-    #[serde(default)]
-    pub slots: Vec<Slot>,
-    #[serde(default)]
-    pub actions: Vec<Action>,
-    #[serde(default)]
-    pub events: Vec<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub event_filters: Vec<event_contract::EventFilter>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub event_delivery: Option<event_contract::EventDelivery>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub surfaces: Vec<Surface>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub api_routes: Vec<ApiRoute>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub intelligence: Option<IntelligenceContract>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub views: Vec<super::native_views::NativeView>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub schedules: Vec<super::schedules::AppSchedule>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub schema_migrations: Vec<super::schema_changes::Migration>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub webhooks: Vec<super::webhooks::AppWebhook>,
-}
 pub(crate) use veyndo_app_model::Action;
-pub(crate) use veyndo_app_model::Slot;
 pub(crate) use veyndo_app_model::configuration::Contract as ConfigurationContract;
-pub(crate) use veyndo_app_model::intelligence::Contract as IntelligenceContract;
-pub(crate) use veyndo_app_model::surfaces::{ApiRoute, Surface};
+pub(crate) use veyndo_app_model::manifest::Manifest;
+pub(crate) use veyndo_app_model::surfaces::Surface;
 pub(crate) use veyndo_app_model::{Entity, Field};
 pub(crate) fn identifier(s: &str) -> bool {
     veyndo_app_model::declarations::identifier(s)
 }
 #[cfg(test)]
 mod tests {
+    #[cfg(test)]
     use super::*;
     #[test]
     fn identifiers_cannot_inject_sql() {

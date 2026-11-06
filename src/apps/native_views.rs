@@ -1,6 +1,5 @@
 //! Native adapter for shared view contracts; actual grants, runtime execution and current rights remain native.
 use super::*;
-pub(crate) use veyndo_app_model::views::NativeView;
 fn contract(m: &Manifest) -> veyndo_app_model::views::Contract<'_> {
     veyndo_app_model::views::Contract {
         entities: &m.entities,

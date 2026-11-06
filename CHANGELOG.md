@@ -1,5 +1,17 @@
 # Changelog
 
+## Complete portable app package contracts, 6 November 2026
+
+Apps 0.15.0/model 0.11.0 shares the complete strict Manifest, original package
+fingerprint/signing message, passive artwork and payment-provider grammar plus
+publisher/dependency graph rules. Core aliases that exact wire model; native
+operator Ed25519 verification, reserved namespaces/service pins, current identity,
+scoped locks and actual financial effects remain attached. Thirty-four complete
+package fixtures retain their fingerprints; the standalone example checks actual
+Ed25519 with synthetic keys and rejection of tampering/revocation.
+[Implementation and acceptance](docs/evidence/app-complete-package-component-2026-11-06.md).
+
+
 ## Shared native app lifecycle compiler, 6 November 2026
 
 Apps 0.14.0/model 0.10.0 shares exact native order/quote graph and accepted snapshot

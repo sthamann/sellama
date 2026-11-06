@@ -2,10 +2,12 @@
 #[cfg(test)]
 use super::*;
 pub(crate) use veyndo_app_model::Action;
+pub(crate) use veyndo_app_model::Entity;
+#[cfg(test)]
+pub(crate) use veyndo_app_model::Field;
 pub(crate) use veyndo_app_model::configuration::Contract as ConfigurationContract;
 pub(crate) use veyndo_app_model::manifest::Manifest;
 pub(crate) use veyndo_app_model::surfaces::Surface;
-pub(crate) use veyndo_app_model::{Entity, Field};
 pub(crate) fn identifier(s: &str) -> bool {
     veyndo_app_model::declarations::identifier(s)
 }

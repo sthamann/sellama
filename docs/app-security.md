@@ -333,3 +333,18 @@ checks active dependants after connected frontend admission. Revision CAS remain
 last, preserving original first-error semantics. Any host, dependency, CAS or SQL
 failure requires rollback. The operation deletes no app data and emits no new
 state event. [Regression boundary](evidence/app-activation-component-2026-11-06.md).
+
+## Shared schema migration authority
+
+`schema_upgrade::Validation` is required for every converted record on the original
+installation transaction. Native Veyndo calls `data::fields` and
+`native_data::validate_languages`, in that order, then checks revision exhaustion.
+Complete installation retains current actor, package compiler, consent, publisher
+trust, actual references/projections and tenant/package fences. Any migration,
+validation, snapshot or later installation error requires caller rollback.
+Recovery snapshots include old declared fields only and remain tenant/app scoped;
+there is no public raw-history endpoint or implicit historical restore writer.
+Independent fixtures exercise conversion/policy/late-hook denial, actual byte/row
+budgets, collision and overflow. Native API fixtures additionally exercise disabled
+languages and exhausted revisions without package/record/history/outbox changes.
+[Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).

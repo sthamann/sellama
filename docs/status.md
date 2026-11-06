@@ -67,6 +67,18 @@ native/Storyfront purchase/return/cart/refund acceptance. It is not yet a releas
 standalone service. [Checkout boundary](checkout-component.md) and
 [implementation tasks](commerce-components.md#checkout-independent-service-and-ui).
 
+## Independent schema conversion and recovery, 6 November 2026
+
+Apps [0.23.0](https://github.com/veyndo/apps/releases/tag/v0.23.0) now shares explicit
+field migration, old-manifest/record recovery snapshots, model/record updates and
+the existing schema event. Required host validation calls the native typed-field
+and current content-language checks on the same installation transaction. Original
+2,000-row, 4 MB snapshot and 16 MB retention bounds remain, with no silent pruning.
+Exhausted record revisions now return a conflict without partial effects. The
+complete installer keeps identity/trust/consent/reference admission and commit;
+there is no new production schema or automatic historical rewind.
+[Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).
+
 ## Independent package state changes, 6 November 2026
 
 Apps [0.22.0](https://github.com/veyndo/apps/releases/tag/v0.22.0) now shares the

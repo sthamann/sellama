@@ -88,9 +88,13 @@ Never duplicate validators or introduce permissive policy defaults.
 Shared settings declarations, partial updates and secret-safe projections belong
 to model/settings; schema change types, compatibility/shape planning and exact
 conversion belong to model/evolution. Native settings routes retain personal live
-administrator/digest/CAS checks and encrypted secret writes. Native schema_upgrade
-and upgrade_review retain selected version paths, scoped locks, bounded recovery,
-actual field/reference/language validation and all-or-nothing record/package/events.
+administrator/digest/CAS checks and encrypted secret writes. Shared storage schema_upgrade owns selected path conversion, declared-field
+recovery capture, original byte/row quotas and model/record/event writes. Required
+native Validation calls actual typed fields and enabled languages on the original
+installation transaction before checked revision increment. Complete native
+installation retains tenant/package fences and final reference/projection checks;
+upgrade_review attempts it, checks deferred constraints and rolls back. Never
+commit a schema upgrade separately or treat snapshots as automatic schema rewind.
 Do not treat a pure plan or encoded settings result as storage/authority approval.
 
 Shared event subscription/privacy/filter/delivery declarations and cron/webhook

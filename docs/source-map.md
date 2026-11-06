@@ -151,9 +151,13 @@ consumers. [Evidence](evidence/app-package-compiler-2026-11-05.md).
 setting declarations, bounded value preparation and secret-safe projections;
 `model/src/evolution.rs` owns explicit migration types, model compatibility and
 exact conversion. Native `settings.rs`, `schema_changes.rs` and `core_extensions.rs`
-adapt these same rules. `schema_upgrade.rs` retains scoped transactions, recovery
-snapshots, actual record updates and native field/reference/language checks;
-`upgrade_review.rs` retains rollback-only review.
+adapt these same rules. Pinned storage `src/schema_upgrade.rs` now owns actual
+conversion, old declared-field projection, bounded recovery snapshots, model/record
+updates and schema outbox. Native `src/apps/schema_upgrade.rs` supplies required
+field/content-language validation on the original transaction. The complete
+installer retains tenant/package fences and final reference/projection admission;
+`upgrade_review.rs` retains actual installation, deferred constraint checking and
+rollback-only review. [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).
 [Evidence](evidence/app-evolution-settings-2026-11-05.md).
 
 **App events and triggers:** Pinned Apps `model/src/events.rs` owns strict

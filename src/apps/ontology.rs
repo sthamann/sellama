@@ -10,6 +10,7 @@ fn context(m: &Manifest) -> veyndo_app_model::intelligence::Context<'_> {
         intelligence: m.intelligence.as_ref(),
     }
 }
+#[cfg(test)]
 pub(super) fn validate(m: &Manifest) -> Result<()> {
     veyndo_app_model::ontology::validate(&context(m)).map_err(model_contract::error)
 }

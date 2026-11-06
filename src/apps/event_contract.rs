@@ -1,12 +1,5 @@
 //! Explicit event filters, bounded batches and signed public HTTPS delivery extend the existing leased outbox, not a second queue.
 use super::*;
-struct Destination;
-impl veyndo_app_model::events::DestinationPolicy for Destination {
-    type Error = Error;
-    fn validate_destination(&self, url: &str) -> Result<()> {
-        destination(url).map(|_| ())
-    }
-}
 pub(super) fn destination(url: &str) -> Result<reqwest::Url> {
     let u = reqwest::Url::parse(url).map_err(|_| bad("Invalid event destination URL"))?;
     if u.scheme() != "https"
@@ -26,17 +19,6 @@ pub(super) fn destination(url: &str) -> Result<reqwest::Url> {
         return Err(bad("Private event destinations are prohibited"));
     }
     Ok(u)
-}
-pub(super) fn validate(m: &Manifest) -> Result<()> {
-    veyndo_app_model::events::validate(
-        &event_projection::context(m),
-        m.event_delivery.as_ref(),
-        &Destination,
-    )
-    .map_err(|e| match e {
-        veyndo_app_model::package::CompileError::Host(e) => e,
-        veyndo_app_model::package::CompileError::Model(e) => model_contract::error(e),
-    })
 }
 pub(super) fn batch_size(m: &Manifest) -> i64 {
     m.event_delivery

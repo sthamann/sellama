@@ -51,6 +51,18 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Complete independent standard app compiler, 6 November 2026
+
+Apps [0.16.0](https://github.com/veyndo/apps/releases/tag/v0.16.0), model 0.12.0,
+now runs all 19 standard package validation stages in the original native order.
+Core calls that same complete compiler and supplies required native policies for
+fields, references, currencies, scopes, Wasm kind, native base, publisher trust,
+namespace/network/read admission and UTC time. Standard domains cannot be omitted
+through host before/after callbacks. The independent example compiles all 34
+native packages; invalid metadata in every stage and denied policies are rejected.
+APP-01 is complete; standalone identity/schema/API/MCP hosting remains tracked.
+[Acceptance and exact scope](evidence/app-complete-compiler-component-2026-11-06.md).
+
 ## Complete portable app package contracts, 6 November 2026
 
 Apps [0.15.0](https://github.com/veyndo/apps/releases/tag/v0.15.0), model 0.11.0,

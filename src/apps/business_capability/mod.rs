@@ -4,6 +4,7 @@ use super::*;
 use veyndo_app_model::business_snapshot as snapshot;
 #[cfg(test)]
 mod tests;
+#[cfg(test)]
 pub(super) fn validate(m: &Manifest) -> Result<()> {
     veyndo_app_model::business_capability::validate(
         &veyndo_app_model::business_capability::Context {

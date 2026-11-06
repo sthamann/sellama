@@ -1,9 +1,12 @@
 //! Namespaced core-object extension contracts; native records, rights and app storage keep their owners.
-use super::{Entity, Manifest, model_contract};
+#[cfg(test)]
+use super::Manifest;
+use super::{Entity, model_contract};
 use crate::{RequestContext, Result, auth};
 
 pub(crate) use veyndo_app_model::Object;
 
+#[cfg(test)]
 pub(super) fn validate(m: &Manifest) -> Result<()> {
     veyndo_app_model::object_extensions::validate(&m.entities, &m.actions, &m.permissions)
         .map_err(model_contract::error)

@@ -24,6 +24,17 @@ Prepare/probe bounded modules
 before commerce transactions; WIT hooks consume bounded read-only snapshots and
 use the existing native money/tax calculation owner.
 
+The complete standard package sequence belongs to model/compiler. Native
+manifest_validation calls that one entry point and maps original errors;
+manifest_policy implements every required decision through its existing native
+owner. Do not recreate whole-domain before/after host callbacks or a second
+standard compiler. Preserve all 19 stages, first-error order and the exhaustive
+Manifest field pattern. Native verified reference/read predicates, current keys,
+locale/currency/content/source rules and destination policies stay authoritative.
+Identity, consent, source preparation, references and transactional effects remain
+outside pure package compilation. Domain-only helpers are for their actual
+runtime consumers or isolated tests, never an incomplete install path.
+
 The full strict Manifest, common projection and canonical fingerprint/signing
 message belong to model/manifest. Native Manifest is an alias, not a second wire
 schema. Storage package fingerprints delegate to that same implementation.
@@ -99,11 +110,11 @@ current surface admission; actual rendering/interpreting, actor/context/digest
 grants, gateway effects, reference ownership and release keep their native owners.
 Never treat validated UI code or a projected payload as execution authority.
 
-The shared `package::compile` grammar requires native before/after domain extension
-validators and scope/Wasm-kind/reference policies. Preserve their complete original
-order and typed Manifest projection in `manifest_validation.rs`; never approve
+The lower-level `package::compile` grammar remains compatible for independent
+consumers, but native package admission must use the complete shared compiler.
+Preserve its original order and required policies in `manifest_policy.rs`; never approve
 provider or extension metadata from a projection presence flag. The complete strict
-decoder is shared; final identity, trust and native domain-policy composition remain
+decoder and complete domain sequence are shared; final identity and trust remain
 with their original owners. Do not add a parallel common grammar or default
 acceptors for domains a host has not implemented.
 Shared action/current-scope and callback grant planning now live in the component

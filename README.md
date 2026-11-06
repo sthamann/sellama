@@ -73,7 +73,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 
 | Area | Start here |
 | --- | --- |
-| AI Commerce Components | [Tasks and acceptance](docs/commerce-components.md) · [SDK and host API](https://github.com/veyndo/sdk) · [Marketplaces](https://github.com/veyndo/marketplaces) · [App packages](https://github.com/veyndo/apps) |
+| AI Commerce Components | [Tasks and acceptance](docs/commerce-components.md) · [SDK and host API](https://github.com/veyndo/sdk) · [Marketplaces](https://github.com/veyndo/marketplaces) · [App compiler](https://github.com/veyndo/apps) |
 | AI shopping channels and inward shop imports | [Cart transfer, consent and Shopify/supplier intake](docs/agentic-commerce.md) |
 | Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |

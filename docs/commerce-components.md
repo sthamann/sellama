@@ -1,7 +1,7 @@
 # AI Commerce Components: implementation plan
 
 This is the authoritative task list for extracting independently usable Veyndo
-components. Updated 5 November 2026. Checked tasks name observed evidence;
+components. Updated 6 November 2026. Checked tasks name observed evidence;
 repository transfer, local tests, remote CI and hosted acceptance are separate.
 The full component extraction is in progress, not released.
 
@@ -213,8 +213,12 @@ owners require an explicit reservation/compensation design and corresponding tes
 
 ## APPS and CANVAS
 
-- [ ] APP-01 Split manifest/schema validation and Wasm execution into distributable
-  packages preserving resource limits and reviewed component digests.
+- [x] APP-01 Split manifest/schema validation and Wasm execution into distributable
+  packages preserving resource limits and reviewed component digests. Apps 0.16.0
+  supplies the complete ordered model 0.12.0 compiler; runtime 0.2.0 supplies the
+  existing bounded executor. Native Core consumes exact pinned source with required
+  host policies. [Compiler acceptance](evidence/app-complete-compiler-component-2026-11-06.md). Independent identity/service
+  hosting and full standalone operation remain APP-02..05/MKT-03b/c work.
 - [ ] APP-02 Extract app data/settings/jobs/version contracts and fixed shared
   storage; never create per-app/per-model/per-tenant tables or indexes.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
@@ -298,8 +302,10 @@ owners require an explicit reservation/compensation design and corresponding tes
     Apps 0.15.0 shares the complete strict Manifest wire, common projection,
     canonical fingerprint/signing message, passive artwork/payment declarations
     and publisher/dependency graph grammar with mandatory native signature trust.
-    Authentication, final domain-policy composition, standalone service/schema
-    and API/MCP hosting remain open.
+    Apps 0.16.0 shares the complete ordered standard compiler. Required native
+    policies retain their original owners and errors; no standard domain stage is
+    supplied as an optional before/after host callback.
+    Authentication, standalone service/schema and API/MCP hosting remain open.
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
     - [x] Independent model compiler and required current-authority ports.
     - [x] Atomic installation, immutable versions, quota and original package locks;
@@ -341,7 +347,12 @@ owners require an explicit reservation/compensation design and corresponding tes
       message; passive artwork/provider grammar and bounded publisher/dependency
       graph checks, retaining current operator trust and native financial effects.
       [Complete package evidence](evidence/app-complete-package-component-2026-11-06.md).
-    - [ ] Complete domain-policy composition, identity and remaining lifecycle hosting.
+    - [x] Complete ordered standard domain compiler with mandatory field/reference,
+      currency/scope/source/native-base, signature/namespace/destination/read-effect
+      and clock ports; all 19 stages and first-error semantics tested independently
+      and reused by native installation/Studio/API/MCP/release consumers.
+      [Complete compiler evidence](evidence/app-complete-compiler-component-2026-11-06.md).
+    - [ ] Identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
     [Admission and package fence evidence](evidence/app-admission-component-2026-11-05.md).
@@ -410,6 +421,12 @@ owners require an explicit reservation/compensation design and corresponding tes
 
 ### Shared app business contracts, 6 November 2026
 
+- Apps 0.16.0/model 0.12.0 composes all 19 standard domain stages in the original
+  native order with required trusted-host policy decisions. The full compiler,
+  including actual native view lookup, is now independent; an exhaustive Manifest
+  pattern requires review when new package fields are added. Native identity,
+  source preparation, transactions and current authority retain their owners.
+  [Complete compiler extraction](evidence/app-complete-compiler-component-2026-11-06.md).
 - Apps 0.15.0/model 0.11.0 shares the complete strict native package wire,
   common compiler projection, original fingerprint/signing message and remaining
   artwork/provider/publisher/dependency grammar. Native operator trust, current

@@ -14,6 +14,7 @@ impl veyndo_app_model::configuration::Policy for field_values::Policy {
         currencies::scale(code).is_some()
     }
 }
+#[cfg(test)]
 pub(super) fn validate(m: &Manifest) -> Result<()> {
     veyndo_app_model::configuration::validate(
         &veyndo_app_model::configuration::Context {

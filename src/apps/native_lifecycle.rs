@@ -10,6 +10,7 @@ pub(crate) use storage::{
 pub(crate) use veyndo_app_model::native_lifecycle::Snapshot;
 #[cfg(test)]
 use veyndo_app_model::native_lifecycle::fact_value;
+#[cfg(test)]
 pub(super) fn validate(m: &Manifest) -> Result<()> {
     let digest = approval::canonical_digest(m);
     veyndo_app_model::native_lifecycle::validate(

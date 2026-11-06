@@ -93,11 +93,13 @@ pub(crate) use planning_contracts::contracts as planning_contracts;
 mod runtime;
 pub(crate) use planning::*;
 mod manifest;
+mod manifest_policy;
 mod manifest_validation;
 mod native_data;
 #[cfg(test)]
 mod native_view_tests;
 mod native_views;
+#[cfg(test)]
 mod presentation;
 #[path = "../../extensions/apps/site-builder/server.rs"]
 pub(crate) mod site_builder;

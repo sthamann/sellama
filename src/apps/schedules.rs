@@ -4,10 +4,6 @@ pub(crate) use veyndo_app_model::triggers::AppSchedule;
 fn parse(expression: &str) -> Result<cron::Schedule> {
     veyndo_app_model::triggers::parse(expression).map_err(model_contract::error)
 }
-pub(super) fn validate(m: &Manifest) -> Result<()> {
-    veyndo_app_model::triggers::schedules(&m.schedules, &m.actions, chrono::Utc::now())
-        .map_err(model_contract::error)
-}
 pub(super) async fn sync(
     tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,
     t: &str,

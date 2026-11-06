@@ -5536,11 +5536,11 @@
     },
     "frontend/package-lock.json": {
       "sha256": "be20de1d8910b3b6dd68e1a80d0562645038f0b0870d784ef0e31788a7cf372a",
-      "review": "Pin reviewed SDK 0.3.0 source f18c9bc74695ec1485478f75057f437aefb5ad36 for the shared layout registry; native domain/PII/criteria admission remains before local OpenUI binding. Eighteen SDK wire/host tests, ten affected frontend tests, TypeScript, localization and production frontend build pass."
+      "review": "Pin reviewed SDK 0.3.0 source f18c9bc74695ec1485478f75057f437aefb5ad36; original domain, PII and intake gates precede common layout admission. SDK transport/host/composition tests, native workspace/copilot/role tests, TypeScript, localization and frontend production build pass."
     },
     "frontend/package.json": {
-      "sha256": "64102b57ef335bc118cfcfb54af38b010d163940ac11c31abd86160068571ecd",
-      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
+      "sha256": "fdea746444f1a113a8f6a4bb00697ff6bd36c381bd01eb1e1ee54b443e3bf105",
+      "review": "Pin reviewed SDK 0.3.0 source f18c9bc74695ec1485478f75057f437aefb5ad36; original domain, PII and intake gates precede common layout admission. SDK transport/host/composition tests, native workspace/copilot/role tests, TypeScript, localization and frontend production build pass."
     },
     "frontend/scripts/precompress.mjs": {
       "sha256": "dbe91d7985386628933dfb734bd5555ba4e8b97502d1f644b26488434cfc195c",

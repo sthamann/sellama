@@ -51,6 +51,35 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Agentic service UI and independent checkout direction, 6 November 2026
+
+The cross-component design now explicitly requires standalone service UI,
+embeddable exports and agent-generated workspaces from the same definitions and
+admitted operations. Source checks identify missing output/semantic contracts,
+cross-service host navigation and common composition/generation. OpenUI, A2UI and
+MCP Apps are planned adapters to one definition, not delivered parallel runtimes.
+[Checked direction and component matrix](agentic-component-ui.md).
+
+Checkout is an explicit independent Rust service/API/MCP/SDK/UI target in
+`veyndo/checkout`. Its extraction preserves one authoritative stock/order/outbox
+commit owner, current pricing/payment/approval boundaries and both standalone and
+native/Storyfront purchase/return/cart/refund acceptance. It is not yet a released
+standalone service. [Checkout boundary](checkout-component.md) and
+[implementation tasks](commerce-components.md#checkout-independent-service-and-ui).
+
+## Independent App Studio versions, 6 November 2026
+
+Apps [0.19.0](https://github.com/veyndo/apps/releases/tag/v0.19.0) now owns immutable
+development snapshots and original serialized-byte digests, bounded active/archive
+history, recoverable archival and the actual row-locked private-stage sequence.
+Core retains environment ownership, current developer/actor rights, package/source/
+language validation, explicit approval and the actual installer. Failed admission,
+installation or build-state write rolls back the entire caller transaction.
+Installed packages/data remain separate from recoverable Studio projects.
+Actor-private mutable drafts, remaining lifecycle orchestration and standalone
+production identity/schema/API/MCP remain open.
+[Acceptance and exact scope](evidence/app-studio-versions-component-2026-11-06.md).
+
 ## Independent encrypted app configuration, 6 November 2026
 
 Apps [0.18.0](https://github.com/veyndo/apps/releases/tag/v0.18.0) now owns encrypted

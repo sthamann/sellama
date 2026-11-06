@@ -104,15 +104,29 @@ pub(super) async fn save(
     }
     apps::verify_package(&m).await?;
     let manifest = json!(m);
-    let digest = hash(&manifest.to_string());
     let id = uid();
     let retained = design_context::stored(prompt, evidence);
-    let n=sqlx::query("INSERT INTO developer_builds(id,tenant,environment,app,version,digest,manifest,prompt,provider,model,summary) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) ON CONFLICT(tenant,app,version) DO NOTHING").bind(&id).bind(t).bind(stage).bind(&m.id).bind(&m.version).bind(&digest).bind(&manifest).bind(retained).bind(provider).bind(model).bind(&v["summary"]).execute(&a.db).await?.rows_affected();
-    if n != 1 {
-        return Err(conflict(
-            "Development version already exists; use a new version",
-        ));
-    }
+    let mut tx = a.db.begin().await?;
+    let digest = veyndo_app_storage::build_versions::save(
+        &mut tx,
+        &veyndo_app_storage::build_versions::Build {
+            scope: veyndo_app_storage::Scope {
+                tenant: t,
+                app: &m.id,
+            },
+            id: &id,
+            environment: stage,
+            version: &m.version,
+            manifest: &manifest,
+            prompt: &retained,
+            provider,
+            model,
+            summary: &v["summary"],
+        },
+    )
+    .await
+    .map_err(version_storage::error)?;
+    tx.commit().await?;
     Ok(
         json!({"id":id,"app":m.id,"version":m.version,"digest":digest,"manifest":manifest,"summary":v["summary"],"state":"draft","environment":stage,"designEvidence":evidence}),
     )
@@ -120,6 +134,18 @@ pub(super) async fn save(
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn development_digest_preserves_native_serialized_bytes() {
+        let m: apps::Manifest = serde_json::from_str(include_str!(
+            "../../extensions/apps/product-advisor/manifest.json"
+        ))
+        .unwrap();
+        let value = json!(m);
+        assert_eq!(
+            veyndo_app_storage::build_versions::digest(&value),
+            hash(&value.to_string())
+        );
+    }
     #[test]
     fn developer_rejects_reserved_apps() {
         let m: apps::Manifest = serde_json::from_str(include_str!(

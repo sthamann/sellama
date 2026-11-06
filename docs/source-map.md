@@ -17,6 +17,23 @@ The trusted storage crate is distinct from no-SQL `veyndo-app-runtime` and its n
 Cargo boundary controls prohibit guest/domain imports of the storage package.
 [Independent and assembled tests](evidence/app-storage-component-2026-11-05.md).
 
+**Cross-service UI direction:** [Agentic UI source observations, common host ports,
+component coverage and protocol adapters](agentic-component-ui.md) builds on the
+existing operation registry and strict Surface/NativeView/AST/guest SDK owners.
+The [independent checkout target](checkout-component.md) keeps transactional commit
+and payment authority explicit. These are implementation designs; no new shared
+UI runtime or standalone Checkout service is claimed.
+
+**App Studio versions:** Pinned Apps `src/build_versions.rs` owns immutable
+snapshot persistence and original digest, bounded active/archive queries,
+recoverable archive/restore and row-fenced staging. Native `src/developer/builds.rs`
+retains full validation and minimized design-context retention; `routes.rs` and
+`archive.rs` keep current authority/approval and response projection.
+`version_storage.rs` implements required owned-environment/compiler/actor/real
+installer admission on the original privileged transaction. Mutable actor-private
+drafts and final selective live release keep their native owners.
+[Evidence](evidence/app-studio-versions-component-2026-11-06.md).
+
 **Encrypted app configuration:** Pinned Apps `src/secrets.rs` owns metadata-only
 reads, digest-bound internal resolution and encrypted rotation with original
 binding/lock/CAS/package/outbox order and required host crypto. Native

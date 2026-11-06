@@ -488,3 +488,13 @@ key store. Metadata-only listing, package-bound resolution, original rotation/CA
 and webhook read fences reuse existing fixed tables and transactions. Current
 administrator/consent/sandbox admission and browser-safe settings projection remain
 native. Revision exhaustion rejects safely. [Boundary and executable example](evidence/app-encrypted-configuration-component-2026-11-06.md).
+
+## Independent immutable Studio versions
+
+Apps 0.19.0 shares immutable development snapshots, original digest bytes, bounded
+active/archive history, recovery and row-fenced private staging. Required native
+admission checks environment ownership, typed package/compiler, current actor
+rights and the actual installation path on the original transaction. Archive and
+restore preserve installed packages/data and immutable version identities. Mutable
+actor-private autosaves and selective live publication remain native.
+[Runnable example and accepted scope](evidence/app-studio-versions-component-2026-11-06.md).

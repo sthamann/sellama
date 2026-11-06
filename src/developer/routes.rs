@@ -51,8 +51,10 @@ pub(crate) async fn list(State(a): State<App>, h: RequestContext) -> Result<Json
     auth::permit(&h, "developer.read")?;
     let t = staging::live(&a, &h).await?;
     let (settings, _) = commerce::config(&a, &t).await?;
-    let rows=sqlx::query("SELECT id,environment,app,version,digest,manifest,prompt,summary,state,provider,model,created_at FROM developer_builds WHERE tenant=$1 AND archived=false ORDER BY created_at DESC LIMIT 100").bind(&t).fetch_all(&a.db).await?;
-    let trash=sqlx::query("SELECT id,environment,app,version,digest,manifest,prompt,summary,state,provider,model,created_at FROM developer_builds WHERE tenant=$1 AND archived=true ORDER BY archived_at DESC,created_at DESC LIMIT 100").bind(&t).fetch_all(&a.db).await?;
+    let mut tx = a.db.begin().await?;
+    let rows = veyndo_app_storage::build_versions::list(&mut tx, &t, false).await?;
+    let trash = veyndo_app_storage::build_versions::list(&mut tx, &t, true).await?;
+    tx.commit().await?;
     Ok(Json(
         json!({"builds":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"environment":r.get::<String,_>("environment"),"app":r.get::<String,_>("app"),"version":r.get::<String,_>("version"),"digest":r.get::<String,_>("digest"),"manifest":r.get::<Value,_>("manifest"),"summary":r.get::<Value,_>("summary"),"state":r.get::<String,_>("state"),"provider":r.get::<String,_>("provider"),"model":r.get::<Option<String>,_>("model"),"designEvidence":design_context::restored(&r.get::<String,_>("prompt"))})).collect::<Vec<_>>(),"archivedBuilds":trash.iter().map(|r|json!({"id":r.get::<String,_>("id"),"environment":r.get::<String,_>("environment"),"app":r.get::<String,_>("app"),"version":r.get::<String,_>("version"),"digest":r.get::<String,_>("digest"),"manifest":r.get::<Value,_>("manifest"),"summary":r.get::<Value,_>("summary"),"state":r.get::<String,_>("state"),"provider":r.get::<String,_>("provider"),"model":r.get::<Option<String>,_>("model"),"designEvidence":design_context::restored(&r.get::<String,_>("prompt"))})).collect::<Vec<_>>(),"mainLocale":settings.main_locale,"locales":settings.locales,"providers":a.inference.public_providers().await.map_err(bad)?,"codingAgents":[{"id":"codex","transport":"mcp + task export"},{"id":"claude_code","transport":"mcp + task export"}],"runtime":"declarative native data/API/UI; arbitrary service code requires an external build"}),
     ))
@@ -118,21 +120,18 @@ pub(crate) async fn stage(
         return Err(bad("Approve the reviewed build first"));
     }
     let mut tx = a.db.begin_privileged().await?;
-    let row=sqlx::query("SELECT environment,manifest,digest FROM developer_builds WHERE tenant=$1 AND id=$2 AND archived=false FOR UPDATE").bind(&t).bind(&id).fetch_optional(&mut *tx).await?.ok_or(Error(StatusCode::NOT_FOUND,"Build unavailable".into()))?;
-    if v["digest"] != row.get::<String, _>("digest") {
-        return Err(conflict("Build digest changed"));
-    }
-    let env: String = row.get("environment");
-    staging::owned_on(&mut *tx, &t, &env).await?;
-    let m: apps::Manifest =
-        serde_json::from_value(row.get("manifest")).map_err(|_| bad("Invalid app"))?;
-    builds::validate(&m)?;
-    apps::actor_permissions(&h, &m)?;
-    let result = apps::install_tx(&mut tx, &env, m).await?;
-    sqlx::query("UPDATE developer_builds SET state='staged' WHERE id=$1")
-        .bind(id)
-        .execute(&mut *tx)
-        .await?;
+    let result = veyndo_app_storage::build_versions::stage(
+        &mut tx,
+        &t,
+        &id,
+        &v["digest"],
+        &version_storage::Admission {
+            live: &t,
+            actor: &h,
+        },
+    )
+    .await
+    .map_err(version_storage::stage_error)?;
     tx.commit().await?;
     Ok(Json(result))
 }

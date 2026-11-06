@@ -1,5 +1,25 @@
 # Changelog
 
+## Agentic service UI and checkout architecture, 6 November 2026
+
+Recorded the checked operation/view/SDK foundations and missing output semantics,
+cross-service UI host and common generation contracts. Added a component-wide UI
+coverage matrix, standalone/embedded/agent-host delivery and planned OpenUI/A2UI/
+MCP Apps adapters. Checkout is an explicit independent Rust service/API/MCP/SDK/UI
+target with one transactional commerce commit owner and full standalone/native/
+Storyfront return/cart/refund acceptance. These are designs and open implementation
+tasks. [UI direction](docs/agentic-component-ui.md), [Checkout](docs/checkout-component.md).
+
+## App Studio version component, 6 November 2026
+
+Apps 0.19.0 owns immutable development snapshots and original serialized-byte
+digests, bounded active/archive history, recoverable project archival and the
+actual row-locked private-stage workflow. Required native environment/compiler/
+current-actor/installer admission retains the original transaction and authority.
+Installed packages/data remain independent of Studio archival; failures roll back
+install and stage state together. Independent PostgreSQL cases cover concurrency,
+immutable archived versions and admission/install/state failures. [Evidence](docs/evidence/app-studio-versions-component-2026-11-06.md).
+
 ## Encrypted app configuration component, 6 November 2026
 
 Apps 0.18.0 owns existing encrypted settings/transport metadata, internal resolution

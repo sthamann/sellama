@@ -1341,18 +1341,18 @@
     },
     "extensions/services/app-storage/data-service/src/config.rs": {
       "status": "unproved",
-      "sha256": "efcf48f8476866f0697056f99779d96523d2b60fd0c3585eee21ab4d66e68930",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "342d8853f4c334cb47cc053802957d879827bc9dfb95f3ed658719f26223a9f4",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "extensions/services/app-storage/data-service/src/contract.rs": {
       "status": "unproved",
-      "sha256": "1d1de0c2f1ca9b8a09bf7cd70fe8ed6c39d2cc742da4cfe103edf5c28024dbde",
-      "review": "Apps Data reader 0.1.1 and storage 0.25.0: current OAuth, signed SELECT-only schema, same native scope and page/projection owners; independent and Linux container acceptance plus seven native signed-scope flows pass. Explicit JSON nulls now reject under the advertised DTO; native authority and all pure Lean policies unchanged, network/SQL remain tested unproved adapters."
+      "sha256": "9cc3a5208b65284056c8b46699ab04fe2ceb455ce0af1c06c63d383b448ce845",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "extensions/services/app-storage/data-service/src/database.rs": {
       "status": "unproved",
-      "sha256": "5a6e2a320147d02ff5f3c79a780f6cbe5d56c9aef4ee532b0accea23e5d8c501",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "7dc5a27c02807393e856dc751c83a89bf0299bab2ccda01b597dfa7ffd7cbed7",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "extensions/services/app-storage/data-service/src/error.rs": {
       "status": "unproved",
@@ -1361,13 +1361,13 @@
     },
     "extensions/services/app-storage/data-service/src/identity.rs": {
       "status": "unproved",
-      "sha256": "05df5109b8514e1fc1a1c052f878bd2c48d2207215cfd95e739c342f8cac95de",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "6831b488af9dc5249fb2dc2439ac2982567a1165fddf975aaed0c8699c2964a8",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "extensions/services/app-storage/data-service/src/lib.rs": {
       "status": "unproved",
-      "sha256": "07d5877715a7413c6da64424cfaa47eec1b50103c3aafb72da810f2c2accb8e3",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "0d6c53fb98d085312a204ba72c068d6533d226f46a34f379b03899723cca1d08",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "extensions/services/app-storage/data-service/src/main.rs": {
       "status": "unproved",
@@ -1376,13 +1376,33 @@
     },
     "extensions/services/app-storage/data-service/src/mcp.rs": {
       "status": "unproved",
-      "sha256": "460d04bef9f55977277ed3e1754fe7d369f1ff67b4020a31626adb3f55f4135b",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "a2baec091e0cbfea358a7701db4098e0630efbb2f1d7aa126a2768371387f868",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
+    },
+    "extensions/services/app-storage/data-service/src/portable.rs": {
+      "status": "unproved",
+      "sha256": "692618597cd6b88ea97286742bcdc5c6cb51459e9d6806c3dc1cfb85f38e39c4",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "extensions/services/app-storage/data-service/src/reader.rs": {
       "status": "unproved",
-      "sha256": "dce15b14baccf3416d15f62f0272eca494a13d3189532fcdd3c5b3987aeba1e9",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "a907137eadf81e80dfb1bee64c64adc9e18f5575ebeda145272bbbce62ed9bfa",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
+    },
+    "extensions/services/app-storage/data-service/src/write_contract.rs": {
+      "status": "unproved",
+      "sha256": "e9b3d21c7e64f88cd1bfcb61d243ae4e9bbf4dff409b09656d8d3da3e3e9cac3",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
+    },
+    "extensions/services/app-storage/data-service/src/write_role.rs": {
+      "status": "unproved",
+      "sha256": "a9bd27ef36464da8c23647eac2a784bb4eacad7784596da00b7a26df2286ab49",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
+    },
+    "extensions/services/app-storage/data-service/src/writer.rs": {
+      "status": "unproved",
+      "sha256": "cfd9d8a6752456d52d3a94cb5ee8ddf3e375df284cced9e761aec92bc474060c",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "extensions/services/app-storage/examples/build_versions.rs": {
       "status": "unproved",
@@ -1956,8 +1976,13 @@
     },
     "extensions/services/app-storage/src/lib.rs": {
       "status": "unproved",
-      "sha256": "74c4ad602859798029248a49160275a7175cc3745f27647ee30dc2d05af799a5",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "65780a720336b043e7240a58f73075cb34cdb4d5ba1a37f579fdb325f50c421d",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
+    },
+    "extensions/services/app-storage/src/managed_hooks.rs": {
+      "status": "unproved",
+      "sha256": "90c36307ca2b54a55d3e642c7e4d2c360fc28134a302a618dbfd6be9a8e26662",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "extensions/services/app-storage/src/mutations.rs": {
       "status": "unproved",
@@ -2706,8 +2731,8 @@
     },
     "src/apps/record_history.rs": {
       "status": "unproved",
-      "sha256": "d7d0bfe16fa6c75d45027d6b863991188b77b59ed9a56f570b059aa9cba7bcdc",
-      "review": "Reviewed Apps 0.21 record history extraction against Core 5b75a656 original record_history.rs and record_write hooks. Shared immutable capture retains original list-action scopes and duplicate immutability, SQL actor/source attribution, app advisory fence namespace 948, fixed table and original 20-revision/16 MiB pruning/order. Nonpositive revisions reject before subtraction. Bounded scoped list keeps original limit/order then requires current historical read authority; native current entity and declared-field projection remain. Restore preserves original lookup/error order and historical read admission, then requires actual native data::save_tx on the original transaction with current expected revision, typed fields/references/lifecycle/CAS/history/outbox/package fence. Native HTTP/MCP explicit review/current rights/signed scope/context/commit remain; no direct record rewind, new endpoints/permissions, DDL or approving default host. Independent real PostgreSQL original attribution/rights, malformed denial, actual byte retention, concurrent restores and failed audit/capture rollback pass; example denies missing authority/writer. Native 74 App units, warning-free workspace Clippy and seven actual HTTP/PostgreSQL apps/studio/isolation/schema/sharedStorage/coreExtensions/visualWorkspace modules pass, including successful HTTP and MCP restore plus stale/review/foreign denial. Exact source/WIT, 886-module structure and source inventory pass. Kernel unchanged; SQL/async/native host code remains reviewed and unproved."
+      "sha256": "19e11e46b949458d890789afd55ae0f5228d019c9fb3925a88d27b707a42259b",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "src/apps/record_import.rs": {
       "status": "unproved",
@@ -2716,13 +2741,13 @@
     },
     "src/apps/record_lifecycle.rs": {
       "status": "unproved",
-      "sha256": "b46de51c1444a4a7f620b8f1a5610deb88dc39564f6d1ca19a3783b7aaeb8de7",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "f46665adcd86ecf1d88db7880c96ea3489fea052c64303d1dc3be2427f151b4b",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "src/apps/record_write.rs": {
       "status": "unproved",
-      "sha256": "7a9e1b0b5c60d0243528f0ac4e3fa7dd1b83f7c9179115abe7241456cec93cf9",
-      "review": "Reviewed shared record mutation and query extraction into pinned Apps 0.2.0. Native package/model/reference/language checks, workflow and bounded-history hooks remain on the original transaction. Independent PostgreSQL CAS/replay/hook-outbox rollback/typed-publication tests, native apps/storage/jobs/schema/extensions/visual workspace, 43 tenant checks and marketplace order-stock-Flow-invoice fixture pass. SQL and async adapters remain unproved."
+      "sha256": "abd935cb23803bc280288d8f9e25fe3e34286e1fbf4bc0cf6f5551b1cc466283",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "src/apps/records.rs": {
       "status": "unproved",
@@ -5221,16 +5246,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "2183984cf051f502e1285366ab1b29c710cd8b50b3c650fcb08cdcb9044f7b95",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "03bbab965ce33070d01e06d553c5fe954df8140da335b71ee332a3d0891e6b65",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "Cargo.toml": {
       "sha256": "a217ec927488adc4b5e1430e7cee5e92455edf1018c678096fec13c3466398b5",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "components.lock.json": {
-      "sha256": "9dbe4bb83e05a9b3b54ae22449bfbfb03529e376ee30f7e3df0f10ecc5405b72",
-      "review": "Apps Data reader 0.1.1 and storage 0.25.0: current OAuth, signed SELECT-only schema, same native scope and page/projection owners; independent and Linux container acceptance plus seven native signed-scope flows pass. Explicit JSON nulls now reject under the advertised DTO; native authority and all pure Lean policies unchanged, network/SQL remain tested unproved adapters."
+      "sha256": "d02a5b3ff416e54b963bb6ee42d34358eab5d325b611c67dc817b99640513e0b",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",
@@ -5381,12 +5406,12 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "7a8486b4e891abe9052c835296979f1efab2b713ccd4ebb92b1819e0fb8281db",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "52bcb9b03dea4024c3efbac119ac6f0623189ef0ae9f829f7d0b6c901c3bdc55",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "e287624da8ed2c00f3ae879767ee046f843ac8a5b22e0fc662948cbea1d09b76",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "e7e337f4d15c62cf2e87219184dde0585d9e157266f4213bafa1c35b59e51764",
+      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
       "sha256": "9438fe3ff98ee7adfa6c49eb83bd7605d89195e5fd28351c2a7e4f8472e16d1c",

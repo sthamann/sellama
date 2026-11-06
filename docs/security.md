@@ -198,3 +198,11 @@ migration connection and exposes no write/install operation. Native task scope,
 object/privacy policies, package lifecycle and write transactions keep their
 existing owners. The native historical migration is unchanged and the shared SQL
 verifier prefix is checked against it. [Evidence](evidence/app-data-reader-component-2026-11-06.md).
+
+## Managed portable App records
+
+The [optional App Data write profile](app-data-writes.md) adds approved
+package-bound record changes, original state/history rules and atomic events via
+HTTP/MCP/SDK. Default reader permissions remain separate; native field/reference/
+language/commerce policies retain their owners. Full installation, native-resource,
+settings/jobs and publication hosting remain tracked in the component plan.

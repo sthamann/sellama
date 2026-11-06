@@ -331,8 +331,13 @@ The following are implementation tasks; existing UI foundations do not complete 
     signed RLS protocol and HTTP/OpenAPI/MCP/SDK acceptance. Native page and field
     projection consume the same code. No install/write or resolver bypass.
     [Reader acceptance](evidence/app-data-reader-component-2026-11-06.md).
-  - [ ] Complete remaining lifecycle orchestration and independent write-capable
-    schema hosting.
+  - [x] APP-02b Opt-in managed portable record writes and retained history through
+    HTTP/OpenAPI/MCP/SDK, supported schema-2 permission upgrade, current authority,
+    explicit approval/package/revision fences, original state/history hooks and
+    atomic outbox. Default read-only mode remains separate. Native resource
+    policies have no fallback. [Acceptance](evidence/app-data-managed-writes-component-2026-11-06.md).
+  - [ ] Complete remaining installation/native-policy/settings/jobs lifecycle
+    orchestration and independent full host operation.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.
 - [ ] APP-04 Preserve encrypted settings, installation consent, rights, events,

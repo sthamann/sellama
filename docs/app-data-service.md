@@ -20,6 +20,13 @@ flowchart LR
   Signed --> Store[Fixed PostgreSQL reader tables with forced RLS]
 ```
 
+## Managed writes and retained history
+
+The [optional write profile](app-data-writes.md) now adds approved package-bound
+record changes and historical reads through HTTP, MCP and the existing SDK. It
+requires a deliberate schema/privilege upgrade and keeps native resource policies
+with their actual owners. The default reader setup below remains unchanged.
+
 ## The developer journey
 
 1. Provision a fresh dedicated PostgreSQL database and an existing restricted reader
@@ -76,8 +83,9 @@ native source.
 
 ## Delivery scope
 
-This release supplies the independent **read service and reader schema**. It has
-no write/install/history/settings/jobs endpoint or automatic data cutover. The
+The default profile supplies the independent **read service and reader schema**.
+The optional portable [write/history profile](app-data-writes.md) is now available.
+Full installation/settings/jobs hosting and automatic data cutover remain open. The
 complete standalone App lifecycle and marketplace durable host remain on the
 [component task list](commerce-components.md). Models extending or referencing
 native product, customer, order or company objects are denied until their actual

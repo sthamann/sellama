@@ -5,6 +5,12 @@ journeys. The [connected AI workspace](agentic-workspace.md) explains contextual
 planning, reviewed private execution, app composition, real preview, editable list
 handoff and remembered merchant guidance.
 
+**Managed writes, 6 November 2026:** [Apps 0.26.0](app-data-writes.md) adds
+independent approved portable record changes and retained history with current
+rights, package/revision fences and atomic outbox. Veyndo shares the original
+state/history implementation while keeping full native policies. Installation,
+settings/jobs/native-resource/restore/publication hosting remain open.
+
 **Updated 6 November 2026:** [Apps 0.25.1](app-data-service.md) now provides the
 first independent read-only App Data HTTP/MCP/SDK host and versioned fixed reader
 schema. Current identity/action rights and signed database isolation are enforced;

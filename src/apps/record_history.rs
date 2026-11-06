@@ -14,27 +14,6 @@ pub(super) fn router() -> Router<App> {
             post(restore),
         )
 }
-pub(super) async fn capture(
-    tx: &mut sqlx::PgConnection,
-    t: &str,
-    m: &Manifest,
-    e: &Entity,
-    id: &str,
-    revision: i64,
-    fields: &Value,
-) -> Result<()> {
-    shared::capture(
-        tx,
-        &shared::Capture {
-            key: records::key(t, &m.id, &e.name, id),
-            revision,
-            fields,
-            read_scopes: &shared::read_scopes(m, &e.name),
-        },
-    )
-    .await
-    .map_err(persistence::error)
-}
 fn entity<'a>(m: &'a Manifest, name: &str, h: &RequestContext, write: bool) -> Result<&'a Entity> {
     let e = m
         .entities

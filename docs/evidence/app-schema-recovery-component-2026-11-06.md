@@ -78,6 +78,14 @@ change. The formal kernel itself is unchanged. Reviewed source hashes acknowledg
 the checked extraction; SQL/host policy and full migration are not mathematically
 proved by those hashes or by the existing kernel proofs.
 
+The final formal check passes for the unchanged 64 extracted policies and 153
+registered theorems, with 222,535 conformance cases and no mismatch. Negative
+controls reject 187 broken policies, 14 unsupported syntax forms, three stale or
+disconnected bindings, nine proof shortcuts and ten layout bypasses while accepting
+the baseline. These checks retain their scoped kernel boundary above. Structure
+accepts 897 Rust and 982 frontend modules; the generated site check accepts 415
+pages from 408 Markdown sources and 47,907 local links/assets.
+
 This is independent library and composed local/API acceptance. Public handbook
 publication is tracked separately from a deployed Core runtime or provider payment
 acceptance. Standalone App identity, supported schema provisioning, full service

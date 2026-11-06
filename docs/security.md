@@ -187,3 +187,14 @@ sandboxed shop configuration and cannot be restored through content history.
 ## Authenticated database authority
 
 See [the signed-scope contract and deployment sequence](authenticated-database-scope.md) for separate tenant/system logins, private actor binding, atomic app-table protection and key rotation. Existing `rac.*` values alone are not this boundary. Production activation is explicit and follows verified replica cutover.
+
+## Independent App Data reader boundary
+
+The [independent reader](app-data-service.md) uses a dedicated versioned fixed
+schema, a SELECT-only nonowner login and the same original signed database scope
+protocol as native Veyndo. Its current OAuth merchant/action admission is checked
+for every request; source/body fields cannot choose a shop. Serving code owns no
+migration connection and exposes no write/install operation. Native task scope,
+object/privacy policies, package lifecycle and write transactions keep their
+existing owners. The native historical migration is unchanged and the shared SQL
+verifier prefix is checked against it. [Evidence](evidence/app-data-reader-component-2026-11-06.md).

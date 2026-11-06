@@ -184,3 +184,11 @@ screenshot is not acceptance of the underlying service operation.
 
 See [independent checkout](checkout-component.md) for its stricter financial and
 transactional boundaries.
+
+## Independent App Data reads
+
+The [App Data reader](app-data-service.md) supplies standalone HTTP/OpenAPI/MCP
+and JavaScript access to installed private App list actions with current rights,
+a restricted read-only database and signed shop isolation. Native pages share the
+same query/projection and scope protocol. Complete write/lifecycle hosting and
+cross-service generated UI remain separate tasks.

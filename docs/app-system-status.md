@@ -5,6 +5,13 @@ journeys. The [connected AI workspace](agentic-workspace.md) explains contextual
 planning, reviewed private execution, app composition, real preview, editable list
 handoff and remembered merchant guidance.
 
+**Updated 6 November 2026:** [Apps 0.25.1](app-data-service.md) now provides the
+first independent read-only App Data HTTP/MCP/SDK host and versioned fixed reader
+schema. Current identity/action rights and signed database isolation are enforced;
+Veyndo embeds the same original page/projection/scope code. Both standalone and
+seven affected native flows pass. Complete standalone install/write/settings/jobs
+hosting and native object resolver ports remain open. [Acceptance](evidence/app-data-reader-component-2026-11-06.md).
+
 **Updated 2 November 2026:** the public Core includes the shared shop/app Canvas
 with zoomable placement previews, graphical elements, direct behavior editing
 and the contextual agent dock. Product, page and app imagery share localized

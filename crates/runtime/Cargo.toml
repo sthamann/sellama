@@ -5,6 +5,7 @@ edition.workspace = true
 license-file.workspace = true
 
 [dependencies]
+veyndo-app-authority = { path = "../../extensions/services/app-storage/authority" }
 hmac.workspace = true
 sha2.workspace = true
 zeroize.workspace = true

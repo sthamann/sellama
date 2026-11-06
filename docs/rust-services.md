@@ -215,3 +215,11 @@ Five additional provider packages reuse the Rust connector host: `vercel`,
 is in `extensions/services/connectors/src/integrations/`; protocol code stays
 in each app package. There are no new per-app tables. Contentful feeds the
 existing private knowledge export consumer. See [integration contracts and limits](service-integrations.md).
+
+## Independent App Data reads
+
+The [App Data reader](app-data-service.md) supplies standalone HTTP/OpenAPI/MCP
+and JavaScript access to installed private App list actions with current rights,
+a restricted read-only database and signed shop isolation. Native pages share the
+same query/projection and scope protocol. Complete write/lifecycle hosting and
+cross-service generated UI remain separate tasks.

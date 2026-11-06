@@ -41,6 +41,9 @@ try:
  stored=sql(f"SELECT ciphertext FROM app_service_secrets WHERE tenant='{tenant}' AND app='{m['id']}'");assert token not in stored and len(stored)>50
  action=next(a['name'] for a in m['actions'] if a['handler']=='service');call('/api/apps/'+m['id']+'/actions/'+action,{'payload':{}},h);assert seen[-1]=='Bearer '+token
  call(path,{'digest':metadata['digest'],'approve':True,'revision':0,'secret':token},h,409,method='PUT')
+ # Exhausted caller revisions must reject safely before any stored credential changes.
+ call(path,{'digest':metadata['digest'],'approve':True,'revision':9223372036854775807,'secret':token},h,400,method='PUT')
+ call('/api/apps/'+m['id']+'/actions/'+action,{'payload':{}},h);assert seen[-1]=='Bearer '+token
  replacement='synthetic-rotated-token-'+suffix+'z'*32;call(path,{'digest':metadata['digest'],'approve':True,'revision':1,'secret':replacement},h,method='PUT');call('/api/apps/'+m['id']+'/actions/'+action,{'payload':{}},h);assert seen[-1]=='Bearer '+replacement
  foreign=call('/api/auth/register',{'name':'Other','email':'other'+suffix+'@example.test','password':'Synthetic-app-secrets-2026!','workspaceId':'foreignsecret-'+suffix});call(path,{'approve':True,'revision':2,'digest':metadata['digest'],'secret':replacement},{'Authorization':'Bearer '+foreign['token'],'x-tenant':tenant},403,method='PUT')
  call('/api/apps',{'manifest':next_m},h);n=len(seen);call('/api/apps/'+m['id']+'/actions/'+action,{'payload':{}},h,409);assert len(seen)==n

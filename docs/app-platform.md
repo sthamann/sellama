@@ -479,3 +479,12 @@ current installed action, primary/additional rights and stored input before
 requeueing. Core keeps current package/actor admission and message/result redaction.
 Callback leases, creator-role checks, signed identities and sealed completion
 records keep their existing owners. [Acceptance and runnable example](evidence/app-job-workflows-component-2026-11-06.md).
+
+## Independent encrypted configuration
+
+Apps 0.18.0 shares encrypted app settings and transport credential persistence.
+Required host crypto uses the existing key owner; there is no alternate cipher or
+key store. Metadata-only listing, package-bound resolution, original rotation/CAS
+and webhook read fences reuse existing fixed tables and transactions. Current
+administrator/consent/sandbox admission and browser-safe settings projection remain
+native. Revision exhaustion rejects safely. [Boundary and executable example](evidence/app-encrypted-configuration-component-2026-11-06.md).

@@ -205,3 +205,11 @@ invoice, authentication, restore and localization boundaries explicitly.
 ## Native object extensions
 
 [Typed product/customer/order/company extensions](app-core-extensions.md) reuse these same four fixed tables and their existing native reference and unique projections. They do not add native columns or app-specific indexes.
+
+## Shared encrypted configuration
+
+Apps 0.18.0 also owns the existing fixed `app_service_secrets` queries and rotation
+transaction. The required host crypto port keeps keys and authenticated encryption
+with the native owner. No per-app storage objects, production schema migration or
+second key store are introduced. Native current authority/consent and secret-safe
+projections remain attached. [Accepted boundary](evidence/app-encrypted-configuration-component-2026-11-06.md).

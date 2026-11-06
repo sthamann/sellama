@@ -1,5 +1,15 @@
 # Changelog
 
+## Encrypted app configuration component, 6 November 2026
+
+Apps 0.18.0 owns existing encrypted settings/transport metadata, internal resolution
+and rotation through mandatory host crypto. Native keys, current administrator
+admission, consent, declared kinds, sandbox exclusion and safe projection retain
+their owners. Original AEAD binding, scoped locks, CAS/current-package checks,
+webhook read fencing and atomic outbox are shared. Exhausted revisions reject
+instead of overflowing. Independent PostgreSQL and executable ephemeral-key example
+cover real AEAD, concurrency and rollback. [Evidence](docs/evidence/app-encrypted-configuration-component-2026-11-06.md).
+
 ## Durable app job workflows, 6 November 2026
 
 Apps 0.17.0 owns bounded scoped job history/detail and the original merchant

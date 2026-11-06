@@ -225,7 +225,11 @@ owners require an explicit reservation/compensation design and corresponding tes
     plus Apps 0.17.0 bounded job history/detail and merchant cancel/retry/resolve/
     archive transaction. Required current-action/right/input retry admission and
     native response redaction remain attached. [Job workflow evidence](evidence/app-job-workflows-component-2026-11-06.md).
-  - [ ] Complete remaining settings/version and independent production-schema hosting.
+  - [x] Apps 0.18.0 encrypted configuration metadata/internal resolution/rotation,
+    required host seal/open port, original binding and lock/CAS/package/outbox
+    sequence; native administrator/consent/declared-kind/sandbox/projection checks
+    retain their owners. [Encrypted configuration evidence](evidence/app-encrypted-configuration-component-2026-11-06.md).
+  - [ ] Complete remaining version and independent production-schema hosting.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.
 - [ ] APP-04 Preserve encrypted settings, installation consent, rights, events,
@@ -361,6 +365,10 @@ owners require an explicit reservation/compensation design and corresponding tes
       with required retry admission, unchanged revisions/uncertainty/lease semantics,
       actor/package rebinding and atomic outbox. Native callbacks/evidence/current
       authority stay attached. [Job workflow evidence](evidence/app-job-workflows-component-2026-11-06.md).
+    - [x] Digest-bound encrypted settings/transport persistence through required host
+      AEAD; secret-safe metadata, CAS/concurrent rotation, shared webhook read and
+      atomic events, retaining native identity/consent/key/projection owners.
+      [Encrypted configuration evidence](evidence/app-encrypted-configuration-component-2026-11-06.md).
     - [ ] Identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -429,6 +437,11 @@ owners require an explicit reservation/compensation design and corresponding tes
 ## Progress log
 
 ### Shared app business contracts, 6 November 2026
+
+- Apps 0.18.0 extracts encrypted configuration storage/resolution/rotation into
+  required host crypto ports. Original scoped bindings, locks, package/CAS checks,
+  webhook read fences and atomic event behavior remain connected. Exhausted
+  revision inputs reject safely. [Encrypted configuration extraction](evidence/app-encrypted-configuration-component-2026-11-06.md).
 
 - Apps 0.17.0 extracts actual job history and merchant control into the independent
   storage package. Native HTTP routes consume that same implementation with

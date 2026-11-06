@@ -1,5 +1,13 @@
 # Changelog
 
+## Documentation delivery timeout, 6 November 2026
+
+The GitHub Pages deployment action now waits up to twenty minutes for file
+synchronization, inside a bounded twenty-five-minute job. Two observed deployments
+were canceled by its default ten-minute action timeout while still reporting
+`syncing_files` without a provider error. Build/link checks and deployment
+permissions are unchanged.
+
 ## Independent App package installation, 6 November 2026
 
 Apps 0.28.0 / Data service 0.4.0 lets developers review and install a private data

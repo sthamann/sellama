@@ -86,6 +86,16 @@ complete validation order, canonical currency/value/reference policies, real Was
 source probing, selected library/package ownership, cache and transactional release.
 [Business contract acceptance](evidence/app-business-contracts-2026-11-06.md).
 
+## Independently hosted execution API
+
+Apps 0.24.0 adds a separate Rust runtime service with HTTP, OpenAPI and stateless
+MCP over the same existing engine. Current OAuth introspection is required on each
+protected request; the existing SDK connects unchanged. Inputs are synthetic typed
+snapshots only and results explicitly carry no applied commerce effect. Required
+resource admission, guest isolation and bounded task capacity remain enforced.
+The complete native installer and live checkout keep their current owners.
+[Setup and examples](app-runtime-service.md). [Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
+
 ## Independent execution package
 
 Apps 0.12.0 supplies `veyndo-app-runtime` 0.1.0. It executes the same core-Wasm

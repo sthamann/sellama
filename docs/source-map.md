@@ -17,6 +17,14 @@ The trusted storage crate is distinct from no-SQL `veyndo-app-runtime` and its n
 Cargo boundary controls prohibit guest/domain imports of the storage package.
 [Independent and assembled tests](evidence/app-storage-component-2026-11-05.md).
 
+**Standalone App Runtime:** Pinned Apps `service/` owns the Rust HTTP/OpenAPI/MCP
+composition, fixed OAuth introspection adapter, typed simulation contract and
+bounded task-owned execution admission. It calls the unchanged shared WIT runtime
+and model frozen bounds. It has no SQL, live entity fetch, issuer/role store or
+financial writer. Native Core keeps its existing in-process runtime adapter and
+full commerce admission. [Operation and setup](app-runtime-service.md).
+[Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
+
 **Cross-service UI direction:** [Agentic UI source observations, common host ports,
 component coverage and protocol adapters](agentic-component-ui.md) builds on the
 existing operation registry and strict Surface/NativeView/AST/guest SDK owners.

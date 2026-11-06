@@ -1,5 +1,17 @@
 # Changelog
 
+## Independent App Runtime service, 6 November 2026
+
+Apps 0.24.0 adds a standalone Rust HTTP/OpenAPI/stateless MCP server over the
+existing bounded WIT engine. Typed synthetic input and explicit no-effect results,
+fixed fresh OAuth introspection, source/input fingerprints and disconnect-safe
+global/tenant/subject limits keep the operation independently usable. Fetch and
+the existing SDK use the same operation without Core or PostgreSQL. Model 0.13.0
+exposes original frozen-value bounds while preserving full native contextual
+validation. Independent process tests, non-root container and affected native
+flows retain distinct evidence. [Guide](docs/app-runtime-service.md),
+[acceptance](docs/evidence/app-runtime-service-component-2026-11-06.md).
+
 ## Schema recovery component, 6 November 2026
 
 Apps 0.23.0 extracts actual bounded field migration and recovery capture into the

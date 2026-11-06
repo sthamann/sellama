@@ -29,6 +29,17 @@ flowchart LR
     EXPORT --> API
 ```
 
+## Independent App Runtime
+
+The [App Runtime service](app-runtime-service.md) is a separate Rust process in
+`veyndo/apps/service`, mirrored by exact source into
+`extensions/services/app-storage/service/`. It exposes authenticated HTTP/OpenAPI
+and stateless MCP, with Fetch and existing SDK examples. It uses the same bounded
+WIT engine without Core, SQL, a live resolver or provider execution. Current access
+comes from a fixed external OAuth introspection owner; no user/role store or key
+issuer is introduced. Its non-root runtime image contains no Python or compiler.
+[Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
+
 ## Modules and ownership
 
 | Module | Responsibility |

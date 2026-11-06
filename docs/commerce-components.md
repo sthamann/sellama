@@ -7,11 +7,16 @@ The full component extraction is in progress, not released.
 
 ## Latest completed extraction, 6 November 2026
 
-Apps 0.23.0 shares schema conversion and recovery snapshots with the complete
-Veyndo installer. The mandatory host port retains native field and enabled-language
-validation. The independent PostgreSQL tests exercise actual installation rollback,
-scoped snapshots and row/byte/revision limits. Standalone identity, schema hosting
-and API/MCP remain open. [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).
+Apps 0.24.0 supplies the independently runnable Rust App Runtime service 0.1.0.
+HTTP, OpenAPI and stateless MCP share typed Wasm simulations and the existing SDK
+works unchanged. Current OAuth introspection supplies identity/scopes; synthetic
+snapshots and no-effect results keep it separate from live commerce authority.
+Native Veyndo embeds the same engine. [Use the service](app-runtime-service.md).
+[Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
+
+The preceding Apps 0.23.0 extraction shares schema conversion and recovery snapshots
+with the complete installer. Full standalone app-data identity, supported schema
+provisioning and installation/control API hosting remain open.
 
 ## Required result
 
@@ -284,8 +289,12 @@ The following are implementation tasks; existing UI foundations do not complete 
   packages preserving resource limits and reviewed component digests. Apps 0.16.0
   supplies the complete ordered model 0.12.0 compiler; runtime 0.2.0 supplies the
   existing bounded executor. Native Core consumes exact pinned source with required
-  host policies. [Compiler acceptance](evidence/app-complete-compiler-component-2026-11-06.md). Independent identity/service
-  hosting and full standalone operation remain APP-02..05/MKT-03b/c work.
+  host policies. [Compiler acceptance](evidence/app-complete-compiler-component-2026-11-06.md). The runtime network host is APP-01a below; full app-data identity/service
+  hosting remains APP-02..05/MKT-03b/c work.
+  - [x] APP-01a Independent Rust runtime service with fresh current OAuth admission,
+    one typed HTTP/OpenAPI/MCP operation, existing Fetch/SDK examples, bounded
+    disconnect-safe execution, Rust-only non-root image and actual process tests.
+    [Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
 - [ ] APP-02 Extract app data/settings/jobs/version contracts and fixed shared
   storage; never create per-app/per-model/per-tenant tables or indexes.
   - [x] Scoped record/query/package/install and enqueue/claim/progress storage,
@@ -403,7 +412,10 @@ The following are implementation tasks; existing UI foundations do not complete 
     Apps 0.16.0 shares the complete ordered standard compiler. Required native
     policies retain their original owners and errors; no standard domain stage is
     supplied as an optional before/after host callback.
-    Authentication, standalone service/schema and API/MCP hosting remain open.
+    Apps 0.24.0 additionally supplies standalone runtime HTTP/OpenAPI/MCP with
+    current external OAuth access and existing SDK usage. It evaluates supplied
+    examples only; full data/installation identity/schema/API hosting remains open.
+    [Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
     - [x] Independent model compiler and required current-authority ports.
     - [x] Atomic installation, immutable versions, quota and original package locks;
@@ -474,7 +486,10 @@ The following are implementation tasks; existing UI foundations do not complete 
     - [x] Explicit field migration and bounded old-manifest/record recovery
       capture, required actual host validation and atomic installer rollback.
       [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).
-    - [ ] Identity and remaining lifecycle hosting.
+    - [x] Independent execution host, fresh identity introspection, typed API/MCP,
+      SDK parity and container with no Core/database dependency.
+      [Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
+    - [ ] App-data identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
     [Admission and package fence evidence](evidence/app-admission-component-2026-11-05.md).

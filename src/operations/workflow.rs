@@ -1,5 +1,6 @@
 //! Revision-bound workflow configuration used by installed apps and selective sandbox releases.
 use super::*;
+use crate::commerce::OrderMachineValidation;
 pub(super) async fn get(State(a): State<App>, h: RequestContext) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     auth::permit(&h, "orders.read")?;

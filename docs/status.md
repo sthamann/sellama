@@ -1,6 +1,6 @@
 # Veyndo: current status
 
-Updated 5 November 2026. Start here for the public product, observed journeys and
+Updated 6 November 2026. Start here for the public product, observed journeys and
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
@@ -50,6 +50,18 @@ tenant isolation checks and native marketplace HTTP/MCP order, stock, invoice an
 Flow fixture also pass. A separately authenticated app host, its supported schema
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
+
+## Shared order and quote lifecycle compiler, 6 November 2026
+
+Apps [0.14.0](https://github.com/veyndo/apps/releases/tag/v0.14.0), model 0.10.0,
+shares strict graph/snapshot types and bounded compilation. The independent
+[example](https://github.com/veyndo/apps/blob/main/examples/native_lifecycles.rs)
+compiles order quality review and quote preparation without Core or SQL. The
+native product uses that same implementation with its canonical package digest,
+base graph, scope catalogue and locale policy. Accepted orders retain their
+original graph across package upgrades; current rights and real payment/delivery
+and buyer decisions remain enforced by their existing owners.
+[Checks and remaining service work](evidence/app-native-lifecycle-component-2026-11-06.md).
 
 ## Shared configuration and business preflight, 6 November 2026
 

@@ -1324,6 +1324,11 @@
       "sha256": "bb02cb358b23eb163d8b609026cd32eb40cb2c90efef8fb0fb7d910646890303",
       "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
+    "extensions/services/app-storage/examples/native_lifecycles.rs": {
+      "status": "unproved",
+      "sha256": "a397f433bf2fc2370f4c339bd94cc0b27817c9786c5ce6cdb4519b794d2f1029",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+    },
     "extensions/services/app-storage/examples/native_views.rs": {
       "status": "unproved",
       "sha256": "10763bef30662c41d7d1fde5941534f2c31255e61b0cf1edb1159847202851e8",
@@ -1411,13 +1416,33 @@
     },
     "extensions/services/app-storage/model/src/lib.rs": {
       "status": "unproved",
-      "sha256": "793a42dd92200c2e898449ceee449e624ec2815f8dd6914124871392001d76f3",
-      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+      "sha256": "a2f6a1f9abc4f2ae3ed9c6652e6d615e2ddc4c20f7ad2315ecc5d7e20e520190",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "extensions/services/app-storage/model/src/lifecycle.rs": {
       "status": "unproved",
       "sha256": "92a2d8f305c576a6677986c8099977efb9065287fc1515fa13b8ad17b919d961",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+    },
+    "extensions/services/app-storage/model/src/native_lifecycle.rs": {
+      "status": "unproved",
+      "sha256": "12fef86dc7891b07cdf5b7af1922b3099ea54e7359d7db3c552b91b826ea23e7",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+    },
+    "extensions/services/app-storage/model/src/native_lifecycle_compile.rs": {
+      "status": "unproved",
+      "sha256": "20f6e1f438fe5baab4ea6b3ae1d04c50fb38807a9de8c7e1a015346644a8bc57",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+    },
+    "extensions/services/app-storage/model/src/native_lifecycle_snapshot.rs": {
+      "status": "unproved",
+      "sha256": "2cc7309849d2400a63575ee04bf77d1633c8e1c4660e7d354284b62009c871ef",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+    },
+    "extensions/services/app-storage/model/src/native_lifecycle_types.rs": {
+      "status": "unproved",
+      "sha256": "c5b3adf94e6335357bbab766f67ac0e13c0e305ea73a1d1e5a477338f65e4371",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "extensions/services/app-storage/model/src/object_extensions.rs": {
       "status": "unproved",
@@ -1548,6 +1573,16 @@
       "status": "unproved",
       "sha256": "7c6f4a0fb060e5302e5dbd0c93668f76b87aaba0b40e21335f7ca62204cd81db",
       "review": "Reviewed Apps 0.7.0 exact source d95e82586bd42cc340f44064a80b8639d8b82f46: settings wire/merge/redaction and schema evolution/compatibility/conversion moved mechanically into pure model; native current personal admin rights, consent digest, CAS, encryption and schema review/update transactions remain attached. Independent 47 model tests, exact 34 bundle digests and native schema rollback paths checked. Compiler, settings, SQL and host remain unproved; extracted kernel unchanged."
+    },
+    "extensions/services/app-storage/model/tests/native_lifecycle/snapshot.rs": {
+      "status": "unproved",
+      "sha256": "a63526298dc2912febb969748ad05321a2e174ea051f38e33c1ec5cbec95a1d9",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
+    },
+    "extensions/services/app-storage/model/tests/native_lifecycle.rs": {
+      "status": "unproved",
+      "sha256": "7e38bc8af5054acad9edde60f2cbbc11e5f8ae0822be1a4e9e83ae17761ff860",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "extensions/services/app-storage/model/tests/native_views.rs": {
       "status": "unproved",
@@ -2246,13 +2281,13 @@
     },
     "src/apps/native_lifecycle/compile.rs": {
       "status": "unproved",
-      "sha256": "4e0f44255e7f36efdc00c62dd2bb6b12b8c2eb9a9a8f80b0853c3e9ef790ac12",
-      "review": "Reviewed public model-refusal follow-up: generation schema reads native machines, guard/replacement catalogues and registered team scopes from the existing validator; financial, terminal, quote acceptance and graph predicates are unchanged. Failure categories remain fail-closed and are localized inside the assistant. Real native lifecycle and provider-edit/private-release/order suites pass, including eight adversarial outputs; source/context and modal-error tests pass. No new pure policy or whole-adapter proof claim."
+      "sha256": "01ddd9c99a047b239c8c76033259036eaf95c58e15d88bb022385bc371f31353",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "src/apps/native_lifecycle/storage.rs": {
       "status": "unproved",
-      "sha256": "3731227b81625eb9a10fedd297cb236f6ea067e7524b37a74499f0caedb1ac07",
-      "review": "Review native lifecycle labels across immutable builds, atomic installation, settings main-language edits and final selected-release validation. Existing aggregate configuration lock precedes package admission and private preview resets. Accepted historical snapshots retain their original language; the pure native-admission conjunction is unchanged."
+      "sha256": "09772493e5585cae4d0a346c01ec68508b70011d7ae71cb9412dfa982777a17c",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "src/apps/native_lifecycle/tests.rs": {
       "status": "unproved",
@@ -2261,8 +2296,8 @@
     },
     "src/apps/native_lifecycle.rs": {
       "status": "reviewed-binding",
-      "sha256": "880e1e5fa87077eee40dd0203aa0499d599a9c322102713106cadd5c0ba4a22e",
-      "review": "Reviewed public model-refusal follow-up: generation schema reads native machines, guard/replacement catalogues and registered team scopes from the existing validator; financial, terminal, quote acceptance and graph predicates are unchanged. Failure categories remain fail-closed and are localized inside the assistant. Real native lifecycle and provider-edit/private-release/order suites pass, including eight adversarial outputs; source/context and modal-error tests pass. No new pure policy or whole-adapter proof claim."
+      "sha256": "29d0a9660e694e38cb4df933d80a1e3a6ffd5b3ec709fd2a0de470a0e652ec36",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "src/apps/native_view_tests.rs": {
       "status": "unproved",
@@ -3281,8 +3316,8 @@
     },
     "src/commerce/order_machine.rs": {
       "status": "unproved",
-      "sha256": "101f14e7aa5f99a9111ef5429caacf4bbc4e106e3a6006f1146e8bc019368c7e",
-      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
+      "sha256": "2f72a32dd41392bba108faf469b66a7d76e0ca564c0fa7cdc3c5813d2e435b29",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "src/commerce/order_mutation.rs": {
       "status": "unproved",
@@ -4176,8 +4211,8 @@
     },
     "src/operations/workflow.rs": {
       "status": "unproved",
-      "sha256": "f198182fb9922a5cbc7d589c4db3205e6b6680ca244e0d877819586ae2987c04",
-      "review": "Review forced native workflow versus app-install race: the native base writer now acquires the same aggregate configuration fence before its existing workflow lock. Installer and selected release already hold that fence. This closes incompatible jointly accepted replacement graphs; the pure admission decision and financial guards are unchanged."
+      "sha256": "945c8e0fca0fa73dfc14a137048cc7754a68bd13dd91b54b2a1db38d30cc522f",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "src/order_checkout.rs": {
       "status": "reviewed-binding",
@@ -4671,8 +4706,8 @@
     },
     "src/staging/release.rs": {
       "status": "unproved",
-      "sha256": "08e135d523201c3b07bc4d4831d9a6e889cdb0137cbc86ae2023cdf59af57297",
-      "review": "Reviewed selective release ordering: selected native configuration precedes dependent app records in the same transaction. Actual HTTP/PostgreSQL regressions cover new locale/channel/package/page, omitted-dependency rollback, stale digest and replay. Native ownership, domain rights, CAS, locks and final configuration checks unchanged."
+      "sha256": "b260c0a77f067100ca7b594a88ea52fc155f55a1477275f7d361aebb56cedf22",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "src/staging/snapshot.rs": {
       "status": "unproved",
@@ -4821,16 +4856,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "44c1be36feafe3e5a86d323d0fcc6748043e3789163926aee5902b0ab411ecc4",
-      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+      "sha256": "46ba07d2c36f997c3289fdb427a0084214e980a75f69bddfaadb00c37cfb9bf7",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "Cargo.toml": {
       "sha256": "a217ec927488adc4b5e1430e7cee5e92455edf1018c678096fec13c3466398b5",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "components.lock.json": {
-      "sha256": "fd845c5ea1a1282b8a83d02017114424151e8601167880620bddd95951597fd1",
-      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+      "sha256": "a5108af2b2c54ca8367b2316171279b0c3f860a063e2b36de11c508ab10ba690",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",
@@ -4981,16 +5016,16 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "dd99eb99cdea97b843c28d51f883de986ece23569a4bb537c41cfd88ddb1730d",
-      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+      "sha256": "19b2903f3604c53db28ba4b84d281308ee1d57370a6b00d360aa170350013db8",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "6f53436503962364f8300ac6d3d81e07d1fbf0e7f74dc0753b7244b3fa061099",
-      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+      "sha256": "891a9d010de18a6fe851d27287e8aee94aa869ef780ed548b8feed8280dede4a",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
-      "sha256": "3af4a7b8fd062105184fe3e69b2319e59c24886c2dc6af288bbacabfd0195c2a",
-      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+      "sha256": "698d6f3ac9070154b44179f2cb4f43ac050ef926288a4832f8497de464eeb2aa",
+      "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "extensions/services/app-storage/tests/schema.sql": {
       "sha256": "ae91a4670e8da43e7401f46453d0f78b3559908b8b2b6458b333c70a59d8ef32",

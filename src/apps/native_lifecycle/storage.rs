@@ -74,27 +74,16 @@ pub(crate) async fn capture(conn: &mut sqlx::PgConnection, t: &str, object: &str
     }))
 }
 pub(crate) fn snapshot(data: &Value, object: &str) -> Result<Option<Snapshot>> {
-    let Some(value) = data.get("nativeLifecycle") else {
-        return Ok(None);
-    };
-    if value.is_null() {
-        return Ok(None);
-    }
-    let s: Snapshot = serde_json::from_value(value.clone())
-        .map_err(|_| conflict("Invalid accepted lifecycle; manual recovery required"))?;
-    if s.version != 1 || s.object != object {
-        return Err(conflict("Accepted lifecycle version mismatch"));
-    }
-    Ok(Some(s))
+    veyndo_app_model::native_lifecycle_snapshot::snapshot(data, object)
+        .map_err(model_contract::error)
 }
 pub(crate) fn order_machine(
     data: &Value,
     fallback: commerce::OrderMachine,
     revision: i64,
 ) -> Result<(commerce::OrderMachine, i64)> {
-    Ok(snapshot(data, "order")?
-        .map(|s| (s.machine, s.revision))
-        .unwrap_or((fallback, revision)))
+    veyndo_app_model::native_lifecycle_snapshot::order_machine(data, fallback, revision)
+        .map_err(model_contract::error)
 }
 
 pub(crate) async fn validate_order_base(
@@ -115,24 +104,10 @@ pub(crate) async fn current_order(db: &PgPool, t: &str) -> Result<commerce::Orde
 }
 /// Only declared display labels cross the customer projection; never app policies or grants.
 pub(crate) fn state_labels(raw: &Value) -> Option<(Value, Value)> {
-    snapshot(raw, "order").ok().flatten().map(|s| {
-        (
-            json!(
-                s.machine
-                    .states
-                    .iter()
-                    .map(|s| (&s.id, &s.label))
-                    .collect::<HashMap<_, _>>()
-            ),
-            json!(s.main_locale),
-        )
-    })
+    veyndo_app_model::native_lifecycle_snapshot::state_labels(raw)
 }
 pub(crate) fn project_labels(raw: &Value, output: &mut Value) {
-    if let Some((labels, main)) = state_labels(raw) {
-        output["stateLabels"] = labels;
-        output["stateMainLocale"] = main;
-    }
+    veyndo_app_model::native_lifecycle_snapshot::project_labels(raw, output)
 }
 
 pub(crate) async fn bind_order(

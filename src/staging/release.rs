@@ -1,5 +1,6 @@
 //! Selected units publish in one transaction with staged digests and live baseline conflict checks.
 use super::*;
+use crate::commerce::OrderMachineValidation;
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Selection {

@@ -31,6 +31,18 @@ flowchart LR
   Component --> Quote[Native cart and checkout calculation]
 ```
 
+## Portable native lifecycle compiler
+
+Apps 0.14.0/model 0.10.0 shares native order/quote lifecycle and accepted graph
+contracts, bounded graph compilation and current-permission/fact narrowing.
+A required policy supplies the native order base, scope catalogue and locale grammar.
+Native adapters compute the digest from the complete admitted Manifest; accepted
+snapshots preserve its exact app/version/digest through later updates. Actual
+order-domain validation, identity, transaction locks and the final verified
+transition predicate retain their existing owners. The independent
+[lifecycle example](https://github.com/veyndo/apps/blob/main/examples/native_lifecycles.rs)
+runs without a Core process or database. [Integration evidence](evidence/app-native-lifecycle-component-2026-11-06.md).
+
 ## Portable business contract checks
 
 Apps 0.13.0/model 0.9.0 shares configuration fields, record selection, exact integer

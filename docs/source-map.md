@@ -25,6 +25,14 @@ financial writer. Native Core keeps its existing in-process runtime adapter and
 full commerce admission. [Operation and setup](app-runtime-service.md).
 [Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
 
+**Managed record state/history:** Pinned Apps `src/managed_hooks.rs` owns the
+original native workflow admission and before/after bounded history capture.
+Native `src/apps/record_write.rs` passes its original key/manifest/entity on the
+same transaction; `data.rs` retains complete field/reference/language/package
+admission. Independent `data-service/` adds an explicitly enabled portable write
+profile and deliberately narrow schema/grants. Unsupported native policies deny.
+[Write/history guide](app-data-writes.md).
+
 **App Data reader and shared authority:** Apps `data-service/` owns independent
 read-only HTTP/MCP composition and the explicit reader-schema installer.
 `authority/` owns the original role-bound scope protocol and fixed current OAuth

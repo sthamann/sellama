@@ -1,5 +1,16 @@
 # Changelog
 
+## Managed App Data writes, 6 November 2026
+
+Apps 0.26.0 / Data service 0.2.0 adds explicit portable record writes and retained
+history to the independent host. Current merchant/action rights, confirmation,
+package digest, record CAS, typed fields, states, immutable identity and minimized
+atomic outbox share one transaction. The deliberate schema-2 upgrade grants only
+managed changes; package/model/schema mutation and native policy fallbacks remain
+unavailable. Veyndo consumes the same original lifecycle/history hooks with its
+full native admission. [Guide](docs/app-data-writes.md),
+[acceptance](docs/evidence/app-data-managed-writes-component-2026-11-06.md).
+
 ## Independent App Data reader, 6 November 2026
 
 Apps 0.25.1 adds a standalone read-only Rust HTTP/OpenAPI/MCP host with existing

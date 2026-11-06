@@ -1,60 +1,9 @@
 //! Native lifecycle/history hooks around the shared record mutation engine; package and typed field validation stay in data.rs.
 use super::*;
-use veyndo_app_storage::mutations::{Mutation, WriteError, WriteHooks};
-struct NativeHooks<'a> {
-    tenant: &'a str,
-    manifest: &'a Manifest,
-    entity: &'a Entity,
-    id: &'a str,
-}
-impl WriteHooks for NativeHooks<'_> {
-    type Error = Error;
-    async fn before(
-        &self,
-        tx: &mut sqlx::PgConnection,
-        old: Option<&Value>,
-        fields: &Value,
-        revision: i64,
-    ) -> Result<()> {
-        record_lifecycle::change(self.entity, old, fields)?;
-        if let Some(old) = old {
-            let prior: Value = self
-                .entity
-                .fields
-                .iter()
-                .map(|f| (f.name.clone(), old[&f.name].clone()))
-                .collect();
-            record_history::capture(
-                tx,
-                self.tenant,
-                self.manifest,
-                self.entity,
-                self.id,
-                revision,
-                &prior,
-            )
-            .await?;
-        }
-        Ok(())
-    }
-    async fn after(
-        &self,
-        tx: &mut sqlx::PgConnection,
-        fields: &Value,
-        revision: i64,
-    ) -> Result<()> {
-        record_history::capture(
-            tx,
-            self.tenant,
-            self.manifest,
-            self.entity,
-            self.id,
-            revision,
-            fields,
-        )
-        .await
-    }
-}
+use veyndo_app_storage::{
+    managed_hooks,
+    mutations::{Mutation, WriteError},
+};
 pub(super) async fn apply(
     tx: &mut sqlx::PgConnection,
     t: &str,
@@ -75,11 +24,10 @@ pub(super) async fn apply(
     veyndo_app_storage::mutations::write(
         tx,
         &mutation,
-        &NativeHooks {
-            tenant: t,
+        &managed_hooks::Hooks {
+            key: records::key(t, &m.id, &e.name, id),
             manifest: m,
             entity: e,
-            id,
         },
     )
     .await
@@ -88,6 +36,7 @@ pub(super) async fn apply(
         WriteError::Revision(current) => Error::revision(current, "App record revision changed"),
         WriteError::Conflict(message) => conflict(message),
         WriteError::Invalid(message) => bad(message),
-        WriteError::Hook(error) => error,
+        WriteError::Hook(managed_hooks::Error::Model(error)) => model_contract::error(error),
+        WriteError::Hook(managed_hooks::Error::Storage(error)) => persistence::error(error),
     })
 }

@@ -51,6 +51,21 @@ Flow fixture also pass. The first independent read host is described below; comp
 hosting and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Managed App Data writes, 6 November 2026
+
+Apps 0.26.0 / Data service 0.2.0 adds an explicitly enabled write profile with
+approved package-bound CAS changes, typed private records, original states,
+retained historical rights and atomic outbox. HTTP/OpenAPI/MCP/SDK use the same
+operation. The dedicated schema-2 profile checks exact restricted grants; default
+read mode remains SELECT-only. Native Veyndo consumes the original shared hooks
+while retaining its full field/reference/language/commerce admission.
+
+Real process tests cover two shops, current rights, concurrent writes, rejected
+states, late failure rollback, historical scopes/retention and reconnect. Full
+independent native resource/installation/settings/jobs/restore/release hosting
+remains on the component list. [Guide](app-data-writes.md),
+[acceptance](evidence/app-data-managed-writes-component-2026-11-06.md).
+
 ## Independent App Data reader, 6 November 2026
 
 Apps [0.25.1](https://github.com/veyndo/apps/releases/tag/v0.25.1) adds an independent Rust read service with HTTP, OpenAPI, MCP and

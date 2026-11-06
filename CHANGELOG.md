@@ -1,5 +1,16 @@
 # Changelog
 
+## Private Studio draft component, 6 November 2026
+
+Apps 0.20.0 owns the original mutable private autosave/list/delete workflow.
+Strict shared Manifest decoding and raw submitted fields, 64 KiB budget, actor
+advisory/row CAS fences, 20-draft quota and mandatory same-connection environment
+ownership remain connected. Core retains current actor/developer/signed-scope
+admission and caller commit/rollback. Drafts do not install, publish or alter
+immutable versions. Independent PostgreSQL regressions cover actor/tenant scope,
+concurrent create/update/quota, rollback/reconnect and byte/revision boundaries.
+[Evidence](docs/evidence/app-private-drafts-component-2026-11-06.md).
+
 ## Agentic service UI and checkout architecture, 6 November 2026
 
 Recorded the checked operation/view/SDK foundations and missing output semantics,

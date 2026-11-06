@@ -21,5 +21,7 @@ Native routes retain current developer access, live scope, explicit approval and
 minimized prompt/evidence projection. version_storage must validate owned private
 environment, typed compiler and current actor scopes, then call the actual
 installer on the original privileged transaction. No default/no-op production
-admission, parallel SQL workflow or commit after failure. Mutable drafts remain
-actor-private in drafts.rs; live release retains its selective rights/CAS owner.
+admission, parallel SQL workflow or commit after failure. Mutable draft persistence belongs to pinned Apps drafts; native drafts.rs retains
+current actor derivation, developer rights, signed scope, actual environment
+ownership and transaction commit/rollback. Live release retains its selective
+rights/CAS owner.

@@ -292,8 +292,12 @@ The following are implementation tasks; existing UI foundations do not complete 
     recoverable archive/restore and row-fenced private staging through required
     native environment/compiler/current-actor/actual-installer admission.
     [Studio version evidence](evidence/app-studio-versions-component-2026-11-06.md).
+  - [x] Apps 0.20.0 actor-private mutable Studio drafts, original typed wire and
+    byte budget, actor/quota/CAS fence, scoped deletion and mandatory current
+    environment admission; native identity/rights and transaction ownership remain.
+    [Private draft evidence](evidence/app-private-drafts-component-2026-11-06.md).
   - [ ] Complete remaining lifecycle/version orchestration and independent
-    production-schema hosting (including actor-private mutable drafts).
+    production-schema hosting.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.
 - [ ] APP-04 Preserve encrypted settings, installation consent, rights, events,
@@ -436,6 +440,9 @@ The following are implementation tasks; existing UI foundations do not complete 
     - [x] Immutable development snapshot/history/archive persistence and actual
       private-stage sequence, retaining native current admission and installer on
       the original transaction. [Studio version evidence](evidence/app-studio-versions-component-2026-11-06.md).
+    - [x] Actor-private mutable Studio autosaves and scoped reads/deletion, original
+      wire/byte/revision/quota behavior and required environment admission on the
+      same transaction. [Private draft evidence](evidence/app-private-drafts-component-2026-11-06.md).
     - [ ] Identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -504,6 +511,12 @@ The following are implementation tasks; existing UI foundations do not complete 
 ## Progress log
 
 ### Shared app business contracts, 6 November 2026
+
+- Apps 0.20.0 shares private mutable draft persistence, preserving strict wire
+  decoding, exact submitted fields, actor scope, 64 KiB budget, row/CAS and per-user
+  quota locking. The native product retains current identity, developer access,
+  owned-environment checks and caller transactions. Drafts neither install nor
+  publish packages. [Private draft extraction](evidence/app-private-drafts-component-2026-11-06.md).
 
 - Apps 0.19.0 shares immutable App Studio snapshots and their original digest,
   bounded active/archive history, recovery and the actual row-fenced staging

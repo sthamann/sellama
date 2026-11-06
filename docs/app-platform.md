@@ -496,5 +496,14 @@ active/archive history, recovery and row-fenced private staging. Required native
 admission checks environment ownership, typed package/compiler, current actor
 rights and the actual installation path on the original transaction. Archive and
 restore preserve installed packages/data and immutable version identities. Mutable
-actor-private autosaves and selective live publication remain native.
+autosaves use Apps 0.20.0 as described below; selective live publication remains native.
 [Runnable example and accepted scope](evidence/app-studio-versions-component-2026-11-06.md).
+
+## Independent private autosaves
+
+Apps 0.20.0 owns the actual actor-private mutable draft save/list/delete path.
+Required host environment admission uses the same transaction; Core retains current
+identity/developer rights and signed SQL scope. The original typed wire contract,
+64 KiB budget, per-actor quota/advisory lock, row CAS and submitted locale values
+are preserved. Unfinished drafts remain separate from compiled immutable versions,
+installation and selective publication. [Example and evidence](evidence/app-private-drafts-component-2026-11-06.md).

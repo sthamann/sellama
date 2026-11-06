@@ -565,8 +565,17 @@ cross-service generated UI remain separate tasks.
 The [optional App Data write profile](app-data-writes.md) adds approved
 package-bound record changes, original state/history rules and atomic events via
 HTTP/MCP/SDK. Default reader permissions remain separate; native field/reference/
-language/commerce policies retain their owners. Full installation, native-resource,
+language/commerce policies retain their owners. Full native-resource,
 settings/jobs and publication hosting remain tracked in the component plan.
+
+## Independent portable package installation
+
+The [explicit App installation profile](app-package-installation-service.md) uses
+Apps 0.28.0 / Data service 0.4.0 for package review/install through HTTP, MCP and
+the unchanged SDK. The full compiler and original installer/model sequence retain
+exact approval, immutable versions, current personal/live authority and fixed-table
+row/byte budgets. Native model installation supplies its actual compatibility
+policy to the same owner. [Independent and native acceptance](evidence/app-package-installer-component-2026-11-06.md).
 
 ## Independent installation settings
 

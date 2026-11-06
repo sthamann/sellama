@@ -7,16 +7,17 @@ The full component extraction is in progress, not released.
 
 ## Latest completed extraction, 6 November 2026
 
-Apps 0.24.0 supplies the independently runnable Rust App Runtime service 0.1.0.
-HTTP, OpenAPI and stateless MCP share typed Wasm simulations and the existing SDK
-works unchanged. Current OAuth introspection supplies identity/scopes; synthetic
-snapshots and no-effect results keep it separate from live commerce authority.
-Native Veyndo embeds the same engine. [Use the service](app-runtime-service.md).
-[Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
+Apps 0.28.0 / Data service 0.4.0 adds standalone package review and installation.
+A developer can review/install a private data App, configure its encrypted
+settings and use its records through HTTP, MCP and the unchanged SDK, without
+Core. The complete compiler and original installation/model sequence are shared
+with native Veyndo. Explicit schema 4, current personal administrator authority,
+exact approval, immutable versions and original row/byte budgets constrain the
+independent host. [Setup and SDK](app-package-installation-service.md),
+[acceptance](evidence/app-package-installer-component-2026-11-06.md).
 
-The preceding Apps 0.23.0 extraction shares schema conversion and recovery snapshots
-with the complete installer. Full standalone app-data identity, supported schema
-provisioning and installation/control API hosting remain open.
+App Runtime remains separately runnable. Full standalone native-resource policy,
+jobs, restore and release orchestration remain open under APP-02..05.
 
 ## Required result
 
@@ -340,7 +341,12 @@ The following are implementation tasks; existing UI foundations do not complete 
     fresh personal live administrator authority, shared partial-update/CAS/projection
     and original vault envelope. [Setup](app-settings-service.md),
     [independent and assembled acceptance](evidence/app-settings-service-component-2026-11-06.md).
-  - [ ] Complete remaining installation/native-policy/jobs lifecycle
+  - [x] APP-02d Explicit portable package review/install through HTTP/OpenAPI/MCP/SDK,
+    complete shared compiler, original installer/model sequence, immutable versions,
+    exact approval and current personal/live authority, fixed schema-4 grants and
+    original row/byte budgets. [Setup](app-package-installation-service.md),
+    [independent and assembled acceptance](evidence/app-package-installer-component-2026-11-06.md).
+  - [ ] Complete remaining native-policy/jobs lifecycle
     orchestration and independent full host operation.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.

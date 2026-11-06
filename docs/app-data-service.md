@@ -85,7 +85,10 @@ native source.
 
 The default profile supplies the independent **read service and reader schema**.
 The optional portable [write/history profile](app-data-writes.md) is now available.
-Full installation/settings/jobs hosting and automatic data cutover remain open. The
+Encrypted [settings](app-settings-service.md) and portable
+[package review/install](app-package-installation-service.md) also have explicit
+profiles. Full native-resource/jobs/restore/release hosting and automatic data
+cutover remain open. The
 complete standalone App lifecycle and marketplace durable host remain on the
 [component task list](commerce-components.md). Models extending or referencing
 native product, customer, order or company objects are denied until their actual
@@ -102,3 +105,11 @@ The [explicit settings profile](app-settings-service.md) adds current personal
 live administrator reads and approved partial updates through HTTP/MCP/SDK. It
 requires schema 3, the exact restricted grants and a separate operator vault key.
 It is disabled by default; the schema-1 reader does not inherit these privileges.
+
+## Optional portable package installation
+
+The [explicit schema-4 profile](app-package-installation-service.md) reviews and
+installs complete private data packages with the shared compiler and original
+atomic installer. It supplies exact digest/permission/revision approval, immutable
+versions and protected original row/byte budgets. Use the unchanged SDK to install,
+configure and read/write an App without starting Core.

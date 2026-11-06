@@ -1346,43 +1346,73 @@
     },
     "extensions/services/app-storage/data-service/src/config.rs": {
       "status": "unproved",
-      "sha256": "01a792ff9f7d8eaead5056f2f5fd04b6f49bd57bd870c4bede8c3918385f9c1c",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "fa657a8795fb2cd4955f620b2d614cd2844f795fc1b9693b48890f86c67914f6",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/data-service/src/contract.rs": {
       "status": "unproved",
-      "sha256": "9461048ac991310e2180e0d41bb708bd71f33361f9aba61c2c7c555cfa9845bb",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "8016cf6647bbe32946c2464642894e0b08f47371853f14fd84420eacea6aad6a",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/data-service/src/database.rs": {
       "status": "unproved",
-      "sha256": "34b46dfb24f687fb67b2e2183ec8b65ddfcc6e6177f1b3ede14ccbcd03b36b3b",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "77e8cd7dcbef92b28f367ca590bf53be9d8f0b4a8d0af8ad03b7c390f50cade4",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/data-service/src/error.rs": {
       "status": "unproved",
-      "sha256": "43bd7f117f69ece0e79a09ba3b14af0ca7fb2616eb83624fd8c58ce51b9cadcd",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "4d0bc0edb6d3bddc8c248c77b9989222e46596a62f9c7850d16362dd3c8af6dd",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/data-service/src/identity.rs": {
       "status": "unproved",
       "sha256": "6831b488af9dc5249fb2dc2439ac2982567a1165fddf975aaed0c8699c2964a8",
       "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
     },
+    "extensions/services/app-storage/data-service/src/install_contract.rs": {
+      "status": "unproved",
+      "sha256": "0f62e4fdae9102d8a1c5e5718407281312d5ae60f12af713cdcded2863773189",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+    },
+    "extensions/services/app-storage/data-service/src/install_hooks.rs": {
+      "status": "unproved",
+      "sha256": "13daf3fe610f30c279f8a0217fc3bd9fba3004b60bd20d1a97f0fba25fa9fd32",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+    },
+    "extensions/services/app-storage/data-service/src/install_policy.rs": {
+      "status": "unproved",
+      "sha256": "d78e3bea982a20e0950bac3676742f5a94e78a0f63079112a1d54d877bff0a49",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+    },
+    "extensions/services/app-storage/data-service/src/install_role.rs": {
+      "status": "unproved",
+      "sha256": "4ffeb3d4db4f9adb775de304fdc900717c000358405661f8d58f059afa18b369",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+    },
+    "extensions/services/app-storage/data-service/src/installer.rs": {
+      "status": "unproved",
+      "sha256": "63c5e57e5a22a02d71b4840a812a1c2a56a10af81b532452e1635ed72a7ab00a",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+    },
     "extensions/services/app-storage/data-service/src/lib.rs": {
       "status": "unproved",
-      "sha256": "87c6422ee1661fa6eafed5fa91107a6b6183c624f012aa7c0285670cac1aa6b4",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "8aca9dade7a3b262db43d78cfb003fadecaa14f5d7d0e2574f5fb7b0354c226f",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/data-service/src/main.rs": {
       "status": "unproved",
       "sha256": "3b8b9ff502d0dd4dd38cd952cb6f6295f611d963fbdfa9e1b9f6ba0a26784652",
       "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
+    "extensions/services/app-storage/data-service/src/management.rs": {
+      "status": "unproved",
+      "sha256": "7cda8c8c61b1ab7aabb65d82abbf8071d9627d626ac1f9b4785daac2b800a7ce",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+    },
     "extensions/services/app-storage/data-service/src/mcp.rs": {
       "status": "unproved",
-      "sha256": "63f1038804bf2274cf35d2465a673ce3a9736cb72f3fe3e49093d42e0dfda5f3",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "4a9ef7feb39a77f7ab11fa5de4d6f83b8ff727d1d1287eaaea14fe9efe3d782c",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/data-service/src/portable.rs": {
       "status": "unproved",
@@ -1396,8 +1426,8 @@
     },
     "extensions/services/app-storage/data-service/src/settings.rs": {
       "status": "unproved",
-      "sha256": "d43a92edea48301b018f116703ee67c0348dc664934cd41ac64a278af265f4f4",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "c8403bb76025c0637ce7a1d45abac0b58657a0275c28baf55d76fc91cae37c1b",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/data-service/src/settings_contract.rs": {
       "status": "unproved",
@@ -1416,8 +1446,8 @@
     },
     "extensions/services/app-storage/data-service/src/write_role.rs": {
       "status": "unproved",
-      "sha256": "a9bd27ef36464da8c23647eac2a784bb4eacad7784596da00b7a26df2286ab49",
-      "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
+      "sha256": "e9a31a80e13341fd0a6fa8779d1fdae5efc2cd0f31d7f80227825c252d0b9b88",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/data-service/src/writer.rs": {
       "status": "unproved",
@@ -1996,13 +2026,18 @@
     },
     "extensions/services/app-storage/src/lib.rs": {
       "status": "unproved",
-      "sha256": "5dbba19560b5d9a0a2427ca6a19a481b60936b2eac74ccd5dfc21e0d2b738483",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "845840871fb2e236bd0e69bf1671d4318f325d0838026083c00cf733b150c00e",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/src/managed_hooks.rs": {
       "status": "unproved",
       "sha256": "90c36307ca2b54a55d3e642c7e4d2c360fc28134a302a618dbfd6be9a8e26662",
       "review": "Apps 0.26.0: original native lifecycle and bounded before/after record history moved into shared managed_hooks on the existing mutation/outbox transaction. Native package/field/reference/language/identity admission remains unchanged. Independent real PostgreSQL/identity/HTTP/MCP/SDK tests and Linux container verify current approval/digest/CAS/state/history scopes/retention and full late-failure rollback. Explicit optional schema-2 write grants and unsupported native policies fail closed; no new proved policy claim for host SQL/network."
+    },
+    "extensions/services/app-storage/src/models.rs": {
+      "status": "unproved",
+      "sha256": "aaf64f4bb95044a45c19914a87a2d6730e3f7ab10627490bc3da31a57ac0bf4d",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/src/mutations.rs": {
       "status": "unproved",
@@ -2776,8 +2811,8 @@
     },
     "src/apps/records.rs": {
       "status": "unproved",
-      "sha256": "531e7d4d6c173f0713c7c4dc15f9a6ccec485cbf78a66d5544278c5657067378",
-      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+      "sha256": "fb9676d5e3f59da34d93d31a4258972fede720be63728406a709e4908ce3059c",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "src/apps/registry.rs": {
       "status": "unproved",
@@ -5271,16 +5306,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "697609f97b7d5fe6d3a26e1910df78832b08aa3af3f8a163a14bacf09430574e",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "bcb1458a0b285dcbc2ee79c90af96a2b445d300be34a6f587d4f8d8cdb898240",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "Cargo.toml": {
       "sha256": "a217ec927488adc4b5e1430e7cee5e92455edf1018c678096fec13c3466398b5",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "components.lock.json": {
-      "sha256": "d4c88743027f5d66f5432de707543a5cae5c8d367a1dd65c4d206a6182a8d19f",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "4f8b09438c70ef1cdac68430500c15d040a5603a26e7e982e10090e2ab2fbf6e",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",
@@ -5431,12 +5466,12 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "baf1191d149edd5312ec0a64aff27046e83269ba7a1cc8226f233d4013c7f125",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "73142dfe1e9b8d351d179ff73f81a589cc72ec86070d595a88345fe4d0ed81e1",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "fc50b898a133c745369462c345496827ddb61b0d269dacd19ce506cd603ec347",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "90f5ff1a18f35489a127a12c4ae1ea2b67a1197d0bdfa95e04355efa6005a3a7",
+      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
       "sha256": "9438fe3ff98ee7adfa6c49eb83bd7605d89195e5fd28351c2a7e4f8472e16d1c",

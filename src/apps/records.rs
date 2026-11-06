@@ -46,60 +46,30 @@ pub(crate) async fn rows(
     Ok(rows.iter().map(|row| project(e, row)).collect())
 }
 
-pub(super) async fn define(
-    tx: &mut sqlx::PgConnection,
-    t: &str,
-    app: &str,
-    version: &str,
-    e: &Entity,
-) -> Result<()> {
-    Ok(veyndo_app_storage::records::define(
-        tx,
-        veyndo_app_storage::Scope { tenant: t, app },
-        version,
-        &e.name,
-        &json!(e),
-    )
-    .await?)
-}
-
-pub(super) async fn install(tx: &mut sqlx::PgConnection, t: &str, m: &Manifest) -> Result<()> {
-    for e in &m.entities {
-        let old: Option<Value> = sqlx::query_scalar(
-            "SELECT definition FROM app_models WHERE tenant=$1 AND app=$2 AND entity=$3",
-        )
-        .bind(t)
-        .bind(&m.id)
-        .bind(&e.name)
-        .fetch_optional(&mut *tx)
-        .await?;
-        if let Some(old) = &old {
-            let previous: Entity =
-                serde_json::from_value(old.clone()).map_err(|_| bad("Invalid prior app model"))?;
-            core_extensions::compatible(&previous, e)?;
-            if e.fields
-                .iter()
-                .any(|f| f.required && !previous.fields.iter().any(|p| p.name == f.name))
-            {
-                return Err(conflict(
-                    "New required field needs a data migration; add it nullable first",
-                ));
-            }
-        }
-        define(tx, t, &m.id, &m.version, e).await?;
-        if old.is_some_and(|old| old != json!(e)) {
-            // Rebuild bounded fixed projections when field contracts change, never CREATE INDEX/TABLE.
-            sqlx::query(
-                "UPDATE app_records SET fields=fields WHERE tenant=$1 AND app=$2 AND entity=$3",
-            )
-            .bind(t)
-            .bind(&m.id)
-            .bind(&e.name)
-            .execute(&mut *tx)
-            .await?;
-        }
+struct Compatibility;
+impl veyndo_app_storage::models::Compatibility for Compatibility {
+    type Error = Error;
+    fn check(&self, old: &Entity, next: &Entity) -> Result<()> {
+        core_extensions::compatible(old, next)
     }
-    Ok(())
+}
+pub(super) async fn install(tx: &mut sqlx::PgConnection, t: &str, m: &Manifest) -> Result<()> {
+    veyndo_app_storage::models::install(
+        tx,
+        veyndo_app_storage::Scope {
+            tenant: t,
+            app: &m.id,
+        },
+        m,
+        &Compatibility,
+    )
+    .await
+    .map_err(|e| match e {
+        veyndo_app_storage::models::Error::Database(e) => e.into(),
+        veyndo_app_storage::models::Error::Invalid(s) => bad(s),
+        veyndo_app_storage::models::Error::Conflict(s) => conflict(s),
+        veyndo_app_storage::models::Error::Host(e) => e,
+    })
 }
 pub(crate) async fn reset_preview(tx: &mut sqlx::PgConnection, t: &str, app: &str) -> Result<()> {
     Ok(

@@ -2,7 +2,7 @@
 
 ## Independent App Data reader, 6 November 2026
 
-Apps 0.25.0 adds a standalone read-only Rust HTTP/OpenAPI/MCP host with existing
+Apps 0.25.1 adds a standalone read-only Rust HTTP/OpenAPI/MCP host with existing
 SDK/Fetch examples, fixed reader schema and current merchant/action admission.
 One restricted PostgreSQL login and signed forced RLS isolate shops; the serving
 process has neither schema-install nor data-write authority. Veyndo shares actual

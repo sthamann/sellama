@@ -53,7 +53,7 @@ hosting and independent deployment remain open under MKT-03.
 
 ## Independent App Data reader, 6 November 2026
 
-Apps 0.25.0 adds an independent Rust read service with HTTP, OpenAPI, MCP and
+Apps [0.25.1](https://github.com/veyndo/apps/releases/tag/v0.25.1) adds an independent Rust read service with HTTP, OpenAPI, MCP and
 existing SDK support for private installed App data. A versioned fixed reader
 schema, nonowner SELECT-only login, current OAuth merchant/action rights and signed
 read-only database scope enforce the independent boundary. Native Veyndo uses the

@@ -63,10 +63,11 @@ until the real native resolver is available.
   [Actual reader container](https://github.com/veyndo/apps/actions/runs/42216607725)
   and [existing runtime container](https://github.com/veyndo/apps/actions/runs/42216607474)
   acceptance both pass on Linux. The component is merged and published as
-  [0.25.0 prerelease](https://github.com/veyndo/apps/releases/tag/v0.25.0).
+  [0.25.1 prerelease](https://github.com/veyndo/apps/releases/tag/v0.25.1).
 * The final reader DTO additionally rejects explicit null for each optional query
   field, while omitted values retain their defaults. Its actual HTTP/MCP/SDK test
-  passes, including these new negative cases.
+  passes, including these new negative cases. Final [component CI](https://github.com/veyndo/apps/actions/runs/42217937152)
+  and [reader container](https://github.com/veyndo/apps/actions/runs/42217937212) also pass.
 * Component imports preserve unchanged source bytes and modification times, update
   changed content and remove deleted files. A real clean Git fixture checks those
   effects while retaining exact source and signed-verifier drift guards. The final

@@ -5,7 +5,7 @@ journeys. The [connected AI workspace](agentic-workspace.md) explains contextual
 planning, reviewed private execution, app composition, real preview, editable list
 handoff and remembered merchant guidance.
 
-**Updated 6 November 2026:** [Apps 0.25.0](app-data-service.md) now provides the
+**Updated 6 November 2026:** [Apps 0.25.1](app-data-service.md) now provides the
 first independent read-only App Data HTTP/MCP/SDK host and versioned fixed reader
 schema. Current identity/action rights and signed database isolation are enforced;
 Veyndo embeds the same original page/projection/scope code. Both standalone and

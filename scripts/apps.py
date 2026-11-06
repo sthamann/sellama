@@ -90,8 +90,12 @@ assert call('/api/apps/engraving/actions/rules',{},rh)['elements']
 call('/api/apps/engraving/actions/save_rules',{'id':'default','revision':3,'fields':{'fee_minor':100}},rh,expected=403)
 call('/api/apps',{'builtIn':'paypal'},rh,expected=403);check('Read-only members can query apps but cannot install or change their data')
 pack=next(p for p in call('/api/apps',h=h)['packages'] if p['id']=='engraving')
+call('/api/apps/engraving',{'active':False,'revision':pack['revision']},rh,'PUT',403)
 call('/api/apps/engraving',{'active':False,'revision':pack['revision']},h,'PUT')
 call('/api/apps/engraving/actions/rules',{},h,expected=409)
+call('/api/apps/engraving',{'active':True,'revision':pack['revision']},h,'PUT',409)
+call('/api/apps/engraving',{'active':True},h,'PUT',400)
+assert next(p for p in call('/api/apps',h=h)['packages'] if p['id']=='engraving')['active'] is False
 call('/api/apps/engraving',{'active':True,'revision':pack['revision']+1},h,'PUT')
 assert call('/api/apps/engraving/entities/rules',h=h)['elements'][0]['fee_minor']==700;check('Deactivation removes capabilities while retaining app data')
 # A second independently packaged module has different business rules; core has no app branch.

@@ -31,6 +31,13 @@ try:
  dep=copy.deepcopy(m);dep['id']='fixture_child';dep['distribution']['dependencies']=[{'app':'fixture_base','publisher':'fixture','version':'^1.0.0'}];dep=signed(dep)['manifest']
  call('/api/apps',{'manifest':dep},foreign,409);call('/api/apps',{'manifest':dep},h)
  call('/api/apps/fixture_base',{'active':False,'revision':1},h,409,'PUT')
+ call('/api/apps/fixture_child',{'active':False,'revision':1},h,200,'PUT')
+ call('/api/apps/fixture_base',{'active':False,'revision':1},h,200,'PUT')
+ call('/api/apps/fixture_child',{'active':True,'revision':2},h,409,'PUT')
+ rows=call('/api/apps',h=h)['packages'];child=next(p for p in rows if p['id']=='fixture_child')
+ assert child['active'] is False and child['revision']==2
+ call('/api/apps/fixture_base',{'active':True,'revision':2},h,200,'PUT')
+ call('/api/apps/fixture_child',{'active':True,'revision':2},h,200,'PUT')
  major=copy.deepcopy(m);major['version']='2.0.0';major=signed(major)['manifest'];call('/api/apps',{'manifest':major},h,409)
  cycle=copy.deepcopy(m);cycle['version']='1.1.0';cycle['distribution']['dependencies']=[{'app':'fixture_child','publisher':'fixture','version':'^1.0.0'}];cycle=signed(cycle)['manifest'];call('/api/apps',{'manifest':cycle},h,409)
  update=copy.deepcopy(m);update['version']='1.1.0';update['distribution']['channel']='beta';update=signed(update)['manifest'];call('/api/apps',{'manifest':update},h)

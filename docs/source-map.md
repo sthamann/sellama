@@ -34,6 +34,14 @@ installer admission on the original privileged transaction. Final selective live
 release retains its native owner.
 [Evidence](evidence/app-studio-versions-component-2026-11-06.md).
 
+**Package state:** Pinned Apps `src/activation.rs` owns configuration-hook/lifecycle
+fence ordering, active-dependant check and revision CAS. Native
+`src/apps/activation.rs` supplies actual configuration, package/current actor/
+consent/trust/dependencies/commerce/lifecycle and connected-frontend admission;
+`routes.rs` retains current management/merchant scope, input and caller transaction.
+The duplicate deactivation dependency query is removed from native distribution.
+[Evidence](evidence/app-activation-component-2026-11-06.md).
+
 **App record history:** Pinned Apps `src/record_history.rs` owns immutable capture,
 original historical read scopes/actor/source, bounded list and restore lookup/
 read admission. Native `src/apps/history_storage.rs` supplies current rights and

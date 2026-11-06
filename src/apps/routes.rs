@@ -127,45 +127,26 @@ async fn app_state(
     let t = merchant(&a, &h)?;
     let active = v["active"].as_bool().ok_or(bad("active required"))?;
     let mut tx = a.db.begin().await?;
-    crate::marketing::lock_config(&mut tx, &t).await?;
-    sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,543))")
-        .bind(&t)
-        .execute(&mut *tx)
-        .await?;
-    sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,7))")
-        .bind(format!("{t}:{id}"))
-        .execute(&mut *tx)
-        .await?;
-    if !active
-        && sqlx::query_scalar::<_, bool>(
-            "SELECT EXISTS(SELECT 1 FROM hosted_frontends WHERE tenant=$1 AND app_id=$2)",
-        )
-        .bind(&t)
-        .bind(&id)
-        .fetch_one(&mut *tx)
-        .await?
-    {
-        return Err(conflict(
-            "App is required by connected frontends; disconnect them first",
-        ));
-    }
-    if active {
-        let m = package_on(&mut *tx, &t, &id, false).await?;
-        consent::actor_permissions(&h, &m)?;
-        approval::installation(&m)?;
-        distribution::dependencies(&mut tx, &t, &m).await?;
-        commerce_hooks::admission(&mut tx, &t, &m).await?;
-        native_lifecycle::admission(&mut tx, &t, &m).await?;
-    }
-    if !active {
-        distribution::deactivate(&mut tx, &t, &id).await?;
-    }
-    let changed=sqlx::query("UPDATE app_packages SET active=$1,revision=revision+1 WHERE tenant=$2 AND id=$3 AND revision=$4").bind(active).bind(t).bind(id).bind(v["revision"].as_i64().ok_or(bad("revision required"))?).execute(&mut *tx).await?.rows_affected();
-    if changed != 1 {
-        return Err(conflict("App revision changed"));
-    }
+    let result = veyndo_app_storage::activation::set(
+        &mut tx,
+        &veyndo_app_storage::activation::Change {
+            scope: veyndo_app_storage::Scope {
+                tenant: &t,
+                app: &id,
+            },
+            active,
+            revision: v["revision"].as_i64(),
+        },
+        &activation::Host {
+            tenant: &t,
+            app: &id,
+            actor: &h,
+        },
+    )
+    .await
+    .map_err(activation::error)?;
     tx.commit().await?;
-    Ok(Json(json!({"active":active,"dataRetained":true})))
+    Ok(Json(result))
 }
 async fn app_action(
     State(a): State<App>,

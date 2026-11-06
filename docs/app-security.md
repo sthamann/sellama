@@ -320,3 +320,16 @@ signed scope, actor/source and actual save remain attached. Failed admission or
 history/audit/event persistence requires caller rollback. Capturing the same
 version cannot replace its fields, rights or attribution. Original retention is
 scoped to the tenant/app and record. [Regressions and boundary](evidence/app-record-history-component-2026-11-06.md).
+
+## Shared activation authority
+
+`activation::StateHooks` requires actual host configuration, activation and
+connected-frontend admission, with no approving defaults. Native Veyndo retains
+current management/merchant scope, current package/actor rights, consent/operator
+trust, signed dependencies and commerce/native lifecycle checks. Input flags do
+not grant those authorities. Configuration locks precede shared tenant/app fences,
+which also exclude the actual installer and active-package writer. Deactivation
+checks active dependants after connected frontend admission. Revision CAS remains
+last, preserving original first-error semantics. Any host, dependency, CAS or SQL
+failure requires rollback. The operation deletes no app data and emits no new
+state event. [Regression boundary](evidence/app-activation-component-2026-11-06.md).

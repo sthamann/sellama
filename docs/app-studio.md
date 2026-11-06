@@ -287,3 +287,11 @@ creates a new current revision through the existing normal save operation. Curre
 rights, historical read rights, field/reference validation and conflict checks all
 remain in force. Interface/package rollback and live operational records retain
 their separate lifecycles. [Scope and tests](evidence/app-record-history-component-2026-11-06.md).
+
+## Shared activation and deactivation
+
+Installed app state changes now use Apps 0.22.0 through the same administration
+endpoint. Re-enabling an app still checks current rights, package consent/trust,
+active dependencies and commerce/lifecycle compatibility. Connected shop frontends
+and active dependent apps block deactivation. Stale revisions reject without
+changing state; data and versions are retained. [Component scope](evidence/app-activation-component-2026-11-06.md).

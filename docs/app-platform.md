@@ -518,3 +518,13 @@ actor/source attribution, 20 revisions per record and 16 MiB history per app rem
 on the existing shared table. Current entity rights, field projection, explicit
 review, signed scope and commit/rollback stay with the host.
 [Independent example and native acceptance](evidence/app-record-history-component-2026-11-06.md).
+
+## Independent package state changes
+
+Apps 0.22.0 owns the existing activation/deactivation sequence and active-dependant
+check. Mandatory native hooks retain current management/package consent/trust,
+commerce/lifecycle and connected-frontend admission, with actual configuration
+locking before shared tenant/app fences. Installation and state changes use the
+same lifecycle lock. Current records, immutable versions, credentials and jobs
+retain their separate lifecycles. Original revision/error behavior is preserved;
+caller rollback is required on failure. [Example and acceptance](evidence/app-activation-component-2026-11-06.md).

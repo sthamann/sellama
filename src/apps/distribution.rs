@@ -82,18 +82,6 @@ pub(super) async fn dependencies(
     let installed: Vec<Value> = rows.into_iter().map(|r| r.get("manifest")).collect();
     shared::validate_graph(m, &installed).map_err(model_contract::error)
 }
-pub(super) async fn deactivate(
-    tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,
-    t: &str,
-    id: &str,
-) -> Result<()> {
-    let used:bool=sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM app_packages p WHERE tenant=$1 AND active AND id<>$2 AND EXISTS(SELECT 1 FROM jsonb_array_elements(coalesce(p.manifest->'distribution'->'dependencies','[]'::jsonb)) d WHERE d->>'app'=$2))").bind(t).bind(id).fetch_one(&mut **tx).await?;
-    if used {
-        return Err(conflict("App is required by another active app"));
-    }
-    Ok(())
-}
-
 /// Offline signing shares the server canonical representation. The 32-byte seed is supplied on stdin, never logged.
 pub(crate) fn sign_package() {
     use ring::signature::KeyPair;

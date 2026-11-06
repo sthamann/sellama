@@ -231,3 +231,12 @@ package-bound record changes, original state/history rules and atomic events via
 HTTP/MCP/SDK. Default reader permissions remain separate; native field/reference/
 language/commerce policies retain their owners. Full installation, native-resource,
 settings/jobs and publication hosting remain tracked in the component plan.
+
+## Independent installation settings
+
+The [optional App settings profile](app-settings-service.md) provides HTTP, MCP
+and JavaScript access to declared configuration. It shares native encrypted
+partial updates, package/revision fences and secret-safe projection, with explicit
+personal live administrator admission. The serving role cannot install packages
+or create schema objects. Reader/write profiles retain their separate grants.
+The original vault envelope is shared; existing native ciphertext stays readable.

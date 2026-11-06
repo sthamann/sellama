@@ -336,7 +336,11 @@ The following are implementation tasks; existing UI foundations do not complete 
     explicit approval/package/revision fences, original state/history hooks and
     atomic outbox. Default read-only mode remains separate. Native resource
     policies have no fallback. [Acceptance](evidence/app-data-managed-writes-component-2026-11-06.md).
-  - [ ] Complete remaining installation/native-policy/settings/jobs lifecycle
+  - [x] APP-02c Explicit encrypted settings profile through HTTP/OpenAPI/MCP/SDK,
+    fresh personal live administrator authority, shared partial-update/CAS/projection
+    and original vault envelope. [Setup](app-settings-service.md),
+    [independent and assembled acceptance](evidence/app-settings-service-component-2026-11-06.md).
+  - [ ] Complete remaining installation/native-policy/jobs lifecycle
     orchestration and independent full host operation.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.

@@ -29,14 +29,3 @@ pub(super) fn error(value: shared::SecretError<Error>) -> Error {
         shared::SecretError::Crypto(e) => e,
     }
 }
-pub(super) async fn metadata(
-    a: &App,
-    tenant: &str,
-    app: &str,
-    kind: &str,
-) -> Result<Option<shared::Metadata>> {
-    let mut tx = a.db.begin().await?;
-    let row = shared::metadata(&mut tx, veyndo_app_storage::Scope { tenant, app }, kind).await?;
-    tx.commit().await?;
-    Ok(row)
-}

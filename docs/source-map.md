@@ -17,6 +17,15 @@ The trusted storage crate is distinct from no-SQL `veyndo-app-runtime` and its n
 Cargo boundary controls prohibit guest/domain imports of the storage package.
 [Independent and assembled tests](evidence/app-storage-component-2026-11-05.md).
 
+**Encrypted app configuration:** Pinned Apps `src/secrets.rs` owns metadata-only
+reads, digest-bound internal resolution and encrypted rotation with original
+binding/lock/CAS/package/outbox order and required host crypto. Native
+`src/apps/secret_storage.rs` delegates seal/open to the actual existing platform
+key owner and preserves errors. `settings.rs` and `secrets.rs` retain personal/live
+administrator and declared-kind/consent rules, safe projections and thin transaction
+adapters; webhook intake uses shared locked resolution in its original transaction.
+[Evidence](evidence/app-encrypted-configuration-component-2026-11-06.md).
+
 **App job workflows:** Pinned Apps `src/job_history.rs` owns bounded scoped keyset
 history/detail queries. `src/job_control.rs` owns original merchant transitions,
 row/revision locks, explicit outcome review, retry actor/package reset and atomic

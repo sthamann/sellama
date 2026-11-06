@@ -9,9 +9,6 @@ fn applicable(m: &Manifest, kind: &str) -> bool {
         _ => false,
     }
 }
-fn binding(t: &str, id: &str, kind: &str, digest: &str, revision: i64) -> String {
-    format!("app:{t}:{id}:{kind}:{digest}:{revision}")
-}
 pub(super) fn router() -> Router<App> {
     Router::new()
         .secure_route(
@@ -32,7 +29,16 @@ async fn list(
 ) -> Result<Json<Value>> {
     let t = merchant(&a, &h)?;
     let m = package(&a, &t, &id, false).await?;
-    let secrets: Vec<Value> = sqlx::query_scalar("SELECT jsonb_build_object('kind',kind,'revision',revision,'rotatedAt',rotated_at,'packageDigest',package_digest) FROM app_service_secrets WHERE tenant=$1 AND app=$2 ORDER BY kind").bind(&t).bind(id).fetch_all(&a.db).await?;
+    let mut tx = a.db.begin().await?;
+    let secrets = veyndo_app_storage::secrets::list(
+        &mut tx,
+        veyndo_app_storage::Scope {
+            tenant: &t,
+            app: &id,
+        },
+    )
+    .await?;
+    tx.commit().await?;
     Ok(Json(
         json!({"digest":approval::canonical_digest(&m),"kinds":KINDS.iter().filter(|k|applicable(&m,k)).collect::<Vec<_>>(),"canManage":auth::permit(&h,"team.manage").is_ok() && h.principal.user.as_deref().is_some_and(|u|u!="bootstrap") && staging::parent(&a,&t).await?.is_none(),"secrets":secrets,"encryptionReady":veyndo::inference::settings::encryption_ready()}),
     ))
@@ -90,98 +96,55 @@ async fn rotate(
     Ok(Json(json!({"rotated":true,"revision":revision})))
 }
 /// Shared encrypted persistence for transport credentials and declared app settings.
-pub(super) struct SecretWrite<'a> {
-    pub kind: &'a str,
-    pub digest: &'a str,
-    pub revision: i64,
-    pub actor: &'a str,
-    pub secret: &'a str,
-}
+pub(super) use veyndo_app_storage::secrets::Write as SecretWrite;
 pub(super) async fn store(a: &App, t: &str, id: &str, write: SecretWrite<'_>) -> Result<i64> {
-    let SecretWrite {
-        kind,
-        digest,
-        revision,
-        actor,
-        secret,
-    } = write;
-    let encrypted =
-        veyndo::inference::settings::seal(&binding(t, id, kind, digest, revision + 1), secret)
-            .map_err(|_| {
-                Error(
-                    StatusCode::SERVICE_UNAVAILABLE,
-                    "Platform secret encryption is unavailable".into(),
-                )
-            })?;
     let mut tx = a.db.begin().await?;
-    sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,844))")
-        .bind(format!("{t}:{id}:{kind}"))
-        .execute(&mut *tx)
-        .await?;
-    let current: Option<i64> = sqlx::query_scalar("SELECT revision FROM app_service_secrets WHERE tenant=$1 AND app=$2 AND kind=$3 FOR UPDATE").bind(t).bind(id).bind(kind).fetch_optional(&mut *tx).await?;
-    if current.unwrap_or(0) != revision {
-        return Err(conflict(
-            "Secret was rotated elsewhere; reload its revision",
-        ));
-    }
-    let active_digest: String = sqlx::query_scalar(
-        "SELECT digest FROM app_packages WHERE tenant=$1 AND id=$2 AND active FOR SHARE",
+    let revision = veyndo_app_storage::secrets::rotate(
+        &mut tx,
+        veyndo_app_storage::Scope { tenant: t, app: id },
+        &write,
+        &secret_storage::Crypto,
     )
-    .bind(t)
-    .bind(id)
-    .fetch_one(&mut *tx)
-    .await?;
-    if digest != active_digest {
-        return Err(conflict("App package changed before secret rotation"));
-    }
-    sqlx::query("INSERT INTO app_service_secrets(tenant,app,kind,ciphertext,package_digest,revision,actor) VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(tenant,app,kind) DO UPDATE SET ciphertext=EXCLUDED.ciphertext,package_digest=EXCLUDED.package_digest,revision=EXCLUDED.revision,actor=EXCLUDED.actor,rotated_at=now()").bind(t).bind(id).bind(kind).bind(encrypted).bind(digest).bind(revision+1).bind(actor).execute(&mut *tx).await?;
-    sqlx::query("INSERT INTO outbox(tenant,kind,data) VALUES($1,'app.secret_rotated',$2)")
-        .bind(t)
-        .bind(json!({"app":id,"kind":kind,"revision":revision+1,"actor":actor}))
-        .execute(&mut *tx)
-        .await?;
+    .await
+    .map_err(secret_storage::error)?;
     tx.commit().await?;
-    Ok(revision + 1)
+    Ok(revision)
 }
-/// Existing operator fallbacks remain only when no tenant-specific value has ever been configured.
+/// Existing operator fallbacks apply only when the scoped store has no configured value.
 pub(super) async fn resolve(a: &App, t: &str, m: &Manifest, kind: &str) -> Result<Option<String>> {
-    let row = sqlx::query("SELECT ciphertext,package_digest,revision FROM app_service_secrets WHERE tenant=$1 AND app=$2 AND kind=$3").bind(t).bind(&m.id).bind(kind).fetch_optional(&a.db).await?;
-    decrypt(row, t, m, kind)
+    let mut tx = a.db.begin().await?;
+    let secret = veyndo_app_storage::secrets::resolve(
+        &mut tx,
+        veyndo_app_storage::Scope {
+            tenant: t,
+            app: &m.id,
+        },
+        kind,
+        &approval::canonical_digest(m),
+        &secret_storage::Crypto,
+    )
+    .await
+    .map_err(secret_storage::error)?;
+    tx.commit().await?;
+    Ok(secret)
 }
-/// A webhook verifies while holding the secret row, so rotation cannot race with intake/receipts.
+/// The original intake/receipt transaction retains the shared secret lock through verification.
 pub(super) async fn resolve_tx(
     tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,
     t: &str,
     m: &Manifest,
     kind: &str,
 ) -> Result<Option<String>> {
-    let row=sqlx::query("SELECT ciphertext,package_digest,revision FROM app_service_secrets WHERE tenant=$1 AND app=$2 AND kind=$3 FOR SHARE").bind(t).bind(&m.id).bind(kind).fetch_optional(&mut **tx).await?;
-    decrypt(row, t, m, kind)
-}
-fn decrypt(
-    row: Option<sqlx::postgres::PgRow>,
-    t: &str,
-    m: &Manifest,
-    kind: &str,
-) -> Result<Option<String>> {
-    let Some(row) = row else {
-        return Ok(None);
-    };
-    let digest: String = row.get("package_digest");
-    if digest != approval::canonical_digest(m) {
-        return Err(conflict(
-            "App secret belongs to an older package; review and rotate it for this version",
-        ));
-    }
-    let secret = veyndo::inference::settings::open(
-        &binding(t, &m.id, kind, &digest, row.get("revision")),
-        &row.get::<String, _>("ciphertext"),
+    veyndo_app_storage::secrets::resolve_locked(
+        tx,
+        veyndo_app_storage::Scope {
+            tenant: t,
+            app: &m.id,
+        },
+        kind,
+        &approval::canonical_digest(m),
+        &secret_storage::Crypto,
     )
-    .map_err(|_| {
-        Error(
-            StatusCode::SERVICE_UNAVAILABLE,
-            "App secret cannot be decrypted; check the platform key".into(),
-        )
-    })?;
-    Ok(Some(secret))
+    .await
+    .map_err(secret_storage::error)
 }

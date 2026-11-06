@@ -267,3 +267,15 @@ before queued signaling. Errors require rollback, including hook writes. The
 component never automatically retries an unknown external outcome or creates an
 authenticated actor. Creator-role locking, callback leases, direct verified
 completion admission and encrypted evidence remain native.
+
+## Required crypto for shared configuration storage
+
+Shared `secrets::Crypto` requires authenticated seal/open from the trusted host;
+no default or plaintext fallback is supplied. The native adapter delegates to the
+existing platform key owner. The original tenant/app/kind/digest/revision binding
+prevents envelope substitution. The caller owns transaction commit/rollback;
+rotation and its metadata-only event remain atomic. Incoming webhook verification
+must use `resolve_locked` in its original receipt transaction. Personal-session and
+administrator gates, approved digest, declared kinds/payloads, sandbox exclusion
+and browser redaction remain native. Neither ciphertext nor plaintext belongs in
+metadata responses. Checked revision increments reject invalid/exhausted values.

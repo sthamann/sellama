@@ -24,6 +24,14 @@ Prepare/probe bounded modules
 before commerce transactions; WIT hooks consume bounded read-only snapshots and
 use the existing native money/tax calculation owner.
 
+Shared secrets owns existing encrypted configuration metadata/read/rotation SQL,
+original binding/lock/CAS/package/outbox sequence and webhook shared read. Required
+Crypto delegates through native secret_storage to the existing platform seal/open
+owner; no default crypto/key/fallback or plaintext browser read. Keep personal/live
+administrator verified admission, consent, declared kinds/settings and safe
+projection in native routes. Caller rollback on every error; webhook receipt and
+verification retain the same transaction. Checked revision overflow must reject.
+
 Shared job_history owns bounded scoped job history/detail SQL; job_control owns
 original row/CAS/uncertainty/control transitions and atomic outbox in the caller
 transaction. Native jobs retains merchant/package/actor/action admission and

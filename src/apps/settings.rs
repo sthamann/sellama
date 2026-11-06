@@ -25,14 +25,9 @@ async fn read(
     }
     let m = package(&a, &t, &id, false).await?;
     let digest = approval::canonical_digest(&m);
-    let row=sqlx::query("SELECT revision,package_digest FROM app_service_secrets WHERE tenant=$1 AND app=$2 AND kind='settings'").bind(&t).bind(&id).fetch_optional(&a.db).await?;
-    let revision = row
-        .as_ref()
-        .map(|r| r.get::<i64, _>("revision"))
-        .unwrap_or(0);
-    let current = row
-        .as_ref()
-        .is_none_or(|r| r.get::<String, _>("package_digest") == digest);
+    let row = secret_storage::metadata(&a, &t, &id, "settings").await?;
+    let revision = row.as_ref().map(|r| r.revision).unwrap_or(0);
+    let current = row.as_ref().is_none_or(|r| r.digest == digest);
     let values = if current {
         resolve(&a, &t, &m).await?
     } else {
@@ -73,7 +68,14 @@ async fn save(
         .as_i64()
         .filter(|n| *n >= 0)
         .ok_or(bad("Settings revision required"))?;
-    let values=if sqlx::query_scalar::<_,bool>("SELECT EXISTS(SELECT 1 FROM app_service_secrets WHERE tenant=$1 AND app=$2 AND kind='settings' AND package_digest=$3)").bind(&t).bind(&id).bind(&digest).fetch_one(&a.db).await? {resolve(&a,&t,&m).await?} else {json!({})};
+    let values = if secret_storage::metadata(&a, &t, &id, "settings")
+        .await?
+        .is_some_and(|row| row.digest == digest)
+    {
+        resolve(&a, &t, &m).await?
+    } else {
+        json!({})
+    };
     let encoded = veyndo_app_model::settings::prepare(&m.settings, &values, &v["values"])
         .map_err(model_contract::error)?;
     let revision = secrets::store(

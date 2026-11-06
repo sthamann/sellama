@@ -51,6 +51,16 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Independent encrypted app configuration, 6 November 2026
+
+Apps [0.18.0](https://github.com/veyndo/apps/releases/tag/v0.18.0) now owns encrypted
+settings/transport metadata, internal resolution and the original rotation
+transaction. Required host seal/open callbacks retain the existing platform key
+owner. Native routes retain their existing administrator/session, consent,
+declared-kind/settings, live-write and browser-redaction checks. AEAD binding, revision/package checks, shared webhook lock and atomic
+outbox are shared; revision exhaustion returns a clear error. Independent version,
+identity/schema/API/MCP hosting remain open. [Acceptance and exact scope](evidence/app-encrypted-configuration-component-2026-11-06.md).
+
 ## Independent durable app job workflows, 6 November 2026
 
 Apps [0.17.0](https://github.com/veyndo/apps/releases/tag/v0.17.0) now owns bounded

@@ -17,6 +17,16 @@ The trusted storage crate is distinct from no-SQL `veyndo-app-runtime` and its n
 Cargo boundary controls prohibit guest/domain imports of the storage package.
 [Independent and assembled tests](evidence/app-storage-component-2026-11-05.md).
 
+**App job workflows:** Pinned Apps `src/job_history.rs` owns bounded scoped keyset
+history/detail queries. `src/job_control.rs` owns original merchant transitions,
+row/revision locks, explicit outcome review, retry actor/package reset and atomic
+outbox events in the caller transaction. Native `src/apps/jobs.rs` keeps route,
+identity/package admission and result redaction; `job_control.rs` provides the
+required current-action/right/input retry hook and exact error mapping. Native
+job callbacks, creator-role locks, completion evidence and the direct verified
+completion predicate retain their original owners.
+[Evidence](evidence/app-job-workflows-component-2026-11-06.md).
+
 **Complete standard app compiler:** Pinned Apps `model/src/compiler.rs` owns the
 complete 19-stage domain sequence and actual view lookup. Its required policy
 combines existing pure-validator policies with signature, namespace, destination,

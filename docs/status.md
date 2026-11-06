@@ -51,6 +51,17 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Independent durable app job workflows, 6 November 2026
+
+Apps [0.17.0](https://github.com/veyndo/apps/releases/tag/v0.17.0) now owns bounded
+job history/detail and the original merchant cancel/retry/resolve/archive
+transaction. Core reuses it with current retry rights/input validation and response
+redaction. Revision, uncertainty, lease cleanup, actor/package rebinding and atomic
+outbox behavior remain connected to their existing owners. The executable
+PostgreSQL example runs without Core and rolls back its synthetic work. Independent
+identity, callback/evidence hosting and supported standalone schema/API/MCP remain
+open. [Acceptance and exact scope](evidence/app-job-workflows-component-2026-11-06.md).
+
 ## Complete independent standard app compiler, 6 November 2026
 
 Apps [0.16.0](https://github.com/veyndo/apps/releases/tag/v0.16.0), model 0.12.0,

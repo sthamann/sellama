@@ -254,3 +254,16 @@ UI correctness or a service provider. Real HTTP/PostgreSQL tests cover those
 implemented admission boundaries.
 
 The [workbench guide](app-studio-workspace.md) documents test coverage and limits.
+
+## Shared job controls remain trusted host operations
+
+`job_history` returns internal rows for a trusted host, not a public response.
+Before disclosure Core retains current package/action/actor checks, removes the
+internal fingerprint and clears forbidden message/result fields. Job groups are
+labels only. Cursors resolve inside the selected tenant/app and remain bounded.
+`job_control` requires the caller transaction and a mandatory retry-admission hook;
+current installed action, primary/additional rights and stored input are checked
+before queued signaling. Errors require rollback, including hook writes. The
+component never automatically retries an unknown external outcome or creates an
+authenticated actor. Creator-role locking, callback leases, direct verified
+completion admission and encrypted evidence remain native.

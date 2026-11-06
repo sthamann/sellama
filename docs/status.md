@@ -51,6 +51,17 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Shared configuration and business preflight, 6 November 2026
+
+Apps [0.13.0](https://github.com/veyndo/apps/releases/tag/v0.13.0), model 0.9.0 and
+runtime 0.2.0, shares structured configuration/library selection, exact arguments,
+typed hooks and frozen business snapshots/expected decisions. Native compilation
+and actual example/checkout execution reuse the same implementation with canonical
+host policies, current package/record checks and existing release owners.
+The independent preflight validates and executes seven configuration and five
+commerce cases without Core, SQL or inference.
+[Evidence and remaining scope](evidence/app-business-contracts-2026-11-06.md).
+
 ## Independent bounded app runtime, 5 November 2026
 
 Apps [0.12.0](https://github.com/veyndo/apps/releases/tag/v0.12.0) adds

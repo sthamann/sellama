@@ -4,20 +4,7 @@ use std::sync::Arc;
 use veyndo::component_runtime::{
     self as wit, AppRecord, CartItem, CartSnapshot, Money, ProductSnapshot, Snapshot,
 };
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct Contract {
-    pub source: String,
-    pub hooks: Vec<String>,
-    #[serde(default)]
-    pub records: Vec<Record>,
-}
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub(crate) struct Record {
-    pub entity: String,
-    pub id: String,
-}
+pub(crate) use veyndo_app_model::commerce_hooks::Contract;
 pub(crate) async fn verify_package(m: &Manifest) -> Result<()> {
     if let Some(c) = &m.configuration {
         let entity = m
@@ -51,31 +38,15 @@ pub(crate) struct Prepared {
     pub modules: HashMap<String, Arc<Sandbox>>,
 }
 pub(super) fn validate(m: &Manifest) -> Result<()> {
-    if let Some(c) = &m.commerce_hooks
-        && (!m.permissions.iter().any(|p| p == "commerce.hooks")
-            || c.source.len() > 32768
-            || !Sandbox::component_source(&c.source)
-            || c.hooks.is_empty()
-            || c.hooks.len() > 4
-            || c.hooks
-                .iter()
-                .any(|h| !["price", "discount", "shipping", "validation"].contains(&h.as_str()))
-            || c.hooks
-                .iter()
-                .collect::<std::collections::HashSet<_>>()
-                .len()
-                != c.hooks.len()
-            || c.records.len() > 4
-            || c.records.iter().any(|r| {
-                r.id.is_empty()
-                    || r.id.len() > 100
-                    || !m.entities.iter().any(|e| e.name == r.entity)
-            })
-            || (!c.records.is_empty() && !m.permissions.iter().any(|p| p == "data.read")))
-    {
-        return Err(bad("Invalid typed commerce hook contract"));
-    }
-    Ok(())
+    veyndo_app_model::commerce_hooks::validate(
+        &veyndo_app_model::commerce_hooks::Context {
+            entities: &m.entities,
+            permissions: &m.permissions,
+            commerce_hooks: m.commerce_hooks.as_ref(),
+        },
+        Sandbox::component_source,
+    )
+    .map_err(model_contract::error)
 }
 async fn rows(conn: &mut sqlx::PgConnection, t: &str) -> Result<Vec<sqlx::postgres::PgRow>> {
     // Row locks fence upgrades/deactivation during checkout. Nine detects the eight-app admission cap.

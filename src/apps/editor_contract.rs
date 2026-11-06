@@ -1,9 +1,5 @@
 //! Editor mounts, enumerated fields and tenant-owned core references; no app alters core tables.
 use super::*;
-pub(super) fn validate_fields(e: &Entity) -> Result<()> {
-    veyndo_app_model::declarations::validate_fields(e, &ReferencePolicy)
-        .map_err(model_contract::error)
-}
 pub(super) struct ReferencePolicy;
 impl veyndo_app_model::declarations::ReferencePolicy for ReferencePolicy {
     fn admitted(&self, product: bool, private: bool) -> bool {

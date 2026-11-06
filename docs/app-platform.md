@@ -31,6 +31,21 @@ flowchart LR
   Component --> Quote[Native cart and checkout calculation]
 ```
 
+## Portable business contract checks
+
+Apps 0.13.0/model 0.9.0 shares configuration fields, record selection, exact integer
+arguments, typed commerce hooks and frozen business snapshots/expected decisions.
+Runtime 0.2.0 uses that pure model for admitted snapshot-to-WIT projection,
+actual frozen-example evaluation and bounded contribution execution. There is no
+separate pricing implementation or inference-based acceptance path.
+
+The [business preflight example](https://github.com/veyndo/apps/blob/main/runtime/examples/business_preflight.rs)
+validates and executes the original configuration and commerce examples without
+a Core process or database. Native installation and runtime adapters retain the
+complete validation order, canonical currency/value/reference policies, real Wasm
+source probing, selected library/package ownership, cache and transactional release.
+[Business contract acceptance](evidence/app-business-contracts-2026-11-06.md).
+
 ## Independent execution package
 
 Apps 0.12.0 supplies `veyndo-app-runtime` 0.1.0. It executes the same core-Wasm

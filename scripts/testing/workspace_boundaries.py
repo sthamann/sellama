@@ -13,7 +13,7 @@ OWNERS.update({'veyndo': ROOT, 'veyndo-migration': ROOT / 'extensions/apps/migra
                'veyndo-app-runtime': ROOT / 'extensions/services/app-storage/runtime'})
 ALLOWED = {
     'veyndo-app-model': set(),
-    'veyndo-app-runtime': set(),
+    'veyndo-app-runtime': {'veyndo-app-model'},
     'veyndo-app-storage': {'veyndo-app-model'},
     'veyndo-marketplaces': set(),
     'veyndo-kernel': set(),
@@ -27,7 +27,7 @@ ALLOWED = {
 # explicit architecture decision, including build/dev/optional/target variants.
 EXTERNAL = {
     'veyndo-app-model': {'serde', 'serde_json', 'chrono', 'cron'},
-    'veyndo-app-runtime': {'wasmtime', 'wat', 'sha2'},
+    'veyndo-app-runtime': {'wasmtime', 'wat', 'sha2', 'serde_json'},
     'veyndo-app-storage': {'sqlx', 'serde_json', 'sha2', 'tokio', 'chrono'},
     'veyndo-marketplaces': {'axum', 'tokio', 'serde', 'serde_json', 'sha2', 'hmac', 'ring', 'chrono', 'reqwest'},
     'veyndo-kernel': set(),

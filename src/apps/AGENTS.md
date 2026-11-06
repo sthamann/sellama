@@ -24,6 +24,15 @@ Prepare/probe bounded modules
 before commerce transactions; WIT hooks consume bounded read-only snapshots and
 use the existing native money/tax calculation owner.
 
+Shared configuration/library/argument and commerce-hook/frozen-decision contracts
+belong to model/configuration, commerce_hooks, business_capability and business_snapshot.
+Required field/currency/reference/source policies use the original native owners;
+keep complete compiler order and exact error pointers. Runtime business_snapshot,
+business_examples and configuration consume the pure model for actual bounded
+execution. Admit declarations before synthetic projection/verification; frozen data
+never resolves live records or authorizes effects. Native library/package selection,
+source fences, cache, async execution and transactional checkout/release stay native.
+
 Pure model types, declarations, bounded schemas, field/language checks, publication
 contracts and record workflows belong to `veyndo/apps` model/. Core consumes its
 pinned `veyndo-app-model` package. Native adapters preserve problem kinds/pointers

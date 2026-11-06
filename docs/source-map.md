@@ -17,6 +17,17 @@ The trusted storage crate is distinct from no-SQL `veyndo-app-runtime` and its n
 Cargo boundary controls prohibit guest/domain imports of the storage package.
 [Independent and assembled tests](evidence/app-storage-component-2026-11-05.md).
 
+**App business contracts:** Pinned Apps `model/src/configuration.rs` owns exact
+configuration DTO/field/library/argument grammar. `commerce_hooks.rs`,
+`business_capability.rs` and `business_snapshot.rs` own hook declarations and frozen
+expected-decision contracts. Native `configuration_inputs.rs`, `commerce_hooks.rs`
+and `business_capability/mod.rs` supply borrowed complete-package context and
+canonical host policies in their original compiler order. Runtime
+`business_snapshot.rs`, `business_examples.rs` and `configuration.rs` own actual
+WIT projection, frozen-example evaluation and bounded contribution execution.
+Native selected library/package authority, async cache/execution, currency conversion
+and applying outcomes retain their owners. [Evidence](evidence/app-business-contracts-2026-11-06.md).
+
 **Actual app execution:** Pinned Apps `runtime/` owns `veyndo-app-runtime`:
 `sandbox.rs`/`configuration.rs`, `component_runtime.rs`/`abi.rs` and
 `sandbox_engine.rs` own actual guest execution, typed read-only host calls and

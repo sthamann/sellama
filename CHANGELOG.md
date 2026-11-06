@@ -1,5 +1,16 @@
 # Changelog
 
+## Schema recovery component, 6 November 2026
+
+Apps 0.23.0 extracts actual bounded field migration and recovery capture into the
+independent storage crate. Required native field/language validation stays on the
+original installer transaction; tenant/package fences and final reference admission
+remain attached. Original old-field projection, row/byte limits and atomic event
+are retained. Exhausted record revisions return a conflict after validation.
+Independent PostgreSQL and native API regressions cover scoped snapshots, rollback,
+limits, disabled languages and exhausted revisions.
+[Evidence](docs/evidence/app-schema-recovery-component-2026-11-06.md).
+
 ## Package state component, 6 November 2026
 
 Apps 0.22.0 owns original activation/deactivation ordering, lifecycle fences,

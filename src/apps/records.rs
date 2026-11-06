@@ -52,18 +52,6 @@ pub(crate) async fn rows(
     Ok(rows.iter().map(|row| project(e, row)).collect())
 }
 
-pub(super) async fn put(
-    tx: &mut sqlx::PgConnection,
-    t: &str,
-    app: &str,
-    entity: &str,
-    id: &str,
-    revision: i64,
-    fields: &Value,
-) -> Result<()> {
-    Ok(veyndo_app_storage::records::put(tx, key(t, app, entity, id), revision, fields).await?)
-}
-
 pub(super) async fn define(
     tx: &mut sqlx::PgConnection,
     t: &str,

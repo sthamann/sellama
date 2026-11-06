@@ -153,8 +153,50 @@ def flow_actor():
   assert next(p for p in call('/api/apps',h=h)['packages'] if p['id']==limited['id'])['version']=='1.0.0'
  print('PASS owner upgrades cannot strand an active Flow with a restricted actor by changing primary or additional action rights')
 
+def revision_exhaustion():
+ previous=copy.deepcopy(m);previous['id']='revision_exhaustion'
+ call('/api/apps',{'manifest':previous},h)
+ call('/api/apps/revision_exhaustion/actions/save',{'id':'maxed','fields':{'title':'Original','count':'42','obsolete':'retained'}},h)
+ sql(f"UPDATE app_records SET revision=9223372036854775807 WHERE tenant='{tenant}' AND app='revision_exhaustion'")
+ candidate=copy.deepcopy(changed);candidate['id']='revision_exhaustion'
+ before=sql(f"SELECT count(*) FROM outbox WHERE tenant='{tenant}'")
+ report=call('/api/apps/review',{'manifest':candidate},h)['upgrade']
+ assert not report['ready'] and report['issue']['status']==409,report
+ assert 'revision exhausted' in report['issue']['detail'],report
+ call('/api/apps',{'manifest':candidate},h,409)
+ row=call('/api/apps/revision_exhaustion/actions/list',{},h)['elements'][0]
+ assert row['revision']==9223372036854775807 and row['count']=='42' and row['obsolete']=='retained',row
+ assert sql(f"SELECT count(*) FROM app_schema_history WHERE tenant='{tenant}' AND app='revision_exhaustion'")=='0'
+ assert sql(f"SELECT manifest->>'version' FROM app_packages WHERE tenant='{tenant}' AND id='revision_exhaustion'")=='1.0.0'
+ assert sql(f"SELECT count(*) FROM outbox WHERE tenant='{tenant}'")==before
+ print('PASS schema revision exhaustion returns a reviewable conflict and leaves package, rows, recovery history and outbox unchanged')
+
+def migration_languages():
+ previous=copy.deepcopy(m);previous['id']='migration_languages'
+ previous['entities'][0]['fields'][0]['translatable']=True
+ call('/api/apps',{'manifest':previous},h)
+ call('/api/apps/migration_languages/actions/save',{'id':'translated','fields':{'title':{'en-GB':'Original'},'count':'42','obsolete':'retained'}},h)
+ locales=json.loads(sql(f"SELECT data->'locales' FROM commerce_settings WHERE tenant='{tenant}'"))
+ disabled=next(locale for locale in ['ja-JP','nl-NL','pt-BR'] if locale not in locales)
+ sql(f"UPDATE app_records SET fields=jsonb_set(fields,'{{title}}',jsonb_build_object('{disabled}','Historical translation')) WHERE tenant='{tenant}' AND app='migration_languages'")
+ candidate=copy.deepcopy(changed);candidate['id']='migration_languages';candidate['entities'][0]['fields'][0]['translatable']=True
+ before=sql(f"SELECT count(*) FROM outbox WHERE tenant='{tenant}'")
+ report=call('/api/apps/review',{'manifest':candidate},h)['upgrade']
+ assert not report['ready'] and report['issue']['status']==400,report
+ call('/api/apps',{'manifest':candidate},h,400)
+ assert sql(f"SELECT manifest->>'version' FROM app_packages WHERE tenant='{tenant}' AND id='migration_languages'")=='1.0.0'
+ assert sql(f"SELECT count(*) FROM app_schema_history WHERE tenant='{tenant}' AND app='migration_languages'")=='0'
+ assert sql(f"SELECT count(*) FROM outbox WHERE tenant='{tenant}'")==before
+ # Repair the historical value through the actual current writer, then migrate normally.
+ call('/api/apps/migration_languages/actions/save',{'id':'translated','revision':1,'fields':{'title':{'en-GB':'Original'},'count':'42','obsolete':'retained'}},h)
+ assert call('/api/apps/review',{'manifest':candidate},h)['upgrade']['ready']
+ call('/api/apps',{'manifest':candidate},h)
+ row=call('/api/apps/migration_languages/actions/list',{},h)['elements'][0]
+ assert row['caption']=={'en-GB':'Original'} and row['count']==42 and row['revision']==3,row
+ print('PASS schema migration retains current native enabled-language admission and successful multilingual conversion')
+
 failures=[]
-for case in [field_rules,flow_actor]:
+for case in [field_rules,flow_actor,revision_exhaustion,migration_languages]:
  try:case()
  except AssertionError as error:failures.append((case.__name__,str(error)))
 assert not failures,failures

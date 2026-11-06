@@ -295,3 +295,15 @@ endpoint. Re-enabling an app still checks current rights, package consent/trust,
 active dependencies and commerce/lifecycle compatibility. Connected shop frontends
 and active dependent apps block deactivation. Stale revisions reject without
 changing state; data and versions are retained. [Component scope](evidence/app-activation-component-2026-11-06.md).
+
+## Shared update recovery
+
+App update review and installation now use Apps 0.23.0 schema conversion and
+recovery capture through the existing native installer. Review still attempts the
+actual installation, forces deferred relational checks and rolls everything back;
+it exposes model counts and a problem description, never historical field values.
+A successful compatible update keeps its previous declared values in the bounded
+recovery history. Unsupported conversions, disabled content languages or exhausted
+revisions stop the update with its package and data unchanged. Existing sandbox
+ownership, version review, publication and record restoration controls remain.
+[Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).

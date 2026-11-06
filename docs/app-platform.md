@@ -528,3 +528,16 @@ locking before shared tenant/app fences. Installation and state changes use the
 same lifecycle lock. Current records, immutable versions, credentials and jobs
 retain their separate lifecycles. Original revision/error behavior is preserved;
 caller rollback is required on failure. [Example and acceptance](evidence/app-activation-component-2026-11-06.md).
+
+## Shared schema migration transaction
+
+Apps 0.23.0 owns the actual explicit rename/remove/convert/fill transaction and
+bounded recovery capture, using the existing shared evolution planner. The old
+manifest and old declared field values, record IDs and revisions are retained
+before conversion. Model/record changes and `app.schema.migrated` remain atomic
+with the complete installation. Required host validation runs typed values and
+current enabled-language checks on the same transaction. Native consent, trust,
+references, projections and tenant/package fences retain their actual owners.
+The migration never opens a pool, creates SQL objects, commits independently or
+automatically rewinds historical schemas. Exhausted revisions reject after field
+validation. [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).

@@ -224,3 +224,18 @@ read scopes and actor/source metadata. The original transaction-scoped app lock
 bounds retention to 20 revisions per record and 16 MiB per tenant/app using actual
 `pg_column_size`. Restoration uses the normal admitted CAS writer, its history and
 atomic outbox. [Independent and composed evidence](evidence/app-record-history-component-2026-11-06.md).
+
+## Schema conversion and recovery ownership
+
+Apps 0.23.0 storage `schema_upgrade` captures old declared values and manifest in
+`app_schema_history`, converts the affected records and writes model/revision/event
+changes on the complete installer's original transaction. Existing limits remain
+2,000 records per affected model, 4,000,000 serialized bytes per snapshot and
+16,000,000 retained bytes per tenant/app. Retention uses the original PostgreSQL
+JSON text accounting plus incoming serialized bytes; no history is silently pruned.
+Required same-transaction host validation keeps native field/content/language
+checks. Final reference/index projection and complete installation still run
+before commit. There are no new tables, indexes, pools or production migrations.
+Schema recovery capture differs from managed single-record restoration: a saved
+snapshot does not authorize a blind schema downgrade or replay of old business
+effects. [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).

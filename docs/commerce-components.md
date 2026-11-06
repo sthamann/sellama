@@ -5,6 +5,14 @@ components. Updated 6 November 2026. Checked tasks name observed evidence;
 repository transfer, local tests, remote CI and hosted acceptance are separate.
 The full component extraction is in progress, not released.
 
+## Latest completed extraction, 6 November 2026
+
+Apps 0.23.0 shares schema conversion and recovery snapshots with the complete
+Veyndo installer. The mandatory host port retains native field and enabled-language
+validation. The independent PostgreSQL tests exercise actual installation rollback,
+scoped snapshots and row/byte/revision limits. Standalone identity, schema hosting
+and API/MCP remain open. [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).
+
 ## Required result
 
 Each component has its own repository in the `veyndo` GitHub organization. The
@@ -305,8 +313,12 @@ The following are implementation tasks; existing UI foundations do not complete 
     fences, active-dependant check and revision CAS with mandatory native config,
     current actor/trust/commerce/lifecycle and connected-frontend admission.
     [Activation evidence](evidence/app-activation-component-2026-11-06.md).
-  - [ ] Complete remaining schema-recovery and lifecycle orchestration, plus
-    independent production-schema hosting.
+  - [x] Apps 0.23.0 original explicit schema conversion and bounded recovery
+    capture on the existing installer transaction, mandatory native field/language
+    validation, declared historical values and checked record revisions.
+    [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).
+  - [ ] Complete remaining lifecycle orchestration and independent production
+    schema hosting.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.
 - [ ] APP-04 Preserve encrypted settings, installation consent, rights, events,
@@ -459,6 +471,9 @@ The following are implementation tasks; existing UI foundations do not complete 
     - [x] Package activation/deactivation and active-dependant fencing through
       required current native host hooks; same writer/install locks, error order,
       retained data and revision behavior. [Activation evidence](evidence/app-activation-component-2026-11-06.md).
+    - [x] Explicit field migration and bounded old-manifest/record recovery
+      capture, required actual host validation and atomic installer rollback.
+      [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).
     - [ ] Identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).

@@ -47,9 +47,23 @@ No production schema or role change is required for these extractions.
 Independent PostgreSQL tests cover atomic job/outbox rollback, concurrent replay,
 quotas, expired leases and reconnection. The integrated storage/jobs tests, 43
 tenant isolation checks and native marketplace HTTP/MCP order, stock, invoice and
-Flow fixture also pass. The first independent read host is described below; complete installation/write
-hosting and independent deployment remain open under MKT-03.
+Flow fixture also pass. The first independent read host is described below; portable installation, writes and settings now have explicit profiles below;
+complete lifecycle hosting and independent deployment remain open.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
+
+## Independent App package installation, 6 November 2026
+
+Apps 0.28.0 / Data service 0.4.0 lets developers review and install a private data
+App, configure its encrypted settings and use its records without Core, through
+HTTP, MCP and the existing SDK. It uses the complete shared compiler, original
+atomic installer and extracted native model installer. The explicit schema-4
+profile adds immutable versions and protected usage accounting in fixed shared
+tables. Current personal live administrator authority, exact digest/permission/
+revision approval and original per-App row/byte budgets remain enforced.
+Native Veyndo delegates model installation with its actual compatibility policy
+on the original transaction. Native resource resolvers, jobs, restore and release
+hosting remain open. [Setup and example](app-package-installation-service.md),
+[acceptance](evidence/app-package-installer-component-2026-11-06.md).
 
 ## Independent encrypted App settings, 6 November 2026
 
@@ -79,7 +93,7 @@ while retaining its full field/reference/language/commerce admission.
 
 Real process tests cover two shops, current rights, concurrent writes, rejected
 states, late failure rollback, historical scopes/retention and reconnect. Full
-independent native resource/installation/settings/jobs/restore/release hosting
+independent native resource/jobs/restore/release hosting
 remains on the component list. [Guide](app-data-writes.md),
 [acceptance](evidence/app-data-managed-writes-component-2026-11-06.md).
 

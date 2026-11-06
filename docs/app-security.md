@@ -367,6 +367,15 @@ is added. This service can use an external identity owner independently; connect
 native sessions and a complete app-data/installation host remains separate work.
 [Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
 
+## Independent portable package installation
+
+The [explicit App installation profile](app-package-installation-service.md) uses
+Apps 0.28.0 / Data service 0.4.0 for package review/install through HTTP, MCP and
+the unchanged SDK. The full compiler and original installer/model sequence retain
+exact approval, immutable versions, current personal/live authority and fixed-table
+row/byte budgets. Native model installation supplies its actual compatibility
+policy to the same owner. [Independent and native acceptance](evidence/app-package-installer-component-2026-11-06.md).
+
 ## Independent installation settings
 
 The [optional App settings profile](app-settings-service.md) provides HTTP, MCP

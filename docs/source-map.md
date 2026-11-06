@@ -5,6 +5,15 @@ SDK, test requirements and complete-product acceptance](commerce-components.md).
 Existing owners remain authoritative until their replacement is integrated and
 accepted. Moving a repository does not establish standalone service behavior.
 
+**App package installation service:** Pinned Apps `src/models.rs` owns the original
+model install/rebuild sequence and required compatibility port. Native
+`src/apps/records.rs` delegates with actual core-extension compatibility on its
+existing transaction. Apps `data-service/src/installer.rs`, `install_hooks.rs` and
+`install_policy.rs` compose full compilation, explicit review/approval and the
+shared installer for portable private data packages; they own no native resource
+resolver. Schema-4 provisioning stays outside the serving image.
+[Operator guide](app-package-installation-service.md).
+
 **App persistence:** `veyndo/apps` owns `veyndo-app-storage`; the exact source
 snapshot in `extensions/services/app-storage/` is verified by
 `components.lock.json`. `src/apps/records.rs`, `jobs.rs` and `job_callbacks.rs`

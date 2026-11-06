@@ -1,5 +1,19 @@
 # Changelog
 
+## Independent App package installation, 6 November 2026
+
+Apps 0.28.0 / Data service 0.4.0 lets developers review and install a private data
+App, configure its encrypted settings and use its records without Core, through
+HTTP, MCP and the existing SDK. It uses the complete shared compiler, original
+atomic installer and extracted native model installer. The explicit schema-4
+profile adds immutable versions and protected usage accounting in fixed shared
+tables. Current personal live administrator authority, exact digest/permission/
+revision approval and original per-App row/byte budgets remain enforced.
+Native Veyndo delegates model installation with its actual compatibility policy
+on the original transaction. Native resource resolvers, jobs, restore and release
+hosting remain open. [Setup and example](docs/app-package-installation-service.md),
+[acceptance](docs/evidence/app-package-installer-component-2026-11-06.md).
+
 ## Independent encrypted App settings, 6 November 2026
 
 Apps 0.27.0 / Data service 0.3.0 adds an explicitly enabled settings profile.

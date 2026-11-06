@@ -114,6 +114,7 @@
         "docs/app-data-service.md",
         "docs/app-data-writes.md",
         "docs/app-settings-service.md",
+        "docs/app-package-installation-service.md",
         "docs/app-data-storage.md",
         "docs/app-core-extensions.md",
         "docs/app-native-lifecycles.md",

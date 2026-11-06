@@ -16,13 +16,7 @@ pub(crate) fn lock_key(t: &str, app: &str, entity: &str, id: &str) -> String {
     veyndo_app_storage::records::lock_key(key(t, app, entity, id))
 }
 pub(crate) fn project(e: &Entity, row: &Value) -> Value {
-    let mut out = serde_json::Map::new();
-    out.insert("id".into(), row["id"].clone());
-    out.insert("revision".into(), row["revision"].clone());
-    for f in &e.fields {
-        out.insert(f.name.clone(), row[&f.name].clone());
-    }
-    Value::Object(out)
+    veyndo_app_storage::record_query::project(e, row)
 }
 pub(crate) async fn get(
     tx: &mut sqlx::PgConnection,

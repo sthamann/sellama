@@ -24,66 +24,13 @@ pub(super) async fn list_scoped(
     if !m.permissions.contains(&"data.read".into()) {
         return Err(Error(StatusCode::FORBIDDEN, "App needs data.read".into()));
     }
-    let limit = input["limit"].as_i64().unwrap_or(100);
-    if !(1..=100).contains(&limit) {
-        return Err(bad("App page limit must be 1..100"));
-    }
-    let after = input["after"].as_str().unwrap_or("");
-    if after.len() > 100 {
-        return Err(bad("App cursor exceeds limit"));
-    }
-    let id = input
-        .get("id")
-        .map(|id| {
-            id.as_str()
-                .filter(|s| !s.is_empty() && s.len() <= 100)
-                .ok_or(bad("Invalid app record ID"))
-        })
-        .transpose()?;
-    let mut filters = Vec::new();
-    if let Some(filter) = input.get("filter") {
-        let filter = filter
-            .as_object()
-            .ok_or(bad("App filter must be an object"))?;
-        if filter.len() > 4 {
-            return Err(bad("App filter exceeds limit"));
-        }
-        for (name, value) in filter {
-            let f = e
-                .fields
-                .iter()
-                .find(|f| f.name == *name && f.indexed && !f.translatable)
-                .ok_or(bad("Filter requires an indexed field"))?;
-            let valid = match f.kind.as_str() {
-                "string" => value.as_str().is_some_and(|v| v.len() <= 2000),
-                "integer" => value.as_i64().is_some(),
-                "boolean" => value.is_boolean(),
-                _ => false,
-            };
-            if !valid {
-                return Err(bad("Invalid indexed app filter"));
-            }
-            filters.push(veyndo_app_storage::queries::Filter {
-                field: &f.name,
-                value,
-            });
-        }
-    }
+    let plan = veyndo_app_storage::record_query::prepare(&m.permissions, e, input, public_channel)
+        .map_err(persistence::error)?;
     let mut tx = a.db.begin().await?;
     sqlx::query("SELECT set_config('rac.tenant',$1,true)")
         .bind(t)
         .execute(&mut *tx)
         .await?;
-    let publication = public_channel.and_then(|channel| {
-        e.publication
-            .as_ref()
-            .map(|p| veyndo_app_storage::queries::Window {
-                status_field: &p.status_field,
-                channel_field: &p.channel_field,
-                starts_at: &p.starts_at,
-                channel,
-            })
-    });
     let page = veyndo_app_storage::queries::list(
         &mut tx,
         veyndo_app_storage::Scope {
@@ -91,26 +38,12 @@ pub(super) async fn list_scoped(
             app: &m.id,
         },
         &e.name,
-        &veyndo_app_storage::queries::Query {
-            limit,
-            after,
-            id,
-            filters: &filters,
-            publication,
-        },
+        &plan.query(),
     )
     .await
     .map_err(persistence::error)?;
     tx.commit().await?;
-    let has_more = page.has_more;
-    let elements = page
-        .rows
-        .iter()
-        .map(|row| records::project(e, row))
-        .collect::<Vec<_>>();
-    let next = page.next_cursor;
-    let mut result =
-        json!({"elements":elements,"limit":limit,"hasMore":has_more,"nextCursor":next});
+    let mut result = veyndo_app_storage::record_query::response(e, plan.limit, page);
     if let Some(graph) = ontology::project(t, m, e, &result["elements"]) {
         result["ontology"] = graph;
     }

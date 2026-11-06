@@ -51,6 +51,18 @@ Flow fixture also pass. The first independent read host is described below; port
 complete lifecycle hosting and independent deployment remain open.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Independent App job supervision, 6 November 2026
+
+Apps 0.29.0 / Data service 0.5.0 supplies bounded job history/detail and approved
+cancel/retry/resolve/archive through HTTP, MCP and the unchanged SDK, without Core.
+Native Veyndo uses the same current-package/current-rights result redaction and
+queued-event selector. The explicit schema-5 nonowner profile cannot enqueue or
+forge worker input/results. Personal live authority, exact approval, original
+leases/CAS and atomic events remain enforced. Actual worker execution, producer
+provisioning and callback evidence retain their separate owners.
+[Setup and SDK](app-job-supervision-service.md),
+[acceptance](evidence/app-job-supervision-component-2026-11-06.md).
+
 ## Independent App package installation, 6 November 2026
 
 Apps 0.28.0 / Data service 0.4.0 lets developers review and install a private data

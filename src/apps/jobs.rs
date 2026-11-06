@@ -50,12 +50,7 @@ pub(super) async fn enqueue(
     Ok(result)
 }
 pub(super) fn event_kind(m: &Manifest, action: &str) -> String {
-    let grouped = format!("app.{}.job_queued", m.id);
-    if m.events.contains(&grouped) {
-        grouped
-    } else {
-        format!("app.{}.job_{action}", m.id)
-    }
+    veyndo_app_storage::job_projection::event_kind(m, action)
 }
 
 pub(super) fn router() -> Router<App> {
@@ -100,22 +95,7 @@ async fn list(
     .map_err(persistence::error)?;
     tx.commit().await?;
     let mut rows = page.rows;
-    let digest = approval::canonical_digest(&m);
-    for row in &mut rows {
-        let allowed = row["packageDigest"] == digest
-            && m.actions
-                .iter()
-                .find(|action| Some(action.name.as_str()) == row["action"].as_str())
-                .is_some_and(|action| {
-                    auth::permit(&h, action.permission.as_deref().unwrap_or("apps.manage")).is_ok()
-                        && gateway::additional_permissions(&h, action).is_ok()
-                });
-        if !allowed {
-            row["message"] = json!({});
-            row["result"] = Value::Null;
-        }
-        row.as_object_mut().unwrap().remove("packageDigest");
-    }
+    veyndo_app_storage::job_projection::history(&action_admission::Current(&h), &m, &mut rows);
     Ok(Json(
         json!({"jobs":rows,"hasMore":page.has_more,"nextCursor":page.next_cursor,"limit":limit}),
     ))

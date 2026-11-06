@@ -367,6 +367,15 @@ is added. This service can use an external identity owner independently; connect
 native sessions and a complete app-data/installation host remains separate work.
 [Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
 
+## Independent App job supervision
+
+The [optional job supervisor](app-job-supervision-service.md) exposes existing
+job history/detail and approved cancel/retry/resolve/archive through HTTP, MCP
+and SDK. Shared projection/event ownership preserves current rights, package
+binding and original control/lease/CAS semantics in Veyndo. The schema-5 serving
+login cannot create jobs or change worker input/results; execution retains its
+actual producer/consumer owner. [Acceptance](evidence/app-job-supervision-component-2026-11-06.md).
+
 ## Independent portable package installation
 
 The [explicit App installation profile](app-package-installation-service.md) uses

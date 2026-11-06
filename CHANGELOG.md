@@ -1,5 +1,17 @@
 # Changelog
 
+## Independent App job supervision, 6 November 2026
+
+Apps 0.29.0 / Data service 0.5.0 supplies bounded job history/detail and approved
+cancel/retry/resolve/archive through HTTP, MCP and the unchanged SDK, without Core.
+Native Veyndo uses the same current-package/current-rights result redaction and
+queued-event selector. The explicit schema-5 nonowner profile cannot enqueue or
+forge worker input/results. Personal live authority, exact approval, original
+leases/CAS and atomic events remain enforced. Actual worker execution, producer
+provisioning and callback evidence retain their separate owners.
+[Setup and SDK](docs/app-job-supervision-service.md),
+[acceptance](docs/evidence/app-job-supervision-component-2026-11-06.md).
+
 ## Documentation delivery timeout, 6 November 2026
 
 The GitHub Pages deployment action now waits up to twenty minutes for file

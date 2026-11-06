@@ -568,6 +568,15 @@ HTTP/MCP/SDK. Default reader permissions remain separate; native field/reference
 language/commerce policies retain their owners. Full native-resource,
 settings/jobs and publication hosting remain tracked in the component plan.
 
+## Independent App job supervision
+
+The [optional job supervisor](app-job-supervision-service.md) exposes existing
+job history/detail and approved cancel/retry/resolve/archive through HTTP, MCP
+and SDK. Shared projection/event ownership preserves current rights, package
+binding and original control/lease/CAS semantics in Veyndo. The schema-5 serving
+login cannot create jobs or change worker input/results; execution retains its
+actual producer/consumer owner. [Acceptance](evidence/app-job-supervision-component-2026-11-06.md).
+
 ## Independent portable package installation
 
 The [explicit App installation profile](app-package-installation-service.md) uses

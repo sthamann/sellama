@@ -1,5 +1,15 @@
 # Changelog
 
+## Package state component, 6 November 2026
+
+Apps 0.22.0 owns original activation/deactivation ordering, lifecycle fences,
+active-dependant query and revision CAS. Required native hooks keep actual current
+configuration/actor/trust/commerce/lifecycle and connected frontend admission.
+Data, version, credential and job lifecycles remain separate; original error and
+same-state revision semantics remain. Real PostgreSQL tests exercise both orders
+of shared install/deactivation contention, writer exclusion, host denial, CAS,
+rollback and revision exhaustion. [Evidence](docs/evidence/app-activation-component-2026-11-06.md).
+
 ## App record history component, 6 November 2026
 
 Apps 0.21.0 owns original immutable record capture, retained historical read

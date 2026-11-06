@@ -1,5 +1,6 @@
 //! Versioned app packages: managed data, UI slots, agent tools and isolated service calls.
 use crate::*;
+mod activation;
 mod approval;
 mod record_import;
 pub(crate) use record_import::{import_record, inspect_import_record};

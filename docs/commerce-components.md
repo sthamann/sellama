@@ -301,8 +301,12 @@ The following are implementation tasks; existing UI foundations do not complete 
     writer on the same transaction. Original 20-revision/16 MiB retention and
     native current entity/field/approval/CAS authority remain attached.
     [Record history evidence](evidence/app-record-history-component-2026-11-06.md).
-  - [ ] Complete remaining package activation/deactivation, schema-recovery and
-    lifecycle orchestration, plus independent production-schema hosting.
+  - [x] Apps 0.22.0 package activation/deactivation sequence, original tenant/app
+    fences, active-dependant check and revision CAS with mandatory native config,
+    current actor/trust/commerce/lifecycle and connected-frontend admission.
+    [Activation evidence](evidence/app-activation-component-2026-11-06.md).
+  - [ ] Complete remaining schema-recovery and lifecycle orchestration, plus
+    independent production-schema hosting.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.
 - [ ] APP-04 Preserve encrypted settings, installation consent, rights, events,
@@ -452,6 +456,9 @@ The following are implementation tasks; existing UI foundations do not complete 
       historical-read authority and actual normal save port; unchanged scoped
       retention, original attribution and caller rollback.
       [Record history evidence](evidence/app-record-history-component-2026-11-06.md).
+    - [x] Package activation/deactivation and active-dependant fencing through
+      required current native host hooks; same writer/install locks, error order,
+      retained data and revision behavior. [Activation evidence](evidence/app-activation-component-2026-11-06.md).
     - [ ] Identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -520,6 +527,12 @@ The following are implementation tasks; existing UI foundations do not complete 
 ## Progress log
 
 ### Shared app business contracts, 6 November 2026
+
+- Apps 0.22.0 shares the original package state-change transaction, active-dependant
+  check and revision CAS. Required host hooks retain configuration-first locking,
+  current rights/trust/commerce/lifecycle and connected-frontends admission. Actual
+  shared install/writer tests exercise dependency races in both orders; no data,
+  version, credential or job lifecycle is substituted. [Extraction](evidence/app-activation-component-2026-11-06.md).
 
 - Apps 0.21.0 shares immutable app-record capture and bounded history plus the
   actual lookup/read-admission/managed-restore sequence. Restoration creates a new

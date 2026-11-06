@@ -59,3 +59,10 @@ record_history.rs retains current entity/declared-field projection, explicit
 approval, expected revision, actor/source context and API/MCP adapters. The normal
 record_write hooks delegate captures; they never directly rewind fields or bypass
 package/reference/lifecycle/CAS/history/outbox rules. Caller rolls back every error.
+
+Shared activation owns the original app-state transaction and active-dependant
+query. Native activation.rs must supply all configuration/current actor/consent/
+trust/dependency/commerce/lifecycle and connected-frontend hooks on that transaction.
+routes.rs retains management/merchant/body admission and caller commit/rollback.
+Preserve config-before-tenant/app lock order, late revision errors and retained
+operational data; do not add a no-op production hook, direct state SQL or event.

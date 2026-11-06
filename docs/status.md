@@ -67,6 +67,17 @@ native/Storyfront purchase/return/cart/refund acceptance. It is not yet a releas
 standalone service. [Checkout boundary](checkout-component.md) and
 [implementation tasks](commerce-components.md#checkout-independent-service-and-ui).
 
+## Independent package state changes, 6 November 2026
+
+Apps [0.22.0](https://github.com/veyndo/apps/releases/tag/v0.22.0) now shares the
+original package activation/deactivation transaction, active-dependant check and
+revision CAS. Required host hooks retain actual configuration-first locking,
+current actor/consent/trust/dependencies/commerce/native-lifecycle admission and
+connected frontend protection. The same lifecycle fences serialize installation,
+state changes and active-package writers. Original error order, same-state revision
+advancement and retained data/versions remain. No production schema change or new
+event is introduced. [Boundary and tests](evidence/app-activation-component-2026-11-06.md).
+
 ## Independent app-record history, 6 November 2026
 
 Apps [0.21.0](https://github.com/veyndo/apps/releases/tag/v0.21.0) now shares immutable

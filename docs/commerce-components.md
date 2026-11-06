@@ -5,6 +5,25 @@ components. Updated 6 November 2026. Checked tasks name observed evidence;
 repository transfer, local tests, remote CI and hosted acceptance are separate.
 The full component extraction is in progress, not released.
 
+## Current implementation priority
+
+Work now proceeds across complete service paths: shared service/UI composition,
+independent checkout, knowledge ingestion/retrieval and automation. App runtime
+improvements continue where they unblock those paths; they no longer define the
+whole extraction sequence. Each slice must run independently and remain connected
+to native Veyndo through the same owner.
+
+- [x] UI-01a Shared SDK layout registry and separately scoped service read bindings;
+  actual native OpenUI workspace consumes the same admission boundary. SDK 0.3.0,
+  [contract](agentic-component-ui.md#shared-sdk-composition) and
+  [evidence](evidence/service-workspace-composition-2026-11-06.md).
+- [ ] AUTO-01a Extract and compose the existing deterministic rule evaluator as an
+  independent Rust library and supplied-fact HTTP/MCP service. Local implementation
+  is being validated; a private repository is not public product acceptance.
+- [ ] CHK-01..03 Independent checkout domain ports and own session orchestration.
+- [ ] KNOW-01..05 Independent knowledge ingest/retrieval and source lifecycle.
+- [ ] UI-07 Compose actual domain views from those released service owners.
+
 ## Latest completed extraction, 6 November 2026
 
 Apps 0.29.0 / Data service 0.5.0 supplies bounded job history/detail and approved
@@ -374,6 +393,11 @@ The following are implementation tasks; existing UI foundations do not complete 
 ## AUTOMATION and CONNECTORS
 
 - [ ] AUTO-01 Extract rule/flow/event contracts and reusable pure evaluation.
+  - [x] AUTO-01r Independent deterministic rule library and real Rust HTTP/MCP
+    supplied-fact service, current shared OAuth admission, SDK composition and
+    standalone process acceptance. Source is initially private; native integration
+    and public visibility remain under explicit acceptance.
+    [Guide](automation-component.md), [evidence](evidence/automation-component-2026-11-06.md).
 - [ ] AUTO-02 Extract durable flow execution ports; retain current actor, app
   activation, settings, lifecycle locks and delayed-step reauthorization.
 - [ ] AUTO-03 Expose independent API/MCP and graphical/SDK authoring through one

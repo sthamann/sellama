@@ -1,7 +1,9 @@
 # Agentic interfaces across independent components
 
-**Status: checked architectural direction and implementation tasks, not a delivered
-cross-service UI runtime.** The [component plan](commerce-components.md#cross-component-agentic-ui)
+**Status, 6 November 2026:** the released SDK now supplies a shared versioned
+layout registry and current-service read composition. The existing native workspace
+renderer consumes that same layout registry after native rights/PII admission.
+The complete cross-service renderer and protocol adapter matrix remain in progress. The [component plan](commerce-components.md#cross-component-agentic-ui)
 tracks acceptance. Checkout is explicitly an independent service and UI owner.
 
 A developer should be able to use one Veyndo component with its own interface,
@@ -129,6 +131,29 @@ cannot manufacture a purchase approval or change trusted prices/payment states.
 
 Adapters must declare supported subsets and reject unsupported bindings or effects
 explicitly. Do not label three independently evolving UI models as one system.
+
+## Shared SDK composition
+
+SDK 0.3.0 introduces `@veyndo/sdk/composition`, independently usable in Node and
+browser hosts without React, a database or the Core process. Trusted host code
+registers each separately authenticated service and its actual view bindings.
+Discovery intersects those bindings with currently exposed read tools. Agents
+receive only the available view catalogue and propose a bounded versioned layout;
+they cannot introduce endpoints, code, operations or permissions.
+
+A context change aborts reads and discards late results. Changing shop, actor,
+environment or channel requires new clients and a new composition. A failed service
+leaves healthy independent views available, with explicit unavailable state.
+No business writes execute during automatic view loading; existing review controls
+retain their operation owners. The native Products/Orders/Customers OpenUI
+composition now uses the same layout registry, preserving its current criteria,
+domain, PII and intake admission.
+
+[SDK contract and runnable two-service example](https://github.com/veyndo/sdk/blob/main/docs/composition.md),
+[implementation](https://github.com/veyndo/sdk/pull/3),
+[local/native acceptance](evidence/service-workspace-composition-2026-11-06.md).
+This delivers the shared host/layout connection, not all component UI exports,
+new model runs or completed OpenUI/A2UI/MCP Apps adapters.
 
 ## Delivered standalone operation example
 

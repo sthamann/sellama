@@ -6,6 +6,7 @@ import {
   Renderer,
 } from "@openuidev/react-lang";
 import { z } from "zod";
+import { createLayoutRegistry } from "@veyndo/sdk/composition";
 import { admitWorkspaceView } from "../../shared/grid/workspace-view";
 const NativeBindings = createContext<{
   directory: ReactNode;
@@ -46,13 +47,28 @@ export function composeNativeWorkspace(
 ): string | null {
   const view = admitWorkspaceView(candidate, rights);
   if (!view) return null;
-  const nodes = (view.components ?? ["records"])
+  const selected = (view.components ?? ["records"])
     .filter(
       (c) =>
         c !== "details" && (c !== "intake" || rights.includes("catalog.write")),
     )
-    .map((c) => (c === "records" ? "Directory()" : "Intake()"));
-  return `root = Workspace([${nodes.join(", ")}])`;
+    .map((c) => (c === "records" ? "Directory" : "Intake"));
+  // The SDK is shared with independent hosts. Domain and PII admission above stays native.
+  const layout = createLayoutRegistry([
+    { id: "Directory", version: 1, title: "Directory" },
+    ...(rights.includes("catalog.write")
+      ? [{ id: "Intake", version: 1, title: "Intake" }]
+      : []),
+  ]).admit({
+    version: 1,
+    panels: selected.map((component) => ({
+      id: component,
+      view: component,
+      version: 1,
+    })),
+  });
+  if (!layout) return null;
+  return `root = Workspace([${layout.panels.map((p) => `${p.view}()`).join(", ")}])`;
 }
 export default function GeneratedWorkspace({
   candidate,

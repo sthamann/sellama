@@ -1,5 +1,16 @@
 # Changelog
 
+## Shared native app lifecycle compiler, 6 November 2026
+
+Apps 0.14.0/model 0.10.0 shares exact native order/quote graph and accepted snapshot
+contracts, bounded compilation, locale/fact narrowing and label-only projection.
+Native adapters retain complete package digests, base-domain validation, current
+identity/permissions, locks and the direct verified final transition check. Existing
+orders and RFQs keep their accepted policy across upgrades and selected release.
+An independent Rust example compiles both graphs without Core or PostgreSQL.
+[Implementation and acceptance](docs/evidence/app-native-lifecycle-component-2026-11-06.md).
+
+
 ## Shared executable app business contracts, 6 November 2026
 
 Apps 0.13.0/model 0.9.0 shares configuration/library/argument and typed-hook/frozen

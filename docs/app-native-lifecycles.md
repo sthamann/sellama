@@ -1,5 +1,14 @@
 # App-owned order and quote workflows
 
+The portable graph compiler and accepted-snapshot contracts now belong to
+[`veyndo/apps`](https://github.com/veyndo/apps), release 0.14.0/model 0.10.0.
+The [standalone Rust example](https://github.com/veyndo/apps/blob/main/examples/native_lifecycles.rs)
+compiles the same order review and quote preparation without Core or PostgreSQL.
+Veyndo supplies its actual native base graph, scope catalogue, locale policy and
+complete admitted package digest; native transactions and current rights still
+control effects. [Extraction and integration evidence](evidence/app-native-lifecycle-component-2026-11-06.md).
+
+
 An app can add named review steps to **native orders and quote requests**. The
 same order detail, RFQ inbox, HTTP operations, MCP tools, Flow actions, history
 and transactional outbox remain authoritative. This is a declarative extension;

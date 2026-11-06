@@ -17,6 +17,17 @@ The trusted storage crate is distinct from no-SQL `veyndo-app-runtime` and its n
 Cargo boundary controls prohibit guest/domain imports of the storage package.
 [Independent and assembled tests](evidence/app-storage-component-2026-11-05.md).
 
+**Native app lifecycles:** Pinned Apps `model/src/native_lifecycle_types.rs` owns
+strict declaration/extended-graph/snapshot wire types; `native_lifecycle_compile.rs`
+owns bounded composition, namespace and frozen package policies;
+`native_lifecycle.rs` owns required-policy validation and narrowing;
+`native_lifecycle_snapshot.rs` owns accepted decoding and label-only projection.
+Native `src/apps/native_lifecycle/` provides complete package fingerprints, actual
+scope/locale/base policies and current auth checks; storage keeps original locks
+and accepted capture. `commerce/order_machine.rs` keeps the native base graph and
+`OrderMachineValidation` domain rules, using shared graph DTOs. No app dependency
+enters the pure commerce calculation crate. [Evidence](evidence/app-native-lifecycle-component-2026-11-06.md).
+
 **App business contracts:** Pinned Apps `model/src/configuration.rs` owns exact
 configuration DTO/field/library/argument grammar. `commerce_hooks.rs`,
 `business_capability.rs` and `business_snapshot.rs` own hook declarations and frozen

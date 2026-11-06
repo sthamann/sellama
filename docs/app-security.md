@@ -30,6 +30,18 @@ returning an outcome does not authorize a write. The existing native cache compi
 outside commerce locks and preserves digest checks inside checkout.
 [Actual extraction and tests](evidence/app-wasm-runtime-component-2026-11-05.md).
 
+## Shared lifecycle graphs and current authority
+
+Apps model 0.10.0 compiles the original bounded order/quote extension graphs and
+accepted snapshot projections. Its required native-base/scope/locale policy has no
+default approvals. Package policies freeze the full admitted version/digest; they
+do not freeze actor rights. Native auth is checked for each transition. Apps can
+narrow native processing but cannot replace payment, delivery or buyer acceptance.
+The native verified transition predicate remains the final admission check; shared
+compiler, snapshot parsing and SQL/host effects are not covered by that proof.
+Customer projections expose accepted labels, never graph policies/grants.
+[Actual component checks](evidence/app-native-lifecycle-component-2026-11-06.md).
+
 ## Operator service configuration
 
 Use the server's serializer rather than an independent JSON hashing implementation:

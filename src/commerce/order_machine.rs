@@ -1,30 +1,8 @@
 //! Declarative order workflow schema. Extensions add states, never executable effects or payment truth.
 use super::*;
-#[derive(Clone, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct OrderMachine {
-    pub states: Vec<MachineState>,
-    pub transitions: Vec<MachineEdge>,
-    #[serde(default)]
-    pub source_app: Option<String>,
-}
-#[derive(Clone, Deserialize, Serialize)]
-#[serde(deny_unknown_fields)]
-pub(crate) struct MachineState {
-    pub id: String,
-    pub label: HashMap<String, String>,
-    pub terminal: bool,
-}
-#[derive(Clone, Deserialize, Serialize)]
-#[serde(deny_unknown_fields)]
-pub(crate) struct MachineEdge {
-    pub id: String,
-    pub from: String,
-    pub to: String,
-    pub label: HashMap<String, String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub policy: Option<apps::native_lifecycle::Policy>,
-}
+pub(crate) use veyndo_app_model::native_lifecycle::{
+    Machine as OrderMachine, MachineEdge, MachineState,
+};
 fn labels(w: [&str; 4]) -> HashMap<String, String> {
     ["en", "de", "fr", "es"]
         .into_iter()
@@ -123,8 +101,11 @@ pub(crate) fn default_machine() -> OrderMachine {
         source_app: None,
     }
 }
-impl OrderMachine {
-    pub(crate) fn validate(&self) -> Result<()> {
+pub(crate) trait OrderMachineValidation {
+    fn validate(&self) -> Result<()>;
+}
+impl OrderMachineValidation for OrderMachine {
+    fn validate(&self) -> Result<()> {
         if self.states.len() > 32 || self.transitions.len() > 100 {
             return Err(bad("Workflow exceeds limits"));
         }

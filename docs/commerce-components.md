@@ -292,8 +292,11 @@ owners require an explicit reservation/compensation design and corresponding tes
     Apps 0.13.0 shares configuration/library/argument and typed-hook contracts,
     frozen business snapshots/expected decisions, WIT projection and actual example
     evaluation. Native currency/value/reference/source policies remain attached.
-    Authentication, the remaining typed domain extension compiler and lifecycle,
-    standalone service/schema and API/MCP hosting remain open.
+    Apps 0.14.0 shares exact native lifecycle graph/snapshot contracts and bounded
+    compilation, locale/fact narrowing and accepted-label projection. Native current
+    permissions, order base/domain checks, locks and verified final effects remain attached.
+    Authentication, the remaining typed domain extension compiler, standalone
+    service/schema and API/MCP hosting remain open.
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
     - [x] Independent model compiler and required current-authority ports.
     - [x] Atomic installation, immutable versions, quota and original package locks;
@@ -327,6 +330,10 @@ owners require an explicit reservation/compensation design and corresponding tes
       declarations; frozen snapshot/expected-decision grammar, WIT projection and
       real example execution, reused by native install/checkout/release paths.
       [Business contract evidence](evidence/app-business-contracts-2026-11-06.md).
+    - [x] Native order/quote lifecycle graph and immutable snapshot contracts,
+      bounded compiler, current-right narrowing and safe display projection;
+      independent example and assembled order/RFQ/release paths use the same code.
+      [Native lifecycle evidence](evidence/app-native-lifecycle-component-2026-11-06.md).
     - [ ] Complete typed domain extension compiler, identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -396,6 +403,11 @@ owners require an explicit reservation/compensation design and corresponding tes
 
 ### Shared app business contracts, 6 November 2026
 
+- Apps 0.14.0/model 0.10.0 shares native lifecycle graph/snapshot contracts and
+  compilation through mandatory native base/scope/locale ports, plus current-right
+  narrowing and accepted-label projection. Native domain validation, transactional
+  locks, current identities and final verified transition checks retain their owners.
+  [Native lifecycle extraction](evidence/app-native-lifecycle-component-2026-11-06.md).
 - Apps 0.13.0/model 0.9.0 shares structured configuration, public library/lookup,
   exact arguments, typed hooks and bounded frozen business examples. Runtime 0.2.0
   consumes that pure model for the same WIT projection, real guest comparison

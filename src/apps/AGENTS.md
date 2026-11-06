@@ -24,6 +24,15 @@ Prepare/probe bounded modules
 before commerce transactions; WIT hooks consume bounded read-only snapshots and
 use the existing native money/tax calculation owner.
 
+Shared native lifecycle graph/snapshot types and bounded compiler belong to
+model/native_lifecycle*. Native adapters supply full canonical package digests,
+auth::SCOPES, native locale grammar and the original default order base. Current
+identity, package locks, accepted capture and actual order/quote effects stay native.
+Native commerce keeps base-domain validation through OrderMachineValidation; do not
+add an Apps dependency to the pure commerce calculation crate. Keep final native
+lifecycle admissibility directly attached to the verified predicate. Snapshots freeze
+accepted policies, not actor rights; customer projection exposes labels only.
+
 Shared configuration/library/argument and commerce-hook/frozen-decision contracts
 belong to model/configuration, commerce_hooks, business_capability and business_snapshot.
 Required field/currency/reference/source policies use the original native owners;

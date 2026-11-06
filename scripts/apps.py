@@ -182,7 +182,44 @@ assert call('/api/developer/drafts',h=h)['drafts'][0]['manifest']==draft
 assert call('/api/developer/drafts',h=oh)['drafts']==[]
 call('/api/developer/drafts',h=rh,expected=403)
 call(path,{},oh,'DELETE');assert call('/api/developer/drafts',h=h)['drafts']
-check('Private server drafts survive reads, reject stale saves and never cross users or shops')
+# Current role admission applies to every draft operation, not only its list.
+call(path,{'manifest':draft,'revision':0},rh,'PUT',403)
+call(path,{},rh,'DELETE',403)
+for body in [
+    {'manifest':draft},
+    {'manifest':draft,'revision':-1},
+    {'manifest':{**draft,'unregistered':True},'revision':1},
+    {'manifest':{**draft,'id':'another_draft'},'revision':1},
+]:call(path,body,h,'PUT',400)
+# The existing HTTP envelope limit can reject before JSON/domain decoding.
+oversized={'manifest':{**draft,'name':{'en':'x'*65536}},'revision':1}
+request=urllib.request.Request(BASE+path,data=json.dumps(oversized).encode(),headers={'Content-Type':'application/json',**h},method='PUT')
+try:
+    urllib.request.urlopen(request,timeout=30)
+    raise AssertionError('Oversized HTTP draft was accepted')
+except urllib.error.HTTPError as error:assert error.code==413
+assert call('/api/developer/drafts',h=h)['drafts'][0]['revision']==1
+own_stage=call('/api/environments',{'name':'Private draft target'},h)['id']
+foreign_stage=call('/api/environments',{'name':'Foreign draft target'},oh)['id']
+call(path,{'manifest':draft,'environment':foreign_stage,'revision':1},h,'PUT',400)
+assert call(path,{'manifest':draft,'environment':own_stage,'revision':1},h,'PUT')['revision']==2
+# Two actual HTTP windows contend for the same expected revision.
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
+barrier=Barrier(2)
+def save_window(text):
+    value=copy.deepcopy(draft);value['name']['en']=text
+    request=urllib.request.Request(BASE+path,data=json.dumps({'manifest':value,'environment':own_stage,'revision':2}).encode(),headers={'Content-Type':'application/json',**h},method='PUT')
+    barrier.wait()
+    try:
+        with urllib.request.urlopen(request,timeout=30) as response:return response.status
+    except urllib.error.HTTPError as error:return error.code
+with ThreadPoolExecutor(max_workers=2) as windows:
+    assert sorted(windows.map(save_window,['left','right']))==[200,409]
+row=call('/api/developer/drafts',h=h)['drafts'][0]
+assert row['revision']==3 and row['environment']==own_stage
+call(path,{},h,'DELETE');assert call('/api/developer/drafts',h=h)['drafts']==[]
+check('Private drafts preserve typed input/roles/environment scope and serialize two HTTP windows without lost edits')
 state={'owner':u,'orderId':o['id'],'memory':memory,'checks':checks,'passed':len(checks)}
 if os.getenv('REPORT_PATH'):pathlib.Path(os.environ['REPORT_PATH']).write_text(json.dumps(state,indent=2)+'\n')
 print(json.dumps({'passed':len(checks)}))

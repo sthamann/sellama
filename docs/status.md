@@ -67,6 +67,18 @@ native/Storyfront purchase/return/cart/refund acceptance. It is not yet a releas
 standalone service. [Checkout boundary](checkout-component.md) and
 [implementation tasks](commerce-components.md#checkout-independent-service-and-ui).
 
+## Independent private Studio drafts, 6 November 2026
+
+Apps [0.20.0](https://github.com/veyndo/apps/releases/tag/v0.20.0) now supplies the
+actual actor-private mutable autosave/list/delete path. Core uses the same pinned
+code and retains authenticated actor derivation, current developer rights, signed
+SQL scope, actual private-environment admission and transaction commit/rollback.
+Strict Manifest wire decoding, submitted locale/field values, 64 KiB input budget,
+original advisory/row CAS fences and maximum 20 drafts remain unchanged. Concurrent
+create/update and quota admission are serialized by PostgreSQL. No production
+schema migration, install, immutable version change or publication is introduced.
+[Validation and exact scope](evidence/app-private-drafts-component-2026-11-06.md).
+
 ## Independent App Studio versions, 6 November 2026
 
 Apps [0.19.0](https://github.com/veyndo/apps/releases/tag/v0.19.0) now owns immutable
@@ -76,8 +88,9 @@ Core retains environment ownership, current developer/actor rights, package/sour
 language validation, explicit approval and the actual installer. Failed admission,
 installation or build-state write rolls back the entire caller transaction.
 Installed packages/data remain separate from recoverable Studio projects.
-Actor-private mutable drafts, remaining lifecycle orchestration and standalone
-production identity/schema/API/MCP remain open.
+Mutable drafts are now shared in Apps 0.20.0 below this authority boundary.
+Remaining lifecycle orchestration and standalone production identity/schema/API/MCP
+remain open.
 [Acceptance and exact scope](evidence/app-studio-versions-component-2026-11-06.md).
 
 ## Independent encrypted app configuration, 6 November 2026

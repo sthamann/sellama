@@ -267,3 +267,15 @@ reviewed digest and owned private environment remain mandatory. The required
 native staging adapter uses the existing complete compiler and actual installer;
 state and installation commit together. Recovering a project does not reinstall
 or delete its existing live package/data. [Component acceptance](evidence/app-studio-versions-component-2026-11-06.md).
+
+## Private autosave component
+
+The editor's existing autosave endpoints now delegate to Apps 0.20.0. Drafts stay
+private to the current actor and shop, accept the same shared typed Manifest and
+retain the exact submitted locale/field values. Two windows saving the same
+revision receive one success and one conflict; failed input or foreign test
+environment admission leaves the previous draft unchanged. A maximum of 20 drafts
+per actor and 64 KiB per submitted manifest retain the original limits. Autosaving
+never installs a package or publishes a change. Native identity/rights, signed
+scope and actual environment ownership remain attached.
+[Implementation and independent example](evidence/app-private-drafts-component-2026-11-06.md).

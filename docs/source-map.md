@@ -30,9 +30,16 @@ recoverable archive/restore and row-fenced staging. Native `src/developer/builds
 retains full validation and minimized design-context retention; `routes.rs` and
 `archive.rs` keep current authority/approval and response projection.
 `version_storage.rs` implements required owned-environment/compiler/actor/real
-installer admission on the original privileged transaction. Mutable actor-private
-drafts and final selective live release keep their native owners.
+installer admission on the original privileged transaction. Final selective live
+release retains its native owner.
 [Evidence](evidence/app-studio-versions-component-2026-11-06.md).
+
+**Private Studio autosaves:** Pinned Apps `src/drafts.rs` owns strict shared-wire
+save, bounded per-actor history, actor advisory lock/row CAS/quota and scoped delete.
+Native `src/developer/drafts.rs` supplies the current authenticated actor/developer
+scope and required actual private-environment query on the same connection. The
+caller retains commit/rollback; drafts do not install or publish anything.
+[Evidence](evidence/app-private-drafts-component-2026-11-06.md).
 
 **Encrypted app configuration:** Pinned Apps `src/secrets.rs` owns metadata-only
 reads, digest-bound internal resolution and encrypted rotation with original

@@ -291,4 +291,17 @@ installation succeeds in the same caller transaction; every rejection requires
 rollback. Archive/restore changes development snapshots, never installed packages
 or records. Archived tenant/app/version identities remain immutable. Original
 serialized development digest semantics are preserved separately from installed
-package canonical fingerprints. Mutable draft actor isolation remains native.
+package canonical fingerprints. Mutable draft identity derivation remains native; scoped persistence now uses
+pinned Apps 0.20.0.
+
+## Shared private autosave boundary
+
+`drafts::Owner` is an already admitted tenant/actor scope, never an authentication
+credential supplied by a browser. Native middleware retains current developer
+rights, signed SQL scope and the existing personal identity or integration-token
+binding. Shared save requires same-connection environment ownership admission
+with no approving default. Original actor advisory lock, row revision and quota
+checks remain in the caller transaction. Reads and deletes include both tenant
+and actor. Strict wire decoding permits unfinished editor work; it is not approval
+for installation or business effects. No schema creation, version/package mutation
+or outbox effect occurs. [Boundary regression](evidence/app-private-drafts-component-2026-11-06.md).

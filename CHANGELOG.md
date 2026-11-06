@@ -1,5 +1,18 @@
 # Changelog
 
+
+## Service workspace composition, 6 November 2026
+
+- Released SDK 0.3.0 with separately authenticated service discovery, trusted read
+  view bindings and a bounded versioned agent layout contract.
+- Native reviewed Products/Orders/Customers OpenUI workspaces consume the same
+  layout admission. Current domain/PII/criteria and intake rights remain enforced.
+- Context and discovery changes cancel reads and discard late results; failed
+  services retain explicit availability without disabling healthy independent views.
+- Added executable two-service example, hostile-input/race/wire tests and updated
+  the component plan to prioritize cross-service delivery, checkout and knowledge.
+
+
 ## Independent App job supervision, 6 November 2026
 
 Apps 0.29.0 / Data service 0.5.0 supplies bounded job history/detail and approved

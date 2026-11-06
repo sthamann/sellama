@@ -73,3 +73,34 @@ it("never renders the previous shop rights while admission for a new request sco
       .every((sample) => sample.rights.length === 0),
   ).toBe(true);
 });
+
+it("native OpenUI composition uses the released SDK registry and preserves domain and PII rights", async () => {
+  const { composeNativeWorkspace } =
+    await import("../../src/admin/workspace/GeneratedWorkspace");
+  const candidate = {
+    entity: "products",
+    criteria: {},
+    components: ["records", "details", "intake"],
+  };
+  expect(composeNativeWorkspace(candidate, ["catalog.read"])).toBe(
+    "root = Workspace([Directory()])",
+  );
+  expect(
+    composeNativeWorkspace(candidate, ["catalog.read", "catalog.write"]),
+  ).toBe("root = Workspace([Directory(), Intake()])");
+  expect(
+    composeNativeWorkspace({ entity: "orders", criteria: {} }, ["orders.read"]),
+  ).toBeNull();
+  expect(
+    composeNativeWorkspace({ entity: "orders", criteria: {} }, [
+      "orders.read",
+      "customers.pii",
+    ]),
+  ).toBe("root = Workspace([Directory()])");
+  expect(
+    composeNativeWorkspace(
+      { ...candidate, components: ["records", "payments.refund"] },
+      ["catalog.read"],
+    ),
+  ).toBeNull();
+});

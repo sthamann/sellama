@@ -4,6 +4,19 @@ Updated 6 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Service composition and rule extraction, 6 November 2026
+
+SDK 0.3.0 is released with independently scoped service discovery and registered
+read views in a bounded versioned layout. The native OpenUI workspace uses the
+same layout admission after current domain/PII checks. Context changes abort reads
+and discard late replies. [Contract and evidence](agentic-component-ui.md#shared-sdk-composition).
+
+The next extracted domain is Automation: original deterministic rules now build
+as an independent Rust library and HTTP/MCP evaluator. Local actual process/SDK
+acceptance and private repository CI pass. Native product composition and public
+visibility are being validated, separately from hosted deployment. Durable Flows
+remain with their existing owner. [Guide](automation-component.md).
+
 ## Independent commerce components, 5 November 2026
 
 The complete platform now lives at [veyndo/veyndo](https://github.com/veyndo/veyndo).

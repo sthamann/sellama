@@ -25,6 +25,15 @@ financial writer. Native Core keeps its existing in-process runtime adapter and
 full commerce admission. [Operation and setup](app-runtime-service.md).
 [Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
 
+**App Data reader and shared authority:** Apps `data-service/` owns independent
+read-only HTTP/MCP composition and the explicit reader-schema installer.
+`authority/` owns the original role-bound scope protocol and fixed current OAuth
+adapter, with network/database feature separation. `src/record_query.rs` owns
+original bounded page/filter preparation and declared-field projection. Native
+`crates/runtime` retains task scope, pools and provisioning; `src/apps/data.rs`
+retains caller transactions and native entity/privacy admission. No new native
+schema or public install endpoint. [Guide](app-data-service.md).
+
 **Cross-service UI direction:** [Agentic UI source observations, common host ports,
 component coverage and protocol adapters](agentic-component-ui.md) builds on the
 existing operation registry and strict Surface/NativeView/AST/guest SDK owners.

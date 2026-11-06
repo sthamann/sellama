@@ -3503,6 +3503,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "veyndo-app-authority"
+version = "0.1.0"
+dependencies = [
+ "hmac 0.12.1",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sqlx",
+ "uuid",
+ "zeroize",
+]
+
+[[package]]
 name = "veyndo-app-model"
 version = "0.13.0"
 dependencies = [
@@ -3528,7 +3542,7 @@ dependencies = [
 
 [[package]]
 name = "veyndo-app-storage"
-version = "0.24.0"
+version = "0.25.0"
 dependencies = [
  "base64 0.22.1",
  "chrono",
@@ -3626,6 +3640,7 @@ dependencies = [
  "sqlx",
  "tokio",
  "uuid",
+ "veyndo-app-authority",
  "zeroize",
 ]
 

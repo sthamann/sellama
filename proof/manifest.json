@@ -786,8 +786,8 @@
     },
     "crates/runtime/src/database_scope.rs": {
       "status": "unproved",
-      "sha256": "35ca439dad30bc2d322a2f49e0f530eaf057858841bb4c4e17638a4864067b8f",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "071eb19d17480fa779356a804bcabe218ad03432f37fff4045d5f195b0c984b0",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "crates/runtime/src/http_json.rs": {
       "status": "unproved",
@@ -811,8 +811,8 @@
     },
     "crates/runtime/src/tenant_scope.rs": {
       "status": "unproved",
-      "sha256": "2db0b19d64730a5a2641a0bba8209b80327eea0dbdbe370982d272ba37a8b7c4",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "10148b5a57768ceb2b5ffc31dce2437495108d6fe64e4588b195b350b1171f17",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "crates/runtime/src/trace.rs": {
       "status": "unproved",
@@ -1319,6 +1319,71 @@
       "sha256": "9d3e944a0a7dd0a3533925b3a5aa64071ef2af32d2bf7c496922f2e03cc10735",
       "review": "Reviewed generic transactional app workflow and current-package fence; shared app egress admissions; immutable order callback projection; independent app-only ERP Rust receipts/HMAC/reconciliation and fixture regressions. New async SQL/provider/UI code remains unproved."
     },
+    "extensions/services/app-storage/authority/src/database.rs": {
+      "status": "unproved",
+      "sha256": "2bb67f623870beb64bdafff8d4b98f1941eadcbb32f8ca25312e9a1199db1606",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
+    "extensions/services/app-storage/authority/src/lib.rs": {
+      "status": "unproved",
+      "sha256": "a50f290e9be770bf653fc1beb78de54e0e165b168369b42c713eef51a2f9ae55",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
+    "extensions/services/app-storage/authority/src/oauth.rs": {
+      "status": "unproved",
+      "sha256": "80c0b5b9e5f3eba6a42f1fc85a1b890b9897bf27d591f17e264040830735fc2d",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
+    "extensions/services/app-storage/authority/src/oauth_config.rs": {
+      "status": "unproved",
+      "sha256": "1f9973404a02619c2312001d9a2147b67dd74bb7bd151d01ea1d355ba3f1011b",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
+    "extensions/services/app-storage/data-service/src/config.rs": {
+      "status": "unproved",
+      "sha256": "efcf48f8476866f0697056f99779d96523d2b60fd0c3585eee21ab4d66e68930",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
+    "extensions/services/app-storage/data-service/src/contract.rs": {
+      "status": "unproved",
+      "sha256": "1d1de0c2f1ca9b8a09bf7cd70fe8ed6c39d2cc742da4cfe103edf5c28024dbde",
+      "review": "Apps Data reader 0.1.1 and storage 0.25.0: current OAuth, signed SELECT-only schema, same native scope and page/projection owners; independent and Linux container acceptance plus seven native signed-scope flows pass. Explicit JSON nulls now reject under the advertised DTO; native authority and all pure Lean policies unchanged, network/SQL remain tested unproved adapters."
+    },
+    "extensions/services/app-storage/data-service/src/database.rs": {
+      "status": "unproved",
+      "sha256": "5a6e2a320147d02ff5f3c79a780f6cbe5d56c9aef4ee532b0accea23e5d8c501",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
+    "extensions/services/app-storage/data-service/src/error.rs": {
+      "status": "unproved",
+      "sha256": "43bd7f117f69ece0e79a09ba3b14af0ca7fb2616eb83624fd8c58ce51b9cadcd",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
+    "extensions/services/app-storage/data-service/src/identity.rs": {
+      "status": "unproved",
+      "sha256": "05df5109b8514e1fc1a1c052f878bd2c48d2207215cfd95e739c342f8cac95de",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
+    "extensions/services/app-storage/data-service/src/lib.rs": {
+      "status": "unproved",
+      "sha256": "07d5877715a7413c6da64424cfaa47eec1b50103c3aafb72da810f2c2accb8e3",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
+    "extensions/services/app-storage/data-service/src/main.rs": {
+      "status": "unproved",
+      "sha256": "3b8b9ff502d0dd4dd38cd952cb6f6295f611d963fbdfa9e1b9f6ba0a26784652",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
+    "extensions/services/app-storage/data-service/src/mcp.rs": {
+      "status": "unproved",
+      "sha256": "460d04bef9f55977277ed3e1754fe7d369f1ff67b4020a31626adb3f55f4135b",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
+    "extensions/services/app-storage/data-service/src/reader.rs": {
+      "status": "unproved",
+      "sha256": "dce15b14baccf3416d15f62f0272eca494a13d3189532fcdd3c5b3987aeba1e9",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
+    },
     "extensions/services/app-storage/examples/build_versions.rs": {
       "status": "unproved",
       "sha256": "ac0f1119d434f327531cb0225619b832763aaabaebffa9ea5c8ec70b7881e7d3",
@@ -1811,8 +1876,8 @@
     },
     "extensions/services/app-storage/service/src/config.rs": {
       "status": "unproved",
-      "sha256": "4513917fcaed9bdde79fd9a8962caa8a6aa321dac2800b4014ad0877d0c53428",
-      "review": "Reviewed Apps 0.24 standalone runtime service with fixed fresh OAuth introspection, current subject/tenant/scope/audience/expiry, strict supplied synthetic snapshots, same HTTP/OpenAPI/MCP operation, sanitized output and task-owned cancellation-safe process limits. No Core, SQL, issuer, role store, live fetch or financial writer. Shared Frozen bounds are the original first block, still invoked before original native contextual record/field checks. Actual independent process/Fetch/existing SDK, non-root read-only Docker and Linux image HTTP/MCP acceptance pass; 116 model, 24 runtime, service config/cancellation, 74 native App units and seven native HTTP/PostgreSQL modules including material/dimension/approval/reorder workflow pass. Kernel unchanged; service OAuth/network/scheduling and SQL remain reviewed and unproved."
+      "sha256": "aef34d38283c293b0860698655217effe992e86716032619d8c60d3980492e35",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "extensions/services/app-storage/service/src/contract.rs": {
       "status": "unproved",
@@ -1831,8 +1896,8 @@
     },
     "extensions/services/app-storage/service/src/identity.rs": {
       "status": "unproved",
-      "sha256": "785e8bc3772ad511774855ea0c48bae455f3c9de3f7c230d417c5d46901b2cab",
-      "review": "Reviewed Apps 0.24 standalone runtime service with fixed fresh OAuth introspection, current subject/tenant/scope/audience/expiry, strict supplied synthetic snapshots, same HTTP/OpenAPI/MCP operation, sanitized output and task-owned cancellation-safe process limits. No Core, SQL, issuer, role store, live fetch or financial writer. Shared Frozen bounds are the original first block, still invoked before original native contextual record/field checks. Actual independent process/Fetch/existing SDK, non-root read-only Docker and Linux image HTTP/MCP acceptance pass; 116 model, 24 runtime, service config/cancellation, 74 native App units and seven native HTTP/PostgreSQL modules including material/dimension/approval/reorder workflow pass. Kernel unchanged; service OAuth/network/scheduling and SQL remain reviewed and unproved."
+      "sha256": "fa7be62a2e94bfe2c098897d38378d602918ed65ee427ba66f65d4af7be82432",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "extensions/services/app-storage/service/src/lib.rs": {
       "status": "unproved",
@@ -1841,8 +1906,8 @@
     },
     "extensions/services/app-storage/service/src/main.rs": {
       "status": "unproved",
-      "sha256": "634629f55b8c2cdb88e003f69e6b7c9ec5e383785d9fa6ec87c32a9fe6e8c405",
-      "review": "Reviewed Apps 0.24 standalone runtime service with fixed fresh OAuth introspection, current subject/tenant/scope/audience/expiry, strict supplied synthetic snapshots, same HTTP/OpenAPI/MCP operation, sanitized output and task-owned cancellation-safe process limits. No Core, SQL, issuer, role store, live fetch or financial writer. Shared Frozen bounds are the original first block, still invoked before original native contextual record/field checks. Actual independent process/Fetch/existing SDK, non-root read-only Docker and Linux image HTTP/MCP acceptance pass; 116 model, 24 runtime, service config/cancellation, 74 native App units and seven native HTTP/PostgreSQL modules including material/dimension/approval/reorder workflow pass. Kernel unchanged; service OAuth/network/scheduling and SQL remain reviewed and unproved."
+      "sha256": "16005fb47660c2dcd667355e48c0f177edefc93577c77f3d632b8ae233d6f240",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "extensions/services/app-storage/service/src/mcp.rs": {
       "status": "unproved",
@@ -1891,8 +1956,8 @@
     },
     "extensions/services/app-storage/src/lib.rs": {
       "status": "unproved",
-      "sha256": "8f32bf7c55203b7aa4e4720172afc582b2db9f30136a82da2db2593710d7e722",
-      "review": "Reviewed Apps 0.23 exact schema conversion/recovery extraction and native required same-transaction field/language adapter. Actual independent PostgreSQL installer rollback, scoped snapshots, row/byte/quota/collision/overflow and both Linux runs pass; native 74 App units plus seven HTTP/PostgreSQL modules pass, including exhausted revision and disabled-language regressions. Kernel unchanged; SQL, host authority and full migration remain unproved."
+      "sha256": "74c4ad602859798029248a49160275a7175cc3745f27647ee30dc2d05af799a5",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "extensions/services/app-storage/src/mutations.rs": {
       "status": "unproved",
@@ -1918,6 +1983,11 @@
       "status": "unproved",
       "sha256": "d84b36b6d85041c85c924785b4e7d3f40b670b7a95deaf9b1cd157b076951bae",
       "review": "Reviewed Apps 0.21 record history extraction against Core 5b75a656 original record_history.rs and record_write hooks. Shared immutable capture retains original list-action scopes and duplicate immutability, SQL actor/source attribution, app advisory fence namespace 948, fixed table and original 20-revision/16 MiB pruning/order. Nonpositive revisions reject before subtraction. Bounded scoped list keeps original limit/order then requires current historical read authority; native current entity and declared-field projection remain. Restore preserves original lookup/error order and historical read admission, then requires actual native data::save_tx on the original transaction with current expected revision, typed fields/references/lifecycle/CAS/history/outbox/package fence. Native HTTP/MCP explicit review/current rights/signed scope/context/commit remain; no direct record rewind, new endpoints/permissions, DDL or approving default host. Independent real PostgreSQL original attribution/rights, malformed denial, actual byte retention, concurrent restores and failed audit/capture rollback pass; example denies missing authority/writer. Native 74 App units, warning-free workspace Clippy and seven actual HTTP/PostgreSQL apps/studio/isolation/schema/sharedStorage/coreExtensions/visualWorkspace modules pass, including successful HTTP and MCP restore plus stale/review/foreign denial. Exact source/WIT, 886-module structure and source inventory pass. Kernel unchanged; SQL/async/native host code remains reviewed and unproved."
+    },
+    "extensions/services/app-storage/src/record_query.rs": {
+      "status": "unproved",
+      "sha256": "de078652a607e7d57b1d0f189657c7add8c2baf618cbfe6101065ea5070c77f6",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "extensions/services/app-storage/src/records.rs": {
       "status": "unproved",
@@ -2411,8 +2481,8 @@
     },
     "src/apps/data.rs": {
       "status": "unproved",
-      "sha256": "9b7e6f05e54e07234be8ec93d11ada99e0bf60fbbe348773c1d35cbcb617d8f7",
-      "review": "Reviewed shared record mutation and query extraction into pinned Apps 0.2.0. Native package/model/reference/language checks, workflow and bounded-history hooks remain on the original transaction. Independent PostgreSQL CAS/replay/hook-outbox rollback/typed-publication tests, native apps/storage/jobs/schema/extensions/visual workspace, 43 tenant checks and marketplace order-stock-Flow-invoice fixture pass. SQL and async adapters remain unproved."
+      "sha256": "13f58051efcbcd31301dab98da85006bf3ddaf08019ff7c6d96c55ed4e611045",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "src/apps/discovery.rs": {
       "status": "unproved",
@@ -2656,8 +2726,8 @@
     },
     "src/apps/records.rs": {
       "status": "unproved",
-      "sha256": "ff4e4dbaea37e45be58b26789b5c79d9c10eb063f8345bc7f7472cc2525ee790",
-      "review": "Reviewed Apps 0.23 exact schema conversion/recovery extraction and native required same-transaction field/language adapter. Actual independent PostgreSQL installer rollback, scoped snapshots, row/byte/quota/collision/overflow and both Linux runs pass; native 74 App units plus seven HTTP/PostgreSQL modules pass, including exhausted revision and disabled-language regressions. Kernel unchanged; SQL, host authority and full migration remain unproved."
+      "sha256": "531e7d4d6c173f0713c7c4dc15f9a6ccec485cbf78a66d5544278c5657067378",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "src/apps/registry.rs": {
       "status": "unproved",
@@ -5151,16 +5221,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "3d7a08b57e781690990f562ce7252c7b64ea856cc27eff59251d17a0d054ddf6",
-      "review": "Reviewed Apps 0.24 standalone runtime service with fixed fresh OAuth introspection, current subject/tenant/scope/audience/expiry, strict supplied synthetic snapshots, same HTTP/OpenAPI/MCP operation, sanitized output and task-owned cancellation-safe process limits. No Core, SQL, issuer, role store, live fetch or financial writer. Shared Frozen bounds are the original first block, still invoked before original native contextual record/field checks. Actual independent process/Fetch/existing SDK, non-root read-only Docker and Linux image HTTP/MCP acceptance pass; 116 model, 24 runtime, service config/cancellation, 74 native App units and seven native HTTP/PostgreSQL modules including material/dimension/approval/reorder workflow pass. Kernel unchanged; service OAuth/network/scheduling and SQL remain reviewed and unproved."
+      "sha256": "2183984cf051f502e1285366ab1b29c710cd8b50b3c650fcb08cdcb9044f7b95",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "Cargo.toml": {
       "sha256": "a217ec927488adc4b5e1430e7cee5e92455edf1018c678096fec13c3466398b5",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "components.lock.json": {
-      "sha256": "a746844ebabe6e1e20c80099c37a8db557abe45331b929cf9a731d75a095e0e0",
-      "review": "Reviewed Apps 0.24 standalone runtime service with fixed fresh OAuth introspection, current subject/tenant/scope/audience/expiry, strict supplied synthetic snapshots, same HTTP/OpenAPI/MCP operation, sanitized output and task-owned cancellation-safe process limits. No Core, SQL, issuer, role store, live fetch or financial writer. Shared Frozen bounds are the original first block, still invoked before original native contextual record/field checks. Actual independent process/Fetch/existing SDK, non-root read-only Docker and Linux image HTTP/MCP acceptance pass; 116 model, 24 runtime, service config/cancellation, 74 native App units and seven native HTTP/PostgreSQL modules including material/dimension/approval/reorder workflow pass. Kernel unchanged; service OAuth/network/scheduling and SQL remain reviewed and unproved."
+      "sha256": "9dbe4bb83e05a9b3b54ae22449bfbfb03529e376ee30f7e3df0f10ecc5405b72",
+      "review": "Apps Data reader 0.1.1 and storage 0.25.0: current OAuth, signed SELECT-only schema, same native scope and page/projection owners; independent and Linux container acceptance plus seven native signed-scope flows pass. Explicit JSON nulls now reject under the advertised DTO; native authority and all pure Lean policies unchanged, network/SQL remain tested unproved adapters."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",
@@ -5283,8 +5353,8 @@
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
     },
     "crates/runtime/Cargo.toml": {
-      "sha256": "fa94f8feac17149ad75890a0486e80df77ac53a4bef0da00b73432b2d284666a",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "d0dec1f7547d94ddbb4444238dc14340d7d9ab29b19a001eb8b302e72f8d76fb",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "deploy/Dockerfile": {
       "sha256": "32cff221980fddc3973e774760e28c3bc7dff414234d8b400fea9683b465a99e",
@@ -5311,12 +5381,12 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "2f21b68a9116e6bc04dde1b46a2184bd85de738dc4eca721cb621bf3f01f38d1",
-      "review": "Reviewed Apps 0.24 standalone runtime service with fixed fresh OAuth introspection, current subject/tenant/scope/audience/expiry, strict supplied synthetic snapshots, same HTTP/OpenAPI/MCP operation, sanitized output and task-owned cancellation-safe process limits. No Core, SQL, issuer, role store, live fetch or financial writer. Shared Frozen bounds are the original first block, still invoked before original native contextual record/field checks. Actual independent process/Fetch/existing SDK, non-root read-only Docker and Linux image HTTP/MCP acceptance pass; 116 model, 24 runtime, service config/cancellation, 74 native App units and seven native HTTP/PostgreSQL modules including material/dimension/approval/reorder workflow pass. Kernel unchanged; service OAuth/network/scheduling and SQL remain reviewed and unproved."
+      "sha256": "7a8486b4e891abe9052c835296979f1efab2b713ccd4ebb92b1819e0fb8281db",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "47fdd5ba92481fbfc5e4309e99d9423fe3aec01e7c164c5dbe9fac50323de049",
-      "review": "Reviewed Apps 0.24 standalone runtime service with fixed fresh OAuth introspection, current subject/tenant/scope/audience/expiry, strict supplied synthetic snapshots, same HTTP/OpenAPI/MCP operation, sanitized output and task-owned cancellation-safe process limits. No Core, SQL, issuer, role store, live fetch or financial writer. Shared Frozen bounds are the original first block, still invoked before original native contextual record/field checks. Actual independent process/Fetch/existing SDK, non-root read-only Docker and Linux image HTTP/MCP acceptance pass; 116 model, 24 runtime, service config/cancellation, 74 native App units and seven native HTTP/PostgreSQL modules including material/dimension/approval/reorder workflow pass. Kernel unchanged; service OAuth/network/scheduling and SQL remain reviewed and unproved."
+      "sha256": "e287624da8ed2c00f3ae879767ee046f843ac8a5b22e0fc662948cbea1d09b76",
+      "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
       "sha256": "9438fe3ff98ee7adfa6c49eb83bd7605d89195e5fd28351c2a7e4f8472e16d1c",

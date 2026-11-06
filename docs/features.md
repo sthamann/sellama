@@ -640,3 +640,11 @@ See the [illustrated workbench guide](app-studio-workspace.md) for multiple plac
 ### 3D product media
 
 Upload self-contained GLB models, preview them in Studio and bind native product variants to their own geometry or an embedded material. Shoppers rotate and zoom inside the normal gallery, with the selected SKU retaining its native price, stock and checkout. [Setup, model contract and sandbox publication](product-3d-models.md).
+
+## Independent App Data reads
+
+The [App Data reader](app-data-service.md) supplies standalone HTTP/OpenAPI/MCP
+and JavaScript access to installed private App list actions with current rights,
+a restricted read-only database and signed shop isolation. Native pages share the
+same query/projection and scope protocol. Complete write/lifecycle hosting and
+cross-service generated UI remain separate tasks.

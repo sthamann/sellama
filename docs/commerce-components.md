@@ -326,7 +326,12 @@ The following are implementation tasks; existing UI foundations do not complete 
     capture on the existing installer transaction, mandatory native field/language
     validation, declared historical values and checked record revisions.
     [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).
-  - [ ] Complete remaining lifecycle orchestration and independent production
+  - [x] APP-02a Independent read-only App Data service with versioned fixed reader
+    schema, real restricted login, current OAuth merchant/action rights, shared
+    signed RLS protocol and HTTP/OpenAPI/MCP/SDK acceptance. Native page and field
+    projection consume the same code. No install/write or resolver bypass.
+    [Reader acceptance](evidence/app-data-reader-component-2026-11-06.md).
+  - [ ] Complete remaining lifecycle orchestration and independent write-capable
     schema hosting.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.
@@ -380,6 +385,9 @@ The following are implementation tasks; existing UI foundations do not complete 
     [Storage evidence](evidence/app-storage-component-2026-11-05.md).
   - [ ] MKT-03b Extract the validated host operations and identity adapter, with a
     supported production schema, current permissions, API/MCP and SDK examples.
+    The first supported reader schema and authenticated read operation are delivered
+    in APP-02a; full installer/write/settings/jobs hosting and native resolver ports
+    remain open. [Reader service](app-data-service.md).
     Shared record CAS/replay/write/outbox and bounded page/filter/publication
     queries are extracted and consumed by Core. Apps 0.3.0 also supplies the pure
     model declaration/field/schema/language/workflow compiler, with required host

@@ -1,21 +1,7 @@
 //! Database lease context: unknown tasks fail closed; trusted workers explicitly retain their scope.
 use std::future::Future;
 
-#[derive(Clone, Debug, Default)]
-pub enum Scope {
-    #[default]
-    Denied,
-    Tenant(String),
-    Personal {
-        tenant: String,
-        actor: String,
-    },
-    Actor {
-        tenant: String,
-        actor: String,
-    },
-    System,
-}
+pub use veyndo_app_authority::database::Scope;
 tokio::task_local! { static CONTEXT: Scope; }
 pub fn current() -> Scope {
     CONTEXT.try_with(Clone::clone).unwrap_or_default()

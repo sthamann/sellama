@@ -239,3 +239,14 @@ before commit. There are no new tables, indexes, pools or production migrations.
 Schema recovery capture differs from managed single-record restoration: a saved
 snapshot does not authorize a blind schema downgrade or replay of old business
 effects. [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).
+
+## Independent App Data reader boundary
+
+The [independent reader](app-data-service.md) uses a dedicated versioned fixed
+schema, a SELECT-only nonowner login and the same original signed database scope
+protocol as native Veyndo. Its current OAuth merchant/action admission is checked
+for every request; source/body fields cannot choose a shop. Serving code owns no
+migration connection and exposes no write/install operation. Native task scope,
+object/privacy policies, package lifecycle and write transactions keep their
+existing owners. The native historical migration is unchanged and the shared SQL
+verifier prefix is checked against it. [Evidence](evidence/app-data-reader-component-2026-11-06.md).

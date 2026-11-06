@@ -1,5 +1,17 @@
 # Changelog
 
+## Independent App Data reader, 6 November 2026
+
+Apps 0.25.0 adds a standalone read-only Rust HTTP/OpenAPI/MCP host with existing
+SDK/Fetch examples, fixed reader schema and current merchant/action admission.
+One restricted PostgreSQL login and signed forced RLS isolate shops; the serving
+process has neither schema-install nor data-write authority. Veyndo shares actual
+page/filter preparation, declared-field projection and original role-bound scope
+tickets with this component. Existing runtime introspection moves to the same
+feature-scoped authority library. Core retains task context, pools, provisioning
+and complete installer/privacy/write policies. [Guide](docs/app-data-service.md),
+[acceptance](docs/evidence/app-data-reader-component-2026-11-06.md).
+
 ## Independent App Runtime service, 6 November 2026
 
 Apps 0.24.0 adds a standalone Rust HTTP/OpenAPI/stateless MCP server over the

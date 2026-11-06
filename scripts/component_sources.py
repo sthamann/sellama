@@ -48,6 +48,10 @@ def verify(root=ROOT):
     assert not runtime_wit.is_symlink() and not sdk_wit.is_symlink(), 'Linked WIT contract mirror'
     assert runtime_wit.is_file() and sdk_wit.is_file(), 'Missing runtime/SDK WIT contract'
     assert runtime_wit.read_bytes() == sdk_wit.read_bytes(), 'Runtime/SDK WIT contract drift'
+    scope_sql = root / OWNERS['apps'] / 'authority/sql/signed_scope.sql'
+    native_sql = (root / 'migrations/099-authenticated-database-scope.sql').read_text()
+    assert scope_sql.is_file(), "Missing shared signed database verifier"
+    assert scope_sql.read_text().split('\n', 1)[1] == native_sql.split('-- Keep all existing per-table/actor checks;')[0].rstrip() + '\n', 'App host signed database verifier drifted from native authority'
     print('PASS exact component commits, owner paths, file sets, SHA-256 contents and runtime/SDK WIT parity')
 
 
@@ -71,15 +75,18 @@ def import_source(name, checkout, commit):
     lock = json.loads(LOCK.read_text()) if LOCK.exists() else {'version': 1, 'components': {}}
     folder = ROOT / OWNERS[name]
     assert not folder.is_symlink()
-    # Remove only prior regular snapshot files, preserving no hidden source forks.
+    # Keep unchanged bytes/mtimes so a service-only update does not rebuild unrelated Rust libraries.
+    # Remove only prior regular snapshot files absent from the new reviewed commit.
     for file in folder.rglob('*'):
         assert not file.is_symlink(), 'Refusing to replace a linked component'
         if file.is_file() and not set(file.relative_to(folder).parts) & IGNORED:
-            file.unlink()
+            if file.relative_to(folder).as_posix() not in files:
+                file.unlink()
     for path, data in files.items():
         file = folder / path
         file.parent.mkdir(parents=True, exist_ok=True)
-        file.write_bytes(data)
+        if not file.is_file() or file.read_bytes() != data:
+            file.write_bytes(data)
     lock['components'][name] = {'repository': 'https://github.com/veyndo/' + name,
                                'commit': commit, 'path': OWNERS[name],
                                'files': {path: digest(data) for path, data in sorted(files.items())}}

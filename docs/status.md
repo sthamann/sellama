@@ -47,9 +47,24 @@ No production schema or role change is required for these extractions.
 Independent PostgreSQL tests cover atomic job/outbox rollback, concurrent replay,
 quotas, expired leases and reconnection. The integrated storage/jobs tests, 43
 tenant isolation checks and native marketplace HTTP/MCP order, stock, invoice and
-Flow fixture also pass. A separately authenticated app host, its supported schema
-and independent deployment remain open under MKT-03.
+Flow fixture also pass. The first independent read host is described below; complete installation/write
+hosting and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
+
+## Independent App Data reader, 6 November 2026
+
+Apps 0.25.0 adds an independent Rust read service with HTTP, OpenAPI, MCP and
+existing SDK support for private installed App data. A versioned fixed reader
+schema, nonowner SELECT-only login, current OAuth merchant/action rights and signed
+read-only database scope enforce the independent boundary. Native Veyndo uses the
+same page preparation, field projection and original signing protocol.
+
+Real process tests with two shops, a current identity endpoint and PostgreSQL pass,
+including rights/revocation, deactivation, forged contexts, restricted startup and
+SDK parity. Complete independent install/write/settings/jobs hosting and native
+object resolver ports remain on the component list. No new public service or
+production database cutover is claimed. [Read service guide](app-data-service.md)
+and [dated evidence](evidence/app-data-reader-component-2026-11-06.md).
 
 ## Independent App Runtime service, 6 November 2026
 

@@ -551,3 +551,11 @@ references, projections and tenant/package fences retain their actual owners.
 The migration never opens a pool, creates SQL objects, commits independently or
 automatically rewinds historical schemas. Exhausted revisions reject after field
 validation. [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).
+
+## Independent App Data reads
+
+The [App Data reader](app-data-service.md) supplies standalone HTTP/OpenAPI/MCP
+and JavaScript access to installed private App list actions with current rights,
+a restricted read-only database and signed shop isolation. Native pages share the
+same query/projection and scope protocol. Complete write/lifecycle hosting and
+cross-service generated UI remain separate tasks.

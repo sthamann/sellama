@@ -111,6 +111,7 @@
         "docs/app-tutorials/README.md",
         "docs/app-platform.md",
         "docs/app-runtime-service.md",
+        "docs/app-data-service.md",
         "docs/app-data-storage.md",
         "docs/app-core-extensions.md",
         "docs/app-native-lifecycles.md",

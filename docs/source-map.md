@@ -9,8 +9,8 @@ accepted. Moving a repository does not establish standalone service behavior.
 snapshot in `extensions/services/app-storage/` is verified by
 `components.lock.json`. `src/apps/records.rs`, `jobs.rs` and `job_callbacks.rs`
 use its record/job SQL through the same scoped transaction. Native admission,
-field/reference validation, history, evidence and publication admission remain in
-Core. Apps 0.2.0 also owns record CAS/replay and page/filter/window SQL;
+field/reference validation, evidence and publication admission remain in Core.
+Record history storage/restoration now uses Apps 0.21.0 as described below. Apps 0.2.0 also owns record CAS/replay and page/filter/window SQL;
 `src/apps/record_write.rs` supplies native lifecycle and history hooks to that
 shared mutation engine.
 The trusted storage crate is distinct from no-SQL `veyndo-app-runtime` and its native `veyndo-apps` adapter;
@@ -33,6 +33,15 @@ retains full validation and minimized design-context retention; `routes.rs` and
 installer admission on the original privileged transaction. Final selective live
 release retains its native owner.
 [Evidence](evidence/app-studio-versions-component-2026-11-06.md).
+
+**App record history:** Pinned Apps `src/record_history.rs` owns immutable capture,
+original historical read scopes/actor/source, bounded list and restore lookup/
+read admission. Native `src/apps/history_storage.rs` supplies current rights and
+actual `data::save_tx` on the same transaction. `src/apps/record_history.rs` retains
+current entity/declared-field projection, explicit review and API/MCP transport.
+Native write hooks call shared capture before/after the normal CAS writer. The
+existing signed scope, package/reference/lifecycle/outbox and caller transaction
+remain authoritative. [Evidence](evidence/app-record-history-component-2026-11-06.md).
 
 **Private Studio autosaves:** Pinned Apps `src/drafts.rs` owns strict shared-wire
 save, bounded per-actor history, actor advisory lock/row CAS/quota and scoped delete.

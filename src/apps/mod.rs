@@ -64,6 +64,7 @@ mod field_values;
 mod gateway;
 mod tool_contract;
 pub(crate) use tool_contract::app_tools;
+mod history_storage;
 mod input_schema;
 mod job_callbacks;
 mod job_control;

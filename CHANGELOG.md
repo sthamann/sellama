@@ -1,5 +1,15 @@
 # Changelog
 
+## App record history component, 6 November 2026
+
+Apps 0.21.0 owns original immutable record capture, retained historical read
+scopes/actor/source, bounded listing and restore orchestration. Required host
+current rights and actual normal writer preserve entity/field projection, review,
+package/reference/lifecycle/CAS and atomic history/outbox. Restoration creates a
+new revision; original 20-revision/16 MiB scoped retention remains. Independent
+PostgreSQL checks exercise actual retention, stale/denied/concurrent restores and
+history/audit failure rollback. [Evidence](docs/evidence/app-record-history-component-2026-11-06.md).
+
 ## Private Studio draft component, 6 November 2026
 
 Apps 0.20.0 owns the original mutable private autosave/list/delete workflow.

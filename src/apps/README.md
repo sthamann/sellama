@@ -51,3 +51,11 @@ The [source inventory](../../docs/module-inventory.md) is checked in CI. [The be
   no new executor, live-data reader, approval ledger or pricing implementation.
 
 - [upgrade_review.rs](upgrade_review.rs): Rollback-only actual installation admission and minimized migration metadata.
+
+Shared record_history owns original immutable snapshot/read/retention SQL and the
+historical lookup/admission/restore sequence. Native history_storage supplies
+current authenticated read rights and actual data::save_tx on the same transaction.
+record_history.rs retains current entity/declared-field projection, explicit
+approval, expected revision, actor/source context and API/MCP adapters. The normal
+record_write hooks delegate captures; they never directly rewind fields or bypass
+package/reference/lifecycle/CAS/history/outbox rules. Caller rolls back every error.

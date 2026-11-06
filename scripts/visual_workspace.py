@@ -101,10 +101,18 @@ try:
  call('/api/apps/site_builder/actions/save_page',{'id':'stale','revision':0,'fields':{**fields,'slug':'home'}},ah,409)
  assert call('/api/apps/site_builder/entities/pages/home/history',h=ah)['versions'][0]['actor']==a['user']['id']
  assert not mcp('merchant.app.history',{'app':'site_builder','entity':'pages','id':'home'},ah)['result'].get('isError',False)
- call('/api/apps/site_builder/entities/pages/home/history/1/restore',{'revision':2,'approve':True},ah)
- assert not rows(public,True)
- fields['status']='published';save(fields,revision=3,h=ah)
- print('PASS draft/future/channel projection, duplicate route rejection, same API/MCP history, actor attribution and CAS restore')
+ history_path='/api/apps/site_builder/entities/pages/home/history'
+ call(history_path+'/1/restore',{'revision':2,'approve':False},ah,400)
+ call(history_path+'/999/restore',{'revision':2,'approve':True},ah,404)
+ call(history_path,h=headers(other),status=404)
+ restored=call(history_path+'/1/restore',{'revision':2,'approve':True},ah)
+ assert restored['revision']==3 and not rows(public,True)
+ call(history_path+'/1/restore',{'revision':2,'approve':True},ah,409)
+ assert not mcp('merchant.app.restore',{'app':'site_builder','entity':'pages','id':'home','version':1,'revision':3,'approve':True},ah)['result'].get('isError',False)
+ versions=call(history_path,h=ah)['versions'];assert versions[0]['revision']==4 and versions[0]['source']=='app.history.restore'
+ assert versions[-1]['revision']==1 and not rows(public,True)
+ fields['status']='published';save(fields,revision=4,h=ah)
+ print('PASS draft/future/channel projection, duplicate route rejection, same API/MCP restore, actor attribution, explicit review and stale/foreign denial')
  stage=call('/api/environments',{'name':'Visual design'},ah)['id'];sh=headers(a,stage)
  personal=call('/api/studio/workspace',h=ah);assert personal['revision']==1
  staged=copy.deepcopy(fields);staged['title']['de-DE']='Aus der Sandbox';save(staged,revision=1,h=sh)

@@ -213,3 +213,14 @@ transaction. The required host crypto port keeps keys and authenticated encrypti
 with the native owner. No per-app storage objects, production schema migration or
 second key store are introduced. Native current authority/consent and secret-safe
 projections remain attached. [Accepted boundary](evidence/app-encrypted-configuration-component-2026-11-06.md).
+
+## Record history component
+
+Apps 0.21.0 shares existing `app_record_versions` persistence and restoration
+orchestration. This is one fixed table with logical tenant/app/entity/record keys,
+not a table or index per app/model/shop. The original package foreign key and
+production migration/RLS grants remain unchanged. Capture retains historical
+read scopes and actor/source metadata. The original transaction-scoped app lock
+bounds retention to 20 revisions per record and 16 MiB per tenant/app using actual
+`pg_column_size`. Restoration uses the normal admitted CAS writer, its history and
+atomic outbox. [Independent and composed evidence](evidence/app-record-history-component-2026-11-06.md).

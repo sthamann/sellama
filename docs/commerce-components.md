@@ -296,8 +296,13 @@ The following are implementation tasks; existing UI foundations do not complete 
     byte budget, actor/quota/CAS fence, scoped deletion and mandatory current
     environment admission; native identity/rights and transaction ownership remain.
     [Private draft evidence](evidence/app-private-drafts-component-2026-11-06.md).
-  - [ ] Complete remaining lifecycle/version orchestration and independent
-    production-schema hosting.
+  - [x] Apps 0.21.0 immutable app-record snapshots, retained historical read
+    rights, bounded history and restoration through a required normal managed
+    writer on the same transaction. Original 20-revision/16 MiB retention and
+    native current entity/field/approval/CAS authority remain attached.
+    [Record history evidence](evidence/app-record-history-component-2026-11-06.md).
+  - [ ] Complete remaining package activation/deactivation, schema-recovery and
+    lifecycle orchestration, plus independent production-schema hosting.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.
 - [ ] APP-04 Preserve encrypted settings, installation consent, rights, events,
@@ -443,6 +448,10 @@ The following are implementation tasks; existing UI foundations do not complete 
     - [x] Actor-private mutable Studio autosaves and scoped reads/deletion, original
       wire/byte/revision/quota behavior and required environment admission on the
       same transaction. [Private draft evidence](evidence/app-private-drafts-component-2026-11-06.md).
+    - [x] App-record capture/history/restore orchestration with required current
+      historical-read authority and actual normal save port; unchanged scoped
+      retention, original attribution and caller rollback.
+      [Record history evidence](evidence/app-record-history-component-2026-11-06.md).
     - [ ] Identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -511,6 +520,12 @@ The following are implementation tasks; existing UI foundations do not complete 
 ## Progress log
 
 ### Shared app business contracts, 6 November 2026
+
+- Apps 0.21.0 shares immutable app-record capture and bounded history plus the
+  actual lookup/read-admission/managed-restore sequence. Restoration creates a new
+  revision through the native current-package/field/reference/lifecycle/CAS writer;
+  snapshot/event failure rolls back the whole transaction. Real PostgreSQL checks
+  exercise concurrent restores and actual 16 MiB retention. [Extraction](evidence/app-record-history-component-2026-11-06.md).
 
 - Apps 0.20.0 shares private mutable draft persistence, preserving strict wire
   decoding, exact submitted fields, actor scope, 64 KiB budget, row/CAS and per-user

@@ -7,17 +7,19 @@ The full component extraction is in progress, not released.
 
 ## Latest completed extraction, 6 November 2026
 
-Apps 0.28.0 / Data service 0.4.0 adds standalone package review and installation.
-A developer can review/install a private data App, configure its encrypted
-settings and use its records through HTTP, MCP and the unchanged SDK, without
-Core. The complete compiler and original installation/model sequence are shared
-with native Veyndo. Explicit schema 4, current personal administrator authority,
-exact approval, immutable versions and original row/byte budgets constrain the
-independent host. [Setup and SDK](app-package-installation-service.md),
-[acceptance](evidence/app-package-installer-component-2026-11-06.md).
+Apps 0.29.0 / Data service 0.5.0 supplies bounded job history/detail and approved
+cancel/retry/resolve/archive through HTTP, MCP and the unchanged SDK, without Core.
+Native Veyndo uses the same current-package/current-rights result redaction and
+queued-event selector. The explicit schema-5 nonowner profile cannot enqueue or
+forge worker input/results. Personal live authority, exact approval, original
+leases/CAS and atomic events remain enforced. Actual worker execution, producer
+provisioning and callback evidence retain their separate owners.
+[Setup and SDK](app-job-supervision-service.md),
+[acceptance](evidence/app-job-supervision-component-2026-11-06.md).
 
-App Runtime remains separately runnable. Full standalone native-resource policy,
-jobs, restore and release orchestration remain open under APP-02..05.
+Portable package installation, settings and records remain independently usable.
+Independent producer/worker hosting, native-resource ports, restore and release
+orchestration remain open under APP-02..05.
 
 ## Required result
 
@@ -346,7 +348,12 @@ The following are implementation tasks; existing UI foundations do not complete 
     exact approval and current personal/live authority, fixed schema-4 grants and
     original row/byte budgets. [Setup](app-package-installation-service.md),
     [independent and assembled acceptance](evidence/app-package-installer-component-2026-11-06.md).
-  - [ ] Complete remaining native-policy/jobs lifecycle
+  - [x] APP-02e Independent job supervision through HTTP/OpenAPI/MCP/SDK: bounded
+    scoped history/detail, current-rights result redaction, approved cancel/retry/
+    resolve/archive, original CAS/leases/atomic events and explicit fixed schema-5
+    control-only grants. [Guide](app-job-supervision-service.md),
+    [acceptance](evidence/app-job-supervision-component-2026-11-06.md).
+  - [ ] Complete independent producer/worker/callback hosting and remaining native-policy lifecycle
     orchestration and independent full host operation.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.

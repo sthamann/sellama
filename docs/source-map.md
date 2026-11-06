@@ -14,6 +14,15 @@ shared installer for portable private data packages; they own no native resource
 resolver. Schema-4 provisioning stays outside the serving image.
 [Operator guide](app-package-installation-service.md).
 
+**App job supervision:** Apps `src/job_projection.rs` owns the original job
+history result redaction and queued-event selection, shared with native
+`src/apps/jobs.rs` through its current authenticated authority adapter. The
+independent `data-service/src/job_service.rs` and `job_host.rs` compose bounded
+read/detail and the original shared control transaction. Producers, worker
+callbacks/evidence and dispatch keep their actual owners. Fixed schema-5
+provisioning and exact nonowner control-only grants are explicit operator work.
+[Guide](app-job-supervision-service.md).
+
 **App persistence:** `veyndo/apps` owns `veyndo-app-storage`; the exact source
 snapshot in `extensions/services/app-storage/` is verified by
 `components.lock.json`. `src/apps/records.rs`, `jobs.rs` and `job_callbacks.rs`

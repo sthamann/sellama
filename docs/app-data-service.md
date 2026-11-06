@@ -113,3 +113,10 @@ installs complete private data packages with the shared compiler and original
 atomic installer. It supplies exact digest/permission/revision approval, immutable
 versions and protected original row/byte budgets. Use the unchanged SDK to install,
 configure and read/write an App without starting Core.
+
+## Optional job supervision
+
+The [explicit schema-5 supervisor](app-job-supervision-service.md) adds existing
+job history/detail and approved cancel/retry/resolve/archive through HTTP/MCP/SDK.
+It shares the native projection and control engine, with no enqueue or worker
+result authority. Producer/worker execution remains a separate integration.

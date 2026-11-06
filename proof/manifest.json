@@ -1346,18 +1346,18 @@
     },
     "extensions/services/app-storage/data-service/src/config.rs": {
       "status": "unproved",
-      "sha256": "fa657a8795fb2cd4955f620b2d614cd2844f795fc1b9693b48890f86c67914f6",
-      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+      "sha256": "14a93562d85721aa885e5d22c7b6fc27ce7fc738dc6f46b50ac83f6d49affb33",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/data-service/src/contract.rs": {
       "status": "unproved",
-      "sha256": "8016cf6647bbe32946c2464642894e0b08f47371853f14fd84420eacea6aad6a",
-      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+      "sha256": "9662663803a52d603f3c3ac2cd7c21b417eecc495b93d3ac47f43585bc5f897d",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/data-service/src/database.rs": {
       "status": "unproved",
-      "sha256": "77e8cd7dcbef92b28f367ca590bf53be9d8f0b4a8d0af8ad03b7c390f50cade4",
-      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+      "sha256": "a999e9b02cc44fa75686928bb9a4e841b0dad7930101fffa4d751f7d91d3e633",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/data-service/src/error.rs": {
       "status": "unproved",
@@ -1394,10 +1394,30 @@
       "sha256": "63c5e57e5a22a02d71b4840a812a1c2a56a10af81b532452e1635ed72a7ab00a",
       "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
     },
+    "extensions/services/app-storage/data-service/src/job_contract.rs": {
+      "status": "unproved",
+      "sha256": "880d3cb48f7128dc829f9d324701a886e1fe0f5bf329a0e18d290e9aa41820d9",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
+    },
+    "extensions/services/app-storage/data-service/src/job_host.rs": {
+      "status": "unproved",
+      "sha256": "b4d50ac7351ac8d59eb205734bf8bb10ffa46c8cc4bd131ad724faacfb6a6ae4",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
+    },
+    "extensions/services/app-storage/data-service/src/job_role.rs": {
+      "status": "unproved",
+      "sha256": "e3b4e9b0a16f74cc09c07f46c6978a495ad2486ef69a6aa6e8a6b14030fbf9e9",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
+    },
+    "extensions/services/app-storage/data-service/src/job_service.rs": {
+      "status": "unproved",
+      "sha256": "11070e3bfeb403444b2b86842e181229a71c935bf35a8777c80e274874fdcd65",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
+    },
     "extensions/services/app-storage/data-service/src/lib.rs": {
       "status": "unproved",
-      "sha256": "8aca9dade7a3b262db43d78cfb003fadecaa14f5d7d0e2574f5fb7b0354c226f",
-      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+      "sha256": "b146b556f1e580ce0834a5aba44a06f72a6881b1b5658e7d61759cac894b9d58",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/data-service/src/main.rs": {
       "status": "unproved",
@@ -1411,8 +1431,8 @@
     },
     "extensions/services/app-storage/data-service/src/mcp.rs": {
       "status": "unproved",
-      "sha256": "4a9ef7feb39a77f7ab11fa5de4d6f83b8ff727d1d1287eaaea14fe9efe3d782c",
-      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+      "sha256": "2f2dcbe9a770ddd706cab8c54e6c8882cba0b83f40399524dadca9398830f577",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/data-service/src/portable.rs": {
       "status": "unproved",
@@ -2019,6 +2039,11 @@
       "sha256": "6a3f02a7ca68d7072d3742649cd3e1291fa53b59ef99df6b467b824c666bf77e",
       "review": "Reviewed Apps 0.17 job history/control extraction from original native jobs.rs. Shared bounded queries preserve tenant/app bindings, stable created-at/id cursor anchors, group-as-label, uncertainty/success-only-result projections; native actor/package/action admission and result/message/fingerprint redaction remain attached. Shared merchant control preserves original row lock, CAS/error order, archive/cancel/retry/resolve transitions, explicit unknown-outcome approval, retry actor/package reset, retained cancellation lease, event order and caller atomic rollback. Required native retry hook uses original current action, primary/additional rights and stored-input validation. Callback identity/creator-role locks, signed SQL scope, evidence and direct verified completion predicate unchanged. Independent PostgreSQL concurrency, scope/hostile/cursor and hook/outbox/missing-actor rollback plus actual standalone rollback example pass; Linux component CI and warning-free Clippy pass. Native 74 app units and seven HTTP/PostgreSQL suites apps, app_jobs, app_components, staging, tenant_isolation, shipping_contract and marketplaces pass, including new foreign/cursor/projection regression and real shipping restart. Source/WIT pins, 32 dependency controls and image closures pass. Kernel unchanged; shared SQL, control orchestration and host adapters remain unproved."
     },
+    "extensions/services/app-storage/src/job_projection.rs": {
+      "status": "unproved",
+      "sha256": "6770141ff311b4e373aea174bc0cfc946126003b5169f6f2337934bdf148d9b5",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
+    },
     "extensions/services/app-storage/src/jobs.rs": {
       "status": "unproved",
       "sha256": "94ec88131a206cf85a4325c7c3cee58ce2199cdf85d340edcb73ea144df494cb",
@@ -2026,8 +2051,8 @@
     },
     "extensions/services/app-storage/src/lib.rs": {
       "status": "unproved",
-      "sha256": "845840871fb2e236bd0e69bf1671d4318f325d0838026083c00cf733b150c00e",
-      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+      "sha256": "fbe17d2c246641161aa8a9273aec09d91cfafd9fc10c337f7bf6ecd3432fe9e7",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/src/managed_hooks.rs": {
       "status": "unproved",
@@ -2686,8 +2711,8 @@
     },
     "src/apps/jobs.rs": {
       "status": "unproved",
-      "sha256": "ebd8b48497bb03a39e2589f3e71581bbc8aa6149bd4dd864b667301ca0c3cc36",
-      "review": "Reviewed Apps 0.17 job history/control extraction from original native jobs.rs. Shared bounded queries preserve tenant/app bindings, stable created-at/id cursor anchors, group-as-label, uncertainty/success-only-result projections; native actor/package/action admission and result/message/fingerprint redaction remain attached. Shared merchant control preserves original row lock, CAS/error order, archive/cancel/retry/resolve transitions, explicit unknown-outcome approval, retry actor/package reset, retained cancellation lease, event order and caller atomic rollback. Required native retry hook uses original current action, primary/additional rights and stored-input validation. Callback identity/creator-role locks, signed SQL scope, evidence and direct verified completion predicate unchanged. Independent PostgreSQL concurrency, scope/hostile/cursor and hook/outbox/missing-actor rollback plus actual standalone rollback example pass; Linux component CI and warning-free Clippy pass. Native 74 app units and seven HTTP/PostgreSQL suites apps, app_jobs, app_components, staging, tenant_isolation, shipping_contract and marketplaces pass, including new foreign/cursor/projection regression and real shipping restart. Source/WIT pins, 32 dependency controls and image closures pass. Kernel unchanged; shared SQL, control orchestration and host adapters remain unproved."
+      "sha256": "a60bf9b750ffc15cb5c527df01f4cfa7f25eb79ec72aefa078f46752848f1e08",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
@@ -5306,16 +5331,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "bcb1458a0b285dcbc2ee79c90af96a2b445d300be34a6f587d4f8d8cdb898240",
-      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+      "sha256": "1c95ccff1d8ea8822bc4652000953fc69074462d63722e7450212ccdacce1d66",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
     },
     "Cargo.toml": {
       "sha256": "a217ec927488adc4b5e1430e7cee5e92455edf1018c678096fec13c3466398b5",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "components.lock.json": {
-      "sha256": "4f8b09438c70ef1cdac68430500c15d040a5603a26e7e982e10090e2ab2fbf6e",
-      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+      "sha256": "0053b46ff3462bf89096519395b5caf71a3653ca7d152ca087d6bfd77053136a",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",
@@ -5466,12 +5491,12 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "73142dfe1e9b8d351d179ff73f81a589cc72ec86070d595a88345fe4d0ed81e1",
-      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+      "sha256": "283fdbfdabb9d331c1bfd74910f49319732989480fded6063890d1f6690876ff",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "90f5ff1a18f35489a127a12c4ae1ea2b67a1197d0bdfa95e04355efa6005a3a7",
-      "review": "Reviewed Apps 0.28.0 model installer extraction: native core-extension compatibility, required-field guard, fixed-table projection rebuild, original transaction and native errors are retained. Independent installer admission and SQL remain unproved; real PostgreSQL package approval, immutable versions, rollback and quota tests pass."
+      "sha256": "cb840ade40c952d38f91172cf64527ff22764d0828fb5190db3a9e42a13a1927",
+      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
       "sha256": "9438fe3ff98ee7adfa6c49eb83bd7605d89195e5fd28351c2a7e4f8472e16d1c",

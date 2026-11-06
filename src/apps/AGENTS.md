@@ -34,8 +34,8 @@ verification retain the same transaction. Checked revision overflow must reject.
 
 Shared job_history owns bounded scoped job history/detail SQL; job_control owns
 original row/CAS/uncertainty/control transitions and atomic outbox in the caller
-transaction. Native jobs retains merchant/package/actor/action admission and
-response redaction; job_control supplies mandatory current retry rights/input
+transaction. Shared job_projection owns original history redaction and queued-event
+selection; native jobs supplies current authority and retains merchant/package/actor/action admission; job_control supplies mandatory current retry rights/input
 admission and original errors. Never expose trusted history rows directly, infer
 authority from a group/actor request field or commit after a hook/storage error.
 Keep callbacks, current creator-role locks, sealed evidence and the verified

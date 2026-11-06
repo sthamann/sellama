@@ -404,6 +404,12 @@ These adapters are opt-in and disabled without operator configuration. Trusted i
 
 ## Apps and App Studio
 
+Developers and agents can also use the [independent Rust App Runtime](app-runtime-service.md)
+through HTTP, OpenAPI, MCP or the existing JavaScript SDK. It runs supplied
+price/shipping/discount/validation examples with the same bounded engine, current
+OAuth access and explicit simulation results, without a Veyndo process or database.
+
+
 ### Discover, install and inspect
 
 The library has **Installed** and **Discover**, search and categories, status filtering, passive cover/icon metadata and a common detail page. Ordinary fresh shops show the eight bundled choices without silently connecting external services. Experience-created shops already show Storyfront installed/enabled because the mount transaction owns that installation. Details expose **App details**, **App workspace**, **Data**, and **Version & permissions**. Activation is revision-bound and permission checked; an installed app can retain records when disabled.

@@ -51,6 +51,21 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Independent App Runtime service, 6 November 2026
+
+Apps [0.24.0](https://github.com/veyndo/apps/releases/tag/v0.24.0) now includes a
+standalone Rust server for bounded price/shipping/discount/validation simulations.
+HTTP, OpenAPI and MCP use the same typed operation; the existing Veyndo SDK works
+unchanged. Fresh fixed-endpoint OAuth introspection admits current subject,
+workspace, audience, expiry and scope. Revocation takes effect on the next request.
+It runs without Core or a database using supplied example data and explicitly
+returns no applied effect. Native Veyndo continues to embed the same engine.
+
+Local actual process/Fetch/SDK and container checks pass, alongside 116 model tests,
+24 runtime tests, 74 native App units and seven affected HTTP/PostgreSQL modules.
+Full standalone App data/installation hosting and hosted identity/deployment remain
+separate tasks. [Run the service](app-runtime-service.md). [Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
+
 ## Agentic service UI and independent checkout direction, 6 November 2026
 
 The cross-component design now explicitly requires standalone service UI,

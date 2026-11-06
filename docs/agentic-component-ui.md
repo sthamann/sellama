@@ -130,6 +130,16 @@ cannot manufacture a purchase approval or change trusted prices/payment states.
 Adapters must declare supported subsets and reject unsupported bindings or effects
 explicitly. Do not label three independently evolving UI models as one system.
 
+## Delivered standalone operation example
+
+The [App Runtime service](app-runtime-service.md) now demonstrates independent
+HTTP/OpenAPI/MCP schemas with the existing SDK and current external identity.
+An agent discovers the same typed input/output contract as the HTTP consumer,
+then invokes bounded evaluation with supplied examples. It receives a fingerprinted
+simulation result with no applied effect. This supplies one actual operation host;
+the common generated UI/renderer and cross-service navigation remain the open
+work described here. [Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
+
 ## Coverage required from every component
 
 | Component | Useful UI exports and agent compositions |

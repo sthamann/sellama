@@ -348,3 +348,21 @@ Independent fixtures exercise conversion/policy/late-hook denial, actual byte/ro
 budgets, collision and overflow. Native API fixtures additionally exercise disabled
 languages and exhausted revisions without package/record/history/outbox changes.
 [Schema recovery evidence](evidence/app-schema-recovery-component-2026-11-06.md).
+
+## Independent runtime network boundary
+
+The Apps runtime service is a separate composition root, not HTTP/network access
+inside the guest engine or storage library. Its fixed authenticated introspection
+endpoint supplies current subject/tenant/scope/audience/expiry for each protected
+request. No request tenant, permission or source field grants access; there is no
+cache, issuer or parallel user/role store. Identity redirects, failures and oversized
+responses reject with sanitized errors. Origin and duplicate authorization checks
+apply before dispatch. HTTP/MCP use the same strict typed operation and no-store
+responses. Supplied snapshot IDs never read live records.
+
+Task-owned global/tenant/subject permits survive requester cancellation; Wasmtime
+retains its original import, memory/table, fuel/epoch, ABI and output bounds.
+The result states simulation/no effect. No SQL, live resolver or financial writer
+is added. This service can use an external identity owner independently; connecting
+native sessions and a complete app-data/installation host remains separate work.
+[Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).

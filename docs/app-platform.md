@@ -468,3 +468,14 @@ raw merchant-authored success flags are never authoritative. The service remains
 a separately trusted operator-approved observation producer. No new physical app
 table, credential authority or queue is added. Preserve `PLATFORM_SECRET_KEY` across
 restarts; key rotation needs deliberate evidence revalidation.
+
+## Independent durable job history and control
+
+Apps 0.17.0 supplies actual scoped history/detail queries and the merchant control
+transaction. Native routes call that same package. Cancellation, explicit review
+of uncertain outcomes, retry, archival, row/revision fences and outbox writes do
+not have a second native implementation. The required retry hook checks the
+current installed action, primary/additional rights and stored input before
+requeueing. Core keeps current package/actor admission and message/result redaction.
+Callback leases, creator-role checks, signed identities and sealed completion
+records keep their existing owners. [Acceptance and runnable example](evidence/app-job-workflows-component-2026-11-06.md).

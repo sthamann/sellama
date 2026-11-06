@@ -221,6 +221,11 @@ owners require an explicit reservation/compensation design and corresponding tes
   hosting and full standalone operation remain APP-02..05/MKT-03b/c work.
 - [ ] APP-02 Extract app data/settings/jobs/version contracts and fixed shared
   storage; never create per-app/per-model/per-tenant tables or indexes.
+  - [x] Scoped record/query/package/install and enqueue/claim/progress storage,
+    plus Apps 0.17.0 bounded job history/detail and merchant cancel/retry/resolve/
+    archive transaction. Required current-action/right/input retry admission and
+    native response redaction remain attached. [Job workflow evidence](evidence/app-job-workflows-component-2026-11-06.md).
+  - [ ] Complete remaining settings/version and independent production-schema hosting.
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.
 - [ ] APP-04 Preserve encrypted settings, installation consent, rights, events,
@@ -352,6 +357,10 @@ owners require an explicit reservation/compensation design and corresponding tes
       and clock ports; all 19 stages and first-error semantics tested independently
       and reused by native installation/Studio/API/MCP/release consumers.
       [Complete compiler evidence](evidence/app-complete-compiler-component-2026-11-06.md).
+    - [x] Bounded scoped job history/detail and actual merchant control transaction,
+      with required retry admission, unchanged revisions/uncertainty/lease semantics,
+      actor/package rebinding and atomic outbox. Native callbacks/evidence/current
+      authority stay attached. [Job workflow evidence](evidence/app-job-workflows-component-2026-11-06.md).
     - [ ] Identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -420,6 +429,12 @@ owners require an explicit reservation/compensation design and corresponding tes
 ## Progress log
 
 ### Shared app business contracts, 6 November 2026
+
+- Apps 0.17.0 extracts actual job history and merchant control into the independent
+  storage package. Native HTTP routes consume that same implementation with
+  mandatory current-action/right/input retry admission and current response
+  redaction. A disposable PostgreSQL example runs without Core and rolls back.
+  [Job workflow extraction](evidence/app-job-workflows-component-2026-11-06.md).
 
 - Apps 0.16.0/model 0.12.0 composes all 19 standard domain stages in the original
   native order with required trusted-host policy decisions. The full compiler,

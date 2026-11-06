@@ -72,6 +72,23 @@ ids=[]
 for n in range(10):ids.append(call(prefix+'/actions/export',{'sentinel':str(n)},{**h,'Idempotency-Key':'quota-'+str(n)})['jobId'])
 call(prefix+'/actions/export',{'sentinel':'over'},{**h,'Idempotency-Key':'over'},429)
 assert len(call(prefix+'/jobs',h=h)['jobs'])==10 and not call(prefix+'/jobs',h=oh)['jobs']
+# The extracted history keeps bounded keysets, foreign anchors and raw input/result privacy.
+for query in ['?limit=0','?limit=101','?after=']:
+ call(prefix+'/jobs'+query,h=h,status=400)
+call(prefix+'/jobs?after=missing-job',h=h,status=409)
+page=call(prefix+'/jobs?limit=3',h=h);seen_ids=[]
+while True:
+ seen_ids += [row['id'] for row in page['jobs']]
+ assert all('packageDigest' not in row and 'input' not in row for row in page['jobs'])
+ if not page['hasMore']:break
+ page=call(prefix+'/jobs?limit=3&after='+page['nextCursor'],h=h)
+assert len(seen_ids)==len(set(seen_ids))==10 and set(seen_ids)==set(ids)
+foreign_job=call(prefix+'/actions/export',{'sentinel':'foreign'},{**oh,'Idempotency-Key':'foreign-job'})['jobId']
+call(prefix+'/jobs/'+foreign_job,h=h,status=404)
+call(prefix+'/jobs/'+foreign_job,{'revision':1,'operation':'cancel'},h,status=404)
+call(prefix+'/jobs?after='+foreign_job,h=h,status=409)
+print('PASS job history: bounded stable pages, internal-field redaction and foreign detail/control/cursor denial')
+
 sql(f"UPDATE memberships SET role='viewer',permissions='[\"catalog.read\"]' WHERE tenant='{t}' AND user_id=(SELECT id FROM merchant_users WHERE email='{t}@example.test')")
 call(prefix+'/core/job_claim',{'id':ids[0]},kh,403)
 assert sql(f"SELECT status FROM app_jobs WHERE tenant='{t}' AND id='{ids[0]}'")=='queued'

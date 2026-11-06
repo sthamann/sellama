@@ -1,5 +1,15 @@
 # Changelog
 
+## Durable app job workflows, 6 November 2026
+
+Apps 0.17.0 owns bounded scoped job history/detail and the original merchant
+cancel/retry/resolve/archive transaction. Core reuses that implementation through
+a mandatory current-action/right/input retry hook; identity/package admission and
+response redaction remain native. CAS, explicit outcome review, cancellation leases,
+retry actor/package reset and atomic outbox preserve their original behavior.
+Independent PostgreSQL cases cover concurrency, foreign cursors and rollback; a
+standalone example runs then rolls back. [Evidence](docs/evidence/app-job-workflows-component-2026-11-06.md).
+
 ## Complete standard app compiler, 6 November 2026
 
 Apps 0.16.0/model 0.12.0 owns all 19 standard validation stages in their original

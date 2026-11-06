@@ -3,7 +3,6 @@ use super::*;
 use axum::body::Bytes;
 use hmac::{Hmac, Mac};
 use sha2::Sha256;
-pub(crate) use veyndo_app_model::triggers::AppWebhook;
 pub(super) fn validate(m: &Manifest) -> Result<()> {
     veyndo_app_model::triggers::webhooks(&m.webhooks, &m.actions).map_err(model_contract::error)
 }

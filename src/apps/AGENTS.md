@@ -24,6 +24,15 @@ Prepare/probe bounded modules
 before commerce transactions; WIT hooks consume bounded read-only snapshots and
 use the existing native money/tax calculation owner.
 
+The full strict Manifest, common projection and canonical fingerprint/signing
+message belong to model/manifest. Native Manifest is an alias, not a second wire
+schema. Storage package fingerprints delegate to that same implementation.
+Shared distribution grammar requires NativeVerifier's current operator Ed25519
+check in original metadata/signature/dependency order. Keep unsigned registered
+namespaces, service digest pins, scoped installed locks and actual financial
+authority native. Shared artwork uses URL parsing only; payment declarations never
+authorize provider effects. Preserve canonical bytes and all existing error kinds.
+
 Shared native lifecycle graph/snapshot types and bounded compiler belong to
 model/native_lifecycle*. Native adapters supply full canonical package digests,
 auth::SCOPES, native locale grammar and the original default order base. Current
@@ -93,8 +102,9 @@ Never treat validated UI code or a projected payload as execution authority.
 The shared `package::compile` grammar requires native before/after domain extension
 validators and scope/Wasm-kind/reference policies. Preserve their complete original
 order and typed Manifest projection in `manifest_validation.rs`; never approve
-provider or extension metadata from a projection presence flag. Full strict decoder,
-identity and trust remain native. Do not add a parallel common grammar or default
+provider or extension metadata from a projection presence flag. The complete strict
+decoder is shared; final identity, trust and native domain-policy composition remain
+with their original owners. Do not add a parallel common grammar or default
 acceptors for domains a host has not implemented.
 Shared action/current-scope and callback grant planning now live in the component
 admission module; native adapters must derive their authority from RequestContext,

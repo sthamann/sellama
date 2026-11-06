@@ -1,6 +1,5 @@
 //! Explicit event filters, bounded batches and signed public HTTPS delivery extend the existing leased outbox, not a second queue.
 use super::*;
-pub(crate) use veyndo_app_model::events::{EventDelivery, EventFilter};
 struct Destination;
 impl veyndo_app_model::events::DestinationPolicy for Destination {
     type Error = Error;

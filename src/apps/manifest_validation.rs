@@ -1,6 +1,6 @@
 //! Native complete-package extension and policy adapter for the independent ordered package compiler.
 use super::*;
-use veyndo_app_model::package::{CompileError, Configuration, Contract, Extensions, Policy};
+use veyndo_app_model::package::{CompileError, Extensions, Policy};
 impl Policy for editor_contract::ReferencePolicy {
     fn known_scope(&self, scope: &str) -> bool {
         auth::SCOPES.contains(&scope)
@@ -39,26 +39,7 @@ impl Extensions for NativeExtensions<'_> {
     }
 }
 pub(crate) fn validate(m: &Manifest) -> Result<()> {
-    let contract = Contract {
-        id: &m.id,
-        version: &m.version,
-        core_api: &m.core_api,
-        runtime: &m.runtime,
-        category: m.category.as_deref(),
-        permissions: &m.permissions,
-        entities: &m.entities,
-        actions: &m.actions,
-        slots: &m.slots,
-        events: &m.events,
-        configuration: m.configuration.as_ref().map(|c| Configuration {
-            entity: &c.entity,
-            price_field: &c.price_field,
-            input_field: &c.input_field,
-            record: &c.record,
-            wasm_source: &c.wasm_source,
-        }),
-        has_payment_provider: m.payment_provider.is_some(),
-    };
+    let contract = m.common_contract();
     veyndo_app_model::package::compile(
         &contract,
         &editor_contract::ReferencePolicy,

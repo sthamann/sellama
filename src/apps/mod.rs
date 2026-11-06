@@ -107,7 +107,7 @@ mod submissions;
 #[cfg(test)]
 mod ui_logic_tests;
 pub(crate) use manifest_validation::validate;
-mod model_contract;
+pub(crate) mod model_contract;
 mod persistence;
 mod record_write;
 pub(crate) mod records;

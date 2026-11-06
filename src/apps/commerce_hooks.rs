@@ -4,7 +4,6 @@ use std::sync::Arc;
 use veyndo::component_runtime::{
     self as wit, AppRecord, CartItem, CartSnapshot, Money, ProductSnapshot, Snapshot,
 };
-pub(crate) use veyndo_app_model::commerce_hooks::Contract;
 pub(crate) async fn verify_package(m: &Manifest) -> Result<()> {
     if let Some(c) = &m.configuration {
         let entity = m

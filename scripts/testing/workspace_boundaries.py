@@ -26,9 +26,9 @@ ALLOWED = {
 # when a manifest renames sqlx as something innocuous. New dependencies need an
 # explicit architecture decision, including build/dev/optional/target variants.
 EXTERNAL = {
-    'veyndo-app-model': {'serde', 'serde_json', 'chrono', 'cron', 'sha2'},
+    'veyndo-app-model': {'serde', 'serde_json', 'chrono', 'cron', 'sha2', 'semver', 'url'},
     'veyndo-app-runtime': {'wasmtime', 'wat', 'sha2', 'serde_json'},
-    'veyndo-app-storage': {'sqlx', 'serde_json', 'sha2', 'tokio', 'chrono'},
+    'veyndo-app-storage': {'sqlx', 'serde_json', 'sha2', 'tokio', 'chrono', 'base64', 'ring'},
     'veyndo-marketplaces': {'axum', 'tokio', 'serde', 'serde_json', 'sha2', 'hmac', 'ring', 'chrono', 'reqwest'},
     'veyndo-kernel': set(),
     'veyndo-commerce': {'serde', 'serde_json'},

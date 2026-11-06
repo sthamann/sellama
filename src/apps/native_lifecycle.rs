@@ -7,9 +7,9 @@ pub(crate) use storage::{
     admission, bind_order, capture, current_order, order_machine, project_labels, snapshot,
     state_labels, validate_active_locale, validate_order_base,
 };
+pub(crate) use veyndo_app_model::native_lifecycle::Snapshot;
 #[cfg(test)]
 use veyndo_app_model::native_lifecycle::fact_value;
-pub(crate) use veyndo_app_model::native_lifecycle::{Contract, Snapshot};
 pub(super) fn validate(m: &Manifest) -> Result<()> {
     let digest = approval::canonical_digest(m);
     veyndo_app_model::native_lifecycle::validate(

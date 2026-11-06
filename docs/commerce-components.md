@@ -295,8 +295,11 @@ owners require an explicit reservation/compensation design and corresponding tes
     Apps 0.14.0 shares exact native lifecycle graph/snapshot contracts and bounded
     compilation, locale/fact narrowing and accepted-label projection. Native current
     permissions, order base/domain checks, locks and verified final effects remain attached.
-    Authentication, the remaining typed domain extension compiler, standalone
-    service/schema and API/MCP hosting remain open.
+    Apps 0.15.0 shares the complete strict Manifest wire, common projection,
+    canonical fingerprint/signing message, passive artwork/payment declarations
+    and publisher/dependency graph grammar with mandatory native signature trust.
+    Authentication, final domain-policy composition, standalone service/schema
+    and API/MCP hosting remain open.
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
     - [x] Independent model compiler and required current-authority ports.
     - [x] Atomic installation, immutable versions, quota and original package locks;
@@ -334,7 +337,11 @@ owners require an explicit reservation/compensation design and corresponding tes
       bounded compiler, current-right narrowing and safe display projection;
       independent example and assembled order/RFQ/release paths use the same code.
       [Native lifecycle evidence](evidence/app-native-lifecycle-component-2026-11-06.md).
-    - [ ] Complete typed domain extension compiler, identity and remaining lifecycle hosting.
+    - [x] Complete strict typed Manifest and shared canonical fingerprint/signing
+      message; passive artwork/provider grammar and bounded publisher/dependency
+      graph checks, retaining current operator trust and native financial effects.
+      [Complete package evidence](evidence/app-complete-package-component-2026-11-06.md).
+    - [ ] Complete domain-policy composition, identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
     [Admission and package fence evidence](evidence/app-admission-component-2026-11-05.md).
@@ -403,6 +410,11 @@ owners require an explicit reservation/compensation design and corresponding tes
 
 ### Shared app business contracts, 6 November 2026
 
+- Apps 0.15.0/model 0.11.0 shares the complete strict native package wire,
+  common compiler projection, original fingerprint/signing message and remaining
+  artwork/provider/publisher/dependency grammar. Native operator trust, current
+  permissions, installed-package locks and financial effects remain attached.
+  [Complete package extraction](evidence/app-complete-package-component-2026-11-06.md).
 - Apps 0.14.0/model 0.10.0 shares native lifecycle graph/snapshot contracts and
   compilation through mandatory native base/scope/locale ports, plus current-right
   narrowing and accepted-label projection. Native domain validation, transactional

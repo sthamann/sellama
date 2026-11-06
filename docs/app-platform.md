@@ -31,6 +31,20 @@ flowchart LR
   Component --> Quote[Native cart and checkout calculation]
 ```
 
+## Complete portable package contract
+
+Apps 0.15.0/model 0.11.0 supplies the full strict `manifest::Manifest` used by
+Studio, native installation, API/MCP and publication. Shared canonical fingerprints
+and signature messages retain all original fields and defaults, including when
+a downstream host enables ordered JSON maps. The storage
+package delegates to that same fingerprint implementation. Publisher metadata,
+semantic-version/dependency graph rules, passive artwork and payment declarations
+are shared too. Signature verification is a mandatory trusted-host port; native
+operator keys, exact service approval, current rights and financial effects retain
+their existing owners. The [independent package example](https://github.com/veyndo/apps/blob/main/examples/package_contracts.rs)
+reads all 34 native packages and checks a synthetic Ed25519 signature without Core
+or SQL. [Integration evidence](evidence/app-complete-package-component-2026-11-06.md).
+
 ## Portable native lifecycle compiler
 
 Apps 0.14.0/model 0.10.0 shares native order/quote lifecycle and accepted graph
@@ -117,9 +131,9 @@ capability, model/index/configuration, action schema/privacy/effect, legacy-slot
 and event grammar. It requires trusted scope/reference/Wasm-kind policies and
 ordered before/after host extension checks. Native `manifest_validation.rs`
 provides every original domain extension validator around that shared grammar.
-The borrowed Contract projection is not a replacement full JSON decoder or
-provider approval. Full native typed Manifest decoding and installation/current
-actor consent remain authoritative. [Independent and integrated acceptance](evidence/app-package-compiler-2026-11-05.md).
+The borrowed common projection comes from the complete shared strict Manifest
+described above. Final native domain policies, provider approval and current
+installation consent remain authoritative. [Independent and integrated acceptance](evidence/app-package-compiler-2026-11-05.md).
 
 ## Shared atomic installation
 

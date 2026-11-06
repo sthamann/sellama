@@ -51,6 +51,18 @@ Flow fixture also pass. A separately authenticated app host, its supported schem
 and independent deployment remain open under MKT-03.
 [Evidence and exact scope](evidence/app-storage-component-2026-11-05.md).
 
+## Complete portable app package contracts, 6 November 2026
+
+Apps [0.15.0](https://github.com/veyndo/apps/releases/tag/v0.15.0), model 0.11.0,
+shares the complete strict Manifest, canonical package fingerprints/signing messages
+and passive artwork, payment-provider and publisher/dependency rules. Native Core
+aliases that same type and supplies its original current operator-key verifier,
+reserved namespaces/service pins and transactional installed-package authority.
+The independent example reads all 34 native packages with unchanged fingerprints
+and exercises real Ed25519 using synthetic keys, including tampering and revoked
+key rejection. Actual payment execution keeps its existing owner.
+[Tests and remaining independent-host scope](evidence/app-complete-package-component-2026-11-06.md).
+
 ## Shared order and quote lifecycle compiler, 6 November 2026
 
 Apps [0.14.0](https://github.com/veyndo/apps/releases/tag/v0.14.0), model 0.10.0,

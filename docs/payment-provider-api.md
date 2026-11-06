@@ -2,6 +2,12 @@
 
 Payment apps declare their methods in the same versioned manifest edited in App Studio and produced by coding agents. The public core owns tenant/customer authorization, authoritative minor-unit invoices with explicit currency precision, immutable attempts, reservations, durable jobs, refund admission, verified receipts and order events. An isolated provider owns onboarding, provider-specific conversion, credentials and PSP calls. Shopware Payments implementations and partner attribution live exclusively in the private connector repository.
 
+The strict provider wire/grammar is shared by `veyndo-app-model` 0.11.0 and native
+Payments. Independent hosts can validate the same complete Manifest and declared
+capabilities. Native account readiness, current rights, minor-unit financial ledger,
+provider execution and receipt checks retain their existing owners.
+[Component acceptance](evidence/app-complete-package-component-2026-11-06.md).
+
 ## Package and account lifecycle
 
 Use `runtime: service`, `category: payment`, `permissions: [payments.provider]` and `paymentProvider: {apiVersion: "1", methods: [...]}`. Each method defines `id`, localized `name`, `currencies`, `countries`, `capabilities`, `intent` and `checkout`. Capabilities include capture, authorize, void, refund, multi_capture, vault and recurring. `vault` admits the shared customer-owned saved-method contract described below; `recurring` remains a declaration without a general subscription executor. A declaration never replaces the provider implementation or actual acceptance. Reserved core identities cannot register as external providers.

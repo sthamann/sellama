@@ -1,10 +1,5 @@
 //! Shared operator settings; AES-GCM secrets are never part of merchant/operator read responses.
 use super::*;
-use aes_gcm::{
-    Aes256Gcm, KeyInit, Nonce,
-    aead::{Aead, AeadCore, OsRng, Payload},
-};
-use base64::{Engine, engine::general_purpose::STANDARD};
 
 pub fn encryption_ready() -> bool {
     encryption_key().is_ok()
@@ -23,40 +18,14 @@ fn encryption_key() -> Result<Vec<u8>, String> {
         })
         .collect()
 }
-fn cipher() -> Result<Aes256Gcm, String> {
-    Aes256Gcm::new_from_slice(&encryption_key()?)
-        .map_err(|_| "Invalid platform encryption key".into())
+fn cipher() -> Result<veyndo_app_authority::vault::Vault, String> {
+    veyndo_app_authority::vault::Vault::new(&encryption_key()?)
 }
 pub fn seal(provider: &str, secret: &str) -> Result<String, String> {
-    let nonce = Aes256Gcm::generate_nonce(&mut OsRng);
-    let encrypted = cipher()?
-        .encrypt(
-            &nonce,
-            Payload {
-                msg: secret.as_bytes(),
-                aad: provider.as_bytes(),
-            },
-        )
-        .map_err(|_| "Could not store provider key")?;
-    Ok(STANDARD.encode([&nonce[..], &encrypted].concat()))
+    cipher()?.seal(provider, secret)
 }
 pub fn open(provider: &str, encoded: &str) -> Result<String, String> {
-    let bytes = STANDARD
-        .decode(encoded)
-        .map_err(|_| "Invalid provider secret")?;
-    if bytes.len() < 28 {
-        return Err("Invalid provider secret".into());
-    }
-    let plaintext = cipher()?
-        .decrypt(
-            &Nonce::from(<[u8; 12]>::try_from(&bytes[..12]).map_err(|_| "Invalid nonce")?),
-            Payload {
-                msg: &bytes[12..],
-                aad: provider.as_bytes(),
-            },
-        )
-        .map_err(|_| "Provider key cannot be decrypted; check the platform encryption key")?;
-    String::from_utf8(plaintext).map_err(|_| "Invalid provider secret".into())
+    cipher()?.open(provider, encoded)
 }
 pub fn valid_endpoint(value: &str) -> bool {
     let Ok(url) = reqwest::Url::parse(value) else {
@@ -187,6 +156,10 @@ impl Inference {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use aes_gcm::{
+        Aes256Gcm, KeyInit,
+        aead::{Aead, AeadCore, OsRng, Payload},
+    };
     #[test]
     fn encrypted_payload_authenticates_provider_and_rejects_damage() {
         // No environment secrets in tests: use the same AEAD primitive with a synthetic in-memory key.

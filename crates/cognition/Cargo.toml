@@ -5,6 +5,7 @@ edition.workspace = true
 license-file.workspace = true
 
 [dependencies]
+veyndo-app-authority = { path = "../../extensions/services/app-storage/authority", default-features = false, features = ["vault"] }
 serde.workspace = true
 serde_json.workspace = true
 tokio.workspace = true

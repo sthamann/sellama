@@ -95,3 +95,10 @@ The published source, local process tests, container acceptance, native composit
 and hosted deployment are separate evidence. This component does not provision a
 new public database or service merely by being included in Veyndo.
 [Acceptance](evidence/app-data-reader-component-2026-11-06.md).
+
+## Optional encrypted settings
+
+The [explicit settings profile](app-settings-service.md) adds current personal
+live administrator reads and approved partial updates through HTTP/MCP/SDK. It
+requires schema 3, the exact restricted grants and a separate operator vault key.
+It is disabled by default; the schema-1 reader does not inherit these privileges.

@@ -1,5 +1,18 @@
 # Changelog
 
+## Independent encrypted App settings, 6 November 2026
+
+Apps 0.27.0 / Data service 0.3.0 adds an explicitly enabled settings profile.
+HTTP, MCP and the existing JavaScript SDK use the same declared partial-update,
+encrypted CAS/package binding and secret-safe projection as native Veyndo. The
+fixed identity owner must confirm a personal live administrator with current
+apps.read, apps.manage and team.manage; machine keys and delegated agents cannot
+supply these claims. A separate operator encryption key and explicit schema-3
+migration grant only settings storage. Native package installation, private
+stage restrictions and current verified administrator admission retain their
+owners. [Setup and example](docs/app-settings-service.md).
+
+
 ## Managed App Data writes, 6 November 2026
 
 Apps 0.26.0 / Data service 0.2.0 adds explicit portable record writes and retained

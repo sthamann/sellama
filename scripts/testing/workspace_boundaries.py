@@ -10,17 +10,19 @@ OWNERS.update({'veyndo': ROOT, 'veyndo-migration': ROOT / 'extensions/apps/migra
                'veyndo-marketplaces': ROOT / 'extensions/apps/marketplaces',
                'veyndo-app-storage': ROOT / 'extensions/services/app-storage',
                'veyndo-app-model': ROOT / 'extensions/services/app-storage/model',
-               'veyndo-app-runtime': ROOT / 'extensions/services/app-storage/runtime'})
+               'veyndo-app-runtime': ROOT / 'extensions/services/app-storage/runtime',
+               'veyndo-app-authority': ROOT / 'extensions/services/app-storage/authority'})
 ALLOWED = {
     'veyndo-app-model': set(),
     'veyndo-app-runtime': {'veyndo-app-model'},
     'veyndo-app-storage': {'veyndo-app-model'},
     'veyndo-marketplaces': set(),
     'veyndo-kernel': set(),
-    'veyndo-runtime': set(),
+    'veyndo-runtime': {'veyndo-app-authority'},
+    'veyndo-app-authority': set(),
     'veyndo-commerce': {'veyndo-kernel'},
     'veyndo-apps': {'veyndo-kernel', 'veyndo-app-runtime'},
-    'veyndo-cognition': {'veyndo-runtime', 'veyndo-kernel'},
+    'veyndo-cognition': {'veyndo-runtime', 'veyndo-kernel', 'veyndo-app-authority'},
 }
 # Reviewed direct external capabilities. Cargo reports actual package names even
 # when a manifest renames sqlx as something innocuous. New dependencies need an
@@ -28,7 +30,8 @@ ALLOWED = {
 EXTERNAL = {
     'veyndo-app-model': {'serde', 'serde_json', 'chrono', 'cron', 'sha2', 'semver', 'url'},
     'veyndo-app-runtime': {'wasmtime', 'wat', 'sha2', 'serde_json'},
-    'veyndo-app-storage': {'sqlx', 'serde_json', 'sha2', 'tokio', 'chrono', 'base64', 'ring'},
+    'veyndo-app-storage': {'sqlx', 'serde_json', 'sha2', 'tokio', 'chrono', 'base64', 'ring', 'zeroize'},
+    'veyndo-app-authority': {'zeroize', 'hmac', 'sha2', 'uuid', 'sqlx', 'reqwest', 'serde', 'serde_json', 'aes-gcm', 'base64'},
     'veyndo-marketplaces': {'axum', 'tokio', 'serde', 'serde_json', 'sha2', 'hmac', 'ring', 'chrono', 'reqwest'},
     'veyndo-kernel': set(),
     'veyndo-commerce': {'serde', 'serde_json'},
@@ -55,6 +58,11 @@ def check(packages):
         for dependency in package['dependencies']:
             dep = dependency['name']
             assert dep in allowed, (name, 'Unreviewed dependency capability', dep)
+            if dep == 'veyndo-app-authority':
+                if name == 'veyndo-cognition':
+                    assert not dependency.get('uses_default_features', True) and set(dependency.get('features', [])) == {'vault'}, 'Cognition imports vault only, without database/OAuth features'
+                elif name == 'veyndo-runtime':
+                    assert not set(dependency.get('features', [])) - {'database'}, 'Runtime imports the existing signed database protocol only'
             if dependency.get('path'):
                 assert dep in ALLOWED[name] and Path(dependency['path']).resolve() == OWNERS[dep].resolve(), (name, 'Path dependency escapes its owner', dep)
             elif dep in ALLOWED[name]:

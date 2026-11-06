@@ -20,6 +20,13 @@ def negative_controls(packages):
                               ('veyndo-app-runtime', 'reqwest'), ('veyndo-app-runtime', 'veyndo-kernel'),
                               ('veyndo-app-runtime', 'veyndo-app-storage'), ('veyndo-app-runtime', 'veyndo')]:
         variant(name)['dependencies'].append({'name': dependency})
+    for feature in ['database', 'oauth']:
+        dependency = next(d for d in variant('veyndo-cognition')['dependencies'] if d['name'] == 'veyndo-app-authority')
+        dependency['features'] = ['vault', feature]
+    dependency = next(d for d in variant('veyndo-cognition')['dependencies'] if d['name'] == 'veyndo-app-authority')
+    dependency['uses_default_features'] = True
+    dependency = next(d for d in variant('veyndo-runtime')['dependencies'] if d['name'] == 'veyndo-app-authority')
+    dependency['features'] = ['oauth']
     for kind in [None, 'dev', 'build']:
         variant('veyndo-apps')['dependencies'].append(
             {'name': 'sqlx', 'rename': 'harmless_helpers', 'kind': kind, 'optional': True,

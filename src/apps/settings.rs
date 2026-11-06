@@ -24,20 +24,22 @@ async fn read(
         ));
     }
     let m = package(&a, &t, &id, false).await?;
-    let digest = approval::canonical_digest(&m);
-    let row = secret_storage::metadata(&a, &t, &id, "settings").await?;
-    let revision = row.as_ref().map(|r| r.revision).unwrap_or(0);
-    let current = row.as_ref().is_none_or(|r| r.digest == digest);
-    let values = if current {
-        resolve(&a, &t, &m).await?
-    } else {
-        json!({})
-    };
-    let visible = veyndo_app_model::settings::visible(&m.settings, &values);
-    let configured = veyndo_app_model::settings::configured(&m.settings, &values);
-    Ok(Json(
-        json!({"fields":m.settings,"values":visible,"configured":configured,"revision":revision,"digest":digest,"current":current,"canManage":staging::parent(&a,&t).await?.is_none(),"encryptionReady":veyndo::inference::settings::encryption_ready()}),
-    ))
+    let mut tx = a.db.begin().await?;
+    let mut value = veyndo_app_storage::settings::read(
+        &mut tx,
+        veyndo_app_storage::Scope {
+            tenant: &t,
+            app: &id,
+        },
+        &m,
+        &secret_storage::Crypto,
+    )
+    .await
+    .map_err(settings_error)?;
+    tx.commit().await?;
+    value["canManage"] = json!(staging::parent(&a, &t).await?.is_none());
+    value["encryptionReady"] = json!(veyndo::inference::settings::encryption_ready());
+    Ok(Json(value))
 }
 async fn save(
     State(a): State<App>,
@@ -68,22 +70,15 @@ async fn save(
         .as_i64()
         .filter(|n| *n >= 0)
         .ok_or(bad("Settings revision required"))?;
-    let values = if secret_storage::metadata(&a, &t, &id, "settings")
-        .await?
-        .is_some_and(|row| row.digest == digest)
-    {
-        resolve(&a, &t, &m).await?
-    } else {
-        json!({})
-    };
-    let encoded = veyndo_app_model::settings::prepare(&m.settings, &values, &v["values"])
-        .map_err(model_contract::error)?;
-    let revision = secrets::store(
-        &a,
-        &t,
-        &id,
-        secrets::SecretWrite {
-            kind: "settings",
+    let mut tx = a.db.begin().await?;
+    let revision = veyndo_app_storage::settings::save(
+        &mut tx,
+        veyndo_app_storage::Scope {
+            tenant: &t,
+            app: &id,
+        },
+        &m,
+        &veyndo_app_storage::settings::Update {
             digest: &digest,
             revision,
             actor: h
@@ -91,10 +86,13 @@ async fn save(
                 .user
                 .as_deref()
                 .ok_or(bad("Personal account required"))?,
-            secret: &encoded,
         },
+        &v["values"],
+        &secret_storage::Crypto,
     )
-    .await?;
+    .await
+    .map_err(settings_error)?;
+    tx.commit().await?;
     Ok(Json(json!({"saved":true,"revision":revision})))
 }
 pub(super) async fn resolve(a: &App, t: &str, m: &Manifest) -> Result<Value> {
@@ -105,4 +103,11 @@ pub(super) async fn resolve(a: &App, t: &str, m: &Manifest) -> Result<Value> {
         serde_json::from_str(&encoded).map_err(|_| bad("Invalid encrypted app settings"))?;
     // A removed declaration never becomes available to a new package or remote service.
     Ok(veyndo_app_model::settings::declared(&m.settings, &values))
+}
+
+fn settings_error(value: veyndo_app_storage::settings::Error<Error>) -> Error {
+    match value {
+        veyndo_app_storage::settings::Error::Storage(e) => secret_storage::error(e),
+        veyndo_app_storage::settings::Error::Model(e) => model_contract::error(e),
+    }
 }

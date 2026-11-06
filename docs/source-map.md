@@ -33,6 +33,15 @@ admission. Independent `data-service/` adds an explicitly enabled portable write
 profile and deliberately narrow schema/grants. Unsupported native policies deny.
 [Write/history guide](app-data-writes.md).
 
+**Shared declared settings and vault:** Pinned Apps `src/settings.rs` owns the
+original encrypted settings read/projection/partial-update sequence. Native
+`src/apps/settings.rs` retains its verified personal/live administrator admission,
+package approval, response flags and caller transaction. Independent `data-service/`
+hosts the same operation behind explicit schema-3/grant/key configuration and fresh
+personal/live OAuth claims. `authority/vault` holds the original AES-GCM envelope;
+Cognition retains operator key loading and imports only the vault feature. No
+new provider/key issuer or plaintext secret endpoint. [Guide](app-settings-service.md).
+
 **App Data reader and shared authority:** Apps `data-service/` owns independent
 read-only HTTP/MCP composition and the explicit reader-schema installer.
 `authority/` owns the original role-bound scope protocol and fixed current OAuth

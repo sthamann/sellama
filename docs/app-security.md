@@ -30,6 +30,19 @@ returning an outcome does not authorize a write. The existing native cache compi
 outside commerce locks and preserves digest checks inside checkout.
 [Actual extraction and tests](evidence/app-wasm-runtime-component-2026-11-05.md).
 
+## Complete standard admission sequence
+
+Apps model 0.12.0 enforces all standard domain stages before successful complete
+compilation. Hosts implement required policy decisions, with no approving defaults;
+there is no optional callback for omitting a standard metadata domain. Native
+policies still use the original verified reference/public-read predicates and actual
+current operator keys, currency/content rules and network admission. New package
+fields require an explicit compiler update. Independent regressions reject invalid
+metadata in all 19 stages and preserve first-error/callback order. Compilation
+remains separate from current identity, consent, actual reference ownership,
+module preparation and transactional effects.
+[Actual extraction checks](evidence/app-complete-compiler-component-2026-11-06.md).
+
 ## Complete package decoding and publisher authority
 
 Apps model 0.11.0 owns the full strict package wire, original fingerprints and

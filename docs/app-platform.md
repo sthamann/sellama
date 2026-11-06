@@ -31,6 +31,20 @@ flowchart LR
   Component --> Quote[Native cart and checkout calculation]
 ```
 
+## Complete standard compiler
+
+Apps 0.16.0/model 0.12.0 provides `compiler::compile` for the complete Manifest.
+All 19 original standard domain stages run in their original order; standard
+validation is no longer implemented through host before/after callbacks. Required
+policies retain actual native field/reference/currency/scope/source/base, signature,
+namespace/destination/read-effect and clock decisions. First-error model kinds,
+pointers and real host errors remain unchanged. Native identity, consent, current
+reference ownership, actual module preparation/ABI verification and effects remain
+with their original owners. The [independent full compiler example](https://github.com/veyndo/apps/blob/main/runtime/examples/package_compile.rs)
+uses actual bounded Wasm kind parsing and all 34 native packages. Its host policy
+is synthetic and rejects unsupported values/publisher signatures.
+[Compiler evidence](evidence/app-complete-compiler-component-2026-11-06.md).
+
 ## Complete portable package contract
 
 Apps 0.15.0/model 0.11.0 supplies the full strict `manifest::Manifest` used by

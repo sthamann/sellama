@@ -18,9 +18,6 @@ fn subscribed(m: &Manifest, kind: &str) -> bool {
 pub(super) fn payload(m: &Manifest, kind: &str, data: Value) -> Value {
     veyndo_app_model::subscriptions::payload(&context(m), kind, data)
 }
-pub(super) fn validate(m: &Manifest) -> Result<()> {
-    veyndo_app_model::subscriptions::validate(&context(m)).map_err(model_contract::error)
-}
 #[cfg(test)]
 mod tests {
     use super::*;

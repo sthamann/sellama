@@ -16,10 +16,6 @@ impl veyndo_app_model::views::Policy for field_values::Policy {
 pub(super) fn is_native(m: &Manifest, s: &Surface) -> bool {
     veyndo_app_model::views::is_native(&contract(m), s)
 }
-pub(super) fn validate(m: &Manifest) -> Result<()> {
-    veyndo_app_model::views::validate(&contract(m), &field_values::Policy)
-        .map_err(model_contract::error)
-}
 pub(super) fn payload(m: &Manifest, s: &Surface) -> Option<Value> {
     veyndo_app_model::views::payload(&contract(m), s)
 }

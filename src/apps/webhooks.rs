@@ -3,9 +3,6 @@ use super::*;
 use axum::body::Bytes;
 use hmac::{Hmac, Mac};
 use sha2::Sha256;
-pub(super) fn validate(m: &Manifest) -> Result<()> {
-    veyndo_app_model::triggers::webhooks(&m.webhooks, &m.actions).map_err(model_contract::error)
-}
 pub(super) fn router() -> Router<App> {
     Router::new().route("/webhooks/apps/{tenant}/{app}/{webhook}", post(receive))
 }

@@ -1,5 +1,17 @@
 # Changelog
 
+## Complete standard app compiler, 6 November 2026
+
+Apps 0.16.0/model 0.12.0 owns all 19 standard validation stages in their original
+native order. Core calls that same full compiler with mandatory original native
+policies; whole-domain before/after host callbacks and unused serving wrappers are
+removed. Native errors, verified policy owners, current identity/consent, source
+preparation, locks and effects remain attached. The independent example compiles
+all 34 native packages; regressions cover every domain, first-error/callback order
+and denied policies. APP-01 is complete; independent identity/service work remains.
+[Implementation and acceptance](docs/evidence/app-complete-compiler-component-2026-11-06.md).
+
+
 ## Complete portable app package contracts, 6 November 2026
 
 Apps 0.15.0/model 0.11.0 shares the complete strict Manifest, original package

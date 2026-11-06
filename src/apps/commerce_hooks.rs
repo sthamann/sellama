@@ -36,17 +36,6 @@ pub(crate) async fn verify_package(m: &Manifest) -> Result<()> {
 pub(crate) struct Prepared {
     pub modules: HashMap<String, Arc<Sandbox>>,
 }
-pub(super) fn validate(m: &Manifest) -> Result<()> {
-    veyndo_app_model::commerce_hooks::validate(
-        &veyndo_app_model::commerce_hooks::Context {
-            entities: &m.entities,
-            permissions: &m.permissions,
-            commerce_hooks: m.commerce_hooks.as_ref(),
-        },
-        Sandbox::component_source,
-    )
-    .map_err(model_contract::error)
-}
 async fn rows(conn: &mut sqlx::PgConnection, t: &str) -> Result<Vec<sqlx::postgres::PgRow>> {
     // Row locks fence upgrades/deactivation during checkout. Nine detects the eight-app admission cap.
     let rows=sqlx::query("SELECT manifest FROM app_packages WHERE tenant=$1 AND active AND manifest ? 'commerceHooks' ORDER BY id LIMIT 9 FOR SHARE").bind(t).fetch_all(conn).await?;

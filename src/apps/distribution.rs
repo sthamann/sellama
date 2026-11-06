@@ -7,7 +7,7 @@ use veyndo_app_model::distribution::Distribution;
 fn message(m: &Manifest) -> Vec<u8> {
     veyndo_app_model::manifest::signature_message(m).expect("Signed package")
 }
-struct NativeVerifier<'a>(&'a Value);
+pub(super) struct NativeVerifier<'a>(pub(super) &'a Value);
 impl shared::SignatureVerifier for NativeVerifier<'_> {
     type Error = Error;
     fn verify_signature(&self, m: &Manifest) -> Result<()> {
@@ -39,8 +39,7 @@ fn verify(m: &Manifest, keys: &Value) -> Result<()> {
         shared::VerifyError::Host(e) => e,
     })
 }
-pub(super) fn validate(m: &Manifest) -> Result<()> {
-    verify(m, &crate::runtime_config::get().publishers)?;
+pub(super) fn unsigned_namespace(m: &Manifest) -> Result<()> {
     // A local unsigned app cannot occupy a registered publisher's namespace.
     if m.distribution.is_none()
         && crate::runtime_config::get()

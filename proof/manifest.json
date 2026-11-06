@@ -626,8 +626,8 @@
     },
     "crates/apps/src/lib.rs": {
       "status": "unproved",
-      "sha256": "69098b5ae608ff3a7523de6cf2c9befdfbdc4c7578f54d98a3ef850f1777cd1e",
-      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+      "sha256": "2b63b147de25b741da42d7f82cd3873186a4daf5367eff9e90eed4efaec2d306",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "crates/apps/src/sandbox.rs": {
       "status": "reviewed-binding",
@@ -1349,6 +1349,26 @@
       "sha256": "e89625bc9faf9693a1275424d2b0360d1991c53f7e38bc4ac95335d4ad7a6588",
       "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
+    "extensions/services/app-storage/model/src/business_capability.rs": {
+      "status": "unproved",
+      "sha256": "8638ea93f01d780a09ff8104866a2b35d1e94d9b87a7e4ea955e2d7d6ecbec57",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/model/src/business_snapshot.rs": {
+      "status": "unproved",
+      "sha256": "94b665a6d5aba9d38a714859daa240f72ba65d5a29a031a114696e720ae8aafd",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/model/src/commerce_hooks.rs": {
+      "status": "unproved",
+      "sha256": "46c7aba401c201c6c5ce43241e017d68cb06e9f313e00a91f4e72faae63ae1ec",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/model/src/configuration.rs": {
+      "status": "unproved",
+      "sha256": "d1a76e8ad26699709e80bc21d7bff874154635252ede8df4ca736a64378b8f13",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+    },
     "extensions/services/app-storage/model/src/declarations.rs": {
       "status": "unproved",
       "sha256": "dec95f0d4ad104c2f4688de8a284f8c2c8d62b037ded32e17bd028b31b4bc376",
@@ -1391,8 +1411,8 @@
     },
     "extensions/services/app-storage/model/src/lib.rs": {
       "status": "unproved",
-      "sha256": "3e85555b1a84b11fd327a952937ac6ab667e5fcd9b4e51c4fecec31d8ba58c20",
-      "review": "Reviewed exact native view/control/geometry/UI AST extraction into pinned Apps model 0.8.0; native compiler order, error pointers, canonical digests, canonical field policy and direct verified public-read predicate preserved. Independent compiler negatives, 74 native app unit tests and twelve real PostgreSQL/HTTP composition modules pass. Shared model, host adapters and SQL remain outside extracted proof scope."
+      "sha256": "793a42dd92200c2e898449ceee449e624ec2815f8dd6914124871392001d76f3",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "extensions/services/app-storage/model/src/lifecycle.rs": {
       "status": "unproved",
@@ -1504,6 +1524,11 @@
       "sha256": "b1e1a4972ce7ff017cdb041108958b4238fd48e330565fa1c67c552cf9f76221",
       "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
     },
+    "extensions/services/app-storage/model/tests/business_contracts.rs": {
+      "status": "unproved",
+      "sha256": "a77773c5a88a36bdd5302d175c631bb3a761fc27429048e1f13fb80f2bf613a5",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+    },
     "extensions/services/app-storage/model/tests/contracts.rs": {
       "status": "unproved",
       "sha256": "307bdbcc9c96d9191868eed3b76161b3ef8a8f411a8859bab7b6b634677b3492",
@@ -1579,10 +1604,25 @@
       "sha256": "fec61f9afb06b0e5fc5dd0bc0e42b0b55e5922d557348fff394931b0948a2800",
       "review": "Reviewed Apps 0.8.0 exact source 08060b910db73e1f6010457af5e32fdb3da475b2: strict event/delivery/filter wire types, subscription/privacy/projection and cron/private webhook validation now shared from model. Native complete Manifest order, current installed authority, mandatory destination/DNS/pinned egress, signatures, tenant freshness/replay, durable outbox/tick/lease transactions retained. 61 independent model tests, 73 native app units, 34 unchanged bundle digests and actual event/webhook/cron/restart/strict-RLS fixtures pass. Added own model lockfile/direct CI and tracked build artifact rejection. Event/model/host/SQL code remains unproved; extracted Lean kernel unchanged."
     },
+    "extensions/services/app-storage/runtime/examples/business_preflight.rs": {
+      "status": "unproved",
+      "sha256": "5273f19339abf1124ecc936b62c78759ac27f1aeccbaa43ad025803b2c0ee1af",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+    },
     "extensions/services/app-storage/runtime/examples/quote.rs": {
       "status": "unproved",
       "sha256": "e2fc6aacc85947616b06ff9023c588779c2afeb5adfd63e107926204d830adb5",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/src/business_examples.rs": {
+      "status": "unproved",
+      "sha256": "5ba4edb83d151521ef10c935ad80b2fc0f00e574c597dadcb32edbb6b6123c64",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/src/business_snapshot.rs": {
+      "status": "unproved",
+      "sha256": "fed9a6ad8f5193ae3a758487b198692166116b29ba3526e99f7073558e2401b4",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "extensions/services/app-storage/runtime/src/component_runtime/abi.rs": {
       "status": "unproved",
@@ -1594,10 +1634,15 @@
       "sha256": "e1e243c51eb0214f51b8f4f427932d7c2779f5749dfc66d8807005f1c0e2c107",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
+    "extensions/services/app-storage/runtime/src/configuration.rs": {
+      "status": "unproved",
+      "sha256": "8f4e9d4ffc2ee65def7e97c1879bcb849baafae183105e36826e6308ddd3e575",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
+    },
     "extensions/services/app-storage/runtime/src/lib.rs": {
       "status": "unproved",
-      "sha256": "900a5dfc6963fc7fbf879539a4383be79af79dc871c9cfe1231fa9626543274f",
-      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+      "sha256": "1cb7c71e6a374cf82f616b44c21357df6928c320e7cca165272f4f6fd45abed2",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "extensions/services/app-storage/runtime/src/policy.rs": {
       "status": "unproved",
@@ -1628,6 +1673,11 @@
       "status": "unproved",
       "sha256": "9e7aa35f27afef9f31e2168a8ae8de677979023757e00e4c36bcab4e6ab37fb1",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "extensions/services/app-storage/runtime/tests/business_examples.rs": {
+      "status": "unproved",
+      "sha256": "475bd995ca2bde1dbabb63ba47ef66efddd93d99d3e2b8ea9eb7bec444535670",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "extensions/services/app-storage/src/error.rs": {
       "status": "unproved",
@@ -1971,13 +2021,8 @@
     },
     "src/apps/business_capability/mod.rs": {
       "status": "unproved",
-      "sha256": "377cb06cd1c27cd44451395aa1c2f40cf052f149428e81d58d69dc4c4dcb15c6",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
-    },
-    "src/apps/business_capability/snapshot.rs": {
-      "status": "unproved",
-      "sha256": "7aa62cb42916bd0b9f3b76f04174ba0d3fd617feec8ccfa73ba432caef4d3fe9",
-      "review": "Reviewed fixed app-record store, tenant/app/model identity, forced signed RLS, trigger-maintained unique/reference/quota projections, scoped schema/preview/staging/checkout consumers and atomic maintenance consolidation; actual PostgreSQL app/checkout/schema/F5 suites and independent security re-review pass. Existing frozen-record WIT conversion remains equivalent; SQL/async adapters remain outside Lean proof boundary."
+      "sha256": "31be0c7362afb0d6f49f10a0ed6714adb9749ff2fe51661dcd8ee91f105eb406",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "src/apps/business_capability/tests.rs": {
       "status": "unproved",
@@ -1991,8 +2036,8 @@
     },
     "src/apps/commerce_hooks.rs": {
       "status": "unproved",
-      "sha256": "2183c696a4c0b41d53a110cf385c619f1cc6b2e9f6c5371ffd35292e3b4d35af",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
+      "sha256": "ecdda00bd78a7fed0866771352412e74b615ef8f0637fa2cf3eb893e06b0a485",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "src/apps/compatibility.rs": {
       "status": "unproved",
@@ -2011,8 +2056,8 @@
     },
     "src/apps/configuration_inputs.rs": {
       "status": "unproved",
-      "sha256": "3a88e8d6f255a6967f98cfa3c2652bd3940db69c3c9e16282dda5b5e67894a89",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
+      "sha256": "cf35354fb3360a6bb3585c07ac6f3eda749498fb9520c01ab9c3d5d2f60533ef",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "src/apps/configuration_orders.rs": {
       "status": "unproved",
@@ -2076,8 +2121,8 @@
     },
     "src/apps/editor_contract.rs": {
       "status": "reviewed-binding",
-      "sha256": "75ad630d3391074f8b84e221107b1cc8bdc56203b6d46a4a0583b1b0e69e973e",
-      "review": "Reviewed exact native view/control/geometry/UI AST extraction into pinned Apps model 0.8.0; native compiler order, error pointers, canonical digests, canonical field policy and direct verified public-read predicate preserved. Independent compiler negatives, 74 native app unit tests and twelve real PostgreSQL/HTTP composition modules pass. Shared model, host adapters and SQL remain outside extracted proof scope."
+      "sha256": "5a2babb6bfd40d2240cd1f0743864e417ae8b79af2668abaef0070e36252b115",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "src/apps/editor_tests.rs": {
       "status": "unproved",
@@ -2126,8 +2171,8 @@
     },
     "src/apps/field_values.rs": {
       "status": "unproved",
-      "sha256": "52152186691d9f0d0aff7fb7a683662f57ea26dad8d81d95fc8236038ab26cd0",
-      "review": "Reviewed exact native view/control/geometry/UI AST extraction into pinned Apps model 0.8.0; native compiler order, error pointers, canonical digests, canonical field policy and direct verified public-read predicate preserved. Independent compiler negatives, 74 native app unit tests and twelve real PostgreSQL/HTTP composition modules pass. Shared model, host adapters and SQL remain outside extracted proof scope."
+      "sha256": "05459b12dd4d8d609d2175cbac639bf905977419456f34fc907367749b0cdf16",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "src/apps/gateway.rs": {
       "status": "reviewed-binding",
@@ -2176,8 +2221,8 @@
     },
     "src/apps/manifest.rs": {
       "status": "unproved",
-      "sha256": "cc219dbaa6d3d4f653f4ed54c3338e695acc60ecb628daaff70bea962fbf5a21",
-      "review": "Reviewed Apps 0.10.0 exact source 1b474bac520a5c209a7b59adb6cc1872e06dcb5b: strict Surface/ApiRoute wire types and original placement/route/action/path/method grammar now shared through mandatory host policies. Native actual view lookup, auth scope registry, direct verified read predicate, complete view/behavior compilation order, current actor/context/digest grants, UI pins and routing/action input-output admission retained. 78 independent model tests, 74 native app units, unchanged 34 bundle digests and 12 affected PostgreSQL/HTTP/MCP/private-preview/visual/AI-generation/release/Marketplace modules pass. Added native and real install regressions for forged readOnly on save/emit/submit/GET. Model/host/SQL paths remain unproved; extracted kernel unchanged."
+      "sha256": "6c74af3ef213777cdfe1791a46013854ed593bdbfc5e1c4c83edffc19920a3b6",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "src/apps/manifest_validation.rs": {
       "status": "unproved",
@@ -2311,8 +2356,8 @@
     },
     "src/apps/runtime.rs": {
       "status": "unproved",
-      "sha256": "3c48d03bd53fd5907cfc2c28f087bb95303e7fcdce3e8e27b9dee91d297ed470",
-      "review": "Review combined native business capability and hardening: typed material/dimension guests remain app-owned and bounded; native CAS/FX/current B2B approval and immutable order snapshots; isolated app crate consumer preserves compiler boundary; independent per-event subscriber retry/quarantine preserves healthy events, commit gaps and explicit recovery; signed tenant/system authority, provider-native read tools and real document withdrawal, workspace image closure and source inventory. SQL/async/provider adapters remain tested, not proved."
+      "sha256": "9c00640413ec50da40af370ebc74f7d15ef0362d2711a4f001c0b453c5c66e56",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "src/apps/schedules.rs": {
       "status": "unproved",
@@ -4776,16 +4821,16 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "3faee9407e6df01541a82ff094a576ababa67f9334af88d1b52ec1ead10b8aaa",
-      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+      "sha256": "44c1be36feafe3e5a86d323d0fcc6748043e3789163926aee5902b0ab411ecc4",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "Cargo.toml": {
       "sha256": "a217ec927488adc4b5e1430e7cee5e92455edf1018c678096fec13c3466398b5",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
     },
     "components.lock.json": {
-      "sha256": "31a1eeb09d45f681af929c93eadd2e69be0555933316a984cbe9a8c85bfede2b",
-      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+      "sha256": "fd845c5ea1a1282b8a83d02017114424151e8601167880620bddd95951597fd1",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",
@@ -4936,16 +4981,16 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "792853022ddd44752186462caea38740209fa8821d194c79b657e19004ac440a",
-      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+      "sha256": "dd99eb99cdea97b843c28d51f883de986ece23569a4bb537c41cfd88ddb1730d",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "a4dbd51358e62f5eb48b4efb568f067f51d2e86245f9637bf28db961deedb71b",
-      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+      "sha256": "6f53436503962364f8300ac6d3d81e07d1fbf0e7f74dc0753b7244b3fa061099",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
-      "sha256": "9cf615f52b2741f0991f6adc19f980837cae7381a640c086ee8a6d3bf1ca602f",
-      "review": "Reviewed exact native view/control/geometry/UI AST extraction into pinned Apps model 0.8.0; native compiler order, error pointers, canonical digests, canonical field policy and direct verified public-read predicate preserved. Independent compiler negatives, 74 native app unit tests and twelve real PostgreSQL/HTTP composition modules pass. Shared model, host adapters and SQL remain outside extracted proof scope."
+      "sha256": "3af4a7b8fd062105184fe3e69b2319e59c24886c2dc6af288bbacabfd0195c2a",
+      "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "extensions/services/app-storage/tests/schema.sql": {
       "sha256": "ae91a4670e8da43e7401f46453d0f78b3559908b8b2b6458b333c70a59d8ef32",

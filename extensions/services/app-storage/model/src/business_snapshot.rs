@@ -1,67 +1,47 @@
-//! Frozen synthetic snapshots convert into the existing read-only WIT contract; no live data, SQL or credentials are read.
-use super::*;
+//! Strict frozen synthetic snapshot grammar; no live data, runtime, SQL or credentials are read.
+use crate::{Result, bad, business_capability::Context, fields};
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
 #[derive(Clone, Serialize, Deserialize, PartialEq, Debug)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct Amount {
+pub struct Amount {
     pub minor: i64,
     pub currency: String,
     pub scale: u8,
 }
 impl Amount {
-    pub(super) fn valid(&self) -> bool {
+    pub fn valid(&self) -> bool {
         self.minor.unsigned_abs() <= 9_007_199_254_740_991
             && self.currency.len() == 3
             && self.currency.bytes().all(|b| b.is_ascii_uppercase())
             && self.scale <= 3
     }
-    fn to_wit(&self) -> wit::Money {
-        wit::Money {
-            minor: self.minor,
-            currency: self.currency.clone(),
-            scale: self.scale,
-        }
-    }
 }
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct Item {
+pub struct Item {
     pub id: String,
     pub quantity: u32,
     pub price: Amount,
 }
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct Product {
+pub struct Product {
     pub id: String,
     pub stock: u32,
     pub price: Amount,
 }
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct Record {
+pub struct Record {
     pub entity: String,
     pub id: String,
     pub revision: u64,
     pub fields: Value,
 }
-impl Record {
-    pub(crate) fn to_wit(&self) -> ((String, String), wit::AppRecord) {
-        let mut fields = self.fields.clone();
-        fields["id"] = json!(self.id);
-        fields["revision"] = json!(self.revision);
-        (
-            (self.entity.clone(), self.id.clone()),
-            wit::AppRecord {
-                id: self.id.clone(),
-                revision: self.revision,
-                fields_json: fields.to_string(),
-            },
-        )
-    }
-}
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct Frozen {
+pub struct Frozen {
     pub subtotal: Amount,
     #[serde(default)]
     pub items: Vec<Item>,
@@ -71,7 +51,7 @@ pub(crate) struct Frozen {
     pub records: Vec<Record>,
 }
 impl Frozen {
-    pub(super) fn validate(&self, m: &Manifest) -> Result<()> {
+    pub fn validate<P: fields::ValuePolicy>(&self, m: &Context<'_>, policy: &P) -> Result<()> {
         let bounded_id = |id: &str| !id.is_empty() && id.len() <= 100;
         let price = |p: &Amount| {
             p.valid()
@@ -133,39 +113,8 @@ impl Frozen {
                 .iter()
                 .find(|e| e.name == record.entity)
                 .ok_or(bad("Unknown example entity"))?;
-            data::fields(entity, &record.fields)?;
+            fields::validate(entity, &record.fields, policy)?;
         }
         Ok(())
-    }
-    pub(super) fn to_wit(&self) -> wit::Snapshot {
-        wit::Snapshot {
-            cart: wit::CartSnapshot {
-                subtotal: self.subtotal.to_wit(),
-                items: self
-                    .items
-                    .iter()
-                    .map(|i| wit::CartItem {
-                        id: i.id.clone(),
-                        quantity: i.quantity,
-                        price: i.price.to_wit(),
-                    })
-                    .collect(),
-            },
-            products: self
-                .products
-                .iter()
-                .map(|p| {
-                    (
-                        p.id.clone(),
-                        wit::ProductSnapshot {
-                            id: p.id.clone(),
-                            stock: p.stock,
-                            price: p.price.to_wit(),
-                        },
-                    )
-                })
-                .collect(),
-            records: self.records.iter().map(Record::to_wit).collect(),
-        }
     }
 }

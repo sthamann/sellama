@@ -54,26 +54,11 @@ pub(crate) struct Manifest {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub webhooks: Vec<super::webhooks::AppWebhook>,
 }
-pub(crate) use veyndo_app_model::intelligence::Contract as IntelligenceContract;
-pub(crate) use veyndo_app_model::surfaces::{ApiRoute, Surface};
-#[derive(Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase", deny_unknown_fields)]
-pub(crate) struct ConfigurationContract {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub inputs: Option<super::configuration_inputs::Inputs>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub currency: Option<String>,
-    pub entity: String,
-    pub record: String,
-    pub price_field: String,
-    pub input_field: String,
-    pub wasm_source: String,
-    pub default_fields: Value,
-    pub label: HashMap<String, String>,
-    pub hint: HashMap<String, String>,
-}
 pub(crate) use veyndo_app_model::Action;
 pub(crate) use veyndo_app_model::Slot;
+pub(crate) use veyndo_app_model::configuration::Contract as ConfigurationContract;
+pub(crate) use veyndo_app_model::intelligence::Contract as IntelligenceContract;
+pub(crate) use veyndo_app_model::surfaces::{ApiRoute, Surface};
 pub(crate) use veyndo_app_model::{Entity, Field};
 pub(crate) fn identifier(s: &str) -> bool {
     veyndo_app_model::declarations::identifier(s)

@@ -15,9 +15,6 @@ impl veyndo_app_model::fields::ValuePolicy for Policy {
         relations::valid(value)
     }
 }
-pub(super) fn contract(e: &Entity) -> Result<()> {
-    veyndo_app_model::fields::contract(e).map_err(model_contract::error)
-}
 pub(super) fn validate(e: &Entity, value: &Value) -> Result<()> {
     veyndo_app_model::fields::validate(e, value, &Policy).map_err(model_contract::error)
 }

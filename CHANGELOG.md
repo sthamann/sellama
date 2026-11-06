@@ -1,5 +1,15 @@
 # Changelog
 
+## Shared executable app business contracts, 6 November 2026
+
+Apps 0.13.0/model 0.9.0 shares configuration/library/argument and typed-hook/frozen
+business contracts. Runtime 0.2.0 consumes those pure types for the same WIT
+projection, actual guest comparison and bounded contribution execution used by
+native installation and checkout. Canonical host policies, compiler order,
+source/current-package/library fences and release remain attached. Independent
+preflight validates and executes seven configuration and five commerce cases.
+[Implementation and acceptance](docs/evidence/app-business-contracts-2026-11-06.md).
+
 ## Independent app Wasm and WIT runtime, 5 November 2026
 
 Apps 0.12.0 supplies `veyndo-app-runtime` 0.1.0 with the actual bounded executor,

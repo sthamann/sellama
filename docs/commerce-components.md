@@ -289,6 +289,9 @@ owners require an explicit reservation/compensation design and corresponding tes
     bounded typed UI behavior with required native field/public-read policies.
     Apps 0.12.0 adds the actual independent Wasm/WIT executor with required native
     resource admission, explicit namespace configuration and preserved call budgets.
+    Apps 0.13.0 shares configuration/library/argument and typed-hook contracts,
+    frozen business snapshots/expected decisions, WIT projection and actual example
+    evaluation. Native currency/value/reference/source policies remain attached.
     Authentication, the remaining typed domain extension compiler and lifecycle,
     standalone service/schema and API/MCP hosting remain open.
     - [x] Shared record CAS/write/query operations with host history/lifecycle hooks.
@@ -320,6 +323,10 @@ owners require an explicit reservation/compensation design and corresponding tes
       explicit namespace configuration and standalone quote example; native verified
       predicate, authorized snapshots and outcome application stay attached.
       [Runtime evidence](evidence/app-wasm-runtime-component-2026-11-05.md).
+    - [x] Structured configuration/library/arguments and typed commerce-hook
+      declarations; frozen snapshot/expected-decision grammar, WIT projection and
+      real example execution, reused by native install/checkout/release paths.
+      [Business contract evidence](evidence/app-business-contracts-2026-11-06.md).
     - [ ] Complete typed domain extension compiler, identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -386,6 +393,20 @@ owners require an explicit reservation/compensation design and corresponding tes
   synchronized with released artifacts and actual acceptance evidence.
 
 ## Progress log
+
+### Shared app business contracts, 6 November 2026
+
+- Apps 0.13.0/model 0.9.0 shares structured configuration, public library/lookup,
+  exact arguments, typed hooks and bounded frozen business examples. Runtime 0.2.0
+  consumes that pure model for the same WIT projection, real guest comparison
+  and bounded integer contribution execution used in the Core.
+- Native complete-package validation order, canonical currency/value/reference
+  policies, actual source probing, cached preparation, current selected package
+  and record authority, async execution and transactional release stay attached.
+- Independent preflight executes seven configuration and five commerce examples
+  without Core/SQL/inference. Exact source/acceptance and remaining domain/identity
+  service extraction are [documented](evidence/app-business-contracts-2026-11-06.md).
+
 
 ### Independent app Wasm runtime, 5 November 2026
 

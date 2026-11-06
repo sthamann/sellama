@@ -46,19 +46,7 @@ async fn run(
     arity: usize,
 ) -> Result<i64> {
     tokio::task::spawn_blocking(move || {
-        let result = if let Some(arguments) = arguments {
-            guest.contribution_args(fee, &arguments).map_err(bad)?
-        } else if guest.validate_contribution_args(fee, arity).map_err(bad)? {
-            fee
-        } else {
-            return Err(bad("App rejected price data"));
-        };
-        if !(0..=100_000_000).contains(&result) {
-            return Err(bad(
-                "App rejected configuration or exceeded platform money bound",
-            ));
-        }
-        Ok(result)
+        veyndo_apps::configuration::run(&guest, fee, arguments, arity).map_err(bad)
     })
     .await
     .map_err(|_| bad("Configuration runtime failed"))?

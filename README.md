@@ -49,7 +49,7 @@ Demo data and simulated payments; timing is editorial.
 
 **Hosted:** [create a standard shop](https://start.veyndo.ai/start) or
 [create a Storyfront Experience](https://experience.veyndo.ai/).
-External models, payment providers and mail require their own configuration.
+Models, payments and mail require provider configuration.
 [Current public acceptance](docs/status.md#public-acceptance).
 
 **Container tour:** Git, Docker Compose and OpenSSL; no local Rust/Node build.
@@ -78,16 +78,16 @@ for verification tooling. Run `./scripts/dev.sh` and open
 | Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |
 | POS, B2B, EDI and marketplaces | [POS](docs/pos.md) · [B2B](docs/b2b-commerce.md) · [EDI](docs/edi.md) · [Marketplaces](docs/marketplaces.md) |
-| Apps, settings, storage and private releases | [App platform](docs/app-platform.md) · [Build five apps](docs/app-tutorials/README.md) · [App contracts & runtime boundaries](docs/app-data-storage.md) |
+| Apps, settings, storage and private releases | [App platform](docs/app-platform.md) · [Build five apps](docs/app-tutorials/README.md) · [Storage and runtime](docs/app-data-storage.md) |
 | Agents and shared operations | [Connections](docs/connectors.md) · [Agent identities & limits](docs/agent-authority-controls.md) · [MCP workshop](docs/agent-workshop.md) · [UCP B2B](docs/b2b-ucp-negotiation.md) |
 | Operation and verification | [Architecture](docs/production-architecture.md) · [Integrations](docs/service-integrations.md) · [Testing](docs/testing.md) · [Proof boundaries](docs/formal-verification.md) |
 
-The searchable [handbook](https://veyndo.ai/docs/) has English, German, French and Spanish navigation.
+The searchable [handbook](https://veyndo.ai/docs/) has EN, DE, FR and ES navigation.
 
 ## Current boundaries
 
 Veyndo is an experiment platform, not established production infrastructure.
-Native SDK and original Storyfront PayPal Sandbox purchases, return, empty basket
+Native SDK and Storyfront PayPal Sandbox purchases, return, empty basket
 and partial/full refunds have [dated acceptance](docs/shopware-payments-acceptance.md). Live payments,
 each OAuth provider, disaster recovery and capacity require separate evidence. Selected Lean proofs cover named
 pure policies, not the whole system. Source builds, app lifecycle completeness and

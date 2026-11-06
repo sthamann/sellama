@@ -5535,8 +5535,8 @@
       "review": "Reviewed international configuration, destination tax predicates and native bindings; targeted PostgreSQL international/catalog cases plus Rust tests pass. Translation fixtures verify restart, provider rejection, tenant permissions and revision conflicts. Config/product/apply share row locks. Additive schema 028 and versioned MIT geography reviewed; surrounding SQL/provider behavior remains unproved."
     },
     "frontend/package-lock.json": {
-      "sha256": "c57a46506f34c32bdf307c6971a9d0a7dafe1ae01d069502fe26ea2b458e65f3",
-      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
+      "sha256": "be20de1d8910b3b6dd68e1a80d0562645038f0b0870d784ef0e31788a7cf372a",
+      "review": "Pin reviewed SDK 0.3.0 source f18c9bc74695ec1485478f75057f437aefb5ad36 for the shared layout registry; native domain/PII/criteria admission remains before local OpenUI binding. Eighteen SDK wire/host tests, ten affected frontend tests, TypeScript, localization and production frontend build pass."
     },
     "frontend/package.json": {
       "sha256": "64102b57ef335bc118cfcfb54af38b010d163940ac11c31abd86160068571ecd",

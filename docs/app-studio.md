@@ -258,3 +258,12 @@ See the [illustrated workbench guide](app-studio-workspace.md) for multiple plac
 ## Add fields to native shop objects
 
 In **Data models → Extend a shop object**, select Product, Customer, Order or Company. The same versioned model then supplies private native detail fields and optional directory columns. Read [core object extensions](app-core-extensions.md) for current rights, exact indexed filters, agent context and the separation of configuration from live customer/order data.
+
+## Shared version storage and private staging
+
+The existing Studio/MCP version workflow now uses Apps 0.19.0 for immutable
+snapshots, bounded active/archive history and recovery. Current developer rights,
+reviewed digest and owned private environment remain mandatory. The required
+native staging adapter uses the existing complete compiler and actual installer;
+state and installation commit together. Recovering a project does not reinstall
+or delete its existing live package/data. [Component acceptance](evidence/app-studio-versions-component-2026-11-06.md).

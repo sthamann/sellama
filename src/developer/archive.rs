@@ -13,14 +13,20 @@ pub(super) async fn set(a: &App, h: &RequestContext, v: &Value) -> Result<Value>
     if v["approve"] != true {
         return Err(bad("Approve the App Studio removal/restore first"));
     }
-    let n = sqlx::query("UPDATE developer_builds SET archived=$3, archived_at=CASE WHEN $3 THEN now() ELSE NULL END WHERE tenant=$1 AND app=$2 AND archived<>$3")
-        .bind(&t).bind(app).bind(archived).execute(&a.db).await?.rows_affected();
+    let mut tx = a.db.begin().await?;
+    let n = veyndo_app_storage::build_versions::archive(
+        &mut tx,
+        veyndo_app_storage::Scope { tenant: &t, app },
+        archived,
+    )
+    .await?;
     if n == 0 {
         return Err(Error(
             StatusCode::NOT_FOUND,
             "App Studio project unavailable in this state".into(),
         ));
     }
+    tx.commit().await?;
     Ok(json!({"app":app,"archived":archived,"versions":n}))
 }
 pub(super) async fn remove(

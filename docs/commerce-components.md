@@ -67,6 +67,7 @@ These are target names. A listed repository is not evidence that extraction is d
 | --- | --- |
 | `veyndo/veyndo` | Complete product, composition, pinned release set, E2E and docs |
 | `veyndo/commerce` | Transactional commerce domains and native API/MCP adapters |
+| `veyndo/checkout` | Independent checkout sessions/orchestration, own HTTP/MCP/SDK and embedded UI |
 | `veyndo/policies` | Pure money, pricing, discounts and verified rule kernel |
 | `veyndo/knowledge` | Knowledge ingestion, graph, retrieval and evidence |
 | `veyndo/catalog-ai` | Reviewed import, translation, enrichment and media jobs |
@@ -145,7 +146,8 @@ Each component task remains open until these checks are demonstrated for it.
 - [ ] CORE-03 Extract catalog/category/variant/media contracts and domain module.
 - [ ] CORE-04 Extract customer/account/address contracts with immutable order
   ownership and PII field admission preserved.
-- [ ] CORE-05 Extract cart and checkout orchestration; preserve CAS, legal receipt,
+- [ ] CORE-05 Extract cart and checkout orchestration through the explicit
+  [independent Checkout tasks](#checkout-independent-service-and-ui); preserve CAS, legal receipt,
   stock locks, idempotency and one order/stock/outbox transaction.
 - [ ] CORE-06 Extract inventory/reservation/allocation ports; test concurrent
   purchases, cancellation and content edits without overwriting fresh stock.
@@ -162,6 +164,63 @@ Transactional ownership can stay in one commerce service while its Rust domains
 become independent modules. Separate APIs must not split an atomic stock/order
 commit into unsafe network calls. Further independently deployed inventory/order
 owners require an explicit reservation/compensation design and corresponding tests.
+
+## CHECKOUT: independent service and UI
+
+Checkout is an explicit independent service, target repository `veyndo/checkout`.
+[Ownership, commit boundary and acceptance](checkout-component.md).
+
+- [x] CHK-00 Record standalone service/API/MCP/UI requirement and preserve one
+  authoritative order/stock/outbox commit owner in the extraction design.
+- [ ] CHK-01 Trace current native/Storyfront cart, quote, legal, payment, purchase,
+  return and refund paths; identify shared session/token/receipt compatibility.
+- [ ] CHK-02 Define typed catalog/pricing/stock/customer/company/delivery/order/
+  Payments ports and actual reservation/CommitOrder/recovery semantics.
+- [ ] CHK-03 Extract Rust checkout orchestration/session storage to its own repo;
+  no Core-process dependency, private Core SQL access or second financial ledger.
+- [ ] CHK-04 Publish own versioned HTTP/MCP interfaces and JS/TS SDK, preserving
+  current authorization, CAS, idempotency, package hooks, language/country/channel.
+- [ ] CHK-05 Publish one standalone/embedded checkout UI with provider method,
+  hosted-field/wallet/redirect support through the same admitted APIs.
+- [ ] CHK-06 Integrate contextual agent/validated UI generation while preserving
+  deterministic checkout and actual customer purchase/saved-method consent.
+- [ ] CHK-07 Supply standalone external frontend and real reference commerce /
+  PostgreSQL adapter without the Veyndo product process; prove concurrent commit.
+- [ ] CHK-08 Compose native Veyndo and original Storyfront; accept full purchase,
+  verified return, empty originating cart, callback replay and refund integration.
+- [ ] CHK-09 Accept foreign/revoked/private/paused/stale/B2B/stock/provider failures,
+  restart/uncertainty recovery and existing Flow/document/outbox behavior.
+- [ ] CHK-10 Cut over existing routes/sessions/attempts through versioned adapters,
+  document rollback and publish independent SDK/UI examples and product evidence.
+
+## Cross-component agentic UI
+
+[Source observations, architecture, coverage matrix and protocol adapters](agentic-component-ui.md).
+The following are implementation tasks; existing UI foundations do not complete them.
+
+- [x] UI-00 Check operation registry, tool contracts, shared Surface/NativeView/AST
+  and browser SDK. Record missing output semantics, cross-service host navigation
+  and common generation/composition contract; cover every component in the matrix.
+- [ ] UI-01 Extend existing operation/App definitions with typed outputs, resources,
+  precise effect/review/preview/replay semantics and compatible UI references;
+  generate SDK/OpenAPI/MCP contracts without duplicate operation/rights lists.
+- [ ] UI-02 Define typed UiHost context/API/theme/locale/navigation/picker/result/
+  cancellation/return ports and required/optional service dependency negotiation.
+- [ ] UI-03 Extract the actual renderer/design tokens and versioned UI packages;
+  standalone shell, trusted native/React and Web Component embedding share exports.
+- [ ] UI-04 Keep external code isolated with current CSP/frame grants; agent UI
+  uses validated registered controls/bindings and current server admission only.
+- [ ] UI-05 Let agents propose/save/revise contextual multi-component workspaces
+  through the same definitions as manual editing, with durable runs and review.
+- [ ] UI-06 Add version-negotiated OpenUI, A2UI and MCP Apps adapters to that same
+  definition/runtime; declare supported subsets and structured/text fallback.
+- [ ] UI-07 Prove one actual standalone/embedded/agent-host vertical slice, then
+  cover each component's required UI exports and agent operations from the matrix.
+- [ ] UI-08 Test permissions/PII/current context, missing capabilities, versions,
+  unsaved work, cancellation/return, hostile output, responsive/accessibility and
+  actual business effects in both standalone host and complete Veyndo.
+- [ ] UI-09 Enforce frontend package boundaries and pin compatible API/UI/schema
+  revisions; retain sandbox/review/selective publication and restoration paths.
 
 ## KNOWLEDGE: first complete standalone AI component
 
@@ -229,7 +288,12 @@ owners require an explicit reservation/compensation design and corresponding tes
     required host seal/open port, original binding and lock/CAS/package/outbox
     sequence; native administrator/consent/declared-kind/sandbox/projection checks
     retain their owners. [Encrypted configuration evidence](evidence/app-encrypted-configuration-component-2026-11-06.md).
-  - [ ] Complete remaining version and independent production-schema hosting.
+  - [x] Apps 0.19.0 immutable Studio snapshots/digests, bounded history,
+    recoverable archive/restore and row-fenced private staging through required
+    native environment/compiler/current-actor/actual-installer admission.
+    [Studio version evidence](evidence/app-studio-versions-component-2026-11-06.md).
+  - [ ] Complete remaining lifecycle/version orchestration and independent
+    production-schema hosting (including actor-private mutable drafts).
 - [ ] APP-03 Implement native entity resolver ports and safe external references;
   account for guarantees currently enforced by local composite foreign keys.
 - [ ] APP-04 Preserve encrypted settings, installation consent, rights, events,
@@ -369,6 +433,9 @@ owners require an explicit reservation/compensation design and corresponding tes
       AEAD; secret-safe metadata, CAS/concurrent rotation, shared webhook read and
       atomic events, retaining native identity/consent/key/projection owners.
       [Encrypted configuration evidence](evidence/app-encrypted-configuration-component-2026-11-06.md).
+    - [x] Immutable development snapshot/history/archive persistence and actual
+      private-stage sequence, retaining native current admission and installer on
+      the original transaction. [Studio version evidence](evidence/app-studio-versions-component-2026-11-06.md).
     - [ ] Identity and remaining lifecycle hosting.
     - [ ] Supported independent schema/service with API/MCP and SDK examples.
     [Installation evidence](evidence/app-installation-component-2026-11-05.md).
@@ -437,6 +504,11 @@ owners require an explicit reservation/compensation design and corresponding tes
 ## Progress log
 
 ### Shared app business contracts, 6 November 2026
+
+- Apps 0.19.0 shares immutable App Studio snapshots and their original digest,
+  bounded active/archive history, recovery and the actual row-fenced staging
+  sequence. Required native environment/compiler/actor/installer admission retains
+  its original authority and transaction. [Studio version extraction](evidence/app-studio-versions-component-2026-11-06.md).
 
 - Apps 0.18.0 extracts encrypted configuration storage/resolution/rotation into
   required host crypto ports. Original scoped bindings, locks, package/CAS checks,

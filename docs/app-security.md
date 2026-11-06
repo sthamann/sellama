@@ -279,3 +279,16 @@ must use `resolve_locked` in its original receipt transaction. Personal-session 
 administrator gates, approved digest, declared kinds/payloads, sandbox exclusion
 and browser redaction remain native. Neither ciphertext nor plaintext belongs in
 metadata responses. Checked revision increments reject invalid/exhausted values.
+
+## Studio history and staging boundaries
+
+Shared build history returns trusted host rows, including retained prompt metadata;
+only native minimized design-evidence projection reaches current authorized users.
+It is not a public serialization contract. Staging requires explicit native
+approval before the shared row lock/digest check, then mandatory current private
+environment/compiler/actor/installer admission. Stage state updates only after
+installation succeeds in the same caller transaction; every rejection requires
+rollback. Archive/restore changes development snapshots, never installed packages
+or records. Archived tenant/app/version identities remain immutable. Original
+serialized development digest semantics are preserved separately from installed
+package canonical fingerprints. Mutable draft actor isolation remains native.

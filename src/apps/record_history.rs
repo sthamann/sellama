@@ -1,5 +1,6 @@
 //! Bounded app-record history, current entity rights and restoration through the normal managed save path.
 use super::*;
+use veyndo_app_storage::record_history as shared;
 pub(super) fn router() -> Router<App> {
     Router::new()
         .secure_route(
@@ -22,29 +23,17 @@ pub(super) async fn capture(
     revision: i64,
     fields: &Value,
 ) -> Result<()> {
-    sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,948))")
-        .bind(format!("{t}:{}", m.id))
-        .execute(&mut *tx)
-        .await?;
-    let scopes: Vec<String> = m
-        .actions
-        .iter()
-        .filter(|a| a.entity.as_deref() == Some(e.name.as_str()) && a.handler == "list")
-        .flat_map(|a| {
-            a.permission
-                .iter()
-                .chain(a.required_permissions.iter())
-                .cloned()
-        })
-        .collect();
-    sqlx::query("INSERT INTO app_record_versions(tenant,app,entity,record_id,revision,fields,read_scopes,actor,source) VALUES($1,$2,$3,$4,$5,$6,$7,nullif(current_setting('veyndo.actor',true),''),coalesce(nullif(current_setting('veyndo.source',true),''),'app.save')) ON CONFLICT DO NOTHING")
-        .bind(t).bind(&m.id).bind(&e.name).bind(id).bind(revision).bind(fields).bind(json!(scopes)).execute(&mut *tx).await?;
-    sqlx::query("DELETE FROM app_record_versions WHERE tenant=$1 AND app=$2 AND entity=$3 AND record_id=$4 AND revision<=$5")
-        .bind(t).bind(&m.id).bind(&e.name).bind(id).bind(revision-20).execute(&mut *tx).await?;
-    // An app cannot grow retained version storage without bound. Current rows retain their independent quota.
-    sqlx::query("DELETE FROM app_record_versions WHERE tenant=$1 AND app=$2 AND (entity,record_id,revision) IN (SELECT entity,record_id,revision FROM (SELECT entity,record_id,revision,sum(pg_column_size(fields)) OVER(ORDER BY created_at DESC,entity,record_id,revision DESC) AS size FROM app_record_versions WHERE tenant=$1 AND app=$2) r WHERE size>16777216)")
-        .bind(t).bind(&m.id).execute(&mut *tx).await?;
-    Ok(())
+    shared::capture(
+        tx,
+        &shared::Capture {
+            key: records::key(t, &m.id, &e.name, id),
+            revision,
+            fields,
+            read_scopes: &shared::read_scopes(m, &e.name),
+        },
+    )
+    .await
+    .map_err(persistence::error)
 }
 fn entity<'a>(m: &'a Manifest, name: &str, h: &RequestContext, write: bool) -> Result<&'a Entity> {
     let e = m
@@ -83,11 +72,15 @@ async fn list(
         .bind(&t)
         .execute(&mut *tx)
         .await?;
-    let rows=sqlx::query("SELECT revision,fields,read_scopes,actor,source,created_at::text AS created_at FROM app_record_versions WHERE tenant=$1 AND app=$2 AND entity=$3 AND record_id=$4 ORDER BY revision DESC LIMIT 20")
-        .bind(&t).bind(&app).bind(&name).bind(&id).fetch_all(&mut *tx).await?;
+    let rows = shared::list(
+        &mut tx,
+        records::key(&t, &app, &name, &id),
+        &history_storage::Current(&h),
+    )
+    .await?;
     tx.commit().await?;
     Ok(Json(
-        json!({"versions":rows.iter().filter(|r|r.get::<Value,_>("read_scopes").as_array().is_some_and(|scopes|scopes.iter().all(|s|s.as_str().is_some_and(|scope|auth::allowed(&h,scope))))).map(|r|json!({"revision":r.get::<i64,_>("revision"),"fields":e.fields.iter().map(|f|(f.name.clone(),r.get::<Value,_>("fields")[&f.name].clone())).collect::<serde_json::Map<String,Value>>(),"actor":r.get::<Option<String>,_>("actor"),"source":r.get::<String,_>("source"),"createdAt":r.get::<String,_>("created_at")})).collect::<Vec<_>>(),"canRestore":entity(&m,&e.name,&h,true).is_ok()}),
+        json!({"versions":rows.iter().map(|r|json!({"revision":r.get::<i64,_>("revision"),"fields":e.fields.iter().map(|f|(f.name.clone(),r.get::<Value,_>("fields")[&f.name].clone())).collect::<serde_json::Map<String,Value>>(),"actor":r.get::<Option<String>,_>("actor"),"source":r.get::<String,_>("source"),"createdAt":r.get::<String,_>("created_at")})).collect::<Vec<_>>(),"canRestore":entity(&m,&e.name,&h,true).is_ok()}),
     ))
 }
 async fn restore(
@@ -108,28 +101,19 @@ async fn restore(
         .bind(&t)
         .execute(&mut *tx)
         .await?;
-    let row=sqlx::query("SELECT fields,read_scopes FROM app_record_versions WHERE tenant=$1 AND app=$2 AND entity=$3 AND record_id=$4 AND revision=$5")
-        .bind(&t).bind(&app).bind(&name).bind(&id).bind(revision).fetch_optional(&mut *tx).await?.ok_or(Error(StatusCode::NOT_FOUND,"Record version unavailable".into()))?;
-    let scopes: Value = row.get("read_scopes");
-    if !scopes.as_array().is_some_and(|scopes| {
-        scopes
-            .iter()
-            .all(|s| s.as_str().is_some_and(|scope| auth::allowed(&h, scope)))
-    }) {
-        return Err(Error(
-            StatusCode::FORBIDDEN,
-            "Historical record requires its original read rights".into(),
-        ));
-    }
-    let fields: Value = row.get("fields");
-    let result = data::save_tx(
+    let result = shared::restore(
         &mut tx,
-        &t,
-        &m,
-        e,
-        &json!({"id":id,"revision":v["revision"],"fields":fields}),
+        records::key(&t, &app, &name, &id),
+        revision,
+        &history_storage::Restore {
+            actor: &h,
+            manifest: &m,
+            entity: e,
+            revision: &v["revision"],
+        },
     )
-    .await?;
+    .await
+    .map_err(history_storage::error)?;
     tx.commit().await?;
     Ok(Json(result))
 }

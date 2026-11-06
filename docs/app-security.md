@@ -305,3 +305,18 @@ checks remain in the caller transaction. Reads and deletes include both tenant
 and actor. Strict wire decoding permits unfinished editor work; it is not approval
 for installation or business effects. No schema creation, version/package mutation
 or outbox effect occurs. [Boundary regression](evidence/app-private-drafts-component-2026-11-06.md).
+
+## Historical record access and shared restoration
+
+Apps 0.21.0 retains the original list-action rights with each immutable snapshot.
+`ReadAuthority` evaluates them against the host's current authenticated principal;
+malformed stored scope values fail closed. Native current entity rights still
+apply before lookup, and only current declared fields reach the response. Trusted
+history rows must never be serialized directly as public output.
+
+`RestoreHost` must use the normal current-package/field/reference/lifecycle/CAS
+writer on the same transaction. Native explicit review, expected revision,
+signed scope, actor/source and actual save remain attached. Failed admission or
+history/audit/event persistence requires caller rollback. Capturing the same
+version cannot replace its fields, rights or attribution. Original retention is
+scoped to the tenant/app and record. [Regressions and boundary](evidence/app-record-history-component-2026-11-06.md).

@@ -279,3 +279,11 @@ per actor and 64 KiB per submitted manifest retain the original limits. Autosavi
 never installs a package or publishes a change. Native identity/rights, signed
 scope and actual environment ownership remain attached.
 [Implementation and independent example](evidence/app-private-drafts-component-2026-11-06.md).
+
+## Shared data history
+
+App data history and restoration now use Apps 0.21.0. Restoring a previous record
+creates a new current revision through the existing normal save operation. Current
+rights, historical read rights, field/reference validation and conflict checks all
+remain in force. Interface/package rollback and live operational records retain
+their separate lifecycles. [Scope and tests](evidence/app-record-history-component-2026-11-06.md).

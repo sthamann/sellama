@@ -67,6 +67,18 @@ native/Storyfront purchase/return/cart/refund acceptance. It is not yet a releas
 standalone service. [Checkout boundary](checkout-component.md) and
 [implementation tasks](commerce-components.md#checkout-independent-service-and-ui).
 
+## Independent app-record history, 6 November 2026
+
+Apps [0.21.0](https://github.com/veyndo/apps/releases/tag/v0.21.0) now shares immutable
+record snapshots and original historical read scopes, actor/source attribution,
+bounded listing and managed restoration. Current read authority and the actual
+normal writer are mandatory host ports. Veyndo retains current entity and field
+projection, explicit review, expected revision, signed scope and caller transaction.
+Restoration creates a new revision and its normal history/event; it never rewinds
+clocks or substitutes an older package. Original 20 revisions per record and
+16 MiB history per app remain enforced on the existing fixed table. No production
+schema change or new endpoint is introduced. [Evidence and example](evidence/app-record-history-component-2026-11-06.md).
+
 ## Independent private Studio drafts, 6 November 2026
 
 Apps [0.20.0](https://github.com/veyndo/apps/releases/tag/v0.20.0) now supplies the

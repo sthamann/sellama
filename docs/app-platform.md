@@ -507,3 +507,14 @@ identity/developer rights and signed SQL scope. The original typed wire contract
 64 KiB budget, per-actor quota/advisory lock, row CAS and submitted locale values
 are preserved. Unfinished drafts remain separate from compiled immutable versions,
 installation and selective publication. [Example and evidence](evidence/app-private-drafts-component-2026-11-06.md).
+
+## Independent app-record history
+
+Apps 0.21.0 owns immutable record capture, historical read-scope admission,
+bounded listing and restore orchestration. The same native writer is required
+for restoration, with current package, typed fields/references, lifecycle, CAS,
+history and atomic event checks. A restoration creates a new revision. Original
+actor/source attribution, 20 revisions per record and 16 MiB history per app remain
+on the existing shared table. Current entity rights, field projection, explicit
+review, signed scope and commit/rollback stay with the host.
+[Independent example and native acceptance](evidence/app-record-history-component-2026-11-06.md).

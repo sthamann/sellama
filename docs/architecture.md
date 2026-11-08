@@ -32,6 +32,12 @@ workers reconcile existing payments against the original order. The same
 session and purchase identity carry across a Checkout restart.
 [Rollback rehearsal](checkout-component.md#pause-and-resume-checkout-confirmation).
 
+Knowledge projects private source and catalog content into a separate database.
+The installed app receives product events through the existing delivery queue.
+Projection reads the current Core product, and the local test verifies a
+purchase while Knowledge is down and source delivery after restart.
+[Knowledge service boundary](knowledge-component.md#keep-the-shop-running-during-a-knowledge-outage).
+
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.
 

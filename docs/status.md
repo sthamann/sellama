@@ -10,6 +10,15 @@ Updated 8 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Knowledge catalog recovery, 8 November 2026
+
+The local composition completed a native order and retained a catalog event
+while independent Knowledge was stopped. After restart the new source reached
+search and passed the evidence check. An overlapping first import and
+withdrawal retried successfully, and replay left the withdrawn item out of
+search. Hosted installation and capacity are still open.
+[Component guide](knowledge-component.md).
+
 ## Checkout rollback rehearsal, 8 November 2026
 
 Local tests prepared a normal cart and a Storyfront handoff, then stopped

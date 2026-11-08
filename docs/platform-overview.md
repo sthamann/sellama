@@ -17,6 +17,12 @@ zuständig für den verbindlichen Preis, die Bestandsbuchung und die Bestellung.
 Checkout führt durch den Kauf. Hintergrunddienste übernehmen Aufgaben wie
 E-Mail, Synchronisierung und Suche. [Komponenten und Einstiege](one-shop-components.md).
 
+Ein Entwickler kann den Checkout auch mit einer eigenen Shopoberfläche
+verbinden. Der lokale Beispielshop hat den Kauf über das JavaScript SDK
+durchgespielt und die ursprüngliche Bestellung nach einer unterbrochenen
+Antwort wiedergefunden. Preis, Bestand und Bestellung lagen dabei bei einem
+separaten Rust Dienst. [Beispielshop und Ablauf](checkout-component.md#external-reference-storefront).
+
 ## 1. Der Aufbau
 
 ```mermaid

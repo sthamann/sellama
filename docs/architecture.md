@@ -15,7 +15,10 @@ the same owner. [Component map and measured composition](one-shop-components.md)
 The separate Checkout service can also call a reference commerce host. The
 host has its own database and runs the same purchase orchestrator with its own
 cart, pricing and transaction adapters. This demonstrates the boundary with
-real persistence and simulated payment. [Reference purchase](checkout-component.md#a-purchase-with-a-separate-commerce-host).
+real persistence and simulated payment. An external storefront uses the
+JavaScript SDK on its server and recovers the same receipt after a browser
+reload. The sample runs separately from the native request path.
+[Browser example](checkout-component.md#external-reference-storefront).
 
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.

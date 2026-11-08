@@ -36,10 +36,13 @@ with tempfile.TemporaryDirectory() as directory:
     ui=bundle((ROOT/'extensions/apps/service-example/index.html').read_text())
     config[app_id]['uiDigests']={'ui':hashlib.sha256(ui).hexdigest()}
     pin(config,app_id,manifest)
-    env={'APP_SERVICES' :json.dumps(config),'PROCESS_ROLE':'http','BIND_ADDR':f'127.0.0.1:{api_port}'}
+    env={'APP_SERVICES':json.dumps(config),'PROCESS_ROLE':'all','APP_WORKER_ENABLED':'false',
+         'BIND_ADDR':f'127.0.0.1:{api_port}'}
+    worker_env={**env,'PROCESS_ROLE':'app-worker'}
+    del worker_env['APP_WORKER_ENABLED']
     try:
         start(['python3',str(ROOT/'extensions/apps/service-example/server.py')],{'APP_PORT':str(service_port),'APP_TOKEN':token,'APP_DB':db,'APP_ID':app_id},'service-example-test.log')
-        start([str(ROOT/'target/debug/veyndo')],env,'service-api-test.log')
+        core=start([str(ROOT/'target/debug/veyndo')],env,'service-api-test.log')
         for _ in range(80):
             try:call('/health');break
             except OSError:time.sleep(.25)
@@ -70,10 +73,12 @@ with tempfile.TemporaryDirectory() as directory:
         call('/store-api/checkout/cart/line-item',{'items':[{'referencedId':'mug','quantity':1}]},ch)
         order_key=uuid.uuid4().hex
         order=call('/store-api/checkout/order',{}, {**ch,'Idempotency-Key':order_key})
-        time.sleep(.8)
+        projected=flow_job(h,lambda job:job['state']=='queued')
+        assert projected['cursor'] is None
+        assert not call('/api/merchant/orders/'+order['id']+'/receipts',h=h)['elements']
         with sqlite3.connect(db) as conn:assert conn.execute('SELECT count(*) FROM events').fetchone()[0]==0
-        start([str(ROOT/'target/debug/veyndo')],{**env,'PROCESS_ROLE':'memory-worker'},'service-memory-worker-test.log')
-        worker=start([str(ROOT/'target/debug/veyndo')],{**env,'PROCESS_ROLE':'app-worker'},'service-worker-test.log')
+        passed('Core with its app lane off still commits and projects an order; no app action runs before the handoff')
+        worker=start([str(ROOT/'target/debug/veyndo')],worker_env,'service-worker-test.log')
         for _ in range(80):
             with sqlite3.connect(db) as conn:rows=conn.execute('SELECT tenant,event_key,data FROM events').fetchall()
             if rows:break
@@ -95,7 +100,7 @@ with tempfile.TemporaryDirectory() as directory:
                             '-v','ON_ERROR_STOP=1','-v','job='+delayed['id']),
                        input="UPDATE flow_jobs SET available_at=now() WHERE id=:'job' AND state='queued';",
                        text=True,check=True)
-        start([str(ROOT/'target/debug/veyndo')],{**env,'PROCESS_ROLE':'app-worker'},'service-worker-restart-test.log')
+        worker=start([str(ROOT/'target/debug/veyndo')],worker_env,'service-worker-restart-test.log')
         resumed=flow_job(h,lambda job:job['id']==delayed['id'] and job['state']=='completed')
         assert [step['node'] for step in resumed['result']['trace']]==['branch','note','invoice']
         assert len(call('/api/merchant/orders/'+order['id']+'/receipts',h=h)['elements'])==1
@@ -114,6 +119,23 @@ with tempfile.TemporaryDirectory() as directory:
         transitions=[json.loads(row[0])for row in updated if json.loads(row[0])['kind']=='order.state_changed']
         assert len(transitions)==1 and transitions[0]['data']['state']=='in_progress' and 'order'not in transitions[0]['data'] and 'email'not in transitions[0]['data']
         passed('Repeated status command produces one state event delivered into the external app inbox without shopper credentials')
+        worker.terminate();worker.wait(20)
+        second_headers={'x-tenant':u['workspace']}
+        second_cart=call('/store-api/checkout/cart',{'session':uuid.uuid4().hex},second_headers)
+        second_headers['sw-context-token']=second_cart['token']
+        call('/store-api/checkout/cart/line-item',{'items':[{'referencedId':'mug','quantity':1}]},second_headers)
+        second=call('/store-api/checkout/order',{}, {**second_headers,'Idempotency-Key':uuid.uuid4().hex})
+        pending=flow_job(h,lambda job:job['id']!=delayed['id'] and job['state']=='queued')
+        core.terminate();core.wait(20)
+        start([str(ROOT/'target/debug/veyndo')],{**env,'APP_WORKER_ENABLED':'true'},'service-api-rollback-test.log')
+        for _ in range(80):
+            try:call('/health');break
+            except OSError:time.sleep(.25)
+        rollback=flow_job(h,lambda job:job['id']==pending['id'] and job['state']=='completed')
+        assert rollback['result']=={'stopped':True,'trace':[{'node':'branch','matched':False}]}
+        assert not call('/api/merchant/orders/'+second['id']+'/receipts',h=h)['elements']
+        assert len(call('/api/merchant/orders/'+order['id']+'/receipts',h=h)['elements'])==1
+        passed('Rolling back to the combined Core drains queued work and preserves both orders and the original invoice')
         report={'passed':len(checks),'checks':checks,'processIsolation':'separate process; no microVM claim'}
         if os.getenv('REPORT_PATH'):pathlib.Path(os.environ['REPORT_PATH']).write_text(json.dumps(report,indent=2)+'\n')
         print(json.dumps(report))

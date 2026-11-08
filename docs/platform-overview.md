@@ -62,7 +62,13 @@ nur für den Versuch, den er übernommen hat.
 Die Rust Bibliothek liefert dem Worker die nächste Anweisung aus der
 gespeicherten Definition. So kann ein separat laufender Worker nach einem
 Neustart beim richtigen Schritt weitermachen, während der Shop Bestellungen
-weiter annimmt. [Anweisungen und Prozessgrenzen](automation-component.md#portable-flow-directives).
+weiter annimmt. Core kann die App Verarbeitung gezielt an einen eigenen
+Prozess übergeben. Dazu zählen Flows, geplante App Aufgaben und
+Zustellungen. Beide Prozesse greifen auf dieselben gespeicherten Aufträge
+zu. So bleiben auch beim Wechsel und bei der Rückkehr zum gemeinsamen
+Betrieb die Aufträge erhalten.
+[Anweisungen und Prozessgrenzen](automation-component.md#portable-flow-directives) ·
+[Worker einrichten](automation-component.md#move-the-app-worker-out-of-core).
 
 ## 1. Der Aufbau
 

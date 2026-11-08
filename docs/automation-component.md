@@ -184,6 +184,39 @@ and four catalog clients, 96 catalog reads completed without errors.
 The median was 22.5 ms and the 95th percentile was 55.4 ms in that local
 debug build. This measures the test environment with split HTTP and workers.
 
+## Move the app worker out of Core
+
+Keep Core on `PROCESS_ROLE=all`. The default is `APP_WORKER_ENABLED=true`.
+To move Flow execution, app scheduling and app deliveries together, use
+the same Core image in a separate private deployment with
+`PROCESS_ROLE=app-worker` and leave `APP_WORKER_ENABLED` unset there.
+This process has no public HTTP listener. Core retains checkout, order
+events, payment reconciliation and the other background tasks.
+
+1. Prepare the new deployment stopped. Use `BOOTSTRAP_MODE=serve` and the
+   existing restricted system and tenant runtime connections with signed
+   database scopes. Exclude migration credentials. Reserve connections for
+   both deployments under the shared fleet budget. The signed scope setup
+   uses a combined pool of at least four connections per process.
+   [Database access](authenticated-database-scope.md) ·
+   [Connection budget](production-architecture.md).
+2. Set `APP_WORKER_ENABLED=false` on Core. After the rolling deployment,
+   confirm the old Core instances have exited before starting the worker.
+   On shutdown the app tasks stop taking new work and have up to 15 seconds
+   to finish current operations. PostgreSQL retains claims, checkpoints and
+   delivery state for recovery if a task is interrupted.
+3. Place a test order and check its actual Flow and receipt. Check pending
+   job age, worker memory and concurrent shop latency. Roll back by stopping
+   the dedicated worker first and then restoring `APP_WORKER_ENABLED=true`
+   on Core. Orders and durable jobs stay in the same database throughout.
+
+The isolated handoff test placed an order with Core's app lane disabled.
+A separate worker processed the queued event and finished the Flow after
+a restart. During rollback, a second order queued work that the combined
+Core then completed. Both orders and the original invoice remained
+available. The test used separate restricted system and tenant database
+roles with signed scope enforcement.
+
 ## Remaining Automation work
 
 The native Core worker uses the same directives. Operating a dedicated worker

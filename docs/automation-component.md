@@ -177,6 +177,13 @@ order on retry. After restart, the worker continued from the saved definition
 despite an edit to the merchant's current Flow, and created one invoice.
 [Crate example](https://github.com/veyndo/veyndo/tree/main/crates/flow-graph).
 
+A second isolated run placed six new orders with the app worker offline.
+All six exact replays returned their original orders. After the worker
+started, it produced one invoice per order. With four concurrent buyers
+and four catalog clients, 96 catalog reads completed without errors.
+The median was 22.5 ms and the 95th percentile was 55.4 ms in that local
+debug build. This measures the test environment with split HTTP and workers.
+
 ## Remaining Automation work
 
 The native Core worker uses the same directives. Operating a dedicated worker

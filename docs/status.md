@@ -10,9 +10,26 @@ Updated 8 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
-## Live Core and shared Flow graph, 8 November 2026
+## Live Core and built-in Flow catalog, 8 November 2026
 
-Northflank runs Core build `loving-delight-7432` from `a3bcee7`, with one
+Northflank runs Core build `past-shake-5794` from `a2a6d60`, with one
+ready replica. The build and merged source have identical Git trees.
+The public Storyfront checkout opened in 806 ms on desktop and in 1,308
+and 802 ms in two mobile checks. Returning and reloading preserved the
+open cart. Recovery took 18 to 20 ms. In 12 reads per route before and
+after deployment, median response times went from 12 to 11 ms for Core
+health, stayed at 8 ms for onboarding, and went from 30 to 28 ms for the
+demo catalog.
+
+The complete purchase, discount, delayed Flow, replay and invoice were
+verified in an isolated shop. The same test environment checked a
+purchase with the independent preview process stopped. The public check
+covered checkout opening and return.
+[Flow catalog change](https://github.com/veyndo/veyndo/pull/345).
+
+## Previous Core release with the shared Flow graph, 8 November 2026
+
+Northflank deployed Core build `loving-delight-7432` from `a3bcee7`, with one
 ready replica. The build and merged source have identical Git trees. The
 public Storyfront demo opened the embedded checkout in 805 ms, returned to
 its open bag and kept that bag on reload. Recovery of the open cart took

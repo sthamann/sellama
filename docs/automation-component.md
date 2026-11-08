@@ -120,6 +120,11 @@ Version 1 preserves the existing ordered arrays of 50 triggers and 20
 pipeline actions. Core rejects an unsupported action in a queued Flow
 and records the failure.
 
+The isolated test used the new Core with the independent preview process.
+Both returned the same rule decisions on real cart inputs. After stopping
+the preview process, Core applied the eligible coupon, purchased the cart
+and generated one invoice. Repeating the request returned the same order.
+
 `flowCatalogVersion` identifies the built-in names. Use the authenticated
 shop response for installed app metadata and let Core check each write
 against current permissions. The version is discovery metadata. Saved

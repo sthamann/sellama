@@ -1,5 +1,13 @@
 # Changelog
 
+## Portable Flow directives, 8 November 2026
+
+- Resolve validated Flow steps as typed Rust directives for conditions,
+  actions, delays and stops. Core uses the same targets to validate and run
+  the graph, and borrows them when continuing from a saved cursor.
+- Test a delayed order Flow across a separate app worker restart while the
+  HTTP shop continues to serve traffic and replays the original order.
+
 ## Flow job storage, 8 November 2026
 
 - Claim a ready Flow and load its checkpoint together. Scope progress,

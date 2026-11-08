@@ -456,8 +456,12 @@ The following are implementation tasks; existing UI foundations do not complete 
     keep deferral distinct from completion. Core build `bf42343` runs on
     Northflank. [Job adapter](automation-component.md#durable-flow-job-storage) ·
     [Live status](status.md#live-core-and-durable-flow-job-storage-8-november-2026).
-  - [ ] Extract a portable execution directive and accept a separate worker
-    with the current authorization and effect owners.
+  - [x] AUTO-02b Resolve portable typed directives in the native worker.
+    The isolated HTTP, event and app processes completed an order Flow after
+    a worker restart during a delay, using the saved definition and one invoice.
+    [Directives and worker](automation-component.md#portable-flow-directives).
+  - [ ] Accept a dedicated worker deployment alongside hosted Core with the
+    existing authorization and effect owners.
 - [ ] AUTO-03 Expose independent API/MCP and graphical/SDK authoring through one
   definition; test branches, delays, retries, revocation and publication.
 - [ ] CON-01 Move connector host and app-owned adapters to `veyndo/connectors`

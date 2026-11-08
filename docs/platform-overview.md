@@ -59,6 +59,10 @@ Bei einer Wartezeit speichert er die Frist und gibt den Auftrag frei.
 Beim Fortsetzen prüft er die aktuellen Rechte und speichert Fortschritt
 nur für den Versuch, den er übernommen hat.
 [Wie Flow Aufträge gespeichert werden](automation-component.md#durable-flow-job-storage).
+Die Rust Bibliothek liefert dem Worker die nächste Anweisung aus der
+gespeicherten Definition. So kann ein separat laufender Worker nach einem
+Neustart beim richtigen Schritt weitermachen, während der Shop Bestellungen
+weiter annimmt. [Anweisungen und Prozessgrenzen](automation-component.md#portable-flow-directives).
 
 ## 1. Der Aufbau
 

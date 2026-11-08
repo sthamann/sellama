@@ -7,6 +7,7 @@ workspace. The package name is `veyndo-flow-graph`.
 
 ```rust
 use veyndo_flow_graph::{Graph, Node};
+use veyndo_flow_graph::execution::{Directive, ExecutableNode};
 
 struct Stop(&'static str);
 
@@ -15,9 +16,16 @@ impl Node for Stop {
     fn successors(&self) -> [Option<&str>; 2] { [None, None] }
 }
 
+impl ExecutableNode for Stop {
+    type Condition = ();
+    type Config = ();
+    fn directive(&self) -> Directive<'_, (), ()> { Directive::Stop }
+}
+
 let steps = [Stop("finish")];
 let graph = Graph::validate("finish", &steps, |id| !id.is_empty(), |_| Ok::<(), ()>(()))?;
 assert!(graph.get("finish").is_some());
+assert!(matches!(graph.directive("finish"), Some(Directive::Stop)));
 # Ok::<(), veyndo_flow_graph::Invalid<()>>(())
 ```
 
@@ -27,6 +35,16 @@ and node policy as callbacks. Veyndo uses its existing condition and action
 validators and the verified delay limit. Its worker resolves persisted
 cursors through the same validated graph. Authorization, event delivery and
 actual execution belong to the host.
+
+## Resolve a step
+
+Implement `ExecutableNode` to use the same graph for execution. A directive
+returns the branch condition, the action and its configuration, a delay
+duration or stop. It borrows from the validated definition. Use
+`Branches::select` with the boolean produced by your own rule evaluator.
+`Graph::directive` returns `None` for an unknown ID. Keep persisted cursor
+admission, deadlines, effect receipts and current permissions in your host.
+[Native example and worker setup](../../docs/automation-component.md#portable-flow-directives).
 
 ## Built-in events and actions
 

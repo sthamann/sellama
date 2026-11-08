@@ -734,15 +734,20 @@
       "sha256": "4033755910e992d22f276d2cca074edeb33dc1ea943e4bd61f7db4d26a65be04",
       "review": "Moved the exact built-in Flow identifier arrays to the shared catalog, kept tenant app resolution and native grants in Core, and exposed additive discovery metadata. Unknown stored action now fails rather than falling into inference. Graph and kernel decisions are unchanged."
     },
+    "crates/flow-graph/src/execution.rs": {
+      "status": "unproved",
+      "sha256": "9a99230c6e724964c7dbeb3463301298a08ffd40cd3a9149f8238cbcdb65b0c8",
+      "review": "Reviewed the shared borrowed Flow directives and native adapter. The old saved graph, validation ordering, cursor identity, permission checks, delay metadata, receipts and effects are preserved. The native regression covers exact unknown cursor rejection and separately restarted worker continuation."
+    },
     "crates/flow-graph/src/lib.rs": {
       "status": "unproved",
-      "sha256": "609c07d80801326264c0ea8152d0e6554744e5fb2c468c6932306f87293ff5bf",
-      "review": "Moved the exact built-in Flow identifier arrays to the shared catalog, kept tenant app resolution and native grants in Core, and exposed additive discovery metadata. Unknown stored action now fails rather than falling into inference. Graph and kernel decisions are unchanged."
+      "sha256": "cf20c77277b9fbba977bac70736b155b67aef82102d9b8a6b199f3062cc66312",
+      "review": "Reviewed the shared borrowed Flow directives and native adapter. The old saved graph, validation ordering, cursor identity, permission checks, delay metadata, receipts and effects are preserved. The native regression covers exact unknown cursor rejection and separately restarted worker continuation."
     },
     "crates/flow-graph/src/tests.rs": {
       "status": "unproved",
-      "sha256": "dedc990164a28b413755ddd4ddb76760f206b01550931ac3f494feeb1ce70bcc",
-      "review": "Moved the exact built-in Flow identifier arrays to the shared catalog, kept tenant app resolution and native grants in Core, and exposed additive discovery metadata. Unknown stored action now fails rather than falling into inference. Graph and kernel decisions are unchanged."
+      "sha256": "80bb92eb6b3f24b6e5c931983de792a72aa449446ef1cc7f55cd84eee9c5d3da",
+      "review": "Reviewed the shared borrowed Flow directives and native adapter. The old saved graph, validation ordering, cursor identity, permission checks, delay metadata, receipts and effects are preserved. The native regression covers exact unknown cursor rejection and separately restarted worker continuation."
     },
     "crates/kernel/src/contract_tests.rs": {
       "status": "unproved",
@@ -4401,13 +4406,13 @@
     },
     "src/marketing/pipeline.rs": {
       "status": "reviewed-binding",
-      "sha256": "3b335c404741ab305543ec94820ffcf8c1037e8e3fe24efd12ffd3c2d15348fe",
-      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
+      "sha256": "de1a6639684d04779a25f430e193da67bc2a35da5e1466387026e2631af5cde3",
+      "review": "Reviewed the shared borrowed Flow directives and native adapter. The old saved graph, validation ordering, cursor identity, permission checks, delay metadata, receipts and effects are preserved. The native regression covers exact unknown cursor rejection and separately restarted worker continuation."
     },
     "src/marketing/pipeline_runtime.rs": {
       "status": "unproved",
-      "sha256": "7d71dad08a77de851b6ee59553affc391c2ab9f2405e90cb93722dc4a2f1defd",
-      "review": "Flow job storage isolates the PostgreSQL claim, preserves delayed deadlines and existing step receipts, and scopes checkpoint and completion writes to the current tenant/job/attempt; automation regression checks stale claims and terminal delay."
+      "sha256": "f984e5a8464cc07679ac8998df51b51c4a59053ec411d44814534aa0b0a244dc",
+      "review": "Reviewed the shared borrowed Flow directives and native adapter. The old saved graph, validation ordering, cursor identity, permission checks, delay metadata, receipts and effects are preserved. The native regression covers exact unknown cursor rejection and separately restarted worker continuation."
     },
     "src/marketing/pipeline_tests.rs": {
       "status": "unproved",

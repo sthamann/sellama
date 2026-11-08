@@ -157,10 +157,30 @@ errors. The median was 40.4 ms and the 95th percentile was 75.7 ms in
 this local debug build with four catalog clients and four purchase clients.
 The current [public status](status.md) records the separate hosted checks.
 
+## Portable Flow directives
+
+The public Rust crate resolves a validated node to a branch, effect, delay
+or stop. The same outgoing edges are used to validate the definition and
+continue the job. The native worker borrows the step and its configuration
+from the saved job definition. An unknown cursor fails the job before
+another action can run. Delays carry a duration and the database stores
+the resulting deadline. Core still supplies the rule result, checks current
+rights and owns every effect and receipt.
+
+The existing Core image can split HTTP (`PROCESS_ROLE=http`), event delivery
+(`PROCESS_ROLE=memory-worker`) and app and Flow execution
+(`PROCESS_ROLE=app-worker`). The processes use the same shop database and
+the existing Core access controls. The app worker has no public HTTP listener.
+In the isolated service test, a simulated order queued its Flow. The worker
+stopped during a delay. The shop kept serving reads and returned the original
+order on retry. After restart, the worker continued from the saved definition
+despite an edit to the merchant's current Flow, and created one invoice.
+[Crate example](https://github.com/veyndo/veyndo/tree/main/crates/flow-graph).
+
 ## Remaining Automation work
 
-The job adapter is the first part of the execution boundary. A portable
-runner, separately deployed execution, Flow authoring UI, event delivery
-and scheduler extraction remain open under AUTO-02/03.
+The native Core worker uses the same directives. Operating a dedicated worker
+in the hosted shop, Flow authoring UI, event delivery and scheduler extraction
+remain open under AUTO-02/03.
 [Current task list](commerce-components.md#automation-and-connectors),
 [acceptance evidence](evidence/automation-component-2026-11-06.md).

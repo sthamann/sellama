@@ -689,6 +689,7 @@ manifest fields and shared app records.
 | `marketing/{facts,line_facts,customer_facts,rule_snapshot}.rs` | Private tenant-owned facts, variant metadata inheritance and frozen referenced-rule versions | Real cart preview and event flow tests; source UUID and every original field/scope require further migration |
 | `marketing/{pipeline,pipeline_runtime,flow_actions,flow_mutations,flow_access}.rs` | DAG admission, branches/actions/delays, step receipts, actual domain writes and current rights | `scripts/automation.py` real HTTP/PostgreSQL checks; all original triggers/configurations and external exactly-once effects remain open |
 | `marketing/flow_jobs.rs` | Claims and attempt-scoped renewal, cursor checkpoint, delay and completion | Terminal delay, expired lease and stale attempt in `scripts/automation.py` |
+| `crates/flow-graph/src/execution.rs` | Typed directives and branch selection with borrowed data from the validated graph | Native pipeline consumes the directives. `scripts/services.py` exercises a separate worker restart during a delay. |
 | `frontend/src/admin/automation/*`, `shared/i18n/automation-*.ts` | Connected graph, typed localized rule/action editors and stable graph transformations | Four-language component tests, source payload round-trips, dangling-edge and JSON draft regressions |
 
 See [automation](automation.md) for the precise supported/disabled catalog and action mappings.

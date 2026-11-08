@@ -21,9 +21,9 @@ def source(name,**config):return {'type':'shopwareCondition','name':name,'config
 def flow(nodes,event='order.placed'):
     return {'name':names,'active':True,'event':event,'condition':{'type':'alwaysValid'},'action':'pipeline','instruction':names,'locale':'de-DE','pipeline':{'entry':nodes[0]['id'],'nodes':nodes}}
 def action(id,name,config,next=None):return {'kind':'action','id':id,'action':name,'config':config,'next':next}
-def wait(flowid,state='completed',cursor=None):
+def wait(flowid,state='completed',cursor=None,error=None):
     for _ in range(120):
-        jobs=call('/api/automation',h=mh)['jobs'];found=[j for j in jobs if j['flow']==flowid and j['state']==state and (cursor is None or j.get('cursor')==cursor)]
+        jobs=call('/api/automation',h=mh)['jobs'];found=[j for j in jobs if j['flow']==flowid and j['state']==state and (cursor is None or j.get('cursor')==cursor) and (error is None or j['error']==error)]
         if found:return found[0]
         time.sleep(.1)
     raise AssertionError((flowid,state,jobs))
@@ -112,6 +112,11 @@ call('/api/automation/flows/unknown_event',{'data':unknown,'revision':0},mh,'PUT
 sql("UPDATE flow_jobs SET state='queued',cursor=NULL,definition=jsonb_set(definition,'{flow,action}',to_jsonb('unsupported.future.action'::text)) WHERE id='"+completed['id']+"';")
 assert wait('pipeline','failed')['error']=='Unsupported stored Flow action'
 check('Unknown Flow names fail on save and an unknown queued action cannot fall through to inference')
+# A stored cursor that no longer names a node is a failed job, not a fresh start.
+sql("UPDATE flow_jobs SET state='queued',cursor='unknown_cursor',definition=jsonb_set(definition,'{flow,action}',to_jsonb('pipeline'::text)) WHERE id='"+completed['id']+"';")
+wait('pipeline','failed',error='Unknown flow cursor')
+assert sql("SELECT count(*) FROM flow_steps WHERE job='"+completed['id']+"'")=='3'
+check('An unknown persisted cursor fails without restarting the graph or writing another effect')
 # Delay execution rechecks current permissions rather than preserving the creating actor's old grant.
 for id in ['pipeline','false_branch','invoice','terminal_delay']:
     current=next(x for x in call('/api/automation',h=mh)['flows']if x['id']==id);save(id,{**current['data'],'active':False},current['revision'])

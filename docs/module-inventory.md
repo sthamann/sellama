@@ -637,6 +637,7 @@ This lists every checked-in source module in these roots, including files with n
 | [crates/commerce/src/money.rs](../crates/commerce/src/money.rs) | Exact signed minor-unit amounts with explicit currency scale; legacy Shopware float pricing stays isolated. |
 | [crates/commerce/src/pricing.rs](../crates/commerce/src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. |
 | [crates/flow-graph/src/catalog.rs](../crates/flow-graph/src/catalog.rs) | Stable built-in Flow identifiers shared by discovery and native admission. |
+| [crates/flow-graph/src/execution.rs](../crates/flow-graph/src/execution.rs) | Typed instructions from a validated graph. The host evaluates facts and performs effects. |
 | [crates/flow-graph/src/lib.rs](../crates/flow-graph/src/lib.rs) | Dependency-free validation and indexed lookup for bounded commerce flow graphs. |
 | [crates/flow-graph/src/tests.rs](../crates/flow-graph/src/tests.rs) | Exercise graph validation independently of the commerce host. |
 | [crates/kernel/src/contract_tests.rs](../crates/kernel/src/contract_tests.rs) | Executable u64 edge/sequence regressions against independent u128 arithmetic, complementing universal Lean proofs. |

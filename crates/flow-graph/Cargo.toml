@@ -1,0 +1,5 @@
+[package]
+name = "veyndo-flow-graph"
+version.workspace = true
+edition.workspace = true
+license-file.workspace = true

@@ -635,6 +635,8 @@ This lists every checked-in source module in these roots, including files with n
 | [crates/commerce/src/lib.rs](../crates/commerce/src/lib.rs) | Commerce amounts and deterministic calculation contracts; no transport or inference dependencies. |
 | [crates/commerce/src/money.rs](../crates/commerce/src/money.rs) | Exact signed minor-unit amounts with explicit currency scale; legacy Shopware float pricing stays isolated. |
 | [crates/commerce/src/pricing.rs](../crates/commerce/src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. |
+| [crates/flow-graph/src/lib.rs](../crates/flow-graph/src/lib.rs) | Dependency-free validation and indexed lookup for bounded commerce flow graphs. |
+| [crates/flow-graph/src/tests.rs](../crates/flow-graph/src/tests.rs) | Exercise graph validation independently of the commerce host. |
 | [crates/kernel/src/contract_tests.rs](../crates/kernel/src/contract_tests.rs) | Executable u64 edge/sequence regressions against independent u128 arithmetic, complementing universal Lean proofs. |
 | [crates/kernel/src/lib.rs](../crates/kernel/src/lib.rs) | Pure extracted admission policies, without transport or database dependencies. |
 | [crates/kernel/src/verified_kernel/access.rs](../crates/kernel/src/verified_kernel/access.rs) | Extracted access policies; pure bool/u64 decisions used by native consumers. |

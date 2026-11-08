@@ -46,6 +46,10 @@ Für externe Anwendungen kann der Vorschauprozess denselben Shopzugang prüfen.
 Der Händler erstellt dafür einen eigenen Schlüssel mit Leserecht für Regeln.
 Im lokalen Test wirkte der Widerruf bereits beim nächsten Aufruf.
 [Einrichtung und Rechte](automation-component.md#connect-the-service-to-veyndo-core).
+Beim Speichern und beim späteren Ausführen prüft dieselbe Rust Bibliothek,
+ob alle Schritte im Flow erreichbar sind und ihre Verbindungen gültig sind.
+Nach einer Wartezeit findet der Worker den nächsten Schritt direkt über
+seine Kennung. [Flow Graph](automation-component.md#flow-graph-contract).
 
 ## 1. Der Aufbau
 

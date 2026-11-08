@@ -23,6 +23,10 @@ actual Core. HTTP and MCP accepted the restricted key and rejected it after
 revocation. The independent Automation process is awaiting Northflank source
 access and deployment. [Setup](automation-component.md#connect-the-service-to-veyndo-core).
 
+The native Flow editor and worker now use one Rust graph validator. The local
+checkout suite ran both branches, resumed a persisted delay and replayed the
+original steps without repeating the order mutation. [Flow graph contract](automation-component.md#flow-graph-contract).
+
 ## Knowledge catalog recovery, 8 November 2026
 
 The local composition completed a native order and retained a catalog event

@@ -91,6 +91,21 @@ per build completed with identical results. The 95th percentile went from
 supplied-fact preview with synthetic identity, separate from hosted capacity
 and checkout latency.
 
+## Flow graph contract
+
+The public `veyndo-flow-graph` Rust crate validates how the nodes of a Flow
+connect. Core calls it when saving the Flow and when a worker starts or
+resumes it. Both use the same node limit and reject duplicate IDs, missing
+successors, cycles and unreachable nodes. The worker uses the resulting
+index to find the next step by ID instead of scanning the whole graph at
+each step. The saved JSON format and existing Flow cursors still work.
+
+The host supplies condition and action validation. Core still resolves
+current actor rights and installed actions, persists delays and handles
+side effects and replay. The crate has no database, provider or HTTP client.
+External Rust hosts can use the graph validator directly.
+[Crate README and example](../crates/flow-graph/README.md).
+
 ## Remaining Automation work
 
 Durable Flow execution, Flow authoring UI, event delivery/checkpoints and scheduler

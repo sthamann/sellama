@@ -1,5 +1,6 @@
 //! A bounded acyclic flow graph models source-style true/false branches, ordered actions, delays and stop nodes.
 use super::*;
+use veyndo_flow_graph::{Graph, Invalid};
 #[derive(Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub(crate) struct Pipeline {
@@ -40,78 +41,54 @@ impl Node {
             | Self::Stop { id } => id,
         }
     }
-    fn edges(&self) -> Vec<&str> {
+}
+impl veyndo_flow_graph::Node for Node {
+    fn id(&self) -> &str {
+        self.id()
+    }
+    fn successors(&self) -> [Option<&str>; 2] {
         match self {
             Self::Condition {
                 on_true, on_false, ..
-            } => on_true.iter().chain(on_false).map(String::as_str).collect(),
-            Self::Action { next, .. } | Self::Delay { next, .. } => {
-                next.iter().map(String::as_str).collect()
-            }
-            Self::Stop { .. } => vec![],
+            } => [on_true.as_deref(), on_false.as_deref()],
+            Self::Action { next, .. } | Self::Delay { next, .. } => [next.as_deref(), None],
+            Self::Stop { .. } => [None, None],
         }
     }
 }
 impl Pipeline {
     pub(crate) fn validate(&self) -> Result<()> {
-        if self.nodes.is_empty()
-            || self.nodes.len() > 100
-            || !self.nodes.iter().any(|n| n.id() == self.entry)
-        {
-            return Err(bad("Flow needs an entry and 1..100 nodes"));
-        }
-        let mut ids = std::collections::HashSet::new();
-        for node in &self.nodes {
-            if !apps::identifier(node.id()) || !ids.insert(node.id()) {
-                return Err(bad("Invalid or duplicate flow node"));
-            }
-            match node {
-                Node::Condition { condition, .. } => condition.validate(0)?,
+        self.graph().map(|_| ())
+    }
+
+    pub(crate) fn graph(&self) -> Result<Graph<'_, Node>> {
+        Graph::validate(
+            &self.entry,
+            &self.nodes,
+            apps::identifier,
+            |node| match node {
+                Node::Condition { condition, .. } => condition.validate(0),
                 Node::Delay { seconds, .. }
                     if !veyndo::verified_kernel::flow_delay_admissible(*seconds) =>
                 {
-                    return Err(bad("Flow delay exceeds 30 days"));
+                    Err(bad("Flow delay exceeds 30 days"))
                 }
                 Node::Action { action, config, .. } => {
-                    super::flow_actions::validate(action, config)?
+                    super::flow_actions::validate(action, config)
                 }
-                _ => {}
-            }
-        }
-        for node in &self.nodes {
-            if node.edges().iter().any(|e| !ids.contains(e)) {
-                return Err(bad("Flow edge references an absent node"));
-            }
-        }
-        fn visit<'a>(
-            id: &'a str,
-            p: &'a Pipeline,
-            active: &mut std::collections::HashSet<&'a str>,
-            done: &mut std::collections::HashSet<&'a str>,
-        ) -> Result<()> {
-            if done.contains(id) {
-                return Ok(());
-            }
-            if !active.insert(id) {
-                return Err(bad("Flow graph contains a cycle"));
-            }
-            for edge in p.nodes.iter().find(|n| n.id() == id).unwrap().edges() {
-                visit(edge, p, active, done)?
-            }
-            active.remove(id);
-            done.insert(id);
-            Ok(())
-        }
-        let mut done = std::collections::HashSet::new();
-        visit(
-            &self.entry,
-            self,
-            &mut std::collections::HashSet::new(),
-            &mut done,
-        )?;
-        if done.len() != self.nodes.len() {
-            return Err(bad("Flow graph contains unreachable nodes"));
-        }
-        Ok(())
+                _ => Ok(()),
+            },
+        )
+        .map_err(|error| match error {
+            Invalid::EntryOrSize => bad(format!(
+                "Flow needs an entry and 1..{} nodes",
+                veyndo_flow_graph::MAX_NODES
+            )),
+            Invalid::NodeId => bad("Invalid or duplicate flow node"),
+            Invalid::Node(error) => error,
+            Invalid::MissingSuccessor => bad("Flow edge references an absent node"),
+            Invalid::Cycle => bad("Flow graph contains a cycle"),
+            Invalid::Unreachable => bad("Flow graph contains unreachable nodes"),
+        })
     }
 }

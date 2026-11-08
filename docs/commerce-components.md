@@ -436,6 +436,9 @@ The following are implementation tasks; existing UI foundations do not complete 
 ## AUTOMATION and CONNECTORS
 
 - [ ] AUTO-01 Extract rule/flow/event contracts and reusable pure evaluation.
+  - [x] AUTO-01g Share Flow graph validation and indexed cursor lookup between
+    native save and execution. Publish the dependency-free Rust crate.
+    [Flow graph contract](automation-component.md#flow-graph-contract).
   - [x] AUTO-01r Independent deterministic rule library and real Rust HTTP/MCP
     supplied-fact service, current shared OAuth admission, SDK composition and
     standalone process acceptance. Source is private.

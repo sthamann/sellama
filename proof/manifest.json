@@ -3406,8 +3406,8 @@
     },
     "src/bootstrap.rs": {
       "status": "unproved",
-      "sha256": "cd461081251216eed943d809891f8eaeec42f2e79f9ac5573eabd7a5609b3a10",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "bf3ad69174c6ce33b24587687a5f549285c224830f2aaed9e6db5bf83ff41959",
+      "review": "Reviewed the separation of app worker startup from HTTP and operator initialization. The switch preserves the existing default, role and signed database scope. Shutdown stops future work and bounds the wait for tasks in progress."
     },
     "src/brand_redirect.rs": {
       "status": "unproved",
@@ -5344,10 +5344,15 @@
       "sha256": "640ed67b901e03ae0246705e805324355fb5b67fd40f074739d227d70f748a06",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
+    "src/workers/app_lane.rs": {
+      "status": "unproved",
+      "sha256": "15d72052418d82c86a75a420c57b92296be7d99dcbc200d3acb191f114deaa25",
+      "review": "Reviewed the separation of app worker startup from HTTP and operator initialization. The switch preserves the existing default, role and signed database scope. Shutdown stops future work and bounds the wait for tasks in progress."
+    },
     "src/workers.rs": {
       "status": "unproved",
-      "sha256": "839cb999450248f7c4daa0e74431712318e429aa3ea545d06e169432a3ef134a",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "ec88cff9bd039d6faf3479bd6d8e2df7afb88a6c45220faa2b31ebd4a5b95a4a",
+      "review": "Reviewed the separation of app worker startup from HTTP and operator initialization. The switch preserves the existing default, role and signed database scope. Shutdown stops future work and bounds the wait for tasks in progress."
     }
   },
   "inputs": {

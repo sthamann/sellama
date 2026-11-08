@@ -462,8 +462,11 @@ The following are implementation tasks; existing UI foundations do not complete 
     Core build `a3a4d25` runs on Northflank.
     [Directives and worker](automation-component.md#portable-flow-directives) ·
     [Live status](status.md#live-core-and-portable-flow-directives-8-november-2026).
-  - [ ] Accept a dedicated worker deployment alongside hosted Core with the
-    existing authorization and effect owners.
+  - [ ] AUTO-02c Run the app lane as a dedicated worker alongside hosted
+    Core. The Core switch and shutdown drain allow an explicit handoff
+    and rollback. Verify a hosted order Flow, queue progress and latency
+    with the dedicated worker active.
+    [Worker rollout](automation-component.md#move-the-app-worker-out-of-core).
 - [ ] AUTO-03 Expose independent API/MCP and graphical/SDK authoring through one
   definition; test branches, delays, retries, revocation and publication.
 - [ ] CON-01 Move connector host and app-owned adapters to `veyndo/connectors`

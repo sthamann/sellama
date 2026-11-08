@@ -62,8 +62,13 @@ event and the worker consumes it asynchronously.
 The validated graph also supplies typed directives for branching, effects,
 delays and stops. Core evaluates rules from the saved job, checks current
 rights and dispatches through the existing action owners. An app worker can
-run in a separate process from HTTP and consume the same durable jobs.
-[Flow directives](automation-component.md#portable-flow-directives).
+run in a separate process and consume the same durable jobs. Core can
+disable just its app lane, which covers Flow execution, app scheduling and
+deliveries. Checkout still commits orders and events in Core. Shutdown
+gives app tasks a bounded window to persist progress before the process
+releases its database connections.
+[Flow directives](automation-component.md#portable-flow-directives) ·
+[Worker rollout](automation-component.md#move-the-app-worker-out-of-core).
 
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.

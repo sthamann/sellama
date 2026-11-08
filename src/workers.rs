@@ -1,7 +1,27 @@
 //! Independently deployable worker roles; leases and durable receipts coordinate replicas.
 use crate::*;
-pub(crate) fn start(a: &App) {
-    let role = env::var("PROCESS_ROLE").unwrap_or("all".into());
+mod app_lane;
+pub(crate) use app_lane::AppWorkers;
+
+pub(crate) fn app_enabled(role: &str) -> bool {
+    let value = env::var_os("APP_WORKER_ENABLED").map(|value| {
+        value
+            .into_string()
+            .expect("APP_WORKER_ENABLED must be UTF-8")
+    });
+    select_app_lane(role, value.as_deref())
+        .expect("APP_WORKER_ENABLED accepts true or false only with PROCESS_ROLE=all")
+}
+
+fn select_app_lane(role: &str, value: Option<&str>) -> Option<bool> {
+    match (role, value) {
+        ("all", None | Some("true")) | ("app-worker", None) => Some(true),
+        ("all", Some("false")) | (_, None) => Some(false),
+        _ => None,
+    }
+}
+
+pub(crate) fn start(a: &App, role: &str, app_enabled: bool) -> Option<AppWorkers> {
     assert!(
         [
             "all",
@@ -13,13 +33,13 @@ pub(crate) fn start(a: &App) {
             "media-worker",
             "agent-worker"
         ]
-        .contains(&role.as_str()),
+        .contains(&role),
         "Unsupported PROCESS_ROLE"
     );
     if role != "http" {
         work_signal::start(Arc::new(runtime_config::get().listener_url.clone()));
     }
-    if ["all", "agent-worker"].contains(&role.as_str()) {
+    if ["all", "agent-worker"].contains(&role) {
         for _ in 0..2 {
             let worker = a.clone();
             veyndo::tenant_scope::spawn(async move {
@@ -34,7 +54,7 @@ pub(crate) fn start(a: &App) {
             });
         }
     }
-    if ["all", "translation-worker"].contains(&role.as_str()) {
+    if ["all", "translation-worker"].contains(&role) {
         let worker = a.clone();
         veyndo::tenant_scope::spawn(async move {
             let mut ticks = work_signal::subscribe();
@@ -47,7 +67,7 @@ pub(crate) fn start(a: &App) {
             }
         });
     }
-    if ["all", "media-worker"].contains(&role.as_str()) {
+    if ["all", "media-worker"].contains(&role) {
         let worker = a.clone();
         veyndo::tenant_scope::spawn(async move {
             let mut ticks = work_signal::subscribe();
@@ -60,7 +80,7 @@ pub(crate) fn start(a: &App) {
             }
         });
     }
-    if ["all", "http"].contains(&role.as_str()) {
+    if ["all", "http"].contains(&role) {
         let worker = a.clone();
         veyndo::tenant_scope::spawn(async move {
             let mut ticks = tokio::time::interval(std::time::Duration::from_secs(1));
@@ -70,7 +90,7 @@ pub(crate) fn start(a: &App) {
             }
         });
     }
-    if ["all", "memory-worker"].contains(&role.as_str()) {
+    if ["all", "memory-worker"].contains(&role) {
         let indexer = a.clone();
         veyndo::tenant_scope::spawn(async move {
             let mut ticks = work_signal::subscribe();
@@ -99,7 +119,7 @@ pub(crate) fn start(a: &App) {
         }
     }
 
-    if ["all", "payment-worker"].contains(&role.as_str()) {
+    if ["all", "payment-worker"].contains(&role) {
         let worker = a.clone();
         veyndo::tenant_scope::spawn(async move {
             let mut ticks = work_signal::subscribe();
@@ -112,45 +132,25 @@ pub(crate) fn start(a: &App) {
             }
         });
     }
-    if ["all", "app-worker"].contains(&role.as_str()) {
-        let collector = a.clone();
-        veyndo::tenant_scope::spawn(async move {
-            let mut ticks = tokio::time::interval(std::time::Duration::from_secs(5));
-            loop {
-                ticks.tick().await;
-                let _ = apps::collect_sources(&collector).await;
-                if let Err(e) = apps::schedule_once(&collector).await {
-                    eprintln!("app scheduler: {}", e.1);
-                }
-            }
-        });
-        let worker = a.clone();
-        veyndo::tenant_scope::spawn(async move {
-            let mut ticks = work_signal::subscribe();
-            loop {
-                ticks.tick().await;
-                match marketing::flow_once(&worker).await {
-                    Ok(worked) => ticks.worked(worked),
-                    Err(e) => eprintln!("flow worker: {}", e.1),
-                }
-            }
-        });
-        // Independent bounded lanes: a slow provider cannot block other tenant/app queues.
-        for _ in 0..8 {
-            let worker = a.clone();
-            veyndo::tenant_scope::spawn(async move {
-                let mut wake = work_signal::subscribe();
-                loop {
-                    match apps::deliver_once(&worker).await {
-                        Ok(true) => tokio::task::yield_now().await,
-                        Ok(false) => wake.tick().await,
-                        Err(e) => {
-                            eprintln!("app delivery: {}", e.1);
-                            wake.tick().await;
-                        }
-                    }
-                }
-            });
-        }
+    if matches!(role, "all" | "app-worker") {
+        println!("app_worker_enabled={app_enabled} process_role={role}");
+    }
+    app_enabled.then(|| AppWorkers::start(a))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::select_app_lane;
+
+    #[test]
+    fn only_the_combined_role_can_disable_its_app_lane() {
+        assert_eq!(select_app_lane("all", None), Some(true));
+        assert_eq!(select_app_lane("all", Some("true")), Some(true));
+        assert_eq!(select_app_lane("all", Some("false")), Some(false));
+        assert_eq!(select_app_lane("all", Some("typo")), None);
+        assert_eq!(select_app_lane("app-worker", None), Some(true));
+        assert_eq!(select_app_lane("app-worker", Some("false")), None);
+        assert_eq!(select_app_lane("http", None), Some(false));
+        assert_eq!(select_app_lane("http", Some("true")), None);
     }
 }

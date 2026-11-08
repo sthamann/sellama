@@ -1,5 +1,12 @@
 # Changelog
 
+## App worker handoff, 8 November 2026
+
+- Allow Core to hand Flow execution, app scheduling and app deliveries to a
+  separate worker while it continues to accept orders and record events.
+- On shutdown, app tasks stop taking new work and get up to 15 seconds to
+  finish current operations. Durable job state supports restart and rollback.
+
 ## Portable Flow directives, 8 November 2026
 
 - Resolve validated Flow steps as typed Rust directives for conditions,

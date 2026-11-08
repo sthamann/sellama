@@ -107,16 +107,6 @@ pub(crate) async fn bootstrap() -> App {
             );
         }
     }
-    if mode != "migrate" {
-        workers::start(&a);
-        currencies::worker(&a);
-        performance::start_invalidations(&a);
-        if env::var("PROCESS_ROLE").unwrap_or("all".into()) == "all"
-            || env::var("PROCESS_ROLE").as_deref() == Ok("memory-worker")
-        {
-            knowledge::vectors::start(a.db.clone());
-        }
-    }
     a
 }
 
@@ -138,9 +128,20 @@ pub(crate) async fn run() {
         println!("Migration-only setup complete");
         return;
     }
+    let role = env::var("PROCESS_ROLE").unwrap_or_else(|_| "all".into());
+    let app_enabled = workers::app_enabled(&role);
     let a = bootstrap().await;
-    if env::var("PROCESS_ROLE").is_ok_and(|s| s.ends_with("-worker")) {
+    let app_workers = workers::start(&a, &role, app_enabled);
+    currencies::worker(&a);
+    performance::start_invalidations(&a);
+    if matches!(role.as_str(), "all" | "memory-worker") {
+        knowledge::vectors::start(a.db.clone());
+    }
+    if role.ends_with("-worker") {
         shutdown().await;
+        if let Some(worker) = app_workers {
+            worker.drain().await;
+        }
         a._connection_budget.release().await;
         a.db.close().await;
         return;
@@ -149,15 +150,22 @@ pub(crate) async fn run() {
     let addr = env::var("BIND_ADDR").unwrap_or("127.0.0.1:8787".into());
     let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
     println!("veyndo listening on http://{addr}");
+    let stop_app = app_workers.as_ref().map(workers::AppWorkers::stop_handle);
     axum::serve(
         listener,
         app.into_make_service_with_connect_info::<std::net::SocketAddr>(),
     )
-    .with_graceful_shutdown(async {
+    .with_graceful_shutdown(async move {
         shutdown().await;
+        if let Some(stop) = stop_app {
+            stop.send_replace(true);
+        }
     })
     .await
     .unwrap();
+    if let Some(worker) = app_workers {
+        worker.drain().await;
+    }
     a.channel_metrics.flush(&a.db).await;
     a._connection_budget.release().await;
     a.db.close().await;

@@ -229,13 +229,16 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
   hosted-field/wallet/redirect support through the same admitted APIs.
 - [ ] CHK-06 Integrate contextual agent/validated UI generation while preserving
   deterministic checkout and actual customer purchase/saved-method consent.
-- [ ] CHK-07 Supply standalone external frontend and real reference commerce /
+- [x] CHK-07 Supply standalone external frontend and real reference commerce /
   PostgreSQL adapter without the Veyndo product process; prove concurrent commit.
   - [x] CHK-07a Run a separate Rust reference commerce host and Checkout against
     two PostgreSQL databases. Verify concurrent purchase, original receipt
     after response loss and restart, HTTP, MCP and the JavaScript SDK.
     [Reference purchase](checkout-component.md#a-purchase-with-a-separate-commerce-host).
-  - [ ] Accept an external storefront using the reference commerce host.
+  - [x] CHK-07b Run a browser purchase through the external reference storefront,
+    the JavaScript SDK and the separate commerce host. Confirm one order, an
+    empty cart on return and the same receipt after a lost response, reload
+    and restart. [Browser example](checkout-component.md#external-reference-storefront).
 - [ ] CHK-08 Compose native Veyndo and original Storyfront; accept full purchase,
   verified return, empty originating cart, callback replay and refund integration.
 - [ ] CHK-09 Accept foreign/revoked/private/paused/stale/B2B/stock/provider failures,

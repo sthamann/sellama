@@ -16,8 +16,9 @@ The independent Checkout process now has local acceptance against a separate
 Rust reference commerce host. The two processes use separate PostgreSQL
 databases. Two concurrent attempts for the last unit leave one order and one
 event. The JavaScript SDK recovers the original receipt after a lost response
-and restart. The reference uses simulated payment. An external storefront and
-hosted acceptance remain open. [Checkout reference](checkout-component.md#a-purchase-with-a-separate-commerce-host).
+and restart. The external storefront also completed the browser flow with
+simulated payment, return to an empty cart and receipt recovery after reload.
+Hosted acceptance remains open. [Browser example](checkout-component.md#external-reference-storefront).
 
 ## Embedded checkout recovery, 8 November 2026
 

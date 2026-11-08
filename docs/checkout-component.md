@@ -1,9 +1,9 @@
 # Independent checkout service
 
-**Status:** the Checkout service has a local reference purchase against a
-separate commerce host. The reference host uses simulated payment and a
-disposable database. The embedded frontend and hosted acceptance are tracked
-in the [component plan](commerce-components.md#checkout-independent-service-and-ui).
+The local reference storefront completes a simulated purchase through the
+independent Checkout service and a separate commerce host. The
+[component plan](commerce-components.md#checkout-independent-service-and-ui)
+tracks the shared embeddable UI, provider coverage and hosted acceptance.
 
 Checkout has its own target repository `veyndo/checkout`, Rust service, HTTP API,
 MCP tools, JavaScript/TypeScript client and embeddable checkout UI. It must run
@@ -63,14 +63,43 @@ response after commit. After both processes restart, the JavaScript SDK reads
 the same receipt. One stock decrement, one order and one event remain in
 PostgreSQL. A revoked buyer can no longer retrieve the receipt.
 
-The same Checkout build also passed the existing Veyndo composition with local
-PayPal and Shopware Payments fixtures, capture and refund. With concurrent
-catalog reads, 192 quote requests per path passed. The local p95 was 51.6 ms
-through Core directly and 55.3 ms through the separate Checkout process.
+## External reference storefront
 
-The example covers one product, one currency and simulated authorization on
-loopback. The full external storefront, production identity, configured
-payment providers and hosted performance require separate acceptance.
+The browser calls its own shop server. The server uses the [JavaScript SDK](https://github.com/veyndo/sdk)
+to contact Checkout and keeps the buyer credentials on the server. A signed,
+short-lived approval carries the exact price and revision the buyer reviewed.
+Checkout uses the independent Rust host for current pricing and the final commit.
+
+```mermaid
+flowchart LR
+  B["Browser"] --> S["Example storefront"]
+  S -->|"JavaScript SDK"| Q["Checkout"]
+  Q -->|"Quote, purchase and receipt"| C["Rust commerce host"]
+  Q --> D[("Checkout sessions")]
+  C --> O[("Order, stock and outbox")]
+```
+
+The browser test reviewed the 25 EUR cart and confirmed once. After the
+response was dropped, the shopper recovered the original receipt and returned
+to an empty cart. Reload recovered the same receipt. Desktop and mobile
+layouts were checked in Chromium. Restarting all three processes also
+preserved the original receipt, with one stock decrement, one order and one
+event in PostgreSQL. A changed quote and an altered approval were rejected
+before an order was written.
+
+![External reference storefront showing the reviewed 25 EUR total](assets/checkout/reference-storefront-review-20261108.webp)
+
+The sample uses a single synthetic buyer and one disposable cart on loopback.
+The [Checkout repository setup guide](https://github.com/veyndo/checkout/pull/2)
+is available to repository collaborators. Public shop and Storyfront buyers
+continue to use the integrated commerce paths.
+
+The existing Veyndo composition also passed local purchase, capture and refund
+with PayPal and Shopware Payments fixtures. Under concurrent catalogue reads,
+both paths completed 192 quote requests without errors. The local p95 was
+43.7 ms through Core and 47.3 ms through Checkout. This run used local
+PostgreSQL, synthetic identities and the same cart and quote on both paths.
+[Measurement method](evidence/checkout-composition-performance-2026-11-08.md).
 
 ## UI and agent integration
 

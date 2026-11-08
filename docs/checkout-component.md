@@ -158,6 +158,43 @@ In a paired local comparison with concurrent catalog reads, both paths completed
 192 quotes without errors. The p95 was 45.6 ms for native Core and 46.9 ms through
 the separate Checkout process. [Measurement method](evidence/checkout-composition-performance-2026-11-08.md).
 
+## Pause and resume Checkout confirmation
+
+The separate Checkout process has two opt-in confirmation profiles. Set
+`CHECKOUT_ENABLE_SIMULATED_PURCHASE` and
+`CHECKOUT_ENABLE_PAYPAL_SANDBOX_PURCHASE` to `false` on that process and restart
+it to stop admitting new confirmations. Keep the same session database,
+identity and commerce origin. Keep Core and its provider workers running.
+Checkout hides confirmation from OpenAPI and returns HTTP 503
+(`purchase_disabled`, `mayHaveApplied: false`) for a blocked request.
+Session, quote and receipt reads are available once Checkout is ready.
+
+A response lost before the pause can still belong to an order that Core
+committed. Look up the receipt with the original session and current buyer.
+Core continues to reconcile the same payment attempt. After re-enabling
+confirmation, reuse the original session and purchase identity for a valid
+review. A new purchase on another route uses a different identity.
+
+The local rehearsal prepared two native carts before the switch. With
+Checkout offline, Core purchased the first directly and the second through
+its existing Storyfront handoff. Handoff recovery returned the original
+order and cart. Core also reconciled an existing PayPal fixture approval
+during the outage. With confirmations still disabled, Checkout read the
+captured payment and its subsequent refund. Re-enabling returned the same
+order and payment attempt and let a retained draft complete. The checks
+compared order and payment IDs and stock across the switch.
+
+The [component plan](commerce-components.md#checkout-independent-service-and-ui)
+tracks the hosted routing switch and rehearsal against the configured provider.
+The local handoff test exercises the Core transfer and purchase API. The
+external browser example separately verifies return to an empty cart.
+
+In the same local run, both paths completed 192 quotes alongside catalog
+reads with zero errors. The p95 was 48.8 ms for native Core and 48.2 ms
+through Checkout. During a separate Checkout stop, 32 native quotes and
+32 catalog reads also completed without errors. These timings describe
+the local fixture.
+
 ## Required acceptance
 
 - Its own image/configuration/session store, HTTP/MCP contracts and SDK examples.

@@ -253,6 +253,13 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
     observable order, document and event reconciliation.
 - [ ] CHK-10 Cut over existing routes/sessions/attempts through versioned adapters,
   document rollback and publish independent SDK/UI examples and product evidence.
+  - [x] CHK-10a Rehearse disabling confirmation locally. Keep native and hosted
+    handoff purchases working during a Checkout outage, reconcile the original
+    payment and recover its receipt after restart. Resume a retained draft.
+    [Procedure and evidence](checkout-component.md#pause-and-resume-checkout-confirmation).
+  - [ ] Validate the hosted routing switch and its rollback with live shop
+    traffic paths and configured Sandbox payment. Retain existing carts,
+    payment attempts and receipts across the switch.
 
 ## Cross-component agentic UI
 

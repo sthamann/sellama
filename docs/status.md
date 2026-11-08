@@ -10,6 +10,16 @@ Updated 8 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Checkout rollback rehearsal, 8 November 2026
+
+Local tests prepared a normal cart and a Storyfront handoff, then stopped
+the separate Checkout process. Core completed both purchases and reconciled
+an earlier PayPal fixture payment. With confirmation still disabled, the
+original receipt exposed capture and refund. Re-enabling confirmation
+preserved the order and payment identity and let an existing draft resume.
+The hosted routing switch remains open.
+[Procedure and evidence](checkout-component.md#pause-and-resume-checkout-confirmation).
+
 ## A purchase without Core, 8 November 2026
 
 The independent Checkout process now has local acceptance against a separate

@@ -26,6 +26,11 @@ verified Core receipt to decide when to clear its original cart.
 Checkout delegates company approval and budget checks to the native transaction.
 A current identity is also required to read the stored order result.
 [Authority tests](checkout-component.md#current-buyer-channel-and-company-authority).
+Independent Checkout admission can be paused at its confirmation boundary.
+Core continues to serve its own storefront and hosted handoff. Its provider
+workers reconcile existing payments against the original order. The same
+session and purchase identity carry across a Checkout restart.
+[Rollback rehearsal](checkout-component.md#pause-and-resume-checkout-confirmation).
 
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.

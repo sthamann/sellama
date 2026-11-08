@@ -44,7 +44,7 @@ The four public development repositories are linked below. The other links expla
 
 ## What we check when components work together
 
-Compare the same commerce operation through both entry points under equivalent load. Check the actual quote and receipt as well as latency. Stop a dependency and check which shop operations still work. Test repeated calls, lost responses and recovery with the same purchase identity.
+Compare the same commerce operation through both entry points under equivalent load. Check the actual quote and receipt as well as latency. In the local [Checkout rollback rehearsal](checkout-component.md#pause-and-resume-checkout-confirmation), Core placed native and hosted handoff orders while Checkout was stopped and reconciled an existing payment. The recovered receipt kept the original purchase identity.
 
 The [benchmarks](benchmarks.md) explain which paths, workloads and environments were measured. Local synthetic results and public reachability checks are reported separately from hosted capacity and provider acceptance.
 

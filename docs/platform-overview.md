@@ -28,6 +28,10 @@ bestätigte Bestellung leert den Warenkorb. [Abnahme für den Betrieb](storyfron
 Für Firmenkäufe prüft Commerce beim Bestellen die aktuelle Freigabe,
 Mitgliedschaft und das Budget. Diese Regeln gelten auch für einen Checkout,
 der in einem eigenen Prozess läuft. [Geprüfte Fälle](checkout-component.md#current-buyer-channel-and-company-authority).
+Im lokalen Ausfalltest konnten der normale Shop und die Storyfront Übergabe
+weiter Bestellungen anlegen. Core wickelte den bereits gestarteten
+Zahlungsversuch ab. Nach dem Neustart war derselbe Beleg wieder abrufbar.
+[Ablauf und Rückweg](checkout-component.md#pause-and-resume-checkout-confirmation).
 
 ## 1. Der Aufbau
 

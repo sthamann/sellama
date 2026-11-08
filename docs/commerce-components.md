@@ -297,6 +297,11 @@ The following are implementation tasks; existing UI foundations do not complete 
 - [ ] KNOW-02 Move indexing/retrieval algorithms behind source/storage/model ports;
   remove direct dependence on native products and the Core App context.
 - [ ] KNOW-03 Implement the Veyndo source adapter through current owners/events.
+  - [x] KNOW-03a Validate the local catalog delivery path across an outage and
+    restart. A native purchase continues, the current source reaches Knowledge
+    after retry, and a replay cannot undo an applied withdrawal.
+    [Evidence and contract](knowledge-component.md#keep-the-shop-running-during-a-knowledge-outage).
+  - [ ] Validate the installed delivery and service recovery in the hosted shop.
 - [ ] KNOW-04 Give the independent service its own rebuildable projections,
   ingestion checkpoints, vector configuration and migration/restore procedures.
 - [ ] KNOW-05 Expose ingest/search/graph/source/withdraw/delete over HTTP and MCP;

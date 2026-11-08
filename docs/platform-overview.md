@@ -33,6 +33,11 @@ weiter Bestellungen anlegen. Core wickelte den bereits gestarteten
 Zahlungsversuch ab. Nach dem Neustart war derselbe Beleg wieder abrufbar.
 [Ablauf und Rückweg](checkout-component.md#pause-and-resume-checkout-confirmation).
 
+Der Wissensdienst hat eine eigene Suche über Dokumente und Produkttexte. Im
+Ausfalltest konnte der Shop weiter verkaufen. Die Produktänderung blieb in
+der Warteschlange und war nach dem Neustart als aktuelle Quelle verfügbar.
+[Wissensdienst und Schnittstellen](knowledge-component.md).
+
 ## 1. Der Aufbau
 
 ```mermaid

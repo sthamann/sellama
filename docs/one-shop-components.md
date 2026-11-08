@@ -31,7 +31,7 @@ The four public development repositories are linked below. The other links expla
 | Checkout | Buyer review, checkout sessions and recovery of the original result. The commerce host owns prices, stock and the final purchase. [Contract](checkout-component.md) · [Browser example](checkout-component.md#external-reference-storefront) · [Hosted Storyfront acceptance](storyfront.md#accept-a-hosted-release) |
 | Policies | Shared pricing, promotion and rule decisions. The native product applies them using current facts. [Verification scope](formal-verification.md) |
 | Automation | Evaluates rules from supplied facts. The shop's Flow and event owners handle execution and effects. [Component guide](automation-component.md) |
-| Knowledge | Source documents, product context, retrieval and evidence for the agent. [Shop knowledge](knowledge-workspace.md) |
+| Knowledge | Private documents, a rebuildable catalog projection and verifiable evidence. Core keeps selling during a Knowledge outage. [Component guide](knowledge-component.md) · [Shop knowledge](knowledge-workspace.md) |
 | Catalog AI and agents | Import, enrich and translate catalog data. Agents prepare revision-bound proposals within their grants. [Catalog and agent workflows](agentic-commerce.md) · [Agent rights](agent-authority-controls.md) |
 | Simulator | Runs isolated shopper scenarios so teams can compare changes before release. [Simulator](customer-scenarios.md) |
 | Canvas and Experience | Visual shop editing and the original Storyfront experience use their own presentation. Commerce supplies catalog and checkout operations. [Canvas](visual-workspace-canvas.md) · [Storyfront](storyfront.md) |

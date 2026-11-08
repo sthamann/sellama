@@ -28,7 +28,7 @@ The four public development repositories are linked below. The other links expla
 | SDK | JavaScript and TypeScript clients for Veyndo's HTTP and MCP interfaces, including separately scoped services. [Repository and examples](https://github.com/veyndo/sdk) |
 | Apps | App manifests, bounded Wasm execution and common storage for records, settings and jobs. [Repository](https://github.com/veyndo/apps) · [Runtime guide](app-runtime-service.md) |
 | Marketplaces | Provider mapping, listings and imported orders for Amazon, eBay and Kaufland. A compatible commerce host owns inventory and order creation. [Repository](https://github.com/veyndo/marketplaces) · [Merchant guide](marketplaces.md) |
-| Checkout | Buyer review, checkout sessions and recovery of the original result. The commerce host owns prices, stock and the final purchase. [Contract](checkout-component.md) |
+| Checkout | Buyer review, checkout sessions and recovery of the original result. The commerce host owns prices, stock and the final purchase. [Contract](checkout-component.md) · [Storyfront recovery](storyfront.md#responsibilities-and-contracts) |
 | Policies | Shared pricing, promotion and rule decisions. The native product applies them using current facts. [Verification scope](formal-verification.md) |
 | Automation | Evaluates rules from supplied facts. The shop's Flow and event owners handle execution and effects. [Component guide](automation-component.md) |
 | Knowledge | Source documents, product context, retrieval and evidence for the agent. [Shop knowledge](knowledge-workspace.md) |

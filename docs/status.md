@@ -6,9 +6,21 @@ The local Checkout comparison records equivalent quote results and catalog
 availability across a Checkout restart. Hosted capacity remains a separate
 test. [Measurement](evidence/checkout-composition-performance-2026-11-08.md).
 
-Updated 6 November 2026. Start here for the public product, observed journeys and
+Updated 8 November 2026. Start here for the public product, observed journeys and
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
+
+## Embedded checkout recovery, 8 November 2026
+
+Local signed PostgreSQL tests recovered the original order after the browser
+notification was lost and read checkout status while another transaction held
+the cart lock. When reopening raced a purchase, the result was the existing
+order or a replacement transfer for the same cart. The browser fixture used
+the Storyfront adapter and built native checkout at mobile and desktop widths.
+It kept the bag during pending payment, cleared the purchased item after
+capture, and retained it after cancellation. The new hosted Core and Experience
+combination and provider return still need acceptance.
+[Integration and deployment order](storyfront.md#responsibilities-and-contracts).
 
 ## Service composition and rule extraction, 6 November 2026
 

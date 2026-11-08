@@ -4,7 +4,7 @@ For the developer entry point and the relationship between the product and the
 individual components, see [One shop, composable parts](one-shop-components.md).
 
 This is the authoritative task list for extracting independently usable Veyndo
-components. Updated 6 November 2026. Checked tasks name observed evidence;
+components. Updated 8 November 2026. Checked tasks name observed evidence;
 repository transfer, local tests, remote CI and hosted acceptance are separate.
 The full component extraction is in progress, not released.
 
@@ -24,6 +24,13 @@ to native Veyndo through the same owner.
   independent Rust library and supplied-fact HTTP/MCP service. Local implementation
   is being validated; a private repository is not public product acceptance.
 - [ ] CHK-01..03 Independent checkout domain ports and own session orchestration.
+  - [x] Local embedded recovery after a lost browser notification. A status
+    read completes while the cart is locked. An explicit reopen and purchase
+    share the lock and preserve one cart and order. The browser fixture covers
+    capture and cancellation with simulated payment responses.
+    [Recovery contract](storyfront.md#responsibilities-and-contracts).
+  - [ ] Accept the released Core and original Storyfront builds together with
+    a configured Sandbox payment, return, empty bag and refund.
 - [ ] KNOW-01..05 Independent knowledge ingest/retrieval and source lifecycle.
 - [ ] UI-07 Compose actual domain views from those released service owners.
 

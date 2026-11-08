@@ -43,6 +43,15 @@ These are individual timings for the public Lumen demo. The companion
 Experience update and its Sandbox purchase, verified return, empty bag
 and refund remain open. [Hosted release checklist](storyfront.md#accept-a-hosted-release).
 
+## Checkout with current company and shop authority, 8 November 2026
+
+The local native composition now verifies that changed company membership,
+approval, budget, channel visibility and shop availability take effect after
+a checkout review. A fresh approved purchase creates one order, reserves stock
+once, runs one Flow and exposes its invoice to the customer. Repeated
+confirmation returns the original receipt. The public Lumen checkout form
+and open cart recovery also passed a separate smoke test. [Cases and timings](checkout-component.md#current-buyer-channel-and-company-authority).
+
 ## Service composition and rule extraction, 6 November 2026
 
 SDK 0.3.0 is released with independently scoped service discovery and registered

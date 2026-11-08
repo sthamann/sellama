@@ -244,6 +244,13 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
   [Hosted release checklist](storyfront.md#accept-a-hosted-release).
 - [ ] CHK-09 Accept foreign/revoked/private/paused/stale/B2B/stock/provider failures,
   restart/uncertainty recovery and existing Flow/document/outbox behavior.
+  - [x] CHK-09a Accept the local native composition with a company buyer, current
+    membership, approval and budget, private and paused channels, paused shop,
+    exact replay, one Flow and a customer-visible invoice. Exercise response
+    loss, provider fixtures and restart in the same acceptance suite.
+    [Results](checkout-component.md#current-buyer-channel-and-company-authority).
+  - [ ] Accept the released hosted composition, including provider failure and
+    observable order, document and event reconciliation.
 - [ ] CHK-10 Cut over existing routes/sessions/attempts through versioned adapters,
   document rollback and publish independent SDK/UI examples and product evidence.
 

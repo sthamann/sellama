@@ -130,6 +130,34 @@ model is unavailable. Purchase, saved-method consent and financial changes need
 their actual current user approval and backend checks. Agent-produced totals and
 payment status are never authoritative.
 
+## Current buyer, channel and company authority
+
+An independent Checkout draft carries the reviewed cart and its context.
+Commerce checks current buyer and channel access on the next call and applies
+company approval and budget rules inside the existing purchase transaction.
+A repeat of the approved purchase returns its original order. Reading the
+receipt still requires the current buyer identity.
+
+| Change in the test shop | Observed result through separate Checkout |
+| --- | --- |
+| Approval missing or superseded by a membership change | Purchase declined with no order, stock allocation or Flow job. |
+| Buyer removed from the company after approval | Quote and confirmation declined using the original credentials. |
+| Channel made private or inactive | The previously reviewed cart could no longer be quoted or confirmed. |
+| Budget reduced or whole shop paused | Direct and composed purchases declined before writing an order. |
+| Fresh approval after the cart changed | One order, one stock allocation, one completed Flow and a customer-visible invoice. Repeated confirmation returned the original receipt. |
+| Customer logged out after purchase | The old customer session could no longer read the receipt. |
+
+The local acceptance used separate Rust processes, signed PostgreSQL access and
+a synthetic shop. It also exercised a lost confirmation response and capture
+and refund with local PayPal and Shopware Payments fixtures. The public
+Storyfront smoke test separately opened the native checkout in 806 ms and read
+the original open cart in 16 ms. Provider acceptance for the new hosted pair is
+tracked under [CHK-08](commerce-components.md#checkout-independent-service-and-ui).
+
+In a paired local comparison with concurrent catalog reads, both paths completed
+192 quotes without errors. The p95 was 45.6 ms for native Core and 46.9 ms through
+the separate Checkout process. [Measurement method](evidence/checkout-composition-performance-2026-11-08.md).
+
 ## Required acceptance
 
 - Its own image/configuration/session store, HTTP/MCP contracts and SDK examples.

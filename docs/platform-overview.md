@@ -25,6 +25,9 @@ separaten Rust Dienst. [Beispielshop und Ablauf](checkout-component.md#external-
 Bei Storyfront ist der Warenkorb Teil der Experience. Nach der Zahlung fragt
 Storyfront den Stand der ursprünglichen Bestellung bei Core ab. Erst die
 bestätigte Bestellung leert den Warenkorb. [Abnahme für den Betrieb](storyfront.md#accept-a-hosted-release).
+Für Firmenkäufe prüft Commerce beim Bestellen die aktuelle Freigabe,
+Mitgliedschaft und das Budget. Diese Regeln gelten auch für einen Checkout,
+der in einem eigenen Prozess läuft. [Geprüfte Fälle](checkout-component.md#current-buyer-channel-and-company-authority).
 
 ## 1. Der Aufbau
 

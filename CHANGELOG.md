@@ -4,6 +4,9 @@
 
 - Reopen the exact Veyndo order from its embedded checkout receipt. A resumed
   order stays bound to its cart and preserves the regular storefront cart.
+- Recover a hosted checkout even if its window closes before sending the order
+  notification. An explicit reopen uses the original order or transfers the same
+  open cart with a fresh ticket.
 
 
 ## Service workspace composition, 6 November 2026

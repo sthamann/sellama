@@ -71,6 +71,25 @@ only as a digest, and can be consumed exactly once. Consumption rotates the cart
 context token. A ticket is carried in the URL fragment and is removed on arrival.
 The browser receives no merchant credential or original cart token from Storyfront.
 
+For a registered embedded shop, the handoff also issues a distinct recovery key.
+Storyfront saves that key before it opens the checkout window. Core binds the key
+to the original cart, shop, channel and exact parent origin, stores only its digest
+and expires it after 24 hours. The key cannot be used as a cart token or transfer
+ticket.
+
+If the window closes before Storyfront receives the order notification,
+`POST /store-api/checkout/handoff/recover` finds the original cart. An open cart
+can receive a replacement transfer on an explicit reopen. Core revokes the old
+frame's token under the same lock used to place an order. If the order already
+exists, Core returns its original proof. Storyfront verifies the payment state
+before it removes the purchased quantities. If recovery is unavailable or the key
+has expired, the existing bag is preserved and checkout does not automatically
+start another purchase.
+
+Deploy the Core migration and runtime before enabling the updated Storyfront
+build. Local HTTP/PostgreSQL and browser tests cover the lost notification and
+concurrent reopen. Hosted provider acceptance is tracked separately.
+
 ## Run a connected shop
 
 Use the companion Ambient-C branch containing the connector. Configure server-side

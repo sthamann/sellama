@@ -3506,13 +3506,13 @@
     },
     "src/checkout_handoff.rs": {
       "status": "unproved",
-      "sha256": "e79157da7089d3e57ac41169df256456624f693f41d5c35fb710957332dbdefe",
-      "review": "Reviewed canonical checkout handoff retains validated native cart locale in language query, no capability moved from fragment; German UCP continuation regression red then green plus native handoff/B2B regression. Existing extracted kernel and SQL authority unchanged."
+      "sha256": "e2fc0c5d8216f01485d48b263a6aea4e485d51cb3f910b8c4c1a79db33533c6d",
+      "review": "Reviewed the hosted checkout recovery binding and additive migration. Signed PostgreSQL HTTP tests reject foreign tenant, unregistered origin, forged key and expired recovery, enforce one-time cart transfer and show concurrent purchase and reopen preserve the original order or invalidate the old token. Existing extracted policy proofs are unchanged; SQL and hosted provider behavior are outside Lean."
     },
     "src/checkout_page.rs": {
       "status": "unproved",
-      "sha256": "11b57ab7a62c7cec77e06a1777c309656b896526c75dfd206b6cc31bdd549e38",
-      "review": "Separate signed role-bound SQL authority preserves old row/domain policies; bound short-lived tickets, personal actor fences, guarded native app DDL, fixed snapshot ordering and narrow language registry. Reviewed additive 099 and runtime pools; actual login attacks, two replicas, restart, app release and real PgBouncer/key rotation pass. SQL/HMAC/transport remain tested adapters outside pure Lean proofs."
+      "sha256": "dc00e6f6e98bf290418940ef0159504ce51cb023317c572519e56d050fac1e8e",
+      "review": "Reviewed the hosted checkout recovery binding and additive migration. Signed PostgreSQL HTTP tests reject foreign tenant, unregistered origin, forged key and expired recovery, enforce one-time cart transfer and show concurrent purchase and reopen preserve the original order or invalidate the old token. Existing extracted policy proofs are unchanged; SQL and hosted provider behavior are outside Lean."
     },
     "src/checkout_products.rs": {
       "status": "unproved",
@@ -4471,8 +4471,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "320e9a23a444abff3e41fa639bab18ac3f684dc22791965b105f34644f19f3d0",
-      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+      "sha256": "a8b37c4c1faf1526142969a429d5faf7f9ed6270e13172c751fc809c6b1af4d5",
+      "review": "Reviewed the hosted checkout recovery binding and additive migration. Signed PostgreSQL HTTP tests reject foreign tenant, unregistered origin, forged key and expired recovery, enforce one-time cart transfer and show concurrent purchase and reopen preserve the original order or invalidate the old token. Existing extracted policy proofs are unchanged; SQL and hosted provider behavior are outside Lean."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -5977,6 +5977,10 @@
     "migrations/110-payment-vault.sql": {
       "sha256": "94137f2aee710fd0ec234c8fb664a27c13eb65a688002a22ce1adf6304c360a4",
       "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+    },
+    "migrations/112-hosted-checkout-recovery.sql": {
+      "sha256": "7282172a7c6edceedc6e639d9e8592d389c32af45ef1f8362dab522a67f806de",
+      "review": "Reviewed the hosted checkout recovery binding and additive migration. Signed PostgreSQL HTTP tests reject foreign tenant, unregistered origin, forged key and expired recovery, enforce one-time cart transfer and show concurrent purchase and reopen preserve the original order or invalidate the old token. Existing extracted policy proofs are unchanged; SQL and hosted provider behavior are outside Lean."
     },
     "proof/Commerce/Claims/Access.lean": {
       "sha256": "f884142fe393e6ea189473d8e02add783f80cef3e45f08d4d0d8e01a57f0a205",

@@ -55,6 +55,59 @@ for parent,shop,channel in [('https://foreign.veyndo.ai',u['workspace'],'default
  try: urllib.request.urlopen(frame_url(parent,shop,channel),timeout=20);raise AssertionError('Unregistered parent admitted')
  except urllib.error.HTTPError as e: assert e.code in [400,403],e.code
 check('Embedded checkout admits only the exact registered tenant/channel origin')
+# The parent has only its recovery key and receives no completion message from the frame.
+def hosted_cart():
+    initial, headers = cart()
+    reply = call('/store-api/checkout/handoff', {'revision':initial['revision'],'parentOrigin':origin}, headers)
+    return initial, reply['recovery'], reply['checkoutPath'].split('#checkout/')[1]
+def recover(key, headers=h, parent=origin, reopen=False, expected=200):
+    return call('/store-api/checkout/handoff/recover', {**key,'parentOrigin':parent,'reopen':reopen}, headers, expected=expected)
+initial, recovery, ticket = hosted_cart()
+frame = call('/store-api/checkout/handoff/consume', {'ticket':ticket}, h)
+assert recover(recovery) == {'state':'open'}
+assert recovery['key'] != initial['token'] and recovery['key'] != frame['token']
+recover({**recovery,'key':uuid.uuid4().hex},expected=404)
+recover(recovery,parent='https://foreign.veyndo.ai',expected=403)
+other_alias='other-'+uuid.uuid4().hex[:12]
+other_h={'x-tenant':other['workspace']}
+call('/api/settings/frontends',{'alias':other_alias,'channel':'default','revision':0},
+     {**other_h,'Authorization':'Bearer '+other['token']},'PUT')
+recover(recovery,other_h,'https://'+other_alias+'.veyndo.ai',expected=404)
+forged={**h,'sw-context-token':recovery['key']}
+call('/store-api/checkout/cart',h=forged,expected=404)
+call('/store-api/checkout/handoff/consume',{'ticket':recovery['key']},h,expected=410)
+replacement=recover(recovery,reopen=True)
+assert replacement['state']=='open' and 'checkoutPath' in replacement
+frame_headers={**h,'sw-context-token':frame['token'],'Idempotency-Key':uuid.uuid4().hex}
+call('/store-api/checkout/cart',h=frame_headers,expected=404)
+assert call('/store-api/checkout/order',{},frame_headers,expected=None)[0] in (400,404,409)
+replacement_cart=call('/store-api/checkout/handoff/consume',{'ticket':replacement['checkoutPath'].split('#checkout/')[1]},h)
+assert replacement_cart['id']==initial['id'] and replacement_cart['token']!=frame['token']
+confirmed=call('/store-api/checkout/order',{}, {**h,'sw-context-token':replacement_cart['token'],'Idempotency-Key':uuid.uuid4().hex})
+assert recover(recovery,reopen=True)=={'state':'ordered','completion':{'cartId':initial['id'],'orderId':confirmed['id'],'token':replacement_cart['token']}}
+assert recover(recovery)['completion']['orderId']==confirmed['id']
+check('A hosted checkout recovers the original order without a browser message and protects its capability and scope')
+initial, recovery, ticket = hosted_cart()
+frame = call('/store-api/checkout/handoff/consume',{'ticket':ticket},h)
+frame_headers={**h,'sw-context-token':frame['token'],'Idempotency-Key':uuid.uuid4().hex}
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+    purchase=pool.submit(call,'/store-api/checkout/order',{},frame_headers,expected=None)
+    reopening=pool.submit(recover,recovery,reopen=True)
+    code, order=purchase.result()
+    resumed=reopening.result()
+if code==200:
+    assert resumed['state']=='ordered' and resumed['completion']['orderId']==order['id']
+else:
+    assert code in (400,404,409) and resumed['state']=='open'
+    fresh=call('/store-api/checkout/handoff/consume',{'ticket':resumed['checkoutPath'].split('#checkout/')[1]},h)
+    assert fresh['id']==initial['id']
+    order=call('/store-api/checkout/order',{}, {**frame_headers,'sw-context-token':fresh['token']})
+assert recover(recovery)['completion']['orderId']==order['id']
+assert sum(x['id']==order['id'] for x in call('/api/search/order',{},mh)['data'])==1
+subprocess.run(psql(os.getenv('DB_CONTAINER','veyndo-postgres-1'),'commerce',os.getenv('TEST_DATABASE','commerce'),'-q','-c',
+    f"UPDATE checkout_handoffs SET recovery_expires_at=clock_timestamp()-interval '1 second' WHERE cart_id='{initial['id']}'"),check=True,capture_output=True)
+recover(recovery,expected=404)
+check('Concurrent purchase and reopen either recover the placed order or fence the old frame; expired recovery is denied')
 # Rebranding keeps machine calls on their original host and retains the same native tenant admission.
 legacy='migration.previous.test'
 legacy_cart=call('/store-api/checkout/cart',{'session':uuid.uuid4().hex},{'Host':u['workspace']+'.'+legacy})

@@ -29,8 +29,9 @@ availability and latency checks.
 
 The complete simulated purchase ran in an isolated shop. Separate
 HTTP, event and app processes verified a worker restart during a delay.
-An edit in Studio applied to future jobs, while the restarted worker used
-the saved definition for its existing job. Six new purchases also completed
+The current Flow was edited through the merchant API while the worker was
+offline. The restarted worker used the saved definition for its existing job.
+Six new purchases also completed
 with the worker offline and produced one invoice per order after it started.
 An external Rust project built and ran the documented example from the merged
 revision. A dedicated worker deployment on Northflank remains a separate task.

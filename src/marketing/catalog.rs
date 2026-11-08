@@ -31,7 +31,7 @@ pub(super) async fn catalog(State(a): State<App>, h: RequestContext) -> Result<J
     result["sourceConditions"] = veyndo::automation_rules::catalog()["conditions"].clone();
     result["actions"] = json!(flow_actions::ACTIONS);
     result["sourceActions"] = veyndo::automation_rules::catalog()["actions"].clone();
-    result["pipelineContract"] = json!({"nodes":["condition","action","delay","stop"],"maxNodes":100,"maxDelaySeconds":2592000,"cyclicGraphs":false});
+    result["pipelineContract"] = json!({"nodes":["condition","action","delay","stop"],"maxNodes":veyndo_flow_graph::MAX_NODES,"maxDelaySeconds":2592000,"cyclicGraphs":false});
     Ok(Json(result))
 }
 pub(super) async fn import(h: RequestContext, Json(v): Json<Value>) -> Result<Json<Value>> {

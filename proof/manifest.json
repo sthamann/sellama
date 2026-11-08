@@ -729,6 +729,16 @@
       "sha256": "421ebdf7a78c2b46da9c1ee567d2df7052077db7f7c7919cccb516b1e020baac",
       "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
     },
+    "crates/flow-graph/src/lib.rs": {
+      "status": "unproved",
+      "sha256": "5e16dda74cd4d962a0df428dbe3e16de0ac9012b2877d938182e59768c44e2b9",
+      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
+    },
+    "crates/flow-graph/src/tests.rs": {
+      "status": "unproved",
+      "sha256": "e2bde6d2c388157ccb385e5e4702f0d3349eaf6e2f20165311c9b6400a0d44f7",
+      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
+    },
     "crates/kernel/src/contract_tests.rs": {
       "status": "unproved",
       "sha256": "78815ea23f2086c73dae8eba6e3f0c26eb7f23d71edb3aeba8cb04921b76ed79",
@@ -4271,8 +4281,8 @@
     },
     "src/marketing/catalog.rs": {
       "status": "unproved",
-      "sha256": "8896230c6e277711ffcc46de5da42f8a0b715c0486d791eec4373bd4dcc8e02e",
-      "review": "Review knowledge-source staging read/write admission against native knowledge scopes; automation import HTTP and MCP discovery now use the native per-operation scopes. Real denied-source, successful knowledge-only release, immutable history and write-only transport regressions pass. No pure decision or theorem is changed."
+      "sha256": "2166df6c18b775a99533ece7ac76504de8ce235c89ab4fac328aa57643bda469",
+      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
     },
     "src/marketing/channel_access.rs": {
       "status": "reviewed-binding",
@@ -4381,13 +4391,13 @@
     },
     "src/marketing/pipeline.rs": {
       "status": "reviewed-binding",
-      "sha256": "40356c839e7326cf00e416ffca98cb5f50829114a2886013e05f34ee554841a6",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "3b335c404741ab305543ec94820ffcf8c1037e8e3fe24efd12ffd3c2d15348fe",
+      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
     },
     "src/marketing/pipeline_runtime.rs": {
       "status": "unproved",
-      "sha256": "40740c09040f37ee78d9ce948eb36d7873d82392cbb011c024b07a008eebe7b8",
-      "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
+      "sha256": "c31879c32c4f185a3f66888fe05c31ea60f982045717f5471e53754a42c7a8a1",
+      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
     },
     "src/marketing/pipeline_tests.rs": {
       "status": "unproved",
@@ -5331,12 +5341,12 @@
       "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
     },
     "Cargo.lock": {
-      "sha256": "1c95ccff1d8ea8822bc4652000953fc69074462d63722e7450212ccdacce1d66",
-      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
+      "sha256": "3ecf12719149ab827688d7fc52d2dbdbbab1da240453bad36c75c07f868dc6e8",
+      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
     },
     "Cargo.toml": {
-      "sha256": "a217ec927488adc4b5e1430e7cee5e92455edf1018c678096fec13c3466398b5",
-      "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+      "sha256": "1c4d2d796c14d5731ae1d03fed6779941996d1250dee1c1af622fad0eae7c046",
+      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
     },
     "components.lock.json": {
       "sha256": "0053b46ff3462bf89096519395b5caf71a3653ca7d152ca087d6bfd77053136a",
@@ -5457,6 +5467,10 @@
     "crates/commerce/Cargo.toml": {
       "sha256": "aae017a1931861c398001a481dfc3f17c0954cb89cc1247d2947934ebefb1d26",
       "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+    },
+    "crates/flow-graph/Cargo.toml": {
+      "sha256": "8afb55a534c5cb946b952c6d56060b3ec8efe4823c3b494c16c42ef6a5b7689c",
+      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
     },
     "crates/kernel/Cargo.toml": {
       "sha256": "0fbd08914bdb10f97378f135b3e11e0ec5a5763296c92a2f34d31ee82158ee23",

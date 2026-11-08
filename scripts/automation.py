@@ -30,7 +30,9 @@ def wait(flowid,state='completed',cursor=None):
 catalog=call('/api/automation/catalog',h=mh);assert len(catalog['sourceConditions'])==114 and len(catalog['sourceActions'])==16
 assert {'condition','action','delay','stop'}==set(catalog['pipelineContract']['nodes'])
 assert any(x['type']=='scriptRule' and not x['supported'] for x in catalog['sourceConditions'])
-assert not any(x['name'].startswith('automation.')for x in call('/mcp',{'jsonrpc':'2.0','id':1,'method':'tools/list'})['result']['tools'])
+tools_list={'jsonrpc':'2.0','id':1,'method':'tools/list'}
+call('/mcp',tools_list,expected=400)
+assert not any(x['name'].startswith('automation.')for x in call('/mcp',tools_list,public)['result']['tools'])
 call('/mcp',{'jsonrpc':'2.0','id':1,'method':'tools/call','params':{'name':'automation.list','arguments':{}}},fh,expected=403)
 check('Original production catalog and MCP tools expose executable scope and tenant authority explicitly')
 p=call('/api/merchant/products/mug',h=mh)

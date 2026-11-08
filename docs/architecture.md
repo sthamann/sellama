@@ -47,6 +47,10 @@ The optional Core identity profile uses dedicated integration keys with
 `automation.read`. The preview checks the current grant at Core, while native
 pricing and checkout call the library in-process.
 [Access and deployment](automation-component.md#connect-the-service-to-veyndo-core).
+Flow authoring and native workers share a dependency-free graph validator.
+The worker looks up steps by stable node ID. Core owns event persistence,
+permissions and execution.
+[Flow graph contract](automation-component.md#flow-graph-contract).
 
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.

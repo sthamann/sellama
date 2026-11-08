@@ -10,7 +10,7 @@ pub(crate) async fn run(
     cursor: Option<String>,
 ) -> Result<Value> {
     let p = f.pipeline.as_ref().ok_or(bad("Pipeline required"))?;
-    p.validate()?;
+    let graph = p.graph()?;
     let mut next = cursor.or_else(|| Some(p.entry.clone()));
     let previous: Value =
         sqlx::query_scalar("SELECT execution FROM flow_jobs WHERE id=$1 AND tenant=$2")
@@ -25,11 +25,7 @@ pub(crate) async fn run(
             return Err(conflict("Flow worker lost its lease"));
         }
         super::flow_access::headers(a, t, f.actor.as_deref()).await?;
-        let node = p
-            .nodes
-            .iter()
-            .find(|n| n.id() == node_id)
-            .ok_or(bad("Unknown flow cursor"))?;
+        let node = graph.get(&node_id).ok_or(bad("Unknown flow cursor"))?;
         match node {
             Node::Condition {
                 condition,

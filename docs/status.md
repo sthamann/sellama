@@ -10,6 +10,18 @@ Updated 8 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Live Core and shared Flow graph, 8 November 2026
+
+Northflank runs Core build `loving-delight-7432` from `a3bcee7`, with one
+ready replica. The build and merged source have identical Git trees. The
+public Storyfront demo opened the embedded checkout in 805 ms, returned to
+its open bag and kept that bag on reload. Recovery of the open cart took
+16 ms. In 12 reads per route, median response times after deployment were
+9 ms for Core health, 8 ms for onboarding and 23 ms for the demo catalog.
+This is a public smoke check. The completed purchase, delayed Flow and invoice
+were tested separately in an isolated shop.
+[Core change](https://github.com/veyndo/veyndo/pull/343).
+
 ## Automation and native checkout, 8 November 2026
 
 The separate Automation preview and Core agreed on two actual cart totals.
@@ -630,12 +642,11 @@ refunds, remainder void, exact balance displays and versioned capture timing.
 Native local-service and independent hostile-receipt checks pass. Hosted configuration and deployment completed on 4 November. Actual provider immediate capture and partial/full refunds passed for the two wallet orders; multi-capture, authorization and void still need their own provider acceptance.
 [Merchant guide](payment-capture-management.md) · [Provider acceptance](shopware-payments-acceptance.md).
 
-## Current public release
+## Public release of 4 November 2026
 
 The public Core release `db0e00c9f43e4ee45a9129e3aa7caba41a8dd766`
-(4 November) is running publicly. Its source includes the shared canvas, localized media captions,
-guided shop setup, assistant layout and shared payment contract. Northflank
-reports one ready replica with no restarts after the latest rollout. Feature
+(4 November) introduced the shared canvas, localized media captions,
+guided shop setup, assistant layout and shared payment contract. Feature
 walkthroughs below retain their actual local or public acceptance scope. The
 separate private Rust Shopware Payments service is hosted in PayPal Sandbox, with a dedicated database and restricted runtime login. Both test shops have a server-verified Sandbox seller connection. Original Storyfront purchase, return and refund acceptance
 are tracked in the payment guide.

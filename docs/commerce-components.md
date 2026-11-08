@@ -437,7 +437,8 @@ The following are implementation tasks; existing UI foundations do not complete 
 
 - [ ] AUTO-01 Extract rule/flow/event contracts and reusable pure evaluation.
   - [x] AUTO-01g Share Flow graph validation and indexed cursor lookup between
-    native save and execution. Publish the dependency-free Rust crate.
+    native save and execution. The dependency-free Rust crate is public and
+    Core build `a3bcee7` runs it on Northflank.
     [Flow graph contract](automation-component.md#flow-graph-contract).
   - [x] AUTO-01r Independent deterministic rule library and real Rust HTTP/MCP
     supplied-fact service, current shared OAuth admission, SDK composition and

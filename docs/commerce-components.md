@@ -20,9 +20,10 @@ to native Veyndo through the same owner.
   actual native OpenUI workspace consumes the same admission boundary. SDK 0.3.0,
   [contract](agentic-component-ui.md#shared-sdk-composition) and
   [evidence](evidence/service-workspace-composition-2026-11-06.md).
-- [ ] AUTO-01a Extract and compose the existing deterministic rule evaluator as an
-  independent Rust library and supplied-fact HTTP/MCP service. Local implementation
-  is being validated; a private repository is not public product acceptance.
+- [x] AUTO-01a Compose the independent evaluator with the native purchase path.
+  Both previews agree on real cart inputs. Core prices a coupon and commits its
+  order and invoice Flow while the separate preview process is offline.
+  [Local acceptance](automation-component.md#keep-checkout-independent-of-the-preview-service).
 - [ ] CHK-01..03 Independent checkout domain ports and own session orchestration.
   - [x] Local embedded recovery after a lost browser notification. A status
     read completes while the cart is locked. An explicit reopen and purchase
@@ -433,9 +434,10 @@ The following are implementation tasks; existing UI foundations do not complete 
 - [ ] AUTO-01 Extract rule/flow/event contracts and reusable pure evaluation.
   - [x] AUTO-01r Independent deterministic rule library and real Rust HTTP/MCP
     supplied-fact service, current shared OAuth admission, SDK composition and
-    standalone process acceptance. Source is initially private; native integration
-    and public visibility remain under explicit acceptance.
+    standalone process acceptance. Source is private.
     [Guide](automation-component.md), [evidence](evidence/automation-component-2026-11-06.md).
+  - [ ] Verify the hosted composition and measure concurrent preview traffic
+    alongside storefront and checkout traffic.
 - [ ] AUTO-02 Extract durable flow execution ports; retain current actor, app
   activation, settings, lifecycle locks and delayed-step reauthorization.
 - [ ] AUTO-03 Expose independent API/MCP and graphical/SDK authoring through one

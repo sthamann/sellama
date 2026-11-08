@@ -38,6 +38,11 @@ Ausfalltest konnte der Shop weiter verkaufen. Die Produktänderung blieb in
 der Warteschlange und war nach dem Neustart als aktuelle Quelle verfügbar.
 [Wissensdienst und Schnittstellen](knowledge-component.md).
 
+Ein Agent kann Regeln mit Beispieldaten im separaten Dienst ausprobieren.
+Der Shop wertet dieselben Regeln mit seinem aktuellen Warenkorb aus. Im
+Ausfalltest hat der Shop den Rabatt berechnet, die Bestellung angelegt und
+die Rechnung über den Flow erstellt. [Regeln und Ausfalltest](automation-component.md).
+
 ## 1. Der Aufbau
 
 ```mermaid

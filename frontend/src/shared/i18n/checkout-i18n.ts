@@ -281,6 +281,12 @@ const text = {
     "Aucune option pour cette adresse. Vérifiez le pays ou contactez la boutique.",
     "No hay opciones para esta dirección. Revisa el país o contacta con la tienda.",
   ],
+  receiptUnavailable: [
+    "This order could not be reopened. Return to your experience and try again.",
+    "Die Bestellung konnte nicht geöffnet werden. Kehre zu deiner Experience zurück und versuche es erneut.",
+    "Impossible de rouvrir la commande. Revenez à votre expérience et réessayez.",
+    "No se pudo volver a abrir el pedido. Vuelve a tu experiencia e inténtalo de nuevo.",
+  ],
   secure: [
     "Secure checkout",
     "Sicher bestellen",

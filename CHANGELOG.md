@@ -1,5 +1,10 @@
 # Changelog
 
+## Embedded checkout recovery, 8 November 2026
+
+- Reopen the exact Veyndo order from its embedded checkout receipt. A resumed
+  order stays bound to its cart and preserves the regular storefront cart.
+
 
 ## Service workspace composition, 6 November 2026
 

@@ -1,5 +1,11 @@
 # Veyndo: current status
 
+For the whole-shop architecture, public repositories and independent
+entry points, see [One shop, composable parts](one-shop-components.md).
+The local Checkout comparison records equivalent quote results and catalog
+availability across a Checkout restart. Hosted capacity remains a separate
+test. [Measurement](evidence/checkout-composition-performance-2026-11-08.md).
+
 Updated 6 November 2026. Start here for the public product, observed journeys and
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.

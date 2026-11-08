@@ -1,5 +1,8 @@
 # AI Commerce Components: implementation plan
 
+For the developer entry point and the relationship between the product and the
+individual components, see [One shop, composable parts](one-shop-components.md).
+
 This is the authoritative task list for extracting independently usable Veyndo
 components. Updated 6 November 2026. Checked tasks name observed evidence;
 repository transfer, local tests, remote CI and hosted acceptance are separate.

@@ -5,6 +5,13 @@ for the current implementation and performance limits.
 
 # Architecture decisions and next boundaries
 
+The product can run as one shop or use independently deployable components.
+The in-process commerce port and the independently hosted checkout adapter
+use the same native quote and purchase owners. Keep the atomic order, stock
+and event transaction with Commerce. The component boundary changes how a
+caller reaches the operation. Its authority and business decisions stay with
+the same owner. [Component map and measured composition](one-shop-components.md).
+
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.
 

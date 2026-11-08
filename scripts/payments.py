@@ -42,6 +42,7 @@ class Handler(BaseHTTPRequestHandler):
 server=ThreadingHTTPServer(('127.0.0.1',0),Handler);threading.Thread(target=server.serve_forever,daemon=True).start()
 port=server.server_address[1];base='http://127.0.0.1:8794';accounts={t:{'clientId':'fixture-'+t,'clientSecret':'fixture-secret','webhookId':'fixture-webhook','bnCode':'Veyndo_Fixture_Only'} for t in ['atelier','workshop']}
 env={**os.environ,'BIND_ADDR':'127.0.0.1:8794','PAYPAL_SANDBOX_BASE_URL':f'http://127.0.0.1:{port}','PAYPAL_SANDBOX_ACCOUNTS':json.dumps(accounts)}
+(ROOT/'.run').mkdir(exist_ok=True)
 log=open(ROOT/'.run/payments-contract.log','w');process=None
 def call(path,body=None,h=None,method=None,expected=200):
     if path == '/api/apps' and isinstance(body,dict) and ('manifest' in body or 'builtIn' in body): body=consent(body)
@@ -116,7 +117,11 @@ try:
         if any(j['attemptId']==id2 and j['state']=='uncertain' for j in jobs):break
         time.sleep(.15)
     assert call('/store-api/payments/'+id2,h=h2)['state']=='ready';assert any(j['attemptId']==id2 and j['state']=='uncertain' for j in jobs);check('Mismatched provider amount cannot mark an order paid; uncertainty retains reservation')
-    assert not call('/api/payments',h=ah)['providers'][1]['configured'];assert 'fixture-secret' not in json.dumps(call('/api/payments',h=ah));check('Shopware Payments remains explicitly unconnected and provider secrets never reach UI')
+    payment_status=call('/api/payments',h=ah)
+    shopware=next(provider for provider in payment_status['providers'] if provider['id']=='shopware_payments')
+    assert shopware['configured'] is False
+    assert 'fixture-secret' not in json.dumps(payment_status)
+    check('Shopware Payments remains explicitly unconnected and provider secrets never reach UI')
     report={'passed':len(checks),'checks':checks,'livePayPalSandboxTraffic':False,'shopwarePaymentsConnected':False}
     if os.getenv('REPORT_PATH'):pathlib.Path(os.environ['REPORT_PATH']).write_text(json.dumps(report,indent=2)+'\n')
 finally:

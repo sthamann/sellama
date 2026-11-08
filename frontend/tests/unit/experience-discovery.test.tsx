@@ -144,6 +144,53 @@ function PreviewProbe() {
   const c = useStorefrontController({ onMerchant: vi.fn() });
   return <output>{c.cart?.token ?? c.error}</output>;
 }
+it("reopens only the original embedded checkout receipt and removes its fragment credential", async () => {
+  const parent = window.parent;
+  const id = "a".repeat(32);
+  const token = "b".repeat(32);
+  const path =
+    "/checkout?shop=unit-shop&embed=1&parentOrigin=https%3A%2F%2Fown.veyndo.ai";
+  history.replaceState(null, "", `${path}#checkout-receipt/${id}/${token}`);
+  localStorage.setItem("rac-cart:unit-shop", "another-cart-token");
+  Object.defineProperty(window, "parent", { configurable: true, value: {} });
+  try {
+    const fetcher = vi.fn(async (path: string, _options?: RequestInit) => ({
+      ok: true,
+      status: 200,
+      json: async () =>
+        path === "/store-api/checkout/cart"
+          ? {
+              ...cart,
+              id,
+              token,
+              status: "completed",
+              order: { id: "original-order" },
+            }
+          : { elements: [], data: {} },
+    }));
+    vi.stubGlobal("fetch", fetcher);
+    render(<PreviewProbe />, { wrapper: LocaleProvider });
+    await waitFor(() =>
+      expect(screen.getByRole("status")).toHaveTextContent(token),
+    );
+    expect(location.hash).toBe("#order-confirmed");
+    const request = fetcher.mock.calls.find(
+      ([path]) => path === "/store-api/checkout/cart",
+    );
+    expect(new Headers(request?.[1]?.headers).get("sw-context-token")).toBe(
+      token,
+    );
+    expect(localStorage.getItem("rac-cart:unit-shop")).toBe(
+      "another-cart-token",
+    );
+  } finally {
+    Object.defineProperty(window, "parent", {
+      configurable: true,
+      value: parent,
+    });
+    history.replaceState(null, "", "/?shop=unit-shop");
+  }
+});
 it("loads the preview cart without assigning production experiments", async () => {
   history.replaceState(null, "", "/?shop=unit-shop&channel=private&preview=1");
   const fetcher = vi.fn(async (path: string) => ({

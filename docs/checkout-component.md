@@ -59,6 +59,12 @@ order receipt and scoped message handshake. A browser message or URL fragment
 alone never proves purchase. Support native and embedded return, refresh/restart,
 expired carts, repeated callbacks and a stale original cart without duplicate orders.
 
+The [Storyfront recovery contract](storyfront.md#responsibilities-and-contracts) lets the parent find
+the original cart when a browser notification is lost. Status reads use the last
+committed state without locking the cart. Only an explicit reopen takes the same
+cart lock as purchase and rechecks the recovery key before replacing a transfer.
+This keeps frequent status reads out of the order write path.
+
 The agent may configure checkout, explain totals, obtain missing data and prepare
 an action or validated interface. Deterministic controls remain usable when the
 model is unavailable. Purchase, saved-method consent and financial changes need

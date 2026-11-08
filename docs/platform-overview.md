@@ -73,6 +73,13 @@ gemeinsam gespeichert. Wiederholte Abschlussanfragen erzeugen über denselben
 Kaufschlüssel keine zusätzliche Bestellung. Zahlungsanbieter werden außerhalb
 dieser Datenbanksperren über dauerhafte Aufträge angesprochen.
 
+Wenn Storyfront die Abschlussmeldung verpasst, kann es die ursprüngliche
+Bestellung anhand des gespeicherten Vorgangs wiederfinden. Eine Statusabfrage
+wartet dabei nicht auf die Warenkorbsperre. Erst das ausdrückliche Wiederöffnen
+stimmt sich mit einem laufenden Kauf ab. Der lokale Test prüft beide Fälle.
+Die [Storyfront-Dokumentation](storyfront.md#responsibilities-and-contracts)
+beschreibt den Ablauf und die Reihenfolge der Auslieferung.
+
 [Verkaufskanäle](channel-management.md), [Arbeitsbereich und Veröffentlichung](workbench.md),
 [Checkout](checkout.md), [Währungen](currencies.md).
 

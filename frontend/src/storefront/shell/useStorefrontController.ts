@@ -4,7 +4,10 @@ import { useStorefrontActions } from "./useStorefrontActions";
 import { routeProductId } from "../catalog/product-url";
 import { shopScope } from "../../shared/api/shop-scope";
 import { useCompanyIdentity } from "./useCompanyIdentity";
-import { useStorefrontAnchors } from "./useStorefrontAnchors";
+import {
+  useStorefrontAnchors,
+  useStorefrontNavigation,
+} from "./useStorefrontAnchors";
 import { useCatalog } from "./useCatalog";
 import { channelPreview } from "./ChannelPreview";
 import { useConsentedExperience } from "./useConsentedExperience";
@@ -19,8 +22,10 @@ import {
 } from "../../shared/api/shop-api";
 import { newStorefrontCart } from "./cart-commands";
 import { placeCheckoutOrder } from "../checkout/checkout-order";
+import { checkoutParent } from "../checkout/embedded-checkout";
 import type { AccountPage } from "../account/account-types";
 import { useShopText } from "../../shared/i18n/shop-i18n";
+import { useCheckoutText } from "../../shared/i18n/checkout-i18n";
 import { useWorkbenchText } from "../../shared/i18n/workbench-i18n";
 import "../../shared/styles/apps.css";
 import "../../shared/styles/workbench.css";
@@ -41,6 +46,7 @@ export function useStorefrontController({
   onMerchant: () => void;
 }) {
   const { s, t, locale, setLocale } = useShopText();
+  const { x } = useCheckoutText();
   const { w } = useWorkbenchText();
   const shopTenant = shopScope();
   const salesChannel =
@@ -123,48 +129,7 @@ export function useStorefrontController({
     session,
     locale,
   );
-  useEffect(() => {
-    const hash = () => {
-      setId(productId());
-      setAppPath(location.hash);
-      if (productId()) window.scrollTo({ top: 0, behavior: "instant" });
-    };
-    const navigate = (event: MouseEvent) => {
-      const link = (event.target as Element)?.closest<HTMLAnchorElement>(
-        "a[href]",
-      );
-      if (
-        !link ||
-        link.target ||
-        link.download ||
-        event.defaultPrevented ||
-        event.button !== 0 ||
-        event.metaKey ||
-        event.ctrlKey ||
-        event.shiftKey ||
-        event.altKey
-      )
-        return;
-      const url = new URL(link.href);
-      if (
-        url.origin !== location.origin ||
-        !(url.pathname === "/" || url.pathname.startsWith("/products/"))
-      )
-        return;
-      if (["#merchant", "#login", "#platform"].includes(url.hash)) return;
-      event.preventDefault();
-      history.pushState(null, "", url);
-      hash();
-    };
-    window.addEventListener("hashchange", hash);
-    window.addEventListener("popstate", hash);
-    document.addEventListener("click", navigate);
-    return () => {
-      window.removeEventListener("hashchange", hash);
-      window.removeEventListener("popstate", hash);
-      document.removeEventListener("click", navigate);
-    };
-  }, []);
+  useStorefrontNavigation(productId, setId, setAppPath);
   useStorefrontAnchors(id, appPath);
   useEffect(() => {
     let active = true;
@@ -175,7 +140,33 @@ export function useStorefrontController({
         const ticket = location.hash.startsWith("#checkout/")
           ? location.hash.slice(10)
           : undefined;
-        if (ticket) {
+        const receiptHash =
+          location.hash === "#order-confirmed"
+            ? history.state?.checkoutReceipt
+            : location.hash;
+        const receipt =
+          checkoutParent() && typeof receiptHash === "string"
+            ? /^#checkout-receipt\/([a-f0-9]{32})\/([a-f0-9]{32})$/.exec(
+                receiptHash,
+              )
+            : null;
+        if (receipt) {
+          c = await shopApi<Cart>(
+            "/store-api/checkout/cart",
+            undefined,
+            receipt[2],
+          );
+          if (c.id !== receipt[1] || c.status !== "completed" || !c.order)
+            throw new Error(x("receiptUnavailable"));
+          if (!active) return;
+          history.replaceState(
+            { checkoutReceipt: receipt[0] },
+            "",
+            `/checkout${location.search}#order-confirmed`,
+          );
+          setAppPath("#order-confirmed");
+          setOrder(c.order);
+        } else if (ticket) {
           if (transfer.current?.ticket !== ticket)
             transfer.current = {
               ticket,
@@ -210,7 +201,8 @@ export function useStorefrontController({
             c = await newStorefrontCart(session);
           }
         if (!active) return;
-        save(c);
+        if (receipt) setCart(c);
+        else save(c);
         if (channelPreview()) return;
         const exp = await shopApi<{ variant: string; headline?: string }>(
           "/api/experience",

@@ -63,6 +63,11 @@ response after commit. After both processes restart, the JavaScript SDK reads
 the same receipt. One stock decrement, one order and one event remain in
 PostgreSQL. A revoked buyer can no longer retrieve the receipt.
 
+The same Checkout build also passed the existing Veyndo composition with local
+PayPal and Shopware Payments fixtures, capture and refund. With concurrent
+catalog reads, 192 quote requests per path passed. The local p95 was 51.6 ms
+through Core directly and 55.3 ms through the separate Checkout process.
+
 The example covers one product, one currency and simulated authorization on
 loopback. The full external storefront, production identity, configured
 payment providers and hosted performance require separate acceptance.

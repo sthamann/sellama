@@ -10,7 +10,37 @@ Updated 8 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
-## Live Core and portable Flow directives, 8 November 2026
+## Live Core with app worker handoff support, 8 November 2026
+
+Northflank deployed Core build `eminent-balance-6864` from `357b341` as
+deployment `vendune-core-64574dd986`. The deployed and merged sources have
+the same Git tree. The new Core reached one ready replica with zero
+restarts and the previous replica stopped. All 35 Core health samples
+during the rollout returned HTTP 200. App processing remains active in
+the combined Core process.
+
+Before and after the rollout, 12 public requests per route gave median
+response times of 11 and 10 ms for Core health, 8 and 8 ms for onboarding,
+and 28 and 29 ms for the Storyfront catalog. Mobile Storyfront displayed
+the embedded checkout in 1,334 ms and retained the original open basket
+after an unpaid return and reload. The desktop form opened in 804 ms.
+A simulated order placed through that frame returned its receipt after
+206 ms from submission. The German confirmation showed the purchased
+product and the Storyfront basket stayed empty after return and reload.
+These are short public samples.
+
+In the isolated PostgreSQL test, Core accepted orders while the app lane
+was off. The dedicated worker processed the queued events, resumed a
+Flow from a saved delay after restart and created one invoice. A second
+order queued during the rollback and completed when Core resumed app
+processing. The separate hosted worker still needs to be started and
+verified with a hosted order Flow.
+[Handoff and local load comparison](automation-component.md#move-the-app-worker-out-of-core) ·
+[Source change](https://github.com/veyndo/veyndo/pull/351).
+
+<a id="live-core-and-portable-flow-directives-8-november-2026"></a>
+
+## Previous Core release with portable Flow directives, 8 November 2026
 
 Northflank released build `small-station-5881` from `a3a4d25` on
 deployment `vendune-core-7b794464df`. The deployment reached one ready

@@ -41,8 +41,7 @@ People and agents use the same operations, permissions and versioned changes.
 
 **Films:** [AI commerce · 1:56](docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4) · [Concept · 1:12](docs/assets/showcase/product-films-20261102/veyndo-concept.mp4) · [Product workspace · 1:36](docs/assets/showcase/product-films-20261102/veyndo-workspace.mp4) · [Product advisor app · 1:24](docs/assets/showcase/product-films-20261102/veyndo-app-platform.mp4). English subtitles, no sound.
 
-Films use actual UI captures from 2 November, English subtitles and no sound.
-Demo data and simulated payments; timing is editorial.
+Captured on 2 November with demo data and simulated payments.
 [Latest public journey and screenshots](docs/status.md#current-product-films-and-screenshots) · [Film sources](docs/assets/showcase/product-films-20261102/README.md).
 
 ## Try one complete round

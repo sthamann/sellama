@@ -10,9 +10,39 @@ Updated 8 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
-## Live Core and durable Flow job storage, 8 November 2026
+## Live Core and portable Flow directives, 8 November 2026
 
-Northflank runs Core build `apt-group-5288` from `bf42343`. Deployment
+Northflank released build `small-station-5881` from `a3a4d25` on
+deployment `vendune-core-7b794464df`. The deployment reached one ready
+replica with zero restarts. All 18 sampled Core health checks during the
+rollout returned OK.
+The native worker resolves branches, effects, delays and stops through
+the public Rust crate. Core checks permissions, applies the effects
+and persists progress. The image source and merged change have the same Git tree.
+
+The public Storyfront checkout showed its form in 804 ms on desktop and
+811 ms on mobile. Returning and reloading kept the original open cart.
+Recovery took 17 and 18 ms. In 12 reads per route before and after the
+rollout, Core and onboarding stayed at median times of 11 and 8 ms,
+and the demo catalog changed from 29 to 28 ms. These are short public
+availability and latency checks.
+
+The complete simulated purchase ran in an isolated shop. Separate
+HTTP, event and app processes verified a worker restart during a delay.
+The current Flow was edited through the merchant API while the worker was
+offline. The restarted worker used the saved definition for its existing job.
+Six new purchases also completed
+with the worker offline and produced one invoice per order after it started.
+An external Rust project built and ran the documented example from the merged
+revision. A dedicated worker deployment on Northflank remains a separate task.
+[Flow directives and tests](automation-component.md#portable-flow-directives) ·
+[Source change](https://github.com/veyndo/veyndo/pull/349).
+
+<a id="live-core-and-durable-flow-job-storage-8-november-2026"></a>
+
+## Previous Core release with durable Flow job storage, 8 November 2026
+
+Northflank deployed Core build `apt-group-5288` from `bf42343`. Deployment
 `vendune-core-5c9dbdbc64` reached one ready replica with zero restarts.
 The image source and merged change have the same Git tree. The job adapter
 claims a ready Flow together with its checkpoint and scopes progress and

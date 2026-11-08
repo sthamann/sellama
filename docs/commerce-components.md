@@ -453,13 +453,15 @@ The following are implementation tasks; existing UI foundations do not complete 
   activation, settings, lifecycle locks and delayed-step reauthorization.
   - [x] AUTO-02a Separate PostgreSQL job storage from pipeline execution.
     Claim and read the checkpoint together, fence writes by attempt, and
-    keep deferral distinct from completion. Core build `bf42343` runs on
-    Northflank. [Job adapter](automation-component.md#durable-flow-job-storage) ·
-    [Live status](status.md#live-core-and-durable-flow-job-storage-8-november-2026).
+    keep deferral distinct from completion. First deployed in Core build
+    `bf42343`. [Job adapter](automation-component.md#durable-flow-job-storage) ·
+    [Release evidence](status.md#previous-core-release-with-durable-flow-job-storage-8-november-2026).
   - [x] AUTO-02b Resolve portable typed directives in the native worker.
     The isolated HTTP, event and app processes completed an order Flow after
     a worker restart during a delay, using the saved definition and one invoice.
-    [Directives and worker](automation-component.md#portable-flow-directives).
+    Core build `a3a4d25` runs on Northflank.
+    [Directives and worker](automation-component.md#portable-flow-directives) ·
+    [Live status](status.md#live-core-and-portable-flow-directives-8-november-2026).
   - [ ] Accept a dedicated worker deployment alongside hosted Core with the
     existing authorization and effect owners.
 - [ ] AUTO-03 Expose independent API/MCP and graphical/SDK authoring through one

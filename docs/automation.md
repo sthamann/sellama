@@ -128,9 +128,10 @@ A delay stores the next cursor, trace and `available_at` in PostgreSQL and relea
 
 The native event catalog includes product create/update, order/payment/delivery,
 package/document, POS, B2B, source/claim/experiment, consent and consumer-request
-events, plus namespaced app events. `marketing/flows.rs::EVENTS` owns the admitted
-names. This is not the complete upstream DAL/authentication or commercial extension
-trigger set. Customer/tag actions do not emit every upstream entity event.
+events, plus namespaced app events. The built-in names come from
+`veyndo_flow_graph::catalog`. Core validates installed apps and their
+permissions. Customer/tag actions emit the events supported by Core.
+[Built-in catalog contract](automation-component.md#built-in-flow-catalog).
 
 ## HTTP and MCP
 
@@ -144,6 +145,9 @@ trigger set. Customer/tag actions do not emit every upstream entity event.
 | Side-effect-free cart rule preview | `POST /api/automation/rules/preview` | `automation.preview` (`condition`) |
 | Original condition normalization | `POST /api/automation/import-condition` | `automation.import` (`condition`) |
 | Rule entity metadata | `PUT /api/automation/entities/{products,customers,orders}/{id}` | Use the authenticated HTTP route; no separate metadata MCP tool yet |
+
+The two catalog routes expose `flowCatalogVersion` alongside the existing
+`events` and `actions` arrays. The version describes the built-in identifiers.
 
 Rules/flows/promotions reads and previews require `automation.read`; writes,
 deletes and condition import require `automation.manage`. Channel reads/writes use

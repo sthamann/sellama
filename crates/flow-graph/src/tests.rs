@@ -70,3 +70,24 @@ fn unsafe_graphs_and_host_policy_are_rejected() {
         .collect::<Vec<_>>();
     assert_eq!(validate(&nodes).err(), Some(Invalid::EntryOrSize));
 }
+#[test]
+fn catalog_v1_preserves_all_published_names_and_order() {
+    use crate::catalog::{EVENTS, FLOW_ACTIONS, PIPELINE_ACTIONS, VERSION};
+
+    let baseline = include_str!("../fixtures/catalog-v1.txt").trim_end();
+    let published = [EVENTS, PIPELINE_ACTIONS, FLOW_ACTIONS];
+    let mut groups = baseline.split("\n\n");
+    for names in published {
+        let previous = groups.next().unwrap().lines().collect::<Vec<_>>();
+        if VERSION == 1 {
+            assert_eq!(names, previous);
+        } else {
+            assert!(previous.into_iter().all(|name| names.contains(&name)));
+        }
+        assert_eq!(
+            names.iter().collect::<std::collections::HashSet<_>>().len(),
+            names.len()
+        );
+    }
+    assert!(groups.next().is_none());
+}

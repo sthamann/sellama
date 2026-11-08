@@ -51,6 +51,9 @@ Flow authoring and native workers share a dependency-free graph validator.
 The worker looks up steps by stable node ID. Core owns event persistence,
 permissions and execution.
 [Flow graph contract](automation-component.md#flow-graph-contract).
+Core uses the same versioned built-in Flow catalog for authoring,
+event admission, HTTP and MCP discovery. Installed app capabilities and
+actor rights are resolved per shop. [Flow catalog](automation-component.md#built-in-flow-catalog).
 
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.

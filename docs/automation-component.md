@@ -111,6 +111,22 @@ In a local optimized Rust comparison, validating and walking a chain of
 38.5 microseconds with repeated scans. Each median came from 21 batches
 of 2,000 runs. The comparison covers graph work only.
 
+## Built-in Flow catalog
+
+The graph crate also exposes the built-in trigger and action names. Core
+uses those names when saving and matching flows. The same catalog is
+available over `GET /api/automation/catalog` and `automation.catalog` in MCP.
+Version 1 preserves the existing ordered arrays of 50 triggers and 20
+pipeline actions. Core rejects an unsupported action in a queued Flow
+and records the failure.
+
+`flowCatalogVersion` identifies the built-in names. Use the authenticated
+shop response for installed app metadata and let Core check each write
+against current permissions. The version is discovery metadata. Saved
+Flow definitions keep their existing format. Increment the version when
+built-in identifiers change and preserve the names already in use.
+[Rust crate and example](https://github.com/veyndo/veyndo/tree/main/crates/flow-graph).
+
 ## Remaining Automation work
 
 Durable Flow execution, Flow authoring UI, event delivery/checkpoints and scheduler

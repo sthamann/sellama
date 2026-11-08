@@ -80,6 +80,12 @@ stimmt sich mit einem laufenden Kauf ab. Der lokale Test prüft beide Fälle.
 Die [Storyfront-Dokumentation](storyfront.md#responsibilities-and-contracts)
 beschreibt den Ablauf und die Reihenfolge der Auslieferung.
 
+Ein lokaler Beispielshop zeigt, dass Checkout auch mit einem anderen
+Commerce-Dienst arbeiten kann. Checkout speichert die Sitzung. Der Beispielshop
+speichert Bestand, Bestellung und Ereignis gemeinsam. Beide greifen auf eigene
+Datenbanken zu. Zwei gleichzeitige Käufe des letzten Artikels ergeben genau
+eine Bestellung. [Ablauf und Schnittstellen](checkout-component.md#a-purchase-with-a-separate-commerce-host).
+
 [Verkaufskanäle](channel-management.md), [Arbeitsbereich und Veröffentlichung](workbench.md),
 [Checkout](checkout.md), [Währungen](currencies.md).
 

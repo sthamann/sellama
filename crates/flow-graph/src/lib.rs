@@ -2,6 +2,7 @@
 use std::collections::{HashMap, HashSet};
 
 pub mod catalog;
+pub mod execution;
 
 pub const MAX_NODES: usize = 100;
 

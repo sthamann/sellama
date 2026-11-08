@@ -1,5 +1,6 @@
 //! A bounded acyclic flow graph models source-style true/false branches, ordered actions, delays and stop nodes.
 use super::*;
+use veyndo_flow_graph::execution::{Branches, Directive, ExecutableNode};
 use veyndo_flow_graph::{Graph, Invalid};
 #[derive(Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
@@ -47,12 +48,42 @@ impl veyndo_flow_graph::Node for Node {
         self.id()
     }
     fn successors(&self) -> [Option<&str>; 2] {
+        self.directive().successors()
+    }
+}
+impl ExecutableNode for Node {
+    type Condition = rules::Condition;
+    type Config = Value;
+
+    fn directive(&self) -> Directive<'_, rules::Condition, Value> {
         match self {
             Self::Condition {
-                on_true, on_false, ..
-            } => [on_true.as_deref(), on_false.as_deref()],
-            Self::Action { next, .. } | Self::Delay { next, .. } => [next.as_deref(), None],
-            Self::Stop { .. } => [None, None],
+                condition,
+                on_true,
+                on_false,
+                ..
+            } => Directive::Branch {
+                condition,
+                branches: Branches {
+                    on_true: on_true.as_deref(),
+                    on_false: on_false.as_deref(),
+                },
+            },
+            Self::Action {
+                action,
+                config,
+                next,
+                ..
+            } => Directive::Effect {
+                action,
+                config,
+                next: next.as_deref(),
+            },
+            Self::Delay { seconds, next, .. } => Directive::Defer {
+                seconds: *seconds,
+                next: next.as_deref(),
+            },
+            Self::Stop { .. } => Directive::Stop,
         }
     }
 }

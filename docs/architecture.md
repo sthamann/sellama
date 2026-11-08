@@ -59,6 +59,11 @@ A deferred job releases its claim, and each progress or completion write
 must match the shop, job and execution attempt. Checkout commits the
 event and the worker consumes it asynchronously.
 [Flow job storage](automation-component.md#durable-flow-job-storage).
+The validated graph also supplies typed directives for branching, effects,
+delays and stops. Core evaluates rules from the saved job, checks current
+rights and dispatches through the existing action owners. An app worker can
+run in a separate process from HTTP and consume the same durable jobs.
+[Flow directives](automation-component.md#portable-flow-directives).
 
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.

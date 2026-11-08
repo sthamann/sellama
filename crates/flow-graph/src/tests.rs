@@ -91,3 +91,79 @@ fn catalog_v1_preserves_all_published_names_and_order() {
     }
     assert!(groups.next().is_none());
 }
+
+#[test]
+fn execution_uses_exact_cursors_and_borrowed_directives() {
+    use crate::execution::{Branches, Directive, ExecutableNode};
+
+    struct Executable(&'static str, Directive<'static, u32, u32>);
+    impl Node for Executable {
+        fn id(&self) -> &str {
+            self.0
+        }
+
+        fn successors(&self) -> [Option<&str>; 2] {
+            self.directive().successors()
+        }
+    }
+    impl ExecutableNode for Executable {
+        type Condition = u32;
+        type Config = u32;
+
+        fn directive(&self) -> Directive<'_, u32, u32> {
+            self.1
+        }
+    }
+
+    let nodes = [
+        Executable("stop", Directive::Stop),
+        Executable(
+            "delay",
+            Directive::Defer {
+                seconds: 2,
+                next: None,
+            },
+        ),
+        Executable(
+            "invoice",
+            Directive::Effect {
+                action: "invoice",
+                config: &42,
+                next: Some("delay"),
+            },
+        ),
+        Executable(
+            "branch",
+            Directive::Branch {
+                condition: &20,
+                branches: Branches {
+                    on_true: Some("invoice"),
+                    on_false: Some("stop"),
+                },
+            },
+        ),
+    ];
+    let graph = Graph::validate("branch", &nodes, |_| true, |_| Ok::<_, ()>(())).unwrap();
+    let Directive::Branch {
+        condition,
+        branches,
+    } = graph.directive("branch").unwrap()
+    else {
+        panic!("expected a branch");
+    };
+    let matched = 25 >= *condition;
+    assert_eq!(branches.select(matched), Some("invoice"));
+    assert_eq!(branches.select(!matched), Some("stop"));
+    for step in &nodes {
+        assert_eq!(graph.directive(step.id()), Some(step.directive()));
+    }
+    assert_eq!(graph.directive("unknown"), None);
+    assert_eq!(
+        Branches {
+            on_true: None,
+            on_false: Some("stop")
+        }
+        .select(true),
+        None
+    );
+}

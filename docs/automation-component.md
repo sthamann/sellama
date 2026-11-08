@@ -197,7 +197,10 @@ events, payment reconciliation and the other background tasks.
    existing restricted system and tenant runtime connections with signed
    database scopes. Exclude migration credentials. Reserve connections for
    both deployments under the shared fleet budget. The signed scope setup
-   uses a combined pool of at least four connections per process.
+   uses a combined pool of at least four connections per process. Allow at
+   least 30 seconds for process termination. Keep the worker's ports closed
+   and use process and queue checks. When running it directly with Docker,
+   pass `--no-healthcheck` to disable the image's HTTP probe for this role.
    [Database access](authenticated-database-scope.md) ·
    [Connection budget](production-architecture.md).
 2. Set `APP_WORKER_ENABLED=false` on Core. After the rolling deployment,
@@ -216,6 +219,13 @@ a restart. During rollback, a second order queued work that the combined
 Core then completed. Both orders and the original invoice remained
 available. The test used separate restricted system and tenant database
 roles with signed scope enforcement.
+
+In a local comparison, each configuration handled six purchases and exact
+replays while four catalog clients made 96 reads. Both produced six orders,
+six stock decrements and six invoices without a catalog error. Median and
+95th percentile catalog response times were 36.5 and 69.3 ms with combined
+Core, and 22.7 and 61.5 ms with a dedicated app worker. These timings apply to
+this debug build and isolated test database.
 
 ## Remaining Automation work
 

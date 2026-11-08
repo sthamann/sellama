@@ -41,8 +41,7 @@ People and agents use the same operations, permissions and versioned changes.
 
 **Films:** [AI commerce · 1:56](docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4) · [Concept · 1:12](docs/assets/showcase/product-films-20261102/veyndo-concept.mp4) · [Product workspace · 1:36](docs/assets/showcase/product-films-20261102/veyndo-workspace.mp4) · [Product advisor app · 1:24](docs/assets/showcase/product-films-20261102/veyndo-app-platform.mp4). English subtitles, no sound.
 
-Films use actual UI captures from 2 November, English subtitles and no sound.
-Demo data and simulated payments; timing is editorial.
+Captured on 2 November with demo data and simulated payments.
 [Latest public journey and screenshots](docs/status.md#current-product-films-and-screenshots) · [Film sources](docs/assets/showcase/product-films-20261102/README.md).
 
 ## Try one complete round
@@ -73,7 +72,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 
 | Area | Start here |
 | --- | --- |
-| AI Commerce Components | [Component map](docs/one-shop-components.md) · [Checkout](docs/checkout-component.md) · [Knowledge](docs/knowledge-component.md) · [Automation](docs/automation-component.md) · [Plan](docs/commerce-components.md) |
+| AI Commerce Components | [Component map](docs/one-shop-components.md) · [Checkout](docs/checkout-component.md) · [Knowledge](docs/knowledge-component.md) · [Automation](docs/automation-component.md) · [Worker setup](docs/automation-component.md#move-the-app-worker-out-of-core) · [Plan](docs/commerce-components.md) |
 | AI shopping channels and inward shop imports | [Cart transfer, consent and Shopify/supplier intake](docs/agentic-commerce.md) |
 | Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |

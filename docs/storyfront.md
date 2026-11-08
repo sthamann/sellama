@@ -95,6 +95,34 @@ Deploy the Core migration and runtime before enabling the updated Storyfront
 build. Local HTTP/PostgreSQL and browser tests cover the lost notification and
 concurrent reopen. Hosted provider acceptance is tracked separately.
 
+## Accept a hosted release
+
+1. Record the Core and Experience revisions that are serving, and open a
+   synthetic product in the public Experience. Verify that the native checkout
+   form loads in a clean browser profile. This checks the frame, the handoff and
+   the initial cart read.
+2. Build the exact Core revision, complete the existing database snapshot and
+   run its migration job. Verify the commit on the completed job run before
+   promoting that same image to Core. Check the old
+   Experience against the new Core before promoting the companion Experience
+   revision.
+3. Use a configured Sandbox seller and buyer. Place one test order and match
+   its amount, currency, capture and receipt across Storyfront, Core and
+   Payments. Check that the bag survives pending payment and cancellation, then
+   clears on verified completion. Reload the Experience with the browser
+   notification suppressed and check that it finds the original order.
+4. Refund that same test capture in Studio. Match the refund and the terminal
+   payment state with the provider. Repeated status checks should only read the
+   existing order. Measure the form handoff and status read separately from
+   provider approval and refund timing.
+5. If the Experience gate fails, restore its previous image first. Preserve the
+   Core order and payment ledger and reconcile pending attempts before rolling
+   back Core.
+
+The [current status](status.md#embedded-checkout-recovery-8-november-2026)
+distinguishes the deployed public browser check, local contract tests and
+provider evidence.
+
 ## Run a connected shop
 
 Use the companion Ambient-C branch containing the connector. Configure server-side

@@ -50,6 +50,10 @@ Beim Speichern und beim späteren Ausführen prüft dieselbe Rust Bibliothek,
 ob alle Schritte im Flow erreichbar sind und ihre Verbindungen gültig sind.
 Nach einer Wartezeit findet der Worker den nächsten Schritt direkt über
 seine Kennung. [Flow Graph](automation-component.md#flow-graph-contract).
+Entwickler finden die eingebauten Flow Ereignisse und Aktionen über HTTP,
+MCP und dieselbe Rust Bibliothek. Core prüft pro Shop, welche Apps
+installiert sind und welche Aktionen der aktuelle Nutzer ausführen darf.
+[Flow Katalog](automation-component.md#built-in-flow-catalog).
 
 ## 1. Der Aufbau
 

@@ -28,5 +28,22 @@ validators and the verified delay limit. Its worker resolves persisted
 cursors through the same validated graph. Authorization, event delivery and
 actual execution belong to the host.
 
+## Built-in events and actions
+
+`veyndo_flow_graph::catalog` exposes `VERSION`, `EVENTS`,
+`PIPELINE_ACTIONS` and `FLOW_ACTIONS`. Use them to validate identifiers or
+populate an editor. For a connected shop, compare the crate version with
+`flowCatalogVersion` from `GET /api/automation/catalog` or
+`automation.catalog` over MCP. Use the shop's discovery response for its
+installed apps and ask Core to validate any change.
+
+```rust
+use veyndo_flow_graph::catalog::{EVENTS, PIPELINE_ACTIONS, VERSION};
+
+assert_eq!(VERSION, 1);
+assert!(EVENTS.contains(&"order.placed"));
+assert!(PIPELINE_ACTIONS.contains(&"action.generate.document"));
+```
+
 Run `cargo test --locked -p veyndo-flow-graph` from the workspace root.
 [Automation guide](../../docs/automation-component.md#flow-graph-contract).

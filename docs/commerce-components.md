@@ -444,6 +444,8 @@ The following are implementation tasks; existing UI foundations do not complete 
     supplied-fact service, current shared OAuth admission, SDK composition and
     standalone process acceptance. Source is private.
     [Guide](automation-component.md), [evidence](evidence/automation-component-2026-11-06.md).
+  - [x] AUTO-01c Share the versioned built-in Flow names with Core and expose
+    the same catalog through HTTP and MCP. [Flow catalog](automation-component.md#built-in-flow-catalog).
   - [ ] Verify the hosted composition and measure concurrent preview traffic
     alongside storefront and checkout traffic.
 - [ ] AUTO-02 Extract durable flow execution ports; retain current actor, app

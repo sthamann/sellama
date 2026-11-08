@@ -1,57 +1,6 @@
 //! Durable order-event flows: conditions, shop notes and AI proposals; no unapproved model mutations.
 use super::*;
-pub(super) const EVENTS: &[&str] = &[
-    "privacy.consent_changed",
-    "consumer.withdrawal.requested",
-    "consumer.access.requested",
-    "consumer.erase.requested",
-    "consumer.correct.requested",
-    "consumer.portability.requested",
-    "consumer.objection.requested",
-    "consumer.request.reviewed",
-    "product.created",
-    "product.updated",
-    "order.placed",
-    "app.configuration.changed",
-    "b2b.organization_changed",
-    "b2b.employee_changed",
-    "b2b.catalog_changed",
-    "b2b.list_changed",
-    "b2b.approval_requested",
-    "b2b.approval_decided",
-    "b2b.purchase_completed",
-    "b2b.quote_requested",
-    "b2b.quote_changed",
-    "b2b.quote_selected",
-    "pos.sale_completed",
-    "pos.sale_created",
-    "pos.discount_changed",
-    "pos.customer_selected",
-    "payment.captured",
-    "payment.instructions.available",
-    "payment.instrument.revoked",
-    "order.state_changed",
-    "payment.state_changed",
-    "delivery.state_changed",
-    "delivery.split",
-    "delivery.booking_reserved",
-    "delivery.booking_released",
-    "document.created",
-    "payment.updated",
-    "knowledge.document.ingested",
-    "knowledge.document.updated",
-    "knowledge.document.visibility",
-    "knowledge.document.archived",
-    "knowledge.document.restored",
-    "intelligence.decision",
-    "intelligence.run.changed",
-    "intelligence.agent.allocated",
-    "intelligence.agents.controlled",
-    "intelligence.claim.reviewed",
-    "intelligence.experiment.changed",
-    "intelligence.experiment.result",
-    "merchant.change.applied",
-];
+use veyndo_flow_graph::catalog::{EVENTS, FLOW_ACTIONS};
 fn knowledge_event(kind: &str) -> bool {
     EVENTS.contains(&kind)
         && (kind.starts_with("knowledge.")
@@ -121,14 +70,7 @@ impl Flow {
             return Err(bad("Invalid flow app action"));
         }
         if !EVENTS.contains(&self.event.as_str()) && !valid_app_event(&self.event)
-            || ![
-                "note",
-                "ai_proposal",
-                "work_proposal",
-                "app_action",
-                "pipeline",
-            ]
-            .contains(&self.action.as_str())
+            || !FLOW_ACTIONS.contains(&self.action.as_str())
             || !commerce::valid_locale_key(&self.locale)
         {
             return Err(bad("Unsupported flow action, event or locale"));
@@ -274,7 +216,7 @@ pub(crate) async fn flow_once(a: &App) -> Result<bool> {
         execute_app_flow(a, &t, &f, &id, &instruction, &definition).await
     } else if f.action == "note" {
         Ok(json!({"note":instruction,"orderId":definition["orderId"],"locale":f.locale}))
-    } else {
+    } else if f.action == "ai_proposal" {
         let context = format!(
             "Flow event {}. {}. Create a reviewable proposal only.",
             definition["event"], instruction
@@ -286,6 +228,8 @@ pub(crate) async fn flow_once(a: &App) -> Result<bool> {
             },
             Err(e) => Err(e),
         }
+    } else {
+        Err(bad("Unsupported stored Flow action"))
     };
     let (state, value, error) = match result {
         Ok(v) => ("completed", Some(v), None),

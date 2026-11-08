@@ -1,27 +1,6 @@
 //! Native action schema and permissions use original Core names; no arbitrary SQL, shell or unguarded payment transitions.
 use super::*;
-pub(crate) const ACTIONS: &[&str] = &[
-    "note",
-    "ai_proposal",
-    "knowledge.extract",
-    "app_action",
-    "action.add.customer.tag",
-    "action.remove.customer.tag",
-    "action.add.order.tag",
-    "action.remove.order.tag",
-    "action.set.customer.custom.field",
-    "action.set.order.custom.field",
-    "action.set.customer.group.custom.field",
-    "action.add.customer.affiliate.and.campaign.code",
-    "action.add.order.affiliate.and.campaign.code",
-    "action.change.customer.group",
-    "action.change.customer.status",
-    "action.set.order.state",
-    "action.generate.document",
-    "action.grant.download.access",
-    "action.mail.send",
-    "action.stop.flow",
-];
+use veyndo_flow_graph::catalog::PIPELINE_ACTIONS;
 pub(crate) fn permission(action: &str) -> &'static str {
     if action.contains("customer") {
         "customers.write"
@@ -55,7 +34,8 @@ pub(crate) fn normalize(action: &str, config: &Value) -> Value {
 pub(crate) fn validate(action: &str, config: &Value) -> Result<()> {
     let normalized = normalize(action, config);
     let config = &normalized;
-    if !ACTIONS.contains(&action) || !config.is_object() || config.to_string().len() > 8000 {
+    if !PIPELINE_ACTIONS.contains(&action) || !config.is_object() || config.to_string().len() > 8000
+    {
         return Err(bad("Unknown flow action or invalid configuration"));
     }
     if matches!(action, "note" | "ai_proposal") {

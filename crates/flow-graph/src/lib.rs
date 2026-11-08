@@ -1,6 +1,8 @@
 //! Dependency-free validation and indexed lookup for bounded commerce flow graphs.
 use std::collections::{HashMap, HashSet};
 
+pub mod catalog;
+
 pub const MAX_NODES: usize = 100;
 
 /// A condition has two successors, an action or delay has one, and a stop has none.

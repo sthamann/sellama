@@ -729,15 +729,20 @@
       "sha256": "421ebdf7a78c2b46da9c1ee567d2df7052077db7f7c7919cccb516b1e020baac",
       "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
     },
+    "crates/flow-graph/src/catalog.rs": {
+      "status": "unproved",
+      "sha256": "4033755910e992d22f276d2cca074edeb33dc1ea943e4bd61f7db4d26a65be04",
+      "review": "Moved the exact built-in Flow identifier arrays to the shared catalog, kept tenant app resolution and native grants in Core, and exposed additive discovery metadata. Unknown stored action now fails rather than falling into inference. Graph and kernel decisions are unchanged."
+    },
     "crates/flow-graph/src/lib.rs": {
       "status": "unproved",
-      "sha256": "5e16dda74cd4d962a0df428dbe3e16de0ac9012b2877d938182e59768c44e2b9",
-      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
+      "sha256": "609c07d80801326264c0ea8152d0e6554744e5fb2c468c6932306f87293ff5bf",
+      "review": "Moved the exact built-in Flow identifier arrays to the shared catalog, kept tenant app resolution and native grants in Core, and exposed additive discovery metadata. Unknown stored action now fails rather than falling into inference. Graph and kernel decisions are unchanged."
     },
     "crates/flow-graph/src/tests.rs": {
       "status": "unproved",
-      "sha256": "e2bde6d2c388157ccb385e5e4702f0d3349eaf6e2f20165311c9b6400a0d44f7",
-      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
+      "sha256": "dedc990164a28b413755ddd4ddb76760f206b01550931ac3f494feeb1ce70bcc",
+      "review": "Moved the exact built-in Flow identifier arrays to the shared catalog, kept tenant app resolution and native grants in Core, and exposed additive discovery metadata. Unknown stored action now fails rather than falling into inference. Graph and kernel decisions are unchanged."
     },
     "crates/kernel/src/contract_tests.rs": {
       "status": "unproved",
@@ -4281,8 +4286,8 @@
     },
     "src/marketing/catalog.rs": {
       "status": "unproved",
-      "sha256": "2166df6c18b775a99533ece7ac76504de8ce235c89ab4fac328aa57643bda469",
-      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
+      "sha256": "e056d449b93e18c349822bf26f8715aa850141675906065f66731a59bb6c05bb",
+      "review": "Moved the exact built-in Flow identifier arrays to the shared catalog, kept tenant app resolution and native grants in Core, and exposed additive discovery metadata. Unknown stored action now fails rather than falling into inference. Graph and kernel decisions are unchanged."
     },
     "src/marketing/channel_access.rs": {
       "status": "reviewed-binding",
@@ -4336,8 +4341,8 @@
     },
     "src/marketing/flow_actions.rs": {
       "status": "unproved",
-      "sha256": "2935e0a7f3b82606f5a5906b9541eb89a5f6ce0da7a3f4599e07725c2366a213",
-      "review": "Reviewed task-reference-only Flow templates, same actor and original scope checks at native save and runtime, scalar event mapping, no copied credentials or source inputs, shared stop/lease and transactional daily limits; actual private event-to-approval write, denial and zero-inference regressions plus UI scope cleanup pass. Async SQL remains outside formal proof."
+      "sha256": "78f2f6d2751f67fbdf5098676908a9fbc64b22fcafd243cb4f4ef6672285b6c5",
+      "review": "Moved the exact built-in Flow identifier arrays to the shared catalog, kept tenant app resolution and native grants in Core, and exposed additive discovery metadata. Unknown stored action now fails rather than falling into inference. Graph and kernel decisions are unchanged."
     },
     "src/marketing/flow_mutations.rs": {
       "status": "unproved",
@@ -4356,8 +4361,8 @@
     },
     "src/marketing/flows.rs": {
       "status": "unproved",
-      "sha256": "727273aa852ce30bf7414ae33bd299a7a4a7fa3c4b7d3320bceeed44825e5ce2",
-      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+      "sha256": "18b397dbb4d8355e2a693d637615cc85bd1941043907863486aa983a7d1d741e",
+      "review": "Moved the exact built-in Flow identifier arrays to the shared catalog, kept tenant app resolution and native grants in Core, and exposed additive discovery metadata. Unknown stored action now fails rather than falling into inference. Graph and kernel decisions are unchanged."
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",

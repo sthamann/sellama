@@ -1,5 +1,6 @@
 //! Native condition metadata, app action/event discovery and source-compatible condition import.
 use super::*;
+use veyndo_flow_graph::catalog as builtin;
 pub(crate) fn router() -> Router<App> {
     Router::new()
         .secure_route(
@@ -21,7 +22,7 @@ pub(super) async fn catalog(State(a): State<App>, h: RequestContext) -> Result<J
             .bind(t)
             .fetch_all(&a.db)
             .await?;
-    let mut result = json!({"upstream":"shopware/core 6.7.14.2","conditions":["andContainer","orContainer","notContainer","alwaysValid","cartCartAmount","cartLineItemCount","customerGroup","shippingCountry","salesChannel","lineItemId","customerLoggedIn","orderState","paymentState","deliveryState","contextField","eventField","shippingMethod","paymentMethod","customerEmail","customerBillingCountry","customerShippingCountry","cartLineItem"],"fields":rule_fields::FIELDS,"events":flows::EVENTS,"apps":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"manifest":r.get::<Value,_>("manifest")})).collect::<Vec<_>>(),"completeUpstreamConditionCatalog":false});
+    let mut result = json!({"upstream":"shopware/core 6.7.14.2","conditions":["andContainer","orContainer","notContainer","alwaysValid","cartCartAmount","cartLineItemCount","customerGroup","shippingCountry","salesChannel","lineItemId","customerLoggedIn","orderState","paymentState","deliveryState","contextField","eventField","shippingMethod","paymentMethod","customerEmail","customerBillingCountry","customerShippingCountry","cartLineItem"],"fields":rule_fields::FIELDS,"events":builtin::EVENTS,"apps":rows.iter().map(|r|json!({"id":r.get::<String,_>("id"),"manifest":r.get::<Value,_>("manifest")})).collect::<Vec<_>>(),"completeUpstreamConditionCatalog":false});
     let rules=sqlx::query("SELECT id,name,revision FROM commerce_rules WHERE tenant=$1 AND active ORDER BY id LIMIT 100").bind(merchant(&a,&h)?).fetch_all(&a.db).await?;
     result["rules"]=json!(rules.iter().map(|r|json!({"id":r.get::<String,_>("id"),"name":r.get::<Value,_>("name"),"revision":r.get::<i64,_>("revision")})).collect::<Vec<_>>());
     result["conditions"]
@@ -29,8 +30,9 @@ pub(super) async fn catalog(State(a): State<App>, h: RequestContext) -> Result<J
         .unwrap()
         .push(json!("ruleReference"));
     result["sourceConditions"] = veyndo::automation_rules::catalog()["conditions"].clone();
-    result["actions"] = json!(flow_actions::ACTIONS);
+    result["actions"] = json!(builtin::PIPELINE_ACTIONS);
     result["sourceActions"] = veyndo::automation_rules::catalog()["actions"].clone();
+    result["flowCatalogVersion"] = json!(builtin::VERSION);
     result["pipelineContract"] = json!({"nodes":["condition","action","delay","stop"],"maxNodes":veyndo_flow_graph::MAX_NODES,"maxDelaySeconds":2592000,"cyclicGraphs":false});
     Ok(Json(result))
 }

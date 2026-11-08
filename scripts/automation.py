@@ -28,6 +28,11 @@ def wait(flowid,state='completed',cursor=None):
         time.sleep(.1)
     raise AssertionError((flowid,state,jobs))
 catalog=call('/api/automation/catalog',h=mh);assert len(catalog['sourceConditions'])==114 and len(catalog['sourceActions'])==16
+assert catalog['flowCatalogVersion']==1
+discovered=mcp('automation.catalog',{})['structuredContent']
+for field in ('flowCatalogVersion','actions','events','pipelineContract'):
+    assert discovered[field]==catalog[field]
+call('/api/automation/catalog',h=fh,expected=403)
 assert {'condition','action','delay','stop'}==set(catalog['pipelineContract']['nodes'])
 assert any(x['type']=='scriptRule' and not x['supported'] for x in catalog['sourceConditions'])
 tools_list={'jsonrpc':'2.0','id':1,'method':'tools/list'}
@@ -91,6 +96,13 @@ wait('pipeline');time.sleep(.5)
 assert int(sql("SELECT count(*) FROM flow_steps WHERE job='"+completed['id']+"'"))==3
 assert int(sql("SELECT count(*) FROM order_activity WHERE order_id='"+o['id']+"' AND kind='transition'"))==1
 check('Replayed flow jobs reuse persisted action results rather than repeat side effects')
+unknown=flow([action('unknown','unsupported.future.action',{})])
+call('/api/automation/flows/unknown_action',{'data':unknown,'revision':0},mh,'PUT',400)
+unknown=flow([{'kind':'stop','id':'stop'}],event='order.unregistered')
+call('/api/automation/flows/unknown_event',{'data':unknown,'revision':0},mh,'PUT',400)
+sql("UPDATE flow_jobs SET state='queued',cursor=NULL,definition=jsonb_set(definition,'{flow,action}',to_jsonb('unsupported.future.action'::text)) WHERE id='"+completed['id']+"';")
+assert wait('pipeline','failed')['error']=='Unsupported stored Flow action'
+check('Unknown Flow names fail on save and an unknown queued action cannot fall through to inference')
 # Delay execution rechecks current permissions rather than preserving the creating actor's old grant.
 for id in ['pipeline','false_branch','invoice']:
     current=next(x for x in call('/api/automation',h=mh)['flows']if x['id']==id);save(id,{**current['data'],'active':False},current['revision'])

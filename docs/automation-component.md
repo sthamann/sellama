@@ -104,7 +104,12 @@ The host supplies condition and action validation. Core still resolves
 current actor rights and installed actions, persists delays and handles
 side effects and replay. The crate has no database, provider or HTTP client.
 External Rust hosts can use the graph validator directly.
-[Crate README and example](../crates/flow-graph/README.md).
+[Crate README and example](https://github.com/veyndo/veyndo/tree/main/crates/flow-graph).
+
+In a local optimized Rust comparison, validating and walking a chain of
+100 nodes took a median of 12.6 microseconds with the index, compared with
+38.5 microseconds with repeated scans. Each median came from 21 batches
+of 2,000 runs. The comparison covers graph work only.
 
 ## Remaining Automation work
 

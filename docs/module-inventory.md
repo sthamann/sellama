@@ -409,6 +409,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/marketing/facts.rs](../src/marketing/facts.rs) | Assemble private server-owned rule context once per quote/event; never publish customer facts in cart responses. |
 | [src/marketing/flow_access.rs](../src/marketing/flow_access.rs) | Every queued flow step rehydrates current membership; stored definitions never preserve revoked privileges. |
 | [src/marketing/flow_actions.rs](../src/marketing/flow_actions.rs) | Native action schema and permissions use original Core names; no arbitrary SQL, shell or unguarded payment transitions. |
+| [src/marketing/flow_jobs.rs](../src/marketing/flow_jobs.rs) | PostgreSQL ownership of Flow claims, cursor checkpoints and terminal results. |
 | [src/marketing/flow_mutations.rs](../src/marketing/flow_mutations.rs) | Local flow mutations journal the effect in the same transaction; customer authority changes revoke existing sessions. |
 | [src/marketing/flow_policy.rs](../src/marketing/flow_policy.rs) | All configuration entry points require the publishing actor's native action rights; queued work rechecks them. |
 | [src/marketing/flow_text.rs](../src/marketing/flow_text.rs) | Shop-language validation and main-language fallback for both simple flows and graphical action nodes. |

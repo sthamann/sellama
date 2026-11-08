@@ -54,6 +54,11 @@ Entwickler finden die eingebauten Flow Ereignisse und Aktionen über HTTP,
 MCP und dieselbe Rust Bibliothek. Core prüft pro Shop, welche Apps
 installiert sind und welche Aktionen der aktuelle Nutzer ausführen darf.
 [Flow Katalog](automation-component.md#built-in-flow-catalog).
+Nach dem Kauf übernimmt ein Worker den Flow aus der Warteschlange.
+Bei einer Wartezeit speichert er die Frist und gibt den Auftrag frei.
+Beim Fortsetzen prüft er die aktuellen Rechte und speichert Fortschritt
+nur für den Versuch, den er übernommen hat.
+[Wie Flow Aufträge gespeichert werden](automation-component.md#durable-flow-job-storage).
 
 ## 1. Der Aufbau
 

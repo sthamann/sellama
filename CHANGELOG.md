@@ -1,5 +1,12 @@
 # Changelog
 
+## Flow job storage, 8 November 2026
+
+- Claim a ready Flow and load its checkpoint together. Scope progress,
+  deferral and completion to that execution attempt.
+- Return a deferred job to the queue without also attempting to finish it.
+  Retain saved step receipts and current permission checks on resume.
+
 ## Embedded checkout recovery, 8 November 2026
 
 - Reopen the exact Veyndo order from its embedded checkout receipt. A resumed

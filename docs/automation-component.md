@@ -132,10 +132,27 @@ Flow definitions keep their existing format. Increment the version when
 built-in identifiers change and preserve the names already in use.
 [Rust crate and example](https://github.com/veyndo/veyndo/tree/main/crates/flow-graph).
 
+## Durable Flow job storage
+
+Core's [Flow job adapter](https://github.com/veyndo/veyndo/blob/main/src/marketing/flow_jobs.rs)
+owns claiming, renewing, saving progress, deferring and finishing a job in
+PostgreSQL. It claims one ready job and returns its cursor and checkpoint
+in one statement. Each later update is scoped to the same shop, job and
+attempt. An older worker cannot replace a newer attempt's checkpoint or
+result. A delay saves its deadline and releases the claim. The worker
+finishes a final delay only after the next claim and a current access check.
+
+Existing queued jobs, step receipts and effect keys keep their format.
+An expired running attempt still becomes uncertain. Recovery of external
+effects follows the current provider and step receipt contracts. Core
+keeps the action handlers and authorization close to the commerce owners.
+The checkout transaction has no dependency on the preview service or
+on Flow worker availability.
+
 ## Remaining Automation work
 
-Durable Flow execution, Flow authoring UI, event delivery/checkpoints and scheduler
-extraction remain AUTO-02/03. They use this same rule library when moved. The
-component plan keeps these separate from completed deterministic rule extraction.
+The job adapter is the first part of the execution boundary. A portable
+runner, separately deployed execution, Flow authoring UI, event delivery
+and scheduler extraction remain open under AUTO-02/03.
 [Current task list](commerce-components.md#automation-and-connectors),
 [acceptance evidence](evidence/automation-component-2026-11-06.md).

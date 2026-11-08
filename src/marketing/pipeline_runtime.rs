@@ -1,29 +1,22 @@
 //! Durable sequence execution records each action before dispatch, persists delay cursors and reports uncertain effects.
-use super::pipeline::Node;
 use super::*;
-pub(crate) async fn run(
-    a: &App,
-    t: &str,
-    id: &str,
-    f: &flows::Flow,
-    definition: &Value,
-    cursor: Option<String>,
-) -> Result<Value> {
+use super::{flow_jobs::Claim, pipeline::Node};
+pub(super) enum Outcome {
+    Finished(Value),
+    Deferred,
+}
+
+pub(super) async fn run(a: &App, job: &Claim, f: &flows::Flow) -> Result<Outcome> {
+    let (t, id, definition) = (&job.tenant, &job.id, &job.definition);
     let p = f.pipeline.as_ref().ok_or(bad("Pipeline required"))?;
     let graph = p.graph()?;
-    let mut next = cursor.or_else(|| Some(p.entry.clone()));
-    let previous: Value =
-        sqlx::query_scalar("SELECT execution FROM flow_jobs WHERE id=$1 AND tenant=$2")
-            .bind(id)
-            .bind(t)
-            .fetch_one(&a.db)
-            .await?;
-    let mut trace = previous["trace"].as_array().cloned().unwrap_or_default();
+    let mut next = job.cursor.clone().or_else(|| Some(p.entry.clone()));
+    let mut trace = job.execution["trace"]
+        .as_array()
+        .cloned()
+        .unwrap_or_default();
     while let Some(node_id) = next {
-        let held = sqlx::query("UPDATE flow_jobs SET lease_until=now()+interval '5 minutes' WHERE id=$1 AND tenant=$2 AND state='running' AND lease_until>=now()").bind(id).bind(t).execute(&a.db).await?.rows_affected();
-        if held != 1 {
-            return Err(conflict("Flow worker lost its lease"));
-        }
+        job.renew(a).await?;
         super::flow_access::headers(a, t, f.actor.as_deref()).await?;
         let node = graph.get(&node_id).ok_or(bad("Unknown flow cursor"))?;
         match node {
@@ -51,14 +44,16 @@ pub(crate) async fn run(
                 };
                 trace.push(json!({"node":node_id,"matched":matched}));
             }
-            Node::Stop { .. } => return Ok(json!({"stopped":true,"trace":trace})),
+            Node::Stop { .. } => {
+                return Ok(Outcome::Finished(json!({"stopped":true,"trace":trace})));
+            }
             Node::Delay {
                 seconds,
                 next: target,
                 ..
             } => {
-                sqlx::query("UPDATE flow_jobs SET state='queued',cursor=$1,available_at=now()+make_interval(secs=>$2),lease_until=NULL,execution=$3 WHERE id=$4 AND state='running'").bind(target).bind(*seconds as f64).bind(json!({"trace":trace,"delayCompleted":node_id,"finishAfterDelay":target.is_none()})).bind(id).execute(&a.db).await?;
-                return Ok(json!({"scheduled":true,"node":node_id,"seconds":seconds}));
+                job.defer(a, target.as_deref(), *seconds, json!({"trace":trace,"delayCompleted":node_id,"finishAfterDelay":target.is_none()})).await?;
+                return Ok(Outcome::Deferred);
             }
             Node::Action {
                 action,
@@ -67,7 +62,7 @@ pub(crate) async fn run(
                 ..
             } => {
                 if action == "action.stop.flow" {
-                    return Ok(json!({"stopped":true,"trace":trace}));
+                    return Ok(Outcome::Finished(json!({"stopped":true,"trace":trace})));
                 }
                 let existing =
                     sqlx::query("SELECT state,result FROM flow_steps WHERE job=$1 AND node=$2")
@@ -111,12 +106,8 @@ pub(crate) async fn run(
                 next = target.clone();
             }
         }
-        sqlx::query("UPDATE flow_jobs SET cursor=$1,execution=$2 WHERE id=$3 AND state='running'")
-            .bind(&next)
-            .bind(json!({"trace":trace}))
-            .bind(id)
-            .execute(&a.db)
+        job.checkpoint(a, next.as_deref(), json!({"trace":trace}))
             .await?;
     }
-    Ok(json!({"completed":true,"trace":trace}))
+    Ok(Outcome::Finished(json!({"completed":true,"trace":trace})))
 }

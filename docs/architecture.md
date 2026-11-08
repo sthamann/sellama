@@ -43,6 +43,10 @@ execution. The separate service runs supplied-fact previews for SDK and MCP
 clients. In the local outage test, native coupon pricing, purchase and the
 invoice Flow completed while the preview process was stopped.
 [Automation service boundary](automation-component.md#keep-checkout-independent-of-the-preview-service).
+The optional Core identity profile uses dedicated integration keys with
+`automation.read`. The preview checks the current grant at Core, while native
+pricing and checkout call the library in-process.
+[Access and deployment](automation-component.md#connect-the-service-to-veyndo-core).
 
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.

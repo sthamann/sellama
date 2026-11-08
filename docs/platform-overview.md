@@ -42,6 +42,10 @@ Ein Agent kann Regeln mit Beispieldaten im separaten Dienst ausprobieren.
 Der Shop wertet dieselben Regeln mit seinem aktuellen Warenkorb aus. Im
 Ausfalltest hat der Shop den Rabatt berechnet, die Bestellung angelegt und
 die Rechnung über den Flow erstellt. [Regeln und Ausfalltest](automation-component.md).
+Für externe Anwendungen kann der Vorschauprozess denselben Shopzugang prüfen.
+Der Händler erstellt dafür einen eigenen Schlüssel mit Leserecht für Regeln.
+Im lokalen Test wirkte der Widerruf bereits beim nächsten Aufruf.
+[Einrichtung und Rechte](automation-component.md#connect-the-service-to-veyndo-core).
 
 ## 1. Der Aufbau
 

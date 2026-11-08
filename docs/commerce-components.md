@@ -24,6 +24,10 @@ to native Veyndo through the same owner.
   Both previews agree on real cart inputs. Core prices a coupon and commits its
   order and invoice Flow while the separate preview process is offline.
   [Local acceptance](automation-component.md#keep-checkout-independent-of-the-preview-service).
+- [ ] AUTO-01b Deploy the independent preview alongside Core and check scoped
+  HTTP/MCP calls, revocation and latency against the running shop.
+  - [x] Reuse current Core permissions and verify key issuance and revocation
+    against the real Core in isolation. [Setup](automation-component.md#connect-the-service-to-veyndo-core).
 - [ ] CHK-01..03 Independent checkout domain ports and own session orchestration.
   - [x] Local embedded recovery after a lost browser notification. A status
     read completes while the cart is locked. An explicit reopen and purchase

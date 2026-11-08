@@ -41,6 +41,23 @@ The service calculates the immutable registry fingerprint once per process.
 It continues to check current identity and evaluate the submitted facts on
 each request.
 
+## Connect the service to Veyndo Core
+
+Set `AUTOMATION_CORE_ORIGIN` to the Core HTTPS origin and leave the OAuth
+introspection settings and allowed origins unset. In Studio, create an
+integration key with only **View rules, actions and flows** (`automation.read`).
+Use that key from a backend or trusted MCP host. The service checks the
+current permissions at Core's `/api/auth/access` on every request. Personal
+sessions, browser origins and keys with additional permissions are rejected.
+The preview only uses facts submitted with the request.
+
+Run the image with the repository root as build context, `service/Dockerfile`,
+and HTTP port 8808. Use `GET /health` for liveness. This endpoint stays
+independent of Core. Use a scoped key to verify authenticated readiness after
+deployment. An isolated test with the real Core issued a key, exercised HTTP
+and MCP, denied a broader key and verified that revocation took effect on the
+next call. [Component README](https://github.com/veyndo/automation).
+
 ## Agent and host composition
 
 The service advertises both operations as deterministic read tools. A trusted

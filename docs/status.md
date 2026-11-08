@@ -18,6 +18,10 @@ one order and produced one invoice through its Flow. Replay returned the
 same order. The separate process retained its registry and behavior after
 restart. Hosted composition and capacity are separate acceptance steps.
 [Automation guide](automation-component.md#keep-checkout-independent-of-the-preview-service).
+The local composition also checked a dedicated integration key against the
+actual Core. HTTP and MCP accepted the restricted key and rejected it after
+revocation. The independent Automation process is awaiting Northflank source
+access and deployment. [Setup](automation-component.md#connect-the-service-to-veyndo-core).
 
 ## Knowledge catalog recovery, 8 November 2026
 
@@ -89,9 +93,9 @@ and discard late replies. [Contract and evidence](agentic-component-ui.md#shared
 
 The next extracted domain is Automation: original deterministic rules now build
 as an independent Rust library and HTTP/MCP evaluator. Local actual process/SDK
-acceptance and private repository CI pass. Native product composition and public
-visibility are being validated, separately from hosted deployment. Durable Flows
-remain with their existing owner. [Guide](automation-component.md).
+acceptance and private repository CI pass. The native integration test later
+verified coupon pricing and the invoice Flow during an outage of the preview
+service. Durable Flows run in Core. [Guide](automation-component.md).
 
 ## Independent commerce components, 5 November 2026
 
@@ -113,8 +117,9 @@ durable host storage and separately embeddable Studio UI remain open.
 
 The [component task list](commerce-components.md) tracks the complete repository
 split, deeper commerce domains, marketplaces and additional services, independent
-API/MCP/SDK use and mandatory assembled-product regression. Knowledge and the other
-planned services have not yet completed standalone extraction. The SDK retains uncertain tool/write outcomes; both Node CI versions pass. Core and migration
+API/MCP/SDK use and mandatory assembled-product regression. The
+[component map](one-shop-components.md) shows the scope of each separate service.
+The SDK retains uncertain tool/write outcomes; both Node CI versions pass. Core and migration
 image publication now succeeds under `ghcr.io/veyndo` with their packaged smoke checks.
 The Northflank GitHub organization connection is now saved for exactly the three
 authorized repositories. Build-source remapping is recorded in the component

@@ -1,6 +1,6 @@
 # Veyndo: Architektur, Apps und KI im Zusammenhang
 
-Stand: 29. Oktober 2026. Diese Übersicht beschreibt den Hauptstand des Projekts.
+Stand 8. November 2026. Diese Übersicht beschreibt den Hauptstand des Projekts.
 Die [Statusseite](status.md) ordnet Implementierung, öffentliche Auslieferung und
 tatsächlich durchgespielte Abläufe ein.
 
@@ -9,6 +9,13 @@ auf einem gemeinsamen Commerce-Kern. Ein Ziel wie „Bereite die Kollektion für
 Frankreich vor“ kann dadurch Produkte, Übersetzungen, Kategorien und eine
 Landingpage zusammenführen. Preise, Bestand und Bestellungen bleiben bei den
 zuständigen Geschäftsoperationen.
+
+Veyndo lässt sich als ein Shop betreiben. Wer nur ein Modul braucht, kann
+beispielsweise das SDK, die App-Laufzeit oder den Marktplatzdienst mit einem
+bestehenden System einsetzen. In beiden Fällen bleibt der Commerce-Kern
+zuständig für den verbindlichen Preis, die Bestandsbuchung und die Bestellung.
+Checkout führt durch den Kauf. Hintergrunddienste übernehmen Aufgaben wie
+E-Mail, Synchronisierung und Suche. [Komponenten und Einstiege](one-shop-components.md).
 
 ## 1. Der Aufbau
 

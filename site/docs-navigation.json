@@ -18,6 +18,7 @@
       "sources": [
         "docs/status.md",
         "docs/platform-overview.md",
+        "docs/one-shop-components.md",
         "docs/first-tour.md",
         "docs/shop-setup.md",
         "docs/features.md",

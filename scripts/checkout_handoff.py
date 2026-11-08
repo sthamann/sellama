@@ -2,6 +2,7 @@
 """Exercise actual PostgreSQL checkout transfer, isolation, replay and durable ordering."""
 from testing.database import psql
 import concurrent.futures, hashlib, json, os, subprocess, urllib.request, urllib.error, uuid
+from select import select
 BASE=os.getenv('BASE_URL','http://127.0.0.1:8787');checks=[]
 def call(path,body=None,h=None,method=None,expected=200):
     request=urllib.request.Request(BASE+path,data=None if body is None else json.dumps(body).encode(),headers={'Content-Type':'application/json',**(h or {})},method=method or ('GET' if body is None else 'POST'))
@@ -64,7 +65,18 @@ def recover(key, headers=h, parent=origin, reopen=False, expected=200):
     return call('/store-api/checkout/handoff/recover', {**key,'parentOrigin':parent,'reopen':reopen}, headers, expected=expected)
 initial, recovery, ticket = hosted_cart()
 frame = call('/store-api/checkout/handoff/consume', {'ticket':ticket}, h)
-assert recover(recovery) == {'state':'open'}
+lock_command = psql(os.getenv('DB_CONTAINER','veyndo-postgres-1'),'commerce',
+                    os.getenv('TEST_DATABASE','commerce'),'-XqAt','-v','ON_ERROR_STOP=1')
+with subprocess.Popen(lock_command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True) as writer:
+    try:
+        writer.stdin.write("SET idle_in_transaction_session_timeout='30s'; BEGIN; "
+                           f"SELECT id FROM carts WHERE id='{initial['id']}' FOR UPDATE;\n")
+        writer.stdin.flush()
+        assert select([writer.stdout], [], [], 10)[0] and writer.stdout.readline().strip() == initial['id']
+        assert recover(recovery) == {'state':'open'}
+    finally:
+        writer.stdin.close()
+check('Hosted checkout status can be read while a purchase holds the cart lock')
 assert recovery['key'] != initial['token'] and recovery['key'] != frame['token']
 recover({**recovery,'key':uuid.uuid4().hex},expected=404)
 recover(recovery,parent='https://foreign.veyndo.ai',expected=403)

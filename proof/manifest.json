@@ -3506,8 +3506,8 @@
     },
     "src/checkout_handoff.rs": {
       "status": "unproved",
-      "sha256": "e2fc0c5d8216f01485d48b263a6aea4e485d51cb3f910b8c4c1a79db33533c6d",
-      "review": "Reviewed the hosted checkout recovery binding and additive migration. Signed PostgreSQL HTTP tests reject foreign tenant, unregistered origin, forged key and expired recovery, enforce one-time cart transfer and show concurrent purchase and reopen preserve the original order or invalidate the old token. Existing extracted policy proofs are unchanged; SQL and hosted provider behavior are outside Lean."
+      "sha256": "96917427fda71f7d37d765425fb57077499fb96d0fd12f4ca964a67fe5b73185",
+      "review": "Review hosted checkout recovery reads: bound tenant, cart, digest and parent still use one committed snapshot; only explicit reopen locks and rechecks after waiting. Signed PostgreSQL handoff covers a held cart lock and a concurrent order versus reopen."
     },
     "src/checkout_page.rs": {
       "status": "unproved",

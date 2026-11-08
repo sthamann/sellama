@@ -86,6 +86,11 @@ before it removes the purchased quantities. If recovery is unavailable or the ke
 has expired, the existing bag is preserved and checkout does not automatically
 start another purchase.
 
+Checking the current status does not lock the cart. While a purchase is in
+progress, the response can still show the last committed open state. Check again
+to see the order once it commits. An explicit reopen locks the cart and
+revalidates the recovery key after acquiring that lock.
+
 Deploy the Core migration and runtime before enabling the updated Storyfront
 build. Local HTTP/PostgreSQL and browser tests cover the lost notification and
 concurrent reopen. Hosted provider acceptance is tracked separately.

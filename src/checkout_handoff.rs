@@ -101,14 +101,33 @@ async fn recover(
     let mut tx = a.db.begin().await?;
     checkout_page::registered_parent(&mut tx, &t, channel, &input.parent_origin).await?;
     let digest = hash(&input.key);
-    let row = sqlx::query("SELECT c.* FROM carts c JOIN checkout_handoffs h ON h.cart_id=c.id AND h.tenant=c.tenant WHERE c.tenant=$1 AND c.id=$2 AND h.recovery_digest=$3 AND h.recovery_origin=$4 AND h.recovery_expires_at>clock_timestamp() FOR UPDATE OF c")
-        .bind(&t).bind(&input.cart_id).bind(&digest).bind(&input.parent_origin).fetch_optional(&mut *tx).await?
+    // Status polling can read the last committed state while an order is being placed.
+    let mut query = sqlx::QueryBuilder::new(
+        "SELECT c.* FROM carts c JOIN checkout_handoffs h ON h.cart_id=c.id AND h.tenant=c.tenant WHERE c.tenant=$1 AND c.id=$2 AND h.recovery_digest=$3 AND h.recovery_origin=$4 AND h.recovery_expires_at>clock_timestamp()",
+    );
+    if input.reopen {
+        query.push(" FOR UPDATE OF c");
+    }
+    let row = query
+        .build()
+        .bind(&t)
+        .bind(&input.cart_id)
+        .bind(&digest)
+        .bind(&input.parent_origin)
+        .fetch_optional(&mut *tx)
+        .await?
         .ok_or_else(unavailable)?;
     let c = stored(&row)?;
-    let admitted: bool = sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM checkout_handoffs WHERE tenant=$1 AND cart_id=$2 AND recovery_digest=$3 AND recovery_origin=$4 AND recovery_expires_at>clock_timestamp())")
-        .bind(&t).bind(&c.id).bind(&digest).bind(&input.parent_origin).fetch_one(&mut *tx).await?;
-    if !admitted || c.data.sales_channel != channel {
+    if c.data.sales_channel != channel {
         return Err(unavailable());
+    }
+    if input.reopen {
+        // The recovery key may have changed while this request waited for the cart lock.
+        let admitted: bool = sqlx::query_scalar("SELECT EXISTS(SELECT 1 FROM checkout_handoffs WHERE tenant=$1 AND cart_id=$2 AND recovery_digest=$3 AND recovery_origin=$4 AND recovery_expires_at>clock_timestamp())")
+            .bind(&t).bind(&c.id).bind(&digest).bind(&input.parent_origin).fetch_one(&mut *tx).await?;
+        if !admitted {
+            return Err(unavailable());
+        }
     }
     pos::guard_cart(&h, &c)?;
     b2b::guard_conn(&mut tx, &h, &c).await?;

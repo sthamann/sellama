@@ -10,6 +10,15 @@ Updated 8 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Automation and native checkout, 8 November 2026
+
+The separate Automation preview and Core agreed on two actual cart totals.
+After the preview process stopped, Core applied the eligible coupon, placed
+one order and produced one invoice through its Flow. Replay returned the
+same order. The separate process retained its registry and behavior after
+restart. Hosted composition and capacity are separate acceptance steps.
+[Automation guide](automation-component.md#keep-checkout-independent-of-the-preview-service).
+
 ## Knowledge catalog recovery, 8 November 2026
 
 The local composition completed a native order and retained a catalog event

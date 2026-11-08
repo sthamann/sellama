@@ -37,6 +37,9 @@ Missing facts reject, including under NOT. Scripts, unsupported conditions and
 unknown DTO fields reject. Input, configuration depth, identity checks and blocking
 execution concurrency are bounded. Restart loses no rule state because evaluation
 is stateless and the shipped registry is versioned source.
+The service calculates the immutable registry fingerprint once per process.
+It continues to check current identity and evaluate the submitted facts on
+each request.
 
 ## Agent and host composition
 
@@ -46,10 +49,30 @@ it with another component. The actual Rust process is tested through that SDK
 path. Agents select registered views; endpoints, credentials and operation bindings
 remain host code. [Shared host contract](agentic-component-ui.md#shared-sdk-composition).
 
-For standalone setup use the component README and `examples/workspace.mjs`.
-The repository is initially private in the Veyndo organization while public
-visibility is awaiting an explicit decision. The local product integration is
-under validation. This page is not a public runtime deployment claim.
+For standalone setup use the [component README](https://github.com/veyndo/automation)
+and `examples/workspace.mjs`. Repository access is currently private.
+
+## Keep checkout independent of the preview service
+
+Core links the evaluator directly. The separate service can preview a rule for
+another application or an agent using supplied facts. Core reads its own
+current cart, checks whether a discount applies and owns the transaction and
+its resulting event. The Flow worker uses that committed event and runs
+actions with its current authorization.
+
+In the local integration test, both preview paths returned the same
+decisions for an eligible and an ineligible cart. The previews left no
+order, coupon redemption or Flow job. The test then stopped the separate
+service. Core applied the €1.01 coupon to the eligible cart and completed
+one order, one stock decrement, one coupon redemption and one invoice.
+The repeated order request returned the original order. The independent
+service was restarted and continued evaluating rules with the same registry.
+
+In a local loopback comparison of two development builds, 192 HTTP previews
+per build completed with identical results. The 95th percentile went from
+7.83 ms to 0.68 ms after caching the fingerprint. This measures the
+supplied-fact preview with synthetic identity, separate from hosted capacity
+and checkout latency.
 
 ## Remaining Automation work
 

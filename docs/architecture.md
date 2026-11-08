@@ -38,6 +38,12 @@ Projection reads the current Core product, and the local test verifies a
 purchase while Knowledge is down and source delivery after restart.
 [Knowledge service boundary](knowledge-component.md#keep-the-shop-running-during-a-knowledge-outage).
 
+Core links the shared Automation evaluator into native pricing and Flow
+execution. The separate service runs supplied-fact previews for SDK and MCP
+clients. In the local outage test, native coupon pricing, purchase and the
+invoice Flow completed while the preview process was stopped.
+[Automation service boundary](automation-component.md#keep-checkout-independent-of-the-preview-service).
+
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.
 

@@ -54,6 +54,11 @@ permissions and execution.
 Core uses the same versioned built-in Flow catalog for authoring,
 event admission, HTTP and MCP discovery. Installed app capabilities and
 actor rights are resolved per shop. [Flow catalog](automation-component.md#built-in-flow-catalog).
+The Flow runner uses one PostgreSQL adapter for claims and checkpoints.
+A deferred job releases its claim, and each progress or completion write
+must match the shop, job and execution attempt. Checkout commits the
+event and the worker consumes it asynchronously.
+[Flow job storage](automation-component.md#durable-flow-job-storage).
 
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.

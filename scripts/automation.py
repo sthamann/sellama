@@ -63,6 +63,10 @@ first=flow([{'kind':'condition','id':'branch','condition':{'type':'ruleReference
 false=flow([{'kind':'condition','id':'branch','condition':source('cartCartAmount',operator='>',amount=100000),'on_true':'wrong','on_false':'correct'},action('wrong','action.add.order.tag',{'tags':['wrong']}),action('correct','action.add.order.tag',{'tags':['false-branch']})]);save('false_branch',false)
 call('/api/merchant/receipts/settings',{'revision':0,'data':{'name':'Synthetic Flow Seller','address':'Test 1, Berlin','taxId':'TEST-ONLY'}},mh,'PUT')
 invoice=flow([action('document','action.generate.document',{'kind':'invoice'})]);save('invoice',invoice)
+terminal_delay=flow([
+    action('note','note',{'instruction':names},'last_delay'),
+    {'kind':'delay','id':'last_delay','seconds':2,'next':None},
+]);save('terminal_delay',terminal_delay)
 invalid=copy.deepcopy(first);invalid['pipeline']['nodes'][1]['next']='branch';call('/api/automation/flows/cycle',{'data':invalid,'revision':0},mh,'PUT',400)
 invalid=flow([{'kind':'delay','id':'long','seconds':2592001,'next':None}]);call('/api/automation/flows/long',{'data':invalid,'revision':0},mh,'PUT',400)
 check('Graph admission rejects cycles and delays beyond thirty days before saving')
@@ -82,6 +86,11 @@ call('/api/automation/rules/positive',{'revision':1,'data':{'name':names,'active
 assert not mcp('automation.preview',{'condition':{'type':'ruleReference','ruleId':'positive'}},{**mh,**ch})['structuredContent']['matched']
 completed=wait('pipeline');assert completed['result']['stopped'] and len(completed['result']['trace'])>=4
 wait('false_branch');wait('invoice');bad=wait('bad_scope','failed');assert 'Unknown Shopware rule' in bad['error'];assert 'Maximum 100 referenced rules' in wait('bad_references','failed')['error']
+terminal=wait('terminal_delay')
+assert terminal['result']=={'completed':True}
+assert sql("SELECT attempts || ':' || (execution->>'delayCompleted') FROM flow_jobs WHERE id='"+terminal['id']+"'")=='2:last_delay'
+assert sql("SELECT count(*) FROM flow_steps WHERE job='"+terminal['id']+"'")=='1'
+check('A final delay completes on its second claim and never repeats the preceding action')
 read=call('/api/merchant/orders/'+o['id'],h=mh);assert read['state']=='in_progress'
 assert json.loads(sql("SELECT data->'automation' FROM orders WHERE id='"+o['id']+"'"))=={'customFields':{'handled':True},'tags':['false-branch']}
 assert json.loads(sql("SELECT automation FROM customers WHERE tenant='"+t+"' AND id='"+o['orderCustomer']['customerId']+"'"))['tags']==['vip']
@@ -104,7 +113,7 @@ sql("UPDATE flow_jobs SET state='queued',cursor=NULL,definition=jsonb_set(defini
 assert wait('pipeline','failed')['error']=='Unsupported stored Flow action'
 check('Unknown Flow names fail on save and an unknown queued action cannot fall through to inference')
 # Delay execution rechecks current permissions rather than preserving the creating actor's old grant.
-for id in ['pipeline','false_branch','invoice']:
+for id in ['pipeline','false_branch','invoice','terminal_delay']:
     current=next(x for x in call('/api/automation',h=mh)['flows']if x['id']==id);save(id,{**current['data'],'active':False},current['revision'])
 sql("UPDATE commerce_flows SET data=jsonb_set(data,'{active}','false') WHERE tenant='"+t+"' AND id IN ('bad_scope','bad_references');")
 mutation_customer=call('/store-api/account/register',{'email':'mutations'+suffix+'@example.test','name':'Mutation Buyer','password':'Synthetic-buyer-2026!'},public)
@@ -163,7 +172,38 @@ for product,quantity,tag in [('mug',1,'playground-standard'),('lamp',2,'playgrou
     assert len(call('/api/merchant/orders/'+placed['id']+'/receipts',h=dh)['elements'])==1
 check('Documented playground CLI creates an isolated owner shop, retains edited rules and executes both order branches with real invoices')
 revoked=flow([{'kind':'delay','id':'pause','seconds':60,'next':'effect'},action('effect','action.add.order.tag',{'tags':['must-not-run']})]);save('revoked',revoked)
+claim_probe='claim_probe_'+suffix
+save('claim_guard',flow([
+    action(claim_probe,'note',{'instruction':names},'stale_effect'),
+    action('stale_effect','action.add.order.tag',{'tags':['stale-worker']}),
+]))
+save('claim_barrier',terminal_delay)
+# Inject a changed claim immediately after the real first step returns.
+# The old runner must be unable to overwrite its checkpoint or run the next step.
+sql(f"""
+CREATE FUNCTION {claim_probe}() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  UPDATE flow_jobs SET attempts=attempts+1,execution='{{"claimProbe":true}}'
+  WHERE id=NEW.job AND tenant='{t}' AND flow='claim_guard';
+  RETURN NEW;
+END;
+$$;
+CREATE TRIGGER {claim_probe} AFTER UPDATE ON flow_steps
+FOR EACH ROW WHEN (NEW.node='{claim_probe}' AND NEW.state='completed')
+EXECUTE FUNCTION {claim_probe}();
+""")
 c=call('/store-api/checkout/cart',{},public);h={**public,'sw-context-token':c['token']};c=call('/store-api/checkout/cart',{'revision':c['revision'],'items':[{'id':'notebook','quantity':1}]},h,'PUT');second=call('/store-api/checkout/order',{}, {**h,'Idempotency-Key':'revoke-'+suffix})
+try:
+    wait('claim_barrier')
+    claim=wait('claim_guard','running')
+    assert sql("SELECT attempts || ':' || (execution->>'claimProbe') FROM flow_jobs WHERE id='"+claim['id']+"'")=='2:true'
+    assert sql("SELECT count(*) FROM flow_steps WHERE job='"+claim['id']+"'")=='1'
+    assert sql("SELECT data->'automation'->'tags' FROM orders WHERE id='"+second['id']+"'") in ['','null']
+    sql("UPDATE flow_jobs SET lease_until=now()-interval '1 second' WHERE id='"+claim['id']+"'")
+    assert wait('claim_guard','uncertain')['error']=='Worker stopped before result confirmation'
+    check('A stale claim cannot save a cursor, finish a newer claim or run its next action; an expired claim stays uncertain')
+finally:
+    sql(f"DROP TRIGGER {claim_probe} ON flow_steps; DROP FUNCTION {claim_probe}();")
 queued=wait('revoked','queued',cursor='effect')
 # A newly enqueued job is also 'queued', before its delay has run. Wait for the
 # committed delayed cursor, otherwise the worker can overwrite available_at

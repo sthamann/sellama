@@ -173,25 +173,17 @@ pub(crate) async fn project_flows(
     Ok(())
 }
 pub(crate) async fn flow_once(a: &App) -> Result<bool> {
-    // Expired inference is uncertain, never automatically repeated into duplicate change proposals.
-    sqlx::query("UPDATE flow_jobs SET state='uncertain',error='Worker stopped before result confirmation' WHERE state='running' AND lease_until<now()").execute(&a.db).await?;
-    let mut tx = a.db.begin().await?;
-    let row=sqlx::query("SELECT id,tenant,definition,cursor,execution FROM flow_jobs WHERE state='queued' AND available_at<=now() AND EXISTS(SELECT 1 FROM tenants t WHERE t.id=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=flow_jobs.tenant),flow_jobs.tenant) AND t.status='active') ORDER BY available_at,event_id LIMIT 1 FOR UPDATE SKIP LOCKED").fetch_optional(&mut *tx).await?;
-    let Some(row) = row else { return Ok(false) };
-    let id: String = row.get("id");
-    let t: String = row.get("tenant");
-    let definition: Value = row.get("definition");
-    let cursor: Option<String> = row.get("cursor");
-    let execution: Value = row.get("execution");
-    sqlx::query("UPDATE flow_jobs SET state='running',attempts=attempts+1,lease_until=now()+interval '5 minutes' WHERE id=$1").bind(&id).execute(&mut *tx).await?;
-    tx.commit().await?;
+    let Some(job) = super::flow_jobs::claim(a).await? else {
+        return Ok(false);
+    };
+    let (id, t, definition) = (job.id.as_str(), job.tenant.as_str(), &job.definition);
     let f: Flow =
         serde_json::from_value(definition["flow"].clone()).map_err(|_| bad("Invalid flow"))?;
-    let (settings, _) = commerce::config(a, &t).await?;
+    let (settings, _) = commerce::config(a, t).await?;
     let instruction =
         super::flow_text::effective(&json!(f.instruction), &f.locale, &settings.main_locale)
             .to_string();
-    let authorized = super::flow_access::headers(a, &t, f.actor.as_deref())
+    let authorized = super::flow_access::headers(a, t, f.actor.as_deref())
         .await
         .is_ok();
     let result: Result<Value> = if !authorized {
@@ -200,20 +192,24 @@ pub(crate) async fn flow_once(a: &App) -> Result<bool> {
             "Flow owner lost access".into(),
         ))
     } else if f.action == "pipeline" {
-        if execution["finishAfterDelay"] == true {
+        if job.execution["finishAfterDelay"] == true {
             Ok(json!({"completed":true}))
         } else {
-            super::pipeline_runtime::run(a, &t, &id, &f, &definition, cursor).await
+            match super::pipeline_runtime::run(a, &job, &f).await {
+                Ok(super::pipeline_runtime::Outcome::Finished(value)) => Ok(value),
+                Ok(super::pipeline_runtime::Outcome::Deferred) => return Ok(true),
+                Err(error) => Err(error),
+            }
         }
     } else if f.action == "work_proposal" {
         match f.work_template.as_ref() {
             Some(template) => {
-                super::work_template::prepare(a, &t, &f, &id, template, &definition).await
+                super::work_template::prepare(a, t, &f, id, template, definition).await
             }
             None => Err(bad("Work template required")),
         }
     } else if f.action == "app_action" {
-        execute_app_flow(a, &t, &f, &id, &instruction, &definition).await
+        execute_app_flow(a, t, &f, id, &instruction, definition).await
     } else if f.action == "note" {
         Ok(json!({"note":instruction,"orderId":definition["orderId"],"locale":f.locale}))
     } else if f.action == "ai_proposal" {
@@ -221,9 +217,9 @@ pub(crate) async fn flow_once(a: &App) -> Result<bool> {
             "Flow event {}. {}. Create a reviewable proposal only.",
             definition["event"], instruction
         );
-        match super::flow_access::proposal_headers(a, &t, f.actor.as_deref(), &id).await {
-            Ok(h) => match crate::performance::reserve_ai_attempt(a, &t).await {
-                Ok(()) => plan_with(a, &t, &context, f.inference.as_ref(), "", &f.locale, &h).await,
+        match super::flow_access::proposal_headers(a, t, f.actor.as_deref(), id).await {
+            Ok(h) => match crate::performance::reserve_ai_attempt(a, t).await {
+                Ok(()) => plan_with(a, t, &context, f.inference.as_ref(), "", &f.locale, &h).await,
                 Err(e) => Err(e),
             },
             Err(e) => Err(e),
@@ -236,13 +232,12 @@ pub(crate) async fn flow_once(a: &App) -> Result<bool> {
         Err(e) => ("failed", None, Some(e.1)),
     };
     let mut tx = a.db.begin().await?;
-    let n=sqlx::query("UPDATE flow_jobs SET state=$1,result=$2,error=$3,lease_until=NULL WHERE id=$4 AND state='running'").bind(state).bind(&value).bind(error).bind(&id).execute(&mut *tx).await?.rows_affected();
-    if n == 1
+    if job.finish(&mut tx, state, &value, error).await?
         && state == "completed"
         && f.action == "note"
         && !definition["orderId"].as_str().unwrap_or("").is_empty()
     {
-        sqlx::query("INSERT INTO order_activity(tenant,order_id,actor,kind,data) VALUES($1,$2,$3,'flow',$4)").bind(&t).bind(definition["orderId"].as_str().unwrap_or("")).bind(f.actor.as_deref().unwrap_or("flow")).bind(json!({"text":instruction,"flowJob":id,"event":definition["event"],"locale":f.locale})).execute(&mut *tx).await?;
+        sqlx::query("INSERT INTO order_activity(tenant,order_id,actor,kind,data) VALUES($1,$2,$3,'flow',$4)").bind(t).bind(definition["orderId"].as_str().unwrap_or("")).bind(f.actor.as_deref().unwrap_or("flow")).bind(json!({"text":instruction,"flowJob":id,"event":definition["event"],"locale":f.locale})).execute(&mut *tx).await?;
     }
     tx.commit().await?;
     Ok(true)

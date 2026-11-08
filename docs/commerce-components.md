@@ -451,6 +451,11 @@ The following are implementation tasks; existing UI foundations do not complete 
     alongside storefront and checkout traffic.
 - [ ] AUTO-02 Extract durable flow execution ports; retain current actor, app
   activation, settings, lifecycle locks and delayed-step reauthorization.
+  - [x] AUTO-02a Separate PostgreSQL job storage from pipeline execution.
+    Claim and read the checkpoint together, fence writes by attempt, and
+    keep deferral distinct from completion. [Job adapter](automation-component.md#durable-flow-job-storage).
+  - [ ] Extract a portable execution directive and accept a separate worker
+    with the current authorization and effect owners.
 - [ ] AUTO-03 Expose independent API/MCP and graphical/SDK authoring through one
   definition; test branches, delays, retries, revocation and publication.
 - [ ] CON-01 Move connector host and app-owned adapters to `veyndo/connectors`

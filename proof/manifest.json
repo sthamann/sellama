@@ -4344,6 +4344,11 @@
       "sha256": "78f2f6d2751f67fbdf5098676908a9fbc64b22fcafd243cb4f4ef6672285b6c5",
       "review": "Moved the exact built-in Flow identifier arrays to the shared catalog, kept tenant app resolution and native grants in Core, and exposed additive discovery metadata. Unknown stored action now fails rather than falling into inference. Graph and kernel decisions are unchanged."
     },
+    "src/marketing/flow_jobs.rs": {
+      "status": "unproved",
+      "sha256": "70afd7a25b41e8e8b60c108d1063cf09d9cc17c4ee602dabcef232f730e167a6",
+      "review": "Flow job storage isolates the PostgreSQL claim, preserves delayed deadlines and existing step receipts, and scopes checkpoint and completion writes to the current tenant/job/attempt; automation regression checks stale claims and terminal delay."
+    },
     "src/marketing/flow_mutations.rs": {
       "status": "unproved",
       "sha256": "6e2bfb684705347813594154f9415454727b1d491263e2e0f4e4ae4b464c80a8",
@@ -4361,8 +4366,8 @@
     },
     "src/marketing/flows.rs": {
       "status": "unproved",
-      "sha256": "18b397dbb4d8355e2a693d637615cc85bd1941043907863486aa983a7d1d741e",
-      "review": "Moved the exact built-in Flow identifier arrays to the shared catalog, kept tenant app resolution and native grants in Core, and exposed additive discovery metadata. Unknown stored action now fails rather than falling into inference. Graph and kernel decisions are unchanged."
+      "sha256": "ecc642c3eabd140c6ee9ccc63bc934a9fdc81ce8e37155eadf3dbf213479f8e7",
+      "review": "Flow job storage isolates the PostgreSQL claim, preserves delayed deadlines and existing step receipts, and scopes checkpoint and completion writes to the current tenant/job/attempt; automation regression checks stale claims and terminal delay."
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
@@ -4391,8 +4396,8 @@
     },
     "src/marketing/mod.rs": {
       "status": "unproved",
-      "sha256": "bdc69fdc1a360cc64582e5ea5526353415f640adb13eaaa100bc3e493c893343",
-      "review": "Reviewed rollback-only installer probe, explicit deferred constraint check, metadata-only response, current permissions/owned-stage admission and shared Flow replacement validation under existing automation lock. Actual schema/consent/examples/Flow HTTP checks and frontend tests passed. SQL and async behavior remain unproved."
+      "sha256": "a49b402e6be9499c16969a59d7819fb6f54077a8fdc0e5a68c9b108a504be43f",
+      "review": "Flow job storage isolates the PostgreSQL claim, preserves delayed deadlines and existing step receipts, and scopes checkpoint and completion writes to the current tenant/job/attempt; automation regression checks stale claims and terminal delay."
     },
     "src/marketing/pipeline.rs": {
       "status": "reviewed-binding",
@@ -4401,8 +4406,8 @@
     },
     "src/marketing/pipeline_runtime.rs": {
       "status": "unproved",
-      "sha256": "c31879c32c4f185a3f66888fe05c31ea60f982045717f5471e53754a42c7a8a1",
-      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
+      "sha256": "7d71dad08a77de851b6ee59553affc391c2ab9f2405e90cb93722dc4a2f1defd",
+      "review": "Flow job storage isolates the PostgreSQL claim, preserves delayed deadlines and existing step receipts, and scopes checkpoint and completion writes to the current tenant/job/attempt; automation regression checks stale claims and terminal delay."
     },
     "src/marketing/pipeline_tests.rs": {
       "status": "unproved",

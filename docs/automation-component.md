@@ -149,6 +149,14 @@ keeps the action handlers and authorization close to the commerce owners.
 The checkout transaction has no dependency on the preview service or
 on Flow worker availability.
 
+Two local Core workers shared one isolated PostgreSQL test database.
+Six concurrent purchases and their replays produced six orders, six
+stock decrements and six invoices. Every Flow ran its delay and resumed
+once. With those purchases in flight, 96 catalog reads completed without
+errors. The median was 40.4 ms and the 95th percentile was 75.7 ms in
+this local debug build with four catalog clients and four purchase clients.
+The current [public status](status.md) records the separate hosted checks.
+
 ## Remaining Automation work
 
 The job adapter is the first part of the execution boundary. A portable

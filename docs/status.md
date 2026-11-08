@@ -10,9 +10,33 @@ Updated 8 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
-## Live Core and built-in Flow catalog, 8 November 2026
+## Live Core and durable Flow job storage, 8 November 2026
 
-Northflank runs Core build `past-shake-5794` from `a2a6d60`, with one
+Northflank runs Core build `apt-group-5288` from `bf42343`. Deployment
+`vendune-core-5c9dbdbc64` reached one ready replica with zero restarts.
+The image source and merged change have the same Git tree. The job adapter
+claims a ready Flow together with its checkpoint and scopes progress and
+completion to the same execution attempt.
+
+After deployment, the Storyfront checkout opened and returned to the
+original open cart on desktop and mobile. Reload preserved the cart and
+the recovery read took 18 to 19 ms. The form was visible after 799 ms on
+desktop and after 1,310 ms and 807 ms in two mobile checks. In 12 reads per route before
+and after rollout, median response times stayed at 11 ms for Core health
+and 8 ms for onboarding. The demo catalog changed from 27 to 28 ms.
+These are short public availability and latency checks.
+
+The complete purchase and Flow effects ran in an isolated test shop.
+Tests covered replay, a final delay, a stale attempt, revoked access and
+tenant isolation. The separate rule preview could be stopped during the
+purchase. Two local workers also processed six concurrent purchases and
+their replays with one stock decrement and invoice per order.
+[Flow job storage](automation-component.md#durable-flow-job-storage) ·
+[Source change](https://github.com/veyndo/veyndo/pull/347).
+
+## Previous Core release with the built-in Flow catalog, 8 November 2026
+
+Northflank deployed Core build `past-shake-5794` from `a2a6d60`, with one
 ready replica. The build and merged source have identical Git trees.
 The public Storyfront checkout opened in 806 ms on desktop and in 1,308
 and 802 ms in two mobile checks. Returning and reloading preserved the

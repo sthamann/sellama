@@ -241,6 +241,7 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
     and restart. [Browser example](checkout-component.md#external-reference-storefront).
 - [ ] CHK-08 Compose native Veyndo and original Storyfront; accept full purchase,
   verified return, empty originating cart, callback replay and refund integration.
+  [Hosted release checklist](storyfront.md#accept-a-hosted-release).
 - [ ] CHK-09 Accept foreign/revoked/private/paused/stale/B2B/stock/provider failures,
   restart/uncertainty recovery and existing Flow/document/outbox behavior.
 - [ ] CHK-10 Cut over existing routes/sessions/attempts through versioned adapters,

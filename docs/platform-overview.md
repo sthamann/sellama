@@ -22,6 +22,9 @@ verbinden. Der lokale Beispielshop hat den Kauf über das JavaScript SDK
 durchgespielt und die ursprüngliche Bestellung nach einer unterbrochenen
 Antwort wiedergefunden. Preis, Bestand und Bestellung lagen dabei bei einem
 separaten Rust Dienst. [Beispielshop und Ablauf](checkout-component.md#external-reference-storefront).
+Bei Storyfront ist der Warenkorb Teil der Experience. Nach der Zahlung fragt
+Storyfront den Stand der ursprünglichen Bestellung bei Core ab. Erst die
+bestätigte Bestellung leert den Warenkorb. [Abnahme für den Betrieb](storyfront.md#accept-a-hosted-release).
 
 ## 1. Der Aufbau
 

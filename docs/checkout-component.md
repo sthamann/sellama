@@ -116,7 +116,9 @@ order receipt and scoped message handshake. A browser message or URL fragment
 alone never proves purchase. Support native and embedded return, refresh/restart,
 expired carts, repeated callbacks and a stale original cart without duplicate orders.
 
-The [Storyfront recovery contract](storyfront.md#responsibilities-and-contracts) lets the parent find
+The [hosted release checklist](storyfront.md#accept-a-hosted-release) verifies the
+existing Storyfront path before and after the Core update. The
+[Storyfront recovery contract](storyfront.md#responsibilities-and-contracts) lets the parent find
 the original cart when a browser notification is lost. Status reads use the last
 committed state without locking the cart. Only an explicit reopen takes the same
 cart lock as purchase and rechecks the recovery key before replacing a transfer.

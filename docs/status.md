@@ -28,9 +28,20 @@ the cart lock. When reopening raced a purchase, the result was the existing
 order or a replacement transfer for the same cart. The browser fixture used
 the Storyfront adapter and built native checkout at mobile and desktop widths.
 It kept the bag during pending payment, cleared the purchased item after
-capture, and retained it after cancellation. The new hosted Core and Experience
-combination and provider return still need acceptance.
-[Integration and deployment order](storyfront.md#responsibilities-and-contracts).
+capture, and retained it after cancellation.
+
+Core `a3b6d76` is running on Northflank after a fresh PostgreSQL snapshot
+and migration 112. The existing Experience `fb97774` opened its native
+checkout in clean Chromium sessions at 1280 px and 390 px. From the
+checkout button to the contact form took 803 ms and 805 ms, compared with
+805 ms and 799 ms in two runs before the release. Scoped status reads
+returned the original open test cart in 21 ms and 16 ms. An incorrect
+recovery key was rejected. Returning before purchase kept the original
+bag intact after reload.
+
+These are individual timings for the public Lumen demo. The companion
+Experience update and its Sandbox purchase, verified return, empty bag
+and refund remain open. [Hosted release checklist](storyfront.md#accept-a-hosted-release).
 
 ## Service composition and rule extraction, 6 November 2026
 

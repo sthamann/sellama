@@ -73,7 +73,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 
 | Area | Start here |
 | --- | --- |
-| AI Commerce Components | [Component map](docs/one-shop-components.md) · [GitHub organization](https://github.com/veyndo) · [Checkout browser example](docs/checkout-component.md#external-reference-storefront) · [Plan](docs/commerce-components.md) |
+| AI Commerce Components | [Component map](docs/one-shop-components.md) · [GitHub organization](https://github.com/veyndo) · [Checkout and Storyfront](docs/checkout-component.md) · [Plan](docs/commerce-components.md) |
 | AI shopping channels and inward shop imports | [Cart transfer, consent and Shopify/supplier intake](docs/agentic-commerce.md) |
 | Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |

@@ -19,6 +19,10 @@ real persistence and simulated payment. An external storefront uses the
 JavaScript SDK on its server and recovers the same receipt after a browser
 reload. The sample runs separately from the native request path.
 [Browser example](checkout-component.md#external-reference-storefront).
+Storyfront can recover a purchase after its browser notification is lost. Core
+deploys the recovery route and migration first. The Experience uses the
+verified Core receipt to decide when to clear its original cart.
+[Hosted acceptance](storyfront.md#accept-a-hosted-release).
 
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.

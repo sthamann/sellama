@@ -1,8 +1,9 @@
 # Independent checkout service
 
-**Status: required component and extraction/acceptance design. A new standalone
-Checkout service is not delivered by this document.** Track CHK tasks in the
-[component plan](commerce-components.md#checkout-independent-service-and-ui).
+**Status:** the Checkout service has a local reference purchase against a
+separate commerce host. The reference host uses simulated payment and a
+disposable database. The embedded frontend and hosted acceptance are tracked
+in the [component plan](commerce-components.md#checkout-independent-service-and-ui).
 
 Checkout has its own target repository `veyndo/checkout`, Rust service, HTTP API,
 MCP tools, JavaScript/TypeScript client and embeddable checkout UI. It must run
@@ -31,18 +32,40 @@ Define one `CommitOrder` port whose domain owner retains those writes and replay
 receipt in one transaction. In the composed product that remains the existing
 commerce owner until its equivalent component is accepted.
 
-For independent acceptance, supply an actual reference commerce adapter using the
-shared Rust domain/persistence implementation and a disposable PostgreSQL store,
-without the product process. External catalog/inventory/order integrations need
-explicit reservation leases, expiry, idempotency, confirmed outcomes and recovery.
-Do not present a forwarding proxy that still requires Core as full standalone
-acceptance, or replace the native transaction with best-effort HTTP calls.
+External catalog, inventory and order integrations need explicit reservation
+leases, expiry, idempotency, confirmed outcomes and recovery wherever those
+operations cross transactional owners.
 
 Checkout may store its own sessions and frozen quote references. Payment intents,
 provider receipts, captures and refunds stay with Payments. Uncertain provider
 outcomes are persisted/fenced and recovered; they are never blindly retried.
 Expected cart/quote versions and current channel/customer/company authority must
 be rechecked at purchase, not inferred from an earlier UI preview or model output.
+
+## A purchase with a separate commerce host
+
+The local reference uses two Rust processes and two PostgreSQL databases. The
+Checkout service keeps the buyer's draft. The reference host supplies current
+buyer and cart admission, an exact price in minor units, and one commit for the
+stock decrement, order and outbox event. The same Rust purchase orchestrator
+also runs in the Veyndo composition. A host can supply its own rules through
+the orchestrator's required ports.
+
+| Host operation | What it returns |
+| --- | --- |
+| `POST /store-api/checkout/session-quote` | Current amount, revision, channel and review policy for the buyer's cart. |
+| `POST /store-api/checkout/session-order` | A receipt after explicitly reviewed confirmation. An exact replay returns that same receipt. |
+| `POST /store-api/checkout/session-receipt` | The original receipt for the current buyer and checkout session. The cart credential is unnecessary here. |
+
+The test reads the quote through HTTP and MCP, rejects a changed amount and
+then sends two confirmed purchases for the last unit. It drops the successful
+response after commit. After both processes restart, the JavaScript SDK reads
+the same receipt. One stock decrement, one order and one event remain in
+PostgreSQL. A revoked buyer can no longer retrieve the receipt.
+
+The example covers one product, one currency and simulated authorization on
+loopback. The full external storefront, production identity, configured
+payment providers and hosted performance require separate acceptance.
 
 ## UI and agent integration
 

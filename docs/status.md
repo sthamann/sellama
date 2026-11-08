@@ -10,6 +10,15 @@ Updated 8 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## A purchase without Core, 8 November 2026
+
+The independent Checkout process now has local acceptance against a separate
+Rust reference commerce host. The two processes use separate PostgreSQL
+databases. Two concurrent attempts for the last unit leave one order and one
+event. The JavaScript SDK recovers the original receipt after a lost response
+and restart. The reference uses simulated payment. An external storefront and
+hosted acceptance remain open. [Checkout reference](checkout-component.md#a-purchase-with-a-separate-commerce-host).
+
 ## Embedded checkout recovery, 8 November 2026
 
 Local signed PostgreSQL tests recovered the original order after the browser

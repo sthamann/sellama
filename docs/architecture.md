@@ -12,6 +12,11 @@ and event transaction with Commerce. The component boundary changes how a
 caller reaches the operation. Its authority and business decisions stay with
 the same owner. [Component map and measured composition](one-shop-components.md).
 
+The separate Checkout service can also call a reference commerce host. The
+host has its own database and runs the same purchase orchestrator with its own
+cart, pricing and transaction adapters. This demonstrates the boundary with
+real persistence and simulated payment. [Reference purchase](checkout-component.md#a-purchase-with-a-separate-commerce-host).
+
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.
 

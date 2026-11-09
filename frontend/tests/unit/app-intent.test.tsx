@@ -141,6 +141,8 @@ it("seeds the shared composer without running AI and exports the actual current 
       prompt: "Prepare material advice",
       agent: "codex",
       manifest: studio.manifest,
+      references: { urls: [], images: [] },
+      context: undefined,
     }),
   );
   expect(consumed).toHaveBeenCalled();

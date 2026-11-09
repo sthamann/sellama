@@ -55,7 +55,11 @@ it("drags a palette element between existing sections, then moves it to the star
       />
     </LocaleScope>,
   );
-  fireEvent.click(await screen.findByRole("tab", { name: "Elements" }));
+  fireEvent.click(
+    await screen.findByRole("button", { name: "Open editor: Home" }),
+  );
+  fireEvent.click(await screen.findByRole("button", { name: "Properties" }));
+  fireEvent.click(screen.getByRole("tab", { name: "Elements" }));
   const dataTransfer = transfer();
   fireEvent.dragStart(
     screen.getByRole("button", { name: /Image.*A photograph/ }),
@@ -112,9 +116,13 @@ it("rejects external drag payloads and exposes no editing tools to a read-only c
       />
     </LocaleScope>,
   );
+  fireEvent.click(
+    await screen.findByRole("button", { name: "Open editor: Home" }),
+  );
   await screen.findByRole("heading", { name: "Existing text" });
   expect(document.querySelector("[data-drop-position]")).toBeNull();
   expect(document.querySelector(".designer-section-tools")).toBeNull();
+  fireEvent.click(await screen.findByRole("button", { name: "Properties" }));
   fireEvent.click(screen.getByRole("tab", { name: "Elements" }));
   const button = screen.getByRole("button", { name: /Image.*A photograph/ });
   expect(button).toBeDisabled();

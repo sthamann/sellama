@@ -229,7 +229,7 @@ it("opens a blocking login overlay on the current workspace after product authen
   await user.click(
     within(navigation).getByRole("button", { name: "Shop today" }),
   );
-  await screen.findByRole("heading", { name: "Your shop, at a glance." });
+  await screen.findByRole("heading", { name: "Your shop, in numbers" });
   expired = true;
   await user.click(
     within(navigation).getByRole("button", { name: "Products" }),

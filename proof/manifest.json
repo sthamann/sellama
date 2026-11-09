@@ -5362,8 +5362,8 @@
   },
   "inputs": {
     ".github/workflows/verify.yml": {
-      "sha256": "2617e792947a71503a3a110693870fb51452812c4e2790fd3c42342e86b03743",
-      "review": "Reviewed daily/manual full verification with unchanged native/formal/coverage scope; quick source checks install pinned cached frontend tools without lifecycle scripts, compilation or tests. Quick coverage transfer remains disabled."
+      "sha256": "2d707ebdaa8cbf5d09b16b929cd9fd45a097278c3362a23ebdd4d0fcf0a5b75a",
+      "review": "Run the same static Rust image input and mutation guard once in admission for all CI lanes. Standalone contexts follow their own manifests and local dependency roots and keep lock and source removal negative controls. Full coverage and native jobs retain their cadence."
     },
     "Cargo.lock": {
       "sha256": "3ecf12719149ab827688d7fc52d2dbdbbab1da240453bad36c75c07f868dc6e8",

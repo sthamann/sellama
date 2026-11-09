@@ -37,6 +37,8 @@ jobs:
         run: python3 scripts/testing/test_ci_scope.py && python3 scripts/testing/test_ci_gate.py && python3 scripts/testing/tooling_tests.py && python3 scripts/testing/test_parallel_check.py && python3 scripts/testing/test_integration_partitions.py && python3 scripts/testing/test_partition_coverage.py
       - name: Check source structure without compiling or starting test services
         run: python3 scripts/structure.py
+      - name: Verify production Rust image compile-time inputs and negative control
+        run: python3 scripts/testing/image_context.py
       - run: python3 scripts/testing/documentation_hygiene.py
       - name: Check exact source inventory before compiling or integration tests
         run: python3 scripts/testing/source_inventory.py
@@ -155,8 +157,6 @@ jobs:
         run: |
           python3 -m pip install -r scripts/testing/requirements.txt
           sudo apt-get update && sudo apt-get install -y pgbouncer
-      - name: Verify production Rust image compile-time inputs and negative control
-        run: python3 scripts/testing/image_context.py
       - run: cargo fmt --all --check && cargo clippy --locked --workspace --all-targets -- -D warnings
       - name: Instrument the real Rust unit and HTTP paths
         run: |

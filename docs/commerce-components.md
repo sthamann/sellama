@@ -471,6 +471,9 @@ The following are implementation tasks; existing UI foundations do not complete 
     [Private queue signals](automation-component.md#read-the-worker-queue-logs).
 - [ ] AUTO-03 Expose independent API/MCP and graphical/SDK authoring through one
   definition; test branches, delays, retries, revocation and publication.
+  - [x] AUTO-03a Validate drafts through the same Core contract in Studio,
+    HTTP, MCP and the SDK. Verify current rights, rule references and revisions
+    without writing or enqueuing anything. [Draft check](automation-component.md#check-a-flow-draft-before-saving).
 - [ ] CON-01 Move connector host and app-owned adapters to `veyndo/connectors`
   with source history and independently buildable Rust images.
 - [ ] CON-02 Replace Core tenant foreign-key provisioning with an authenticated

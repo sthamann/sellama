@@ -95,6 +95,69 @@ it("opens existing rules immediately and honors granular automation.manage for c
     screen.queryByRole("button", { name: /Eligible carts/ }),
   ).not.toBeInTheDocument();
 });
+it("checks the current Flow draft without saving or reloading and clears stale feedback", async () => {
+  const user = userEvent.setup();
+  const draft = {
+    ...rule,
+    id: "notify",
+    data: {
+      ...rule.data,
+      name: { "en-GB": "Notify purchaser" },
+      event: "order.placed",
+      action: "note",
+    },
+  };
+  const request = vi.fn(
+    async (path: string, _body?: unknown, _method?: string) => {
+      if (path === "/api/automation")
+        return {
+          rules: [rule],
+          flows: [draft],
+          channels: [],
+          promotions: [],
+          jobs: [],
+        };
+      if (path === "/api/auth/access")
+        return { permissions: ["automation.manage"] };
+      if (path === "/store-api/context")
+        return { mainLocale: "en-GB", availableLocales: ["en-GB"] };
+      if (path === "/api/automation/catalog")
+        return {
+          conditions: ["alwaysValid"],
+          events: ["order.placed"],
+          fields: [],
+          apps: [],
+        };
+      if (path === "/api/automation/flows/notify")
+        return { valid: true, saved: false, revision: 2 };
+      return { elements: [] };
+    },
+  );
+  render(
+    <LocaleProvider>
+      <AutomationView request={request} role="custom" />
+    </LocaleProvider>,
+  );
+  await screen.findByRole("button", { name: /Eligible carts/ });
+  await user.click(screen.getByRole("button", { name: "Event flows" }));
+  await waitFor(() =>
+    expect(screen.getByLabelText("Title")).toHaveValue("Notify purchaser"),
+  );
+  request.mockClear();
+  await user.click(screen.getByRole("button", { name: "Check draft" }));
+  expect(
+    await screen.findByText("Draft checked. Nothing was saved."),
+  ).toBeVisible();
+  expect(request).toHaveBeenCalledExactlyOnceWith(
+    "/api/automation/flows/notify",
+    { revision: 2, data: draft.data, validateOnly: true },
+    "PUT",
+  );
+  await user.type(screen.getByLabelText("Title"), " updated");
+  expect(
+    screen.queryByText("Draft checked. Nothing was saved."),
+  ).not.toBeInTheDocument();
+});
 it("checks references before confirmation and never submits a blocked deletion", async () => {
   const user = userEvent.setup(),
     deleted = vi.fn();

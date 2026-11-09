@@ -191,12 +191,12 @@ export default function AutomationView({
     setAdvanced("");
     setData((d) => ({ ...d, [key]: value }));
   };
-  const run = async (fn: () => Promise<void>) => {
+  const run = async (fn: () => Promise<void>, reload = true) => {
     setBusy(true);
     setError("");
     try {
       await fn();
-      await load();
+      if (reload) await load();
     } catch (e) {
       setError((e as Error).message);
     } finally {

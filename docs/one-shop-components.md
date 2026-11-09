@@ -2,6 +2,11 @@
 
 Run Veyndo as a complete shop, or start with the capability you need. A retailer can use its storefront, POS and merchant Studio together. A developer can integrate a marketplace gateway, run app logic or use the SDK with an existing commerce system.
 
+Studio can compose the normal Orders view with shipping policy from Shop
+Knowledge. An external host can combine the corresponding Commerce and
+Knowledge reads through the same SDK layout contract.
+[Walkthrough and runnable example](agentic-component-ui.md#orders-shipments-and-shipping-policy).
+
 ## How one shop works
 
 Commerce owns the catalogue, prices, stock and orders. Checkout coordinates the buyer's session and asks that owner for the current quote and the purchase. Commerce checks current purchasing authority and commits the order, stock allocation and event in one transaction. [Company and shop authority tests](checkout-component.md#current-buyer-channel-and-company-authority). The receipt can be read independently of the original purchase request.

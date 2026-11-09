@@ -30,6 +30,8 @@ call('/api/knowledge/documents',{**v,'translations':{'de-DE':{'unexpected':'bad'
 call('/api/knowledge/documents',{**v,'visibility':'public'},a,expected=400)
 p=lambda audience='customer',query='Dishwasher',locale='en-GB',product='mug':call('/api/knowledge/preview',{'query':query,'audience':audience,'productId':product},a,locale=locale)
 assert not p()['sources'] and p('merchant')['sources'] and not p()['modelCalled'] and not p()['sideEffects']
+policy = call('/api/knowledge/preview', {'query':'Dishwasher','audience':'merchant','productId':'mug','includeExternal':False}, a)
+assert policy['sources'] and policy['external']==[] and not policy['modelCalled']
 call('/api/knowledge/preview',{'query':'x','audience':'customer'},a,expected=400)
 call('/api/knowledge/preview',{'query':'x','audience':'customer','productId':'foreign'},a,expected=404)
 call(path,{'visibility':'public','revision':1,'approve':False},a,expected=400,method='PUT')

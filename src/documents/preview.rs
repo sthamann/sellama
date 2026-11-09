@@ -37,7 +37,7 @@ pub(crate) async fn preview(
     };
     let locale = language_context(&a, &h).await?.0;
     let sources = retrieval::search_in(&a, &t, product, query, public, &locale, false).await?;
-    let external = if public {
+    let external = if public || v["includeExternal"] == false {
         json!([])
     } else {
         apps::private_evidence(&a, &t, query).await?

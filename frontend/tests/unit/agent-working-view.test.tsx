@@ -5,7 +5,12 @@ import AgentWorkSurface from "../../src/admin/workspace/AgentWorkSurface";
 import { StudioContext } from "../../src/admin/shell/StudioContext";
 import { LocaleScope } from "../../src/shared/i18n/i18n";
 
-function fixture() {
+function fixture(withKnowledge = false) {
+  const permissions = [
+    "orders.read",
+    "customers.pii",
+    ...(withKnowledge ? ["knowledge.read"] : []),
+  ];
   let saved: any = {
     revision: 2,
     data: {
@@ -15,8 +20,18 @@ function fixture() {
     },
   };
   const request = vi.fn(async (path: string, body?: any) => {
-    if (path === "/api/auth/access")
-      return { permissions: ["orders.read", "customers.pii"] };
+    if (path === "/api/auth/access") return { permissions };
+    if (path === "/api/knowledge/preview" && withKnowledge)
+      return {
+        sources: [
+          {
+            sourceId: "shipping",
+            locale: "en-GB",
+            title: "Delivery policy",
+            text: "Offer a new estimated date after checking tracking.",
+          },
+        ],
+      };
     if (path.startsWith("/api/merchant/orders?"))
       return {
         elements: [
@@ -46,7 +61,7 @@ function fixture() {
   const context = {
     request,
     liveRequest: request,
-    access: ["orders.read", "customers.pii"],
+    access: permissions,
     openEntity: vi.fn(),
     tabLabel: () => "Orders",
     token: "",
@@ -129,4 +144,71 @@ it("removes current rows immediately when rights are revoked and never mounts un
       path.startsWith("/api/merchant/orders?"),
     ),
   ).toBe(false);
+});
+
+it("shows a current shipping passage alongside real order rows and drops only that panel on revocation", async () => {
+  const f = fixture(true);
+  const candidate = {
+    entity: "orders" as const,
+    criteria: {},
+    components: ["records", "shippingPolicy"] as const,
+  };
+  const view = (access: string[]) => (
+    <LocaleScope locale="en-GB">
+      <StudioContext.Provider value={{ ...f.context, access } as any}>
+        <AgentWorkSurface
+          candidate={{ ...candidate, components: [...candidate.components] }}
+          onClose={() => {}}
+        />
+      </StudioContext.Provider>
+    </LocaleScope>
+  );
+  const page = render(view(f.context.access));
+  await screen.findByText(
+    "Offer a new estimated date after checking tracking.",
+  );
+  await screen.findByRole("button", { name: /ORDER-100/ });
+  expect(f.request).toHaveBeenCalledWith("/api/knowledge/preview", {
+    audience: "merchant",
+    query: "shipping delivery delays",
+    includeExternal: false,
+  });
+  page.rerender(view(["orders.read", "customers.pii"]));
+  expect(screen.queryByText("Delivery policy")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /ORDER-100/ })).toBeInTheDocument();
+});
+
+it("keeps native orders available on a policy failure and retries just the policy", async () => {
+  const f = fixture(true);
+  const original = f.request.getMockImplementation()!;
+  f.request.mockImplementation((path, body) =>
+    path === "/api/knowledge/preview"
+      ? Promise.reject(new Error("Synthetic service outage"))
+      : original(path, body),
+  );
+  render(
+    <LocaleScope locale="en-GB">
+      <StudioContext.Provider value={f.context as any}>
+        <AgentWorkSurface
+          candidate={{
+            entity: "orders",
+            criteria: {},
+            components: ["records", "shippingPolicy"],
+          }}
+          onClose={() => {}}
+        />
+      </StudioContext.Provider>
+    </LocaleScope>,
+  );
+  await screen.findByRole("alert");
+  await screen.findByRole("button", { name: /ORDER-100/ });
+  const orderReads = () =>
+    f.request.mock.calls.filter(([path]) =>
+      path.startsWith("/api/merchant/orders?"),
+    ).length;
+  const initial = orderReads();
+  f.request.mockImplementation(original);
+  fireEvent.click(screen.getByRole("button", { name: "Try again" }));
+  await screen.findByText("Delivery policy");
+  expect(orderReads()).toBe(initial);
 });

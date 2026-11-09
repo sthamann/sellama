@@ -92,3 +92,27 @@
     backdrop-filter: none;
   }
 }
+.agent-shipping-policy {
+  padding: 16px 0;
+  border-block-end: 1px solid var(--border);
+}
+.agent-shipping-policy h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+.agent-shipping-policy ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.agent-shipping-policy li + li {
+  margin-block-start: 12px;
+}
+.agent-shipping-policy p {
+  margin: 4px 0 0;
+  max-inline-size: 70ch;
+  overflow-wrap: anywhere;
+}
+.agent-shipping-policy button {
+  margin-block-start: 8px;
+}

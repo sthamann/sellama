@@ -155,6 +155,35 @@ domain, PII and intake admission.
 This delivers the shared host/layout connection, not all component UI exports,
 new model runs or completed OpenUI/A2UI/MCP Apps adapters.
 
+## Orders, shipments and shipping policy
+
+In Studio, ask for open orders and the shipping policy. Open the proposed
+working view to see the normal Orders grid and the shipping policy passages
+from the current shop. Select a row to reach the original order editor and
+its deliveries. The policy panel can also be added or removed from the view.
+It requires `knowledge.read`. Orders retain their own order and personal data
+permissions. The policy lookup sends a fixed query in the current language,
+excludes app evidence, and never sends an order ID or calls an AI model.
+Retry a failed policy read while keeping the order view open.
+
+For a separate application, [the Node example](examples/order-shipping-workspace.mjs)
+uses `@veyndo/sdk/composition` to discover and read the existing Commerce
+order and the independent Knowledge document search in parallel. Supply
+`COMMERCE_URL`, `COMMERCE_ACCESS_TOKEN`, `KNOWLEDGE_URL`,
+`KNOWLEDGE_ACCESS_TOKEN`, `WORKSPACE_SHOP` and `WORKSPACE_ORDER_ID` on
+the server, then run the example with Node 22 and SDK 0.3.0. Open the
+loopback address printed by the example. Use a disposable order and scoped
+test credentials. The example projects shipment states and source passages
+only, and shows each service failure independently. Shipping booking and
+tracking updates remain with their existing owners.
+
+The native storefront assistant also offers a side-by-side comparison of
+shortlisted products present in the current catalog response. A comparison
+suggestion opens it directly. It shows the
+same contextual prices and stock as the product cards. Each product opens
+the native detail page for variant selection, configuration and the explicit
+add-to-cart action. Comparison adds no model call and issues no cart writes.
+
 ## Delivered standalone operation example
 
 The [App Runtime service](app-runtime-service.md) now demonstrates independent

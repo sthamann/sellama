@@ -11,7 +11,8 @@ import { admitWorkspaceView } from "../../shared/grid/workspace-view";
 const NativeBindings = createContext<{
   directory: ReactNode;
   intake: ReactNode;
-}>({ directory: null, intake: null });
+  shippingPolicy: ReactNode;
+}>({ directory: null, intake: null, shippingPolicy: null });
 const Workspace = defineComponent({
   name: "Workspace",
   description: "A reviewed native Veyndo working view.",
@@ -37,9 +38,15 @@ const Intake = defineComponent({
   props: z.object({}),
   component: () => useContext(NativeBindings).intake,
 });
+const ShippingPolicy = defineComponent({
+  name: "ShippingPolicy",
+  description: "Current shipping policy passages from the shop knowledge base.",
+  props: z.object({}),
+  component: () => useContext(NativeBindings).shippingPolicy,
+});
 const library = createLibrary({
   root: "Workspace",
-  components: [Workspace, Directory, Intake],
+  components: [Workspace, Directory, Intake, ShippingPolicy],
 });
 export function composeNativeWorkspace(
   candidate: unknown,
@@ -47,17 +54,26 @@ export function composeNativeWorkspace(
 ): string | null {
   const view = admitWorkspaceView(candidate, rights);
   if (!view) return null;
-  const selected = (view.components ?? ["records"])
-    .filter(
-      (c) =>
-        c !== "details" && (c !== "intake" || rights.includes("catalog.write")),
-    )
-    .map((c) => (c === "records" ? "Directory" : "Intake"));
+  const selected = (view.components ?? ["records"]).flatMap((component) => {
+    switch (component) {
+      case "records":
+        return ["Directory"];
+      case "intake":
+        return rights.includes("catalog.write") ? ["Intake"] : [];
+      case "shippingPolicy":
+        return ["ShippingPolicy"];
+      case "details":
+        return [];
+    }
+  });
   // The SDK is shared with independent hosts. Domain and PII admission above stays native.
   const layout = createLayoutRegistry([
     { id: "Directory", version: 1, title: "Directory" },
     ...(rights.includes("catalog.write")
       ? [{ id: "Intake", version: 1, title: "Intake" }]
+      : []),
+    ...(rights.includes("knowledge.read")
+      ? [{ id: "ShippingPolicy", version: 1, title: "Shipping policy" }]
       : []),
   ]).admit({
     version: 1,
@@ -75,16 +91,18 @@ export default function GeneratedWorkspace({
   rights,
   directory,
   intake,
+  shippingPolicy,
 }: {
   candidate: unknown;
   rights: string[];
   directory: ReactNode;
   intake: ReactNode;
+  shippingPolicy?: ReactNode;
 }) {
   const source = composeNativeWorkspace(candidate, rights);
   if (!source) return null;
   return (
-    <NativeBindings.Provider value={{ directory, intake }}>
+    <NativeBindings.Provider value={{ directory, intake, shippingPolicy }}>
       <Renderer response={source} library={library} isStreaming={false} />
     </NativeBindings.Provider>
   );

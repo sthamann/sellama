@@ -22,21 +22,29 @@ pub(crate) fn validate_components(entity: &str, components: &[String]) -> Result
             .len()
             != components.len()
         || components.iter().any(|c| {
-            !matches!(c.as_str(), "records" | "details" | "intake")
-                || (c == "intake" && entity != "products")
+            !matches!(
+                c.as_str(),
+                "records" | "details" | "intake" | "shippingPolicy"
+            ) || (c == "intake" && entity != "products")
+                || (c == "shippingPolicy" && entity != "orders")
         })
     {
         return Err(bad("Invalid agent workspace components"));
     }
     Ok(())
 }
-pub(crate) fn schema() -> Value {
+pub(crate) fn schema(knowledge: bool) -> Value {
+    let mut components = vec!["records", "details", "intake"];
+    if knowledge {
+        components.push("shippingPolicy");
+    }
     // One explicit discriminator avoids provider preference for the first same-shaped union arm.
     // The exact per-entity filter schema is still enforced by admit(), after wire restoration.
     json!({"anyOf":[{"type":"object","properties":{
         "entity":{"type":"string","enum":["products","orders","customers"]},
         "criteria":{"type":"object"},
-        "components":{"type":"array","minItems":1,"maxItems":3,"items":{"type":"string","enum":["records","details","intake"]}}
+        "components":{"type":"array","minItems":1,"maxItems":3,"items":{"type":"string","enum":components},
+          "description":"For delivery questions on orders, include details and shippingPolicy if available. This shows the native order details and current policy evidence."}
     },"required":["entity","criteria","components"],"additionalProperties":false},{"type":"null"}]})
 }
 pub(crate) async fn admit(a: &App, h: &RequestContext, view: &mut View) -> Result<()> {
@@ -52,6 +60,10 @@ pub(crate) async fn admit(a: &App, h: &RequestContext, view: &mut View) -> Resul
     )?;
     if view.entity != "products" {
         auth::permit(h, "customers.pii")?;
+    }
+    if !auth::allowed(h, "knowledge.read") {
+        view.components
+            .retain(|component| component != "shippingPolicy");
     }
     view.criteria = operations::grid_schema::validate(&view.entity, &view.criteria)?;
     if let Some(filter) = view.criteria["appFilter"].as_str() {
@@ -78,9 +90,15 @@ mod tests {
             )
             .is_ok()
         );
+        assert!(
+            validate_components("orders", &["records".into(), "shippingPolicy".into()]).is_ok()
+        );
+        assert!(!schema(false).to_string().contains("\"shippingPolicy\""));
+        assert!(schema(true).to_string().contains("\"shippingPolicy\""));
         for (entity, components) in [
             ("products", vec!["records", "sql"]),
             ("orders", vec!["records", "intake"]),
+            ("products", vec!["records", "shippingPolicy"]),
             ("products", vec!["records", "records"]),
             ("customers", vec!["details"]),
             ("foreign", vec!["records"]),

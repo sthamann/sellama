@@ -1,6 +1,7 @@
 /** Validated presentation bindings reuse native directories; model output never contains data or authority. */
 import type { GridCriteria, GridEntity } from "./types";
-export type WorkspaceComponent = "records" | "details" | "intake";
+export type WorkspaceComponent =
+  "records" | "details" | "intake" | "shippingPolicy";
 export type WorkspaceView = {
   entity: GridEntity;
   criteria: GridCriteria;
@@ -70,15 +71,19 @@ export function admitWorkspaceView(
     new Set(components).size !== components.length ||
     components.some(
       (c) =>
-        !["records", "details", "intake"].includes(c) ||
-        (c === "intake" && entity !== "products"),
+        !["records", "details", "intake", "shippingPolicy"].includes(c) ||
+        (c === "intake" && entity !== "products") ||
+        (c === "shippingPolicy" && entity !== "orders"),
     )
   )
     return null;
   return {
     entity,
     criteria: { ...v.criteria } as GridCriteria,
-    components: [...components],
+    components: components.filter(
+      (component) =>
+        component !== "shippingPolicy" || rights.includes("knowledge.read"),
+    ),
   };
 }
 

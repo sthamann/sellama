@@ -234,15 +234,20 @@ events, payment reconciliation and the other background tasks.
    pass `--no-healthcheck` to disable the image's HTTP probe for this role.
    [Database access](authenticated-database-scope.md) ·
    [Connection budget](production-architecture.md).
-2. Set `APP_WORKER_ENABLED=false` on Core. After the rolling deployment,
-   confirm the old Core instances have exited before starting the worker.
+2. Start the private worker on the same compatible image and verify its
+   process role, database access and queue sample before changing Core.
+   Use the existing exact origin allowlist for private connector targets.
+   Brief overlap uses the shared PostgreSQL claims and checkpoints. Set
+   `APP_WORKER_ENABLED=false` on Core and deploy it. Confirm the old Core
+   instance exits and the new process reports that app work is disabled.
    On shutdown the app tasks stop taking new work and have up to 15 seconds
    to finish current operations. PostgreSQL retains claims, checkpoints and
    delivery state for recovery if a task is interrupted.
 3. Place a test order and check its actual Flow and receipt. Check pending
-   job age, worker memory and concurrent shop latency. Roll back by stopping
-   the dedicated worker first and then restoring `APP_WORKER_ENABLED=true`
-   on Core. Orders and durable jobs stay in the same database throughout.
+   job age, worker memory and concurrent shop latency. To return app work
+   to Core without a planned gap, restore `APP_WORKER_ENABLED=true` and
+   verify Core's app lane before stopping the dedicated worker. Orders and
+   durable jobs stay in the same database throughout.
 
 The isolated handoff test placed an order with Core's app lane disabled.
 A separate worker processed the queued event and finished the Flow after
@@ -282,8 +287,11 @@ invoice. A healthy sample cannot establish that result.
 
 ## Remaining Automation work
 
-The native Core worker uses the same directives. Operating a dedicated worker
-in the hosted shop and extracting event delivery, scheduler and independent
-Flow authoring remain open under AUTO-02/03.
+Northflank now runs the app worker separately from Core. The public demo
+purchase and queue diagnostics were checked after cutover. Reading the
+saved trace of a hosted test order requires current merchant access.
+Independent Flow authoring, event delivery and scheduler extraction remain
+open under AUTO-02/03.
+[Live cutover](status.md#live-flow-draft-check-and-separate-app-worker-9-november-2026).
 [Current task list](commerce-components.md#automation-and-connectors),
 [acceptance evidence](evidence/automation-component-2026-11-06.md).

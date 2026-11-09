@@ -48,4 +48,9 @@ Compare the same commerce operation through both entry points under equivalent l
 
 The [benchmarks](benchmarks.md) explain which paths, workloads and environments were measured. Local synthetic results and public reachability checks are reported separately from hosted capacity and provider acceptance.
 
+The hosted shop now runs its app worker separately from Core. The worker
+owns Flow execution, app scheduling and delivery from the existing queues.
+The checkout and its original receipt still use the same Commerce owner.
+[Hosted cutover and measurements](status.md#live-flow-draft-check-and-separate-app-worker-9-november-2026).
+
 [Checkout composition measurements, 8 November 2026](evidence/checkout-composition-performance-2026-11-08.md).

@@ -63,6 +63,10 @@ A deferred job releases its claim, and each progress or completion write
 must match the shop, job and execution attempt. Checkout commits the
 event and the worker consumes it asynchronously.
 [Flow job storage](automation-component.md#durable-flow-job-storage).
+Northflank runs app work in a separate private process. Core keeps the public
+checkout and writes the order event. Both processes use the existing restricted
+runtime connections, and the app worker samples due queue ages.
+[Hosted cutover](status.md#live-flow-draft-check-and-separate-app-worker-9-november-2026).
 The validated graph also supplies typed directives for branching, effects,
 delays and stops. Core evaluates rules from the saved job, checks current
 rights and dispatches through the existing action owners. An app worker can

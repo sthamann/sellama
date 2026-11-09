@@ -42,11 +42,13 @@ reload. When the confirmation response and iframe message were both lost, two
 transport attempts resolved to one receipt, one stock decrement and one
 `order.placed` event.
 
-Northflank built `puffy-soup-2325` from Checkout commit `eaa34f2`. The new
-private service is paused with zero replicas while its separate database and
-restricted login are prepared. The public shops still use the existing Core
-checkout. Hosted native and Storyfront purchases, provider payment and refund
-through the independent service remain open.
+Northflank runs Checkout image `puffy-soup-2325` from `eaa34f2` with one
+ready private replica and zero restarts at verification. Its separate database
+enforces row-level access. The restricted login authenticated and could not
+read the database signing key. The temporary administrator connection was
+removed from the maintenance job after installation. Public shops still use
+the existing Core checkout. Hosted native and Storyfront purchases, provider
+payment and refund through the independent service remain open.
 [Checkout verification and rollout](checkout-component.md#storyfront-composition-and-hosted-rollout).
 
 The local PayPal Sandbox composition exercised the built-in PayPal adapter

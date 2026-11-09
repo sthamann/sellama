@@ -1,5 +1,6 @@
 /** ConciergeView: storefront view composed from the scoped cart/controller. */
 import { mediaImage } from "../../shared/media/product-media";
+import AssistantMarkdown from "../../shared/content/AssistantMarkdown";
 import type { ShopperAdvice } from "./useShopperAdvice";
 import ConciergeSelection from "./ConciergeSelection";
 import { shopApi } from "../../shared/api/shop-api";
@@ -122,8 +123,10 @@ export default function ConciergeView() {
         ))}
       </div>
       {advice && (
-        <div className="shop-advice" role="status">
-          <p className="concierge-explanation">{advice.explanation}</p>
+        <div className="shop-advice">
+          <div className="concierge-explanation" role="status">
+            <AssistantMarkdown text={advice.explanation} />
+          </div>
           {advice.recommended_ids.length > 0 && (
             <ConciergeSelection
               key={JSON.stringify([scope, advice])}

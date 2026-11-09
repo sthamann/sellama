@@ -1,5 +1,11 @@
 # Changelog
 
+## Assistant answer formatting
+
+- Render tables, lists and emphasis in the storefront assistant and Studio.
+  Product links and checkout actions remain in their native controls.
+- Document the one-page PayPal checkout and the separate SDK reference.
+
 ## Orders and shipping in agentic workspaces
 
 - Show current shipping policy alongside native order work in Studio and

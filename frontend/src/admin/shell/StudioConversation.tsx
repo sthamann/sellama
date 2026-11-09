@@ -11,7 +11,7 @@ import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 
 import "../../shared/styles/workbench.css";
 import Icon from "../../shared/ui/Icon";
-import MessageText from "../assistant/MessageText";
+import AssistantMarkdown from "../../shared/content/AssistantMarkdown";
 import { openReviewedView } from "../../shared/grid/pinned-view";
 import ProposalCard from "../assistant/ProposalCard";
 import "../styles/operations.css";
@@ -172,7 +172,7 @@ export default function StudioConversation({
                   {m.role === "user" ? t("you") : t("assistant")}
                 </span>
                 {m.role === "assistant" && !m.data.error ? (
-                  <MessageText text={m.content} />
+                  <AssistantMarkdown text={m.content} />
                 ) : (
                   <p>
                     {m.data.error

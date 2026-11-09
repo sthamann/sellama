@@ -1,0 +1,42 @@
+/* Shared assistant prose, with contained scrolling for wide tables and code. */
+.assistant-markdown {
+  min-inline-size: 0;
+  max-inline-size: 75ch;
+  overflow-wrap: anywhere;
+}
+.assistant-markdown > * {
+  margin-block: 0;
+}
+.assistant-markdown > * + * {
+  margin-block-start: 0.8em;
+}
+.assistant-markdown :is(ul, ol) {
+  padding-inline-start: 1.5em;
+}
+.assistant-markdown blockquote {
+  margin-inline: 0;
+  border-inline-start: 1px solid var(--line);
+  padding-inline-start: 1em;
+}
+.assistant-markdown pre,
+.assistant-markdown-table {
+  overflow: auto;
+  max-inline-size: 100%;
+}
+.assistant-markdown-table {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.assistant-markdown-table table {
+  inline-size: 100%;
+  border-collapse: collapse;
+}
+.assistant-markdown-table :is(th, td) {
+  min-inline-size: 6rem;
+  padding: 0.5em 0.75em;
+  text-align: start;
+  vertical-align: top;
+}
+.assistant-markdown-table tbody tr {
+  border-block-start: 1px solid var(--line);
+}

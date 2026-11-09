@@ -3,9 +3,12 @@
   min-inline-size: 0;
 }
 .concierge-explanation {
-  white-space: pre-line;
+  font-size: 0.9375rem;
   line-height: 1.65;
-  max-width: 80ch;
+}
+.shop-concierge .concierge-explanation p {
+  color: inherit;
+  font-size: inherit;
 }
 .concierge-selection {
   min-width: 0;

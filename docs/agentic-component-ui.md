@@ -194,6 +194,30 @@ simulation result with no applied effect. This supplies one actual operation hos
 the common generated UI/renderer and cross-service navigation remain the open
 work described here. [Runtime service acceptance](evidence/app-runtime-service-component-2026-11-06.md).
 
+## Reuse across Studio, storefront and external hosts
+
+Studio and the storefront assistant share a Markdown renderer for explanatory
+text. Tables, lists and emphasis render as React elements. Model-supplied links
+and images display as text and raw HTML stays inert. The model can suggest
+products, but prices, stock, product links and purchase controls come from the
+native catalogue and Checkout. The product comparison is an example of that
+separation.
+
+Use the same split when extending a surface. A product page can show an
+explanation next to compatible products and actual availability. An order
+workspace can pair a delivery explanation with tracking and payment status.
+Reports can show a short interpretation alongside the actual filtered grid
+or chart. In each case, register the structured component and its read
+operation once. Studio, a storefront or an external SDK host can then compose
+the view from those registered components. The model supplies the explanation
+and suggests a layout. When a user approves a change, the existing operation
+checks it.
+
+For partner storefronts, start with the
+[one-page PayPal checkout](checkout.md#add-a-one-page-paypal-checkout-to-your-frontend).
+The same purchase can be linked from a generated comparison or a conventional
+product page.
+
 ## Coverage required from every component
 
 | Component | Useful UI exports and agent compositions |

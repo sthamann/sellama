@@ -182,6 +182,13 @@ calls the same cart and checkout implementation. Protocol versions and the
 unimplemented portions are documented rather than claiming all agentic
 standards are one interchangeable interface.
 
+Studio maps validated workspace definitions onto registered OpenUI panels.
+The Orders panel uses the normal order and fulfillment views. The policy
+panel retrieves current, scoped Shop Knowledge passages separately. The
+independent SDK host can bind those reads to separate service endpoints.
+The storefront uses its native product and cart controls for buying.
+[Composition walkthrough](agentic-component-ui.md#orders-shipments-and-shipping-policy).
+
 Primary protocol sources checked during implementation:
 
 - https://ucp.dev/specification/shopping/checkout/rest/

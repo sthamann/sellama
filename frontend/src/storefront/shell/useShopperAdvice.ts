@@ -1,7 +1,11 @@
 /** Keep editable recommendations across product navigation within the original buyer/channel context. */
 import { useCallback, useState } from "react";
 import type { Cart } from "../../shared/api/shop-api";
-export type ShopperAdvice = { explanation: string; recommended_ids: string[] };
+export type ShopperAdvice = {
+  explanation: string;
+  recommended_ids: string[];
+  layout?: "discovery" | "comparison";
+};
 export function useShopperAdvice(
   tenant: string,
   channel: string,

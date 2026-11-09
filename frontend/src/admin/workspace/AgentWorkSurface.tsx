@@ -21,6 +21,7 @@ import ConfirmDialog from "../../shared/ui/ConfirmDialog";
 import { useStudio } from "../shell/StudioContext";
 import GeneratedWorkspace from "./GeneratedWorkspace";
 import AgentViewDirectory from "./AgentViewDirectory";
+import OrderShippingPolicy from "./OrderShippingPolicy";
 import { pinWorkspaceView } from "./pin-workspace-view";
 import { useCompositionText } from "./composition-i18n";
 import "./composition.css";
@@ -151,6 +152,10 @@ export default function AgentWorkSurface({
                 [
                   "details",
                   ...(view.entity === "products" ? ["intake"] : []),
+                  ...(view.entity === "orders" &&
+                  rights.includes("knowledge.read")
+                    ? ["shippingPolicy"]
+                    : []),
                 ] as WorkspaceComponent[]
               ).map((component) => (
                 <button
@@ -159,7 +164,15 @@ export default function AgentWorkSurface({
                   aria-pressed={components.includes(component)}
                   onClick={() => toggle(component)}
                 >
-                  <Icon name={component === "details" ? "box" : "plus"} />
+                  <Icon
+                    name={
+                      component === "intake"
+                        ? "plus"
+                        : component === "shippingPolicy"
+                          ? "link"
+                          : "box"
+                    }
+                  />
                   {t(component)}
                 </button>
               ))}
@@ -199,6 +212,12 @@ export default function AgentWorkSurface({
                     </button>
                   ))}
                 </section>
+              )
+            }
+            shippingPolicy={
+              components.includes("shippingPolicy") &&
+              rights.includes("knowledge.read") && (
+                <OrderShippingPolicy request={request} />
               )
             }
             directory={

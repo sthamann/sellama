@@ -73,12 +73,12 @@ for verification tooling. Run `./scripts/dev.sh` and open
 | Area | Start here |
 | --- | --- |
 | AI Commerce Components | [Component map](docs/one-shop-components.md) · [Checkout integration](docs/checkout-component.md#commerce-host-ports-in-core) · [Knowledge](docs/knowledge-component.md) · [Automation](docs/automation-component.md) · [Connectors](docs/connector-component.md) · [Plan](docs/commerce-components.md) |
-| AI shopping channels and inward shop imports | [Cart transfer, consent and Shopify/supplier intake](docs/agentic-commerce.md) |
+| AI shopping channels and inward shop imports | [Cart transfer, consent and shop imports](docs/agentic-commerce.md) |
 | Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |
 | POS, B2B, EDI and marketplaces | [POS](docs/pos.md) · [B2B](docs/b2b-commerce.md) · [EDI](docs/edi.md) · [Marketplaces](docs/marketplaces.md) |
 | Apps, settings, storage and private releases | [App platform](docs/app-platform.md) · [Build five apps](docs/app-tutorials/README.md) · [Storage and runtime](docs/app-data-storage.md) |
-| Agents and shared operations | [Connections](docs/connectors.md) · [Agent identities & limits](docs/agent-authority-controls.md) · [MCP workshop](docs/agent-workshop.md) · [UCP B2B](docs/b2b-ucp-negotiation.md) |
+| Agents and shared operations | [Agentic interfaces](docs/agentic-component-ui.md) · [Agent identities & limits](docs/agent-authority-controls.md) · [MCP workshop](docs/agent-workshop.md) · [UCP B2B](docs/b2b-ucp-negotiation.md) |
 | Operation and verification | [Architecture](docs/production-architecture.md) · [Integrations](docs/service-integrations.md) · [Testing](docs/testing.md) · [Proof boundaries](docs/formal-verification.md) |
 
 The searchable [handbook](https://veyndo.ai/docs/) has EN, DE, FR and ES navigation.

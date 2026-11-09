@@ -99,7 +99,8 @@ async fn prepare(
     let mut schema = json!({"type":"object","properties":{"summary":{"type":"string","maxLength":1200},"changes":{"type":"array","items":{"type":"object","properties":{"product_id":{"type":"string"},"price":{"type":"number"},"stock":{"type":"integer"}},"required":["product_id"],"additionalProperties":false}},"experience":{"type":"object","properties":{"mode":{"type":"string","enum":["balanced","discovery","comparison"]},"headline":{"type":"string"}},"required":["mode","headline"],"additionalProperties":false},"expected_experience_revision":{"type":"integer"}},"required":["summary","changes"],"additionalProperties":false});
     schema["properties"]["app_action"] = json!({"type":["object","null"],"properties":{"app":{"type":"string"},"action":{"type":"string"},"arguments_json":{"type":"string","maxLength":32768}},"required":["app","action","arguments_json"],"additionalProperties":false});
     schema["properties"]["navigation"] = agent_runs::navigation::schema();
-    schema["properties"]["view"] = agent_runs::view::schema();
+    schema["properties"]["view"] =
+        agent_runs::view::schema(auth::allowed(authority, "knowledge.read"));
     schema["properties"]["operations"] = agent_runs::work_plan::schema();
     let app_context = if auth::allowed(authority, "apps.read") {
         apps::planning_context(a, t, authority, instruction).await?

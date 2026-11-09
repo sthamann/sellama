@@ -50,6 +50,42 @@ const words = {
     "Ajouter des produits",
     "Añadir productos",
   ],
+  shippingPolicy: [
+    "Shipping policy",
+    "Versandrichtlinie",
+    "Politique de livraison",
+    "Política de envío",
+  ],
+  shippingQuery: [
+    "shipping delivery delays",
+    "Versand Lieferung Lieferverzug",
+    "expédition livraison retard",
+    "envío entrega retraso",
+  ],
+  shippingLoading: [
+    "Looking up shipping guidance…",
+    "Versandhinweise werden gesucht…",
+    "Recherche des consignes de livraison…",
+    "Buscando indicaciones de envío…",
+  ],
+  shippingError: [
+    "Shop knowledge is unavailable. Check your access or try again.",
+    "Das Shopwissen ist gerade nicht verfügbar. Prüfe deinen Zugriff oder versuche es erneut.",
+    "Les connaissances sont indisponibles. Vérifiez votre accès ou réessayez.",
+    "El conocimiento de la tienda no está disponible. Comprueba tu acceso o vuelve a intentarlo.",
+  ],
+  shippingRetry: [
+    "Try again",
+    "Erneut versuchen",
+    "Réessayer",
+    "Volver a intentar",
+  ],
+  shippingEmpty: [
+    "Add a shipping policy in Shop knowledge to see matching passages here.",
+    "Hinterlege eine Versandrichtlinie im Shopwissen, damit hier passende Auszüge erscheinen.",
+    "Ajoutez une politique de livraison aux connaissances de la boutique.",
+    "Añade una política de envío al conocimiento de la tienda para ver extractos aquí.",
+  ],
   close: [
     "Close working view",
     "Arbeitsansicht schließen",

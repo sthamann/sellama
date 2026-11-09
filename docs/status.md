@@ -10,6 +10,16 @@ Updated 9 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Orders and shipping in agentic workspaces
+
+Studio can render a reviewed Orders view with current shipping policy using
+OpenUI and native domain permissions. An independent example pairs Commerce
+and Knowledge using scoped SDK reads. Local service tests exercised a real
+test order and policy, including revocation and a foreign Knowledge identity.
+The storefront compares catalog products and opens the native product page
+for configuration and purchase. The adapter and hosted acceptance matrix
+remains tracked in [Agentic interfaces](agentic-component-ui.md).
+
 ## Commerce host ports for independent Checkout, 9 November 2026
 
 Core now supplies quote, simulated confirmation and receipt recovery from

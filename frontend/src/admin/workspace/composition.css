@@ -92,3 +92,50 @@
     backdrop-filter: none;
   }
 }
+.generated-native-workspace:has(.agent-shipping-policy) {
+  display: grid;
+  align-items: start;
+  gap: 16px;
+}
+.generated-native-workspace:has(.agent-shipping-policy) > div {
+  min-inline-size: 0;
+}
+.generated-native-workspace > div:has(> .agent-shipping-policy) {
+  grid-row: 1;
+}
+.agent-shipping-policy {
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+@media (min-width: 1200px) {
+  .generated-native-workspace:has(.agent-shipping-policy) {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
+  }
+  .generated-native-workspace > div:has(> .agent-shipping-policy) {
+    grid-column: 2;
+    position: sticky;
+    inset-block-start: 0;
+  }
+}
+.agent-shipping-policy h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+.agent-shipping-policy ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.agent-shipping-policy li + li {
+  margin-block-start: 12px;
+}
+.agent-shipping-policy p {
+  margin: 4px 0 0;
+  max-inline-size: 70ch;
+  overflow-wrap: anywhere;
+}
+.agent-shipping-policy button {
+  margin-block-start: 8px;
+}

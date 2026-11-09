@@ -1,5 +1,12 @@
 # Changelog
 
+## Orders and shipping in agentic workspaces
+
+- Show current shipping policy alongside native order work in Studio and
+  provide a read-only example for independent Commerce and Knowledge hosts.
+- Compare shortlisted catalog products in the storefront assistant and open
+  their native product pages for variant selection and purchase.
+
 ## Commerce host ports for Checkout
 
 - Core supplies scoped quote, simulated confirmation and receipt operations for

@@ -304,6 +304,9 @@ The following are implementation tasks; existing UI foundations do not complete 
   definition/runtime; declare supported subsets and structured/text fallback.
 - [ ] UI-07 Prove one actual standalone/embedded/agent-host vertical slice, then
   cover each component's required UI exports and agent operations from the matrix.
+  - [x] Connect the native Orders working view to shipping policy evidence
+    and supply an external read-only Commerce and Knowledge example.
+    [Orders and shipping policy](agentic-component-ui.md#orders-shipments-and-shipping-policy).
 - [ ] UI-08 Test permissions/PII/current context, missing capabilities, versions,
   unsaved work, cancellation/return, hostile output, responsive/accessibility and
   actual business effects in both standalone host and complete Veyndo.

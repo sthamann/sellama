@@ -1,5 +1,6 @@
 /** ConciergeView: storefront view composed from the scoped cart/controller. */
 import { mediaImage } from "../../shared/media/product-media";
+import type { ShopperAdvice } from "./useShopperAdvice";
 import ConciergeSelection from "./ConciergeSelection";
 import { shopApi } from "../../shared/api/shop-api";
 import "../../shared/styles/apps.css";
@@ -67,10 +68,7 @@ export default function ConciergeView() {
           run(async () => {
             try {
               const v = await shopApi<{
-                answer: {
-                  explanation: string;
-                  recommended_ids: string[];
-                };
+                answer: ShopperAdvice;
               }>("/api/concierge", { request: wish }, cart?.token);
               if (
                 current !== generation.current ||
@@ -135,6 +133,7 @@ export default function ConciergeView() {
               onRestore={shortlist.restore}
               products={products}
               money={money}
+              compareInitially={advice.layout === "comparison"}
               business={cart?.price.taxStatus === "net"}
             />
           )}

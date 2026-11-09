@@ -2481,8 +2481,8 @@
     },
     "src/agent_runs/view.rs": {
       "status": "unproved",
-      "sha256": "73faa6859f7aa9267b873df1cccd61595fdf813c8c66dc64da78f3b00e1360c5",
-      "review": "Reviewed native presentation consistency: linked product/order/customer navigation must match the working-view entity; one discriminator replaces same-shaped union alternatives, exact native grid admission and current rights retained. New native and UI mismatch regressions plus provider HTTP rejection checks."
+      "sha256": "e5f3c7867b8022df42c5abb8662ac3aa3d1fa5f692f7eb6b9d7907a999560c53",
+      "review": "Reviewed current Orders and PII admission, optional Knowledge read grant and registered panel filtering. Knowledge preview skips app evidence only on explicit opt-out, preserving native locale and tenant rules. Frontend tests cover rights revocation and independent policy retry. Native order, shipping, knowledge and checkout HTTP cases pass. Extracted policies unchanged; async Rust and SQL remain unproved."
     },
     "src/agent_runs/work.rs": {
       "status": "unproved",
@@ -4146,8 +4146,8 @@
     },
     "src/documents/preview.rs": {
       "status": "unproved",
-      "sha256": "a26bef3aa947d5624ff1799c93ff04d5bbf69a8e004dd4868ed607ddd75834d7",
-      "review": "Reviewed eighteen core findings: typed trusted identity and explicit route rights; consolidated current grants; durable auth and fenced shared limits; scoped transactions and one-backend PgBouncer including nested borrow fixes; bounded Wasm/PNG work; notified workers, savepoint quarantine and conservative retention; separate runtime roles and startup configuration. Real PostgreSQL/provider regressions preserve current tenant/customer/payment behavior. SQL/network adapters remain unproved."
+      "sha256": "c5514cc0fbafc4ff25379f8f34ec6397c7eff51c2235a62f50349761154f35f9",
+      "review": "Reviewed current Orders and PII admission, optional Knowledge read grant and registered panel filtering. Knowledge preview skips app evidence only on explicit opt-out, preserving native locale and tenant rules. Frontend tests cover rights revocation and independent policy retry. Native order, shipping, knowledge and checkout HTTP cases pass. Extracted policies unchanged; async Rust and SQL remain unproved."
     },
     "src/documents/product_knowledge.rs": {
       "status": "unproved",
@@ -5016,8 +5016,8 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "96a3a8035d86e1cfdae6095904c791fd36672927440fefaf65fa284d5e594f8f",
-      "review": "Reviewed native presentation consistency: linked product/order/customer navigation must match the working-view entity; one discriminator replaces same-shaped union alternatives, exact native grid admission and current rights retained. New native and UI mismatch regressions plus provider HTTP rejection checks."
+      "sha256": "a53fb24a22237f4b48170b339e7b519c0247f7c4e2dcda2b492f4213067b0f0b",
+      "review": "Reviewed current Orders and PII admission, optional Knowledge read grant and registered panel filtering. Knowledge preview skips app evidence only on explicit opt-out, preserving native locale and tenant rules. Frontend tests cover rights revocation and independent policy retry. Native order, shipping, knowledge and checkout HTTP cases pass. Extracted policies unchanged; async Rust and SQL remain unproved."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",

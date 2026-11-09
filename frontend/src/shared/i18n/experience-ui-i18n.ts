@@ -134,6 +134,31 @@ export const experienceUIWords = {
     "Comparez les produits. Ouvrez un produit pour choisir ses options et continuer vers le panier.",
     "Compara productos reales. Abre un producto para elegir sus opciones y continuar al carrito.",
   ],
+  compareSelection: [
+    "Compare products",
+    "Produkte vergleichen",
+    "Comparer les produits",
+    "Comparar productos",
+  ],
+  hideComparison: [
+    "Hide comparison",
+    "Vergleich schließen",
+    "Masquer la comparaison",
+    "Ocultar comparación",
+  ],
+  comparisonPrice: ["Price", "Preis", "Prix", "Precio"],
+  comparisonStock: [
+    "Availability",
+    "Verfügbarkeit",
+    "Disponibilité",
+    "Disponibilidad",
+  ],
+  comparisonDetails: [
+    "Description",
+    "Beschreibung",
+    "Description",
+    "Descripción",
+  ],
   removeSelection: [
     "Remove from selection",
     "Aus Auswahl entfernen",

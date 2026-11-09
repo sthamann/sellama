@@ -47,9 +47,12 @@ to native Veyndo through the same owner.
   - Installed App views use the same tool for the initial result and interactive
     filtering in Studio and the storefront.
     [App view contract](agentic-component-ui.md#app-owned-views-in-the-conversation).
-  - [ ] Prove an explicit cart change and a reviewed Studio change through
-    those conversation views. Test the same operations from a compatible external
-    host and keep the generated OpenUI presentation separate from action authority.
+  - [ ] Verify native host actions in the public storefront and Studio after
+    rollout. The storefront can review and add an app-linked variant. Studio
+    can review and apply a stored catalogue proposal beside the app result.
+    [Interaction contract](agentic-component-ui.md#review-and-act-in-the-veyndo-chat).
+  - [ ] Test the same operations from a compatible external host and keep the
+    generated OpenUI presentation separate from action authority.
 
 ## Latest completed extraction, 6 November 2026
 

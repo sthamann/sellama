@@ -2751,8 +2751,8 @@
     },
     "src/apps/mcp_views.rs": {
       "status": "reviewed-binding",
-      "sha256": "c5b6d5f9e2d890670c4f4bcc58cc6dd194f9460199eae2ce46b001ad53d3dd6e",
-      "review": "Conversation App resources derive one bounded choice filter from the admitted entity and action schema. Runtime tool admission remains unchanged. The HTTP/PostgreSQL regression checks public and private results, original product criteria, actor and shop denial, and package deactivation."
+      "sha256": "2184ff5bec7ea8d0541b395aa632fad2739e6b73c13398a6e4a1be5d10a9e858",
+      "review": "Reviewed chat cart preview and conditional edit reuse native quote and optimistic mutation, and app metadata derives from an admitted public product reference. Catalogue approval checks original task actor and current scopes before applying. The Rust/PostgreSQL regression covers stale quotes, wrong items, foreign cart scope, and same-shop approval denial."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
@@ -3466,8 +3466,8 @@
     },
     "src/cart_mutation.rs": {
       "status": "unproved",
-      "sha256": "6e2c9b6dbbc2b054302157b689f8d8fad1fc5b59237ab66961de9fa756fb57a3",
-      "review": "Customer scenarios: independent scenario_security_review completed; native signed-role, cohort, replay, injection, cancellation and post-lock lease-expiry regressions pass. Shared checkout preflight avoids nested-pool deadlock; authority is rechecked at the fenced transaction commit."
+      "sha256": "b4c23289edadaad522e03a4bea2592e7edf6aa1ded4e079a91eb6490b0a3e581",
+      "review": "Reviewed chat cart preview and conditional edit reuse native quote and optimistic mutation, and app metadata derives from an admitted public product reference. Catalogue approval checks original task actor and current scopes before applying. The Rust/PostgreSQL regression covers stale quotes, wrong items, foreign cart scope, and same-shop approval denial."
     },
     "src/cart_price.rs": {
       "status": "unproved",
@@ -3476,8 +3476,8 @@
     },
     "src/cart_routes.rs": {
       "status": "unproved",
-      "sha256": "92b3ebebd9af1a982d76a9f58a8bd493677e07985658b448f206da1c3b2bcb0b",
-      "review": "Reviewed completed-cart consent continuation: original cart capability, matching tenant/channel/session/customer, current locked policy and unexpired receipt, unchanged deadline, no purchase acceptance transfer. Real PostgreSQL legal_privacy and tenant_isolation passed. SQL adapter remains unproved."
+      "sha256": "0d65b97ff1efbd8ffda1885bb598fe2cea56a142637798f0efa8a97a933cd84a",
+      "review": "Reviewed chat cart preview and conditional edit reuse native quote and optimistic mutation, and app metadata derives from an admitted public product reference. Catalogue approval checks original task actor and current scopes before applying. The Rust/PostgreSQL regression covers stale quotes, wrong items, foreign cart scope, and same-shop approval denial."
     },
     "src/cart_storage.rs": {
       "status": "unproved",
@@ -5141,8 +5141,8 @@
     },
     "src/proposal_apply.rs": {
       "status": "unproved",
-      "sha256": "37a2fcc1d57691f72e8be35a8121e9f7e1612d7d7138b183b2924ae8f0bc2275",
-      "review": "Reviewed scoped translation selection, original task authority, atomic child linking and completion, cancellation/explicit ambiguous continuation, lease fences, central provider admission outside transactions and bounded prompt evidence; real PostgreSQL/HTTP collection and interruption regressions plus 724 UI tests; skipped products store SQL NULL evidence rather than JSON null. Claude supplied code-only review, findings checked and fixed."
+      "sha256": "3e6c40f42a704146d7ca00fc0fe59fe34fac6d4aadcea1616dc5922c991d5f76",
+      "review": "Reviewed chat cart preview and conditional edit reuse native quote and optimistic mutation, and app metadata derives from an admitted public product reference. Catalogue approval checks original task actor and current scopes before applying. The Rust/PostgreSQL regression covers stale quotes, wrong items, foreign cart scope, and same-shop approval denial."
     },
     "src/proposal_model.rs": {
       "status": "unproved",
@@ -5161,8 +5161,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "f87d75529608e4ba896ee67de2f8ef868776ccae4c07f5f39d60d3edbee32fa4",
-      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+      "sha256": "9f4c5baf5424bc6b3f3cb2266e55bbb1276800b062a0848001e8ac85b2406d70",
+      "review": "Reviewed chat cart preview and conditional edit reuse native quote and optimistic mutation, and app metadata derives from an admitted public product reference. Catalogue approval checks original task actor and current scopes before applying. The Rust/PostgreSQL regression covers stale quotes, wrong items, foreign cart scope, and same-shop approval denial."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",

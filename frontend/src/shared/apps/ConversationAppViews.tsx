@@ -1,5 +1,6 @@
 /** Render server-selected MCP App results in an opaque iframe inside the conversation. */
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import type { RequestFn } from "../api/types";
 import { conversationAppText } from "../i18n/conversation-app-i18n";
 import { useLocale } from "../i18n/i18n";
@@ -17,17 +18,36 @@ type Definition = {
   toolName: string;
   localeChain: string[];
   filter?: { name: string; choices: { value: string }[] } | null;
+  productReference?: string | null;
 };
+
+function productIds(result: unknown, reference: string | null | undefined) {
+  const rows = (result as { elements?: unknown } | undefined)?.elements;
+  if (!reference || !Array.isArray(rows)) return [];
+  return [
+    ...new Set(
+      rows.flatMap((row) => {
+        const id = row?.[reference];
+        return typeof id === "string" && id.length > 0 && id.length <= 200
+          ? [id]
+          : [];
+      }),
+    ),
+  ].slice(0, 8);
+}
 function Frame({
   view,
   request,
   locale,
+  renderProducts,
 }: {
   view: ConversationAppView;
   request: RequestFn;
   locale: string;
+  renderProducts?: (ids: string[]) => ReactNode;
 }) {
   const [definition, setDefinition] = useState<Definition>();
+  const [visibleResult, setVisibleResult] = useState<unknown>();
   const [unavailable, setUnavailable] = useState(false);
   const [height, setHeight] = useState(116);
   const frame = useRef<HTMLIFrameElement>(null);
@@ -107,6 +127,7 @@ function Frame({
         !initialized
       ) {
         initialized = true;
+        setVisibleResult(view.result.structuredContent);
         reply({
           method: "ui/notifications/tool-input",
           params: { arguments: view.arguments },
@@ -175,7 +196,9 @@ function Frame({
           },
         })
           .then((rpc) => {
-            if (current)
+            if (current) {
+              if (rpc.result && !rpc.result.isError)
+                setVisibleResult(rpc.result.structuredContent);
               reply(
                 rpc.result
                   ? { id, result: rpc.result }
@@ -184,6 +207,7 @@ function Frame({
                       error: { code: -32602, message: "App read unavailable" },
                     },
               );
+            }
           })
           .catch(() => {
             if (current)
@@ -230,25 +254,30 @@ function Frame({
     ?.map((key) => definition.label[key])
     .find((value) => value != null);
   return (
-    <iframe
-      key={locale}
-      ref={frame}
-      className="conversation-app-frame"
-      title={label || name}
-      src="/app-ui/mcp-view"
-      sandbox="allow-scripts"
-      referrerPolicy="no-referrer"
-      height={height}
-    />
+    <>
+      <iframe
+        key={locale}
+        ref={frame}
+        className="conversation-app-frame"
+        title={label || name}
+        src="/app-ui/mcp-view"
+        sandbox="allow-scripts"
+        referrerPolicy="no-referrer"
+        height={height}
+      />
+      {renderProducts?.(productIds(visibleResult, definition.productReference))}
+    </>
   );
 }
 
 export default function ConversationAppViews({
   views,
   request,
+  renderProducts,
 }: {
   views?: ConversationAppView[];
   request: RequestFn;
+  renderProducts?: (ids: string[]) => ReactNode;
 }) {
   const { locale } = useLocale();
   return (
@@ -258,6 +287,7 @@ export default function ConversationAppViews({
         view={view}
         request={request}
         locale={locale}
+        renderProducts={renderProducts}
       />
     )) ?? null
   );

@@ -9,6 +9,9 @@
 
 ## App-owned MCP views in conversations
 
+- Let shoppers select a variant from an app-linked product, review the native
+  cart quote, and explicitly add it. Surface a stored catalogue proposal beside
+  the merchant's app results for explicit approval.
 - Let installed apps attach read-only tables and cards to merchant and shopper
   responses. The same resource works through MCP Apps discovery and reads.
 - Filter those results in either conversation using choices declared by the

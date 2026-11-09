@@ -12,6 +12,8 @@ import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 import "../../shared/styles/workbench.css";
 import Icon from "../../shared/ui/Icon";
 import ConversationAppViews from "../../shared/apps/ConversationAppViews";
+import { conversationAppText } from "../../shared/i18n/conversation-app-i18n";
+import { useLocale } from "../../shared/i18n/i18n";
 import AssistantMarkdown from "../../shared/content/AssistantMarkdown";
 import { openReviewedView } from "../../shared/grid/pinned-view";
 import ProposalCard from "../assistant/ProposalCard";
@@ -38,6 +40,7 @@ export default function StudioConversation({
   const c = useCatalogIntakeText();
   const aw = useAgentWorkspaceText();
   const runText = useAgentRunText();
+  const appText = conversationAppText(useLocale().locale);
   const {
     t,
     setSettings,
@@ -223,7 +226,17 @@ export default function StudioConversation({
                         selectTab(tab);
                       }}
                       message={m}
-                      canApply={role !== "viewer"}
+                      reviewLabel={
+                        m.data.preview.appViews?.length &&
+                        m.data.preview.proposal.changes.length
+                          ? appText.review
+                          : undefined
+                      }
+                      canApply={
+                        role !== "viewer" &&
+                        (!m.data.preview.proposal.changes.length ||
+                          access.includes("catalog.write"))
+                      }
                       busy={busy}
                       onApply={() => run(() => apply(m))}
                     />

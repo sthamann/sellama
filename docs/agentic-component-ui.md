@@ -329,14 +329,25 @@ frame. Both can bind to the same typed service operations.
 [MCP Apps lifecycle](https://apps.extensions.modelcontextprotocol.io/api/documents/Overview.html#lifecycle) ·
 [OpenUI](https://github.com/thesysdev/openui).
 
-The next complete interaction should exercise a real action in each audience.
-For a shopper, select a product variant, obtain a native quote and confirm the
-cart change. For a merchant, review a proposed catalogue change and apply it
-under the current Studio permission and revision. Action handlers must derive
-the shop, channel and actor from the host, use the existing confirmation and
-idempotency contracts, and return only the data that audience can see. A frame
-request or a generated button is an intent. The operation owner makes the
-commerce decision.
+### Review and act in the Veyndo chat
+
+When an app result points to one product through a declared catalogue reference,
+the storefront chat offers the native variant picker next to the app. The shopper
+selects a variant, checks the price and estimated delivery, then explicitly adds
+it. A quote request calculates the proposed cart without saving it. Confirmation
+uses the original cart revision and a fingerprint of the reviewed result. If the
+cart or the recalculated quote has changed, the shopper has to review it again.
+
+In Studio, an app result can accompany a saved catalogue proposal. Open
+**Review proposed change** to compare the current and proposed value, then
+approve it with the original merchant session. Core checks the current rights
+and original product revision. Both controls are owned by Veyndo's chat host.
+The app frame continues to call its declared read action.
+
+Storefront developers can use `POST /store-api/checkout/cart/preview` with the
+current cart token and `{revision, items}`. To confirm, send the same revision
+and items plus the returned `review` value to the existing cart `PUT` route.
+Treat an HTTP 409 as a request to fetch and review the current cart again.
 
 The agent can also benefit from the interaction. When a host adopts
 `ui/update-model-context`, pass selected identifiers and a verified result

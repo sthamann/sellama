@@ -37,11 +37,13 @@ def verify(root, base, call, merchant, visitor, other, restricted):
     private_uri = merchant_tools[private_tool]['_meta']['ui']['resourceUri']
     resource = rpc('resources/read', {'uri': public_uri})['result']['contents'][0]
     assert resource['mimeType'] == mime and resource['_meta']['ai.veyndo/definition']['toolName'] == public_tool
+    assert resource['_meta']['ai.veyndo/definition']['productReference'] == 'product_id'
     assert [c['value'] for c in resource['_meta']['ai.veyndo/definition']['filter']['choices']] == ['standard', 'priority']
     assert r'\u003c/script\u003e' in resource['text'] and '<img src=x' not in resource['text']
     assert 'Machine washable' not in resource['text']
     assert any(r['uri'] == public_uri for r in rpc('resources/list')['result']['resources'])
-    assert rpc('resources/read', {'uri': private_uri}, merchant)['result']['contents']
+    private_resource = rpc('resources/read', {'uri': private_uri}, merchant)['result']['contents'][0]
+    assert private_resource['_meta']['ai.veyndo/definition']['productReference'] is None
     for who, uri in [(visitor, private_uri), (restricted, private_uri), (other, public_uri)]:
         assert rpc('resources/read', {'uri': uri}, who)['error']['code'] == -32602
     page = rpc('tools/call', {'name': public_tool, 'arguments': {'limit': 1}})['result']
@@ -68,3 +70,39 @@ def verify(root, base, call, merchant, visitor, other, restricted):
         assert "connect-src 'none'" in iframe.headers['content-security-policy']
         assert 'Machine washable' not in iframe.read().decode()
     return app, public_uri, private_uri
+
+
+def verify_cart_review(call, merchant, visitor, other):
+    for variant, size in [('guide_mug_small', 'Small'), ('guide_mug_large', 'Large')]:
+        call('/api/merchant/products', {
+            'id': variant, 'revision': 0, 'extra': {},
+            'catalog': {'active': True, 'parentId': 'mug', 'productNumber': variant,
+                        'options': {'Size': size}, 'categoryIds': []},
+            'commerce': {'price': 25, 'taxRate': 19, 'stock': 10, 'minPurchase': 1,
+                         'purchaseSteps': 1, 'deliveryDays': 2, 'advancedPrices': [],
+                         'media': [], 'properties': {}},
+            'translations': {'en': {'name': f'Guide mug {size}', 'description': 'Fixture'}},
+        }, merchant)
+    cart_path = '/store-api/checkout/cart'
+    cart = call(cart_path, {}, visitor)
+    shopper = {**visitor, 'sw-context-token': cart['token']}
+    requested = {'revision': cart['revision'], 'items': [{'id': 'guide_mug_large', 'quantity': 1}]}
+    quote = call(cart_path + '/preview', requested, shopper)
+    assert quote['price']['totalPrice'] > 0 and quote['delivery']['earliest']
+    assert 'token' not in quote and 'checkout' not in quote
+    unchanged = call(cart_path, headers=shopper)
+    assert unchanged['revision'] == cart['revision'] and not unchanged['lineItems']
+    call(cart_path + '/preview', requested, {**other, 'sw-context-token': cart['token']}, expected=404)
+    call(cart_path, {**requested, 'items': [{'id': 'guide_mug_small', 'quantity': 1}],
+                     'review': quote['review']}, shopper, expected=409, method='PUT')
+    variant_path = '/api/merchant/products/guide_mug_large'
+    product = call(variant_path, headers=merchant)
+    product['commerce']['price'] = 26
+    call(variant_path, product, merchant, method='PUT')
+    call(cart_path, {**requested, 'review': quote['review']}, shopper, expected=409, method='PUT')
+    quote = call(cart_path + '/preview', requested, shopper)
+    confirmed = call(cart_path, {**requested, 'review': quote['review']}, shopper, method='PUT')
+    assert confirmed['price']['totalMinor'] == quote['price']['totalMinor']
+    assert confirmed['lineItems'][0]['id'] == 'guide_mug_large'
+    call(cart_path, {**requested, 'review': quote['review']}, shopper, expected=409, method='PUT')
+    assert call(cart_path, headers=shopper)['lineItems'][0]['quantity'] == 1

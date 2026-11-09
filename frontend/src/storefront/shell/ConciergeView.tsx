@@ -4,6 +4,7 @@ import ConversationAppViews from "../../shared/apps/ConversationAppViews";
 import AssistantMarkdown from "../../shared/content/AssistantMarkdown";
 import type { ShopperAdvice } from "./useShopperAdvice";
 import ConciergeSelection from "./ConciergeSelection";
+import ConversationPurchase from "./ConversationPurchase";
 import { shopApi } from "../../shared/api/shop-api";
 import "../../shared/styles/apps.css";
 import "../../shared/styles/workbench.css";
@@ -132,7 +133,15 @@ export default function ConciergeView() {
           <div className="concierge-explanation" role="status">
             <AssistantMarkdown text={advice.explanation} />
           </div>
-          <ConversationAppViews views={advice.appViews} request={appRequest} />
+          <ConversationAppViews
+            views={advice.appViews}
+            request={appRequest}
+            renderProducts={(ids) =>
+              ids.length === 1 ? (
+                <ConversationPurchase key={ids[0]} productId={ids[0]} />
+              ) : null
+            }
+          />
           {advice.recommended_ids.length > 0 && (
             <ConciergeSelection
               key={JSON.stringify([scope, advice])}

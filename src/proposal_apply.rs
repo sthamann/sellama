@@ -52,6 +52,26 @@ pub(crate) async fn apply_mode(
         return Err(conflict("Agent run has no completed proposal to approve"));
     }
     let v: Value = r.get("proposal");
+    if !autonomous
+        && (r
+            .get::<Option<String>, _>("run_actor")
+            .as_deref()
+            .or(v["actor"].as_str())
+            != header(h, "x-rac-user")
+            || r.get::<Option<Value>, _>("run_scopes")
+                .is_some_and(|scopes| {
+                    scopes.as_array().is_none_or(|scopes| {
+                        scopes
+                            .iter()
+                            .any(|s| s.as_str().is_none_or(|s| !auth::allowed(h, s)))
+                    })
+                }))
+    {
+        return Err(Error(
+            StatusCode::FORBIDDEN,
+            "Proposal requires its original actor and current permissions".into(),
+        ));
+    }
     let p: Proposal =
         serde_json::from_value(v["proposal"].clone()).map_err(|e| bad(e.to_string()))?;
     if !p.operations.is_empty() {

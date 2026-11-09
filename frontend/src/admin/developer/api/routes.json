@@ -1500,6 +1500,11 @@
     "source": "src/routes.rs"
   },
   {
+    "path": "/store-api/checkout/cart/preview",
+    "method": "POST",
+    "source": "src/routes.rs"
+  },
+  {
     "path": "/store-api/checkout/context",
     "method": "PUT",
     "source": "src/routes.rs"

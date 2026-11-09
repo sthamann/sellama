@@ -209,12 +209,30 @@ pub(crate) async fn read(a: &App, h: &RequestContext, requested: &str) -> Result
     ];
     let definition = json!({"label":s.label,"view":view["view"],"entities":view["entities"],
         "localeChain":locale_chain,"toolName":format!("app.{}.{}",m.id,s.actions[0]),
-        "filter": choice_filter(&m, s, &view)});
+        "filter": choice_filter(&m, s, &view),
+        "productReference": (s.location == "storefront.assistant").then(|| {
+            view_entity(&m, s, &view)?.fields.iter()
+                .find(|field| field.core_reference.as_deref() == Some("product"))
+                .map(|field| &field.name)
+        }).flatten()});
     Ok(Some(
         json!({"uri":requested,"mimeType":MIME,"text":document(&definition),
         "_meta":{"ui":{"csp":{"connectDomains":[],"resourceDomains":[]}},
                  "ai.veyndo/definition":definition}}),
     ))
+}
+
+fn view_entity<'a>(m: &'a Manifest, s: &Surface, view: &Value) -> Option<&'a Entity> {
+    let action = m.actions.iter().find(|a| a.name == s.actions[0])?;
+    let entity = m
+        .entities
+        .iter()
+        .find(|e| Some(&e.name) == action.entity.as_ref())?;
+    view["entities"]
+        .as_array()?
+        .iter()
+        .any(|e| e["name"] == entity.name)
+        .then_some(entity)
 }
 
 fn choice_filter(m: &Manifest, s: &Surface, view: &Value) -> Option<Value> {
@@ -223,17 +241,7 @@ fn choice_filter(m: &Manifest, s: &Surface, view: &Value) -> Option<Value> {
     if schema["type"] != "object" {
         return None;
     }
-    let entity = m
-        .entities
-        .iter()
-        .find(|e| Some(&e.name) == action.entity.as_ref())?;
-    if !view["entities"]
-        .as_array()?
-        .iter()
-        .any(|e| e["name"] == entity.name)
-    {
-        return None;
-    }
+    let entity = view_entity(m, s, view)?;
     let field = entity.fields.iter().find(|f| {
         f.indexed
             && f.kind == "string"

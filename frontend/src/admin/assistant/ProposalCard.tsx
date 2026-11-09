@@ -17,6 +17,7 @@ export default function ProposalCard({
   busy,
   canApply,
   approvalStarted = false,
+  reviewLabel,
   onOpenView,
   onOpenWorkspace,
   onTest,
@@ -26,6 +27,7 @@ export default function ProposalCard({
   busy: boolean;
   canApply: boolean;
   approvalStarted?: boolean;
+  reviewLabel?: string;
   onTest?: () => void;
   onOpenWorkspace?: (view: WorkspaceView) => void;
   onOpenView?: (
@@ -62,7 +64,7 @@ export default function ProposalCard({
     !preview.proposal.view
   )
     return null;
-  return (
+  const review = (
     <section
       className={`proposal-review ${message.applied ? "is-applied" : ""}`}
     >
@@ -243,5 +245,13 @@ export default function ProposalCard({
         </footer>
       )}
     </section>
+  );
+  return reviewLabel ? (
+    <details className="verified-facts">
+      <summary>{reviewLabel}</summary>
+      {review}
+    </details>
+  ) : (
+    review
   );
 }

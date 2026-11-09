@@ -341,11 +341,18 @@ The following are implementation tasks; existing UI foundations do not complete 
     Storefront conversations. The tool call owns the result, and the frame's
     next-page action is confined to that read tool and active revision.
     [Package and runtime contract](agentic-component-ui.md#app-owned-views-in-the-conversation).
+  - [x] Offer the last verified app filter as editable context for the next
+    shopper or merchant message. Keep app records and automatic submission out
+    of the handoff. [Chat context](agentic-component-ui.md#use-a-filter-in-the-next-message).
 - [ ] UI-07 Prove one actual standalone/embedded/agent-host vertical slice, then
   cover each component's required UI exports and agent operations from the matrix.
   - [x] Connect the native Orders working view to shipping policy evidence
     and supply an external read-only Commerce and Knowledge example.
     [Orders and shipping policy](agentic-component-ui.md#orders-shipments-and-shipping-policy).
+  - [x] Verify shopper quote and cart confirmation alongside an MCP App view,
+    plus merchant review and approval of a saved catalogue proposal.
+    The local checks cover stale quotes, replays and approval by a different
+    actor. [Chat actions](agentic-component-ui.md#review-and-act-in-the-veyndo-chat).
 - [ ] UI-08 Test permissions/PII/current context, missing capabilities, versions,
   unsaved work, cancellation/return, hostile output, responsive/accessibility and
   actual business effects in both standalone host and complete Veyndo.

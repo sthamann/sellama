@@ -349,10 +349,18 @@ current cart token and `{revision, items}`. To confirm, send the same revision
 and items plus the returned `review` value to the existing cart `PUT` route.
 Treat an HTTP 409 as a request to fetch and review the current cart again.
 
-The agent can also benefit from the interaction. When a host adopts
-`ui/update-model-context`, pass selected identifiers and a verified result
-summary back into the conversation. Gate this separately from tool execution
-and keep private records out of the shopper context. Clients without MCP Apps
-can continue with structured results. Nord Atelier remains a separate OpenUI
-streaming example until its adapter passes the same interaction in a compatible
-client. [Client support](https://modelcontextprotocol.io/extensions/client-matrix).
+### Use a filter in the next message
+
+After applying an app filter, choose **Use filter in chat**. The view sends
+`ui/update-model-context` with its tool name, filter field and selected value.
+Veyndo accepts only the last filter that the host successfully ran for that
+frame. It inserts the verified identifiers into the editable draft in Studio
+or the storefront. The shopper or merchant can change or remove the text
+before sending. The message carries no app records, credentials or free-form
+instructions from the frame. The next turn runs with the current rights of the
+same chat. Hosts without the structured context capability hide this control.
+
+[Nord Atelier](https://github.com/veyndo/sdk/blob/main/docs/nord-atelier.md)
+demonstrates streaming OpenUI and the same catalogue and cart preview APIs in
+a separate storefront. Embedding its interaction in an external MCP Apps host
+is still open. [Client support](https://modelcontextprotocol.io/extensions/client-matrix).

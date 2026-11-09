@@ -4,6 +4,10 @@ import type { ReactNode } from "react";
 import type { RequestFn } from "../api/types";
 import { conversationAppText } from "../i18n/conversation-app-i18n";
 import { useLocale } from "../i18n/i18n";
+import {
+  verifiedAppFilter,
+  type AppFilterContext,
+} from "./conversation-app-context";
 import "./conversation-app-views.css";
 
 export type ConversationAppView = {
@@ -20,6 +24,10 @@ type Definition = {
   filter?: { name: string; choices: { value: string }[] } | null;
   productReference?: string | null;
 };
+type UseFilter = (
+  filter: AppFilterContext,
+  previous?: AppFilterContext,
+) => boolean;
 
 function productIds(result: unknown, reference: string | null | undefined) {
   const rows = (result as { elements?: unknown } | undefined)?.elements;
@@ -40,17 +48,21 @@ function Frame({
   request,
   locale,
   renderProducts,
+  onUseFilter,
 }: {
   view: ConversationAppView;
   request: RequestFn;
   locale: string;
   renderProducts?: (ids: string[]) => ReactNode;
+  onUseFilter?: UseFilter;
 }) {
   const [definition, setDefinition] = useState<Definition>();
   const [visibleResult, setVisibleResult] = useState<unknown>();
   const [unavailable, setUnavailable] = useState(false);
   const [height, setHeight] = useState(116);
   const frame = useRef<HTMLIFrameElement>(null);
+  const useFilter = useRef(onUseFilter);
+  useFilter.current = onUseFilter;
   const {
     title: name,
     loading,
@@ -92,6 +104,8 @@ function Frame({
     let initialized = false;
     let reading = false;
     let current = true;
+    let applied: AppFilterContext | undefined;
+    let drafted: AppFilterContext | undefined;
     const reply = (message: object) =>
       frame.current?.contentWindow?.postMessage(
         { jsonrpc: "2.0", ...message },
@@ -116,7 +130,12 @@ function Frame({
           result: {
             protocolVersion: "2026-01-26",
             hostInfo: { name: "Veyndo", version: "1.0.0" },
-            hostCapabilities: { serverTools: {} },
+            hostCapabilities: {
+              serverTools: {},
+              ...(useFilter.current && definition.filter
+                ? { updateModelContext: { structuredContent: {} } }
+                : {}),
+            },
             hostContext: { locale, "ai.veyndo/definition": definition },
           },
         });
@@ -138,11 +157,26 @@ function Frame({
         });
       }
       if (
-        message.method === "tools/call" &&
         initialized &&
         (typeof message.id === "string" ||
           (typeof message.id === "number" && Number.isFinite(message.id)))
       ) {
+        if (message.method === "ui/update-model-context") {
+          const selection = verifiedAppFilter(message.params, applied);
+          const accepted =
+            !reading && selection && useFilter.current?.(selection, drafted);
+          if (accepted) drafted = selection;
+          reply(
+            accepted
+              ? { id: message.id, result: {} }
+              : {
+                  id: message.id,
+                  error: { code: -32000, message: "Context update denied" },
+                },
+          );
+          return;
+        }
+        if (message.method !== "tools/call") return;
         const { id, params } = message;
         const after = params?.arguments?.after;
         const filters = params?.arguments?.filter;
@@ -197,8 +231,21 @@ function Frame({
         })
           .then((rpc) => {
             if (current) {
-              if (rpc.result && !rpc.result.isError)
+              if (
+                rpc.result &&
+                !rpc.result.isError &&
+                Array.isArray(rpc.result.structuredContent?.elements)
+              ) {
                 setVisibleResult(rpc.result.structuredContent);
+                applied =
+                  validSelection && filter && typeof selected === "string"
+                    ? {
+                        tool: definition.toolName,
+                        field: filter.name,
+                        value: selected,
+                      }
+                    : undefined;
+              }
               reply(
                 rpc.result
                   ? { id, result: rpc.result }
@@ -274,10 +321,12 @@ export default function ConversationAppViews({
   views,
   request,
   renderProducts,
+  onUseFilter,
 }: {
   views?: ConversationAppView[];
   request: RequestFn;
   renderProducts?: (ids: string[]) => ReactNode;
+  onUseFilter?: UseFilter;
 }) {
   const { locale } = useLocale();
   return (
@@ -288,6 +337,7 @@ export default function ConversationAppViews({
         request={request}
         locale={locale}
         renderProducts={renderProducts}
+        onUseFilter={onUseFilter}
       />
     )) ?? null
   );

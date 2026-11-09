@@ -9,6 +9,8 @@
 
 ## App-owned MCP views in conversations
 
+- Carry a verified app filter into the next editable message in Studio and the
+  storefront. The user decides when to send it.
 - Let shoppers select a variant from an app-linked product, review the native
   cart quote, and explicitly add it. Surface a stored catalogue proposal beside
   the merchant's app results for explicit approval.

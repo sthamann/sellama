@@ -12,7 +12,28 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## MCP App conversation views and independent Checkout rehearsal
 
-The MCP App rollout used Core image `alleged-degree-4325` from
+Core image `gorgeous-seat-2912` from
+[`bb95542`](https://github.com/veyndo/veyndo/commit/bb955422ccd34b73dc943fd4ffc6f1a7eb076042)
+is live on Northflank. The workflow built that commit, created the PostgreSQL
+snapshot, ran `vendune-migrate` successfully and started the new Core. The Git
+trigger now follows `veyndo/veyndo` on `main`.
+
+The public app view served the new filter control. In an isolated cart in the
+public demo shop, preview returned a price and delivery date and left the cart
+empty. The single external probe measured 85 ms for preview and 103 ms for
+confirmation. Confirmation added one unit. Changed quantity and a replay of the same
+revision each returned HTTP 409. The test then emptied its cart. The
+[Nord Atelier SDK excerpt](https://github.com/veyndo/sdk/blob/main/docs/nord-atelier.md)
+also ran against the public demo. These checks did not install an app in a
+hosted shop or apply a merchant proposal there.
+
+The next app interaction was verified in local Chrome with Core, PostgreSQL
+and a simulated model endpoint. The storefront and Studio each carried an
+applied filter into an existing editable draft. Both sent it only on the
+next explicit submission. A forged frame message with extra content was
+rejected in both views. [Chat context](agentic-component-ui.md#use-a-filter-in-the-next-message).
+
+The first MCP App rollout used Core image `alleged-degree-4325` from
 [`e133b155`](https://github.com/veyndo/veyndo/commit/e133b15573c5ea3e1c4df991750c08ba70bc8d53)
 on Northflank. The instance passed readiness with zero restarts.
 Studio, the native demo and the Storyfront demo returned HTTP 200. The public
@@ -24,7 +45,7 @@ The Product Guide 0.1.1 follow-up adds an app-declared filter in the
 conversation. The isolated Core and PostgreSQL test exercised the public and
 private reads, retained the original product filter, and rejected unauthorized
 actors. In Chrome, the mobile storefront and desktop Studio each filtered and
-reset their own app result. The rollout above predates this filter.
+reset their own app result.
 
 The local follow-up exercised native actions in both chats. A shopper selected
 a product variant, reviewed the server-calculated price and delivery, and added
@@ -61,9 +82,9 @@ enforces row-level access. The restricted login authenticated and could not
 read the database signing key. The temporary administrator connection was
 removed from the maintenance job after installation. Public shops still use
 the existing Core checkout. Hosted native and Storyfront purchases, provider
-payment and refund through the independent service remain open. Core image
+payment and refund through the independent service remain open. The earlier Core image
 `max-tendency-8164` from [`6edb6a8`](https://github.com/veyndo/veyndo/commit/6edb6a8aaf04e21282207059f286680f43e05408)
-is live with one ready replica and zero restarts. The browser switch remains off.
+rolled out with one ready replica and zero restarts. The browser switch remains off.
 [Checkout verification and rollout](checkout-component.md#storyfront-composition-and-hosted-rollout).
 
 Experience image `guided-eggs-5114` from `465f0a9` now serves original
@@ -89,7 +110,7 @@ Hosted Sandbox payment with PayPal remains open.
 
 ## Orders and shipping in agentic workspaces, 9 November 2026
 
-Production Core runs Northflank image `pure-knowledge-5648` from
+The initial Orders workspace release used Northflank image `pure-knowledge-5648` from
 [`cb66af0`](https://github.com/veyndo/veyndo/commit/cb66af0b7b0d9719c49fa204d3ba631957329618).
 The new instance passed readiness with zero restarts and the previous instance
 terminated. Public Studio and the demo shop served the new frontend assets.

@@ -12,6 +12,7 @@ import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 import "../../shared/styles/workbench.css";
 import Icon from "../../shared/ui/Icon";
 import ConversationAppViews from "../../shared/apps/ConversationAppViews";
+import { draftWithAppFilter } from "../../shared/apps/conversation-app-context";
 import { conversationAppText } from "../../shared/i18n/conversation-app-i18n";
 import { useLocale } from "../../shared/i18n/i18n";
 import AssistantMarkdown from "../../shared/content/AssistantMarkdown";
@@ -40,7 +41,8 @@ export default function StudioConversation({
   const c = useCatalogIntakeText();
   const aw = useAgentWorkspaceText();
   const runText = useAgentRunText();
-  const appText = conversationAppText(useLocale().locale);
+  const { locale } = useLocale();
+  const appText = conversationAppText(locale);
   const {
     t,
     setSettings,
@@ -62,6 +64,9 @@ export default function StudioConversation({
     progressUnavailable,
     controlRun,
     request,
+    draft,
+    setDraft,
+    composer,
     environment,
     access,
   } = useStudio();
@@ -197,6 +202,23 @@ export default function StudioConversation({
                     <ConversationAppViews
                       views={m.data.preview.appViews}
                       request={request}
+                      onUseFilter={(filter, previous) => {
+                        const next = draftWithAppFilter(
+                          draft,
+                          filter,
+                          locale,
+                          context
+                            ? Math.max(1, 4000 - context.length - 2)
+                            : 4000,
+                          "\n",
+                          previous,
+                        );
+                        if (busy || !connected || next === undefined)
+                          return false;
+                        setDraft(next);
+                        composer.current?.focus();
+                        return true;
+                      }}
                     />
                     <CopilotNavigation
                       value={m.data.preview.proposal.navigation}

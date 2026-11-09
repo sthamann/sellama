@@ -3,7 +3,7 @@ import {
   reportMerchantSessionFailure,
   merchantRequestSuspended,
 } from "./merchant-session";
-import { readAgentStream } from "./agent-stream";
+import { readAgentStream, type AgentStreamEvent } from "./agent-stream";
 import {
   browserRequest,
   browserSessionMarker,
@@ -20,6 +20,7 @@ let generation = 0;
 export async function requestJson(
   path: string,
   init: RequestInit,
+  onEvent?: AgentStreamEvent,
 ): Promise<JsonResponse> {
   if (merchantRequestSuspended(path, init.headers))
     return {
@@ -39,6 +40,7 @@ export async function requestJson(
       : undefined;
   const read =
     !init.signal &&
+    !onEvent &&
     !path.startsWith("/api/apps/") &&
     (method === "GET" ||
       (method === "POST" &&
@@ -70,7 +72,7 @@ export async function requestJson(
     const value =
       response.ok &&
       response.headers?.get("content-type")?.includes("text/event-stream")
-        ? await readAgentStream(response)
+        ? await readAgentStream(response, onEvent)
         : await response.json();
     if (merchantProof === undefined || merchantProof === browserSessionScope())
       reportMerchantSessionFailure(

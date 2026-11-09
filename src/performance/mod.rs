@@ -29,6 +29,21 @@ pub(crate) use languages::{LanguageRow, languages};
 pub(crate) use row_security::verify as verify_row_security;
 pub(crate) use settings::settings;
 
+// Transfer only AI admission to the bounded producer. Its lifetime is independent
+// of the browser's response buffer; ordinary request slots stay with middleware.
+pub(crate) type AiStreamPermit = (
+    tokio::sync::OwnedSemaphorePermit,
+    Option<cluster_lease::Lease>,
+);
+#[derive(Clone)]
+pub(crate) struct AiStreamAdmission(pub(super) Arc<Mutex<Option<AiStreamPermit>>>);
+
+impl AiStreamAdmission {
+    pub(crate) fn take(&self) -> Option<AiStreamPermit> {
+        self.0.lock().unwrap().take()
+    }
+}
+
 type Scope = (String, String);
 pub(crate) struct SettingsEntry {
     version: String,

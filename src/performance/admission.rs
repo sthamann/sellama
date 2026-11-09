@@ -146,7 +146,7 @@ fn class(path: &str) -> &'static str {
         "api"
     }
 }
-pub(crate) async fn run(a: &App, request: Request, next: Next) -> Response {
+pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
     let path = request.uri().path();
     if !(path.starts_with("/api/")
         || path.starts_with("/store-api/")
@@ -155,6 +155,12 @@ pub(crate) async fn run(a: &App, request: Request, next: Next) -> Response {
     {
         return next.run(request).await;
     }
+    let stream_ai = path == "/api/concierge"
+        && header(request.headers(), "accept").is_some_and(|value| {
+            value
+                .split(',')
+                .any(|kind| kind.trim() == "text/event-stream")
+        });
     let class = class(path);
     let context = RequestContext::from_request(&request);
     // An anonymous caller cannot allocate arbitrary tenant buckets with a forged header.
@@ -167,7 +173,7 @@ pub(crate) async fn run(a: &App, request: Request, next: Next) -> Response {
     } else {
         "anonymous".into()
     };
-    let Some(_permits) = a.admission.enter(&tenant, class) else {
+    let Some(mut permits) = a.admission.enter(&tenant, class) else {
         a.admission.rejected.fetch_add(1, Ordering::Relaxed);
         return overloaded("Resource concurrency limit reached");
     };
@@ -184,7 +190,7 @@ pub(crate) async fn run(a: &App, request: Request, next: Next) -> Response {
     } else {
         None
     };
-    let _ai_lease = if validated && class == "ai" {
+    let ai_lease = if validated && class == "ai" {
         match super::cluster_lease::Lease::acquire(a, &tenant, "ai", a.admission.ai_limit).await {
             Ok(lease) => Some(lease),
             Err(e) => return e.into_response(),
@@ -204,6 +210,16 @@ pub(crate) async fn run(a: &App, request: Request, next: Next) -> Response {
             e.into_response()
         };
     }
+    let _ai_lease = if stream_ai && let Some(permit) = permits.pop() {
+        request
+            .extensions_mut()
+            .insert(super::AiStreamAdmission(Arc::new(Mutex::new(Some((
+                permit, ai_lease,
+            ))))));
+        None
+    } else {
+        ai_lease
+    };
     let start = Instant::now();
     let response =
         match tokio::time::timeout(std::time::Duration::from_secs(300), next.run(request)).await {

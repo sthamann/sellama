@@ -22,6 +22,19 @@ describe("Agent result stream", () => {
       ),
     ).toEqual({ messages: [{ content: "Grüße" }] });
   });
+  it("delivers scoped app updates before it returns the completed answer", async () => {
+    const appViews = [{ attachmentId: 0 }];
+    const frames: unknown[] = [];
+    const answer = await readAgentStream(
+      response([
+        'event: app-views\ndata: [{"attachmentId":0}]\n\n',
+        'event: complete\ndata: {"answer":{"appViews":[{"attachmentId":0}]}}\n\n',
+      ]),
+      (event, data) => frames.push([event, data]),
+    );
+    expect(frames).toEqual([["app-views", appViews]]);
+    expect(answer).toEqual({ answer: { appViews } });
+  });
   it("normalizes CRLF boundaries split by the network", async () => {
     expect(
       await readAgentStream(

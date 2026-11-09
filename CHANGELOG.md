@@ -1,5 +1,12 @@
 # Changelog
 
+## App cards during shopper replies
+
+- Stream the app card after its authorized public read, while the assistant
+  prepares the reply. Keep the same card and its filter when the text arrives.
+- Keep the normal JSON response for existing clients and enforce the shop's
+  inference limit throughout the stream.
+
 ## Private browser route to independent Checkout
 
 - Let enabled test shops use the independent Checkout service through the

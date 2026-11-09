@@ -50,7 +50,11 @@ pub(crate) async fn rounds(
     prompt: &str,
     schema: &Value,
 ) -> Result<(veyndo::inference::Output, Vec<Value>)> {
-    rounds_for(a, h, choice, system, prompt, schema, false).await
+    rounds_for(a, h, choice, system, prompt, schema, ReadAudience::Merchant).await
+}
+pub(crate) enum ReadAudience<'a> {
+    Merchant,
+    Shopper(Option<&'a tokio::sync::mpsc::Sender<Value>>),
 }
 pub(crate) async fn rounds_for(
     a: &App,
@@ -59,8 +63,12 @@ pub(crate) async fn rounds_for(
     system: &str,
     prompt: &str,
     schema: &Value,
-    public: bool,
+    audience: ReadAudience<'_>,
 ) -> Result<(veyndo::inference::Output, Vec<Value>)> {
+    let (public, views) = match audience {
+        ReadAudience::Merchant => (false, None),
+        ReadAudience::Shopper(views) => (true, views),
+    };
     let mut tools = if public {
         vec!["catalog.search", "catalog.detail", "catalog.facts"]
             .into_iter()
@@ -182,7 +190,11 @@ pub(crate) async fn rounds_for(
             if json!(transcript).to_string().len() + entry.to_string().len() > 32768 {
                 return Err(bad("Agent evidence budget exhausted"));
             }
+            let has_view = entry["appView"].is_string();
             transcript.push(entry);
+            if let Some(views) = views.filter(|_| has_view) {
+                let _ = views.try_send(json!(apps::mcp_views::attachments(&transcript)));
+            }
         }
         native_history.push(json!({"provider":output.provider,"assistant":output.usage["toolContinuation"],"results":native_results}));
         if json!(native_history).to_string().len() > 131072 {

@@ -312,11 +312,28 @@ fixed when someone changes the category. The current tenant, active package
 revision, sales channel and action rights still apply. The app frame receives no session token.
 After disabling the app, subsequent reads of its resource are rejected, including from earlier conversations.
 
-This path covers installed Veyndo packages with declarative read views. It provides
-a text response and view attachments when the current agent run completes.
-`resources/read` can be used by external MCP Apps clients that support the
-extension. Arbitrary app JavaScript, remote MCP App imports and partial rendering
-during tool execution are separate work.
+This path covers installed Veyndo packages with declarative read views.
+`resources/read` is also available to external clients that support MCP Apps.
+Studio includes the views when its existing durable run completes. In the shop,
+the card can appear while the assistant is still preparing the text.
+
+### Show the shopper's app view during the answer
+
+The shop requests `text/event-stream` on the same `POST /api/concierge` route.
+An `app-views` event carries up to three views from completed public tool
+reads. The browser can load and filter a card through the existing MCP host
+while the answer is pending. Shoppers can also carry their chosen filter into
+the editable draft for their next message. The `complete` event contains the
+full verified answer. Each view keeps its attachment ID so the shop preserves
+the loaded card and its filter when the explanation arrives. Cart review becomes
+available when the answer completes. The shopper still explicitly confirms
+any cart change.
+
+Clients that request ordinary JSON receive the original response shape with
+the final attachments. When the shop leaves the chat or changes its context,
+it cancels the pending stream. The server keeps its inference limit throughout
+the stream and authorizes the card's separate read requests in their current
+shop and channel.
 
 ### One capability, two ways to present it
 

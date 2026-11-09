@@ -106,3 +106,36 @@ def verify_cart_review(call, merchant, visitor, other):
     assert confirmed['lineItems'][0]['id'] == 'guide_mug_large'
     call(cart_path, {**requested, 'review': quote['review']}, shopper, expected=409, method='PUT')
     assert call(cart_path, headers=shopper)['lineItems'][0]['quantity'] == 1
+
+
+def verify_shopper_stream(base, visitor, expected_uri, finished, release):
+    request = urllib.request.Request(
+        base + "/api/concierge",
+        data=json.dumps({"request": "Inspect guide fixture. Hold shopper final."}).encode(),
+        headers={**visitor, "Content-Type": "application/json", "Accept": "text/event-stream"},
+    )
+
+    def frame(response):
+        event = None
+        for line in response:
+            if line.startswith(b"event: "):
+                event = line.removeprefix(b"event: ").decode().strip()
+            elif line.startswith(b"data: "):
+                return event, json.loads(line.removeprefix(b"data: "))
+        raise AssertionError("Shopper stream ended before its next event")
+
+    try:
+        with urllib.request.urlopen(request, timeout=8) as response:
+            assert response.headers.get_content_type() == "text/event-stream"
+            assert "no-store" in response.headers["Cache-Control"]
+            kind, views = frame(response)
+            assert kind == "app-views" and len(views) == 1
+            assert views[0]["resourceUri"] == expected_uri
+            assert views[0]["result"]["structuredContent"]["elements"][0]["id"] == "a"
+            assert "Private notes fixture" not in json.dumps(views)
+            assert not finished.is_set(), "The app result must be readable before the model finishes"
+            release.set()
+            kind, complete = frame(response)
+            assert kind == "complete" and complete["answer"]["appViews"] == views
+    finally:
+        release.set()

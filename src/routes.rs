@@ -149,6 +149,7 @@ pub(crate) fn router(a: App) -> Router {
             post(commerce::submit_review),
         )
         .route("/store-api/checkout/options", get(commerce::options))
+        .merge(checkout::router())
         .route(
             "/store-api/checkout/context",
             axum::routing::put(commerce::select_checkout),

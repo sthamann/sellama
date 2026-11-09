@@ -32,6 +32,9 @@ to native Veyndo through the same owner.
   - [x] Trace both native and Storyfront purchases and verify their shared quote,
     commit, payment and recovery contract.
     [Compatibility and evidence](checkout-component.md#how-native-and-embedded-checkout-share-one-order).
+  - [x] Compose the three Core host operations with the separate Checkout
+    process and verify one simulated order after a lost confirmation response.
+    [Core host ports](checkout-component.md#commerce-host-ports-in-core).
   - [x] Local embedded recovery after a lost browser notification. A status
     read completes while the cart is locked. An explicit reopen and purchase
     share the lock and preserve one cart and order. The browser fixture covers
@@ -230,6 +233,12 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
   [Compatibility and evidence](checkout-component.md#how-native-and-embedded-checkout-share-one-order).
 - [ ] CHK-02 Define typed catalog/pricing/stock/customer/company/delivery/order/
   Payments ports and actual reservation/CommitOrder/recovery semantics.
+  - [x] CHK-02a Use the Core quote, atomic commit and receipt ports with a
+    separate Checkout process. Verify simulated payment, current company
+    approval, one order/stock/outbox write and recovery with no cart token.
+    [Core host ports](checkout-component.md#commerce-host-ports-in-core).
+  - [ ] Accept the hosted independent service with configured Sandbox payment
+    and verify payment attempt, callback, settlement and refund.
 - [ ] CHK-03 Extract Rust checkout orchestration/session storage to its own repo;
   no Core-process dependency, private Core SQL access or second financial ledger.
 - [ ] CHK-04 Publish own versioned HTTP/MCP interfaces and JS/TS SDK, preserving

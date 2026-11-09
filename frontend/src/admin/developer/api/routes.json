@@ -1530,6 +1530,21 @@
     "source": "src/routes.rs"
   },
   {
+    "path": "/store-api/checkout/session-order",
+    "method": "POST",
+    "source": "src/checkout/mod.rs"
+  },
+  {
+    "path": "/store-api/checkout/session-quote",
+    "method": "POST",
+    "source": "src/checkout/mod.rs"
+  },
+  {
+    "path": "/store-api/checkout/session-receipt",
+    "method": "POST",
+    "source": "src/checkout/mod.rs"
+  },
+  {
     "path": "/store-api/company",
     "method": "GET",
     "source": "src/operations/routes.rs"

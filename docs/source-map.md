@@ -446,7 +446,7 @@ See [international commerce](international-commerce.md) for the exact contract.
 | [`src/localization.rs`](../src/localization.rs) | Shop locale resolution, translated catalog hydration and non-mutating merchant quote. | `studio.py + context_differential.py + commerce.py` |
 | [`src/main.rs`](../src/main.rs) | Process lifetime only. See docs/source-map.md for domain responsibilities. | `server startup/build + integration.py + structure.py` |
 | [`src/mcp.rs`](../src/mcp.rs) | Typed MCP schemas and JSON-RPC transport. | `protocols.py + integration.py + commerce.py + users.py` |
-| [`src/order_checkout.rs`](../src/order_checkout.rs) | Atomic checkout, stock locks, extension policy and idempotency. | `integration.py + commerce.py + protocols.py + users.py + restart.py` |
+| [`src/order_checkout.rs`](../src/order_checkout.rs) and [`src/checkout/`](../src/checkout/README.md) | Shared native checkout entry and typed Commerce host stages for locks, pricing, commit and receipt recovery. | `checkout_review.py + checkout_handoff.py + payments.py` |
 | [`src/order_routes.rs`](../src/order_routes.rs) | Merchant order read adapter. | `integration.py + commerce.py + protocols.py + users.py + restart.py` |
 | [`src/outbox.rs`](../src/outbox.rs) | Durable outbox and audit projection worker. | `integration.py + protocols.py + studio.py + restart.py` |
 | [`src/planner.rs`](../src/planner.rs), `planner/{admission,repair}.rs` | Grounded model planning, shared native admission and one checkpointed correction of invalid output. | `providers.py + live intelligence.py/studio.py + protocols.py` |

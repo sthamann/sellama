@@ -12,6 +12,12 @@ and event transaction with Commerce. The component boundary changes how a
 caller reaches the operation. Its authority and business decisions stay with
 the same owner. [Component map and measured composition](one-shop-components.md).
 
+Core exposes three host operations for an independent Checkout client. Quotes
+are read-only. Confirmation rechecks the quote and commits through the native
+order transaction. Receipt recovery uses the original indexed purchase key.
+The normal storefront and Storyfront still call Core directly.
+[Commerce host ports](checkout-component.md#commerce-host-ports-in-core).
+
 The separate Checkout service can also call a reference commerce host. The
 host has its own database and runs the same purchase orchestrator with its own
 cart, pricing and transaction adapters. This demonstrates the boundary with

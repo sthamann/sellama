@@ -10,6 +10,28 @@ Updated 9 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Commerce host ports for independent Checkout, 9 November 2026
+
+Core now supplies quote, simulated confirmation and receipt recovery from
+its existing Commerce transaction. The native storefront and Storyfront
+still reach Commerce directly. The independent Checkout service uses one
+host request per operation and keeps only its session metadata in its own
+database.
+
+Local PostgreSQL acceptance combined both Rust processes with HTTP, MCP and
+the JavaScript SDK. A lost confirmation response recovered the original
+order after restarting Checkout. The company buyer test exercised current
+membership, approval and budgets, the resulting Flow and the invoice.
+
+With concurrent catalog reads, 192 quotes per path finished without errors.
+The native host quote measured 103.3 ms at p95. The quote through the separate
+Checkout process measured 120.1 ms at p95. Catalog p95 was 26.8 ms and 27.8 ms
+respectively. Core still returned quotes and catalog results while Checkout
+was stopped. These timings come from local debug builds and a loopback
+proxy. The hosted Checkout process and configured provider acceptance are
+separate release steps.
+[Commerce host ports](checkout-component.md#commerce-host-ports-in-core).
+
 ## Native and embedded checkout compatibility, 9 November 2026
 
 Two public demo purchases on the current Core used the simulated payment

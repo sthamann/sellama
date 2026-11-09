@@ -244,6 +244,14 @@ This lists every checked-in source module in these roots, including files with n
 | [src/categories/navigation.rs](../src/categories/navigation.rs) | Public navigation is localized and restricted to the selected channel's active category ancestry. |
 | [src/channel_metrics/reads.rs](../src/channel_metrics/reads.rs) | One persisted diagnostic read shared by operator overview, shop dossiers and infrastructure. |
 | [src/channel_metrics.rs](../src/channel_metrics.rs) | Bounded, lossy diagnostic counters. Never use this buffer for business events. |
+| [src/checkout/commit.rs](../src/checkout/commit.rs) | Native final admission and one atomic order, stock, cart, payment-attempt and outbox commit; no external provider call. |
+| [src/checkout/lock.rs](../src/checkout/lock.rs) | Native lock and replay admission use the original ordered transaction, cart capability and current B2B/POS checks. |
+| [src/checkout/mod.rs](../src/checkout/mod.rs) | Expose the commerce host contract through the existing native checkout transaction. |
+| [src/checkout/prepare.rs](../src/checkout/prepare.rs) | Native preparation performs original cart/channel/package admission before taking commerce locks. |
+| [src/checkout/price.rs](../src/checkout/price.rs) | Authoritative native quote uses locked products/settings, original taxes, promotions, App hooks, POS and stock checks. |
+| [src/checkout/session_order.rs](../src/checkout/session_order.rs) | Bind an explicitly reviewed session purchase to the native transaction and its original order. |
+| [src/checkout/session_quote.rs](../src/checkout/session_quote.rs) | Project the current native cart quote for the independent checkout session service. |
+| [src/checkout/state.rs](../src/checkout/state.rs) | Opaque native checkout states retain the original transaction and prepared package/language inputs. |
 | [src/checkout_handoff.rs](../src/checkout_handoff.rs) | Single-use checkout transfer for independent storefronts; no app-specific catalog or checkout rules. |
 | [src/checkout_page.rs](../src/checkout_page.rs) | The existing checkout may be framed only by its registered tenant/channel storefront. |
 | [src/checkout_products.rs](../src/checkout_products.rs) | Localized immutable checkout SKU snapshots read under the purchase transaction's locks. |
@@ -482,7 +490,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/operations/redacted_reads.rs](../src/operations/redacted_reads.rs) | Explicit non-PII domain read views for separately scoped app callbacks; never elevate an identity. |
 | [src/operations/routes.rs](../src/operations/routes.rs) | HTTP/MCP rights for merchant CRM, fulfillment and company settings. |
 | [src/operations/workflow.rs](../src/operations/workflow.rs) | Revision-bound workflow configuration used by installed apps and selective sandbox releases. |
-| [src/order_checkout.rs](../src/order_checkout.rs) | Atomic checkout, stock locks, extension policy and idempotency. |
+| [src/order_checkout.rs](../src/order_checkout.rs) | Native checkout entry used by Store API, Studio, agents and POS. |
 | [src/order_routes.rs](../src/order_routes.rs) | Merchant order read adapter. |
 | [src/outbox/control.rs](../src/outbox/control.rs) | Tenant-authorized quarantine inspection and explicit retry; delivered or retired events cannot be replayed here. |
 | [src/outbox/retention.rs](../src/outbox/retention.rs) | Bounded retirement of duplicate delivered payloads; provenance IDs and unsettled app/flow work survive. |

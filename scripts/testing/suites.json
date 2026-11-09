@@ -65,8 +65,8 @@
     "product_models"
   ],
   "providers": [
-    "services",
     "outbox_subscribers",
+    "services",
     "agentic_scenarios",
     "providers",
     "app_surfaces",

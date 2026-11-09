@@ -2,6 +2,7 @@
 import { useCallback, useState } from "react";
 import type { Cart } from "../../shared/api/shop-api";
 export type ShopperAdvice = {
+  appViews?: import("../../shared/apps/ConversationAppViews").ConversationAppView[];
   explanation: string;
   recommended_ids: string[];
   layout?: "discovery" | "comparison";

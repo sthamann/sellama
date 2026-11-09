@@ -16,7 +16,17 @@ pub(crate) async fn read(a: &App, h: &RequestContext, name: &str, input: &Value)
                 "Agent app tool is not currently authorized and read-only",
             ))?;
         apps::validate_input(&tool["inputSchema"], input)?;
-        return Ok(bound(&Box::pin(invoke(a, h, name, input)).await?, 0));
+        return Ok(bound(
+            &Box::pin(apps::invoke_mcp_read(
+                a,
+                h,
+                name,
+                input,
+                tool["_meta"]["ui"]["resourceUri"].as_str(),
+            ))
+            .await?,
+            0,
+        ));
     }
     if !capabilities::agent_reads(a, h)
         .iter()
@@ -59,15 +69,20 @@ pub(crate) async fn rounds_for(
     } else {
         catalogue(a, h)
     };
-    if !public {
-        tools.extend(
-            apps::app_tools(a, h)
-                .await?
-                .into_iter()
-                .filter(|v| v["annotations"]["readOnlyHint"] == true)
-                .take(24),
-        );
-    }
+    let app_tools = apps::app_tools_for(a, h, public).await?;
+    let app_tools: Vec<_> = app_tools
+        .into_iter()
+        .filter(|tool| {
+            tool["annotations"]["readOnlyHint"] == true
+                && (!public || tool["_meta"]["ui"]["resourceUri"].is_string())
+        })
+        .take(24)
+        .collect();
+    tools.extend(app_tools.iter().map(|tool| {
+        let mut exposed = tool.clone();
+        exposed.as_object_mut().unwrap().remove("_meta");
+        exposed
+    }));
     let system = format!("{system}\n{}", super::SOURCE_POLICY);
     // Decide reads before generating changes: a proposal-shaped schema can make a model skip tools.
     let mut read_schema = json!({"type":"object","properties":{"tool_calls":{"type":"array","maxItems":3,"items":{"type":"object","properties":{"name":{"type":"string"},"arguments_json":{"type":"string","maxLength":8192}},"required":["name","arguments_json"],"additionalProperties":false}}},"required":["tool_calls"],"additionalProperties":false});
@@ -124,7 +139,21 @@ pub(crate) async fn rounds_for(
             let step_key = format!("read-{turn}-{}", hash(&call.to_string()));
             let cached = agent_runs::checkpoint::load(a, &step_key).await?;
             // Completed read results retain evidence, not permanent authorization to withdrawn sources.
-            let result = if public {
+            let app_tool = app_tools.iter().find(|tool| tool["name"] == name);
+            let result = if let Some(tool) = app_tool {
+                apps::validate_input(&tool["inputSchema"], &input)?;
+                bound(
+                    &Box::pin(apps::invoke_mcp_read(
+                        a,
+                        h,
+                        name,
+                        &input,
+                        tool["_meta"]["ui"]["resourceUri"].as_str(),
+                    ))
+                    .await?,
+                    0,
+                )
+            } else if public {
                 if !["catalog.search", "catalog.detail", "catalog.facts"].contains(&name)
                     || input.to_string().len() > 8192
                 {
@@ -145,7 +174,11 @@ pub(crate) async fn rounds_for(
                 agent_runs::checkpoint::save(a, &step_key, &result).await?;
             }
             native_results.push(json!({"id":call["id"],"alias":call["alias"],"result":result}));
-            let entry = json!({"tool":name,"input":input,"result":result});
+            let mut entry = json!({"tool":name,"input":input,"result":result});
+            if let Some(uri) = app_tool.and_then(|tool| tool["_meta"]["ui"]["resourceUri"].as_str())
+            {
+                entry["appView"] = json!(uri);
+            }
             if json!(transcript).to_string().len() + entry.to_string().len() > 32768 {
                 return Err(bad("Agent evidence budget exhausted"));
             }

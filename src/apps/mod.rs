@@ -64,8 +64,10 @@ mod egress;
 pub(crate) use egress::public_client as public_https_client;
 mod field_values;
 mod gateway;
+pub(crate) mod mcp_views;
+pub(crate) use mcp_views::{invoke_mcp, invoke_mcp_read};
 mod tool_contract;
-pub(crate) use tool_contract::app_tools;
+pub(crate) use tool_contract::{app_tools, app_tools_for};
 mod history_storage;
 mod input_schema;
 mod job_callbacks;
@@ -129,7 +131,7 @@ pub(crate) use commerce_hooks::verify_package;
 pub(crate) use compatibility::upgrade_cart;
 pub(crate) use events::*;
 pub(crate) use gateway::{
-    additional_permissions, invoke_app, invoke_mcp, validate_input, validate_native_input,
+    additional_permissions, invoke_app, validate_input, validate_native_input,
 };
 pub(crate) use manifest::*;
 pub(crate) use registry::*;

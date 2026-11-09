@@ -5,16 +5,9 @@ pub(crate) async fn registry(a: &App, h: &RequestContext, public: bool) -> Resul
         merchant(a, h)?;
     }
     let (settings, _) = commerce::config(a, &tenant(h)?).await?;
-    let rows =
-        sqlx::query("SELECT manifest FROM app_packages WHERE tenant=$1 AND active ORDER BY id")
-            .bind(tenant(h)?)
-            .fetch_all(&a.db)
-            .await?;
     let mut surfaces = vec![];
     let mut public_apps = vec![];
-    for row in rows {
-        let m: Manifest =
-            serde_json::from_value(row.get("manifest")).map_err(|_| bad("Invalid app package"))?;
+    for m in super::registry::active_manifests(a, h).await? {
         if m.actions.iter().any(|act| act.public) {
             public_apps.push(m.id.clone());
         }
@@ -24,6 +17,9 @@ pub(crate) async fn registry(a: &App, h: &RequestContext, public: bool) -> Resul
                     .as_deref()
                     .is_some_and(|p| auth::permit(h, p).is_err())
             {
+                continue;
+            }
+            if mcp_views::location(&s.location) && !mcp_views::available(a, h, &m, s) {
                 continue;
             }
             if let Some(mut view) = native_views::payload(&m, s) {

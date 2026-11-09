@@ -1,5 +1,6 @@
 /** ConciergeView: storefront view composed from the scoped cart/controller. */
 import { mediaImage } from "../../shared/media/product-media";
+import ConversationAppViews from "../../shared/apps/ConversationAppViews";
 import AssistantMarkdown from "../../shared/content/AssistantMarkdown";
 import type { ShopperAdvice } from "./useShopperAdvice";
 import ConciergeSelection from "./ConciergeSelection";
@@ -9,7 +10,7 @@ import "../../shared/styles/workbench.css";
 import "../styles/shop.css";
 
 import { useStorefront } from "./StorefrontContext";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 import Icon from "../../shared/ui/Icon";
 export default function ConciergeView() {
@@ -31,6 +32,10 @@ export default function ConciergeView() {
     adviceContext: scope,
     shortlist,
   } = useStorefront();
+  const appRequest = useCallback(
+    (path: string, body?: unknown) => shopApi(path, body, cart?.token),
+    [cart?.token, scope],
+  );
   const generation = useRef(0);
   const currentScope = useRef(scope);
   currentScope.current = scope;
@@ -127,6 +132,7 @@ export default function ConciergeView() {
           <div className="concierge-explanation" role="status">
             <AssistantMarkdown text={advice.explanation} />
           </div>
+          <ConversationAppViews views={advice.appViews} request={appRequest} />
           {advice.recommended_ids.length > 0 && (
             <ConciergeSelection
               key={JSON.stringify([scope, advice])}

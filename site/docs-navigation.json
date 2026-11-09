@@ -112,6 +112,7 @@
         "docs/app-assistants.md",
         "docs/app-tutorials/README.md",
         "docs/app-platform.md",
+        "docs/agentic-component-ui.md",
         "docs/app-runtime-service.md",
         "docs/app-data-service.md",
         "docs/app-data-writes.md",

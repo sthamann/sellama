@@ -594,3 +594,11 @@ partial updates, package/revision fences and secret-safe projection, with explic
 personal live administrator admission. The serving role cannot install packages
 or create schema objects. Reader/write profiles retain their separate grants.
 The original vault envelope is shared; existing native ciphertext stays readable.
+
+
+## Present an app tool in a conversation
+
+An installed package can publish a view for its MCP read tool. Set `mcp: true` on
+the action and bind the app's native view to `storefront.assistant` for the shopper
+or `admin.assistant` for Studio. The agent's actual tool call determines when its
+view appears in the conversation. See the [package example and host contract](agentic-component-ui.md#app-owned-views-in-the-conversation).

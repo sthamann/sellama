@@ -9,7 +9,9 @@ pub(crate) struct SandboxedAppDocument;
 static CAPACITY: Semaphore = Semaphore::const_new(8);
 
 pub(super) fn router() -> Router<App> {
-    Router::new().route("/app-ui/{id}/{digest}", get(document))
+    Router::new()
+        .route("/app-ui/{id}/{digest}", get(document))
+        .route("/app-ui/mcp-view", get(super::mcp_views::shell))
 }
 async fn document(Path((id, digest)): Path<(String, String)>) -> Result<Response> {
     if !identifier(&id) || digest.len() != 64 || !digest.bytes().all(|b| b.is_ascii_hexdigit()) {
@@ -43,6 +45,10 @@ async fn document(Path((id, digest)): Path<(String, String)>) -> Result<Response
     )
     .map_err(|_| bad("Invalid UI URL"))?;
     let html = ui_bundles::fetch(url, &digest).await?;
+    Ok(sandboxed(html))
+}
+
+pub(super) fn sandboxed(html: String) -> Response {
     let mut response = Html(html).into_response();
     response
         .headers_mut()
@@ -54,7 +60,7 @@ async fn document(Path((id, digest)): Path<(String, String)>) -> Result<Response
         .headers_mut()
         .insert("referrer-policy", "no-referrer".parse().unwrap());
     response.extensions_mut().insert(SandboxedAppDocument);
-    Ok(response)
+    response
 }
 fn policy() -> String {
     format!(

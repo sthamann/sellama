@@ -1,5 +1,16 @@
 //! Atomic installation and additive schema upgrades; immutable version digests preserve history.
 use super::*;
+pub(super) async fn active_manifests(a: &App, h: &RequestContext) -> Result<Vec<Manifest>> {
+    let rows =
+        sqlx::query("SELECT manifest FROM app_packages WHERE tenant=$1 AND active ORDER BY id")
+            .bind(tenant(h)?)
+            .fetch_all(&a.db)
+            .await?;
+    rows.into_iter()
+        .map(|r| serde_json::from_value(r.get("manifest")).map_err(|_| bad("Invalid app package")))
+        .collect()
+}
+
 pub(crate) async fn package(a: &App, t: &str, id: &str, active: bool) -> Result<Manifest> {
     package_on(&a.db, t, id, active).await
 }

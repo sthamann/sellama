@@ -39,6 +39,12 @@ impl veyndo_app_model::surfaces::Policy for SurfacePolicy<'_> {
     fn native_view(&self, surface: &Surface) -> bool {
         native_views::is_native(self.0, surface)
     }
+    fn assistant_view(&self, surface: &Surface) -> Option<&veyndo_app_model::views::NativeView> {
+        self.0
+            .views
+            .iter()
+            .find(|view| surface.ui_path == format!("native/{}", view.id))
+    }
     fn known_scope(&self, scope: &str) -> bool {
         auth::SCOPES.contains(&scope)
     }

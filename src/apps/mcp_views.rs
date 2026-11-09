@@ -208,12 +208,43 @@ pub(crate) async fn read(a: &App, h: &RequestContext, requested: &str) -> Result
         main.split('-').next().unwrap_or(main),
     ];
     let definition = json!({"label":s.label,"view":view["view"],"entities":view["entities"],
-        "localeChain":locale_chain,"toolName":format!("app.{}.{}",m.id,s.actions[0])});
+        "localeChain":locale_chain,"toolName":format!("app.{}.{}",m.id,s.actions[0]),
+        "filter": choice_filter(&m, s, &view)});
     Ok(Some(
         json!({"uri":requested,"mimeType":MIME,"text":document(&definition),
         "_meta":{"ui":{"csp":{"connectDomains":[],"resourceDomains":[]}},
                  "ai.veyndo/definition":definition}}),
     ))
+}
+
+fn choice_filter(m: &Manifest, s: &Surface, view: &Value) -> Option<Value> {
+    let action = m.actions.iter().find(|a| a.name == s.actions[0])?;
+    let schema = &action.input_schema["properties"]["filter"];
+    if schema["type"] != "object" {
+        return None;
+    }
+    let entity = m
+        .entities
+        .iter()
+        .find(|e| Some(&e.name) == action.entity.as_ref())?;
+    if !view["entities"]
+        .as_array()?
+        .iter()
+        .any(|e| e["name"] == entity.name)
+    {
+        return None;
+    }
+    let field = entity.fields.iter().find(|f| {
+        f.indexed
+            && f.kind == "string"
+            && !f.translatable
+            && !f.choices.is_empty()
+            && f.references.is_none()
+            && f.core_reference.is_none()
+            && (schema["additionalProperties"] != false
+                || schema["properties"][&f.name]["type"] == "string")
+    })?;
+    Some(json!({"name":field.name,"label":field.label,"choices":field.choices}))
 }
 
 pub(super) async fn shell() -> Response {

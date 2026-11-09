@@ -1,6 +1,6 @@
 # Veyndo: Architektur, Apps und KI im Zusammenhang
 
-Stand 8. November 2026. Diese Übersicht beschreibt den Hauptstand des Projekts.
+Stand 9. November 2026. Diese Übersicht beschreibt den Hauptstand des Projekts.
 Die [Statusseite](status.md) ordnet Implementierung, öffentliche Auslieferung und
 tatsächlich durchgespielte Abläufe ein.
 
@@ -16,6 +16,14 @@ bestehenden System einsetzen. In beiden Fällen bleibt der Commerce-Kern
 zuständig für den verbindlichen Preis, die Bestandsbuchung und die Bestellung.
 Checkout führt durch den Kauf. Hintergrunddienste übernehmen Aufgaben wie
 E-Mail, Synchronisierung und Suche. [Komponenten und Einstiege](one-shop-components.md).
+
+Eine installierte App kann ihre Ansicht direkt in eine Antwort einbetten. Im
+Shop kann jemand zum Beispiel Pflegehinweise filtern, im Studio kann das Team
+private Sortimentsnotizen durchsehen. Der Chat vermittelt den Aufruf, und die
+App prüft die Rechte mit dem aktuellen Shopkontext. MCP Apps beschreibt diese
+Verbindung. OpenUI kann eine passende Ansicht während einer Modellantwort
+zusammenbauen. Beide können dieselben Dienstaktionen verwenden.
+[Interaktive Ansichten und Dienstgrenzen](agentic-component-ui.md#one-capability-two-ways-to-present-it).
 
 Ein Entwickler kann den Checkout auch mit einer eigenen Shopoberfläche
 verbinden. Der lokale Beispielshop hat den Kauf über das JavaScript SDK

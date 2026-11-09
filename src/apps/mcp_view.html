@@ -14,9 +14,20 @@ table{width:100%;border-collapse:collapse;text-align:start}
 th,td{padding:.25rem .5rem;border-bottom:1px solid GrayText;text-align:start}
 .scroll{overflow-x:auto}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.5rem 1rem}
 summary{cursor:pointer}
+.filter{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem .75rem;margin:.65rem 0 0}
+.filter[hidden]{display:none}
+.filter label{font-weight:600}
+select,button{font:inherit;color:CanvasText;background:Canvas;border:1px solid GrayText;border-radius:.4rem;padding:.35rem .6rem;max-inline-size:100%;min-block-size:2.25rem}
+select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid Highlight;outline-offset:2px}
+#next{margin-block-start:.75rem}
+#status:empty{display:none}
 </style>
 <main>
   <h1></h1>
+  <div id="filter" class="filter" hidden>
+    <label for="choice"></label>
+    <select id="choice"></select>
+  </div>
   <p id="status" role="status">Waiting for results…</p>
   <div id="results"></div>
   <button type="button" id="next" hidden></button>
@@ -36,23 +47,36 @@ summary{cursor:pointer}
     return element;
   };
   const next = document.getElementById("next");
+  const filterRow = document.getElementById("filter");
+  const choice = document.getElementById("choice");
   const messages = {
-    en:["Next page","No results.","The app could not load its results.","Results are unavailable for this view.","Request cancelled."],
-    de:["Nächste Seite","Keine Ergebnisse.","Die App konnte keine Ergebnisse laden.","Für diese Ansicht sind keine Ergebnisse verfügbar.","Anfrage abgebrochen."],
-    fr:["Page suivante","Aucun résultat.","Impossible de charger les résultats.","Résultats indisponibles pour cette vue.","Requête annulée."],
-    es:["Página siguiente","No hay resultados.","No se pudieron cargar los resultados.","No hay resultados para esta vista.","Solicitud cancelada."],
+    en:["Next page","No results.","The app could not load results. Try again.","Results are unavailable for this view.","Request cancelled.","All","Filter","Loading results…"],
+    de:["Nächste Seite","Keine Ergebnisse.","Die App konnte die Ergebnisse nicht laden. Versuche es erneut.","Für diese Ansicht sind keine Ergebnisse verfügbar.","Anfrage abgebrochen.","Alle","Filter","Ergebnisse werden geladen …"],
+    fr:["Page suivante","Aucun résultat.","Impossible de charger les résultats. Réessayez.","Résultats indisponibles pour cette vue.","Requête annulée.","Tout","Filtre","Chargement des résultats…"],
+    es:["Página siguiente","No hay resultados.","No se pudieron cargar los resultados. Inténtalo de nuevo.","No hay resultados para esta vista.","Solicitud cancelada.","Todos","Filtro","Cargando resultados…"],
   };
   let copy = messages.en;
   let args = {};
   let canCall = false;
   let callId = 0;
   let cursor;
-  next.addEventListener("click", () => {
-    if (!canCall || !cursor || next.disabled) return;
+  let appliedChoice = "";
+  function refresh(after) {
+    if (!canCall || next.disabled) return;
     next.disabled = true;
+    choice.disabled = true;
+    status.textContent = copy[7];
+    const input = {...args};
+    delete input.after;
+    if (after) input.after = after;
+    if (!filterRow.hidden && choice.value) {
+      input.filter = {...args.filter,[definition.filter.name]:choice.value};
+    }
     send({id:`page-${++callId}`,method:"tools/call",
-      params:{name:definition.toolName,arguments:{...args,after:cursor}}});
-  });
+      params:{name:definition.toolName,arguments:input}});
+  }
+  next.addEventListener("click", () => { if (cursor) refresh(cursor); });
+  choice.addEventListener("change", () => refresh());
   let initialized = false;
   let hostOrigin;
   let locale = "en";
@@ -64,17 +88,23 @@ summary{cursor:pointer}
     typeof value !== "object" ? String(value) :
     !Array.isArray(value) && Object.values(value).every(v => typeof v === "string")
       ? text(value) : JSON.stringify(value);
+  const fieldCell = (field, value) =>
+    text(field.choices?.find(choice => choice.value === value)?.label) || cell(value);
   function show(result) {
     next.disabled = false;
+    choice.disabled = false;
     if (result?.isError) {
+      choice.value = appliedChoice;
       status.textContent = copy[2];
       return;
     }
     const rows = result?.structuredContent?.elements;
     if (!Array.isArray(rows)) {
+      choice.value = appliedChoice;
       status.textContent = copy[3];
       return;
     }
+    appliedChoice = choice.value;
     results.replaceChildren();
     status.textContent = rows.length ? "" : copy[1];
     cursor = result.structuredContent.hasMore === true && result.structuredContent.nextCursor;
@@ -95,7 +125,7 @@ summary{cursor:pointer}
           const body = table.createTBody();
           for (const row of rows.slice(0,50)) {
             const line = body.insertRow();
-            for (const field of fields) line.append(node("td", cell(row[field.name])));
+            for (const field of fields) line.append(node("td", fieldCell(field, row[field.name])));
           }
           const scroll = node("div");
           scroll.className = "scroll";
@@ -107,10 +137,10 @@ summary{cursor:pointer}
           const titleField = fields.find(field => field.name === "title") ?? fields[0];
           for (const row of rows.slice(0,50)) {
             const card = node("details");
-            card.append(node("summary", cell(row[titleField.name]) || row.id));
+            card.append(node("summary", fieldCell(titleField, row[titleField.name]) || row.id));
             const list = node("dl");
             for (const field of fields.filter(field => field !== titleField)) list.append(
-              node("dt", text(field.label) || field.name), node("dd", cell(row[field.name])),
+              node("dt", text(field.label) || field.name), node("dd", fieldCell(field, row[field.name])),
             );
             card.append(list);
             grid.append(card);
@@ -150,7 +180,19 @@ summary{cursor:pointer}
       observer.observe(document.body);
     }
     if (!initialized || event.origin !== hostOrigin) return;
-    if (message.method === "ui/notifications/tool-input") args = message.params?.arguments ?? {};
+    if (message.method === "ui/notifications/tool-input") {
+      args = message.params?.arguments ?? {};
+      const filter = definition.filter;
+      if (canCall && filter && !Object.hasOwn(args.filter ?? {}, filter.name)
+          && Object.keys(args.filter ?? {}).length < 4) {
+        filterRow.querySelector("label").textContent = text(filter.label) || copy[6];
+        choice.add(new Option(copy[5], ""));
+        for (const option of filter.choices) {
+          choice.add(new Option(text(option.label) || option.value, option.value));
+        }
+        filterRow.hidden = false;
+      }
+    }
     if (callId && message.id === `page-${callId}`) show(message.result ?? {isError:true});
     if (message.method === "ui/notifications/tool-result") show(message.params);
     if (message.method === "ui/notifications/tool-cancelled") status.textContent = copy[4];

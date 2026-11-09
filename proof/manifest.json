@@ -2751,8 +2751,8 @@
     },
     "src/apps/mcp_views.rs": {
       "status": "reviewed-binding",
-      "sha256": "99ac812fdd323ba04d159d5c0e6928c31a7169e0b125e34609cfd4a26f50c1cf",
-      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
+      "sha256": "c5b6d5f9e2d890670c4f4bcc58cc6dd194f9460199eae2ce46b001ad53d3dd6e",
+      "review": "Conversation App resources derive one bounded choice filter from the admitted entity and action schema. Runtime tool admission remains unchanged. The HTTP/PostgreSQL regression checks public and private results, original product criteria, actor and shop denial, and package deactivation."
     },
     "src/apps/mod.rs": {
       "status": "unproved",

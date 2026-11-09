@@ -11,6 +11,8 @@
 
 - Let installed apps attach read-only tables and cards to merchant and shopper
   responses. The same resource works through MCP Apps discovery and reads.
+- Filter those results in either conversation using choices declared by the
+  installed app. Keep the original product and other filters in each follow-up.
 - Keep resource reads and pagination scoped to the active app revision and
   current actor. Provide a Product Guide package with public and private views.
 

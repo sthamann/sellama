@@ -16,6 +16,7 @@ type Definition = {
   view: object;
   toolName: string;
   localeChain: string[];
+  filter?: { name: string; choices: { value: string }[] } | null;
 };
 function Frame({
   view,
@@ -110,24 +111,57 @@ function Frame({
           method: "ui/notifications/tool-input",
           params: { arguments: view.arguments },
         });
-        reply({ method: "ui/notifications/tool-result", params: view.result });
+        reply({
+          method: "ui/notifications/tool-result",
+          params: { content: [], ...view.result },
+        });
       }
       if (
         message.method === "tools/call" &&
         initialized &&
-        typeof message.id === "string"
+        (typeof message.id === "string" ||
+          (typeof message.id === "number" && Number.isFinite(message.id)))
       ) {
         const { id, params } = message;
+        const after = params?.arguments?.after;
+        const filters = params?.arguments?.filter;
+        const baseFilters = view.arguments.filter;
+        const filter = definition.filter;
+        const allowedFilter =
+          filter &&
+          !(baseFilters && Object.hasOwn(baseFilters, filter.name)) &&
+          Object.keys(baseFilters ?? {}).length < 4;
+        const selected = allowedFilter ? filters?.[filter.name] : undefined;
+        const validSelection =
+          allowedFilter &&
+          filter.choices.some(({ value }) => value === selected);
         if (
           reading ||
           params?.name !== definition.toolName ||
-          typeof params.arguments?.after !== "string"
+          (after !== undefined &&
+            (typeof after !== "string" || !after || after.length > 100)) ||
+          (after === undefined && !allowedFilter) ||
+          (filters !== undefined &&
+            (!filters ||
+              typeof filters !== "object" ||
+              Object.keys(filters).some(
+                (key) =>
+                  key !== filter?.name &&
+                  !Object.hasOwn(baseFilters ?? {}, key),
+              ))) ||
+          (selected !== undefined && !validSelection)
         ) {
           reply({
             id,
             error: { code: -32602, message: "App read unavailable" },
           });
           return;
+        }
+        const args = { ...view.arguments };
+        delete args.after;
+        if (after !== undefined) args.after = after;
+        if (validSelection && filter) {
+          args.filter = { ...(baseFilters as object), [filter.name]: selected };
         }
         reading = true;
         request("/mcp", {
@@ -136,7 +170,7 @@ function Frame({
           method: "tools/call",
           params: {
             name: definition.toolName,
-            arguments: { ...view.arguments, after: params.arguments.after },
+            arguments: args,
             _meta: { "ai.veyndo/resourceUri": view.resourceUri },
           },
         })

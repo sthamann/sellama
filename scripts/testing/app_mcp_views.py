@@ -17,11 +17,13 @@ def verify(root, base, call, merchant, visitor, other, restricted):
     call('/api/apps', {'manifest': broken}, merchant, expected=400)
     call('/api/apps', {'manifest': manifest}, merchant)
     action = f'/api/apps/{app}/actions/save_entries'
-    for key, title in [('a', 'Machine washable'), ('b', 'Air dry only')]:
-        call(action, {'id': key, 'fields': {'product_id':'mug','title':{'en':title}}}, merchant)
+    for key, title, segment in [('a', 'Machine washable', 'standard'), ('b', 'Air dry only', 'priority')]:
+        call(action, {'id': key, 'fields': {'product_id':'mug','title':{'en':title},'segment':segment}}, merchant)
 
     call(f'/api/apps/{app}/actions/save_merchant_entry',
-         {'id': 'private', 'fields': {'product_id':'mug','title':{'en':'Private notes fixture'}}}, merchant)
+         {'id': 'private', 'fields': {'product_id':'mug','title':{'en':'Private notes fixture'},'segment':'priority'}}, merchant)
+    call(f'/api/apps/{app}/actions/save_merchant_entry',
+         {'id': 'z-private', 'fields': {'product_id':'mug','title':{'en':'Standard notes fixture'},'segment':'standard'}}, merchant)
 
     extension = 'io.modelcontextprotocol/ui'
     mime = 'text/html;profile=mcp-app'
@@ -35,6 +37,7 @@ def verify(root, base, call, merchant, visitor, other, restricted):
     private_uri = merchant_tools[private_tool]['_meta']['ui']['resourceUri']
     resource = rpc('resources/read', {'uri': public_uri})['result']['contents'][0]
     assert resource['mimeType'] == mime and resource['_meta']['ai.veyndo/definition']['toolName'] == public_tool
+    assert [c['value'] for c in resource['_meta']['ai.veyndo/definition']['filter']['choices']] == ['standard', 'priority']
     assert r'\u003c/script\u003e' in resource['text'] and '<img src=x' not in resource['text']
     assert 'Machine washable' not in resource['text']
     assert any(r['uri'] == public_uri for r in rpc('resources/list')['result']['resources'])
@@ -50,6 +53,16 @@ def verify(root, base, call, merchant, visitor, other, restricted):
             '_meta': {'ai.veyndo/resourceUri': public_uri}}
     assert rpc('tools/call', args)['result']['structuredContent']['elements'][0]['id'] == 'b'
     assert rpc('tools/call', {**args, '_meta': {'ai.veyndo/resourceUri': private_uri}})['result']['isError']
+    for who, tool, uri, record in [(visitor, public_tool, public_uri, 'b'),
+                                    (merchant, private_tool, private_uri, 'private')]:
+        filtered = {'name': tool, 'arguments': {'limit': 1, 'filter': {'product_id': 'mug', 'segment': 'priority'}},
+                    '_meta': {'ai.veyndo/resourceUri': uri}}
+        rows = rpc('tools/call', filtered, who)['result']['structuredContent']['elements']
+        assert [row['id'] for row in rows] == [record]
+        if who == merchant:
+            for denied in [visitor, restricted, other]:
+                response = rpc('tools/call', filtered, denied)
+                assert 'error' in response or response['result']['isError']
     with urllib.request.urlopen(base + '/app-ui/mcp-view') as iframe:
         assert iframe.headers['content-security-policy'].startswith("sandbox allow-scripts;")
         assert "connect-src 'none'" in iframe.headers['content-security-policy']

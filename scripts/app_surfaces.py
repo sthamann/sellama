@@ -74,7 +74,7 @@ def run():
                     calls = []
                     if mcp_query and not continued:
                         name = "list_entries" if "Inspect guide fixture" in provider_input else "list_merchant_entries"
-                        calls = [{"name":f"app.example_agent_results.{name}","arguments_json":'{"limit":1}'}]
+                        calls = [{"name":f"app.example_agent_results.{name}","arguments_json":'{"limit":1,"filter":{"product_id":"mug"}}'}]
                     proposal = {"tool_calls":calls}
                 if request.get("tools"):
                     raw = json.dumps(native_response(request, proposal, "ollama" if ollama else "openai")).encode()
@@ -321,7 +321,7 @@ def run():
             call(f"/api/apps/{guide}", {"active":False,"revision":guide_package["revision"]}, h, method="PUT")
             removed = call("/mcp", {"jsonrpc":"2.0","id":1,"method":"resources/read","params":{"uri":public_view}}, public)
             assert removed["error"]["code"] == -32602
-            passed("Installed app tools attach actual data to both conversations; pagination, sandboxing, tenant separation, private scopes and deactivation are enforced")
+            passed("Installed app tools attach actual data to both conversations; filtering, pagination, sandboxing, tenant separation, private scopes and deactivation are enforced")
             def fake_readonly_get(x):
                 next(a for a in x['actions'] if a['name']=='support_received')['readOnly']=True
                 x['apiRoutes'][0].update(method='GET',action='support_received')

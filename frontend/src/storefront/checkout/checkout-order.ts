@@ -6,6 +6,19 @@ import {
   browserCredential,
   browserRequest,
 } from "../../shared/api/browser-session";
+import { confirmIndependentCheckout } from "./independent-checkout";
+
+async function completedOrder(cart: Cart): Promise<Order | undefined> {
+  const recovered = await shopApi<Cart>(
+    "/store-api/checkout/cart",
+    undefined,
+    cart.token,
+  );
+  return recovered.id === cart.id && recovered.status === "completed"
+    ? recovered.order
+    : undefined;
+}
+
 export async function placeCheckoutOrder(
   cart: Cart,
   locale: string,
@@ -13,6 +26,17 @@ export async function placeCheckoutOrder(
   channel: string,
 ): Promise<Order> {
   try {
+    const sandbox = new URLSearchParams(location.search).get("sandbox") === "1";
+    if (
+      !sandbox &&
+      cart.checkoutService &&
+      customerSessionHeaders(tenant)["x-customer-token"]
+    ) {
+      const receipt = await confirmIndependentCheckout(cart, channel);
+      const order = await completedOrder(cart);
+      if (order?.id === receipt.orderId) return order;
+      throw responseError("Checkout confirmation could not be verified", 503);
+    }
     const path = "/store-api/checkout/order";
     const response = await fetch(
       path,
@@ -32,7 +56,7 @@ export async function placeCheckoutOrder(
               cart.price.totalPrice * 10 ** (cart.price.currencyScale ?? 2),
             ),
           ),
-          ...(new URLSearchParams(location.search).get("sandbox") === "1"
+          ...(sandbox
             ? {
                 Authorization: `Bearer ${browserCredential()}`,
               }
@@ -50,17 +74,8 @@ export async function placeCheckoutOrder(
   } catch (failure) {
     // Read the committed snapshot once; never repeat the financial command.
     try {
-      const recovered = await shopApi<Cart>(
-        "/store-api/checkout/cart",
-        undefined,
-        cart.token,
-      );
-      if (
-        recovered.id === cart.id &&
-        recovered.status === "completed" &&
-        recovered.order
-      )
-        return recovered.order;
+      const recovered = await completedOrder(cart);
+      if (recovered) return recovered;
     } catch {
       // A failed status read must not replace the original checkout error.
     }

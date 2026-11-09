@@ -243,6 +243,9 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
     short-lived Checkout-only grant. Check logout, refreshed login and original
     receipt recovery without exporting the native session cookie.
     [Configuration](checkout-component.md#bind-checkout-to-a-native-buyer-login).
+  - [x] Route the local storefront's signed-in simulated purchase through
+    independent Checkout. Drive the real browser on desktop and mobile,
+    including lost confirmation, original receipt and empty bag.
   - [ ] Accept the hosted independent service with configured Sandbox payment
     and verify payment attempt, callback, settlement and refund.
 - [ ] CHK-03 Extract Rust checkout orchestration/session storage to its own repo;

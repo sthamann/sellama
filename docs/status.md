@@ -45,6 +45,12 @@ restricted runtime role for Checkout. Replaying confirmation kept one order and 
 decrement. The grant stopped working at logout, and a fresh login recovered
 the same receipt. [Buyer identity setup](checkout-component.md#bind-checkout-to-a-native-buyer-login).
 
+The native storefront's existing checkout now has a local opt-in path to the
+separate service for signed-in simulated purchases. Chromium exercised the
+actual shop on desktop and mobile. The mobile run recovered the original
+receipt after the confirmation response was dropped. Both runs showed an
+empty bag on return and exactly one stock decrement.
+
 That rollout used Northflank image `wiry-spirit-4983` on Core and the private
 app worker. It was built from `7ce9217c`, with the same source tree as merged
 release `f8cdece8`.

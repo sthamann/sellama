@@ -3466,8 +3466,8 @@
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "171ea612d7f8d11f6507a5e300a86573336f8fa8366658da941a17c4d4f4eccc",
-      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+      "sha256": "2c3a72cb6410a84fedc7db6890c111d82d449222601097bbb690c43ac8438ec0",
+      "review": "Reviewed opt-in browser Checkout configuration and native quote marker against desktop and mobile purchases using the original cart, explicit reviewed fields, one stock decrement and recovery after a lost confirmation. Existing kernel policies stay unchanged."
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -3526,8 +3526,8 @@
     },
     "src/checkout/buyer_identity.rs": {
       "status": "unproved",
-      "sha256": "b08d00d60da0629cb4ab7bcdd11a5d6d6f494d64b3c01353efbffa32dcc1a76c",
-      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
+      "sha256": "074a20eb835707db9691f32fa362a93db821102c000daaeb892ad81a5a1485f7",
+      "review": "Reviewed opt-in browser Checkout configuration and native quote marker against desktop and mobile purchases using the original cart, explicit reviewed fields, one stock decrement and recovery after a lost confirmation. Existing kernel policies stay unchanged."
     },
     "src/checkout/commit.rs": {
       "status": "reviewed-binding",

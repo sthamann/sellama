@@ -289,5 +289,30 @@ another grant, or purchase another buyer's cart. Checkout keeps its existing
 dedicated draft database.
 
 This configuration enables an authenticated buyer canary. Native storefront and
-Storyfront routing, guest checkout, and hosted provider settlement and refund
-still have separate acceptance steps.
+Storyfront can share the existing checkout interface. To route an admitted
+browser purchase to the independent service, also set Core's
+`CHECKOUT_BROWSER_ORIGIN` to the exact HTTPS Checkout origin. Set
+`CHECKOUT_ORIGINS` in Checkout to the JSON array of exact Core page origins
+that render this interface. Include the actual Core iframe origin for an
+embedded checkout, even when the parent storefront has a different origin.
+
+The shop offers this route only for a signed-in consumer cart with a simulated
+method in an enabled shop. The browser sends the short-lived grant and cart
+capability directly to Checkout. Commerce remains responsible for the final
+review and commit, and the storefront reads the complete receipt from its
+original cart. A lost confirmation response triggers a read of the same cart
+to recover the original order. Omit `CHECKOUT_BROWSER_ORIGIN` to stop offering
+the route on new cart reads. Guest and provider payments continue through
+the existing native endpoint.
+
+Accept the configured origins in the hosted native and Storyfront browsers
+before enabling the route. Guest checkout through the independent service and
+hosted provider settlement and refund have separate acceptance steps.
+
+With both fixture services and the built storefront running locally, set
+`BASE_URL`, `CHECKOUT_TEST_SERVICE_URL` and `CHECKOUT_BROWSER_MODULE` to the
+Core URL, Checkout URL and local Playwright module. Run
+`node scripts/testing/checkout_browser_route.mjs` against disposable databases.
+It drives the actual shop on desktop and mobile. The mobile case drops the
+confirmation response after the service commits and verifies one stock
+decrement, the original receipt after reload and an empty bag.

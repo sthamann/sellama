@@ -151,6 +151,8 @@ export type Order = {
   }[];
 };
 export type Cart = {
+  checkoutService?: { legalPolicyVersion: string };
+  locale?: string;
   savedConfigurations?: {
     app: string;
     productId: string;
@@ -207,6 +209,7 @@ export type Cart = {
   price: {
     currency?: string;
     currencyScale?: number;
+    totalMinor?: string;
     positionPrice: number;
     totalPrice: number;
     netPrice: number;

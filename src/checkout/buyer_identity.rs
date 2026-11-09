@@ -18,6 +18,7 @@ struct Config {
     key: aead::LessSafeKey,
     credential: String,
     shops: Vec<String>,
+    browser_origin: Option<String>,
 }
 
 fn config() -> Option<&'static Config> {
@@ -36,13 +37,28 @@ fn config() -> Option<&'static Config> {
                 return None;
             }
             let key = URL_SAFE_NO_PAD.decode(key).ok()?;
+            let browser_origin = env::var("CHECKOUT_BROWSER_ORIGIN").ok().filter(|value| {
+                reqwest::Url::parse(value).is_ok_and(|url| {
+                    url.origin().ascii_serialization() == *value
+                        && (url.scheme() == "https"
+                            || !runtime_config::get().strict
+                                && url.scheme() == "http"
+                                && matches!(url.host_str(), Some("127.0.0.1" | "[::1]")))
+                })
+            });
             Some(Config {
                 key: aead::LessSafeKey::new(aead::UnboundKey::new(&aead::AES_256_GCM, &key).ok()?),
                 credential,
                 shops,
+                browser_origin,
             })
         })
         .as_ref()
+}
+
+pub(crate) fn browser_checkout_enabled(tenant: &str) -> bool {
+    config()
+        .is_some_and(|c| c.browser_origin.is_some() && c.shops.iter().any(|shop| shop == tenant))
 }
 
 struct Grant {
@@ -140,10 +156,11 @@ pub(super) async fn issue(State(a): State<App>, h: RequestContext) -> Result<imp
     let buyer = b2b::identity(&mut tx, &h).await?;
     Ok((
         [(CACHE_CONTROL, "no-store")],
-        Json(
-            json!({"access_token":seal(c,&tenant,session,&buyer,now()+TTL)?,
-        "token_type":"Bearer","expires_in":TTL,"audience":AUDIENCE}),
-        ),
+        Json(json!({
+            "access_token":seal(c,&tenant,session,&buyer,now()+TTL)?,
+            "token_type":"Bearer","expires_in":TTL,"audience":AUDIENCE,
+            "checkout_origin":c.browser_origin,
+        })),
     ))
 }
 

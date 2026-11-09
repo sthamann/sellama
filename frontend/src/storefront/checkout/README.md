@@ -14,6 +14,7 @@ One-page customer identity, authoritative quote review and provider handoff.
 - `OrderCompletion.tsx`: actual accepted order snapshot and scoped payment recovery.
 - `OrderConfetti.tsx`: finite decorative CSS celebration with reduced-motion support.
 - `checkout-order.ts`: tenant/channel/cart transport, current customer session, reviewed revision/cents and replay key. The shared `customer-session.ts` owner supplies the same identity used by all Store API requests; current B2B grants are rechecked by the server.
+- `independent-checkout.ts`: opt-in signed-in test purchases through the separate service, with exact native cart revision, amount and legal review. The storefront still displays the original Commerce receipt.
 - `PaymentSession.tsx`: verified status, bounded polling, provider return and recovery.
 - `../styles/checkout.css`: responsive checkout layout and touch/focus states.
 

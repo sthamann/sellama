@@ -3471,8 +3471,8 @@
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "52329efd36da16d615aecea522e7d3a77d273e831ed2264bb41455ba7939d481",
-      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
+      "sha256": "72490a72cf4569e0026254f908fb2b3fb58c743c739888dd996628b6c1dc8b02",
+      "review": "Checkout private relay: fixed upstream session routes, native buyer admission, bounded responses, and separate request capacity for Core callbacks. No new formal claims."
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -3531,8 +3531,8 @@
     },
     "src/checkout/buyer_identity.rs": {
       "status": "unproved",
-      "sha256": "41af15242b363113f05e8e621737575d230b7b923630b1c38f9e31b4715269a6",
-      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
+      "sha256": "5a07cf9e31ece9cb79c0e6b6a6eedfd3c73479ff19fa9ccf1dd26a13acb411d2",
+      "review": "Checkout private relay: fixed upstream session routes, native buyer admission, bounded responses, and separate request capacity for Core callbacks. No new formal claims."
     },
     "src/checkout/commit.rs": {
       "status": "reviewed-binding",
@@ -3546,8 +3546,8 @@
     },
     "src/checkout/mod.rs": {
       "status": "unproved",
-      "sha256": "ed5a7e420c7fe966dc9c13c4f20e951ab988f1ec0326804a855089507cf9e38b",
-      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
+      "sha256": "675b56244e9a689647bd8ecda2712bb54f009885522112e2d049004c0248e386",
+      "review": "Checkout private relay: fixed upstream session routes, native buyer admission, bounded responses, and separate request capacity for Core callbacks. No new formal claims."
     },
     "src/checkout/prepare.rs": {
       "status": "unproved",
@@ -3558,6 +3558,11 @@
       "status": "reviewed-binding",
       "sha256": "a46f9e33c6fbbd6937db808698dfc26f9e8623424f2c022802f6fc6afe8ffb91",
       "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+    },
+    "src/checkout/private_browser.rs": {
+      "status": "unproved",
+      "sha256": "003f35b63b89b56aea52166f2b8a731d8d0e3cd407baa5298f135b162fe26c7b",
+      "review": "Checkout private relay: fixed upstream session routes, native buyer admission, bounded responses, and separate request capacity for Core callbacks. No new formal claims."
     },
     "src/checkout/session_order.rs": {
       "status": "unproved",
@@ -4966,8 +4971,8 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "91295b6e60ca6c84d19ac5aa7c56809159880b5ea5dd76d79dff980b9ff80836",
-      "review": "Reviewed native quota/task atomic transactions and actor-bound continuation; removed connector Core identity reads, retained gateway/FK authority and sanitized missing references. Real one-backend PgBouncer create/resume/kill/restart and scoped connector regressions passed."
+      "sha256": "249b9acca7d99bafb3eba92d561aab7dbd1d695a1bd94670f063ff6461636617",
+      "review": "Checkout private relay: fixed upstream session routes, native buyer admission, bounded responses, and separate request capacity for Core callbacks. No new formal claims."
     },
     "src/performance/authority.rs": {
       "status": "unproved",

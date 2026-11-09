@@ -76,6 +76,16 @@ reload. When the confirmation response and iframe message were both lost, two
 transport attempts resolved to one receipt, one stock decrement and one
 `order.placed` event.
 
+The new same-origin route passed locally in desktop and mobile Chromium,
+using the real Core and Checkout processes and separate databases. The
+native storefront and embedded Storyfront controller recovered the original
+receipt when confirmation was lost. Both showed an empty bag after reload,
+with one order, one stock decrement and one `order.placed` event per
+purchase. The local Storyfront fixture also
+discarded the iframe completion message. Checkout kept its private listener.
+The relay uses separate request capacity so waiting requests leave room for
+Commerce callbacks. [Configuration and verification](checkout-component.md#route-a-test-shop-through-private-checkout).
+
 Northflank runs Checkout image `puffy-soup-2325` from `eaa34f2` with one
 ready private replica and zero restarts at verification. Its separate database
 enforces row-level access. The restricted login authenticated and could not

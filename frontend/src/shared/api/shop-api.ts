@@ -151,7 +151,11 @@ export type Order = {
   }[];
 };
 export type Cart = {
-  checkoutService?: { legalPolicyVersion: string; paypalSandbox?: true };
+  checkoutService?: {
+    legalPolicyVersion: string;
+    paypalSandbox?: true;
+    transport?: "same-origin" | "direct";
+  };
   locale?: string;
   savedConfigurations?: {
     app: string;

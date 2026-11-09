@@ -1,5 +1,12 @@
 # Changelog
 
+## Private browser route to independent Checkout
+
+- Let enabled test shops use the independent Checkout service through the
+  existing shop origin. Keep the service address and buyer grants on the server.
+- Bound relay concurrency separately so Commerce callbacks can finish while
+  browsers wait for confirmation.
+
 ## PayPal Sandbox through independent Checkout
 
 - Let enabled test shops route new PayPal Sandbox purchases through Checkout

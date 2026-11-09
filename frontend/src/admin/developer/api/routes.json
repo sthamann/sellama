@@ -1535,6 +1535,16 @@
     "source": "src/checkout_handoff.rs"
   },
   {
+    "path": "/store-api/checkout/independent/confirm",
+    "method": "POST",
+    "source": "src/checkout/private_browser.rs"
+  },
+  {
+    "path": "/store-api/checkout/independent/create",
+    "method": "POST",
+    "source": "src/checkout/private_browser.rs"
+  },
+  {
     "path": "/store-api/checkout/options",
     "method": "GET",
     "source": "src/routes.rs"

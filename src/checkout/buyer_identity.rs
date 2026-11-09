@@ -14,14 +14,15 @@ const PREFIX: &str = "checkout-v1_";
 const MAX_TOKEN_LEN: usize = 256;
 const TTL: i64 = 300;
 
-struct Config {
+pub(super) struct Config {
     key: aead::LessSafeKey,
     credential: String,
     shops: Vec<String>,
     browser_origin: Option<String>,
+    pub(super) private_browser: Option<super::private_browser::Upstream>,
 }
 
-fn config() -> Option<&'static Config> {
+pub(super) fn config() -> Option<&'static Config> {
     static CONFIG: OnceLock<Option<Config>> = OnceLock::new();
     CONFIG
         .get_or_init(|| {
@@ -51,14 +52,22 @@ fn config() -> Option<&'static Config> {
                 credential,
                 shops,
                 browser_origin,
+                private_browser: super::private_browser::Upstream::configured(),
             })
         })
         .as_ref()
 }
 
-pub(crate) fn browser_checkout_enabled(tenant: &str) -> bool {
-    config()
-        .is_some_and(|c| c.browser_origin.is_some() && c.shops.iter().any(|shop| shop == tenant))
+pub(crate) fn browser_checkout_transport(tenant: &str) -> Option<&'static str> {
+    let c = config()?;
+    if !c.shops.iter().any(|shop| shop == tenant) {
+        return None;
+    }
+    if c.private_browser.is_some() {
+        Some("same-origin")
+    } else {
+        c.browser_origin.as_ref().map(|_| "direct")
+    }
 }
 
 pub(super) fn admitted_shop(tenant: &str) -> bool {
@@ -148,24 +157,29 @@ fn open(c: &Config, token: &str) -> Option<Grant> {
 
 pub(super) async fn issue(State(a): State<App>, h: RequestContext) -> Result<impl IntoResponse> {
     let c = config().ok_or_else(unavailable)?;
-    let tenant = tenant(&h)?;
-    if !c.shops.contains(&tenant) {
-        return Err(unavailable());
-    }
-    let session = header(&h, "x-customer-token").ok_or_else(inactive)?;
-    let mut tx = a.db.begin().await?;
-    if staging::parent_conn(&mut tx, &tenant).await?.is_some() {
-        return Err(unavailable());
-    }
-    let buyer = b2b::identity(&mut tx, &h).await?;
+    let grant = current_grant(&a, &h, c).await?;
     Ok((
         [(CACHE_CONTROL, "no-store")],
         Json(json!({
-            "access_token":seal(c,&tenant,session,&buyer,now()+TTL)?,
+            "access_token":grant,
             "token_type":"Bearer","expires_in":TTL,"audience":AUDIENCE,
             "checkout_origin":c.browser_origin,
         })),
     ))
+}
+
+pub(super) async fn current_grant(a: &App, h: &RequestContext, c: &Config) -> Result<String> {
+    let tenant = tenant(h)?;
+    if !c.shops.contains(&tenant) {
+        return Err(unavailable());
+    }
+    let session = header(h, "x-customer-token").ok_or_else(inactive)?;
+    let mut tx = a.db.begin().await?;
+    if staging::parent_conn(&mut tx, &tenant).await?.is_some() {
+        return Err(unavailable());
+    }
+    let buyer = b2b::identity(&mut tx, h).await?;
+    seal(c, &tenant, session, &buyer, now() + TTL)
 }
 
 #[derive(Deserialize)]

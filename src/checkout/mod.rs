@@ -7,6 +7,7 @@ mod commit;
 mod lock;
 mod prepare;
 mod price;
+mod private_browser;
 mod session_order;
 pub(crate) mod session_payment;
 mod session_quote;
@@ -15,6 +16,7 @@ mod state;
 pub(crate) fn router() -> Router<App> {
     use crate::auth::SecureRoutes;
     Router::new()
+        .merge(private_browser::router())
         .secure_route(
             "/api/identity/checkout/introspect",
             &[("POST", "public")],

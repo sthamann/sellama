@@ -16,6 +16,10 @@ function fixtureOrigin(name) {
 }
 const base = fixtureOrigin("BASE_URL");
 const checkout = fixtureOrigin("CHECKOUT_TEST_SERVICE_URL");
+const sameOrigin = process.env.CHECKOUT_TEST_TRANSPORT === "same-origin";
+const confirmationPath = sameOrigin
+  ? base + "/store-api/checkout/independent/confirm"
+  : checkout + "/v1/sessions/confirm";
 const paypal = process.env.CHECKOUT_TEST_PAYPAL_FIXTURE
   ? fixtureOrigin("CHECKOUT_TEST_PAYPAL_FIXTURE")
   : undefined;
@@ -23,6 +27,21 @@ const providerOrigin = "https://provider.veyndo-test.local";
 const merchant = process.env.CHECKOUT_TEST_BROWSER_MERCHANT_TOKEN;
 if (paypal)
   assert.ok(merchant, "Use a disposable merchant token for the refund");
+const foreignShop = "checkout-isolation-" + randomUUID().slice(0, 8);
+if (sameOrigin) {
+  const foreignOwner = await fetch(base + "/api/auth/register", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      workspaceId: foreignShop,
+      workspaceName: "Checkout isolation fixture",
+      name: "Fixture Owner",
+      email: foreignShop + "@example.test",
+      password: "Synthetic-Checkout-browser-fixture!",
+    }),
+  });
+  assert.equal(foreignOwner.status, 200);
+}
 const browser = await chromium.launch({ headless: true });
 try {
   for (const drop of [false, true]) {
@@ -33,6 +52,7 @@ try {
     });
     const nativeWrites = [],
       independentWrites = [];
+    const exposedGrants = [];
     let remoteReceipt;
     if (paypal) {
       await page.route(providerOrigin + "/fixture/**", async (route) => {
@@ -59,11 +79,17 @@ try {
       if (req.method() !== "POST") return;
       if (req.url() === base + "/store-api/checkout/order")
         nativeWrites.push(req.url());
-      if (req.url() === checkout + "/v1/sessions/confirm")
-        independentWrites.push(req.url());
+      if (req.url() === confirmationPath) independentWrites.push(req.url());
+      if (
+        sameOrigin &&
+        (req.url().startsWith(checkout + "/") ||
+          req.url() === base + "/store-api/checkout/session-access" ||
+          req.headers().authorization?.startsWith("Bearer checkout-v1_"))
+      )
+        exposedGrants.push(req.url());
     });
     if (drop)
-      await page.route(checkout + "/v1/sessions/confirm", async (route) => {
+      await page.route(confirmationPath, async (route) => {
         if (route.request().method() !== "POST") return route.continue();
         const response = await route.fetch();
         assert.equal(response.status(), 200, await response.text());
@@ -71,7 +97,26 @@ try {
         await route.abort("failed");
       });
     await page.goto(base + "/?shop=atelier&lang=en-GB");
-    const prepared = await page.evaluate(async (email) => {
+    if (sameOrigin) {
+      const denied = await page.request.post(
+        base + "/store-api/checkout/independent/create",
+        {
+          headers: { "x-tenant": "atelier" },
+          data: {},
+        },
+      );
+      assert.equal(denied.status(), 401);
+      const unknown = await page.request.post(
+        base + "/store-api/checkout/independent/preferences",
+        {
+          headers: { "x-tenant": "atelier" },
+          data: {},
+        },
+      );
+      assert.ok([404, 405].includes(unknown.status()));
+    }
+    const buyer = { email: randomUUID() + "@example.test", sameOrigin };
+    const prepared = await page.evaluate(async ({ email, sameOrigin }) => {
       const headers = {
         "Content-Type": "application/json",
         "x-tenant": "atelier",
@@ -104,6 +149,15 @@ try {
         shippingAddress: address,
       });
       headers["x-veyndo-customer-csrf"] = account.customerBrowserCsrf;
+      if (sameOrigin) {
+        const forged = await fetch("/store-api/checkout/independent/create", {
+          method: "POST",
+          headers: { ...headers, "x-veyndo-customer-csrf": "0".repeat(64) },
+          body: "{}",
+        });
+        if (forged.status !== 401)
+          throw Error(`Forged Checkout CSRF returned ${forged.status}`);
+      }
       const first = await post("checkout/cart", {});
       const cart = await post(
         "checkout/cart/line-item",
@@ -118,10 +172,39 @@ try {
       return {
         path: handoff.checkoutPath,
         cartId: cart.id,
+        cartToken: cart.token,
         service: cart.checkoutService,
       };
-    }, randomUUID() + "@example.test");
+    }, buyer);
     assert.match(prepared.service?.legalPolicyVersion, /^[0-9a-f]{64}$/);
+    assert.equal(
+      prepared.service.transport,
+      sameOrigin ? "same-origin" : "direct",
+    );
+    if (sameOrigin) {
+      const foreign = { "x-tenant": foreignShop };
+      const account = await page.request.post(
+        base + "/store-api/account/register",
+        {
+          headers: foreign,
+          data: {
+            email: buyer.email,
+            name: "Foreign Fixture Buyer",
+            password: "Synthetic-Checkout-browser-fixture!",
+          },
+        },
+      );
+      assert.ok(account.ok(), await account.text());
+      const denied = await page.request.post(confirmationPath, {
+        headers: {
+          ...foreign,
+          "x-customer-token": (await account.json()).customerToken,
+          "sw-context-token": prepared.cartToken,
+        },
+        data: { id: prepared.cartId, confirmed: true },
+      });
+      assert.equal(denied.status(), 503);
+    }
     const before = await (
       await page.request.get(base + "/store-api/product/lamp", {
         headers: { "x-tenant": "atelier" },
@@ -147,7 +230,7 @@ try {
       paypal && !drop
         ? page.waitForResponse(
             (response) =>
-              response.url() === checkout + "/v1/sessions/confirm" &&
+              response.url() === confirmationPath &&
               response.request().method() === "POST",
           )
         : undefined;
@@ -231,6 +314,7 @@ try {
       .click();
     assert.equal(nativeWrites.length, 0);
     assert.equal(independentWrites.length, 1);
+    assert.deepEqual(exposedGrants, []);
     const after = await (
       await page.request.get(base + "/store-api/product/lamp", {
         headers: { "x-tenant": "atelier" },

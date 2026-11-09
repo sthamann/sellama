@@ -36,7 +36,15 @@ call('/api/automation/catalog',h=fh,expected=403)
 assert {'condition','action','delay','stop'}==set(catalog['pipelineContract']['nodes'])
 assert any(x['type']=='scriptRule' and not x['supported'] for x in catalog['sourceConditions'])
 tools_list={'jsonrpc':'2.0','id':1,'method':'tools/list'}
-call('/mcp',tools_list,expected=400)
+# Signed fixtures select a default explicitly. Legacy seeded demos default to atelier.
+public_default=os.getenv('PUBLIC_DEFAULT_TENANT') or (
+    os.getenv('DB_RLS_REQUIRED')!='true' and os.getenv('SEED_DEMO','true')=='true')
+if public_default:
+    default_tools=call('/mcp',tools_list)['result']['tools']
+    assert any(tool['name']=='catalog.search' for tool in default_tools)
+    assert not any(tool['name'].startswith('automation.') for tool in default_tools)
+else:
+    call('/mcp',tools_list,expected=400)
 assert not any(x['name'].startswith('automation.')for x in call('/mcp',tools_list,public)['result']['tools'])
 call('/mcp',{'jsonrpc':'2.0','id':1,'method':'tools/call','params':{'name':'automation.list','arguments':{}}},fh,expected=403)
 check('Original production catalog and MCP tools expose executable scope and tenant authority explicitly')

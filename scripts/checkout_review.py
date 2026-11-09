@@ -44,6 +44,49 @@ assert 'media' in next_cart['lineItems'][0]
 assert next_cart['shippingMethodOptions'] and next_cart['paymentMethodOptions']
 assert all('countries' in p for p in next_cart['paymentMethodOptions'])
 check('Country-edit candidates and native cart media are part of the quote contract')
+
+# The independent Checkout service calls these three Commerce operations.
+tenant = {'x-tenant': 'atelier'}
+def buyer():
+    address = dict(name='Checkout fixture', firstName='Checkout', lastName='Fixture',
+                   street='Fixture 3', city='Berlin', postalCode='10115', country='DE')
+    account = call('/store-api/account/register', {
+        'name': 'Checkout fixture', 'email': f'{uuid.uuid4().hex}@example.test',
+        'password': 'Synthetic-Checkout-review-fixture!',
+        'billingAddress': address, 'shippingAddress': address,
+    }, tenant)
+    identity = {**tenant, 'x-customer-token': account['customerToken']}
+    return identity, call('/store-api/account/profile', headers=identity)['id']
+
+identity, customer_id = buyer()
+other, _ = buyer()
+cart = call('/store-api/checkout/cart', {}, identity)
+credentials = {**identity, 'sw-context-token': cart['token']}
+cart = call('/store-api/checkout/cart/line-item',
+            {'items': [{'referencedId': 'lamp', 'quantity': 1}]}, credentials)
+host = '/store-api/checkout/session-'
+binding = {'cartId': cart['id'], 'customerId': customer_id}
+current = {**binding, 'cartRevision': cart['revision']}
+quote = call(host + 'quote', current, credentials)
+assert quote['totalMinor'] == cart['price']['totalMinor']
+assert quote['legal'] == cart['legal']
+recovery = {**binding, 'sessionId': str(uuid.uuid4())}
+confirmation = {**current, 'sessionId': recovery['sessionId'], 'confirmed': True,
+                **{field: quote[field] for field in
+                   ('locale', 'currency', 'country', 'paymentMethod', 'legalPolicyVersion', 'totalMinor')}}
+stock = call('/store-api/product/lamp', {}, tenant)['product']['stock']
+call(host + 'receipt', recovery, identity, expected=404)
+call(host + 'order', {**confirmation, 'legalPolicyVersion': '0' * 64}, credentials, expected=409)
+call(host + 'order', {**confirmation, 'paypalSandbox': True}, credentials, expected=409)
+assert call('/store-api/product/lamp', {}, tenant)['product']['stock'] == stock
+check('The host quote matches native price and legal context, and changed policy or unsupported payment cannot reserve stock')
+receipt = call(host + 'order', confirmation, credentials)
+assert call(host + 'order', confirmation, credentials) == receipt
+call(host + 'order', {**confirmation, 'totalMinor': '1'}, credentials, expected=409)
+assert call(host + 'receipt', recovery, identity) == receipt
+call(host + 'receipt', recovery, other, expected=404)
+assert call('/store-api/product/lamp', {}, tenant)['product']['stock'] == stock - 1
+check('One host order, one stock change and an exact receipt without the cart token; another buyer cannot recover it')
 if os.getenv('REPORT_PATH'):
     from pathlib import Path
     Path(os.environ['REPORT_PATH']).write_text(json.dumps({'passed':len(checks),'checks':checks,'realMoneyCharged':False},indent=2)+'\n')

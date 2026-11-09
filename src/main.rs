@@ -8,6 +8,7 @@ mod apps;
 mod assets;
 mod b2b;
 mod categories;
+mod checkout;
 mod checkout_review;
 mod cognition;
 mod developer;

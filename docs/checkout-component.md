@@ -42,6 +42,27 @@ outcomes are persisted/fenced and recovered; they are never blindly retried.
 Expected cart/quote versions and current channel/customer/company authority must
 be rechecked at purchase, not inferred from an earlier UI preview or model output.
 
+## Commerce host ports in Core
+
+Core exposes the host operations as a single commerce boundary. Checkout makes
+one host call for a quote, one for confirmation and a separate receipt call
+when the original result needs recovering. The normal storefront and
+Storyfront still reach the same transaction directly.
+
+| Port | Commerce responsibility |
+| --- | --- |
+| Quote | Resolve the current buyer and cart, channel, catalogue, pricing, delivery, company policy and legal context. Return the cart revision, amount in minor units, currency scale, country, legal policy version and payment method. The preview reserves no stock. |
+| CommitOrder | Recheck the review and buyer in the native transaction. Lock stock in native product order and commit the order, stock allocation, completed cart and outbox event together. The session ID gives the purchase its replay key. An altered review cannot replace an original receipt. |
+| Receipt | Read the original order by its indexed shop and purchase key, then check the original cart, channel and current buyer. Only the buyer credential is needed for recovery. A missing receipt is a read result, not proof that an in-flight confirmation failed. |
+
+The first Core profile confirms orders with the simulated payment method.
+Native payment attempts, provider callbacks and refunds use the existing
+Payments owner. The independent Checkout process keeps draft sessions in its
+own database and uses HTTP for the three Commerce operations. Core requires
+no new schema or synchronous dependency on that process. If a response goes
+missing, recover the receipt or retry the exact reviewed purchase with the
+same session. A new session can represent a different purchase.
+
 ## How native and embedded checkout share one order
 
 The normal storefront and the original Storyfront Experience enter Commerce

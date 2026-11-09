@@ -143,6 +143,14 @@ pub(crate) fn normalized_quantity(p: &Product, q: u32) -> Result<u32> {
     ) as u32)
 }
 pub(crate) async fn cart_json(a: &App, c: &StoredCart) -> Result<Value> {
+    project_cart(a, c, false).await
+}
+
+pub(crate) async fn project_cart(
+    a: &App,
+    c: &StoredCart,
+    include_policy_version: bool,
+) -> Result<Value> {
     let mut h = RequestContext::new();
     h.insert(
         "x-tenant",
@@ -213,6 +221,9 @@ pub(crate) async fn cart_json(a: &App, c: &StoredCart) -> Result<Value> {
     result = pos::adjust_quote(c, result, &ps, &config, revision)?;
     result["selectionNeedsConfirmation"] = json!(changed);
     result["legal"] = json!({"requiresDigital":!config.is_business(&c.data.group) && ps.iter().any(|p|p.extra["digital"]==true),"strictCheckout":config.legal.strict_checkout});
+    if include_policy_version {
+        result["legal"]["policyVersion"] = json!(legal::policy_version(&config.legal));
+    }
     commerce::dates(a, &mut result).await?;
     let currency = config.currencies.selected(&c.data.currency)?;
     result["price"]["totalMinor"] = json!(

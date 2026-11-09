@@ -8,6 +8,7 @@ mod asset_surfaces;
 mod business_capability;
 mod cart_contributions;
 mod commerce_hooks;
+pub(crate) use commerce_hooks::Prepared as PreparedCheckoutHooks;
 pub(crate) use commerce_hooks::{apply as apply_hooks, prepare as prepare_hooks};
 mod compatibility;
 mod configuration_events;

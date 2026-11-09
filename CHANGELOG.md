@@ -1,5 +1,13 @@
 # Changelog
 
+## Commerce host ports for Checkout
+
+- Core supplies scoped quote, simulated confirmation and receipt operations for
+  an independent Checkout client. Native and embedded purchases share the
+  same Commerce transaction.
+- Split preparation, lock and replay admission, pricing, and commit into Rust
+  stages. Receipt recovery reads the original purchase without a cart token.
+
 ## Native and embedded checkout compatibility, 9 November 2026
 
 - Verify equivalent native and transferred carts in one shop. Both reject

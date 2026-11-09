@@ -17,7 +17,7 @@
     },
     "stock_admissible": {
       "bindings": [
-        "src/order_checkout.rs",
+        "src/checkout/price.rs",
         "src/commerce/external_orders.rs"
       ],
       "theorems": [
@@ -57,7 +57,7 @@
     },
     "replay_admissible": {
       "bindings": [
-        "src/order_checkout.rs"
+        "src/checkout/lock.rs"
       ],
       "theorems": [
         "replay_same_cart",
@@ -123,7 +123,7 @@
     },
     "checkout_contact_admissible": {
       "bindings": [
-        "src/order_checkout.rs"
+        "src/checkout/commit.rs"
       ],
       "theorems": [
         "financial_contact_required",
@@ -2751,8 +2751,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "748e5062b6e567003caa2dab6260fc66999df11446f43ec3da9c1f738321ea6a",
-      "review": "Reviewed Apps 0.22 activation extraction against Core 52eb64e4 original routes::app_state and distribution::deactivate. Shared transaction preserves mandatory native config-before-lifecycle hook, original tenant fence 543 then package fence 7 shared with actual installation/writers, current activation or connected-frontend branch hook, active-dependant SQL, late revision CAS/error order and same-state revision increment. Native current management/merchant/signed scope, typed input, actual installed package/actor rights/consent/operator trust/signed dependencies/commerce/native lifecycle and connected-frontend query remain authoritative; original caller commit/rollback. No default approving production hook, shadow principal, new endpoint/permission/event, implicit installation, deletion or schema change. Independent PostgreSQL durable synthetic host facts and actual shared install/writer fences test both dependency race orders, concurrent CAS, retained records/versions, hook rollback/reconnect, original missing/error order and exhausted revision non-overwrite. Denied-without-host example and two Linux component runs pass. Native 74 App units, warning-free workspace Clippy and seven HTTP/PostgreSQL apps/studio/isolation/channelManagement/signedDistribution/surfaces/visualWorkspace modules pass; expanded role/stale/missing-revision and inactive-dependency reactivation denials, connected frontend guard and subsequent normal operation pass. Exact source/WIT, 892-module structure and source inventory pass. Kernel unchanged; SQL/async/native host code remains reviewed and unproved."
+      "sha256": "7d2b62a5d397092b1e325c3c89ce26e5294661cd48139086c5a89c616488c920",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
     },
     "src/apps/model_contract.rs": {
       "status": "unproved",
@@ -3261,8 +3261,8 @@
     },
     "src/b2b/mod.rs": {
       "status": "unproved",
-      "sha256": "142da0784601796c254e7c0bf09a4f1cc411c25c69c2afe49068d0cfe6010067",
-      "review": "Native lifecycle review: bounded namespaced app graphs preserve native terminal/payment/stock/buyer admission, per-object immutable accepted definitions, current compound scopes, same HTTP MCP Flow owners and operational history; SQL snapshots and migration 105 are regression-tested adapters, not proved."
+      "sha256": "d374d2521dab24d9fff1fbcc7914a1f88cfc3b834a41d033f9653b7217c34142",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
     },
     "src/b2b/model.rs": {
       "status": "unproved",
@@ -3466,8 +3466,8 @@
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "c2b9bad2838b4cd5c148d765c66b2ad177d03cf8a35da586d244d93dc89e5fee",
-      "review": "Review cart response projection: expose only app/product IDs and accepted input fields from the already scoped cart; no fee authority, SQL, pricing, payment or permission changes. Rendered tests scope restoration by app/product; native workflow checks empty-cart reload and another cart isolation."
+      "sha256": "171ea612d7f8d11f6507a5e300a86573336f8fa8366658da941a17c4d4f4eccc",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -3523,6 +3523,46 @@
       "status": "unproved",
       "sha256": "d83b944d836e96d1bf54ec61ca334a23958414ca0db1dcff463791dc20b7fc78",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+    },
+    "src/checkout/commit.rs": {
+      "status": "reviewed-binding",
+      "sha256": "cd9f90f0eb5ec2b8723d1f9f2682cf742265b14c71af5c2ceaaf31d66ef7d03d",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+    },
+    "src/checkout/lock.rs": {
+      "status": "reviewed-binding",
+      "sha256": "7f5b89ad7a8e079d5688b21d7d1ce296c7902772d4ef0c2d4b4bf8290f352107",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+    },
+    "src/checkout/mod.rs": {
+      "status": "unproved",
+      "sha256": "f0d15f38e0b3af0ff1e3cde1a5553570f0aa4d3482e8148daba7aef42ec1af80",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+    },
+    "src/checkout/prepare.rs": {
+      "status": "unproved",
+      "sha256": "37ff8c83f43b0a8463afcb5c428c2b925977a8610a7b838db599aa83216b49d2",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+    },
+    "src/checkout/price.rs": {
+      "status": "reviewed-binding",
+      "sha256": "a46f9e33c6fbbd6937db808698dfc26f9e8623424f2c022802f6fc6afe8ffb91",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+    },
+    "src/checkout/session_order.rs": {
+      "status": "unproved",
+      "sha256": "cf50ed59f69fdda0654aae4dd59df844e71dfe7ee1b6ca4e49a46b9e10920bce",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+    },
+    "src/checkout/session_quote.rs": {
+      "status": "unproved",
+      "sha256": "3ed4a908dd31386adef86bcf39b49c9718019388f3fe964f8be24297d952aaf7",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+    },
+    "src/checkout/state.rs": {
+      "status": "unproved",
+      "sha256": "fddc697650c0a40f64a2c8595a47079e5049bc5593aa49deefb85d1180cb05d0",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
     },
     "src/checkout_handoff.rs": {
       "status": "unproved",
@@ -4281,8 +4321,8 @@
     },
     "src/main.rs": {
       "status": "unproved",
-      "sha256": "04eb712721b4c39a5907d064fc0c78b38551dcf1ee75e4ff158c53672fd3a410",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "17dd5f44552aa4867bd6716ec1c7682a9b7ba4d96915bdbbe75cb9deacc660b5",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
     },
     "src/marketing/app_flows.rs": {
       "status": "reviewed-binding",
@@ -4715,9 +4755,9 @@
       "review": "Reviewed Apps 0.14 model native lifecycle extraction: exact strict graph/snapshot DTOs, original bounded compiler and namespace, complete native canonical digests, mandatory native base/scope/locale policies, current auth callback and unchanged final verified predicate. Original order-domain validation stays native via extension trait; SQL capture/locks/effects unchanged. Independent 104 model and 19 runtime tests, storage PostgreSQL contract, 34 canonical bundle digests, native apps/order units and actual order/RFQ/MCP/release/role/tenant/race fixtures pass; shared compiler and SQL/host remain unproved."
     },
     "src/order_checkout.rs": {
-      "status": "reviewed-binding",
-      "sha256": "dd8c8c70c215c2ed99caa8fa3d745051cc6702686ec1bfc0293dcc7bd7754fbc",
-      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+      "status": "unproved",
+      "sha256": "1503d86a4e841814c0ebb1c4a7c39c9c7a5c994aaa6093f41252bfd563ca9427",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
     },
     "src/order_routes.rs": {
       "status": "unproved",
@@ -5106,8 +5146,8 @@
     },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "0f11c9222a2a5295ad3307e1db76bd23721e44a58d0e306caa432f27e036056f",
-      "review": "Reviewed native aggregate reports: bound tenant/filter SQL, exact numeric order/refund snapshots, reuse of current consent eligibility, optional rights projections and private workspace CAS layouts; reporting adapters remain unproved."
+      "sha256": "f87d75529608e4ba896ee67de2f8ef868776ccae4c07f5f39d60d3edbee32fa4",
+      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
     },
     "src/rule_comparison.rs": {
       "status": "reviewed-binding",

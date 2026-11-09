@@ -12,40 +12,51 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## Live Flow draft check and separate app worker, 9 November 2026
 
-Core and the private app worker run Northflank build `natural-cub-8418`
-from `05d23df8`. Its tree matches the merged source `11f7360d`. Core
-deployment `vendune-core-f9f6f695d` passed readiness with one replica
-and zero restarts. The previous Core replica exited. The private worker
-deployment `vendune-app-worker-6d6cd7cfd4` runs one replica with zero restarts.
-Core logged `app_worker_enabled=false`. The separate worker logged
-`process_role=app-worker` and successfully sampled the two due queues.
-It uses the same restricted runtime roles and the exact approved private
-connector origin.
+Core and the private app worker run Northflank build `dashing-rain-5353`
+from `3a73ccd3`. Its tree matched the merged release `c24b5527`. Core
+deployment `vendune-core-865b8bccb7` passed readiness with one replica and
+zero restarts. The private worker deployment `vendune-app-worker-849d988994`
+runs one replica and has no assigned ports. Core reports
+`app_worker_enabled=false`. The worker reports `process_role=app-worker`
+and samples both due queues. It uses the existing restricted runtime roles
+and the exact approved private connector origin.
 
-All 35 public health probes during the rollout returned HTTP 200. Before
-and after the cutover, 12 reads per route measured median response times
-of 12 and 11 ms for Core health, 8 and 8 ms for onboarding, and 33 and
-31 ms for the Storyfront catalogue. These short public checks measure
-reachability and latency around this release.
+During the initial worker handoff and the final Core rollout, all 70 public
+health probes returned HTTP 200. After the final rollout, four parallel
+readers completed 60 timed requests. Median response times were 13 ms for
+Core health, 9 ms for standard shop onboarding, 9 ms for Experience
+onboarding and 48 ms for the Storyfront catalogue. These are short public
+checks around this release.
 
-The public Storyfront demo placed an embedded order using simulated payment.
-The German receipt showed the purchased product. Returning to Storyfront
-and reloading left the original basket empty. Unauthenticated Flow draft
-validation returned 401. The live storefront test did not have merchant
-access to the saved execution trace for that order. Aggregate worker
-signals and successful checkout were verified separately.
+The public Storyfront demo completed an embedded purchase on the final
+build using simulated payment. The German receipt named the purchased
+product. Returning to Storyfront and reloading left the basket empty.
+A separate attempt for an unavailable item was rejected at checkout.
+The live storefront test did not have merchant access to the saved
+execution trace for the successful order. Worker queue samples and checkout
+were verified separately.
 
-In the isolated signed PostgreSQL setup, Studio's HTTP path and MCP
-validated the same Flow without saving or queuing it. The SDK example
-returned the same result. The published Flow ran its branches, persisted
-a delay and produced one invoice on checkout. Tests also checked actor
-revocation, replay, and a separate worker restart. The local Studio browser
-verified the draft feedback and unchanged revision.
+Studio uses `POST /api/automation/flows/{id}/validate`, and the SDK uses
+the read-only MCP tool `automation.validate_flow`. A host without the
+dedicated endpoint rejects the check. It cannot interpret it as a save.
+The public route returned 401 without a merchant session. In isolated
+signed PostgreSQL, HTTP, MCP and the SDK validated the same Flow without
+saving or queuing it. The saved Flow branched, persisted a delay and created
+one invoice. Tests checked actor revocation, replay and continuation across
+a separate worker restart. The local Studio browser showed the successful
+check with the same revision.
+
+The daily verification checks each Rust image against its own build inputs.
+Tests for the visual editor, reports and coding agent follow their current
+entry points. The local frontend run passed all 1,018 tests and the
+unchanged coverage floors. Outbox migration checks run before the slower
+provider group.
 
 [Flow draft check](automation-component.md#check-a-flow-draft-before-saving) ·
 [Worker rollout](automation-component.md#move-the-app-worker-out-of-core) ·
-[Core source](https://github.com/veyndo/veyndo/pull/355) ·
-[SDK example](https://github.com/veyndo/sdk/blob/main/examples/check-flow-draft.mjs).
+[Core source](https://github.com/veyndo/veyndo/pull/357) ·
+[SDK example](https://github.com/veyndo/sdk/blob/main/examples/check-flow-draft.mjs) ·
+[Image and UI verification](https://github.com/veyndo/veyndo/pull/358).
 
 ## Live app queue diagnostics, 9 November 2026
 

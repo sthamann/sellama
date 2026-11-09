@@ -235,8 +235,7 @@ export default function StudioConversation({
                         "\n",
                         previous,
                       );
-                      if (busy || !connected || next === undefined)
-                        return false;
+                      if (!connected || next === undefined) return false;
                       setDraft(next);
                       composer.current?.focus();
                       return true;

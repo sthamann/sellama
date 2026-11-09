@@ -347,7 +347,8 @@ not rerun the model or query the app. A worker taking over a run clears the
 published references and rebuilds them from revalidated reads.
 
 The card remains mounted when Studio loads the completed message. Its filter
-stays selected, and its verified filter can go into an editable follow-up.
+stays selected. The merchant can carry the verified filter into the editable
+follow-up while the run is active and send it once the current answer finishes.
 Only the finished message can show the native proposal for approval.
 
 ### One capability, two ways to present it

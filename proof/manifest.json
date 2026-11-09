@@ -3421,8 +3421,8 @@
     },
     "src/capabilities/catalog.rs": {
       "status": "unproved",
-      "sha256": "d799fbd5dffad28eb5c640ac9a640467af032d17bd98e7b78a718fd5930e03e0",
-      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+      "sha256": "e74bb36c4ef7f7206b123d3db6cdfb4b9d1b26c93619623b2795716602e6e58d",
+      "review": "Separate Flow validation HTTP and MCP entry points are read-only, use the same tenant action and revision checks and cannot call save on older hosts. Legacy validation-only clients continue to get a read-only check on the new host. Signed PostgreSQL regression verifies denied access, invalid graphs and no Flow writes."
     },
     "src/capabilities/contract.rs": {
       "status": "unproved",
@@ -3431,8 +3431,8 @@
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
-      "sha256": "ff5323169f8b4210f587ccd4a88c6c58b4e3b863d565bf0fa468928f9e80f9de",
-      "review": "Flow draft checks share the existing graph, action rights, app and rule reference validation and read the requested revision in a read-only tenant snapshot; native writes retain their locks, authenticated actor and revision checks; HTTP and MCP integration test verifies no draft writes or queued work"
+      "sha256": "da93eca7aecf3853b830e0cc58e9e3d67eefff0a605794380091f471f5fa13d7",
+      "review": "Separate Flow validation HTTP and MCP entry points are read-only, use the same tenant action and revision checks and cannot call save on older hosts. Legacy validation-only clients continue to get a read-only check on the new host. Signed PostgreSQL regression verifies denied access, invalid graphs and no Flow writes."
     },
     "src/capabilities/dispatch.rs": {
       "status": "unproved",
@@ -3441,13 +3441,13 @@
     },
     "src/capabilities/registry.rs": {
       "status": "unproved",
-      "sha256": "fea32a7278003965f4338d51f42e8a92e0b47d64f40453d0d4fc18438663e323",
-      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+      "sha256": "3e04fe4e145ff2f94d83e6f837ffb535ba41c27bedcd5aeb3053625771ad44ce",
+      "review": "Separate Flow validation HTTP and MCP entry points are read-only, use the same tenant action and revision checks and cannot call save on older hosts. Legacy validation-only clients continue to get a read-only check on the new host. Signed PostgreSQL regression verifies denied access, invalid graphs and no Flow writes."
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "7064c184c3406a26cba74eecd1ad0d8204c96d3315b8d2a3a56ff23505cb5490",
-      "review": "Flow draft checks share the existing graph, action rights, app and rule reference validation and read the requested revision in a read-only tenant snapshot; native writes retain their locks, authenticated actor and revision checks; HTTP and MCP integration test verifies no draft writes or queued work"
+      "sha256": "956168a01a9502625a136cd3a2dcee5588aaaf6d746e0b2476459f5beadbc55b",
+      "review": "Separate Flow validation HTTP and MCP entry points are read-only, use the same tenant action and revision checks and cannot call save on older hosts. Legacy validation-only clients continue to get a read-only check on the new host. Signed PostgreSQL regression verifies denied access, invalid graphs and no Flow writes."
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -4361,8 +4361,8 @@
     },
     "src/marketing/flow_policy.rs": {
       "status": "unproved",
-      "sha256": "3f49a6a3a29cf11ee4107df86740439865ea2e55594e77ed6c16825cdbd5b829",
-      "review": "Flow draft checks share the existing graph, action rights, app and rule reference validation and read the requested revision in a read-only tenant snapshot; native writes retain their locks, authenticated actor and revision checks; HTTP and MCP integration test verifies no draft writes or queued work"
+      "sha256": "58cdd5c6263b2f0e7ebaf4a81d66ab6a7f37e6dc30d65bd5d9c76b397df95f1c",
+      "review": "Separate Flow validation HTTP and MCP entry points are read-only, use the same tenant action and revision checks and cannot call save on older hosts. Legacy validation-only clients continue to get a read-only check on the new host. Signed PostgreSQL regression verifies denied access, invalid graphs and no Flow writes."
     },
     "src/marketing/flow_text.rs": {
       "status": "unproved",
@@ -4376,8 +4376,8 @@
     },
     "src/marketing/gateway.rs": {
       "status": "unproved",
-      "sha256": "5943b3b4aa42ec1969fb2aaf32444142f3c7835a260f61f32fe6e28d300607a5",
-      "review": "Reviewed frozen rule comparison: tenant-filtered bounded existing Flow inputs, current compound PII read grants, native checked_matches without current-data reads or action dispatch, reference fanout cap, shared registry and HTTP/MCP parity; real automation and isolation suites pass."
+      "sha256": "5960520a51cbb198eaf2fceaf4bd6b9f65a90d9a92417fa58222ee23ba406dd7",
+      "review": "Separate Flow validation HTTP and MCP entry points are read-only, use the same tenant action and revision checks and cannot call save on older hosts. Legacy validation-only clients continue to get a read-only check on the new host. Signed PostgreSQL regression verifies denied access, invalid graphs and no Flow writes."
     },
     "src/marketing/jobs.rs": {
       "status": "unproved",
@@ -4401,8 +4401,8 @@
     },
     "src/marketing/mod.rs": {
       "status": "unproved",
-      "sha256": "a49b402e6be9499c16969a59d7819fb6f54077a8fdc0e5a68c9b108a504be43f",
-      "review": "Flow job storage isolates the PostgreSQL claim, preserves delayed deadlines and existing step receipts, and scopes checkpoint and completion writes to the current tenant/job/attempt; automation regression checks stale claims and terminal delay."
+      "sha256": "9953f92a709fcedd91c36c14a7cb4f1699500f4755467d296cf7ec324cf0ad40",
+      "review": "Separate Flow validation HTTP and MCP entry points are read-only, use the same tenant action and revision checks and cannot call save on older hosts. Legacy validation-only clients continue to get a read-only check on the new host. Signed PostgreSQL regression verifies denied access, invalid graphs and no Flow writes."
     },
     "src/marketing/pipeline.rs": {
       "status": "reviewed-binding",
@@ -4431,8 +4431,8 @@
     },
     "src/marketing/routes.rs": {
       "status": "unproved",
-      "sha256": "b5fe9274925a538ec5a57f0211b524cc272be4f7109ee8567ff081e79a8e715b",
-      "review": "Flow draft checks share the existing graph, action rights, app and rule reference validation and read the requested revision in a read-only tenant snapshot; native writes retain their locks, authenticated actor and revision checks; HTTP and MCP integration test verifies no draft writes or queued work"
+      "sha256": "5153168e37f87769bb86711cfd9d7cfcc8e105ed9f68dc80613fd694386b6b36",
+      "review": "Separate Flow validation HTTP and MCP entry points are read-only, use the same tenant action and revision checks and cannot call save on older hosts. Legacy validation-only clients continue to get a read-only check on the new host. Signed PostgreSQL regression verifies denied access, invalid graphs and no Flow writes."
     },
     "src/marketing/rule_fields.rs": {
       "status": "unproved",

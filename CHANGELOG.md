@@ -3,7 +3,8 @@
 ## Shared Flow draft validation
 
 - Check the same draft in Studio, over HTTP or from an MCP client before saving.
-  The check uses current shop rights, dependencies and revisions.
+  The check uses current shop rights, dependencies and revisions. A dedicated
+  endpoint and MCP tool keep validation safe if a client reaches an older Core.
 
 ## App worker queue diagnostics, 9 November 2026
 

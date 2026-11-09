@@ -1,5 +1,36 @@
 //! All configuration entry points require the publishing actor's native action rights; queued work rechecks them.
 use super::*;
+
+pub(crate) const DRAFT_CAPABILITY: (&str, &str) = (
+    "automation.validate_flow",
+    "Validate a Flow draft and expected revision without saving or queuing it",
+);
+
+pub(super) fn bind_actor(h: &RequestContext, data: &mut Value) -> Result<()> {
+    data.as_object_mut().ok_or(bad("Invalid flow"))?.insert(
+        "actor".into(),
+        json!(header(h, "x-rac-user").unwrap_or("bootstrap")),
+    );
+    Ok(())
+}
+
+pub(super) async fn validate_draft(
+    State(a): State<App>,
+    h: RequestContext,
+    Path(id): Path<String>,
+    Json(v): Json<Value>,
+) -> Result<Json<Value>> {
+    auth::permit(&h, "automation.manage")?;
+    let t = merchant(&a, &h)?;
+    if !apps::identifier(&id) {
+        return Err(bad("Invalid configuration ID"));
+    }
+    let revision = v["revision"].as_i64().ok_or(bad("Revision required"))?;
+    let mut data = v["data"].clone();
+    bind_actor(&h, &mut data)?;
+    preflight(&a, &t, &h, &id, revision, &data).await.map(Json)
+}
+
 pub(crate) fn authorize_flow(h: &RequestContext, f: &flows::Flow) -> Result<()> {
     fn action(h: &RequestContext, name: &str) -> Result<()> {
         auth::permit(h, flow_actions::permission(name))?;

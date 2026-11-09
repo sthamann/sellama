@@ -111,6 +111,9 @@ pub(crate) fn input(name: &str) -> Value {
         "merchant.category.save" => {
             json!({"id":{"type":"string"},"category":categories::input_schema(false)})
         }
+        "automation.validate_flow" => {
+            json!({"id":{"type":"string"},"revision":{"type":"integer","minimum":0},"data":{"type":"object"}})
+        }
         "automation.save" => {
             json!({"kind":{"type":"string","enum":["rules","flows","promotions","channels"]},"id":{"type":"string"},"revision":{"type":"integer","minimum":0},"validateOnly":{"type":"boolean"},"data":{"type":"object"}})
         }
@@ -223,6 +226,7 @@ pub(crate) fn input(name: &str) -> Value {
         "merchant.category.save" => vec!["id", "category"],
         "automation.delete" => vec!["kind", "id", "revision"],
         "automation.dependencies" => vec!["kind", "id"],
+        "automation.validate_flow" => vec!["id", "revision", "data"],
         "automation.save" => vec!["kind", "id", "revision", "data"],
         "automation.preview" | "automation.import" => vec!["condition"],
         "automation.compare_history" => vec!["ruleId", "revision", "flowId", "condition", "limit"],

@@ -365,6 +365,11 @@
     "source": "src/marketing/routes.rs"
   },
   {
+    "path": "/api/automation/flows/{id}/validate",
+    "method": "POST",
+    "source": "src/marketing/routes.rs"
+  },
+  {
     "path": "/api/automation/import-condition",
     "method": "POST",
     "source": "src/marketing/catalog.rs"

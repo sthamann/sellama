@@ -10,6 +10,31 @@ Updated 9 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Native and embedded checkout compatibility, 9 November 2026
+
+Two public demo purchases on the current Core used the simulated payment
+method. The native storefront confirmed `RAC-703fe454` and Storyfront
+confirmed `RAC-ca1fb71a` inside its embedded checkout. Each showed the
+German product name and €59.90 total. The originating cart stayed empty
+after returning and reloading in both cases.
+
+| Public Chrome observation | Time |
+| --- | ---: |
+| Storyfront checkout click to visible contact form | 1,005 ms |
+| Storyfront final submit to visible confirmation | 398 ms |
+| Native final submit to visible confirmation | 248 ms |
+
+Each row is one browser observation, including the test interaction overhead.
+The two purchases used different demo shops. The times describe those journeys
+and do not establish service capacity or a latency difference between the paths.
+
+A separate PostgreSQL regression compared both entry points in the same shop.
+Both rejected an altered reviewed total and replayed the original order without
+another stock or event write. See the [shared order contract](checkout-component.md#how-native-and-embedded-checkout-share-one-order).
+This step covers the compatibility analysis and simulated checkout. The
+[configured provider callback and refund](storyfront.md#accept-a-hosted-release)
+and independent hosted Checkout cutover remain separate acceptance items.
+
 ## Connector composition and public response times, 9 November 2026
 
 The private [Connector 0.1.0 prerelease](https://github.com/veyndo/connectors/releases/tag/v0.1.0)

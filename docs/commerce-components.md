@@ -4,7 +4,7 @@ For the developer entry point and the relationship between the product and the
 individual components, see [One shop, composable parts](one-shop-components.md).
 
 This is the authoritative task list for extracting independently usable Veyndo
-components. Updated 8 November 2026. Checked tasks name observed evidence;
+components. Updated 9 November 2026. Checked tasks name observed evidence;
 repository transfer, local tests, remote CI and hosted acceptance are separate.
 The full component extraction is in progress, not released.
 
@@ -29,6 +29,9 @@ to native Veyndo through the same owner.
   - [x] Reuse current Core permissions and verify key issuance and revocation
     against the real Core in isolation. [Setup](automation-component.md#connect-the-service-to-veyndo-core).
 - [ ] CHK-01..03 Independent checkout domain ports and own session orchestration.
+  - [x] Trace both native and Storyfront purchases and verify their shared quote,
+    commit, payment and recovery contract.
+    [Compatibility and evidence](checkout-component.md#how-native-and-embedded-checkout-share-one-order).
   - [x] Local embedded recovery after a lost browser notification. A status
     read completes while the cart is locked. An explicit reopen and purchase
     share the lock and preserve one cart and order. The browser fixture covers
@@ -222,8 +225,9 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
 
 - [x] CHK-00 Record standalone service/API/MCP/UI requirement and preserve one
   authoritative order/stock/outbox commit owner in the extraction design.
-- [ ] CHK-01 Trace current native/Storyfront cart, quote, legal, payment, purchase,
+- [x] CHK-01 Trace current native/Storyfront cart, quote, legal, payment, purchase,
   return and refund paths; identify shared session/token/receipt compatibility.
+  [Compatibility and evidence](checkout-component.md#how-native-and-embedded-checkout-share-one-order).
 - [ ] CHK-02 Define typed catalog/pricing/stock/customer/company/delivery/order/
   Payments ports and actual reservation/CommitOrder/recovery semantics.
 - [ ] CHK-03 Extract Rust checkout orchestration/session storage to its own repo;

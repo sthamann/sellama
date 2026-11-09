@@ -1,5 +1,13 @@
 # Changelog
 
+## Native and embedded checkout compatibility, 9 November 2026
+
+- Verify equivalent native and transferred carts in one shop. Both reject
+  a changed total and replay the original order with one stock decrement
+  and one order event per purchase.
+- Record simulated public purchases, cart clearance and the shared payment
+  and recovery contract in the component handbook.
+
 ## Shared Flow draft validation
 
 - Check the same draft in Studio, over HTTP or from an MCP client before saving.

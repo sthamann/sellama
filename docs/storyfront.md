@@ -94,6 +94,8 @@ revalidates the recovery key after acquiring that lock.
 Deploy the Core migration and runtime before enabling the updated Storyfront
 build. Local HTTP/PostgreSQL and browser tests cover the lost notification and
 concurrent reopen. Hosted provider acceptance is tracked separately.
+For the shared quote, purchase and refund path, see
+[Native and embedded checkout](checkout-component.md#how-native-and-embedded-checkout-share-one-order).
 
 ## Accept a hosted release
 

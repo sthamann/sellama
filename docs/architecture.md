@@ -22,6 +22,7 @@ reload. The sample runs separately from the native request path.
 Storyfront can recover a purchase after its browser notification is lost. Core
 deploys the recovery route and migration first. The Experience uses the
 verified Core receipt to decide when to clear its original cart.
+[Native and embedded compatibility](checkout-component.md#how-native-and-embedded-checkout-share-one-order).
 [Hosted acceptance](storyfront.md#accept-a-hosted-release).
 Checkout delegates company approval and budget checks to the native transaction.
 A current identity is also required to read the stored order result.

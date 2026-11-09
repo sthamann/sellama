@@ -37,9 +37,33 @@ assert sorted(code for code,_ in results)==[200,410],results
 new=next(v for code,v in results if code==200);assert new['id']==c['id'] and new['token']!=c['token'] and new['revision']==c['revision']+1
 assert new['lineItems'][0]['id']=='mug-sage-350' and new['lineItems'][0]['quantity']==2
 call('/store-api/checkout/cart',h=ch,expected=404);call('/store-api/checkout/handoff/consume',{'ticket':ticket},h,expected=410);check('Exactly one concurrent consumer wins and the original cart token is revoked')
-nh={**h,'sw-context-token':new['token'],'Idempotency-Key':uuid.uuid4().hex}
-o=call('/store-api/checkout/order',{},nh);assert o['cart']['lineItems'][0]['referencedId']=='mug-sage-350'
-assert call('/store-api/checkout/order',{},nh)['id']==o['id']
+native, native_headers = cart()
+for field in ('price','shippingMethodOptions','paymentMethodOptions'):
+    assert native[field]==new[field],field
+db = psql(os.getenv('DB_CONTAINER','veyndo-postgres-1'),'commerce',
+          os.getenv('TEST_DATABASE','commerce'),'-XqAt','-v','ON_ERROR_STOP=1')
+stock_query = f"SELECT stock FROM products WHERE tenant='{u['workspace']}' AND id='mug-sage-350'"
+stock_before = int(subprocess.check_output(db,input=stock_query+';\n',text=True))
+def buy_reviewed(cart, headers):
+    review = {**headers,'Idempotency-Key':uuid.uuid4().hex,
+              'x-commerce-cart-revision':str(cart['revision']),
+              'x-commerce-total-minor':str(round(cart['price']['totalPrice']*100))}
+    endpoint='/store-api/checkout/order'
+    call(endpoint,{}, {**review,'x-commerce-total-minor':'1'},expected=409)
+    order=call(endpoint,{},review)
+    assert call(endpoint,{},review)['id']==order['id']
+    return order
+o = buy_reviewed(new,{**h,'sw-context-token':new['token']})
+direct = buy_reviewed(native,native_headers)
+assert o['id']!=direct['id']
+for field in ('referencedId','quantity','label','price'):
+    assert o['cart']['lineItems'][0][field]==direct['cart']['lineItems'][0][field],field
+assert o['payment']['state']==direct['payment']['state']
+assert int(subprocess.check_output(db,input=stock_query+';\n',text=True))==stock_before-4
+outbox = (f"SELECT data->>'orderId' FROM outbox WHERE tenant='{u['workspace']}' "
+          f"AND kind='order.placed' AND data->>'orderId' IN ('{o['id']}','{direct['id']}');")
+assert sorted(subprocess.check_output(db,input=outbox+'\n',text=True).splitlines())==sorted([o['id'],direct['id']])
+check('Native and transferred carts share quotes, review, simulated payment and one stock and outbox write per order')
 orders=call('/api/search/order',{},mh)['data'];assert any(x['id']==o['id'] for x in orders)
 call('/store-api/checkout/handoff',{'revision':new['revision']},{**h,'sw-context-token':new['token']},expected=409);check('Transferred cart places one durable merchant order and terminal carts cannot transfer')
 # The embedded checkout is permitted only by this tenant/channel's registered frontend.

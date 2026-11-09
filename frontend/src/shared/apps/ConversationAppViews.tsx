@@ -11,6 +11,7 @@ import {
 import "./conversation-app-views.css";
 
 export type ConversationAppView = {
+  attachmentId?: number;
   resourceUri: string;
   arguments: Record<string, unknown>;
   result: { structuredContent: unknown };
@@ -332,7 +333,7 @@ export default function ConversationAppViews({
   return (
     views?.map((view, index) => (
       <Frame
-        key={`${view.resourceUri}:${index}`}
+        key={`${view.resourceUri}:${view.attachmentId ?? index}`}
         view={view}
         request={request}
         locale={locale}

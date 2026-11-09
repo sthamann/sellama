@@ -11,8 +11,10 @@ Installed apps can place interactive results in both Veyndo conversations.
 The chat host mediates calls to the app's existing operation. A shopper can
 review a variant's price and delivery before adding it to the cart. A merchant
 can review and apply a saved catalogue proposal from the same conversation.
-Both can carry an applied filter into an editable follow-up. Commerce checks
-the current shop context and owns the resulting changes.
+In the shop, app cards can appear as their data becomes available, while
+the assistant prepares its reply. Both conversations can carry an applied
+filter into an editable follow-up. Commerce checks the current shop context
+and owns the resulting changes.
 [MCP Apps and OpenUI](agentic-component-ui.md#one-capability-two-ways-to-present-it).
 
 ## How one shop works

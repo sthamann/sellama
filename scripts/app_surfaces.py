@@ -4,7 +4,7 @@ from testing.native_tools import response as native_response
 from testing.app_approval import consent
 from testing.app_approval import pin
 from testing.app_mcp_views import verify as verify_mcp_views
-from testing.app_mcp_views import verify_cart_review
+from testing.app_mcp_views import verify_cart_review, verify_shopper_stream
 import concurrent.futures
 import copy
 import hashlib
@@ -49,6 +49,8 @@ def run():
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         model_requests = []
+        stream_final_finished = threading.Event()
+        release_stream_final = threading.Event()
         class Model(module.BaseHTTPRequestHandler):
             def log_message(self, *_):
                 pass
@@ -69,6 +71,9 @@ def run():
                 catalog_review = "Approve mug stock fixture" in provider_input
                 mcp_query = "Inspect guide fixture" in provider_input or "Read merchandise fixture" in provider_input or catalog_review
                 if mcp_query and not request.get("tools") and "Inspect guide fixture" in provider_input:
+                    if "Hold shopper final" in provider_input:
+                        release_stream_final.wait(timeout=8)
+                        stream_final_finished.set()
                     proposal = {"explanation": "A guide is available.", "recommended_ids": [], "layout": "discovery"}
                 elif mcp_query and not request.get("tools"):
                     proposal = {"summary": "Review the merchandising notes.",
@@ -317,6 +322,8 @@ def run():
             assert buyer["appViews"], "Shop assistant did not attach its executed app tool"
             assert buyer["appViews"][0]["resourceUri"] == public_view
             assert buyer["appViews"][0]["result"]["structuredContent"]["elements"][0]["id"] == "a"
+            verify_shopper_stream(base, public, public_view, stream_final_finished, release_stream_final)
+            passed("Shopper stream emits the authorized public App view before the model can finish, then returns the same view in the final answer")
             plan = call("/api/agent/plan", {"instruction":"Read merchandise fixture", "inference":{"provider":"openai","model":"local-fixture"}}, h)
             assert plan["preview"]["appViews"][0]["resourceUri"] == private_view
             assert plan["preview"]["appViews"][0]["result"]["structuredContent"]["elements"][0]["id"] == "private"

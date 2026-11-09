@@ -1,5 +1,10 @@
-/** Decode bounded UTF-8 SSE chat frames; only a completed native result reaches the existing Studio state owner. */
-export async function readAgentStream(response: Response): Promise<any> {
+/** Decode bounded UTF-8 SSE chat frames; dispatch scoped updates while the native result is pending. */
+export type AgentStreamEvent = (event: string, data: unknown) => void;
+
+export async function readAgentStream(
+  response: Response,
+  onEvent?: AgentStreamEvent,
+): Promise<any> {
   if (!response.body) throw new Error("Agent stream unavailable");
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
@@ -31,6 +36,7 @@ export async function readAgentStream(response: Response): Promise<any> {
         if (!data) continue;
         const parsed = JSON.parse(data);
         if (event === "complete" || event === "error") return parsed;
+        if (event) onEvent?.(event, parsed);
         if (event === "waiting" && Number.isFinite(parsed.elapsedSeconds))
           window.dispatchEvent(
             new CustomEvent("veyndo-agent-progress", { detail: parsed }),

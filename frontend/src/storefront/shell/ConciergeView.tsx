@@ -1,6 +1,8 @@
 /** ConciergeView: storefront view composed from the scoped cart/controller. */
 import { mediaImage } from "../../shared/media/product-media";
-import ConversationAppViews from "../../shared/apps/ConversationAppViews";
+import ConversationAppViews, {
+  type ConversationAppView,
+} from "../../shared/apps/ConversationAppViews";
 import { draftWithAppFilter } from "../../shared/apps/conversation-app-context";
 import AssistantMarkdown from "../../shared/content/AssistantMarkdown";
 import type { ShopperAdvice } from "./useShopperAdvice";
@@ -12,7 +14,7 @@ import "../../shared/styles/workbench.css";
 import "../styles/shop.css";
 
 import { useStorefront } from "./StorefrontContext";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 import { useLocale } from "../../shared/i18n/i18n";
 import Icon from "../../shared/ui/Icon";
@@ -40,15 +42,16 @@ export default function ConciergeView() {
     (path: string, body?: unknown) => shopApi(path, body, cart?.token),
     [cart?.token, scope],
   );
-  const generation = useRef(0);
+  const active = useRef<AbortController>(null);
+  const [pending, setPending] = useState<{
+    scope: string;
+    views: ConversationAppView[];
+  }>();
+  const loading = pending?.scope === scope;
+  const displayedViews = loading ? pending.views : advice?.appViews;
   const currentScope = useRef(scope);
   currentScope.current = scope;
-  useEffect(() => {
-    ++generation.current;
-    return () => {
-      ++generation.current;
-    };
-  }, [scope]);
+  useEffect(() => () => active.current?.abort(), [scope]);
   const prompt = products.some((p) =>
     mediaImage(p.media)?.startsWith("/media/demo/fashion/"),
   )
@@ -74,26 +77,59 @@ export default function ConciergeView() {
         onSubmit={(e) => {
           e.preventDefault();
           if (busy) return;
-          const current = ++generation.current;
+          const controller = new AbortController();
+          active.current?.abort();
+          active.current = controller;
+          const current = () =>
+            !controller.signal.aborted && scope === currentScope.current;
+          let views: ConversationAppView[] = [];
+          const retainViews = (next: ConversationAppView[]) =>
+            next.map(
+              (view) =>
+                views.find(
+                  (previous) =>
+                    view.attachmentId !== undefined &&
+                    previous.attachmentId === view.attachmentId &&
+                    previous.resourceUri === view.resourceUri,
+                ) ?? view,
+            );
+          setPending({ scope, views });
           run(async () => {
             try {
-              const v = await shopApi<{
-                answer: ShopperAdvice;
-              }>("/api/concierge", { request: wish }, cart?.token);
-              if (
-                current !== generation.current ||
-                scope !== currentScope.current
-              )
-                return;
-              setAdvice(v.answer);
+              const v = await shopApi<{ answer: ShopperAdvice }>(
+                "/api/concierge",
+                { request: wish },
+                cart?.token,
+                undefined,
+                undefined,
+                {
+                  signal: controller.signal,
+                  onEvent(event, data) {
+                    if (
+                      event === "app-views" &&
+                      Array.isArray(data) &&
+                      current()
+                    ) {
+                      views = retainViews(data);
+                      setPending({ scope, views });
+                    }
+                  },
+                },
+              );
+              if (!current()) return;
+              setAdvice({
+                ...v.answer,
+                appViews: retainViews(v.answer.appViews ?? []),
+              });
               setQuery("");
               setCategory("all");
             } catch (error) {
-              if (
-                current === generation.current &&
-                scope === currentScope.current
-              )
-                throw error;
+              if (current()) throw error;
+            } finally {
+              if (active.current === controller) {
+                active.current = null;
+                setPending(undefined);
+              }
             }
           });
         }}
@@ -131,13 +167,15 @@ export default function ConciergeView() {
           </button>
         ))}
       </div>
-      {advice && (
+      {(Boolean(displayedViews?.length) || (!loading && advice)) && (
         <div className="shop-advice">
-          <div className="concierge-explanation" role="status">
-            <AssistantMarkdown text={advice.explanation} />
-          </div>
+          {!loading && advice && (
+            <div className="concierge-explanation" role="status">
+              <AssistantMarkdown text={advice.explanation} />
+            </div>
+          )}
           <ConversationAppViews
-            views={advice.appViews}
+            views={displayedViews}
             request={appRequest}
             onUseFilter={(filter, previous) => {
               const next = draftWithAppFilter(
@@ -148,18 +186,18 @@ export default function ConciergeView() {
                 " ",
                 previous,
               );
-              if (busy || next === undefined) return false;
+              if (next === undefined) return false;
               setWish(next);
               input.current?.focus();
               return true;
             }}
             renderProducts={(ids) =>
-              ids.length === 1 ? (
+              !loading && ids.length === 1 ? (
                 <ConversationPurchase key={ids[0]} productId={ids[0]} />
               ) : null
             }
           />
-          {advice.recommended_ids.length > 0 && (
+          {!loading && advice && advice.recommended_ids.length > 0 && (
             <ConciergeSelection
               key={JSON.stringify([scope, advice])}
               ids={advice.recommended_ids}

@@ -1,4 +1,5 @@
 /** shop api: Typed commerce contracts, merchant/store transports and binary download helper. */
+import type { AgentStreamEvent } from "./agent-stream";
 import { requestJson } from "./request-json";
 import { shopScope } from "./shop-scope";
 import { responseError } from "../i18n/errors-i18n";
@@ -262,15 +263,18 @@ export async function shopApi<T = unknown>(
   token?: string,
   method?: string,
   merchant?: string,
+  stream?: { signal: AbortSignal; onEvent: AgentStreamEvent },
 ): Promise<T> {
   const shop = shopScope();
   const channel =
     new URLSearchParams(location.search).get("channel") ?? "default";
   const customerHeaders = customerSessionHeaders(shop);
   const sessionGeneration = customerSessionGeneration(shop);
-  const r = await requestJson(path, {
+  const init: RequestInit = {
     method: method ?? (body === undefined ? "GET" : "POST"),
+    signal: stream?.signal,
     headers: {
+      ...(stream ? { Accept: "text/event-stream" } : {}),
       "Content-Type": "application/json",
       "x-commerce-locale": getContentLocale(),
       ...(localStorage.getItem(`rac-currency:${shop}:${channel}`)
@@ -294,7 +298,8 @@ export async function shopApi<T = unknown>(
         : {}),
     },
     body: body === undefined ? undefined : JSON.stringify(body),
-  });
+  };
+  const r = await requestJson(path, init, stream?.onEvent);
   const v = r.value;
   const sameSession = customerSessionGeneration(shop) === sessionGeneration;
   if (

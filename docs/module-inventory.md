@@ -1203,7 +1203,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/agents/agents.css](../frontend/src/shared/agents/agents.css) | Compact shared composer, sized by its host rather than hardcoded to one editor. |
 | [frontend/src/shared/agents/reference-images.ts](../frontend/src/shared/agents/reference-images.ts) | Bounded local screenshot preparation; only reduced raster data reaches the existing vision API. |
 | [frontend/src/shared/api/account-types.ts](../frontend/src/shared/api/account-types.ts) | Native personal account response shared by merchant and platform authentication. |
-| [frontend/src/shared/api/agent-stream.ts](../frontend/src/shared/api/agent-stream.ts) | Decode bounded UTF-8 SSE chat frames; only a completed native result reaches the existing Studio state owner. |
+| [frontend/src/shared/api/agent-stream.ts](../frontend/src/shared/api/agent-stream.ts) | Decode bounded UTF-8 SSE chat frames; dispatch scoped updates while the native result is pending. |
 | [frontend/src/shared/api/browser-session.ts](../frontend/src/shared/api/browser-session.ts) | Native browser credentials stay HttpOnly; JavaScript carries only an anti-CSRF proof and a public mode marker. |
 | [frontend/src/shared/api/configuration-types.ts](../frontend/src/shared/api/configuration-types.ts) | Accepted configuration snapshots carry frozen public labels, selected values and their original source currency. |
 | [frontend/src/shared/api/customer-session.ts](../frontend/src/shared/api/customer-session.ts) | Customer transport shares the native ledger; each tenant and browser tab has its own session fence. |

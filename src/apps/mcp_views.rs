@@ -150,9 +150,11 @@ pub(crate) async fn list(a: &App, h: &RequestContext) -> Result<Vec<Value>> {
 pub(crate) fn attachments(trace: &[Value]) -> Vec<Value> {
     trace
         .iter()
+        .enumerate()
         .rev()
-        .filter_map(|entry| {
+        .filter_map(|(index, entry)| {
             Some(json!({
+                "attachmentId":index,
                 "resourceUri":entry["appView"].as_str()?,
                 "arguments":entry["input"],
                 "result":{"structuredContent":entry["result"]},

@@ -350,6 +350,10 @@ The following are implementation tasks; existing UI foundations do not complete 
   - [x] Offer the last verified app filter as editable context for the next
     shopper or merchant message. Keep app records and automatic submission out
     of the handoff. [Chat context](agentic-component-ui.md#use-a-filter-in-the-next-message).
+  - [x] Stream completed public app reads into the shopper conversation.
+    Verify a card can be used before the model finishes its answer and keeps
+    its filter when the verified answer arrives.
+    [Shopper stream](agentic-component-ui.md#show-the-shoppers-app-view-during-the-answer).
 - [ ] UI-07 Prove one actual standalone/embedded/agent-host vertical slice, then
   cover each component's required UI exports and agent operations from the matrix.
   - [x] Connect the native Orders working view to shipping policy evidence

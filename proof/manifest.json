@@ -2751,8 +2751,8 @@
     },
     "src/apps/mcp_views.rs": {
       "status": "reviewed-binding",
-      "sha256": "2184ff5bec7ea8d0541b395aa632fad2739e6b73c13398a6e4a1be5d10a9e858",
-      "review": "Reviewed chat cart preview and conditional edit reuse native quote and optimistic mutation, and app metadata derives from an admitted public product reference. Catalogue approval checks original task actor and current scopes before applying. The Rust/PostgreSQL regression covers stale quotes, wrong items, foreign cart scope, and same-shop approval denial."
+      "sha256": "4b5784b22aeb1b2169819a52b8a681cf1cba142ec533cb9835e9db2c7042edd1",
+      "review": "Shopper App streaming uses only completed bounded public reads; retains scoped model and AI capacity until the stream ends, and preserves the native JSON path. The held-answer test exercises early and final output."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
@@ -3736,8 +3736,8 @@
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
-      "sha256": "e44e14f276dd04876c29ca3b9f8b9ebda7ea136e8ea32679c829829037c715bb",
-      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
+      "sha256": "e87fa7c2b312261ee6ebb1656e2ecda4d31f39784b33f496b88d421b62c06c9c",
+      "review": "Shopper App streaming uses only completed bounded public reads; retains scoped model and AI capacity until the stream ends, and preserves the native JSON path. The held-answer test exercises early and final output."
     },
     "src/commerce/app_adjustments.rs": {
       "status": "unproved",
@@ -4001,8 +4001,8 @@
     },
     "src/concierge.rs": {
       "status": "unproved",
-      "sha256": "5274e1923f125382f9964abb3f872f4fc27fd5ac455dc341a15ebc5793a90684",
-      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
+      "sha256": "2158a370c48b517797d3635274facfd073ec489863cb5ccc43e6f86308a05744",
+      "review": "Shopper App streaming holds the original AI admission in a bounded scoped producer, emits only completed public tool results and cancels the producer when the client disconnects. Existing native authorization and JSON response are retained."
     },
     "src/context.rs": {
       "status": "unproved",
@@ -4971,8 +4971,8 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "249b9acca7d99bafb3eba92d561aab7dbd1d695a1bd94670f063ff6461636617",
-      "review": "Checkout private relay: fixed upstream session routes, native buyer admission, bounded responses, and separate request capacity for Core callbacks. No new formal claims."
+      "sha256": "b77192c28e33f9316dc1c9e7abce8056f6d207d28429e25f8a5e75db48f6a160",
+      "review": "Shopper App streaming holds the original AI admission in a bounded scoped producer, emits only completed public tool results and cancels the producer when the client disconnects. Existing native authorization and JSON response are retained."
     },
     "src/performance/authority.rs": {
       "status": "unproved",
@@ -5006,8 +5006,8 @@
     },
     "src/performance/mod.rs": {
       "status": "unproved",
-      "sha256": "74e65fd8f34d8e3ab4c5dcaec8b701308156d8b8955b112359d7856b4a4b3f22",
-      "review": "Reviewed native quota/task atomic transactions and actor-bound continuation; removed connector Core identity reads, retained gateway/FK authority and sanitized missing references. Real one-backend PgBouncer create/resume/kill/restart and scoped connector regressions passed."
+      "sha256": "3c186e83fdfeee78b0428c56e4793e3996cf3f079de45a63d89632a23c0e7b37",
+      "review": "Shopper App streaming holds the original AI admission in a bounded scoped producer, emits only completed public tool results and cancels the producer when the client disconnects. Existing native authorization and JSON response are retained."
     },
     "src/performance/pool.rs": {
       "status": "unproved",

@@ -16,6 +16,13 @@ function fixtureOrigin(name) {
 }
 const base = fixtureOrigin("BASE_URL");
 const checkout = fixtureOrigin("CHECKOUT_TEST_SERVICE_URL");
+const paypal = process.env.CHECKOUT_TEST_PAYPAL_FIXTURE
+  ? fixtureOrigin("CHECKOUT_TEST_PAYPAL_FIXTURE")
+  : undefined;
+const providerOrigin = "https://provider.veyndo-test.local";
+const merchant = process.env.CHECKOUT_TEST_BROWSER_MERCHANT_TOKEN;
+if (paypal)
+  assert.ok(merchant, "Use a disposable merchant token for the refund");
 const browser = await chromium.launch({ headless: true });
 try {
   for (const drop of [false, true]) {
@@ -27,6 +34,27 @@ try {
     const nativeWrites = [],
       independentWrites = [];
     let remoteReceipt;
+    if (paypal) {
+      await page.route(providerOrigin + "/fixture/**", async (route) => {
+        const path = new URL(route.request().url()).pathname;
+        assert.ok(
+          ["/fixture/payment", "/fixture/browser-approve"].includes(path),
+        );
+        const response = await fetch(paypal + path, {
+          method: route.request().method(),
+          body: route.request().postData() ?? undefined,
+        });
+        await route.fulfill({
+          status: response.status,
+          contentType: response.headers.get("content-type"),
+          body: await response.text(),
+        });
+      });
+      // The approval fallback must never reach a real provider in this run.
+      await page.route("https://www.sandbox.paypal.com/**", (route) =>
+        route.abort(),
+      );
+    }
     page.on("request", (req) => {
       if (req.method() !== "POST") return;
       if (req.url() === base + "/store-api/checkout/order")
@@ -106,6 +134,7 @@ try {
     await reject.click({ timeout: 7000 }).catch(async (error) => {
       if (await page.locator(".privacy-banner[open]").count()) throw error;
     });
+    if (paypal) await page.getByRole("radio", { name: /PayPal/ }).check();
     const review = page.getByRole("button", {
       name: /Review order|Bestellung prüfen/,
     });
@@ -114,6 +143,14 @@ try {
       name: /I accept the terms|Ich akzeptiere die Verkaufsbedingungen/,
     });
     if (await terms.isVisible()) await terms.check();
+    const confirmation =
+      paypal && !drop
+        ? page.waitForResponse(
+            (response) =>
+              response.url() === checkout + "/v1/sessions/confirm" &&
+              response.request().method() === "POST",
+          )
+        : undefined;
     await page
       .getByRole("button", {
         name: /Order with obligation to pay|Zahlungspflichtig bestellen/,
@@ -134,6 +171,57 @@ try {
     const orderNumber = await receipt.innerText();
     assert.match(orderNumber, /^RAC-/);
     if (drop) assert.equal(remoteReceipt?.orderNumber, orderNumber);
+    if (paypal) {
+      const result = drop ? remoteReceipt : await (await confirmation).json();
+      const attempt = result.paymentAttemptId;
+      assert.ok(attempt);
+      assert.equal(result.orderNumber, orderNumber);
+      const confirmed = page.getByRole("heading", {
+        name: "Payment confirmed",
+        exact: true,
+      });
+      assert.equal(await confirmed.count(), 0);
+      await page
+        .frameLocator(".embedded-payment iframe")
+        .getByRole("button", { name: "Approve test payment" })
+        .click();
+      await confirmed.waitFor({ timeout: 15000 });
+      const headers = {
+        "x-tenant": "atelier",
+        Authorization: `Bearer ${merchant}`,
+      };
+      const amount = Number(result.totalMinor);
+      const refund = await page.request.post(
+        base + "/api/payments/" + attempt + "/refund",
+        {
+          headers: {
+            ...headers,
+            "Idempotency-Key": attempt + ":browser-refund",
+          },
+          data: { approve: true, amountMinor: amount },
+        },
+      );
+      assert.ok(refund.ok(), await refund.text());
+      const deadline = Date.now() + 10000;
+      for (;;) {
+        const response = await page.request.get(base + "/api/payments", {
+          headers,
+        });
+        assert.ok(response.ok());
+        const payment = (await response.json()).attempts.find(
+          (row) => row.id === attempt,
+        );
+        if (payment?.state === "refunded") {
+          assert.equal(payment.refundedMinor, amount);
+          break;
+        }
+        assert.ok(
+          Date.now() < deadline,
+          "Original payment attempt must settle its refund",
+        );
+        await new Promise((resolve) => setTimeout(resolve, 150));
+      }
+    }
     await page.reload();
     assert.equal(await receipt.innerText(), orderNumber);
     await page
@@ -155,7 +243,7 @@ try {
       .first()
       .waitFor();
     console.log(
-      `PASS native browser ${drop ? "lost confirmation recovery at mobile size" : "purchase at desktop size"}: one service confirmation, one stock decrement, same receipt after reload, empty bag`,
+      `PASS native browser ${drop ? "lost confirmation recovery at mobile size" : "purchase at desktop size"}: one service confirmation, one stock decrement, same receipt after reload, empty bag${paypal ? ", provider-frame approval and full refund on the original attempt" : ""}`,
     );
     await page.close();
   }

@@ -5,13 +5,15 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 from threading import Lock, Thread
 from urllib.parse import parse_qs, urlsplit
+from uuid import uuid4
 
 PRIVATE_TOKEN = 'synthetic-private-checkout-provider-credential'
 
 
 @contextmanager
-def paypal_fixture(tenant):
+def paypal_fixture(tenant, browser_origin=None):
     orders, refunds, remote_orders, lock = {}, {}, {}, Lock()
+    sessions = {}
 
     class PayPal(BaseHTTPRequestHandler):
         def log_message(self, *_):
@@ -27,8 +29,38 @@ def paypal_fixture(tenant):
 
         def do_GET(self):
             with lock:
+                if self.path == '/fixture/payment' and browser_origin:
+                    return self.payment_frame()
                 order = orders.get(self.path.rsplit('/', 1)[-1])
                 self.reply(order or {}, 200 if order else 404)
+
+        def payment_frame(self):
+            page = b"""<!doctype html><html lang="en"><title>PayPal test fixture</title>
+<button id="approve" disabled>Approve test payment</button>
+<script>
+const approve = document.getElementById("approve");
+let session, origin;
+addEventListener("message", event => {
+  if (session || event.source !== parent || event.data?.type !== "veyndo.payment.init") return;
+  session = event.data;
+  origin = event.origin;
+  parent.postMessage({type: "veyndo.payment.ready", nonce: session.nonce}, origin);
+  approve.disabled = false;
+});
+approve.onclick = async () => {
+  approve.disabled = true;
+  const response = await fetch("/fixture/browser-approve", {
+    method: "POST", body: JSON.stringify({token: session.sessionToken, nonce: session.nonce})
+  });
+  if (!response.ok) { approve.disabled = false; return; }
+  parent.postMessage({type: "veyndo.payment.changed", nonce: session.nonce}, origin);
+};
+</script></html>"""
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html; charset=utf-8')
+            self.send_header('Content-Length', str(len(page)))
+            self.end_headers()
+            self.wfile.write(page)
 
         def do_POST(self):
             raw = self.rfile.read(int(self.headers.get('Content-Length', 0)))
@@ -36,6 +68,13 @@ def paypal_fixture(tenant):
                 return self.reply({'access_token': 'synthetic-checkout-oauth'})
             body = json.loads(raw or b'{}')
             with lock:
+                if self.path == '/fixture/browser-approve' and browser_origin:
+                    ticket = sessions.get(body.get('token'))
+                    if not ticket or body.get('nonce') != ticket[1] or remote_orders[ticket[0]] != 'ready':
+                        return self.reply({}, 403)
+                    ref, _ = sessions.pop(body['token'])
+                    remote_orders[ref] = 'approved'
+                    return self.reply({'approved': True})
                 if self.path in ('/v1/onboarding', '/v1/payments/execute'):
                     return self.private_provider(body)
                 if self.path == '/v2/checkout/orders':
@@ -86,6 +125,12 @@ def paypal_fixture(tenant):
                 assert query['shop'] == [tenant] and query['paymentReturn'] == ['approved']
                 remote_orders.setdefault(ref, 'ready')
                 result.update(status='ready', approvalUrl='https://www.sandbox.paypal.com/checkoutnow?token=' + ref)
+            elif operation == 'checkout_session' and browser_origin:
+                assert body['reference'] == ref and remote_orders[ref] in ('ready', 'approved')
+                token, nonce = uuid4().hex, body['input']['nonce']
+                sessions[token] = (ref, nonce)
+                result.update(uiUrl=browser_origin + '/fixture/payment', sessionToken=token,
+                              nonce=nonce, expiresIn=120, readySignal=True)
             elif operation == 'refund':
                 assert remote_orders[ref] == 'captured'
                 result.update(status='refunded', refund={'id': 'REFUND-' + body['requestKey'],

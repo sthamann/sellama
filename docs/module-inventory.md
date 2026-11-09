@@ -1494,6 +1494,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/shell/CompanyLegalPage.tsx](../frontend/src/storefront/shell/CompanyLegalPage.tsx) | Directly reachable channel legal page; renders only the server's explicit public projection as text. |
 | [frontend/src/storefront/shell/ConciergeSelection.tsx](../frontend/src/storefront/shell/ConciergeSelection.tsx) | Editable suggestions reuse native cards; variants and app inputs stay on the native detail page. |
 | [frontend/src/storefront/shell/ConciergeView.tsx](../frontend/src/storefront/shell/ConciergeView.tsx) | ConciergeView: storefront view composed from the scoped cart/controller. |
+| [frontend/src/storefront/shell/ConversationPurchase.tsx](../frontend/src/storefront/shell/ConversationPurchase.tsx) | Review and confirm an app-linked variant using the current native cart. |
 | [frontend/src/storefront/shell/HomeHero.tsx](../frontend/src/storefront/shell/HomeHero.tsx) | Shared native home hero for the storefront and visual preview; no commerce commands. |
 | [frontend/src/storefront/shell/ProductTile.tsx](../frontend/src/storefront/shell/ProductTile.tsx) | Single native product card, reused by the storefront and read-only visual preview. |
 | [frontend/src/storefront/shell/Storefront.tsx](../frontend/src/storefront/shell/Storefront.tsx) | Storefront composition root: cart context, routes, customer account and checkout. |
@@ -1506,6 +1507,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/shell/StorefrontLanguage.tsx](../frontend/src/storefront/shell/StorefrontLanguage.tsx) | Shop-configured content languages, including custom locales; the interface keeps its supported language vocabulary. |
 | [frontend/src/storefront/shell/cart-commands.ts](../frontend/src/storefront/shell/cart-commands.ts) | Native cart lifecycle and revision-bound quantity updates; retain original consent capability after purchase. |
 | [frontend/src/storefront/shell/channel-preview-i18n.ts](../frontend/src/storefront/shell/channel-preview-i18n.ts) | Personal preview copy in every supported language; exported through the shared translation catalogue. |
+| [frontend/src/storefront/shell/conversation-purchase-i18n.ts](../frontend/src/storefront/shell/conversation-purchase-i18n.ts) | Copy for the native cart review embedded alongside a conversation app. |
 | [frontend/src/storefront/shell/storefront-actions-i18n.ts](../frontend/src/storefront/shell/storefront-actions-i18n.ts) | Shared UI/browser-agent command descriptions and errors follow the active storefront language. |
 | [frontend/src/storefront/shell/storefront-actions.ts](../frontend/src/storefront/shell/storefront-actions.ts) | Shared native storefront commands for UI, apps and WebMCP; never expose capabilities or submit a financial order. |
 | [frontend/src/storefront/shell/useCatalog.ts](../frontend/src/storefront/shell/useCatalog.ts) | Cursor catalogue loading, debounced filters and stale-response protection. |
@@ -1520,6 +1522,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/styles/checkout.css](../frontend/src/storefront/styles/checkout.css) | Shared native checkout layout and payment states; recipient instructions have an adjacent owner. |
 | [frontend/src/storefront/styles/company-identity.css](../frontend/src/storefront/styles/company-identity.css) | Public company branding and readable legal identity across storefront channels. |
 | [frontend/src/storefront/styles/concierge-selection.css](../frontend/src/storefront/styles/concierge-selection.css) | Native product shortlist: responsive cards and reversible selection controls. |
+| [frontend/src/storefront/styles/conversation-purchase.css](../frontend/src/storefront/styles/conversation-purchase.css) | Inline, native purchase review for a product referenced by an app response. |
 | [frontend/src/storefront/styles/cross-selling.css](../frontend/src/storefront/styles/cross-selling.css) | Merchant-selected product tiles retain the storefront grid and its native responsive breakpoints. |
 | [frontend/src/storefront/styles/experience-polish.css](../frontend/src/storefront/styles/experience-polish.css) | Shared storefront interaction layer: stable navigation, editorial surfaces and catalogue-grounded AI discovery. |
 | [frontend/src/storefront/styles/legal.css](../frontend/src/storefront/styles/legal.css) | Responsive, equally weighted consent controls and readable legal/customer forms. |

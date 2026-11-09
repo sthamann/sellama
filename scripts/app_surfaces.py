@@ -4,6 +4,7 @@ from testing.native_tools import response as native_response
 from testing.app_approval import consent
 from testing.app_approval import pin
 from testing.app_mcp_views import verify as verify_mcp_views
+from testing.app_mcp_views import verify_cart_review
 import concurrent.futures
 import copy
 import hashlib
@@ -65,11 +66,13 @@ def run():
                     isinstance(m, dict) and (m.get("type") == "function_call_output" or m.get("role") == "tool")
                     for m in messages
                 )
-                mcp_query = "Inspect guide fixture" in provider_input or "Read merchandise fixture" in provider_input
+                catalog_review = "Approve mug stock fixture" in provider_input
+                mcp_query = "Inspect guide fixture" in provider_input or "Read merchandise fixture" in provider_input or catalog_review
                 if mcp_query and not request.get("tools") and "Inspect guide fixture" in provider_input:
                     proposal = {"explanation": "A guide is available.", "recommended_ids": [], "layout": "discovery"}
                 elif mcp_query and not request.get("tools"):
-                    proposal = {"summary": "Review the merchandising notes.", "changes": []}
+                    proposal = {"summary": "Review the merchandising notes.",
+                                "changes": [{"product_id": "mug", "stock": 79}] if catalog_review else []}
                 if request.get("tools"):
                     calls = []
                     if mcp_query and not continued:
@@ -317,6 +320,20 @@ def run():
             plan = call("/api/agent/plan", {"instruction":"Read merchandise fixture", "inference":{"provider":"openai","model":"local-fixture"}}, h)
             assert plan["preview"]["appViews"][0]["resourceUri"] == private_view
             assert plan["preview"]["appViews"][0]["result"]["structuredContent"]["elements"][0]["id"] == "private"
+            verify_cart_review(call, h, public, oh)
+            proposed = call("/api/agent/plan", {"instruction":"Approve mug stock fixture",
+                            "inference":{"provider":"openai","model":"local-fixture"}}, h)
+            assert proposed["preview"]["proposal"]["changes"][0]["stock"] == 79
+            colleague_invite = call("/api/workspace/invitations", {
+                "email": uuid.uuid4().hex + "@example.test", "role": "admin"}, h)
+            colleague = call("/api/auth/accept", {"invitationToken": colleague_invite["token"],
+                             "name": "Colleague fixture", "password": "Synthetic-app-colleague-2026!"})
+            same_shop_colleague = {"Authorization": "Bearer " + colleague["token"], "x-tenant": u["workspace"]}
+            approval_path = "/api/agent/tasks/" + proposed["taskId"] + "/apply"
+            call(approval_path, {"approve": True}, same_shop_colleague, expected=403)
+            call(approval_path, {"approve": False}, h, expected=400)
+            assert call("/api/merchant/products/mug", headers=h)["commerce"]["stock"] == 80
+            passed("Cart review is read-only, bound to exact selection and revision, and merchant approval requires the original actor")
             guide_package = next(p for p in call("/api/apps", headers=h)["packages"] if p["id"] == guide)
             call(f"/api/apps/{guide}", {"active":False,"revision":guide_package["revision"]}, h, method="PUT")
             removed = call("/mcp", {"jsonrpc":"2.0","id":1,"method":"resources/read","params":{"uri":public_view}}, public)

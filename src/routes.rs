@@ -179,6 +179,7 @@ pub(crate) fn router(a: App) -> Router {
             get(get_cart).post(create_cart).put(edit_cart),
         )
         .route("/store-api/checkout/cart/line-item", post(add_items))
+        .route("/store-api/checkout/cart/preview", post(preview_cart))
         .route("/store-api/checkout/order", post(place_order))
         .route("/store-api/account/login", post(login))
         .secure_route(

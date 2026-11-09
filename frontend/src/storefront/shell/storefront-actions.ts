@@ -15,6 +15,24 @@ type Owner = {
   session?: string;
   active?: () => boolean;
 };
+type Items = { id: string; quantity: number }[];
+type CartReview = {
+  revision: number;
+  review: string;
+  price: Cart["price"];
+  shippingCosts: Cart["shippingCosts"];
+  lineItems: (Cart["lineItems"][number] & { stock: number })[];
+  country: string;
+  shippingMethod: string | null;
+  delivery: Cart["deliveries"][number]["deliveryDate"] | null;
+};
+function addItem(cart: Cart, id: string, quantity: number): Items {
+  const items = cart.lineItems.map(({ id, quantity }) => ({ id, quantity }));
+  const item = items.find((item) => item.id === id);
+  if (item) item.quantity += quantity;
+  else items.push({ id, quantity });
+  return items;
+}
 function publicCart(cart: Cart | undefined) {
   if (!cart) return { items: [], currency: null, total: null };
   return {
@@ -98,6 +116,63 @@ export function createStorefrontActions(owner: Owner) {
     );
   }
   return {
+    previewProduct(id: string, quantity: number) {
+      return withCart(async (cart) => {
+        const items = addItem(cart, id, quantity);
+        const quote = await owner.request<CartReview>(
+          "/store-api/checkout/cart/preview",
+          { revision: cart.revision, items },
+          cart.token,
+        );
+        guard();
+        const line = quote.lineItems.find((line) => line.id === id);
+        const before =
+          cart.lineItems.find((line) => line.id === id)?.quantity ?? 0;
+        if (
+          !line ||
+          line.quantity !== before + quantity ||
+          line.stock < line.quantity
+        )
+          throw new Error(text("items"));
+        return { cartId: cart.id, items, quote };
+      });
+    },
+    refreshCart() {
+      return withCart(async (cart) => {
+        const next = await owner.request<Cart>(
+          "/store-api/checkout/cart",
+          undefined,
+          cart.token,
+        );
+        guard();
+        owner.saveCart(next);
+      });
+    },
+    confirmProduct(reviewed: {
+      cartId: string;
+      items: Items;
+      quote: CartReview;
+    }) {
+      return withCart(async (cart) => {
+        if (
+          cart.id !== reviewed.cartId ||
+          cart.revision !== reviewed.quote.revision
+        )
+          throw new Error(text("scope"));
+        const next = await owner.request<Cart>(
+          "/store-api/checkout/cart",
+          {
+            revision: cart.revision,
+            items: reviewed.items,
+            review: reviewed.quote.review,
+          },
+          cart.token,
+          "PUT",
+        );
+        guard();
+        owner.saveCart(next);
+      });
+    },
     configureProduct(
       app: string,
       productId: string,
@@ -186,16 +261,7 @@ export function createStorefrontActions(owner: Owner) {
       )
         return Promise.reject(new Error(text("items")));
       return mutate(
-        (cart) => {
-          const items = cart.lineItems.map((item) => ({
-            id: item.id,
-            quantity: item.quantity,
-          }));
-          const item = items.find((item) => item.id === id);
-          if (item) item.quantity += quantity;
-          else items.push({ id, quantity });
-          return items;
-        },
+        (cart) => addItem(cart, id, quantity),
         true,
         options?.signal,
       );

@@ -32,8 +32,33 @@ pub(crate) async fn edit_cart(
 ) -> Result<Json<Value>> {
     let items: Vec<Item> =
         serde_json::from_value(v["items"].clone()).map_err(|e| bad(e.to_string()))?;
-    let c = set_items(&a, &h, items, v["revision"].as_i64()).await?;
+    let c = if let Some(review) = v.get("review") {
+        let review = review
+            .as_str()
+            .filter(|s| s.len() == 64)
+            .ok_or(bad("Invalid cart review"))?;
+        let revision = v["revision"]
+            .as_i64()
+            .ok_or(bad("Cart revision required"))?;
+        cart_mutation::reviewed_cart(&a, &h, items, revision, review).await?
+    } else {
+        set_items(&a, &h, items, v["revision"].as_i64()).await?
+    };
     Ok(Json(cart_json(&a, &c).await?))
+}
+pub(crate) async fn preview_cart(
+    State(a): State<App>,
+    h: RequestContext,
+    Json(v): Json<Value>,
+) -> Result<Json<Value>> {
+    let items: Vec<Item> =
+        serde_json::from_value(v["items"].clone()).map_err(|e| bad(e.to_string()))?;
+    let revision = v["revision"]
+        .as_i64()
+        .ok_or(bad("Cart revision required"))?;
+    Ok(Json(
+        cart_mutation::preview_items(&a, &h, items, revision).await?,
+    ))
 }
 pub(crate) async fn add_items(
     State(a): State<App>,

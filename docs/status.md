@@ -26,6 +26,13 @@ private reads, retained the original product filter, and rejected unauthorized
 actors. In Chrome, the mobile storefront and desktop Studio each filtered and
 reset their own app result. The rollout above predates this filter.
 
+The local follow-up exercised native actions in both chats. A shopper selected
+a product variant, reviewed the server-calculated price and delivery, and added
+the variant once. A merchant opened an app-linked stock proposal, compared 80
+with 79, approved it, and read back 79. The PostgreSQL fixtures rejected a
+changed price, a replayed cart revision and approval by another administrator.
+[Interaction contract](agentic-component-ui.md#review-and-act-in-the-veyndo-chat).
+
 An installed app can show its own table or expandable cards inside a Studio or
 native storefront answer. In the isolated browser run, the frame loaded the
 next page of records. The HTTP and PostgreSQL fixture checked both assistant

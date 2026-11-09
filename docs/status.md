@@ -12,11 +12,20 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## MCP App conversation views and independent Checkout rehearsal
 
-The development build embeds an installed app's own table or expandable cards
-inside a Studio or native storefront answer. The local browser loaded the next
-set of records from the frame. An HTTP and PostgreSQL fixture checked both
-assistant paths with a synthetic model, as well as foreign-shop, private-scope
-and deactivated-package denials. See the [package guide](agentic-component-ui.md#app-owned-views-in-the-conversation).
+The Core image `alleged-degree-4325` from
+[`e133b155`](https://github.com/veyndo/veyndo/commit/e133b15573c5ea3e1c4df991750c08ba70bc8d53)
+is live on Northflank. The new instance passed readiness with zero restarts.
+Studio, the native demo and the Storyfront demo returned HTTP 200. The public
+demo shop negotiated MCP Apps with a compatible client. A text-only client
+received the ordinary MCP capabilities and a request for an unknown view was
+rejected.
+
+An installed app can show its own table or expandable cards inside a Studio or
+native storefront answer. In the isolated browser run, the frame loaded the
+next page of records. The HTTP and PostgreSQL fixture checked both assistant
+paths with a synthetic model and rejected foreign-shop, private-scope and
+deactivated-package requests. The public protocol check did not install an app
+in a hosted shop. [Package guide](agentic-component-ui.md#app-owned-views-in-the-conversation).
 
 The local Checkout composition recovered a simulated purchase when the native
 host's response was dropped after commit. It returned the original receipt after
@@ -24,9 +33,12 @@ restart and observed one order and one stock allocation. Under four quote
 workers and four concurrent catalogue readers, 192 requests per quote path
 had zero errors and p95 of 13.1 ms direct versus 13.6 ms composed. The catalogue
 and native quote stayed available with Checkout stopped. These are local
-fixture measurements. Hosted Checkout needs a dedicated database and buyer
-identity binding before public native and Storyfront purchases, provider
-payment and refund can be accepted in that topology.
+fixture measurements. The [opt-in browser route](https://github.com/veyndo/veyndo/pull/371)
+is merged. Desktop and mobile Chromium used it with a signed-in buyer and
+simulated payment. Recovery preserved the receipt and the empty cart after
+reload. The independent Checkout process still needs its own hosted runtime and
+database. Hosted native and Storyfront purchases, provider payment and refund
+through that process remain open.
 
 ## Orders and shipping in agentic workspaces, 9 November 2026
 

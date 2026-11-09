@@ -1,4 +1,7 @@
 /* Native product shortlist: responsive cards and reversible selection controls. */
+.shop-concierge .shop-advice {
+  min-inline-size: 0;
+}
 .concierge-explanation {
   white-space: pre-line;
   line-height: 1.65;
@@ -107,4 +110,15 @@
 .concierge-comparison a {
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .concierge-comparison :is(td, th) {
+    padding: 10px 8px;
+  }
+  .concierge-comparison th[scope="row"] {
+    white-space: normal;
+  }
+  .concierge-comparison :is(td, th):not(:first-child) {
+    min-inline-size: 6rem;
+  }
 }

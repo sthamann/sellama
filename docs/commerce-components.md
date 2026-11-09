@@ -239,6 +239,10 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
     Publish the Core host and verify all three public purchase entry points.
     [Core host ports](checkout-component.md#commerce-host-ports-in-core) ·
     [Hosted evidence](status.md#commerce-host-ports-for-independent-checkout-9-november-2026).
+  - [x] Bind the separate service to a current native account login through a
+    short-lived Checkout-only grant. Check logout, refreshed login and original
+    receipt recovery without exporting the native session cookie.
+    [Configuration](checkout-component.md#bind-checkout-to-a-native-buyer-login).
   - [ ] Accept the hosted independent service with configured Sandbox payment
     and verify payment attempt, callback, settlement and refund.
 - [ ] CHK-03 Extract Rust checkout orchestration/session storage to its own repo;

@@ -525,6 +525,11 @@
     "source": "src/history/mod.rs"
   },
   {
+    "path": "/api/identity/checkout/introspect",
+    "method": "POST",
+    "source": "src/checkout/mod.rs"
+  },
+  {
     "path": "/api/identity/credentials",
     "method": "POST",
     "source": "src/auth/routes.rs"
@@ -1528,6 +1533,11 @@
     "path": "/store-api/checkout/order",
     "method": "POST",
     "source": "src/routes.rs"
+  },
+  {
+    "path": "/store-api/checkout/session-access",
+    "method": "POST",
+    "source": "src/checkout/mod.rs"
   },
   {
     "path": "/store-api/checkout/session-order",

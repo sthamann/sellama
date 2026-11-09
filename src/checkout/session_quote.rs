@@ -35,9 +35,10 @@ async fn owned_cart(
 
 pub(crate) async fn quote_session(
     State(a): State<App>,
-    h: RequestContext,
+    mut h: RequestContext,
     Json(input): Json<QuoteInput>,
 ) -> Result<impl IntoResponse> {
+    super::buyer_identity::bind(&mut h)?;
     let c = owned_cart(&a, &h, &input.cart_id, &input.customer_id).await?;
     if c.status != "open" || c.revision != input.cart_revision || c.data.items.is_empty() {
         return Err(conflict("Open and review the current nonempty cart"));

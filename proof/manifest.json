@@ -2381,8 +2381,8 @@
     },
     "src/accounts/mod.rs": {
       "status": "unproved",
-      "sha256": "c6c8a2dfadfd091c8bfe105404fa41de5e6641193a8eac496309dd012b6bef1e",
-      "review": "Native lifecycle and B2B deadlock repair reviewed: accepted package snapshots, current scopes and private projections preserve existing native invariants. Optional last-payment preference now updates after financial commit and only if changed, removing the proved customer/unit lock inversion without relaxing active-session/budget checks or retrying uncertain effects."
+      "sha256": "6512217defdf30b32476bf133b86ed458241165b9f6892dcf64a9c351fb6a524",
+      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
     },
     "src/accounts/order_snapshot.rs": {
       "status": "unproved",
@@ -3136,8 +3136,8 @@
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
-      "sha256": "50483121c34783685e8953a7f116b724ff3bb09f80372cd86159d20ddaf11ef8",
-      "review": "Review native GLB validation and owned parent assignments, current catalogue CAS and binary preview/channel authorization; no kernel policy changes or full-core proof claim"
+      "sha256": "80acee6c1a57c5f1021016d8d8cbe54f361428c8e5484b46745517ff2a071ae5",
+      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
     },
     "src/auth/mod.rs": {
       "status": "unproved",
@@ -3231,8 +3231,8 @@
     },
     "src/b2b/access.rs": {
       "status": "unproved",
-      "sha256": "0a8d2f7a04f49cc751353b138a27f015fcfb03774889bff9206d5761c96d905e",
-      "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+      "sha256": "8a7cbc7944f7bb7a1199fac905c26044f0eb035ea16b083f2e8598b82b717378",
+      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
     },
     "src/b2b/approval.rs": {
       "status": "reviewed-binding",
@@ -3524,6 +3524,11 @@
       "sha256": "d83b944d836e96d1bf54ec61ca334a23958414ca0db1dcff463791dc20b7fc78",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
+    "src/checkout/buyer_identity.rs": {
+      "status": "unproved",
+      "sha256": "b08d00d60da0629cb4ab7bcdd11a5d6d6f494d64b3c01353efbffa32dcc1a76c",
+      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
+    },
     "src/checkout/commit.rs": {
       "status": "reviewed-binding",
       "sha256": "cd9f90f0eb5ec2b8723d1f9f2682cf742265b14c71af5c2ceaaf31d66ef7d03d",
@@ -3536,8 +3541,8 @@
     },
     "src/checkout/mod.rs": {
       "status": "unproved",
-      "sha256": "f0d15f38e0b3af0ff1e3cde1a5553570f0aa4d3482e8148daba7aef42ec1af80",
-      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+      "sha256": "c95697abf2c1771474cb7cc7352316a1033abf6de8f493da9ac5f7ac3a46189c",
+      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
     },
     "src/checkout/prepare.rs": {
       "status": "unproved",
@@ -3551,13 +3556,13 @@
     },
     "src/checkout/session_order.rs": {
       "status": "unproved",
-      "sha256": "cf50ed59f69fdda0654aae4dd59df844e71dfe7ee1b6ca4e49a46b9e10920bce",
-      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+      "sha256": "9ae567d6b1b7b165382a7dc644c36a518e4aef84aac44121ad520a950166e4ce",
+      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
     },
     "src/checkout/session_quote.rs": {
       "status": "unproved",
-      "sha256": "3ed4a908dd31386adef86bcf39b49c9718019388f3fe964f8be24297d952aaf7",
-      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+      "sha256": "93bcb9d0436b565d91ff63166b222ce385a938862c34dbb10feb068ad35b0292",
+      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
     },
     "src/checkout/state.rs": {
       "status": "unproved",
@@ -5141,8 +5146,8 @@
     },
     "src/request_context.rs": {
       "status": "unproved",
-      "sha256": "533e9f34201fd092cfa8b508494a8c6d40ab7ec821d9d5fd173b8c0ea9b9bf6e",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "f36fc44ed8edc3b6b4818ae485e91be093ced48b77670a1647b5ae29245e0bfe",
+      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
     },
     "src/routes.rs": {
       "status": "unproved",

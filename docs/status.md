@@ -37,6 +37,14 @@ still reach Commerce directly. The independent Checkout service uses one
 host request per operation and keeps only its session metadata in its own
 database.
 
+The independent service has also passed a local purchase using the native
+HttpOnly buyer login. Core issued a five-minute Checkout grant and rechecked
+the underlying session on every use. The two Rust services used separate
+PostgreSQL databases, with enforced system and tenant roles for Core and a
+restricted runtime role for Checkout. Replaying confirmation kept one order and one stock
+decrement. The grant stopped working at logout, and a fresh login recovered
+the same receipt. [Buyer identity setup](checkout-component.md#bind-checkout-to-a-native-buyer-login).
+
 That rollout used Northflank image `wiry-spirit-4983` on Core and the private
 app worker. It was built from `7ce9217c`, with the same source tree as merged
 release `f8cdece8`.

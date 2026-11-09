@@ -258,3 +258,36 @@ the local fixture.
   attempts and receipts, with rollback. Do not invalidate active carts at cutover.
 
 This component uses [the common agentic UI contract](agentic-component-ui.md).
+
+## Bind Checkout to a native buyer login
+
+Core can issue a five-minute Checkout grant for a signed-in buyer in a configured
+live shop. Enable the canary with the following Core settings.
+
+| Setting | Value |
+| --- | --- |
+| `CHECKOUT_IDENTITY_SHOPS` | Comma-separated live shop IDs explicitly enabled for the canary |
+| `CHECKOUT_IDENTITY_KEY` | 32 random bytes encoded as unpadded base64url, held only by Core |
+| `CHECKOUT_INTROSPECTION_TOKEN` | Separate random service credential of at least 32 printable characters |
+
+All Core replicas use the same settings. The shop calls
+`POST /store-api/checkout/session-access` using its existing buyer login and the
+normal same-origin and CSRF headers for an HttpOnly session. It receives an opaque
+`access_token`. Keep this token in memory and send it as the Checkout service's
+Bearer token. For a quote or confirmation, also send it in the service's
+`x-customer-token` header alongside the native cart capability. Receipt recovery
+only needs the grant. A new login can obtain a fresh grant for the same buyer and
+recover the existing receipt.
+
+Configure the separate service with audience `veyndo-checkout` and
+`CHECKOUT_INTROSPECTION_URL=https://<core-origin>/api/identity/checkout/introspect`.
+Supply the same introspection credential and the exact Core commerce origin.
+The native buyer cookie and the encryption key stay with Core. Introspection
+and the native checkout ports recheck the original session in PostgreSQL. An
+expired, revoked or foreign-shop grant cannot be used to read an account, mint
+another grant, or purchase another buyer's cart. Checkout keeps its existing
+dedicated draft database.
+
+This configuration enables an authenticated buyer canary. Native storefront and
+Storyfront routing, guest checkout, and hosted provider settlement and refund
+still have separate acceptance steps.

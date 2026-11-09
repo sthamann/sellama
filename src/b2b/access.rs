@@ -1,12 +1,19 @@
 //! Re-resolves active customer sessions, company policy and unit membership at every procurement boundary.
 use super::*;
 pub(crate) async fn identity(conn: &mut sqlx::PgConnection, h: &RequestContext) -> Result<String> {
-    let token = header(h, "x-customer-token").ok_or(Error(
-        StatusCode::UNAUTHORIZED,
-        "Customer login required".into(),
-    ))?;
-    sqlx::query_scalar("SELECT c.id FROM customer_sessions s JOIN customers c ON c.tenant=s.tenant AND c.email=s.email WHERE s.tenant=$1 AND s.digest=$2 AND s.expires_at>now() AND c.active FOR SHARE OF c,s")
-        .bind(tenant(h)?).bind(hash(token)).fetch_optional(conn).await?.ok_or(Error(StatusCode::UNAUTHORIZED,"Customer session expired".into()))
+    let digest = accounts::session_digest(h)?;
+    let id = sqlx::query_scalar::<_, String>("SELECT c.id FROM customer_sessions s JOIN customers c ON c.tenant=s.tenant AND c.email=s.email WHERE s.tenant=$1 AND s.digest=$2 AND s.expires_at>now() AND c.active FOR SHARE OF c,s")
+        .bind(tenant(h)?).bind(digest).fetch_optional(conn).await?.ok_or(Error(StatusCode::UNAUTHORIZED,"Customer session expired".into()))?;
+    if h.checkout_buyer
+        .as_ref()
+        .is_some_and(|buyer| buyer.buyer_hash != hash(&id))
+    {
+        return Err(Error(
+            StatusCode::UNAUTHORIZED,
+            "Checkout buyer changed".into(),
+        ));
+    }
+    Ok(id)
 }
 pub(crate) async fn access(
     conn: &mut sqlx::PgConnection,

@@ -10,6 +10,43 @@ Updated 9 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Live Flow draft check and separate app worker, 9 November 2026
+
+Core and the private app worker run Northflank build `natural-cub-8418`
+from `05d23df8`. Its tree matches the merged source `11f7360d`. Core
+deployment `vendune-core-f9f6f695d` passed readiness with one replica
+and zero restarts. The previous Core replica exited. The private worker
+deployment `vendune-app-worker-6d6cd7cfd4` runs one replica with zero restarts.
+Core logged `app_worker_enabled=false`. The separate worker logged
+`process_role=app-worker` and successfully sampled the two due queues.
+It uses the same restricted runtime roles and the exact approved private
+connector origin.
+
+All 35 public health probes during the rollout returned HTTP 200. Before
+and after the cutover, 12 reads per route measured median response times
+of 12 and 11 ms for Core health, 8 and 8 ms for onboarding, and 33 and
+31 ms for the Storyfront catalogue. These short public checks measure
+reachability and latency around this release.
+
+The public Storyfront demo placed an embedded order using simulated payment.
+The German receipt showed the purchased product. Returning to Storyfront
+and reloading left the original basket empty. Unauthenticated Flow draft
+validation returned 401. The live storefront test did not have merchant
+access to the saved execution trace for that order. Aggregate worker
+signals and successful checkout were verified separately.
+
+In the isolated signed PostgreSQL setup, Studio's HTTP path and MCP
+validated the same Flow without saving or queuing it. The SDK example
+returned the same result. The published Flow ran its branches, persisted
+a delay and produced one invoice on checkout. Tests also checked actor
+revocation, replay, and a separate worker restart. The local Studio browser
+verified the draft feedback and unchanged revision.
+
+[Flow draft check](automation-component.md#check-a-flow-draft-before-saving) ·
+[Worker rollout](automation-component.md#move-the-app-worker-out-of-core) ·
+[Core source](https://github.com/veyndo/veyndo/pull/355) ·
+[SDK example](https://github.com/veyndo/sdk/blob/main/examples/check-flow-draft.mjs).
+
 ## Live app queue diagnostics, 9 November 2026
 
 Northflank released build `dizzy-milk-2262` from `a2de14d` as Core
@@ -19,9 +56,9 @@ and the previous replica exited. All 35 public health samples during
 the rollout returned HTTP 200.
 
 The active Core app process logged the due age sample from PostgreSQL.
-Both queues had no due queued rows in the startup sample. The dedicated
-Northflank worker is paused pending production access approval. The
-combined Core continues to process app work.
+Both queues had no due queued rows in the startup sample. At that
+release, the dedicated worker was still paused and combined Core
+processed app work.
 
 A simulated purchase in the public Storyfront demo completed through
 the embedded Core checkout. It displayed the German confirmation and

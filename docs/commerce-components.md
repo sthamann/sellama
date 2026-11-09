@@ -466,9 +466,12 @@ The following are implementation tasks; existing UI foundations do not complete 
     off app work while it accepts orders and records events. The isolated
     test verifies completion by the dedicated worker and return to combined Core.
     [Worker rollout](automation-component.md#move-the-app-worker-out-of-core).
-  - [ ] Start the dedicated worker alongside hosted Core and verify a hosted
-    order Flow, queue progress and latency with the new process active.
-    [Private queue signals](automation-component.md#read-the-worker-queue-logs).
+  - [x] AUTO-02d Move app work to the private Northflank worker. Verify both
+    process roles, private queue signals, rolling reachability and the public
+    Storyfront purchase with the dedicated worker active.
+    [Live cutover](status.md#live-flow-draft-check-and-separate-app-worker-9-november-2026).
+  - [ ] Verify a specific hosted order's saved Flow trace with an authorized
+    test shop and measure sustained concurrent shop and worker traffic.
 - [ ] AUTO-03 Expose independent API/MCP and graphical/SDK authoring through one
   definition; test branches, delays, retries, revocation and publication.
   - [x] AUTO-03a Validate drafts through the same Core contract in Studio,

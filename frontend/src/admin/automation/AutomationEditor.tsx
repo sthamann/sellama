@@ -16,7 +16,7 @@ import FlowBuilder from "./FlowBuilder";
 import RuleBuilder from "./RuleBuilder";
 import RuleHistory from "./RuleHistory";
 export type AutomationEditorProps = {
-  run: (fn: () => Promise<void>) => Promise<void>;
+  run: (fn: () => Promise<void>, reload?: boolean) => Promise<void>;
   request: import("../shell/studio-types").RequestFn;
   kind: Kind;
   id: string;
@@ -63,6 +63,9 @@ export default function AutomationEditor({
 }: AutomationEditorProps) {
   const { mainLocale } = useContentLanguage();
   const { a } = useAutomationText();
+  const [checked, setChecked] = useState<string>();
+  const draft = advanced.trim() || JSON.stringify(data);
+  const draftKey = JSON.stringify([id, revision, draft]);
   const [categories, setCategories] = useState<any[]>([]);
   useEffect(() => {
     let active = true;
@@ -85,7 +88,7 @@ export default function AutomationEditor({
             `/api/automation/${kind}/${id}`,
             {
               revision,
-              data: advanced.trim() ? JSON.parse(advanced) : data,
+              data: JSON.parse(draft),
             },
             "PUT",
           );
@@ -336,9 +339,36 @@ export default function AutomationEditor({
           onChange={(e) => setAdvanced(e.target.value)}
         />
       </details>
-      <button className="studio-primary" disabled={busy || !manage}>
-        {w("save")}
-      </button>
+      <div className="studio-actions">
+        {kind === "flows" && (
+          <button
+            type="button"
+            className="studio-secondary"
+            disabled={busy || !manage || !id}
+            onClick={() => {
+              setChecked(undefined);
+              void run(async () => {
+                await request(
+                  `/api/automation/flows/${id}`,
+                  { revision, data: JSON.parse(draft), validateOnly: true },
+                  "PUT",
+                );
+                setChecked(draftKey);
+              }, false);
+            }}
+          >
+            {a("checkFlowDraft")}
+          </button>
+        )}
+        <button className="studio-primary" disabled={busy || !manage}>
+          {w("save")}
+        </button>
+      </div>
+      {kind === "flows" && (
+        <div role="status">
+          {checked === draftKey ? a("flowDraftChecked") : null}
+        </div>
+      )}
     </form>
   );
 }

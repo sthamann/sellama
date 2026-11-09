@@ -136,7 +136,7 @@ pub(crate) const CORE: &[(&str, &str)] = &[
     ),
     (
         "automation.save",
-        "Revision-bound rule, promotion, channel or flow graph write",
+        "Revision-bound automation write or read-only Flow draft validation",
     ),
     (
         "automation.dependencies",

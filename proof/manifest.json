@@ -3431,8 +3431,8 @@
     },
     "src/capabilities/core_catalog.rs": {
       "status": "unproved",
-      "sha256": "c550c48401adf896628c3c97c5ceb1d4072e2677b1c5faa99e204c92b5bdcba9",
-      "review": "Reviewed payment-only read snapshot, frozen inspect identity without order PII, strict transaction DTO and native HTTP/MCP read admission; local Rust/Core/PG and targeted UI checks pass. SQL and provider I/O remain unproved."
+      "sha256": "ff5323169f8b4210f587ccd4a88c6c58b4e3b863d565bf0fa468928f9e80f9de",
+      "review": "Flow draft checks share the existing graph, action rights, app and rule reference validation and read the requested revision in a read-only tenant snapshot; native writes retain their locks, authenticated actor and revision checks; HTTP and MCP integration test verifies no draft writes or queued work"
     },
     "src/capabilities/dispatch.rs": {
       "status": "unproved",
@@ -3446,8 +3446,8 @@
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "b54cd6bf636c7e1a89b6d20a55762af56b9f136e4568b90d52f149fa16d9cb62",
-      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+      "sha256": "7064c184c3406a26cba74eecd1ad0d8204c96d3315b8d2a3a56ff23505cb5490",
+      "review": "Flow draft checks share the existing graph, action rights, app and rule reference validation and read the requested revision in a read-only tenant snapshot; native writes retain their locks, authenticated actor and revision checks; HTTP and MCP integration test verifies no draft writes or queued work"
     },
     "src/capabilities.rs": {
       "status": "unproved",
@@ -4361,8 +4361,8 @@
     },
     "src/marketing/flow_policy.rs": {
       "status": "unproved",
-      "sha256": "00f34f1ba62b69f49fe9e6d612e45174a0c95437f3ca15ebaaa34840a45c6671",
-      "review": "Reviewed rollback-only installer probe, explicit deferred constraint check, metadata-only response, current permissions/owned-stage admission and shared Flow replacement validation under existing automation lock. Actual schema/consent/examples/Flow HTTP checks and frontend tests passed. SQL and async behavior remain unproved."
+      "sha256": "3f49a6a3a29cf11ee4107df86740439865ea2e55594e77ed6c16825cdbd5b829",
+      "review": "Flow draft checks share the existing graph, action rights, app and rule reference validation and read the requested revision in a read-only tenant snapshot; native writes retain their locks, authenticated actor and revision checks; HTTP and MCP integration test verifies no draft writes or queued work"
     },
     "src/marketing/flow_text.rs": {
       "status": "unproved",
@@ -4431,8 +4431,8 @@
     },
     "src/marketing/routes.rs": {
       "status": "unproved",
-      "sha256": "664df3eadfdbc866eda09b7bbb59820fc7ada85aae6e9dd9d3c60b7d2bb93d9e",
-      "review": "Reviewed frozen rule comparison: tenant-filtered bounded existing Flow inputs, current compound PII read grants, native checked_matches without current-data reads or action dispatch, reference fanout cap, shared registry and HTTP/MCP parity; real automation and isolation suites pass."
+      "sha256": "b5fe9274925a538ec5a57f0211b524cc272be4f7109ee8567ff081e79a8e715b",
+      "review": "Flow draft checks share the existing graph, action rights, app and rule reference validation and read the requested revision in a read-only tenant snapshot; native writes retain their locks, authenticated actor and revision checks; HTTP and MCP integration test verifies no draft writes or queued work"
     },
     "src/marketing/rule_fields.rs": {
       "status": "unproved",

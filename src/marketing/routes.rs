@@ -105,8 +105,26 @@ pub(crate) async fn save(
     }
     let table = table(&kind)?;
     let mut data = v["data"].clone();
-    let (settings, _) = commerce::config(&a, &t).await?;
     let expected = v["revision"].as_i64().ok_or(bad("Revision required"))?;
+    let validate_only = v
+        .get("validateOnly")
+        .map(|flag| flag.as_bool().ok_or(bad("validateOnly must be a boolean")))
+        .transpose()?
+        .unwrap_or(false);
+    if kind == "flows" {
+        data.as_object_mut().ok_or(bad("Invalid flow"))?.insert(
+            "actor".into(),
+            json!(header(&h, "x-rac-user").unwrap_or("bootstrap")),
+        );
+        if validate_only {
+            return flow_policy::preflight(&a, &t, &h, &id, expected, &data)
+                .await
+                .map(Json);
+        }
+    } else if validate_only {
+        return Err(bad("Draft validation is available for flows"));
+    }
+    let (settings, _) = commerce::config(&a, &t).await?;
     match kind.as_str() {
         "rules" => {
             let c: rules::Condition = serde_json::from_value(data["condition"].clone())
@@ -142,9 +160,7 @@ pub(crate) async fn save(
                 return Err(bad("Campaign end precedes start"));
             }
         }
-        "flows" => {
-            data["actor"] = json!(header(&h, "x-rac-user").unwrap_or("bootstrap"));
-        }
+        "flows" => {}
         "channels" => {
             normalize_channel(&mut data, &id, &settings);
         }

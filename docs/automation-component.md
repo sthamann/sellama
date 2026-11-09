@@ -111,6 +111,37 @@ In a local optimized Rust comparison, validating and walking a chain of
 38.5 microseconds with repeated scans. Each median came from 21 batches
 of 2,000 runs. The comparison covers graph work only.
 
+## Check a Flow draft before saving
+
+In Studio, open **Rules & Flows**, select **Event flows**, and choose **Check draft**.
+Core checks the graph, its rule references, installed app actions, current actor
+rights and the expected revision. The editor keeps the draft open so you can
+correct it, then save it explicitly.
+
+Send the same Flow definition from a server using
+`PUT /api/automation/flows/{id}` with `{revision, data, validateOnly: true}`,
+or use `automation.save` in MCP. For a new Flow, use revision 0. For an existing
+Flow, use its current revision. Use the shop's main content language for the
+Flow name.
+
+```js
+const result = await client.tool("automation.save", {
+  kind: "flows",
+  id: "confirm_purchase",
+  revision: 0,
+  validateOnly: true,
+  data: flowDraft,
+});
+// { valid: true, saved: false, revision: 0 }
+```
+
+Use a current `automation.manage` grant plus the rights required by each action.
+Core reads a consistent shop snapshot. The check creates no saved configuration,
+job or event. Saving is a separate request and checks the current dependencies
+and revision again. A revision conflict means you need to reload and reconcile
+the draft. The independent preview service continues to evaluate supplied facts
+without a native shop write.
+
 ## Built-in Flow catalog
 
 The graph crate also exposes the built-in trigger and action names. Core
@@ -252,7 +283,7 @@ invoice. A healthy sample cannot establish that result.
 ## Remaining Automation work
 
 The native Core worker uses the same directives. Operating a dedicated worker
-in the hosted shop, Flow authoring UI, event delivery and scheduler extraction
-remain open under AUTO-02/03.
+in the hosted shop and extracting event delivery, scheduler and independent
+Flow authoring remain open under AUTO-02/03.
 [Current task list](commerce-components.md#automation-and-connectors),
 [acceptance evidence](evidence/automation-component-2026-11-06.md).

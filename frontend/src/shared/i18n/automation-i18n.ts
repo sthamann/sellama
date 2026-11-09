@@ -3,6 +3,18 @@ import { useLocale } from "./i18n";
 import { sourceLabels } from "./automation-labels";
 import { fieldLabels } from "./automation-fields";
 const words: Record<string, readonly string[]> = {
+  checkFlowDraft: [
+    "Check draft",
+    "Entwurf prüfen",
+    "Vérifier le brouillon",
+    "Comprobar el borrador",
+  ],
+  flowDraftChecked: [
+    "Draft checked. Nothing was saved.",
+    "Entwurf geprüft. Es wurde nichts gespeichert.",
+    "Brouillon vérifié. Aucune modification enregistrée.",
+    "Borrador comprobado. No se ha guardado ningún cambio.",
+  ],
   sourceId: [
     "Document ID (optional)",
     "Dokument-ID (optional)",

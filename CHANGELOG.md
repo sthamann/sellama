@@ -1,5 +1,10 @@
 # Changelog
 
+## Shared Flow draft validation
+
+- Check the same draft in Studio, over HTTP or from an MCP client before saving.
+  The check uses current shop rights, dependencies and revisions.
+
 ## App worker queue diagnostics, 9 November 2026
 
 - Report due Flow and app delivery ages in private worker logs. The read uses

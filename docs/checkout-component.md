@@ -42,6 +42,30 @@ outcomes are persisted/fenced and recovered; they are never blindly retried.
 Expected cart/quote versions and current channel/customer/company authority must
 be rechecked at purchase, not inferred from an earlier UI preview or model output.
 
+## How native and embedded checkout share one order
+
+The normal storefront and the original Storyfront Experience enter Commerce
+through different screens. Both use the same quote, order and payment owners.
+The independent Checkout service can use those owners through the commerce host
+contract below. The public journeys described here use Core directly.
+
+| Step | Normal storefront | Storyfront |
+| --- | --- | --- |
+| Cart and identity | Storefront keeps the native cart credential in its shop context. | Core issues a short-lived, single-use transfer for the current cart revision and registered parent origin. Consuming it rotates the credential and keeps the cart ID. |
+| Quote and legal review | The buyer reviews the native cart revision and total. Commerce calculates delivery, taxes and available methods and resolves the current legal context. | The embedded native checkout uses the same quote and review contract after transfer. Its origin and shop scope are checked before loading. |
+| Order and payment | `POST /store-api/checkout/order` checks the reviewed revision and amount, records the legal snapshot and commits the order, stock and event. A retry with the same purchase key returns the original receipt. | The embedded form uses that same order endpoint and payment attempt. The handoff does not create another order or payment ledger. |
+| Return and recovery | The storefront shows the confirmed receipt and clears its cart view. | The Experience clears its originating bag after it verifies Core's result. `POST /store-api/checkout/handoff/recover` can retrieve the original result after a lost browser message. A read needs no cart lock. An explicit reopen acquires that lock to fence the older frame. |
+| Refund | Studio submits an approved command against the original payment attempt. `POST /api/payments/{id}/refund` requires `payments.manage`, explicit approval and an idempotency key. | The merchant uses the same Studio command for a Storyfront order. The buyer's checkout credential cannot issue a refund. |
+
+The local [handoff regression](https://github.com/veyndo/veyndo/blob/main/scripts/checkout_handoff.py)
+compares equivalent native and transferred carts in one shop. It rejects a
+changed total in both paths and verifies matching quote options, localized line
+snapshots and simulated payment state. Each confirmed purchase produces one
+order, the expected stock decrement and one `order.placed` event, including
+after a replay. The same suite checks lost messages and concurrent recovery.
+See the [public browser results](status.md#native-and-embedded-checkout-compatibility-9-november-2026)
+and the separate [configured provider acceptance](storyfront.md#accept-a-hosted-release).
+
 ## A purchase with a separate commerce host
 
 The local reference uses two Rust processes and two PostgreSQL databases. The

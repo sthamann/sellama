@@ -75,7 +75,11 @@ it("keeps the prompt while switching between elements and agent modes", async ()
       onEnvironments={() => {}}
     />,
   );
-  fireEvent.click(await screen.findByRole("tab", { name: "Agent" }));
+  fireEvent.click(
+    await screen.findByRole("button", { name: "Open editor: Home" }),
+  );
+  fireEvent.click(await screen.findByRole("button", { name: "Properties" }));
+  fireEvent.click(screen.getByRole("tab", { name: "Agent" }));
   fireEvent.change(
     screen.getByRole("textbox", { name: "What would you like to change?" }),
     { target: { value: "Make the hero airy" } },
@@ -213,6 +217,9 @@ it("moves and deletes blocks on the actual canvas with native undo and without s
       sandbox
       onEnvironments={() => {}}
     />,
+  );
+  fireEvent.click(
+    await screen.findByRole("button", { name: "Open editor: Home" }),
   );
   const first = (
     await screen.findAllByRole("group", { name: "Element controls: Hero" })

@@ -269,6 +269,10 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
 - [ ] CHK-08 Compose native Veyndo and original Storyfront; accept full purchase,
   verified return, empty originating cart, callback replay and refund integration.
   [Hosted release checklist](storyfront.md#accept-a-hosted-release).
+  - [x] Exercise the embedded Storyfront checkout controller with independent
+    Checkout in Chromium. Verify the original receipt and empty bag after
+    response loss and reload. Build the private Northflank service image.
+    [Local proof and hosted status](checkout-component.md#storyfront-composition-and-hosted-rollout).
 - [ ] CHK-09 Accept foreign/revoked/private/paused/stale/B2B/stock/provider failures,
   restart/uncertainty recovery and existing Flow/document/outbox behavior.
   - [x] CHK-09a Accept the local native composition with a company buyer, current

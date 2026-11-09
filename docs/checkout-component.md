@@ -316,3 +316,32 @@ Core URL, Checkout URL and local Playwright module. Run
 It drives the actual shop on desktop and mobile. The mobile case drops the
 confirmation response after the service commits and verifies one stock
 decrement, the original receipt after reload and an empty bag.
+
+## Storyfront composition and hosted rollout
+
+On 9 November, local Chromium used the Storyfront checkout controller and cart
+persistence from `a57ed0e` in a fixture page with separate HTTPS origins for
+Storyfront, Core and Checkout. The fixture transport used Storyfront's Commerce
+client against real Core and Checkout processes with separate PostgreSQL
+databases. The original checkout form accepted a signed-in buyer inside its
+iframe and used simulated payment. Core kept the order and stock transaction.
+
+| Case | Result |
+| --- | --- |
+| Desktop, normal return | `RAC-bca1a7a5` confirmed. The parent closed the iframe and the empty bag survived reload. |
+| Mobile, response and iframe completion message dropped | `RAC-c913056e` recovered from Core. Both confirmation attempts returned the same order. The parent verified the receipt and the empty bag survived reload. |
+
+Each case produced one order, one stock decrement and one `order.placed`
+event. The fixture ran the Storyfront checkout path without starting the full
+Experience deployment. The published Storyfront and provider sandbox require
+separate acceptance.
+
+Northflank built Checkout image `puffy-soup-2325` from `eaa34f2` for the
+private `veyndo-checkout` service. It is paused and has an HTTP readiness probe
+at `/ready` on port 8810. Before it can serve a test shop, provision the
+dedicated database and restricted runtime login described in the
+[Checkout service guide](https://github.com/veyndo/checkout/tree/main/service).
+Verify readiness with the assigned database role, then configure the exact
+browser origins and one signed-in test shop. The hosted native and Storyfront
+acceptance must cover the original receipt, cart, stock and outbox, followed by
+configured provider payment and refund.

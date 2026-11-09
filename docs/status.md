@@ -20,7 +20,8 @@ trigger now follows `veyndo/veyndo` on `main`.
 
 The public app view served the new filter control. In an isolated cart in the
 public demo shop, preview returned a price and delivery date and left the cart
-empty. Confirmation added one unit. Changed quantity and a replay of the same
+empty. The single external probe measured 85 ms for preview and 103 ms for
+confirmation. Confirmation added one unit. Changed quantity and a replay of the same
 revision each returned HTTP 409. The test then emptied its cart. The
 [Nord Atelier SDK excerpt](https://github.com/veyndo/sdk/blob/main/docs/nord-atelier.md)
 also ran against the public demo. These checks did not install an app in a

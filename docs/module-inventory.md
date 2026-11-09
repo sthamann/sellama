@@ -89,6 +89,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/manifest.rs](../src/apps/manifest.rs) | Strict package contract; identifiers and limits are checked before logical model registration. |
 | [src/apps/manifest_policy.rs](../src/apps/manifest_policy.rs) | Required native policy ports for the complete shared compiler; no package or request fields can select a weaker policy. |
 | [src/apps/manifest_validation.rs](../src/apps/manifest_validation.rs) | Complete shared package compiler adapter; trusted native policies retain current authority and exact native errors. |
+| [src/apps/mcp_views.rs](../src/apps/mcp_views.rs) | Publish revision-bound native MCP App views and authorize their read-only interactions. |
 | [src/apps/mod.rs](../src/apps/mod.rs) | Versioned app packages: managed data, UI slots, agent tools and isolated service calls. |
 | [src/apps/model_contract.rs](../src/apps/model_contract.rs) | Preserve native problem kinds, revision-conflict status and escaped JSON pointers across the pure model boundary. |
 | [src/apps/native_data.rs](../src/apps/native_data.rs) | App record translations use configured shop languages and field-level main-language inheritance. |
@@ -1218,11 +1219,13 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/apps/ConfigurationForm.tsx](../frontend/src/shared/apps/ConfigurationForm.tsx) | Shared product configuration form: declared input fields use the existing cart, revision and app gateway. |
 | [frontend/src/shared/apps/ConfigurationLibrary.tsx](../frontend/src/shared/apps/ConfigurationLibrary.tsx) | Bounded keyset library selection retains the chosen record while navigating actual server pages. |
 | [frontend/src/shared/apps/ConfigurationSummary.tsx](../frontend/src/shared/apps/ConfigurationSummary.tsx) | Checkout, receipts and Studio render the same frozen configuration, without fetching a newer app or private library. |
+| [frontend/src/shared/apps/ConversationAppViews.tsx](../frontend/src/shared/apps/ConversationAppViews.tsx) | Render server-selected MCP App results in an opaque iframe inside the conversation. |
 | [frontend/src/shared/apps/CoreExtensions.tsx](../frontend/src/shared/apps/CoreExtensions.tsx) | Native object fields reuse managed forms, current app actions and the shop's content-language scope. |
 | [frontend/src/shared/apps/PrivateFormInbox.tsx](../frontend/src/shared/apps/PrivateFormInbox.tsx) | Host composition of the app-owned private response panel, with a neutral SDK contract. |
 | [frontend/src/shared/apps/PublicFormBlock.tsx](../frontend/src/shared/apps/PublicFormBlock.tsx) | Host composition of the registered forms app; apps depend on this contract, not each other's code. |
 | [frontend/src/shared/apps/configuration-summary.css](../frontend/src/shared/apps/configuration-summary.css) | Compact read-only configuration details fit checkout, confirmation and native order layouts. |
 | [frontend/src/shared/apps/configuration-types.ts](../frontend/src/shared/apps/configuration-types.ts) | Shared configuration projection; the Manifest, storefront and Studio use the same declared input contract. |
+| [frontend/src/shared/apps/conversation-app-views.css](../frontend/src/shared/apps/conversation-app-views.css) | Scope embedded result framing to conversation messages in Studio and Storefront. |
 | [frontend/src/shared/apps/form-contract.ts](../frontend/src/shared/apps/form-contract.ts) | Public form block contract shared through the host, never by importing another app's implementation. |
 | [frontend/src/shared/apps/native/NativeAppView.tsx](../frontend/src/shared/apps/native/NativeAppView.tsx) | The same React renderer powers design preview, private sandbox, released admin modules and storefront surfaces. |
 | [frontend/src/shared/apps/native/NativeAssetField.tsx](../frontend/src/shared/apps/native/NativeAssetField.tsx) | Searchable tenant-owned files with private image preview and contextual multipart upload; no raw asset IDs need to be typed. |
@@ -1339,6 +1342,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/i18n/content-editors.css](../frontend/src/shared/i18n/content-editors.css) | Shared translated fields and content-language context own their styles on every direct editor entry. |
 | [frontend/src/shared/i18n/content-language.ts](../frontend/src/shared/i18n/content-language.ts) | Resolve editable translation keys without merging distinct regional locales or fabricating inherited values. |
 | [frontend/src/shared/i18n/control-i18n.ts](../frontend/src/shared/i18n/control-i18n.ts) | Complete vocabulary for the platform control plane and service hub. Technical provider/service IDs stay stable. |
+| [frontend/src/shared/i18n/conversation-app-i18n.ts](../frontend/src/shared/i18n/conversation-app-i18n.ts) | Interface copy for embedded app result loading and failure states. |
 | [frontend/src/shared/i18n/core-extension-i18n.ts](../frontend/src/shared/i18n/core-extension-i18n.ts) | Interface vocabulary for native app model extensions; merchant labels keep their own language scope. |
 | [frontend/src/shared/i18n/crm-i18n.ts](../frontend/src/shared/i18n/crm-i18n.ts) | Complete CRM/history vocabulary shared by settings, customer account and entity editors. |
 | [frontend/src/shared/i18n/currency-i18n.ts](../frontend/src/shared/i18n/currency-i18n.ts) | Complete currency settings vocabulary, shared by storefront and channel editors. |
@@ -2202,6 +2206,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/agent_work_template.py](../scripts/testing/agent_work_template.py) | Repeat completed native work through real outbox/Flow/approval owners; source evidence stays private. |
 | [scripts/testing/app_approval.py](../scripts/testing/app_approval.py) | Use the Rust manifest serializer for operator pins; never invent a second canonical digest. |
 | [scripts/testing/app_discovery.py](../scripts/testing/app_discovery.py) | Exercise real app discovery beyond an alphabetical sample and enforce read-only native dispatch. |
+| [scripts/testing/app_mcp_views.py](../scripts/testing/app_mcp_views.py) | Exercise installed MCP App placement, native tool calls, actor admission and conversation attachments. |
 | [scripts/testing/b2b_checkout_race.py](../scripts/testing/b2b_checkout_race.py) | Force the real customer-share/unit-update checkout interleaving; no business handler is mocked. |
 | [scripts/testing/catalog_intake_checks.py](../scripts/testing/catalog_intake_checks.py) | Native catalogue intake through HTTP/MCP; real stage saves, exact replay, current rights and selected release, no model calls. |
 | [scripts/testing/catalog_preparation_checks.py](../scripts/testing/catalog_preparation_checks.py) | Durable preparation projection through the native catalogue API/MCP; fixture SQL creates an explicit failed provider result only. |

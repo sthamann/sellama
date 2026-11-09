@@ -309,6 +309,10 @@ The following are implementation tasks; existing UI foundations do not complete 
   through the same definitions as manual editing, with durable runs and review.
 - [ ] UI-06 Add version-negotiated OpenUI, A2UI and MCP Apps adapters to that same
   definition/runtime; declare supported subsets and structured/text fallback.
+  - [x] Bind installed App tools to declarative MCP App views in Studio and
+    Storefront conversations. The tool call owns the result, and the frame's
+    next-page action is confined to that read tool and active revision.
+    [Package and runtime contract](agentic-component-ui.md#app-owned-views-in-the-conversation).
 - [ ] UI-07 Prove one actual standalone/embedded/agent-host vertical slice, then
   cover each component's required UI exports and agent operations from the matrix.
   - [x] Connect the native Orders working view to shipping policy evidence

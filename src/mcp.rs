@@ -39,9 +39,16 @@ pub(crate) async fn mcp(State(a): State<App>, h: RequestContext, Json(v): Json<V
         return StatusCode::ACCEPTED.into_response();
     }
     let result = match method {
-        "initialize" => Ok(
-            json!({"protocolVersion":if v["params"]["protocolVersion"]=="2025-11-25"{"2025-11-25"}else{"2026-07-28"},"capabilities":{"tools":{},"resources":{}},"serverInfo":{"name":"veyndo","version":env!("CARGO_PKG_VERSION")}}),
-        ),
+        "initialize" => {
+            let mut capabilities = json!({"tools":{},"resources":{}});
+            if v["params"]["capabilities"]["extensions"][apps::mcp_views::EXTENSION]["mimeTypes"]
+                .as_array()
+                .is_some_and(|types| types.iter().any(|mime| mime == apps::mcp_views::MIME))
+            {
+                capabilities["extensions"] = json!({apps::mcp_views::EXTENSION:{}});
+            }
+            Ok(json!({"protocolVersion":if v["params"]["protocolVersion"]=="2025-11-25"{"2025-11-25"}else{"2026-07-28"},"capabilities":capabilities,"serverInfo":{"name":"veyndo","version":env!("CARGO_PKG_VERSION")}}))
+        }
         "ping" => Ok(json!({})),
         "tools/list" => {
             let mut tools = OPERATIONS
@@ -49,11 +56,7 @@ pub(crate) async fn mcp(State(a): State<App>, h: RequestContext, Json(v): Json<V
                 .filter(|operation| operation.admitted(&a, &h))
                 .map(|operation| operation.tool())
                 .collect::<Vec<_>>();
-            match if h.principal.agent_key.is_some() {
-                Ok(Vec::new())
-            } else {
-                apps::app_tools(&a, &h).await
-            } {
+            match apps::app_tools(&a, &h).await {
                 Ok(apps) => {
                     tools.extend(apps);
                     Ok(json!({"tools":tools}))
@@ -62,13 +65,24 @@ pub(crate) async fn mcp(State(a): State<App>, h: RequestContext, Json(v): Json<V
             }
         }
         "tools/call" => protocol::call(&a, &h, &v["params"]).await,
-        "resources/list" => Ok(
-            json!({"resources":[{"uri":"commerce://capabilities","name":"Commerce capabilities","mimeType":"application/json"}]}),
-        ),
+        "resources/list" => apps::mcp_views::list(&a, &h)
+            .await
+            .map(|mut resources| {
+                resources.insert(0, json!({"uri":"commerce://capabilities","name":"Commerce capabilities","mimeType":"application/json"}));
+                json!({"resources":resources})
+            })
+            .map_err(RpcError::server),
         "resources/read" if v["params"]["uri"] == "commerce://capabilities" => Ok(
             json!({"contents":[{"uri":"commerce://capabilities","mimeType":"application/json","text":json!({"capabilities": OPERATIONS.iter().map(|operation|operation.description()).collect::<Vec<_>>()}).to_string()}]}),
         ),
-        "resources/read" => Err(RpcError::invalid("Resource not found")),
+        "resources/read" => match v["params"]["uri"].as_str() {
+            Some(uri) => apps::mcp_views::read(&a, &h, uri).await
+                .map_err(RpcError::server)
+                .and_then(|resource| resource
+                    .map(|content| json!({"contents":[content]}))
+                    .ok_or_else(|| RpcError::invalid("Resource not found"))),
+            None => Err(RpcError::invalid("Resource not found")),
+        },
         _ => Err(RpcError::method()),
     };
     Json(match result {

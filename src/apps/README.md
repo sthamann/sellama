@@ -66,3 +66,8 @@ trust/dependency/commerce/lifecycle and connected-frontend hooks on that transac
 routes.rs retains management/merchant/body admission and caller commit/rollback.
 Preserve config-before-tenant/app lock order, late revision errors and retained
 operational data; do not add a no-op production hook, direct state SQL or event.
+
+
+[`mcp_views.rs`](mcp_views.rs) publishes versioned MCP App resources from installed
+native views and attaches executed tool results to Studio and storefront replies.
+The iframe shell is delivered through the existing opaque app document policy.

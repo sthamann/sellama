@@ -1270,6 +1270,11 @@
     "source": "src/routes.rs"
   },
   {
+    "path": "/app-ui/mcp-view",
+    "method": "GET",
+    "source": "src/apps/ui_documents.rs"
+  },
+  {
     "path": "/app-ui/{id}/{digest}",
     "method": "GET",
     "source": "src/apps/ui_documents.rs"

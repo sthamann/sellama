@@ -316,3 +316,13 @@ and delegates publication to the same organization/catalog transactional writers
 and consent disclosure consume that same policy. Shared history exposes B2B
 configuration over HTTP/MCP without financial rewind. No second settings, audit
 or analytics ledger is introduced. [Integration map and limits](feature-integration.md).
+
+
+### App results inside assistant conversations
+
+A versioned App Manifest declares the view and the associated read tool.
+Core checks the installed package and current actor, executes the tool, then
+attaches the result to the conversation. The browser hosts the view in the
+existing isolated App document boundary. A pagination request can only call
+that view's pinned read tool. Other MCP hosts discover the same resource through
+the tool metadata. [App views in conversations](agentic-component-ui.md#app-owned-views-in-the-conversation).

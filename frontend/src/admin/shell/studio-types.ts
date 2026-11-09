@@ -103,6 +103,7 @@ export type Overview = {
   capabilities: string[];
 };
 export type Preview = {
+  appViews?: import("../../shared/apps/ConversationAppViews").ConversationAppView[];
   model: string;
   inference: string;
   locale?: string;

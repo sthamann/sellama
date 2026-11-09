@@ -1,5 +1,12 @@
 # Changelog
 
+## App-owned MCP views in conversations
+
+- Let installed apps attach read-only tables and cards to merchant and shopper
+  responses. The same resource works through MCP Apps discovery and reads.
+- Keep resource reads and pagination scoped to the active app revision and
+  current actor. Provide a Product Guide package with public and private views.
+
 ## Assistant answer formatting
 
 - Render tables, lists and emphasis in the storefront assistant and Studio.

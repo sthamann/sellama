@@ -116,7 +116,11 @@
     padding: 10px 8px;
   }
   .concierge-comparison th[scope="row"] {
+    inline-size: 28%;
+    min-inline-size: 5.5rem;
     white-space: normal;
+    overflow-wrap: normal;
+    hyphens: auto;
   }
   .concierge-comparison :is(td, th):not(:first-child) {
     min-inline-size: 6rem;

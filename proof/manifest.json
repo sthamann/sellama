@@ -5419,8 +5419,8 @@
       "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
     },
     "components.lock.json": {
-      "sha256": "8fc8beab27ca1b8e223dc619ad999586eab6b4a36f5f86be12c69c76e5fa55fd",
-      "review": "Pin the CI-verified Apps snapshot including the canonical shared schema export. Conversation placement, tool rights and native SQL policy are unchanged; the source hash checks the exact component tree."
+      "sha256": "fe9d61e3fcedef9a22df788e6b14e929185b6a7fb2a473f80df8fa2248a1ea66",
+      "review": "Import the App image build inputs that match the existing compile-time shared SQL export. The staged images include the signed scope SQL without changing runtime access policies."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",

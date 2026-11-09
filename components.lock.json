@@ -58,7 +58,7 @@
     },
     "apps": {
       "repository": "https://github.com/veyndo/apps",
-      "commit": "193288571b0423e776ef5d401cbffeeaf048c5a7",
+      "commit": "b41c9f5a03b190a4fe3414cc3250523ee4edafc9",
       "path": "extensions/services/app-storage",
       "files": {
         ".dockerignore": "c543d3f53b1ec91be79b9acdacbe849dbb77b1e27dc62f20a78ddf3c0cad5abe",
@@ -85,7 +85,7 @@
         "authority/src/vault.rs": "2d1c0d43214a0d7c8b07b00675a4c81263cecf301e987312aac688a8ca0c264d",
         "data-service/Cargo.lock": "d6fe54dc24b6bdbd492a89e8fc0caa8bb6d4f3192f0464df3509234b4c1eb258",
         "data-service/Cargo.toml": "c00b50e4214cf2de1973015e1f8ce4de8a19a8408a80a6079dd90e4bff936f8f",
-        "data-service/Dockerfile": "4180d18e5f059df250cc324b50a21c1a747c2571a2d052ef3ade561d90ed31fb",
+        "data-service/Dockerfile": "bc2d7c674caa6d17d562fb337a17c22640423f7fbc8a7b100afb6809ce78aa5a",
         "data-service/README.md": "f2543b257fff965bdc9f43b9293465cfe8e8250a529937a9678417d692eeaeb5",
         "data-service/examples/install.mjs": "734648fcd13d322a3ae5183c45d17c6aff2bcf1fb85f1a41ce6c95e4a72a28ec",
         "data-service/examples/jobs.mjs": "b7b321a9937b2c546285eced5098bc50a22f68c19a4ea3bcc655fb5490c2d0a8",
@@ -255,7 +255,7 @@
         "service/AGENTS.md": "7869cdc81dc7f0c919144ad14823371422414a0969ba7b091d007abd1b12d089",
         "service/Cargo.lock": "a36785fdb1a3e71929e500a6fd9938af12ec55eb80ae31620daa2a2034013c03",
         "service/Cargo.toml": "10396aafd3f964e0a56f44fb18580d26c5f2cd25e309381f8f60f8d165e53985",
-        "service/Dockerfile": "325837548bc6397e569f5985ba8882bb64b483df80a4bf0faf04543ea23a5951",
+        "service/Dockerfile": "069024933d5da3584cd8d9d4cdc4e2f70942e6db8e593ecb01166b24f15bd36c",
         "service/README.md": "036b2ddb36636c2d0ee399f3e8cd45f95ba0cb491ff03ecced000dcefc93fbd8",
         "service/examples/evaluate.mjs": "a3e59808100cba9530f8bc227dfd0227642071d64d50dcdd866bcda11e4a167f",
         "service/examples/sdk.mjs": "575947f37b63a1c6df5087ff7f9e9aba01a152cc4ec48242df54d1d92d5f6231",

@@ -62,6 +62,7 @@ own database and uses HTTP for the three Commerce operations. Core requires
 no new schema or synchronous dependency on that process. If a response goes
 missing, recover the receipt or retry the exact reviewed purchase with the
 same session. A new session can represent a different purchase.
+See the [Northflank rollout and public purchase results](status.md#commerce-host-ports-for-independent-checkout-9-november-2026).
 
 ## How native and embedded checkout share one order
 

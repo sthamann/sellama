@@ -18,18 +18,36 @@ still reach Commerce directly. The independent Checkout service uses one
 host request per operation and keeps only its session metadata in its own
 database.
 
+Core and the private app worker run Northflank image `wiry-spirit-4983`
+from `7ce9217c`, with the same source tree as merged release `f8cdece8`.
+Core passed readiness with one replica and zero restarts. The private app
+worker started with its dedicated role and sampled its queues.
+
+| Public simulated journey after rollout | Observed result |
+| --- | --- |
+| Core host API | `RAC-4c01a1f4`, 59.90 EUR, one stock decrement and the same receipt on replay and recovery. |
+| Native storefront | `RAC-f34fe74a`, 59.90 EUR, empty cart after return and reload. |
+| Embedded Storyfront | `RAC-8991a90e`, 59.90 EUR, empty bag after return and reload. |
+
+Twenty public host quotes measured 84.1 ms at p95. The API confirmation
+took 116.4 ms and the receipt read took 40.9 ms. The Chrome confirmations
+took 301 ms in the native storefront and 373 ms inside Storyfront. These
+are client observations on demo shops, with one purchase per path.
+The Storyfront run used keyboard activation to add the product because
+pointer clicks did not add it at the tested viewport.
+
 Local PostgreSQL acceptance combined both Rust processes with HTTP, MCP and
 the JavaScript SDK. A lost confirmation response recovered the original
 order after restarting Checkout. The company buyer test exercised current
 membership, approval and budgets, the resulting Flow and the invoice.
 
-With concurrent catalog reads, 192 quotes per path finished without errors.
-The native host quote measured 103.3 ms at p95. The quote through the separate
-Checkout process measured 120.1 ms at p95. Catalog p95 was 26.8 ms and 27.8 ms
-respectively. Core still returned quotes and catalog results while Checkout
-was stopped. These timings come from local debug builds and a loopback
-proxy. The hosted Checkout process and configured provider acceptance are
-separate release steps.
+With concurrent catalog reads, 192 local quotes per path finished without
+errors in each of two runs. The first run shared the machine with other
+verification. In the isolated rerun, native and composed quote p95 were
+76.5 ms and 88.1 ms, and catalog p95 was 21.6 ms and 23.2 ms. Core still
+returned quotes and catalog results while Checkout was stopped. These
+measurements use debug builds and a loopback proxy. The separately hosted
+Checkout process and configured provider acceptance remain open.
 [Commerce host ports](checkout-component.md#commerce-host-ports-in-core).
 
 ## Native and embedded checkout compatibility, 9 November 2026

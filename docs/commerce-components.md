@@ -236,7 +236,9 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
   - [x] CHK-02a Use the Core quote, atomic commit and receipt ports with a
     separate Checkout process. Verify simulated payment, current company
     approval, one order/stock/outbox write and recovery with no cart token.
-    [Core host ports](checkout-component.md#commerce-host-ports-in-core).
+    Publish the Core host and verify all three public purchase entry points.
+    [Core host ports](checkout-component.md#commerce-host-ports-in-core) ·
+    [Hosted evidence](status.md#commerce-host-ports-for-independent-checkout-9-november-2026).
   - [ ] Accept the hosted independent service with configured Sandbox payment
     and verify payment attempt, callback, settlement and refund.
 - [ ] CHK-03 Extract Rust checkout orchestration/session storage to its own repo;

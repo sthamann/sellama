@@ -2,6 +2,7 @@
 use crate::{App, RequestContext, Result, Value, accounts};
 use axum::{Router, routing::post};
 
+pub(crate) mod buyer_identity;
 mod commit;
 mod lock;
 mod prepare;
@@ -11,7 +12,17 @@ mod session_quote;
 mod state;
 
 pub(crate) fn router() -> Router<App> {
+    use crate::auth::SecureRoutes;
     Router::new()
+        .secure_route(
+            "/api/identity/checkout/introspect",
+            &[("POST", "public")],
+            post(buyer_identity::inspect),
+        )
+        .route(
+            "/store-api/checkout/session-access",
+            post(buyer_identity::issue),
+        )
         .route(
             "/store-api/checkout/session-order",
             post(session_order::confirm_session),

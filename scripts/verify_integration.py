@@ -96,6 +96,9 @@ env.update({
     # Existing differential cases intentionally use the versioned furniture fixture.
     # The fashion_demo provider suite starts a separate server with the shipping default.
     "DEMO_CATALOG": "legacy-furniture",
+    "CHECKOUT_IDENTITY_SHOPS": "atelier",
+    "CHECKOUT_IDENTITY_KEY": "BwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwc",
+    "CHECKOUT_INTROSPECTION_TOKEN": "checkout-introspection-fixture-" + "i"*32,
     "COMMERCE_PUBLIC_ORIGIN": "https://studio.example.test",
     "OLLAMA_URL": "http://127.0.0.1:1", "TEST_PERSONAL": "1",
     "PLATFORM_SECRET_KEY": "07"*32, "INFERENCE_ALLOW_LOOPBACK": "true",

@@ -141,9 +141,10 @@ impl Review {
 
 pub(crate) async fn confirm_session(
     State(a): State<App>,
-    h: RequestContext,
+    mut h: RequestContext,
     Json(review): Json<Review>,
 ) -> Result<impl IntoResponse> {
+    super::buyer_identity::bind(&mut h)?;
     if !review.confirmed {
         return Err(bad("Explicit buyer confirmation is required"));
     }
@@ -167,9 +168,10 @@ pub(crate) async fn confirm_session(
 
 pub(crate) async fn recover_session(
     State(a): State<App>,
-    h: RequestContext,
+    mut h: RequestContext,
     Json(input): Json<Recovery>,
 ) -> Result<impl IntoResponse> {
+    super::buyer_identity::bind(&mut h)?;
     let key = key(&input.session_id)?;
     let tenant = tenant(&h)?;
     let mut tx = a.db.begin().await?;

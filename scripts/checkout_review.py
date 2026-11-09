@@ -87,6 +87,14 @@ assert call(host + 'receipt', recovery, identity) == receipt
 call(host + 'receipt', recovery, other, expected=404)
 assert call('/store-api/product/lamp', {}, tenant)['product']['stock'] == stock - 1
 check('One host order, one stock change and an exact receipt without the cart token; another buyer cannot recover it')
+if os.getenv('CHECKOUT_IDENTITY_SHOPS'):
+    from testing.checkout_buyer_identity import verify
+    verify(BASE, call, identity, other, current, receipt, recovery)
+    check('Checkout grants preserve buyer/shop binding, cannot replace a native login and stop working after logout')
+if service := os.getenv('CHECKOUT_TEST_SERVICE_URL'):
+    from testing.checkout_buyer_identity import verify_service
+    verify_service(BASE, service, call, tenant)
+    check('Standalone Checkout uses the actual HttpOnly buyer login, confirms one order and recovers it after a fresh login')
 if os.getenv('REPORT_PATH'):
     from pathlib import Path
     Path(os.environ['REPORT_PATH']).write_text(json.dumps({'passed':len(checks),'checks':checks,'realMoneyCharged':False},indent=2)+'\n')

@@ -224,6 +224,17 @@ pub(crate) async fn project_cart(
     if include_policy_version {
         result["legal"]["policyVersion"] = json!(legal::policy_version(&config.legal));
     }
+    if c.status == "open"
+        && c.data.customer_id.is_some()
+        && c.data.admin_actor.is_none()
+        && c.data.pos_actor.is_none()
+        && !config.is_business(&c.data.group)
+        && result["paymentMethod"]["mode"] == "simulated"
+        && checkout::buyer_identity::browser_checkout_enabled(&c.tenant)
+    {
+        result["checkoutService"] =
+            json!({"legalPolicyVersion":legal::policy_version(&config.legal)});
+    }
     commerce::dates(a, &mut result).await?;
     let currency = config.currencies.selected(&c.data.currency)?;
     result["price"]["totalMinor"] = json!(

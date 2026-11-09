@@ -258,3 +258,61 @@ the local fixture.
   attempts and receipts, with rollback. Do not invalidate active carts at cutover.
 
 This component uses [the common agentic UI contract](agentic-component-ui.md).
+
+## Bind Checkout to a native buyer login
+
+Core can issue a five-minute Checkout grant for a signed-in buyer in a configured
+live shop. Enable the canary with the following Core settings.
+
+| Setting | Value |
+| --- | --- |
+| `CHECKOUT_IDENTITY_SHOPS` | Comma-separated live shop IDs explicitly enabled for the canary |
+| `CHECKOUT_IDENTITY_KEY` | 32 random bytes encoded as unpadded base64url, held only by Core |
+| `CHECKOUT_INTROSPECTION_TOKEN` | Separate random service credential of at least 32 printable characters |
+
+All Core replicas use the same settings. The shop calls
+`POST /store-api/checkout/session-access` using its existing buyer login and the
+normal same-origin and CSRF headers for an HttpOnly session. It receives an opaque
+`access_token`. Keep this token in memory and send it as the Checkout service's
+Bearer token. For a quote or confirmation, also send it in the service's
+`x-customer-token` header alongside the native cart capability. Receipt recovery
+only needs the grant. A new login can obtain a fresh grant for the same buyer and
+recover the existing receipt.
+
+Configure the separate service with audience `veyndo-checkout` and
+`CHECKOUT_INTROSPECTION_URL=https://<core-origin>/api/identity/checkout/introspect`.
+Supply the same introspection credential and the exact Core commerce origin.
+The native buyer cookie and the encryption key stay with Core. Introspection
+and the native checkout ports recheck the original session in PostgreSQL. An
+expired, revoked or foreign-shop grant cannot be used to read an account, mint
+another grant, or purchase another buyer's cart. Checkout keeps its existing
+dedicated draft database.
+
+This configuration enables an authenticated buyer canary. Native storefront and
+Storyfront can share the existing checkout interface. To route an admitted
+browser purchase to the independent service, also set Core's
+`CHECKOUT_BROWSER_ORIGIN` to the exact HTTPS Checkout origin. Set
+`CHECKOUT_ORIGINS` in Checkout to the JSON array of exact Core page origins
+that render this interface. Include the actual Core iframe origin for an
+embedded checkout, even when the parent storefront has a different origin.
+
+The shop offers this route only for a signed-in consumer cart with a simulated
+method in an enabled shop. The browser sends the short-lived grant and cart
+capability directly to Checkout. Commerce remains responsible for the final
+review and commit, and the storefront reads the complete receipt from its
+original cart. A lost confirmation response triggers a read of the same cart
+to recover the original order. Omit `CHECKOUT_BROWSER_ORIGIN` to stop offering
+the route on new cart reads. Guest and provider payments continue through
+the existing native endpoint.
+
+Accept the configured origins in the hosted native and Storyfront browsers
+before enabling the route. Guest checkout through the independent service and
+hosted provider settlement and refund have separate acceptance steps.
+
+With both fixture services and the built storefront running locally, set
+`BASE_URL`, `CHECKOUT_TEST_SERVICE_URL` and `CHECKOUT_BROWSER_MODULE` to the
+Core URL, Checkout URL and local Playwright module. Run
+`node scripts/testing/checkout_browser_route.mjs` against disposable databases.
+It drives the actual shop on desktop and mobile. The mobile case drops the
+confirmation response after the service commits and verifies one stock
+decrement, the original receipt after reload and an empty bag.

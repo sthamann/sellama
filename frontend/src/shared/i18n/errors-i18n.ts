@@ -159,6 +159,12 @@ const messages: Record<string, readonly string[]> = {
     "Le prix ou la commande a changé. Vérifiez avant de commander.",
     "El precio o el pedido cambió. Revisa antes de realizar el pedido.",
   ],
+  "Checkout confirmation could not be verified": [
+    "We could not check your confirmation. Check your orders before trying again.",
+    "Wir konnten die Bestätigung nicht prüfen. Schau vor einem weiteren Versuch in deine Bestellungen.",
+    "Nous n’avons pas pu vérifier votre confirmation. Consultez vos commandes avant de réessayer.",
+    "No pudimos comprobar la confirmación. Revisa tus pedidos antes de volver a intentarlo.",
+  ],
   "Database capacity busy; retry later": [
     "The shop is busy. Please try again shortly.",
     "Der Shop ist gerade ausgelastet. Bitte versuche es gleich erneut.",

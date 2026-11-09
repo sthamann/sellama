@@ -56,17 +56,25 @@ pub(crate) async fn session(a: &App, t: &str, email: &str) -> Result<String> {
         .await?;
     Ok(token)
 }
-pub(crate) async fn identity(a: &App, h: &RequestContext) -> Result<(String, String)> {
-    let t = tenant(h)?;
+pub(crate) fn session_digest(h: &RequestContext) -> Result<String> {
+    if let Some(buyer) = &h.checkout_buyer {
+        return Ok(buyer.digest.clone());
+    }
     let token = header(h, "x-customer-token").ok_or(Error(
         StatusCode::UNAUTHORIZED,
         "Customer login required".into(),
     ))?;
+    Ok(hash(token))
+}
+
+pub(crate) async fn identity(a: &App, h: &RequestContext) -> Result<(String, String)> {
+    let t = tenant(h)?;
+    let digest = session_digest(h)?;
     let email: Option<String> = sqlx::query_scalar(
         "SELECT s.email FROM customer_sessions s JOIN customers c ON c.tenant=s.tenant AND c.email=s.email WHERE s.tenant=$1 AND s.digest=$2 AND s.expires_at>now() AND c.active",
     )
     .bind(&t)
-    .bind(hash(token))
+    .bind(digest)
     .fetch_optional(&a.db)
     .await?;
     Ok((

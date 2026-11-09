@@ -21,10 +21,18 @@ pub(crate) struct Principal {
     /// Existing integration-key ID, admitted server-side only for budgeted agents.
     pub agent_key: Option<String>,
 }
+#[derive(Clone, Debug)]
+pub(crate) struct CheckoutBuyer {
+    pub digest: String,
+    pub buyer_hash: String,
+}
+
 #[derive(Clone, Debug, Default)]
 pub(crate) struct RequestContext {
     transport: RawHeaders,
     pub principal: Principal,
+    /// Decrypted only by the three native Checkout service adapters.
+    pub checkout_buyer: Option<CheckoutBuyer>,
     pub validated_tenant: bool,
     /// Internal POS admission, never reconstructed from transport headers.
     pub pos: Option<crate::pos::Admission>,

@@ -167,6 +167,11 @@ pub(crate) async fn product_content(tx: &mut Tx<'_>, t: &str, value: &Value) -> 
         .fetch_one(&mut **tx)
         .await?;
     knowledge::sync_product(tx, t, &json!(crate::product(&r))).await?;
+    sqlx::query("INSERT INTO outbox(tenant,kind,data) VALUES($1,'product.published',$2)")
+        .bind(t)
+        .bind(json!({"productId":id,"revision":r.get::<i64,_>("revision")}))
+        .execute(&mut **tx)
+        .await?;
     Ok(())
 }
 

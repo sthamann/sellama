@@ -169,7 +169,7 @@ async fn execute(
     let (capability, command) = match operation {
         "order" => ("orders.read", "merchant.order"),
         "customer" => ("customers.read", "merchant.customer"),
-        "product" => ("products.read", "merchant.product.content"),
+        "product" | "catalog_evidence" => ("products.read", "merchant.product.content"),
         "product_save" => ("products.write", "merchant.product.save"),
         _ => return Err(Error(StatusCode::NOT_FOUND, "Unknown core callback".into())),
     };
@@ -181,6 +181,13 @@ async fn execute(
     }
     credentials::permit(h, capability)?;
     auth::permit(h, credentials::scope(capability).unwrap())?;
+    if operation == "catalog_evidence" {
+        input_schema::validate(
+            &json!({"type":"object","properties":{"id":{"type":"string","minLength":1,"maxLength":100}},"required":["id"],"additionalProperties":false}),
+            &v,
+        )?;
+        return super::core_catalog_evidence::read(a, &t, v["id"].as_str().unwrap()).await;
+    }
     input_schema::validate(
         &json!({"type":"object","properties":{"id":{"type":"string","maxLength":100},"product":{"type":"object"}},"required":["id"],"additionalProperties":false}),
         &v,

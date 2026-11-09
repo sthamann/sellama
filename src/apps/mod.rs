@@ -26,6 +26,7 @@ pub(crate) use configuration_selection::{
 mod action_admission;
 mod consent;
 mod core_callbacks;
+mod core_catalog_evidence;
 pub(crate) mod core_extensions;
 pub(crate) mod extension_filter;
 mod extension_projection;

@@ -14,6 +14,7 @@ the operation grants. [Setup and examples for repository members](https://github
 
 | Operation | HTTP | MCP |
 | --- | --- | --- |
+| List private document sources | `POST /v1/documents/list` | `knowledge.documents.list` |
 | Save a private document | `POST /v1/documents/put` | `knowledge.documents.put` |
 | Search for a passage | `POST /v1/documents/search` | `knowledge.documents.search` |
 | Verify the passage | `POST /v1/documents/current` | `knowledge.documents.current` |
@@ -47,6 +48,48 @@ if (sources.length) {
 Run this in a backend with a current, shop scoped read token.
 [SDK installation](https://github.com/veyndo/sdk).
 
+## Audit which sources arrived
+
+Knowledge service 0.5.0 can page through imported sources over HTTP and MCP.
+Use `knowledge.products.list` for products and `knowledge.documents.list`
+for private documents. Each operation needs its own read scope. The page
+returns source IDs, revisions, titles, source languages, hashes and
+withdrawal state. It uses the existing tenant and source index on schema 4.
+
+```js
+const page = await knowledge.tool('knowledge.products.list', { limit: 25 });
+if (page.nextCursor) {
+  const next = await knowledge.tool('knowledge.products.list', {
+    limit: 25,
+    after: page.nextCursor,
+  });
+  console.log(next.sources.map(({ id, revision, withdrawn }) => ({ id, revision, withdrawn })));
+}
+```
+
+Pass each returned cursor until it is null. A walk reads current metadata page
+by page. A product update during the walk can be visible on a later request.
+The inventory describes what the projection has received. It is not an event
+history or an authoritative read of the Core catalog. Withdrawn sources stay
+listed for reconciliation. Use search and evidence validation for the actual
+passages. [SDK example](https://github.com/veyndo/knowledge/blob/main/examples/sources.mjs).
+
+## Synchronize a Veyndo catalog
+
+Install the [Knowledge catalog app](https://github.com/veyndo/veyndo/tree/main/extensions/apps/knowledge-catalog)
+with its approved package digest. Configure the operator's service destination
+and the installed shop's `knowledge.catalog.sync` credential. On Knowledge,
+set the fixed Core origin and that shop's `products.read` callback credential
+as described in the [service README](https://github.com/veyndo/knowledge#connect-a-veyndo-catalog).
+Existing items can be refreshed through the app's private action.
+
+Core sends a product ID on creation, edit or selected publication. The app
+credential can read the catalog snapshot from its installed shop. The snapshot
+contains the enabled translations and product links. An unavailable or
+deactivated product is represented as inactive so a retry can withdraw old
+evidence. The separate service owns its search records and does not receive
+the Core database connection.
+
 ## Keep the shop running during a Knowledge outage
 
 Core owns products, stock and orders. It records catalog changes and queues
@@ -65,5 +108,14 @@ import response open during withdrawal and replayed the original event.
 The withdrawn product stayed out of search after the retry.
 
 The independent projection uses lexical search and catches up asynchronously.
+To repeat the local composition test, build Core and the independent Knowledge
+binary. Set `DATABASE_URL` to a disposable local PostgreSQL database with a
+test owner that can create a second database and restricted role. Set
+`BASE_URL` to an unused `http://127.0.0.1:port` Core origin.
+Set `KNOWLEDGE_REPOSITORY` to the component checkout and
+`KNOWLEDGE_TEST_BINARY` to its built binary. Optionally set
+`KNOWLEDGE_SDK_MODULE` to the SDK's JavaScript entry. Run
+`python3 scripts/knowledge_catalog_integration.py`.
+
 Hosted delivery, capacity and switching the product's knowledge consumers to
 this service are tracked separately. [Implementation plan](commerce-components.md#knowledge-first-complete-standalone-ai-component).

@@ -10,7 +10,16 @@ Updated 9 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
-## Orders and shipping in agentic workspaces
+## Orders and shipping in agentic workspaces, 9 November 2026
+
+Production Core runs Northflank image `pure-knowledge-5648` from
+[`cb66af0`](https://github.com/veyndo/veyndo/commit/cb66af0b7b0d9719c49fa204d3ba631957329618).
+The new instance passed readiness with zero restarts and the previous instance
+terminated. Public Studio and the demo shop served the new frontend assets.
+A public assistant request opened the comparison for two catalog products with
+59.90 EUR and 24.90 EUR prices. Its product link opened the native detail page.
+A separate disposable basket added one item, returned a server total and was
+cleared. Anonymous access to private Knowledge remained denied.
 
 Studio can render a reviewed Orders view with current shipping policy using
 OpenUI and native domain permissions. An independent example pairs Commerce
@@ -28,8 +37,9 @@ still reach Commerce directly. The independent Checkout service uses one
 host request per operation and keeps only its session metadata in its own
 database.
 
-Core and the private app worker run Northflank image `wiry-spirit-4983`
-from `7ce9217c`, with the same source tree as merged release `f8cdece8`.
+That rollout used Northflank image `wiry-spirit-4983` on Core and the private
+app worker. It was built from `7ce9217c`, with the same source tree as merged
+release `f8cdece8`.
 Core passed readiness with one replica and zero restarts. The private app
 worker started with its dedicated role and sampled its queues.
 

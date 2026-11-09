@@ -389,6 +389,10 @@ The following are implementation tasks; existing UI foundations do not complete 
   ingestion checkpoints, vector configuration and migration/restore procedures.
 - [ ] KNOW-05 Expose ingest/search/graph/source/withdraw/delete over HTTP and MCP;
   preserve private-source admission, current evidence and tenant isolation.
+  - [x] Add separate document and product source inventories over HTTP and MCP
+    with a JavaScript example. A bounded cursor lists current revisions and
+    withdrawals using the existing source index.
+    [Source inventory](knowledge-component.md#audit-which-sources-arrived).
 - [ ] KNOW-06 Provide SDK examples using an external catalog and documents.
 - [ ] KNOW-07 Prove update/delete/reindex/restart/model-version handling without
   paid provider calls; keep real-provider acceptance separate.

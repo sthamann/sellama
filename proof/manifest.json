@@ -2586,8 +2586,13 @@
     },
     "src/apps/core_callbacks.rs": {
       "status": "unproved",
-      "sha256": "466eaf4a368e0fb2566e0b5da1c9a321c57c01618faca40f715455fba214810b",
-      "review": "Reviewed host exchange v1 inputs and declared job enqueue callback: preserves authenticated principal, explicit jobs.write capability, registered job handler, current compound action rights, schema validation, live-only quota/idempotency/outbox path. Actual native PostgreSQL marketplace fixture passed replay, changed-key conflict, missing capability/PII, revoked key, foreign tenant and version rejection with no queued side effects; native orders/stock/Flow/invoice/restart remain passing. No new mathematical proof of async/network code is claimed."
+      "sha256": "4fb7c618ff4c5881dce550b4131c4e33e28f82aa9073a59ee7d94b5bd6265e6e",
+      "review": "Restore the product-only catalog evidence callback under installed app scope and project selected publication through the native outbox transaction. Local Core and isolated Knowledge PostgreSQL composition verifies event retry, private staging, locale, withdrawal, restart, one order, and current source inventory."
+    },
+    "src/apps/core_catalog_evidence.rs": {
+      "status": "unproved",
+      "sha256": "281d8cf5cc2f13a8145688d8c662030275f002d26deac6128c2e32d00172204b",
+      "review": "Restore the product-only catalog evidence callback under installed app scope and project selected publication through the native outbox transaction. Local Core and isolated Knowledge PostgreSQL composition verifies event retry, private staging, locale, withdrawal, restart, one order, and current source inventory."
     },
     "src/apps/core_documents.rs": {
       "status": "unproved",
@@ -2756,8 +2761,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "afd5d456c2bb9288ba5e40bf9d103d01774e607b6f79c458b3ff2b5a0b857e63",
-      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
+      "sha256": "b4d54bcfa6e632bb382c13006b2d62ad36f4e71e92bb3a1c814cee4cac00e125",
+      "review": "Restore the product-only catalog evidence callback under installed app scope and project selected publication through the native outbox transaction. Local Core and isolated Knowledge PostgreSQL composition verifies event retry, private staging, locale, withdrawal, restart, one order, and current source inventory."
     },
     "src/apps/model_contract.rs": {
       "status": "unproved",
@@ -5271,8 +5276,8 @@
     },
     "src/staging/snapshot.rs": {
       "status": "unproved",
-      "sha256": "9a7aa3367ad460f716f13b76301a9c98fafc20d785b4f5bba7c7465e001ee71d",
-      "review": "Independently reviewed imported image bounds, current native owner authorization and selected product/image publication; actual native regression covers original bytes, source order, 3MiB request, partial association recovery, protected-download denial, parent ordering and later exact-baseline content release. Move helper declarations before test module to satisfy unchanged lint. Pure extracted decisions unchanged."
+      "sha256": "2c58a161212c097a0c97d4c4e4df4a5dc2e081e0bf9cb49c6a5005d6f2650ce4",
+      "review": "Restore the product-only catalog evidence callback under installed app scope and project selected publication through the native outbox transaction. Local Core and isolated Knowledge PostgreSQL composition verifies event retry, private staging, locale, withdrawal, restart, one order, and current source inventory."
     },
     "src/storefront_pages.rs": {
       "status": "unproved",

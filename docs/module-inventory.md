@@ -57,6 +57,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/apps/configuration_summary.rs](../src/apps/configuration_summary.rs) | Immutable public configuration labels accompany accepted inputs; no current package lookup is needed on a receipt. |
 | [src/apps/consent.rs](../src/apps/consent.rs) | Package approval binds all requested permissions to a reviewed digest; current actor rights apply before every installation path. |
 | [src/apps/core_callbacks.rs](../src/apps/core_callbacks.rs) | Narrow app callbacks delegate to the existing commerce owners and project PII only with separate consent. |
+| [src/apps/core_catalog_evidence.rs](../src/apps/core_catalog_evidence.rs) | Product-only app callback projects current catalog text and enabled translations in one snapshot. |
 | [src/apps/core_documents.rs](../src/apps/core_documents.rs) | Dedicated bounded order-document upload requires exact app capabilities, current actor rights and native receipt ownership. |
 | [src/apps/core_exchange.rs](../src/apps/core_exchange.rs) | Generic channel/product projections and imported sales delegate to native owners with explicit app capabilities. |
 | [src/apps/core_extensions.rs](../src/apps/core_extensions.rs) | Namespaced core-object extension contracts; native records, rights and app storage keep their owners. |
@@ -2150,6 +2151,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/integration.py](../scripts/integration.py) | Exercise the real HTTP -> Rust -> PostgreSQL path. Never contacts a PSP. |
 | [scripts/intelligence.py](../scripts/intelligence.py) | Actual SQL knowledge persistence and optional live local inference integration. |
 | [scripts/international_commerce.py](../scripts/international_commerce.py) | International configuration at the real HTTP/PostgreSQL path; all rates and addresses are synthetic fixtures, not tax advice. |
+| [scripts/knowledge_catalog_integration.py](../scripts/knowledge_catalog_integration.py) | Exercise a checked-out Knowledge service and the installed catalog app against disposable local Core. |
 | [scripts/knowledge_workspace.py](../scripts/knowledge_workspace.py) | Actual tenant-scoped knowledge lifecycle, multilingual retrieval, cursor census and selective staging; no model calls. |
 | [scripts/legal_privacy.py](../scripts/legal_privacy.py) | Real tenant-scoped consent, checkout guards, declarations, MCP and flow consumers; no external providers. |
 | [scripts/lexical_search.py](../scripts/lexical_search.py) | Native lexical candidates: real forced-RLS plans, backfill, source edits and isolation. |

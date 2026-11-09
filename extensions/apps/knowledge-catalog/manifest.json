@@ -1,0 +1,31 @@
+{
+  "id": "knowledge_catalog",
+  "version": "1.0.0",
+  "coreApi": "1",
+  "runtime": "service",
+  "category": "operations",
+  "name": {
+    "en": "Knowledge catalog sync",
+    "de": "Katalog mit Knowledge synchronisieren",
+    "fr": "Synchroniser le catalogue avec Knowledge",
+    "es": "Sincronizar el catálogo con Knowledge"
+  },
+  "permissions": ["service.call", "products.read", "events:product.created", "events:product.updated", "events:product.published"],
+  "events": ["product.created", "product.updated", "product.published"],
+  "eventDelivery": {"batchSize": 1},
+  "entities": [],
+  "actions": [{
+    "name": "synchronize",
+    "description": "Refresh a single product in Knowledge",
+    "handler": "service",
+    "permission": "catalog.write",
+    "public": false,
+    "mcp": false,
+    "inputSchema": {
+      "type": "object",
+      "properties": {"productId": {"type": "string", "minLength": 1, "maxLength": 100}},
+      "required": ["productId"],
+      "additionalProperties": false
+    }
+  }]
+}

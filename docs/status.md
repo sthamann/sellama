@@ -10,6 +10,18 @@ Updated 9 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Knowledge source inventory
+
+The independent Knowledge service 0.5.0 can list imported products and private
+documents with their source revisions and withdrawal state. HTTP, MCP and the
+JavaScript example use the same scoped operation. The existing database index
+serves the pages. Core catalog and checkout do not call this inventory.
+In the local composition, a native purchase completed while Knowledge was
+stopped. The queued product update was delivered after restart and the
+inventory showed the recovered revision. The hosted Knowledge connection
+remains a separate rollout step.
+[API and example](knowledge-component.md#audit-which-sources-arrived).
+
 ## App cards during replies in Studio and the shop
 
 In a local Chrome test with Core, PostgreSQL and a controlled model response,

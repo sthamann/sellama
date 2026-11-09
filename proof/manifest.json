@@ -1346,8 +1346,8 @@
     },
     "extensions/services/app-storage/authority/src/lib.rs": {
       "status": "unproved",
-      "sha256": "9427b7e16fd48d80fdb1cdff40f8c1b33fd187f69cdad07b64e2b91f5d833cf5",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "fc38b73937df23c1706ff30a9006933f64870616bd48be16368acbf17fb55189",
+      "review": "Pin the CI-verified Apps snapshot including the canonical shared schema export. Conversation placement, tool rights and native SQL policy are unchanged; the source hash checks the exact component tree."
     },
     "extensions/services/app-storage/authority/src/oauth.rs": {
       "status": "unproved",
@@ -5419,8 +5419,8 @@
       "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
     },
     "components.lock.json": {
-      "sha256": "f614d37d7386f3126d055197f31077b431ac335804564c18c23fec11e62a051f",
-      "review": "MCP read admission is bound to current actor, active installed manifest and the declared view revision. HTTP/PostgreSQL tests check both assistant audiences, cross-tenant denial, deactivation and bound pagination. The opaque browser frame was checked with real navigation. Existing model hosts deny the new placements unless they supply a matching view."
+      "sha256": "8fc8beab27ca1b8e223dc619ad999586eab6b4a36f5f86be12c69c76e5fa55fd",
+      "review": "Pin the CI-verified Apps snapshot including the canonical shared schema export. Conversation placement, tool rights and native SQL policy are unchanged; the source hash checks the exact component tree."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",

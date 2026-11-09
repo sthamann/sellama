@@ -58,7 +58,7 @@
     },
     "apps": {
       "repository": "https://github.com/veyndo/apps",
-      "commit": "97269de1f48f7f7eb2ff0c3b104fc87e47ba2a9a",
+      "commit": "193288571b0423e776ef5d401cbffeeaf048c5a7",
       "path": "extensions/services/app-storage",
       "files": {
         ".dockerignore": "c543d3f53b1ec91be79b9acdacbe849dbb77b1e27dc62f20a78ddf3c0cad5abe",
@@ -76,10 +76,10 @@
         "SECURITY.md": "3e54a581c0717fc1a70f2f4625e009c297d0a9b0d284255264b4116d0c78bdbf",
         "authority/Cargo.lock": "e5c07277629111b2c6f51b815d072a46a6003c679a79804bec2713c26da5cbbb",
         "authority/Cargo.toml": "464a90d0ddd2eb3d17af8aa5d2121d93d7f65b06d8b948cd0e22b16a73a9c699",
-        "authority/README.md": "9cd937e871141a9a7a78527aef80b11ff21e6dfadd40136244d56ed1a2b10540",
+        "authority/README.md": "20d1a343062715f389531860dcf85833cd343757db0b756aed3c0513a199b6f2",
         "authority/sql/signed_scope.sql": "72a41d0acc5229ab8a9dee2726b6c7b5c6181e6cf670d7028fb9894f554f4544",
         "authority/src/database.rs": "2bb67f623870beb64bdafff8d4b98f1941eadcbb32f8ca25312e9a1199db1606",
-        "authority/src/lib.rs": "9427b7e16fd48d80fdb1cdff40f8c1b33fd187f69cdad07b64e2b91f5d833cf5",
+        "authority/src/lib.rs": "fc38b73937df23c1706ff30a9006933f64870616bd48be16368acbf17fb55189",
         "authority/src/oauth.rs": "a3bf1704887909a0d532f56e3b507ec9781bb48ee9ed8ee13657a471b2b24226",
         "authority/src/oauth_config.rs": "1f9973404a02619c2312001d9a2147b67dd74bb7bd151d01ea1d355ba3f1011b",
         "authority/src/vault.rs": "2d1c0d43214a0d7c8b07b00675a4c81263cecf301e987312aac688a8ca0c264d",

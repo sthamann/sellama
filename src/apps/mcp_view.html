@@ -19,7 +19,8 @@ summary{cursor:pointer}
 .filter label{font-weight:600}
 select,button{font:inherit;color:CanvasText;background:Canvas;border:1px solid GrayText;border-radius:.4rem;padding:.35rem .6rem;max-inline-size:100%;min-block-size:2.25rem}
 select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid Highlight;outline-offset:2px}
-#next{margin-block-start:.75rem}
+.actions{display:flex;flex-wrap:wrap;gap:.5rem}
+.actions:has(button:not([hidden])){margin-block-start:.75rem}
 #status:empty{display:none}
 </style>
 <main>
@@ -30,7 +31,10 @@ select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px soli
   </div>
   <p id="status" role="status">Waiting for results…</p>
   <div id="results"></div>
-  <button type="button" id="next" hidden></button>
+  <div class="actions">
+    <button type="button" id="next" hidden></button>
+    <button type="button" id="use-filter" hidden></button>
+  </div>
 </main>
 <script type="application/json" id="definition">__APP_VIEW_DEFINITION__</script>
 <script>
@@ -47,6 +51,7 @@ select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px soli
     return element;
   };
   const next = document.getElementById("next");
+  const useFilter = document.getElementById("use-filter");
   const filterRow = document.getElementById("filter");
   const choice = document.getElementById("choice");
   const messages = {
@@ -56,15 +61,25 @@ select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px soli
     es:["Página siguiente","No hay resultados.","No se pudieron cargar los resultados. Inténtalo de nuevo.","No hay resultados para esta vista.","Solicitud cancelada.","Todos","Filtro","Cargando resultados…"],
   };
   let copy = messages.en;
+  const contextCopy = {
+    en:["Use filter in chat","Filter added for the next message.","The filter could not be added to the chat draft."],
+    de:["Filter im Chat verwenden","Filter für die nächste Nachricht übernommen.","Der Filter konnte nicht in den Chatentwurf übernommen werden."],
+    fr:["Utiliser le filtre dans le chat","Filtre ajouté au prochain message.","Impossible d’ajouter le filtre au brouillon."],
+    es:["Usar el filtro en el chat","Filtro añadido al próximo mensaje.","No se pudo añadir el filtro al borrador."],
+  };
+  let chatCopy = contextCopy.en;
   let args = {};
   let canCall = false;
+  let canUpdate = false;
   let callId = 0;
+  let contextId = 0;
   let cursor;
   let appliedChoice = "";
   function refresh(after) {
     if (!canCall || next.disabled) return;
     next.disabled = true;
     choice.disabled = true;
+    useFilter.disabled = true;
     status.textContent = copy[7];
     const input = {...args};
     delete input.after;
@@ -77,6 +92,12 @@ select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px soli
   }
   next.addEventListener("click", () => { if (cursor) refresh(cursor); });
   choice.addEventListener("change", () => refresh());
+  useFilter.addEventListener("click", () => {
+    if (useFilter.hidden || useFilter.disabled || !appliedChoice) return;
+    send({id:`context-${++contextId}`,method:"ui/update-model-context",params:{
+      structuredContent:{tool:definition.toolName,field:definition.filter.name,value:appliedChoice},
+    }});
+  });
   let initialized = false;
   let hostOrigin;
   let locale = "en";
@@ -93,6 +114,7 @@ select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px soli
   function show(result) {
     next.disabled = false;
     choice.disabled = false;
+    useFilter.disabled = false;
     if (result?.isError) {
       choice.value = appliedChoice;
       status.textContent = copy[2];
@@ -105,6 +127,7 @@ select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px soli
       return;
     }
     appliedChoice = choice.value;
+    useFilter.hidden = !canUpdate || !/^[a-zA-Z0-9_.-]{1,64}$/.test(appliedChoice);
     results.replaceChildren();
     status.textContent = rows.length ? "" : copy[1];
     cursor = result.structuredContent.hasMore === true && result.structuredContent.nextCursor;
@@ -167,8 +190,11 @@ select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px soli
       }
       locale = context?.locale || locale;
       copy = messages[locale.split("-")[0]] ?? messages.en;
+      chatCopy = contextCopy[locale.split("-")[0]] ?? contextCopy.en;
       next.textContent = copy[0];
+      useFilter.textContent = chatCopy[0];
       canCall = !!message.result.hostCapabilities?.serverTools && !!definition.toolName;
+      canUpdate = canCall && !!message.result.hostCapabilities?.updateModelContext?.structuredContent;
       document.documentElement.lang = locale;
       document.querySelector("h1").textContent = text(definition.label);
       initialized = true;
@@ -194,6 +220,8 @@ select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px soli
       }
     }
     if (callId && message.id === `page-${callId}`) show(message.result ?? {isError:true});
+    if (contextId && message.id === `context-${contextId}`)
+      status.textContent = message.error ? chatCopy[2] : chatCopy[1];
     if (message.method === "ui/notifications/tool-result") show(message.params);
     if (message.method === "ui/notifications/tool-cancelled") status.textContent = copy[4];
     if (message.method === "ui/resource-teardown") {

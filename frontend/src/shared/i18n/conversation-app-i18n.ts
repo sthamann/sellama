@@ -7,6 +7,8 @@ export function conversationAppText(locale: string) {
         loading: "App-Ansicht wird geladen…",
         unavailable: "Diese App-Ansicht ist nicht verfügbar.",
         review: "Vorgeschlagene Änderung prüfen",
+        filterContext: (tool: string, field: string, value: string) =>
+          `Berücksichtige die App-Ergebnisse aus ${tool} mit dem Filter ${field}=${value}.`,
       };
     case "fr":
       return {
@@ -14,6 +16,8 @@ export function conversationAppText(locale: string) {
         loading: "Chargement de la vue…",
         unavailable: "Cette vue est indisponible.",
         review: "Vérifier la modification proposée",
+        filterContext: (tool: string, field: string, value: string) =>
+          `Tiens compte des résultats de ${tool} avec le filtre ${field}=${value}.`,
       };
     case "es":
       return {
@@ -21,6 +25,8 @@ export function conversationAppText(locale: string) {
         loading: "Cargando la vista…",
         unavailable: "Esta vista no está disponible.",
         review: "Revisar el cambio propuesto",
+        filterContext: (tool: string, field: string, value: string) =>
+          `Ten en cuenta los resultados de ${tool} con el filtro ${field}=${value}.`,
       };
     default:
       return {
@@ -28,6 +34,8 @@ export function conversationAppText(locale: string) {
         loading: "Loading app view…",
         unavailable: "This app view is unavailable.",
         review: "Review proposed change",
+        filterContext: (tool: string, field: string, value: string) =>
+          `Use the app results from ${tool} with the filter ${field}=${value}.`,
       };
   }
 }

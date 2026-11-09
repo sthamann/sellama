@@ -1,6 +1,7 @@
 /** ConciergeView: storefront view composed from the scoped cart/controller. */
 import { mediaImage } from "../../shared/media/product-media";
 import ConversationAppViews from "../../shared/apps/ConversationAppViews";
+import { draftWithAppFilter } from "../../shared/apps/conversation-app-context";
 import AssistantMarkdown from "../../shared/content/AssistantMarkdown";
 import type { ShopperAdvice } from "./useShopperAdvice";
 import ConciergeSelection from "./ConciergeSelection";
@@ -13,9 +14,11 @@ import "../styles/shop.css";
 import { useStorefront } from "./StorefrontContext";
 import { useCallback, useEffect, useRef } from "react";
 import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
+import { useLocale } from "../../shared/i18n/i18n";
 import Icon from "../../shared/ui/Icon";
 export default function ConciergeView() {
   const { u } = useExperienceUIText();
+  const { locale } = useLocale();
   const input = useRef<HTMLInputElement>(null);
   const {
     s,
@@ -136,6 +139,20 @@ export default function ConciergeView() {
           <ConversationAppViews
             views={advice.appViews}
             request={appRequest}
+            onUseFilter={(filter, previous) => {
+              const next = draftWithAppFilter(
+                wish,
+                filter,
+                locale,
+                2000,
+                " ",
+                previous,
+              );
+              if (busy || next === undefined) return false;
+              setWish(next);
+              input.current?.focus();
+              return true;
+            }}
             renderProducts={(ids) =>
               ids.length === 1 ? (
                 <ConversationPurchase key={ids[0]} productId={ids[0]} />

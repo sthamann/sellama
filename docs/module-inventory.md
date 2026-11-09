@@ -1226,6 +1226,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/apps/PublicFormBlock.tsx](../frontend/src/shared/apps/PublicFormBlock.tsx) | Host composition of the registered forms app; apps depend on this contract, not each other's code. |
 | [frontend/src/shared/apps/configuration-summary.css](../frontend/src/shared/apps/configuration-summary.css) | Compact read-only configuration details fit checkout, confirmation and native order layouts. |
 | [frontend/src/shared/apps/configuration-types.ts](../frontend/src/shared/apps/configuration-types.ts) | Shared configuration projection; the Manifest, storefront and Studio use the same declared input contract. |
+| [frontend/src/shared/apps/conversation-app-context.ts](../frontend/src/shared/apps/conversation-app-context.ts) | Project a verified app filter into an editable chat draft. |
 | [frontend/src/shared/apps/conversation-app-views.css](../frontend/src/shared/apps/conversation-app-views.css) | Scope embedded result framing to conversation messages in Studio and Storefront. |
 | [frontend/src/shared/apps/form-contract.ts](../frontend/src/shared/apps/form-contract.ts) | Public form block contract shared through the host, never by importing another app's implementation. |
 | [frontend/src/shared/apps/native/NativeAppView.tsx](../frontend/src/shared/apps/native/NativeAppView.tsx) | The same React renderer powers design preview, private sandbox, released admin modules and storefront surfaces. |

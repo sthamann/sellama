@@ -20,6 +20,12 @@ demo shop negotiated MCP Apps with a compatible client. A text-only client
 received the ordinary MCP capabilities and a request for an unknown view was
 rejected.
 
+The Product Guide 0.1.1 follow-up adds an app-declared filter in the
+conversation. The isolated Core and PostgreSQL test exercised the public and
+private reads, retained the original product filter, and rejected unauthorized
+actors. In Chrome, the mobile storefront and desktop Studio each filtered and
+reset their own app result. The rollout above predates this filter.
+
 An installed app can show its own table or expandable cards inside a Studio or
 native storefront answer. In the isolated browser run, the frame loaded the
 next page of records. The HTTP and PostgreSQL fixture checked both assistant

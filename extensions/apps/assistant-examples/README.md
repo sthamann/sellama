@@ -22,4 +22,6 @@ Payment/shipping/integration/event examples require an operator-deployed service
 
 [Product Guide MCP App](mcp-app.json) shows a public card view and a private
 merchant table in the corresponding conversation. Both use installed app data and
-explicit MCP read tools. See [the conversation guide](../../../docs/agentic-component-ui.md#app-owned-views-in-the-conversation).
+explicit MCP read tools. Version 0.1.1 adds an indexed selection field for filtering
+inside the chat while retaining the original product criteria.
+See [the conversation guide](../../../docs/agentic-component-ui.md#app-owned-views-in-the-conversation).

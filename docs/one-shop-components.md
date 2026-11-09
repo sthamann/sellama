@@ -7,6 +7,11 @@ Knowledge. An external host can combine the corresponding Commerce and
 Knowledge reads through the same SDK layout contract.
 [Walkthrough and runnable example](agentic-component-ui.md#orders-shipments-and-shipping-policy).
 
+Installed apps can place interactive results in both Veyndo conversations.
+The chat host mediates calls to the app's existing operation. The standalone
+component remains responsible for its data and the current shop's rights.
+[MCP Apps and OpenUI](agentic-component-ui.md#one-capability-two-ways-to-present-it).
+
 ## How one shop works
 
 Commerce owns the catalogue, prices, stock and orders. Checkout coordinates the buyer's session and asks that owner for the current quote and the purchase. Commerce checks current purchasing authority and commits the order, stock allocation and event in one transaction. [Company and shop authority tests](checkout-component.md#current-buyer-channel-and-company-authority). The receipt can be read independently of the original purchase request.

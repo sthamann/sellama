@@ -44,6 +44,12 @@ to native Veyndo through the same owner.
     a configured Sandbox payment, return, empty bag and refund.
 - [ ] KNOW-01..05 Independent knowledge ingest/retrieval and source lifecycle.
 - [ ] UI-07 Compose actual domain views from those released service owners.
+  - Installed App views use the same tool for the initial result and interactive
+    filtering in Studio and the storefront.
+    [App view contract](agentic-component-ui.md#app-owned-views-in-the-conversation).
+  - [ ] Prove an explicit cart change and a reviewed Studio change through
+    those conversation views. Test the same operations from a compatible external
+    host and keep the generated OpenUI presentation separate from action authority.
 
 ## Latest completed extraction, 6 November 2026
 

@@ -1,6 +1,6 @@
 {
   "id": "example_agent_results",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "coreApi": "1",
   "runtime": "declarative",
   "name": {
@@ -65,30 +65,31 @@
         },
         {
           "name": "segment",
+          "indexed": true,
           "label": {
-            "en": "Selection",
-            "de": "Auswahlliste",
-            "fr": "Liste de choix",
-            "es": "Lista de selección"
+            "en": "Care type",
+            "de": "Pflegeart",
+            "fr": "Type d’entretien",
+            "es": "Tipo de cuidado"
           },
           "kind": "string",
           "choices": [
             {
               "value": "standard",
               "label": {
-                "en": "Standard",
-                "de": "Standard",
-                "fr": "Standard",
-                "es": "Estándar"
+                "en": "Everyday care",
+                "de": "Alltagspflege",
+                "fr": "Entretien courant",
+                "es": "Cuidado habitual"
               }
             },
             {
               "value": "priority",
               "label": {
-                "en": "Priority",
-                "de": "Priorität",
-                "fr": "Priorité",
-                "es": "Prioridad"
+                "en": "Special care",
+                "de": "Besondere Pflege",
+                "fr": "Entretien particulier",
+                "es": "Cuidado especial"
               }
             }
           ]
@@ -143,11 +144,12 @@
         },
         {
           "name": "segment",
+          "indexed": true,
           "label": {
-            "en": "Selection",
-            "de": "Auswahlliste",
-            "fr": "Liste de choix",
-            "es": "Lista de selección"
+            "en": "Priority",
+            "de": "Priorität",
+            "fr": "Priorité",
+            "es": "Prioridad"
           },
           "kind": "string",
           "choices": [
@@ -206,10 +208,10 @@
           "id": "content",
           "kind": "cards",
           "title": {
-            "en": "Product guide",
-            "de": "Produktratgeber",
-            "fr": "Guide produit",
-            "es": "Guía de productos"
+            "en": "Care instructions",
+            "de": "Pflegehinweise",
+            "fr": "Conseils d’entretien",
+            "es": "Instrucciones de cuidado"
           },
           "entity": "entries",
           "readAction": "list_entries",
@@ -225,10 +227,10 @@
           "id": "entries",
           "kind": "table",
           "title": {
-            "en": "Product guide",
-            "de": "Produktratgeber",
-            "fr": "Guide produit",
-            "es": "Guía de productos"
+            "en": "Product notes",
+            "de": "Notizen zum Sortiment",
+            "fr": "Notes sur les produits",
+            "es": "Notas de producto"
           },
           "entity": "merchandising",
           "readAction": "list_merchant_entries"

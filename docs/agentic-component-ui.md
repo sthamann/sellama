@@ -278,3 +278,35 @@ package-bound record changes, original state/history rules and atomic events via
 HTTP/MCP/SDK. Default reader permissions remain separate; native field/reference/
 language/commerce policies retain their owners. Full installation, native-resource,
 settings/jobs and publication hosting remain tracked in the component plan.
+
+## App-owned views in the conversation
+
+An installed app can give a read tool its own view. For example, the product guide
+app can show care instructions as expandable cards inside a shopper's answer.
+The same package can give the merchant a separate table of merchandising notes
+with its own permissions. Each result is based on the records returned for that
+question. The next-page button reads the same app again with the current cursor.
+
+[Try the Product Guide package](../extensions/apps/assistant-examples/mcp-app.json)
+in a private shop. Install it, add a few records linked to a catalog product and
+ask the shop assistant for its care instructions. Ask Studio for merchandising
+notes to see the private view. A compatible MCP Apps host can also find the
+resource through the tool's `_meta.ui.resourceUri` and read it with
+`resources/read`. Clients that use text tools still receive the ordinary tool
+result. [MCP Apps specification](https://apps.extensions.modelcontextprotocol.io/api/documents/Overview.html).
+
+The package declares a native view at `storefront.assistant` or `admin.assistant`
+and binds it to one explicitly enabled MCP `list` action. Use a public action and
+entity for the shopper. Use a private action with the necessary team scopes for
+Studio. The declared text, tables and cards define the view. Veyndo derives the
+attachment from the tool it actually executed, opens it in an isolated frame and
+sends the call's arguments and structured result. A page request can only rerun
+that view's own list tool. The current tenant, active package revision, sales
+channel and action rights still apply. The app frame receives no session token.
+After disabling the app, subsequent reads of its resource are rejected, including from earlier conversations.
+
+This path covers installed Veyndo packages with declarative read views. It provides
+a text response and view attachments when the current agent run completes.
+`resources/read` can be used by external MCP Apps clients that support the
+extension. Arbitrary app JavaScript, remote MCP App imports and partial rendering
+during tool execution are separate work.

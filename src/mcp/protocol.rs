@@ -72,7 +72,12 @@ pub(super) async fn call(
     {
         return Err(RpcError::invalid("Unknown or unavailable tool"));
     }
-    let result = super::transport::invoke_transport(a, h, name, input).await;
+    let result = if let Some(uri) = params["_meta"]["ai.veyndo/resourceUri"].as_str() {
+        // A first-party iframe can only rerun the single read tool of its pinned view.
+        apps::invoke_mcp_read(a, h, name, input, Some(uri)).await
+    } else {
+        super::transport::invoke_transport(a, h, name, input).await
+    };
     Ok(match result {
         Ok(value) => {
             json!({"content":[{"type":"text","text":value.to_string()}],"structuredContent":value,"isError":false})

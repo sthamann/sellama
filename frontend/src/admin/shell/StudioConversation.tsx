@@ -11,6 +11,7 @@ import { useExperienceUIText } from "../../shared/i18n/experience-ui-i18n";
 
 import "../../shared/styles/workbench.css";
 import Icon from "../../shared/ui/Icon";
+import ConversationAppViews from "../../shared/apps/ConversationAppViews";
 import AssistantMarkdown from "../../shared/content/AssistantMarkdown";
 import { openReviewedView } from "../../shared/grid/pinned-view";
 import ProposalCard from "../assistant/ProposalCard";
@@ -190,6 +191,10 @@ export default function StudioConversation({
                 )}
                 {m.data.preview && (
                   <>
+                    <ConversationAppViews
+                      views={m.data.preview.appViews}
+                      request={request}
+                    />
                     <CopilotNavigation
                       value={m.data.preview.proposal.navigation}
                     />

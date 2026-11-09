@@ -71,7 +71,8 @@ pub(crate) async fn plan_with(
         Err(error) => return Err(error),
     };
     let id = agent_runs::current_id().unwrap_or_else(uid);
-    let evidence = json!({"workspaceContext":agent_runs::context::current(),"model":output.model,"inference":output.provider,"usage":output.usage,"evalCount":output.usage["output_tokens"],"knowledge":graph,"instruction":instruction,"locale":locale,"proposal":p,"translationInference":choice.cloned().unwrap_or(Choice{provider:veyndo::inference::Provider::Platform,model:None}),"verifiedFacts":facts,"catalogBefore":ps,"memory":memory,"contextLimit":24,"policyRevision":policy_revision,"actor":header(authority,"x-rac-user"),"toolTrace":tool_trace,"proposalRepair":repair_evidence,"appActions":app_names,"appContext":app_context,"modelAppContext":model_app_context,"documentSources":document_sources,"externalSources":private_sources,"experienceBefore":prepared["experience"].clone(),"applied":false});
+    let app_views = apps::mcp_views::attachments(&tool_trace);
+    let evidence = json!({"workspaceContext":agent_runs::context::current(),"model":output.model,"inference":output.provider,"usage":output.usage,"evalCount":output.usage["output_tokens"],"knowledge":graph,"instruction":instruction,"locale":locale,"proposal":p,"translationInference":choice.cloned().unwrap_or(Choice{provider:veyndo::inference::Provider::Platform,model:None}),"verifiedFacts":facts,"catalogBefore":ps,"memory":memory,"contextLimit":24,"policyRevision":policy_revision,"actor":header(authority,"x-rac-user"),"toolTrace":tool_trace,"appViews":app_views,"proposalRepair":repair_evidence,"appActions":app_names,"appContext":app_context,"modelAppContext":model_app_context,"documentSources":document_sources,"externalSources":private_sources,"experienceBefore":prepared["experience"].clone(),"applied":false});
     agent_runs::persist(a, t, &id, &evidence, authority).await?;
     Ok(json!({"taskId":id,"preview":evidence,"approvalRequired":true}))
 }

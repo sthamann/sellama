@@ -13,8 +13,18 @@ pub(crate) async fn invoke_app(
     name: &str,
     v: &Value,
 ) -> Result<Value> {
+    invoke(a, h, id, name, v, None).await
+}
+pub(super) async fn invoke(
+    a: &App,
+    h: &RequestContext,
+    id: &str,
+    name: &str,
+    v: &Value,
+    mcp: Option<mcp_views::Mode<'_>>,
+) -> Result<Value> {
     let start = std::time::Instant::now();
-    let result = execute(a, h, id, name, v).await;
+    let result = execute(a, h, id, name, v, mcp).await;
     let status = result
         .as_ref()
         .map(|_| StatusCode::OK)
@@ -39,7 +49,14 @@ pub(super) async fn invoke_job(
     action_admission::check(a, h, action, v)?;
     tool_contract::checked_output(action, jobs::enqueue(a, h, m, action, v).await?)
 }
-async fn execute(a: &App, h: &RequestContext, id: &str, name: &str, v: &Value) -> Result<Value> {
+async fn execute(
+    a: &App,
+    h: &RequestContext,
+    id: &str,
+    name: &str,
+    v: &Value,
+    mcp: Option<mcp_views::Mode<'_>>,
+) -> Result<Value> {
     let t = tenant(h)?;
     let m = package(a, &t, id, true).await?;
     let action = m
@@ -47,6 +64,9 @@ async fn execute(a: &App, h: &RequestContext, id: &str, name: &str, v: &Value) -
         .iter()
         .find(|act| act.name == name)
         .ok_or(bad("Unknown app action"))?;
+    if let Some(mode) = mcp {
+        mcp_views::admit_tool(a, h, &m, action, &t, mode)?;
+    }
     action_admission::check(a, h, action, v)?;
     if let Some(result) = super::hosted::action(a, &t, id, name).await? {
         return tool_contract::checked_output(action, result);
@@ -251,33 +271,6 @@ pub(crate) fn ui_url(id: &str) -> Option<String> {
     } else {
         None
     }
-}
-
-/// MCP opt-out applies to discovery and direct invocation, without disabling the UI/HTTP action.
-pub(crate) async fn invoke_mcp(
-    a: &App,
-    h: &RequestContext,
-    id: &str,
-    name: &str,
-    v: &Value,
-) -> Result<Value> {
-    let m = package(a, &tenant(h)?, id, true).await?;
-    if m.actions
-        .iter()
-        .find(|act| act.name == name)
-        .is_none_or(|act| {
-            !verified_kernel::app_tool_admissible(
-                act.mcp != Some(false),
-                action_authorized(a, h, act),
-            )
-        })
-    {
-        return Err(Error(
-            StatusCode::NOT_FOUND,
-            "App MCP tool not exposed".into(),
-        ));
-    }
-    invoke_app(a, h, id, name, v).await
 }
 
 /// The registry uses the same live permission check as direct actions.

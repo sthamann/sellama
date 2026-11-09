@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>App result</title>
+<style>
+:root{color-scheme:light dark;font:15px/1.5 system-ui}
+body{margin:0;padding:.85rem 1rem;overflow-wrap:anywhere}
+h1,h2{line-height:1.3;margin:0 0 .5rem}h1{font-size:1.15rem}h2{font-size:1rem}
+p{margin:.25rem 0}section{margin-top:.85rem}
+dl{margin:.35rem 0}dt{font-weight:600}dd{margin:0 0 .5rem}
+table{width:100%;border-collapse:collapse;text-align:start}
+th,td{padding:.25rem .5rem;border-bottom:1px solid GrayText;text-align:start}
+.scroll{overflow-x:auto}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.5rem 1rem}
+summary{cursor:pointer}
+</style>
+<main>
+  <h1></h1>
+  <p id="status" role="status">Waiting for results…</p>
+  <div id="results"></div>
+  <button type="button" id="next" hidden></button>
+</main>
+<script type="application/json" id="definition">__APP_VIEW_DEFINITION__</script>
+<script>
+(() => {
+  const parentWindow = window.parent;
+  const status = document.getElementById("status");
+  const results = document.getElementById("results");
+  let definition = JSON.parse(document.getElementById("definition").textContent);
+  const version = "2026-01-26";
+  const send = (message) => parentWindow.postMessage({jsonrpc:"2.0", ...message}, "*");
+  const node = (tag, text) => {
+    const element = document.createElement(tag);
+    if (text !== undefined) element.textContent = text;
+    return element;
+  };
+  const next = document.getElementById("next");
+  const messages = {
+    en:["Next page","No results.","The app could not load its results.","Results are unavailable for this view.","Request cancelled."],
+    de:["Nächste Seite","Keine Ergebnisse.","Die App konnte keine Ergebnisse laden.","Für diese Ansicht sind keine Ergebnisse verfügbar.","Anfrage abgebrochen."],
+    fr:["Page suivante","Aucun résultat.","Impossible de charger les résultats.","Résultats indisponibles pour cette vue.","Requête annulée."],
+    es:["Página siguiente","No hay resultados.","No se pudieron cargar los resultados.","No hay resultados para esta vista.","Solicitud cancelada."],
+  };
+  let copy = messages.en;
+  let args = {};
+  let canCall = false;
+  let callId = 0;
+  let cursor;
+  next.addEventListener("click", () => {
+    if (!canCall || !cursor || next.disabled) return;
+    next.disabled = true;
+    send({id:`page-${++callId}`,method:"tools/call",
+      params:{name:definition.toolName,arguments:{...args,after:cursor}}});
+  });
+  let initialized = false;
+  let hostOrigin;
+  let locale = "en";
+  let observer;
+  const text = (values) => typeof values === "string" ? values :
+    (definition.localeChain ?? [locale]).map(key => values?.[key])
+      .find(value => value != null) ?? "";
+  const cell = (value) => value == null ? "" :
+    typeof value !== "object" ? String(value) :
+    !Array.isArray(value) && Object.values(value).every(v => typeof v === "string")
+      ? text(value) : JSON.stringify(value);
+  function show(result) {
+    next.disabled = false;
+    if (result?.isError) {
+      status.textContent = copy[2];
+      return;
+    }
+    const rows = result?.structuredContent?.elements;
+    if (!Array.isArray(rows)) {
+      status.textContent = copy[3];
+      return;
+    }
+    results.replaceChildren();
+    status.textContent = rows.length ? "" : copy[1];
+    cursor = result.structuredContent.hasMore === true && result.structuredContent.nextCursor;
+    next.hidden = !canCall || !cursor;
+    for (const block of definition.view?.blocks ?? []) {
+      if (block.visible === false || !["text","table","cards"].includes(block.kind)) continue;
+      const section = node("section");
+      section.append(node("h2", text(block.title)));
+      if (block.kind === "text") {
+        section.append(node("p", text(block.text)));
+      } else {
+        const fields = (definition.entities.find(e => e.name === block.entity)?.fields ?? []).slice(0, 24);
+        if (!fields.length || !rows.length) continue;
+        if (block.kind === "table") {
+          const table = node("table");
+          const header = table.createTHead().insertRow();
+          for (const field of fields) header.append(node("th", text(field.label) || field.name));
+          const body = table.createTBody();
+          for (const row of rows.slice(0,50)) {
+            const line = body.insertRow();
+            for (const field of fields) line.append(node("td", cell(row[field.name])));
+          }
+          const scroll = node("div");
+          scroll.className = "scroll";
+          scroll.append(table);
+          section.append(scroll);
+        } else {
+          const grid = node("div");
+          grid.className = definition.view.layout === "grid" ? "grid" : "";
+          const titleField = fields.find(field => field.name === "title") ?? fields[0];
+          for (const row of rows.slice(0,50)) {
+            const card = node("details");
+            card.append(node("summary", cell(row[titleField.name]) || row.id));
+            const list = node("dl");
+            for (const field of fields.filter(field => field !== titleField)) list.append(
+              node("dt", text(field.label) || field.name), node("dd", cell(row[field.name])),
+            );
+            card.append(list);
+            grid.append(card);
+          }
+          section.append(grid);
+        }
+      }
+      results.append(section);
+    }
+  }
+  if (parentWindow === window) return;
+  window.addEventListener("message", (event) => {
+    const message = event.data;
+    if (event.source !== parentWindow || message?.jsonrpc !== "2.0") return;
+    if (!initialized && message.id === "veyndo-init") {
+      if (message.result?.protocolVersion !== version) {
+        status.textContent = "This host could not open the app view.";
+        return;
+      }
+      hostOrigin = event.origin;
+      const context = message.result.hostContext;
+      if (!definition.view && context?.["ai.veyndo/definition"]?.view) {
+        definition = context["ai.veyndo/definition"];
+      }
+      locale = context?.locale || locale;
+      copy = messages[locale.split("-")[0]] ?? messages.en;
+      next.textContent = copy[0];
+      canCall = !!message.result.hostCapabilities?.serverTools && !!definition.toolName;
+      document.documentElement.lang = locale;
+      document.querySelector("h1").textContent = text(definition.label);
+      initialized = true;
+      send({method:"ui/notifications/initialized"});
+      observer = new ResizeObserver(() => send({
+        method:"ui/notifications/size-changed",
+        params:{height:document.body.offsetHeight, width:document.documentElement.clientWidth},
+      }));
+      observer.observe(document.body);
+    }
+    if (!initialized || event.origin !== hostOrigin) return;
+    if (message.method === "ui/notifications/tool-input") args = message.params?.arguments ?? {};
+    if (callId && message.id === `page-${callId}`) show(message.result ?? {isError:true});
+    if (message.method === "ui/notifications/tool-result") show(message.params);
+    if (message.method === "ui/notifications/tool-cancelled") status.textContent = copy[4];
+    if (message.method === "ui/resource-teardown") {
+      observer?.disconnect();
+      send({id:message.id,result:{}});
+    }
+  });
+  send({id:"veyndo-init",method:"ui/initialize",params:{
+    appInfo:{name:"veyndo-app-view",version:"1.0.0"},appCapabilities:{},protocolVersion:version,
+  }});
+})();
+</script>
+</html>

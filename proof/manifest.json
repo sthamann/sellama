@@ -221,7 +221,7 @@
     },
     "app_tool_admissible": {
       "bindings": [
-        "src/apps/gateway.rs"
+        "src/apps/mcp_views.rs"
       ],
       "theorems": [
         "app_tool_exact",
@@ -1346,8 +1346,8 @@
     },
     "extensions/services/app-storage/authority/src/lib.rs": {
       "status": "unproved",
-      "sha256": "9427b7e16fd48d80fdb1cdff40f8c1b33fd187f69cdad07b64e2b91f5d833cf5",
-      "review": "Apps 0.27 shared settings preserve native personal/live administrator and digest/CAS admission; original AES-GCM envelope delegates to vault-only authority; independent settings deny machine/delegated identities and unsupported grants. Actual two-shop HTTP/MCP/SDK, rollback, CAS, binding/restart and shared PostgreSQL contracts pass; native integration follows the unchanged owners."
+      "sha256": "fc38b73937df23c1706ff30a9006933f64870616bd48be16368acbf17fb55189",
+      "review": "Pin the CI-verified Apps snapshot including the canonical shared schema export. Conversation placement, tool rights and native SQL policy are unchanged; the source hash checks the exact component tree."
     },
     "extensions/services/app-storage/authority/src/oauth.rs": {
       "status": "unproved",
@@ -1591,8 +1591,8 @@
     },
     "extensions/services/app-storage/model/src/compiler.rs": {
       "status": "unproved",
-      "sha256": "386a87b6b05499a0633a3c80dbfd19646bffe2a9a1df618ccfaf1993312a43a3",
-      "review": "Reviewed complete standard compiler extraction in Apps 0.16/model 0.12. All 19 original before/common/after domain stages now run inside one shared compiler with preserved order, first model kind/pointer or native host error, internal actual view lookup and exhaustive Manifest field coverage. Native manifest_policy delegates value/reference/currency/scope/source/base, current Ed25519 keys, namespace/network/read and clock decisions to original owners; direct verified predicates remain attached. No no-op host domain callbacks or alternative serving compiler. Independent 116 model and 24 runtime tests include all 34 canonical packages, nineteen invalid-domain controls and denied-policy/callback-order cases. Native 74 app and two provider units, seventeen real HTTP/PostgreSQL app/schema/preview/staging/isolation/lifecycle/distribution/surface/assistant/event/generation/marketplace/payment modules, unchanged native digests and Clippy pass. Kernel unchanged; shared compiler, policy adapters and SQL/host effects remain unproved."
+      "sha256": "f032cb42cf97c5eb124b6d73981f225d45fb6f039f5f6c0647d95bd996866a76",
+      "review": "MCP read admission is bound to current actor, active installed manifest and the declared view revision. HTTP/PostgreSQL tests check both assistant audiences, cross-tenant denial, deactivation and bound pagination. The opaque browser frame was checked with real navigation. Existing model hosts deny the new placements unless they supply a matching view."
     },
     "extensions/services/app-storage/model/src/configuration.rs": {
       "status": "unproved",
@@ -1741,8 +1741,8 @@
     },
     "extensions/services/app-storage/model/src/surfaces.rs": {
       "status": "unproved",
-      "sha256": "09ed2928be5f193a3df772ddf606d0b9a67f477199330532b82ba7e732210e96",
-      "review": "Reviewed Apps 0.10.0 exact source 1b474bac520a5c209a7b59adb6cc1872e06dcb5b: strict Surface/ApiRoute wire types and original placement/route/action/path/method grammar now shared through mandatory host policies. Native actual view lookup, auth scope registry, direct verified read predicate, complete view/behavior compilation order, current actor/context/digest grants, UI pins and routing/action input-output admission retained. 78 independent model tests, 74 native app units, unchanged 34 bundle digests and 12 affected PostgreSQL/HTTP/MCP/private-preview/visual/AI-generation/release/Marketplace modules pass. Added native and real install regressions for forged readOnly on save/emit/submit/GET. Model/host/SQL paths remain unproved; extracted kernel unchanged."
+      "sha256": "16f1f44053ae879f2a5bbe9d9de8c41890469c9c9b4ffe77b069e0a4d143e13d",
+      "review": "MCP read admission is bound to current actor, active installed manifest and the declared view revision. HTTP/PostgreSQL tests check both assistant audiences, cross-tenant denial, deactivation and bound pagination. The opaque browser frame was checked with real navigation. Existing model hosts deny the new placements unless they supply a matching view."
     },
     "extensions/services/app-storage/model/src/triggers.rs": {
       "status": "unproved",
@@ -1887,7 +1887,7 @@
     "extensions/services/app-storage/model/tests/surfaces.rs": {
       "status": "unproved",
       "sha256": "54e1298927fb97f0503f74f3413265e7ea043b15197c5293b898ce8168ced190",
-      "review": "Reviewed Apps 0.10.0 exact source 1b474bac520a5c209a7b59adb6cc1872e06dcb5b: strict Surface/ApiRoute wire types and original placement/route/action/path/method grammar now shared through mandatory host policies. Native actual view lookup, auth scope registry, direct verified read predicate, complete view/behavior compilation order, current actor/context/digest grants, UI pins and routing/action input-output admission retained. 78 independent model tests, 74 native app units, unchanged 34 bundle digests and 12 affected PostgreSQL/HTTP/MCP/private-preview/visual/AI-generation/release/Marketplace modules pass. Added native and real install regressions for forged readOnly on save/emit/submit/GET. Model/host/SQL paths remain unproved; extracted kernel unchanged."
+      "review": "MCP read admission is bound to current actor, active installed manifest and the declared view revision. HTTP/PostgreSQL tests check both assistant audiences, cross-tenant denial, deactivation and bound pagination. The opaque browser frame was checked with real navigation. Existing model hosts deny the new placements unless they supply a matching view."
     },
     "extensions/services/app-storage/model/tests/triggers.rs": {
       "status": "unproved",
@@ -2680,9 +2680,9 @@
       "review": "Reviewed strict configuration/library/exact-argument and typed-hook/frozen-decision contract extraction into pinned Apps 0.13.0/model 0.9.0/runtime 0.2.0. Canonical native currency/value/reference/source policy, full compiler order, required expected-null wire semantics, exact problem pointers, WIT projection, bounded guest comparison and contribution limits preserved. Native async cache/source/current-package/library fences and checkout/release remain attached. 96 model and 19 runtime tests, independent seven-plus-five preflight examples, native 74 app units, unchanged 34 package digests, isolated PostgreSQL contract and ten real integrated HTTP/MCP/B2B/configuration/preview/release/AI/Marketplace modules pass. Kernel unchanged; model/runtime/host/SQL remains unproved."
     },
     "src/apps/gateway.rs": {
-      "status": "reviewed-binding",
-      "sha256": "928dbed4c54f52e8ecbe7bf678b6e519708d9ae0dc42a09cb2b9235c5569fe0a",
-      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
+      "status": "unproved",
+      "sha256": "7cd5fcb9ff672c9dba2bd1ddf70cd240c8a88122735ec9d49d67971e235bc960",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
     },
     "src/apps/history_storage.rs": {
       "status": "unproved",
@@ -2749,10 +2749,15 @@
       "sha256": "9045d2f7fd89798ad95abcba9cd03bf9084b380b49630f699ce43610d0b012d6",
       "review": "Reviewed complete standard compiler extraction in Apps 0.16/model 0.12. All 19 original before/common/after domain stages now run inside one shared compiler with preserved order, first model kind/pointer or native host error, internal actual view lookup and exhaustive Manifest field coverage. Native manifest_policy delegates value/reference/currency/scope/source/base, current Ed25519 keys, namespace/network/read and clock decisions to original owners; direct verified predicates remain attached. No no-op host domain callbacks or alternative serving compiler. Independent 116 model and 24 runtime tests include all 34 canonical packages, nineteen invalid-domain controls and denied-policy/callback-order cases. Native 74 app and two provider units, seventeen real HTTP/PostgreSQL app/schema/preview/staging/isolation/lifecycle/distribution/surface/assistant/event/generation/marketplace/payment modules, unchanged native digests and Clippy pass. Kernel unchanged; shared compiler, policy adapters and SQL/host effects remain unproved."
     },
+    "src/apps/mcp_views.rs": {
+      "status": "reviewed-binding",
+      "sha256": "99ac812fdd323ba04d159d5c0e6928c31a7169e0b125e34609cfd4a26f50c1cf",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
+    },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "7d2b62a5d397092b1e325c3c89ce26e5294661cd48139086c5a89c616488c920",
-      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+      "sha256": "afd5d456c2bb9288ba5e40bf9d103d01774e607b6f79c458b3ff2b5a0b857e63",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
     },
     "src/apps/model_contract.rs": {
       "status": "unproved",
@@ -2861,8 +2866,8 @@
     },
     "src/apps/registry.rs": {
       "status": "unproved",
-      "sha256": "7ecd2a4acc3214ba06a047cb7ac7cea36b6afa556c7b2e5261c110f1799fb481",
-      "review": "Reviewed extraction of original registry installation sequencing to pinned Apps 0.5: caller transaction, native compiler/provider trust and marketing-before-tenant/package lock order retained; mandatory dependencies/commerce/lifecycle, typed downgrade/schema migration, model/default/schedule hooks; same locks 543/7, quota 128, immutable digest, revision/activation, version and app.installed writes. Independent PG hook rollback at all five stages, quota contention, own/foreign versions, preview history and writer fence pass; native installation/Studio/F5/schema/staging/release/distribution/tenant and Marketplace composition pass. New SQL/hooks remain explicitly unproved; kernel policies unchanged."
+      "sha256": "b20acc49912a38605b819524dd8ef987a107d791347319c40874ebd431d5a605",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
     },
     "src/apps/relations.rs": {
       "status": "unproved",
@@ -2936,8 +2941,8 @@
     },
     "src/apps/surface_registry.rs": {
       "status": "unproved",
-      "sha256": "a7d53ef63cb833e1c1e4558505c7942a8dfa0e8a43d89eed4d570cb5e3dd1363",
-      "review": "Reviewed native designer task handoff through existing sandbox, membership, revision and proposal owners; app elements admit only active same-tenant public native surfaces; read-only preview grants narrow server action allowlists. HTTP/PostgreSQL regressions cover own/foreign/private/inactive elements, CAS/release and explicit approval. No verified decision or proof boundary changed."
+      "sha256": "f1d510e4a711af97b3aab34e04bb31a973b20176c7ec023e1df35b41a48207c2",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
     },
     "src/apps/surface_tests.rs": {
       "status": "unproved",
@@ -2946,13 +2951,13 @@
     },
     "src/apps/surfaces.rs": {
       "status": "reviewed-binding",
-      "sha256": "305adcaba40c2dd7bbc4aca5832fc805e8ce11e305d9faf08259394729cf6ef5",
-      "review": "Reviewed Apps 0.10.0 exact source 1b474bac520a5c209a7b59adb6cc1872e06dcb5b: strict Surface/ApiRoute wire types and original placement/route/action/path/method grammar now shared through mandatory host policies. Native actual view lookup, auth scope registry, direct verified read predicate, complete view/behavior compilation order, current actor/context/digest grants, UI pins and routing/action input-output admission retained. 78 independent model tests, 74 native app units, unchanged 34 bundle digests and 12 affected PostgreSQL/HTTP/MCP/private-preview/visual/AI-generation/release/Marketplace modules pass. Added native and real install regressions for forged readOnly on save/emit/submit/GET. Model/host/SQL paths remain unproved; extracted kernel unchanged."
+      "sha256": "8858eefa53aa2f7d9522d29100f94714a697bb5cff48682ffad2824c2cfad775",
+      "review": "MCP read admission is bound to current actor, active installed manifest and the declared view revision. HTTP/PostgreSQL tests check both assistant audiences, cross-tenant denial, deactivation and bound pagination. The opaque browser frame was checked with real navigation. Existing model hosts deny the new placements unless they supply a matching view."
     },
     "src/apps/tool_contract.rs": {
       "status": "unproved",
-      "sha256": "b57d010ad7e569ccd9f4c82e6ec778a86da7c0fb932d76191e8374e5737027fd",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "0cba957d65341e9c9c2ffe18688d827060ee26e5a824e7707280f59ca5982151",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
     },
     "src/apps/ui_bundles.rs": {
       "status": "unproved",
@@ -2961,8 +2966,8 @@
     },
     "src/apps/ui_documents.rs": {
       "status": "unproved",
-      "sha256": "eae3eafcb074fe3a1b84693015658166ffe3f4c5c6f2eff0cb84c20cabb9a5d4",
-      "review": "Reviewed original Shopware app controller, bounded fixed-origin lifecycle jobs and durable uncertain fences; opaque pinned app UI response CSP; operational records excluded by extracted release policy and native clone/publication path. Real container, native permissions/MCP, migration retention and app surface regressions passed; PHP and controller adapters remain unproved."
+      "sha256": "0b6a8aaf5107a221eee822e941d4da0610a2c3ec38a47c9c6d3375265feb1ff6",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
     },
     "src/apps/ui_logic_tests.rs": {
       "status": "unproved",
@@ -3716,8 +3721,8 @@
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
-      "sha256": "7b5444e4a17a66bfa6bfa8b4c378fedd5be3cd460f6aedd6a0a94b322e90c6c5",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "e44e14f276dd04876c29ca3b9f8b9ebda7ea136e8ea32679c829829037c715bb",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
     },
     "src/commerce/app_adjustments.rs": {
       "status": "unproved",
@@ -3981,8 +3986,8 @@
     },
     "src/concierge.rs": {
       "status": "unproved",
-      "sha256": "4a09a690b25d5c78e0ff3d7e708802d17ca6e6085e1f3beccbb144668f6e60ff",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "5274e1923f125382f9964abb3f872f4fc27fd5ac455dc341a15ebc5793a90684",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
     },
     "src/context.rs": {
       "status": "unproved",
@@ -4516,8 +4521,8 @@
     },
     "src/mcp/protocol.rs": {
       "status": "unproved",
-      "sha256": "7fbb9c50c84420a16c285df0c3e3458b1942bd45eef7334b325de6e0a06e85e3",
-      "review": "Reviewed restored native operation/schema/boxed dispatch ownership, non-retryable output-contract failures, escaped identifiers and scheduling-row fair outbox migration; existing pure policies unchanged, SQL and transport adapters remain unproved"
+      "sha256": "23668a0d83a1823fa77cb00503e32d6416cd6ca00d6e6af0da254810f6aad57e",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
     },
     "src/mcp/transport.rs": {
       "status": "unproved",
@@ -4526,8 +4531,8 @@
     },
     "src/mcp.rs": {
       "status": "unproved",
-      "sha256": "a36173cd8785efb5bd60abbac6a5b754498d0811496626ae8b3fdfceae333f82",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "c52687dc26c7e620d3467a4dc4ca56f3a83eef22330e0c6298197f9da9c179c7",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
     },
     "src/migrations/identity_checksums.rs": {
       "status": "unproved",
@@ -5016,8 +5021,8 @@
     },
     "src/planner.rs": {
       "status": "unproved",
-      "sha256": "a53fb24a22237f4b48170b339e7b519c0247f7c4e2dcda2b492f4213067b0f0b",
-      "review": "Reviewed current Orders and PII admission, optional Knowledge read grant and registered panel filtering. Knowledge preview skips app evidence only on explicit opt-out, preserving native locale and tenant rules. Frontend tests cover rights revocation and independent policy retry. Native order, shipping, knowledge and checkout HTTP cases pass. Extracted policies unchanged; async Rust and SQL remain unproved."
+      "sha256": "dc430742d07e50ecc9b91fb4e8dc5d91be5f532ec33d479649e721649cdc3879",
+      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
     },
     "src/platform/ai.rs": {
       "status": "reviewed-binding",
@@ -5414,8 +5419,8 @@
       "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
     },
     "components.lock.json": {
-      "sha256": "0053b46ff3462bf89096519395b5caf71a3653ca7d152ca087d6bfd77053136a",
-      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
+      "sha256": "fe9d61e3fcedef9a22df788e6b14e929185b6a7fb2a473f80df8fa2248a1ea66",
+      "review": "Import the App image build inputs that match the existing compile-time shared SQL export. The staged images include the signed scope SQL without changing runtime access policies."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",

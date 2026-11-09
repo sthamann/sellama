@@ -1,0 +1,413 @@
+{
+  "id": "example_agent_results",
+  "version": "0.1.0",
+  "coreApi": "1",
+  "runtime": "declarative",
+  "name": {
+    "en": "Product guide",
+    "de": "Produktratgeber",
+    "fr": "Guide produit",
+    "es": "Guía de productos"
+  },
+  "category": "design",
+  "permissions": [
+    "data.read",
+    "data.write",
+    "admin.slot",
+    "storefront.slot"
+  ],
+  "entities": [
+    {
+      "name": "entries",
+      "label": {
+        "en": "Extension example",
+        "de": "Erweiterungsbeispiel",
+        "fr": "Exemple d’extension",
+        "es": "Ejemplo de extensión"
+      },
+      "publicRead": true,
+      "fields": [
+        {
+          "name": "product_id",
+          "label": {
+            "en": "Core object",
+            "de": "Commerce-Objekt",
+            "fr": "Objet commerce",
+            "es": "Objeto de comercio"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "coreReference": "product"
+        },
+        {
+          "name": "title",
+          "label": {
+            "en": "Title",
+            "de": "Titel",
+            "fr": "Titre",
+            "es": "Título"
+          },
+          "kind": "string",
+          "translatable": true,
+          "required": true
+        },
+        {
+          "name": "body",
+          "label": {
+            "en": "Content",
+            "de": "Inhalt",
+            "fr": "Contenu",
+            "es": "Contenido"
+          },
+          "kind": "string",
+          "translatable": true
+        },
+        {
+          "name": "segment",
+          "label": {
+            "en": "Selection",
+            "de": "Auswahlliste",
+            "fr": "Liste de choix",
+            "es": "Lista de selección"
+          },
+          "kind": "string",
+          "choices": [
+            {
+              "value": "standard",
+              "label": {
+                "en": "Standard",
+                "de": "Standard",
+                "fr": "Standard",
+                "es": "Estándar"
+              }
+            },
+            {
+              "value": "priority",
+              "label": {
+                "en": "Priority",
+                "de": "Priorität",
+                "fr": "Priorité",
+                "es": "Prioridad"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "merchandising",
+      "label": {
+        "en": "Extension example",
+        "de": "Erweiterungsbeispiel",
+        "fr": "Exemple d’extension",
+        "es": "Ejemplo de extensión"
+      },
+      "publicRead": false,
+      "fields": [
+        {
+          "name": "product_id",
+          "label": {
+            "en": "Core object",
+            "de": "Commerce-Objekt",
+            "fr": "Objet commerce",
+            "es": "Objeto de comercio"
+          },
+          "kind": "string",
+          "required": true,
+          "indexed": true,
+          "coreReference": "product"
+        },
+        {
+          "name": "title",
+          "label": {
+            "en": "Title",
+            "de": "Titel",
+            "fr": "Titre",
+            "es": "Título"
+          },
+          "kind": "string",
+          "translatable": true,
+          "required": true
+        },
+        {
+          "name": "body",
+          "label": {
+            "en": "Content",
+            "de": "Inhalt",
+            "fr": "Contenu",
+            "es": "Contenido"
+          },
+          "kind": "string",
+          "translatable": true
+        },
+        {
+          "name": "segment",
+          "label": {
+            "en": "Selection",
+            "de": "Auswahlliste",
+            "fr": "Liste de choix",
+            "es": "Lista de selección"
+          },
+          "kind": "string",
+          "choices": [
+            {
+              "value": "standard",
+              "label": {
+                "en": "Standard",
+                "de": "Standard",
+                "fr": "Standard",
+                "es": "Estándar"
+              }
+            },
+            {
+              "value": "priority",
+              "label": {
+                "en": "Priority",
+                "de": "Priorität",
+                "fr": "Priorité",
+                "es": "Prioridad"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "views": [
+    {
+      "id": "workspace",
+      "layout": "stack",
+      "blocks": [
+        {
+          "id": "editor",
+          "kind": "form",
+          "title": {
+            "en": "Shape your app",
+            "de": "Deine App gestalten",
+            "fr": "Configurez votre app",
+            "es": "Configura tu app"
+          },
+          "entity": "entries",
+          "readAction": "list_entries",
+          "writeAction": "save_entries",
+          "contextBinding": {
+            "field": "product_id",
+            "key": "productId"
+          }
+        }
+      ]
+    },
+    {
+      "id": "shopper",
+      "layout": "stack",
+      "blocks": [
+        {
+          "id": "content",
+          "kind": "cards",
+          "title": {
+            "en": "Product guide",
+            "de": "Produktratgeber",
+            "fr": "Guide produit",
+            "es": "Guía de productos"
+          },
+          "entity": "entries",
+          "readAction": "list_entries",
+          "writeAction": null
+        }
+      ]
+    },
+    {
+      "id": "merchant_results",
+      "layout": "stack",
+      "blocks": [
+        {
+          "id": "entries",
+          "kind": "table",
+          "title": {
+            "en": "Product guide",
+            "de": "Produktratgeber",
+            "fr": "Guide produit",
+            "es": "Guía de productos"
+          },
+          "entity": "merchandising",
+          "readAction": "list_merchant_entries"
+        }
+      ]
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "workspace",
+      "location": "admin.product.tab",
+      "label": {
+        "en": "Extension example",
+        "de": "Erweiterungsbeispiel",
+        "fr": "Exemple d’extension",
+        "es": "Ejemplo de extensión"
+      },
+      "uiPath": "native/workspace",
+      "actions": [
+        "list_entries",
+        "save_entries"
+      ],
+      "permission": "catalog.read"
+    },
+    {
+      "id": "shopper",
+      "location": "storefront.assistant",
+      "label": {
+        "en": "Product guide",
+        "de": "Produktratgeber",
+        "fr": "Guide produit",
+        "es": "Guía de productos"
+      },
+      "uiPath": "native/shopper",
+      "actions": [
+        "list_entries"
+      ]
+    },
+    {
+      "id": "merchant_results",
+      "location": "admin.assistant",
+      "label": {
+        "en": "Merchandising notes",
+        "de": "Sortimentsnotizen",
+        "fr": "Notes de merchandising",
+        "es": "Notas de comercialización"
+      },
+      "uiPath": "native/merchant_results",
+      "actions": [
+        "list_merchant_entries"
+      ],
+      "permission": "apps.read"
+    }
+  ],
+  "apiRoutes": [
+    {
+      "path": "list_entries",
+      "method": "GET",
+      "scope": "storefront",
+      "action": "list_entries"
+    }
+  ],
+  "intelligence": {
+    "description": {
+      "en": "Extension example",
+      "de": "Erweiterungsbeispiel",
+      "fr": "Exemple d’extension",
+      "es": "Ejemplo de extensión"
+    },
+    "tools": [],
+    "entities": []
+  },
+  "actions": [
+    {
+      "name": "list_entries",
+      "description": "Find product guide entries with care and use advice.",
+      "handler": "list",
+      "entity": "entries",
+      "public": true,
+      "readOnly": true,
+      "mcp": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer"
+          },
+          "after": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "save_entries",
+      "description": "Save entries",
+      "handler": "save",
+      "entity": "entries",
+      "public": false,
+      "flowAllowed": true,
+      "permission": "catalog.write",
+      "mcp": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "list_merchant_entries",
+      "description": "Read the merchant merchandising guide entries.",
+      "handler": "list",
+      "entity": "merchandising",
+      "public": false,
+      "readOnly": true,
+      "mcp": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer"
+          },
+          "after": {
+            "type": "string"
+          },
+          "filter": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      },
+      "permission": "apps.read"
+    },
+    {
+      "name": "save_merchant_entry",
+      "description": "Save private merchandising notes.",
+      "handler": "save",
+      "entity": "merchandising",
+      "public": false,
+      "flowAllowed": true,
+      "permission": "apps.manage",
+      "mcp": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "fields": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

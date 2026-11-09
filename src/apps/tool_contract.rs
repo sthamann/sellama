@@ -1,28 +1,47 @@
 //! Installed app tools share native wire metadata and validate declared results without disclosing provider payloads.
 use super::*;
 pub(crate) async fn app_tools(a: &App, h: &RequestContext) -> Result<Vec<Value>> {
-    let rows =
-        sqlx::query("SELECT manifest FROM app_packages WHERE tenant=$1 AND active ORDER BY id")
-            .bind(tenant(h)?)
-            .fetch_all(&a.db)
-            .await?;
+    app_tools_for(a, h, false).await
+}
+
+pub(crate) async fn app_tools_for(
+    a: &App,
+    h: &RequestContext,
+    public_only: bool,
+) -> Result<Vec<Value>> {
+    if h.principal.agent_key.is_some() {
+        return Ok(Vec::new());
+    }
     let mut tools = vec![];
-    for r in rows {
-        let m: Manifest =
-            serde_json::from_value(r.get("manifest")).map_err(|_| bad("Invalid package"))?;
+    for m in super::registry::active_manifests(a, h).await? {
+        let digest = m
+            .surfaces
+            .iter()
+            .any(|s| mcp_views::location(&s.location))
+            .then(|| approval::canonical_digest(&m));
         for action in &m.actions {
-            if verified_kernel::app_tool_admissible(
-                action.mcp != Some(false),
-                super::gateway::action_authorized(a, h, action),
-            ) {
-                tools.push(capabilities::ToolContract::describe(
+            if (!public_only || action.public)
+                && verified_kernel::app_tool_admissible(
+                    action.mcp != Some(false),
+                    super::gateway::action_authorized(a, h, action),
+                )
+            {
+                let mut tool = capabilities::ToolContract::describe(
                     &format!("app.{}.{}", m.id, action.name),
                     &action.description,
                     &action.input_schema,
                     action.output_schema.as_ref(),
-                    action.read_only
-                        || ["list", "configurations"].contains(&action.handler.as_str()),
-                ));
+                    super::surfaces::readonly(action),
+                );
+                if let Some(digest) = &digest
+                    && let Some(s) = m.surfaces.iter().find(|s| {
+                        s.actions.first() == Some(&action.name) && mcp_views::available(a, h, &m, s)
+                    })
+                {
+                    tool["_meta"] =
+                        json!({"ui":{"resourceUri":mcp_views::uri(&tenant(h)?, &m, s, digest)}});
+                }
+                tools.push(tool);
             }
         }
     }

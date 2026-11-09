@@ -3,6 +3,7 @@
 from testing.native_tools import response as native_response
 from testing.app_approval import consent
 from testing.app_approval import pin
+from testing.app_mcp_views import verify as verify_mcp_views
 import concurrent.futures
 import copy
 import hashlib
@@ -52,11 +53,35 @@ def run():
                 pass
             def do_POST(self):
                 request = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+                if self.path.endswith("/embed") or self.path.endswith("/embeddings"):
+                    self.send_error(503)
+                    return
                 model_requests.append(request)
                 proposal = {"summary": "Review an app-owned guide", "changes": [], "app_action": {"app": app_id, "action": "save_entry", "arguments_json": json.dumps({"id": "zz-last", "fields": {"product_id": "mug", "title": {"en": "Approved revision"}, "specification": {"care": ["handwash"]}}})}}
-                if request.get("tools"): proposal={"tool_calls":[]}
-                raw = json.dumps({"status":"completed","output":[{"content":[{"type":"output_text","text":json.dumps(proposal)}]}]}).encode()
-                if request.get("tools"):raw=json.dumps(native_response(request,proposal)).encode()
+                ollama = self.path == "/api/chat"
+                messages = request.get("input") or request.get("messages") or []
+                provider_input = json.dumps(messages)
+                continued = isinstance(messages, list) and any(
+                    isinstance(m, dict) and (m.get("type") == "function_call_output" or m.get("role") == "tool")
+                    for m in messages
+                )
+                mcp_query = "Inspect guide fixture" in provider_input or "Read merchandise fixture" in provider_input
+                if mcp_query and not request.get("tools") and "Inspect guide fixture" in provider_input:
+                    proposal = {"explanation": "A guide is available.", "recommended_ids": [], "layout": "discovery"}
+                elif mcp_query and not request.get("tools"):
+                    proposal = {"summary": "Review the merchandising notes.", "changes": []}
+                if request.get("tools"):
+                    calls = []
+                    if mcp_query and not continued:
+                        name = "list_entries" if "Inspect guide fixture" in provider_input else "list_merchant_entries"
+                        calls = [{"name":f"app.example_agent_results.{name}","arguments_json":'{"limit":1}'}]
+                    proposal = {"tool_calls":calls}
+                if request.get("tools"):
+                    raw = json.dumps(native_response(request, proposal, "ollama" if ollama else "openai")).encode()
+                elif ollama:
+                    raw = json.dumps({"message":{"role":"assistant","content":json.dumps(proposal)},"done":True}).encode()
+                else:
+                    raw = json.dumps({"status":"completed","output":[{"content":[{"type":"output_text","text":json.dumps(proposal)}]}]}).encode()
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
                 self.send_header("Content-Length", str(len(raw)))
@@ -123,7 +148,7 @@ def run():
         for manifest in (m, allowed, blocked, busy):
             pin(config,app_id,manifest)
         # This provider fixture owns both HTTP and queued planning; unrelated test workers must not claim its jobs.
-        env = {**os.environ, "APP_SERVICES": json.dumps(config), "PROCESS_ROLE": "all", "BIND_ADDR": f"127.0.0.1:{api_port}", "OPENAI_API_KEY": "local-wire-fixture", "OPENAI_BASE_URL": f"http://127.0.0.1:{model_server.server_address[1]}/v1"}
+        env = {**os.environ, "APP_SERVICES": json.dumps(config), "PROCESS_ROLE": "all", "BIND_ADDR": f"127.0.0.1:{api_port}", "OPENAI_API_KEY": "local-wire-fixture", "OPENAI_BASE_URL": f"http://127.0.0.1:{model_server.server_address[1]}/v1", "OLLAMA_URL": f"http://127.0.0.1:{model_server.server_address[1]}"}
 
         def call(path, body=None, headers=None, expected=200, method=None):
             if path == '/api/apps' and isinstance(body,dict) and ('manifest' in body or 'builtIn' in body): body=consent(body)
@@ -284,6 +309,19 @@ def run():
             mcp = call("/mcp", {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": f"app.{app_id}.recommend", "arguments": args}}, h)["result"]["structuredContent"]
             assert answer == mcp and "spülmaschinen" in answer["answer"]
             passed("HTTP and agent/MCP consume the same custom service action; app data remains tenant-isolated")
+            guide, public_view, private_view = verify_mcp_views(ROOT, base, call, h, public, oh, restricted)
+            buyer = call("/api/concierge", {"request":"Inspect guide fixture"}, public)["answer"]
+            assert buyer["appViews"], "Shop assistant did not attach its executed app tool"
+            assert buyer["appViews"][0]["resourceUri"] == public_view
+            assert buyer["appViews"][0]["result"]["structuredContent"]["elements"][0]["id"] == "a"
+            plan = call("/api/agent/plan", {"instruction":"Read merchandise fixture", "inference":{"provider":"openai","model":"local-fixture"}}, h)
+            assert plan["preview"]["appViews"][0]["resourceUri"] == private_view
+            assert plan["preview"]["appViews"][0]["result"]["structuredContent"]["elements"][0]["id"] == "private"
+            guide_package = next(p for p in call("/api/apps", headers=h)["packages"] if p["id"] == guide)
+            call(f"/api/apps/{guide}", {"active":False,"revision":guide_package["revision"]}, h, method="PUT")
+            removed = call("/mcp", {"jsonrpc":"2.0","id":1,"method":"resources/read","params":{"uri":public_view}}, public)
+            assert removed["error"]["code"] == -32602
+            passed("Installed app tools attach actual data to both conversations; pagination, sandboxing, tenant separation, private scopes and deactivation are enforced")
             def fake_readonly_get(x):
                 next(a for a in x['actions'] if a['name']=='support_received')['readOnly']=True
                 x['apiRoutes'][0].update(method='GET',action='support_received')

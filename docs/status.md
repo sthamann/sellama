@@ -6,9 +6,44 @@ The local Checkout comparison records equivalent quote results and catalog
 availability across a Checkout restart. Hosted capacity remains a separate
 test. [Measurement](evidence/checkout-composition-performance-2026-11-08.md).
 
-Updated 8 November 2026. Start here for the public product, observed journeys and
+Updated 9 November 2026. Start here for the public product, observed journeys and
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
+
+## Live app queue diagnostics, 9 November 2026
+
+Northflank released build `dizzy-milk-2262` from `a2de14d` as Core
+deployment `vendune-core-6478ccfff5`. The deployed and merged sources
+have the same Git tree. One replica passed readiness with zero restarts
+and the previous replica exited. All 35 public health samples during
+the rollout returned HTTP 200.
+
+The active Core app process logged the due age sample from PostgreSQL.
+Both queues had no due queued rows in the startup sample. The dedicated
+Northflank worker is paused pending production access approval. The
+combined Core continues to process app work.
+
+A simulated purchase in the public Storyfront demo completed through
+the embedded Core checkout. It displayed the German confirmation and
+the original basket stayed empty after returning and reloading. In 12
+public reads per route before and after rollout, median times were 12
+and 12 ms for Core health, 8 and 8 ms for onboarding, and 30 and 32 ms
+for the Storyfront catalogue. These are short public samples.
+
+In isolated PostgreSQL, the service acceptance placed an order with Core's app
+lane off, delivered its event, restarted the app worker during a delay and
+observed one invoice from the resumed Flow. The combined Core then completed
+queued work after rollback. The same test checked that the worker emitted
+aggregate queue ages without tenant, order, app or credential data.
+
+With six test purchases and exact replays, each local topology handled 96
+catalogue reads without an error. The combined process measured 41.9 ms at the
+median and 77.1 ms at the 95th percentile. With the app work separated, it was
+28.2 and 52.9 ms. Both runs produced six orders, stock decrements and invoices.
+These are local debug measurements, with four readers and four purchase clients.
+
+[Queue diagnostics](automation-component.md#read-the-worker-queue-logs) ·
+[Source change](https://github.com/veyndo/veyndo/pull/353).
 
 ## Live Core with app worker handoff support, 8 November 2026
 

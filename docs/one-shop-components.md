@@ -19,9 +19,10 @@ the current shop context and owns the resulting changes.
 
 Commerce owns the catalogue, prices, stock and orders. Checkout coordinates the buyer's session and asks that owner for the current quote and the purchase. Commerce checks current purchasing authority and commits the order, stock allocation and event in one transaction. [Company and shop authority tests](checkout-component.md#current-buyer-channel-and-company-authority). The receipt can be read independently of the original purchase request.
 
-Native and embedded storefronts call Commerce directly. A separately running
-Checkout uses the same owner through the
-[quote, commit and receipt ports](checkout-component.md#commerce-host-ports-in-core).
+Public storefronts and Storyfront use the existing Core checkout. A named
+test shop can use the same storefront interface with a private Checkout
+service via Core. The service uses the same Commerce owner for quote, commit
+and receipt. [Private Checkout route](checkout-component.md#route-a-test-shop-through-private-checkout).
 
 The storefront and Studio use that same shop identity and transaction boundary. Provider calls run through durable jobs. Knowledge and reporting can be rebuilt from their sources. They add context and visibility without joining the purchase transaction. Agents use the same admitted operations as the team and prepare changes for review where approval is required.
 

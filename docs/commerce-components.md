@@ -255,6 +255,12 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
   - [x] Route the local storefront's signed-in simulated purchase through
     independent Checkout. Drive the real browser on desktop and mobile,
     including lost confirmation, original receipt and empty bag.
+  - [x] Prove the private service route with the native storefront and the
+    embedded Storyfront controller. Keep the buyer grant server-side, isolate
+    callback capacity and recover the original receipt after a lost reply.
+    [Private route and test setup](checkout-component.md#route-a-test-shop-through-private-checkout).
+  - [ ] Enable the private route for the named Northflank test shop and accept
+    both public simulated purchase journeys before testing a configured provider.
   - [x] Compose the independent confirmation with native PayPal Sandbox and
     Shopware Payments PayPal. Verify the original payment attempt, denial of a
     switched Live account, capture and refund with local provider responses.

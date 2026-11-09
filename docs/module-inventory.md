@@ -251,6 +251,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/checkout/mod.rs](../src/checkout/mod.rs) | Expose the commerce host contract through the existing native checkout transaction. |
 | [src/checkout/prepare.rs](../src/checkout/prepare.rs) | Native preparation performs original cart/channel/package admission before taking commerce locks. |
 | [src/checkout/price.rs](../src/checkout/price.rs) | Authoritative native quote uses locked products/settings, original taxes, promotions, App hooks, POS and stock checks. |
+| [src/checkout/private_browser.rs](../src/checkout/private_browser.rs) | Relay only the browser's two Checkout session commands to a private service. |
 | [src/checkout/session_order.rs](../src/checkout/session_order.rs) | Bind an explicitly reviewed session purchase to the native transaction and its original order. |
 | [src/checkout/session_payment.rs](../src/checkout/session_payment.rs) | Classify the opt-in Checkout test payment without introducing a second payment ledger. |
 | [src/checkout/session_quote.rs](../src/checkout/session_quote.rs) | Project the current native cart quote for the independent checkout session service. |

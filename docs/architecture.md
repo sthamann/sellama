@@ -15,8 +15,11 @@ the same owner. [Component map and measured composition](one-shop-components.md)
 Core exposes three host operations for an independent Checkout client. Quotes
 are read-only. Confirmation rechecks the quote and commits through the native
 order transaction. Receipt recovery uses the original indexed purchase key.
-The normal storefront and Storyfront still call Core directly.
-[Commerce host ports](checkout-component.md#commerce-host-ports-in-core).
+The normal storefront and Storyfront both call Core. For a configured test
+shop, Core relays the browser's two session operations to private Checkout,
+with separate request capacity for the relay and its Commerce callbacks.
+[Commerce host ports](checkout-component.md#commerce-host-ports-in-core) ·
+[Private browser route](checkout-component.md#route-a-test-shop-through-private-checkout).
 
 The separate Checkout service can also call a reference commerce host. The
 host has its own database and runs the same purchase orchestrator with its own

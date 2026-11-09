@@ -288,31 +288,46 @@ expired, revoked or foreign-shop grant cannot be used to read an account, mint
 another grant, or purchase another buyer's cart. Checkout keeps its existing
 dedicated draft database.
 
-This configuration enables an authenticated buyer canary. Native storefront and
-Storyfront can share the existing checkout interface. To route an admitted
-browser purchase to the independent service, also set Core's
-`CHECKOUT_BROWSER_ORIGIN` to the exact HTTPS Checkout origin. Set
-`CHECKOUT_ORIGINS` in Checkout to the JSON array of exact Core page origins
-that render this interface. Include the actual Core iframe origin for an
-embedded checkout, even when the parent storefront has a different origin.
+### Route a test shop through private Checkout
 
-The shop offers this route for signed-in consumer carts in an enabled shop
-using simulated payment or an admitted Shopware Payments PayPal Sandbox account.
-The browser sends the short-lived grant and cart
-capability directly to Checkout. Commerce remains responsible for the final
-review and commit, and the storefront reads the complete receipt from its
-original cart. A lost confirmation response triggers a read of the same cart
-to recover the original order. Omit `CHECKOUT_BROWSER_ORIGIN` to stop offering
-the route on new cart reads. Guest purchases, live payments and saved funding
-continue through the existing native endpoint.
+In Northflank, set `CHECKOUT_PRIVATE_ORIGIN=http://veyndo-checkout:8810`
+on Core. Keep the Checkout listener private. Set the service's
+`CHECKOUT_COMMERCE_ORIGIN` and `CHECKOUT_INTROSPECTION_URL` to the
+configured internal Core address and its introspection endpoint. Use the same
+`CHECKOUT_INTROSPECTION_TOKEN` in both processes. The service must explicitly
+enable simulated confirmation with `CHECKOUT_ENABLE_SIMULATED_PURCHASE=true`.
 
-Accept the configured origins in the hosted native and Storyfront browsers
-before enabling the route. Guest checkout through the independent service and
-hosted provider settlement and refund have separate acceptance steps.
+Both the shop and the Storyfront iframe use two same-origin Store API calls.
+Core validates the existing buyer session and relays the request using a
+short-lived grant. The browser keeps its native cart capability and sees
+neither the grant nor the private service address.
+
+| Browser operation | Private Checkout operation |
+| --- | --- |
+| `POST /store-api/checkout/independent/create` | `POST /v1/sessions` |
+| `POST /store-api/checkout/independent/confirm` | `POST /v1/sessions/confirm` |
+
+The relay has eight concurrent slots per Core process and at most four per
+shop across Core replicas, capped by the existing shop limit. Waiting for
+Checkout leaves the native request slots available for its Commerce callbacks.
+The authoritative order, stock and outbox commit stays in Core.
+
+The canary applies to signed-in consumer carts in the named live shop using
+simulated payment or an explicitly admitted PayPal Sandbox account. Guest
+purchases, live payments and saved funding use the native path. Remove the
+shop from `CHECKOUT_IDENTITY_SHOPS` to return its next cart read to native
+checkout. An uncertain confirmation must still be reconciled through the
+original cart and order before attempting a new purchase.
+
+The direct browser option remains available for a Checkout endpoint that is
+intentionally public. Set Core's `CHECKOUT_BROWSER_ORIGIN` and add the exact
+shop and iframe page origins to the service's `CHECKOUT_ORIGINS`. When both
+options are configured the browser uses the private relay.
 
 With both fixture services and the built storefront running locally, set
 `BASE_URL`, `CHECKOUT_TEST_SERVICE_URL` and `CHECKOUT_BROWSER_MODULE` to the
-Core URL, Checkout URL and local Playwright module. Run
+Core URL, Checkout URL and local Playwright module. Set
+`CHECKOUT_TEST_TRANSPORT=same-origin` to exercise the private relay. Run
 `node scripts/testing/checkout_browser_route.mjs` against disposable databases.
 It drives the actual shop on desktop and mobile. The mobile case drops the
 confirmation response after the service commits and verifies one stock
@@ -362,10 +377,10 @@ administrator connection and access to Checkout's runtime secrets were removed
 after installation. The HTTP `/ready` probe verifies the service can establish
 a signed database scope.
 
-The hosted browser rollout still needs the exact HTTPS Checkout origin and
-the named test shop in Core. Accept the original receipt, cart, stock and
-outbox in the native and Storyfront browsers, followed by configured Sandbox
-payment and refund.
+The hosted browser rollout requires the private Core-to-Checkout route and
+the buyer identity settings for the named test shop. Accept the original
+receipt, cart, stock and outbox in the native and Storyfront browsers,
+followed by configured Sandbox payment and refund.
 
 ## PayPal Sandbox through the separate service
 

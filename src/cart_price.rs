@@ -229,7 +229,7 @@ pub(crate) async fn project_cart(
         && c.data.admin_actor.is_none()
         && c.data.pos_actor.is_none()
         && !config.is_business(&c.data.group)
-        && checkout::buyer_identity::browser_checkout_enabled(&c.tenant)
+        && let Some(transport) = checkout::buyer_identity::browser_checkout_transport(&c.tenant)
     {
         let simulated = result["paymentMethod"]["mode"] == "simulated";
         let paypal_sandbox = runtime_config::get().checkout_paypal_sandbox
@@ -240,8 +240,7 @@ pub(crate) async fn project_cart(
                 .is_some_and(checkout::session_payment::test_environment)
             && !checkout::session_payment::has_saved_funding(c);
         if simulated || paypal_sandbox {
-            result["checkoutService"] =
-                json!({"legalPolicyVersion":legal::policy_version(&config.legal)});
+            result["checkoutService"] = json!({"legalPolicyVersion":legal::policy_version(&config.legal),"transport":transport});
             if paypal_sandbox {
                 result["checkoutService"]["paypalSandbox"] = json!(true);
             }

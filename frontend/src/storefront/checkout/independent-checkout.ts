@@ -7,15 +7,28 @@ export async function confirmIndependentCheckout(cart: Cart, channel: string) {
   const legalPolicyVersion = cart.checkoutService?.legalPolicyVersion;
   if (!totalMinor || !currency || !cart.locale || !legalPolicyVersion)
     throw responseError("Checkout changed; review your order again", 409);
-  const { access_token, checkout_origin } = await shopApi<{
-    access_token: string;
-    checkout_origin?: string;
-  }>("/store-api/checkout/session-access", {});
-  if (!checkout_origin)
+  const sameOrigin = cart.checkoutService?.transport === "same-origin";
+  const access = sameOrigin
+    ? undefined
+    : await shopApi<{
+        access_token: string;
+        checkout_origin?: string;
+      }>("/store-api/checkout/session-access", {});
+  if (!sameOrigin && !access?.checkout_origin)
     throw responseError("Checkout identity is not enabled", 503);
 
-  async function post<T>(path: string, body: unknown, confirm = false) {
+  async function post<T>(action: "create" | "confirm", body: unknown) {
+    const confirm = action === "confirm";
     try {
+      if (!access) {
+        return await shopApi<T>(
+          `/store-api/checkout/independent/${action}`,
+          body,
+          confirm ? cart.token : undefined,
+        );
+      }
+      const { access_token, checkout_origin } = access;
+      const path = confirm ? "/v1/sessions/confirm" : "/v1/sessions";
       const response = await fetch(new URL(path, checkout_origin), {
         method: "POST",
         credentials: "omit",
@@ -51,7 +64,7 @@ export async function confirmIndependentCheckout(cart: Cart, channel: string) {
   }
 
   const { id, revision } = await post<{ id: string; revision: number }>(
-    "/v1/sessions",
+    "create",
     {
       requestKey: `browser-${cart.id}-${cart.revision}`,
       expiresIn: 3600,
@@ -65,18 +78,14 @@ export async function confirmIndependentCheckout(cart: Cart, channel: string) {
       },
     },
   );
-  return post<{ orderId: string }>(
-    "/v1/sessions/confirm",
-    {
-      id,
-      revision,
-      confirmed: true,
-      totalMinor,
-      country: cart.checkout.country,
-      paymentMethod: cart.checkout.paymentMethodId,
-      legalPolicyVersion,
-      ...(cart.checkoutService?.paypalSandbox ? { paypalSandbox: true } : {}),
-    },
-    true,
-  );
+  return post<{ orderId: string }>("confirm", {
+    id,
+    revision,
+    confirmed: true,
+    totalMinor,
+    country: cart.checkout.country,
+    paymentMethod: cart.checkout.paymentMethodId,
+    legalPolicyVersion,
+    ...(cart.checkoutService?.paypalSandbox ? { paypalSandbox: true } : {}),
+  });
 }

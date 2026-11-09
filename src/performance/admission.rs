@@ -10,7 +10,10 @@ use std::{
 };
 use tokio::sync::{OwnedSemaphorePermit, Semaphore};
 
+const CHECKOUT_RELAY: &str = "checkout-relay";
+
 struct Budget {
+    relay: Arc<Semaphore>,
     slots: Arc<Semaphore>,
     ai: Arc<Semaphore>,
     touched: Instant,
@@ -25,6 +28,7 @@ struct Metric {
 pub(crate) struct Admission {
     general: Arc<Semaphore>,
     checkout: Arc<Semaphore>,
+    relay: Arc<Semaphore>,
     tenants: Mutex<HashMap<String, Budget>>,
     metrics: Mutex<HashMap<&'static str, Metric>>,
     rejected: AtomicU64,
@@ -44,6 +48,7 @@ impl Default for Admission {
         Self {
             general: Arc::new(Semaphore::new(number("HTTP_CONCURRENCY", 128, 4096))),
             checkout: Arc::new(Semaphore::new(number("CHECKOUT_CONCURRENCY", 32, 1024))),
+            relay: Arc::new(Semaphore::new(8)),
             tenants: Mutex::new(HashMap::new()),
             metrics: Mutex::new(HashMap::new()),
             rejected: AtomicU64::new(0),
@@ -54,32 +59,39 @@ impl Default for Admission {
     }
 }
 impl Admission {
+    fn relay_limit(&self) -> usize {
+        self.tenant_limit.min(4)
+    }
+
     fn enter(&self, tenant: &str, class: &str) -> Option<Vec<OwnedSemaphorePermit>> {
         let mut tenants = self.tenants.lock().unwrap();
         if !tenants.contains_key(tenant) && tenants.len() >= 4096 {
             tenants.retain(|_, b| {
                 b.touched.elapsed().as_secs() < 60
                     || b.slots.available_permits() != self.tenant_limit
+                    || b.relay.available_permits() != self.relay_limit()
             });
             if tenants.len() >= 4096 {
                 return None;
             }
         }
         let budget = tenants.entry(tenant.into()).or_insert_with(|| Budget {
+            relay: Arc::new(Semaphore::new(self.relay_limit())),
             slots: Arc::new(Semaphore::new(self.tenant_limit)),
             ai: Arc::new(Semaphore::new(self.ai_limit)),
             touched: Instant::now(),
         });
         budget.touched = Instant::now();
-        // Checkout has a reserved process pool; one busy catalog tenant cannot exhaust it.
-        let process = if class == "checkout" {
-            &self.checkout
-        } else {
-            &self.general
+        // A relay waits for Checkout to call Core back. Its permits must leave room
+        // for that callback in both the process and workspace pools.
+        let (process, workspace) = match class {
+            CHECKOUT_RELAY => (&self.relay, &budget.relay),
+            "checkout" => (&self.checkout, &budget.slots),
+            _ => (&self.general, &budget.slots),
         };
         let mut permits = vec![
             process.clone().try_acquire_owned().ok()?,
-            budget.slots.clone().try_acquire_owned().ok()?,
+            workspace.clone().try_acquire_owned().ok()?,
         ];
         if class == "ai" {
             permits.push(budget.ai.clone().try_acquire_owned().ok()?);
@@ -103,6 +115,7 @@ impl Admission {
         json!({"scope":"process + database leases","clusterTenantLimits":true,"tenantLimit":self.tenant_limit,"tenantAiLimit":self.ai_limit,
             "dailyAiQuotaDefault":self.daily_ai,"dailyQuotaScope":"database / UTC day",
             "generalAvailable":self.general.available_permits(),"checkoutAvailable":self.checkout.available_permits(),
+            "checkoutRelayAvailable":self.relay.available_permits(),"tenantCheckoutRelayLimit":self.relay_limit(),
             "trackedTenants":self.tenants.lock().unwrap().len(),"rejected":self.rejected.load(Ordering::Relaxed),
             "latencyBucketUpperMs":[5,20,50,100,250,1000,5000,null],
             "classes":metrics.iter().map(|(name,m)|json!({"class":name,"calls":m.calls,"failures":m.failures,"totalMs":m.total_ms,"buckets":m.buckets})).collect::<Vec<_>>()})
@@ -119,6 +132,11 @@ fn class(path: &str) -> &'static str {
         || path.ends_with("/questions")
     {
         "ai"
+    } else if matches!(
+        path,
+        "/store-api/checkout/independent/create" | "/store-api/checkout/independent/confirm"
+    ) {
+        CHECKOUT_RELAY
     } else if path.starts_with("/store-api/checkout/")
         || path.starts_with("/store-api/payments/")
         || path.starts_with("/ucp/")
@@ -154,9 +172,12 @@ pub(crate) async fn run(a: &App, request: Request, next: Next) -> Response {
         return overloaded("Resource concurrency limit reached");
     };
     let _cluster_lease = if validated {
-        match super::cluster_lease::Lease::acquire(a, &tenant, "requests", a.admission.tenant_limit)
-            .await
-        {
+        let (scope, limit) = if class == CHECKOUT_RELAY {
+            (CHECKOUT_RELAY, a.admission.relay_limit())
+        } else {
+            ("requests", a.admission.tenant_limit)
+        };
+        match super::cluster_lease::Lease::acquire(a, &tenant, scope, limit).await {
             Ok(lease) => Some(lease),
             Err(e) => return e.into_response(),
         }
@@ -250,6 +271,20 @@ mod tests {
         drop(first);
         assert!(a.enter("one", "ai").is_some());
     }
+    #[test]
+    fn checkout_relay_leaves_capacity_for_native_callback() {
+        let a = Admission {
+            tenant_limit: 1,
+            ..Admission::default()
+        };
+        let relay = class("/store-api/checkout/independent/confirm");
+        assert_eq!(relay, CHECKOUT_RELAY);
+        let _waiting_for_service = a.enter("one", relay).unwrap();
+        assert!(a.enter("one", relay).is_none());
+        let _service_callback = a.enter("one", "checkout").unwrap();
+        assert!(a.enter("one", "api").is_none());
+    }
+
     #[test]
     fn latency_and_keys_have_bounded_cardinality() {
         let a = Admission::default();

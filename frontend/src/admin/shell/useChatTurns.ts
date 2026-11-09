@@ -1,5 +1,6 @@
 /** Durable chat commands reuse native conversations; late responses cannot cross an account/shop/stage boundary. */
 import { useEffect, useRef, useState } from "react";
+import type { ConversationAppReference } from "../../shared/apps/ConversationAppViews";
 import type { Message, RequestFn, StudioNotice } from "./studio-types";
 export type SavedRun = {
   taskId: string;
@@ -7,6 +8,7 @@ export type SavedRun = {
   revision: number;
   approvalRequired?: boolean;
   completedModelSteps?: number;
+  appViews?: ConversationAppReference[];
   execution?: {
     completed: number;
     total: number;
@@ -81,10 +83,15 @@ export function useChatTurns(options: Options) {
         const value: SavedRun = await request(`/api/agent/runs/${runId}`);
         if (!current()) return;
         setPollError(undefined);
+        if (value.state === "ready") {
+          const conversation = await request(`/api/agent/conversations/${id}`);
+          if (!current()) return;
+          latest.current.setMessages(conversation.messages);
+        }
         setSaved({ scope, id, value });
         if (value.state === "queued" || value.state === "running") {
           timer = setTimeout(poll, 1500);
-        } else {
+        } else if (value.state !== "ready") {
           const conversation = await request(`/api/agent/conversations/${id}`);
           if (current()) latest.current.setMessages(conversation.messages);
         }

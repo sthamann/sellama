@@ -192,6 +192,12 @@ independent SDK host can bind those reads to separate service endpoints.
 The storefront uses its native product and cart controls for buying.
 [Composition walkthrough](agentic-component-ui.md#orders-shipments-and-shipping-policy).
 
+Installed apps can add interactive cards to either conversation. Studio uses
+its durable run status to announce a completed read. The storefront uses its
+chat stream. Both host app interactions through the same revision-bound MCP
+gateway. Commerce changes remain on the native review and confirmation paths.
+[Studio conversation flow](agentic-component-ui.md#show-the-merchants-app-view-during-the-answer).
+
 Primary protocol sources checked during implementation:
 
 - https://ucp.dev/specification/shopping/checkout/rest/

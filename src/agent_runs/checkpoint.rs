@@ -75,6 +75,13 @@ pub(crate) async fn load(a: &App, key: &str) -> Result<Option<Value>> {
     Ok(sqlx::query_scalar("SELECT run_checkpoint->$4 FROM tasks WHERE tenant=$1 AND id=$2 AND run_lease=$3 AND run_state='running' AND run_until>now()")
         .bind(&run.tenant).bind(&run.id).bind(&run.lease).bind(key).fetch_optional(&a.db).await?.flatten())
 }
+pub(crate) async fn app_views(a: &App, trace: &[Value]) -> Result<()> {
+    if CURRENT.try_with(|run| run.conversation).unwrap_or(false) {
+        let views = apps::mcp_views::attachment_references(trace);
+        save(a, "app-views", &json!(views)).await?;
+    }
+    Ok(())
+}
 pub(crate) async fn save(a: &App, key: &str, value: &Value) -> Result<()> {
     let Some(run) = CURRENT.try_with(Clone::clone).ok() else {
         return Ok(());

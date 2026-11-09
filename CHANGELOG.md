@@ -1,5 +1,12 @@
 # Changelog
 
+## App cards during Studio replies
+
+- Show interactive private app cards during saved chat runs. Poll only for
+  card references and use the current MCP permissions to read their data.
+- Keep the card and its selected filter when the final answer arrives. A
+  proposed change still requires the normal Studio review and approval.
+
 ## App cards during shopper replies
 
 - Stream the app card after its authorized public read, while the assistant

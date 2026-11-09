@@ -4,7 +4,7 @@ from testing.native_tools import response as native_response
 from testing.app_approval import consent
 from testing.app_approval import pin
 from testing.app_mcp_views import verify as verify_mcp_views
-from testing.app_mcp_views import verify_cart_review, verify_shopper_stream
+from testing.app_mcp_views import verify_cart_review, verify_shopper_stream, verify_studio_progress
 import concurrent.futures
 import copy
 import hashlib
@@ -51,6 +51,8 @@ def run():
         model_requests = []
         stream_final_finished = threading.Event()
         release_stream_final = threading.Event()
+        release_studio_final = threading.Event()
+        studio_final_finished = threading.Event()
         class Model(module.BaseHTTPRequestHandler):
             def log_message(self, *_):
                 pass
@@ -76,6 +78,9 @@ def run():
                         stream_final_finished.set()
                     proposal = {"explanation": "A guide is available.", "recommended_ids": [], "layout": "discovery"}
                 elif mcp_query and not request.get("tools"):
+                    if "Hold Studio final" in provider_input:
+                        release_studio_final.wait(timeout=15)
+                        studio_final_finished.set()
                     proposal = {"summary": "Review the merchandising notes.",
                                 "changes": [{"product_id": "mug", "stock": 79}] if catalog_review else []}
                 if request.get("tools"):
@@ -336,6 +341,9 @@ def run():
             colleague = call("/api/auth/accept", {"invitationToken": colleague_invite["token"],
                              "name": "Colleague fixture", "password": "Synthetic-app-colleague-2026!"})
             same_shop_colleague = {"Authorization": "Bearer " + colleague["token"], "x-tenant": u["workspace"]}
+            verify_studio_progress(call, h, oh, same_shop_colleague, private_view,
+                                   studio_final_finished, release_studio_final)
+            passed("Studio publishes reference-only app progress to its original actor before the final proposal")
             approval_path = "/api/agent/tasks/" + proposed["taskId"] + "/apply"
             call(approval_path, {"approve": True}, same_shop_colleague, expected=403)
             call(approval_path, {"approve": False}, h, expected=400)

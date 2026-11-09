@@ -354,6 +354,10 @@ The following are implementation tasks; existing UI foundations do not complete 
     Verify a card can be used before the model finishes its answer and keeps
     its filter when the verified answer arrives.
     [Shopper stream](agentic-component-ui.md#show-the-shoppers-app-view-during-the-answer).
+  - [x] Show private app views during a durable Studio chat run. The status
+    carries references for the original actor. The card reads with current
+    rights, keeps its filter through completion, and leaves approvals in the
+    finished message. [Studio progress](agentic-component-ui.md#show-the-merchants-app-view-during-the-answer).
 - [ ] UI-07 Prove one actual standalone/embedded/agent-host vertical slice, then
   cover each component's required UI exports and agent operations from the matrix.
   - [x] Connect the native Orders working view to shipping policy evidence

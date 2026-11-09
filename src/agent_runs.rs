@@ -21,6 +21,7 @@ pub(crate) struct Run {
     pub id: String,
     pub lease: String,
     pub workspace: Value,
+    pub conversation: bool,
 }
 tokio::task_local! { pub(crate) static CURRENT: Run; }
 pub(crate) fn current_id() -> Option<String> {

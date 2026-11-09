@@ -10,15 +10,23 @@ Updated 9 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
-## App cards during shopper replies
+## App cards during replies in Studio and the shop
+
+In a local Chrome test with Core, PostgreSQL and a controlled model response,
+Studio showed the private merchandising card before the final answer. The
+merchant filtered the card while the model was waiting. The same frame and
+filter remained when the answer arrived. The original actor could see the
+progress, while another administrator in the same shop and an unrelated shop
+could not access the run. The status contained only the card reference and
+tool arguments. The browser made one initial app read through the current
+MCP permissions. [Studio progress](agentic-component-ui.md#show-the-merchants-app-view-during-the-answer).
 
 In a local Chromium test with Core and PostgreSQL, the assistant's final
 response waited for the test to release it. The shopper could see and
 filter the Product Guide before that release. The filter and iframe stayed
 in place when the text arrived. With one inference slot per shop, a second
 assistant request received HTTP 429 while the existing app filter still
-worked. The same API returned JSON when the client asked for it. Studio
-continues to attach its views when its existing run completes.
+worked. The same API returned JSON when the client asked for it.
 [Shopper stream](agentic-component-ui.md#show-the-shoppers-app-view-during-the-answer).
 
 ## MCP App conversation views and independent Checkout rehearsal

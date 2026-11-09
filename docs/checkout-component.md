@@ -290,15 +290,27 @@ dedicated draft database.
 
 ### Route a test shop through private Checkout
 
-In Northflank, set `CHECKOUT_PRIVATE_ORIGIN=http://veyndo-checkout:8810`
-on Core. Keep the Checkout listener private. For the calls back to Veyndo,
-the deployed Checkout service requires exact HTTPS destinations. Set
-`CHECKOUT_COMMERCE_ORIGIN=https://app.veyndo.ai` and
-`CHECKOUT_INTROSPECTION_URL=https://app.veyndo.ai/api/identity/checkout/introspect`
-on Checkout. Use the same `CHECKOUT_INTROSPECTION_TOKEN` in both processes.
-Enable simulated confirmation with `CHECKOUT_ENABLE_SIMULATED_PURCHASE=true`
-on Checkout. The service authenticates the identity request with the service
-credential and the Commerce calls with the buyer grant.
+Keep the Checkout listener private. Configure the runtime on the two services:
+
+| Service | Runtime setting |
+| --- | --- |
+| Core only | `CHECKOUT_PRIVATE_ORIGIN=http://veyndo-checkout:8810` and `CHECKOUT_IDENTITY_SHOPS` with the exact test shop ID. |
+| Core only | `CHECKOUT_IDENTITY_KEY` from 32 random bytes encoded as unpadded base64url. Core uses this key to issue five-minute buyer grants. |
+| Core and Checkout | The same `CHECKOUT_INTROSPECTION_TOKEN`, a distinct random service credential of 32 to 256 visible ASCII characters. Restrict access to these two runtimes. |
+| Checkout only | `CHECKOUT_AUDIENCE=veyndo-checkout`, `CHECKOUT_COMMERCE_ORIGIN=https://app.veyndo.ai` and `CHECKOUT_INTROSPECTION_URL=https://app.veyndo.ai/api/identity/checkout/introspect`. |
+| Checkout only | `CHECKOUT_ENABLE_SIMULATED_PURCHASE=true` for the initial demo purchase. |
+
+Checkout calls the exact HTTPS Core destinations. The service authenticates
+introspection with the shared credential and Commerce requests with the buyer
+grant. Northflank service variables take precedence over inherited group values,
+so verify that both processes resolve the same credential before testing.
+
+Start Checkout and confirm its private readiness before starting Core with the
+test shop enabled. An unauthenticated `POST /store-api/checkout/independent/create`
+with an empty JSON object should return 401 for that shop and 503 for a
+different shop outside the allowlist. This checks the boundary without a
+purchase. A signed-in test buyer can then verify that the cart advertises
+`same-origin` and that the confirmation uses the independent route.
 
 Both the shop and the Storyfront iframe use two same-origin Store API calls.
 Core validates the existing buyer session and relays the request using a

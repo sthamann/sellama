@@ -291,11 +291,14 @@ dedicated draft database.
 ### Route a test shop through private Checkout
 
 In Northflank, set `CHECKOUT_PRIVATE_ORIGIN=http://veyndo-checkout:8810`
-on Core. Keep the Checkout listener private. Set the service's
-`CHECKOUT_COMMERCE_ORIGIN` and `CHECKOUT_INTROSPECTION_URL` to the
-configured internal Core address and its introspection endpoint. Use the same
-`CHECKOUT_INTROSPECTION_TOKEN` in both processes. The service must explicitly
-enable simulated confirmation with `CHECKOUT_ENABLE_SIMULATED_PURCHASE=true`.
+on Core. Keep the Checkout listener private. For the calls back to Veyndo,
+the deployed Checkout service requires exact HTTPS destinations. Set
+`CHECKOUT_COMMERCE_ORIGIN=https://app.veyndo.ai` and
+`CHECKOUT_INTROSPECTION_URL=https://app.veyndo.ai/api/identity/checkout/introspect`
+on Checkout. Use the same `CHECKOUT_INTROSPECTION_TOKEN` in both processes.
+Enable simulated confirmation with `CHECKOUT_ENABLE_SIMULATED_PURCHASE=true`
+on Checkout. The service authenticates the identity request with the service
+credential and the Commerce calls with the buyer grant.
 
 Both the shop and the Storyfront iframe use two same-origin Store API calls.
 Core validates the existing buyer session and relays the request using a

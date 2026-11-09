@@ -84,7 +84,11 @@ with one order, one stock decrement and one `order.placed` event per
 purchase. The local Storyfront fixture also
 discarded the iframe completion message. Checkout kept its private listener.
 The relay uses separate request capacity so waiting requests leave room for
-Commerce callbacks. [Configuration and verification](checkout-component.md#route-a-test-shop-through-private-checkout).
+Commerce callbacks. An isolated PostgreSQL check filled all four shop relay
+slots. The next relay request returned HTTP 429 while the native cart still
+responded. Local PayPal provider responses also exercised approval, capture
+and full refund on the original payment attempt in both browser journeys.
+[Configuration and verification](checkout-component.md#route-a-test-shop-through-private-checkout).
 
 Northflank runs Checkout image `puffy-soup-2325` from `eaa34f2` with one
 ready private replica and zero restarts at verification. Its separate database

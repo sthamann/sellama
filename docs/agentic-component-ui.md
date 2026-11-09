@@ -353,6 +353,7 @@ The agent can also benefit from the interaction. When a host adopts
 `ui/update-model-context`, pass selected identifiers and a verified result
 summary back into the conversation. Gate this separately from tool execution
 and keep private records out of the shopper context. Clients without MCP Apps
-can continue with structured results. Nord Atelier remains a separate OpenUI
-streaming example until its adapter passes the same interaction in a compatible
-client. [Client support](https://modelcontextprotocol.io/extensions/client-matrix).
+can continue with structured results. [Nord Atelier](https://github.com/veyndo/sdk/blob/main/docs/nord-atelier.md)
+demonstrates streaming OpenUI in a separate storefront and includes runnable SDK
+calls for catalogue and cart preview. The same interaction in an external MCP
+Apps host is still open. [Client support](https://modelcontextprotocol.io/extensions/client-matrix).

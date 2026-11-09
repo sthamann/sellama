@@ -1,6 +1,6 @@
 # Northflank releases and private performance tests
 
-The product and source namespace are VEYNDO. Existing Northflank resource IDs and private DNS names below are retained deployment identifiers; they must not be recreated merely to change the brand. The Git push trigger now points to `sthamann/veyndo` on `main`.
+The product and source namespace are VEYNDO. Keep the existing Northflank resource IDs and private DNS names when moving the source repository. The Git push trigger uses [`veyndo/veyndo`](https://github.com/veyndo/veyndo) and matches `main`.
 
 The `vendune-main-release` Northflank workflow listens to pushes to `main` only.
 GitHub branch protection requires `verify`, an up-to-date branch and pull
@@ -13,6 +13,12 @@ PostgreSQL disk snapshot, deploys that exact image to `vendune-migrate`, waits
 for its successful migration-only run, then deploys the same image to Core and
 waits for readiness. Core's direct CD and the builder's direct CI stay disabled.
 A failed backup, build or migration prevents the service deployment.
+
+After a repository transfer, check the workflow trigger and the build service
+separately. If the trigger still points to the previous owner, update its
+repository and retain the `main` reference used by the build node. To release
+a merge that happened before the repair, select its exact commit in the
+workflow's **Run** dialog.
 
 Direct CD being off does not pause this separate main-release workflow. A manual
 feature-branch deployment is temporary and can be replaced by an already queued

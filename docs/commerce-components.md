@@ -346,6 +346,10 @@ The following are implementation tasks; existing UI foundations do not complete 
   - [x] Connect the native Orders working view to shipping policy evidence
     and supply an external read-only Commerce and Knowledge example.
     [Orders and shipping policy](agentic-component-ui.md#orders-shipments-and-shipping-policy).
+  - [x] Verify native shopper quote and cart confirmation alongside an MCP App
+    view, plus merchant review and approval of a saved catalogue proposal.
+    The local browser and PostgreSQL checks cover stale quotes, replays and
+    approval by a different actor. [Chat interaction contract](agentic-component-ui.md#review-and-act-in-the-veyndo-chat).
 - [ ] UI-08 Test permissions/PII/current context, missing capabilities, versions,
   unsaved work, cancellation/return, hostile output, responsive/accessibility and
   actual business effects in both standalone host and complete Veyndo.

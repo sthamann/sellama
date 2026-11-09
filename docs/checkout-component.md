@@ -334,8 +334,24 @@ iframe and used simulated payment. Core kept the order and stock transaction.
 
 Each case produced one order, one stock decrement and one `order.placed`
 event. The fixture ran the Storyfront checkout path without starting the full
-Experience deployment. The published Storyfront and provider sandbox require
-separate acceptance.
+Experience deployment.
+
+Northflank deployed Experience image `guided-eggs-5114` from `465f0a9`
+with original Storyfront `a57ed0e`. The persistent volume required the
+previous replica to stop before the new one became ready. The public health
+endpoint temporarily returned 503 during that handover. The new replica
+reported `storyfront-native` and passed readiness with zero restarts.
+
+In the public Lumen test shop, closing the native checkout iframe before
+placing the order left the demo lamp in the original bag. Reopening loaded
+the same item. The simulated purchase `RAC-2d6858a4` for EUR 59.90 returned
+to Storyfront, and the bag was still empty after a full reload. This test used
+the existing Core checkout. A fresh Chromium session then discarded the
+iframe's completion message on purpose during simulated order
+`RAC-e2a6e476`. Storyfront recovered the receipt from Core on return, sent no
+second order request and retained the empty bag after reload. The local
+response-loss and provider fixture results remain separate from hosted
+independent Checkout and PayPal acceptance.
 
 Northflank runs Checkout image `puffy-soup-2325` from `eaa34f2` with one
 ready private replica on port 8810. The dedicated database and login passed

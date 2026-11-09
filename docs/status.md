@@ -53,6 +53,16 @@ payment and refund through the independent service remain open. Core image
 is live with one ready replica and zero restarts. The browser switch remains off.
 [Checkout verification and rollout](checkout-component.md#storyfront-composition-and-hosted-rollout).
 
+Experience image `guided-eggs-5114` from `465f0a9` now serves original
+Storyfront `a57ed0e` on Northflank. In the public Lumen test shop, closing and
+reopening checkout kept the demo product in the bag. The simulated purchase
+`RAC-2d6858a4` for EUR 59.90 returned to the Experience and the bag stayed
+empty after reload. A second simulated purchase, `RAC-e2a6e476`, recovered
+after the browser deliberately dropped the completion message. It made one
+order request and left an empty bag after reload. Both purchases used the
+existing Core checkout.
+[Public Storyfront acceptance](checkout-component.md#storyfront-composition-and-hosted-rollout).
+
 The local PayPal Sandbox composition exercised the built-in PayPal adapter
 and the installed Shopware Payments adapter using synthetic provider responses.
 It recovered the original attempt after a lost confirmation, verified provider

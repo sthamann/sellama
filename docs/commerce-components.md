@@ -280,6 +280,9 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
   - [x] Start the private Northflank service on its dedicated database. Verify
     signed readiness with the restricted login and remove temporary maintenance
     access. [Hosted readiness](checkout-component.md#storyfront-composition-and-hosted-rollout).
+  - [x] Verify the provider-frame purchase locally in native Veyndo and
+    Storyfront. Reopen a pending payment, recover after lost confirmation and
+    refund the original attempt. [Browser evidence](checkout-component.md#paypal-sandbox-through-the-separate-service).
 - [ ] CHK-09 Accept foreign/revoked/private/paused/stale/B2B/stock/provider failures,
   restart/uncertainty recovery and existing Flow/document/outbox behavior.
   - [x] CHK-09a Accept the local native composition with a company buyer, current

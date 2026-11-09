@@ -381,5 +381,25 @@ The test races two buyers for the final unit, drops the response after commit
 and recovers the original payment attempt. It checks that an unverified
 return cannot capture funds, then exercises approval, capture and merchant
 refund using local provider responses. It also verifies the switched Live
-account denial. A hosted browser purchase and refund with a configured
-PayPal Sandbox account remain separate acceptance steps.
+account denial.
+
+The browser test also runs with the local provider fixture. In the disposable
+`atelier` shop, install Shopware Payments, connect the `contract-fixture`
+account and enable PayPal. Configure the private payment adapter with the
+loopback URL from `paypal_fixture("atelier", "https://provider.veyndo-test.local")`,
+its fixture token and approval origins `https://provider.veyndo-test.local` and
+`https://www.sandbox.paypal.com`. Enable the Sandbox confirmation flags on
+both services. Pass the fixture's loopback URL as `CHECKOUT_TEST_PAYPAL_FIXTURE`
+and the disposable Core merchant token as `CHECKOUT_TEST_BROWSER_MERCHANT_TOKEN`
+when running `scripts/testing/checkout_browser_route.mjs`. The browser serves
+the test frame from the loopback fixture and blocks navigation to PayPal.
+
+On 9 November Chromium completed approval, capture and full refund on desktop
+and mobile with the original attempt. The mobile run lost the confirmation
+response. A separate local run used Storyfront's checkout controller and
+recovery client with that same fixture. Closing the iframe during payment
+preserved the bag and reopened the original order. After verified payment,
+the bag stayed empty across reload. Dropping both the confirmation response
+and the browser message still produced one order and one stock decrement.
+Hosted browser purchase and refund with a configured PayPal Sandbox account
+remain separate acceptance steps.

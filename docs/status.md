@@ -58,6 +58,10 @@ and the installed Shopware Payments adapter using synthetic provider responses.
 It recovered the original attempt after a lost confirmation, verified provider
 approval and reconciled capture and refund on that attempt. A switch to Live
 after the quote left order, stock and payment job state unchanged.
+The local browser run also verified provider-frame approval, full refund and
+an empty bag after reload in native Veyndo and Storyfront. Closing Storyfront
+while payment was pending preserved the bag and reopened the original order.
+Hosted Sandbox payment with PayPal remains open.
 [PayPal Sandbox setup and local test](checkout-component.md#paypal-sandbox-through-the-separate-service).
 
 ## Orders and shipping in agentic workspaces, 9 November 2026

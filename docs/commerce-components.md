@@ -283,6 +283,11 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
   - [x] Verify the provider-frame purchase locally in native Veyndo and
     Storyfront. Reopen a pending payment, recover after lost confirmation and
     refund the original attempt. [Browser evidence](checkout-component.md#paypal-sandbox-through-the-separate-service).
+  - [x] Deploy the Storyfront receipt recovery update and verify a public
+    simulated purchase through the existing Core checkout. Confirm close,
+    reopen, return and an empty original bag after reload, including a
+    deliberately dropped iframe completion message.
+    [Public browser evidence](checkout-component.md#storyfront-composition-and-hosted-rollout).
 - [ ] CHK-09 Accept foreign/revoked/private/paused/stale/B2B/stock/provider failures,
   restart/uncertainty recovery and existing Flow/document/outbox behavior.
   - [x] CHK-09a Accept the local native composition with a company buyer, current

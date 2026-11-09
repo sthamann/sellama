@@ -75,6 +75,7 @@ export async function confirmIndependentCheckout(cart: Cart, channel: string) {
       country: cart.checkout.country,
       paymentMethod: cart.checkout.paymentMethodId,
       legalPolicyVersion,
+      ...(cart.checkoutService?.paypalSandbox ? { paypalSandbox: true } : {}),
     },
     true,
   );

@@ -246,6 +246,10 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
   - [x] Route the local storefront's signed-in simulated purchase through
     independent Checkout. Drive the real browser on desktop and mobile,
     including lost confirmation, original receipt and empty bag.
+  - [x] Compose the independent confirmation with native PayPal Sandbox and
+    Shopware Payments PayPal. Verify the original payment attempt, denial of a
+    switched Live account, capture and refund with local provider responses.
+    [Sandbox verification](checkout-component.md#paypal-sandbox-through-the-separate-service).
   - [ ] Accept the hosted independent service with configured Sandbox payment
     and verify payment attempt, callback, settlement and refund.
 - [ ] CHK-03 Extract Rust checkout orchestration/session storage to its own repo;

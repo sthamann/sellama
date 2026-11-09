@@ -1,6 +1,9 @@
 //! Installed payment registry and immutable account/version snapshots; no remote calls inside checkout SQL.
 use super::{enqueue_tx, remote};
 use crate::{App, Result, Row, StoredCart, Value, apps, bad, commerce, conflict, json, uid};
+use std::collections::{HashMap, HashSet};
+
+type AvailableMethods = HashMap<(String, String), String>;
 
 pub(crate) fn external(o: &Value) -> bool {
     !matches!(
@@ -221,24 +224,29 @@ pub(crate) async fn available(
     t: &str,
     channel: &str,
     currency: &str,
-) -> Result<std::collections::HashSet<(String, String)>> {
+) -> Result<HashSet<(String, String)>> {
+    Ok(available_environments(a, t, channel, currency)
+        .await?
+        .into_keys()
+        .collect())
+}
+
+async fn available_environments(
+    a: &App,
+    t: &str,
+    channel: &str,
+    currency: &str,
+) -> Result<AvailableMethods> {
     let rows = sqlx::query("SELECT DISTINCT ON (p.id) p.id,p.version,p.manifest,a.ready,a.data,a.environment FROM app_packages p JOIN payment_provider_accounts a ON a.tenant=p.tenant AND a.app=p.id WHERE p.tenant=$1 AND p.active AND a.channel IN ($2,'default') ORDER BY p.id,(a.channel=$2) DESC").bind(t).bind(channel).fetch_all(&a.db).await?;
     enabled_rows(rows, currency)
 }
-fn enabled_rows(
-    rows: Vec<sqlx::postgres::PgRow>,
-    currency: &str,
-) -> Result<std::collections::HashSet<(String, String)>> {
-    let mut enabled = std::collections::HashSet::new();
+fn enabled_rows(rows: Vec<sqlx::postgres::PgRow>, currency: &str) -> Result<AvailableMethods> {
+    let mut enabled = HashMap::new();
     for row in rows {
         let id: String = row.get("id");
+        let environment: String = row.get("environment");
         if !row.get::<bool, _>("ready")
-            || remote::config(
-                &id,
-                &row.get::<String, _>("version"),
-                &row.get::<String, _>("environment"),
-            )
-            .is_err()
+            || remote::config(&id, &row.get::<String, _>("version"), &environment).is_err()
         {
             continue;
         }
@@ -252,7 +260,7 @@ fn enabled_rows(
                         .as_array()
                         .is_some_and(|ms| ms.iter().any(|v| v == &method.id))
                 {
-                    enabled.insert((id.clone(), method.id));
+                    enabled.insert((id.clone(), method.id), environment.clone());
                 }
             }
         }
@@ -267,12 +275,16 @@ pub(crate) async fn currency_methods(
     channel: &str,
     code: &str,
     s: commerce::Settings,
-) -> Result<commerce::Settings> {
-    let enabled = available(a, t, channel, code).await?;
-    Ok(filter_methods(&enabled, code, s))
+) -> Result<(commerce::Settings, Option<String>)> {
+    let mut enabled = available_environments(a, t, channel, code).await?;
+    let settings = filter_methods(&enabled, code, s);
+    Ok((
+        settings,
+        enabled.remove(&("shopware_payments".into(), "paypal".into())),
+    ))
 }
 fn filter_methods(
-    enabled: &std::collections::HashSet<(String, String)>,
+    enabled: &AvailableMethods,
     code: &str,
     mut s: commerce::Settings,
 ) -> commerce::Settings {
@@ -281,7 +293,7 @@ fn filter_methods(
             method.active &= method
                 .provider_method
                 .as_ref()
-                .is_some_and(|m| enabled.contains(&(provider.clone(), m.clone())));
+                .is_some_and(|m| enabled.contains_key(&(provider.clone(), m.clone())));
         }
         if ["paypal-sandbox", "paypal-live"].contains(&method.id.as_str()) {
             method.active &= "AUD BRL CAD CNY CZK DKK EUR HKD HUF ILS JPY MYR MXN TWD NZD NOK PHP PLN GBP SGD SEK CHF THB USD".split(' ').any(|c|c==code);

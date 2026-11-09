@@ -132,6 +132,9 @@ pub(super) async fn run(
             None
         };
         payments::prepare(&mut tx, &c, &mut order, minor, return_origin.as_deref()).await?;
+        if let Some(review) = review {
+            review.check_prepared_payment(&order["payment"])?;
+        }
         payments::prepare_funding(&mut tx, h, &c, &order).await?;
         commerce::order_fields(&mut order);
         sqlx::query("UPDATE orders SET data=$1 WHERE id=$2")

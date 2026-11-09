@@ -151,7 +151,7 @@ export type Order = {
   }[];
 };
 export type Cart = {
-  checkoutService?: { legalPolicyVersion: string };
+  checkoutService?: { legalPolicyVersion: string; paypalSandbox?: true };
   locale?: string;
   savedConfigurations?: {
     app: string;

@@ -49,6 +49,13 @@ checkout. Hosted native and Storyfront purchases, provider payment and refund
 through the independent service remain open.
 [Checkout verification and rollout](checkout-component.md#storyfront-composition-and-hosted-rollout).
 
+The local PayPal Sandbox composition exercised the built-in PayPal adapter
+and the installed Shopware Payments adapter using synthetic provider responses.
+It recovered the original attempt after a lost confirmation, verified provider
+approval and reconciled capture and refund on that attempt. A switch to Live
+after the quote left order, stock and payment job state unchanged.
+[PayPal Sandbox setup and local test](checkout-component.md#paypal-sandbox-through-the-separate-service).
+
 ## Orders and shipping in agentic workspaces, 9 November 2026
 
 Production Core runs Northflank image `pure-knowledge-5648` from

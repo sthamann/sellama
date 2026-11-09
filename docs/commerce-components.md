@@ -468,6 +468,7 @@ The following are implementation tasks; existing UI foundations do not complete 
     [Worker rollout](automation-component.md#move-the-app-worker-out-of-core).
   - [ ] Start the dedicated worker alongside hosted Core and verify a hosted
     order Flow, queue progress and latency with the new process active.
+    [Private queue signals](automation-component.md#read-the-worker-queue-logs).
 - [ ] AUTO-03 Expose independent API/MCP and graphical/SDK authoring through one
   definition; test branches, delays, retries, revocation and publication.
 - [ ] CON-01 Move connector host and app-owned adapters to `veyndo/connectors`

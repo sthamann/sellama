@@ -5344,10 +5344,15 @@
       "sha256": "640ed67b901e03ae0246705e805324355fb5b67fd40f074739d227d70f748a06",
       "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
     },
+    "src/workers/app_lane/queue_health.rs": {
+      "status": "unproved",
+      "sha256": "8849cecb2bde571c1bff82f7a16e8d776cad8c717ba1bcf14914f9e7b3e043d8",
+      "review": "Reviewed worker-only queue diagnostics: two oldest due index reads share one bounded SQL query, use the existing scoped pool and report aggregate ages without identifiers. The service integration asserts real worker sampling and existing durable order, restart and rollback behavior."
+    },
     "src/workers/app_lane.rs": {
       "status": "unproved",
-      "sha256": "15d72052418d82c86a75a420c57b92296be7d99dcbc200d3acb191f114deaa25",
-      "review": "Reviewed the separation of app worker startup from HTTP and operator initialization. The switch preserves the existing default, role and signed database scope. Shutdown stops future work and bounds the wait for tasks in progress."
+      "sha256": "d040cb90920f73cf1f014a77d70d761202f59d2346ae5c09fe7e86d5b6b38a74",
+      "review": "Reviewed worker-only queue diagnostics: two oldest due index reads share one bounded SQL query, use the existing scoped pool and report aggregate ages without identifiers. The service integration asserts real worker sampling and existing durable order, restart and rollback behavior."
     },
     "src/workers.rs": {
       "status": "unproved",

@@ -69,6 +69,10 @@ zu. So bleiben auch beim Wechsel und bei der Rückkehr zum gemeinsamen
 Betrieb die Aufträge erhalten.
 [Anweisungen und Prozessgrenzen](automation-component.md#portable-flow-directives) ·
 [Worker einrichten](automation-component.md#move-the-app-worker-out-of-core).
+Der App Prozess misst das Alter der ältesten fälligen Aufträge und
+Zustellungen. So lässt sich beim Wechsel erkennen, ob Arbeit liegen
+bleibt. Die Messung läuft im Hintergrund und enthält keine Auftragsdaten.
+[Warteschlange prüfen](automation-component.md#read-the-worker-queue-logs).
 
 ## 1. Der Aufbau
 

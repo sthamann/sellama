@@ -608,6 +608,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/ucp/profile.rs](../src/ucp/profile.rs) | Discover the versioned B2B extension and intersect opt-in platform profiles through bounded public HTTPS. |
 | [src/ucp/readiness.rs](../src/ucp/readiness.rs) | Merchant readiness reports native implementation and current channel configuration, never external programme approval or settlement. |
 | [src/work_signal.rs](../src/work_signal.rs) | One dedicated LISTEN connection per worker process. Commit notifications are hints; polling repairs lost hints. |
+| [src/workers/app_lane/queue_health.rs](../src/workers/app_lane/queue_health.rs) | Private queue age diagnostics using the existing ready indexes. |
 | [src/workers/app_lane.rs](../src/workers/app_lane.rs) | App jobs stop claiming work before shutdown and get a bounded window to save receipts. |
 | [src/workers.rs](../src/workers.rs) | Independently deployable worker roles; leases and durable receipts coordinate replicas. |
 

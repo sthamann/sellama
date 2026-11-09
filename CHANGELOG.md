@@ -1,5 +1,10 @@
 # Changelog
 
+## App worker queue diagnostics, 9 November 2026
+
+- Report due Flow and app delivery ages in private worker logs. The read uses
+  existing database indexes and leaves checkout independent.
+
 ## App worker handoff, 8 November 2026
 
 - Allow Core to hand Flow execution, app scheduling and app deliveries to a

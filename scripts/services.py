@@ -3,7 +3,7 @@
 from testing.app_approval import consent
 from testing.app_approval import pin
 from testing.database import psql
-import hashlib,sys
+import hashlib,re,sys
 import json,os,pathlib,socket,sqlite3,subprocess,tempfile,time,urllib.request,urllib.error,uuid
 ROOT=pathlib.Path(__file__).resolve().parents[1];checks=[]
 def port():
@@ -38,7 +38,7 @@ with tempfile.TemporaryDirectory() as directory:
     pin(config,app_id,manifest)
     env={'APP_SERVICES':json.dumps(config),'PROCESS_ROLE':'all','APP_WORKER_ENABLED':'false',
          'BIND_ADDR':f'127.0.0.1:{api_port}'}
-    worker_env={**env,'PROCESS_ROLE':'app-worker'}
+    worker_env={**env,'PROCESS_ROLE':'app-worker','RUST_LOG':'info'}
     del worker_env['APP_WORKER_ENABLED']
     try:
         start(['python3',str(ROOT/'extensions/apps/service-example/server.py')],{'APP_PORT':str(service_port),'APP_TOKEN':token,'APP_DB':db,'APP_ID':app_id},'service-example-test.log')
@@ -85,6 +85,18 @@ with tempfile.TemporaryDirectory() as directory:
             time.sleep(.25)
         assert len(rows)==1 and rows[0][0]==u['workspace'] and json.loads(rows[0][2])['data']['orderId']==order['id']
         passed('Separate app worker consumes queued order event into app-owned durable SQLite storage')
+        for _ in range(40):
+            lines=(ROOT/'.run'/'service-worker-test.log').read_text().splitlines()
+            sample=next((line for line in lines if 'app_worker_queue_sample' in line),None)
+            if sample:break
+            time.sleep(.1)
+        assert sample, 'Dedicated worker did not log its queue health'
+        sample=re.sub(r'\x1b\[[0-9;]*m','',sample)
+        for field in ('flow','app_delivery'):
+            assert re.search(rf'\b{field}_due=(true|false)\b',sample),sample
+            assert re.search(rf'\b{field}_oldest_seconds=\d+\b',sample),sample
+        assert all(value not in sample for value in (u['workspace'],order['id'],app_id,token))
+        passed('Private worker logs aggregate due ages without tenant, order, app or credential data')
         delayed=flow_job(h,lambda job:job['state']=='queued' and job['cursor']=='invoice')
         assert delayed['execution']['delayCompleted']=='delay'
         worker.terminate();worker.wait(15)

@@ -227,6 +227,28 @@ six stock decrements and six invoices without a catalog error. Median and
 Core, and 22.7 and 61.5 ms with a dedicated app worker. These timings apply to
 this debug build and isolated test database.
 
+## Read the worker queue logs
+
+Search the active app process logs for `app_worker_queue_sample` at the
+Info level. The
+first sample follows startup. The worker samples again every minute, using
+one read through its existing database pool. The query checks the oldest
+due queued Flow and app delivery with the existing ready indexes.
+
+Each queue has a `*_due` flag and a `*_oldest_seconds` age. A false flag
+means there is no due queued row. A true flag with zero seconds means a
+row has just become due. Intentional future delays and retry backoff
+enter the sample when they become due. The sample can include queued
+work for a paused shop or inactive app. It excludes jobs already running
+and terminal history. A growing age calls for checking the queue and
+the worker logs. A failed read emits `app_worker_queue_unavailable`.
+
+These are aggregate signals for operators with access to process logs.
+The worker does not include tenant, job, order, app or credential data
+in the sample. Checkout never waits for it. Verify a specific order
+through the saved Flow result, app delivery receipt and any expected
+invoice. A healthy sample cannot establish that result.
+
 ## Remaining Automation work
 
 The native Core worker uses the same directives. Operating a dedicated worker

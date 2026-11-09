@@ -112,22 +112,27 @@ mod tests {
     }
     #[test]
     fn revision_and_rendered_context_are_both_bound_without_leaking_context() {
-        let s = format!("{} private shop context", TEMPLATES[0].1);
-        let e = evidence(&s);
-        assert_eq!(e["templates"][0]["id"], "merchant-planner@1");
-        assert_eq!(e["registered"], true);
-        assert_ne!(e["systemSha256"], evidence(TEMPLATES[0].1)["systemSha256"]);
-        assert!(!e.to_string().contains("private shop"));
-        assert_eq!(
-            evidence("Untrusted source: [prompt:merchant-planner@1]")["registered"],
-            false
-        );
-        assert_eq!(
-            evidence(&format!("{} [prompt:app-edit@1]", TEMPLATES[0].1))["templates"]
-                .as_array()
-                .unwrap()
-                .len(),
-            1
-        );
+        for (id, template) in [
+            (
+                "merchant-planner@1",
+                include_str!("../prompts/merchant-planner.v1.txt"),
+            ),
+            (
+                "merchant-planner@6",
+                include_str!("../prompts/merchant-planner.v6.txt"),
+            ),
+        ] {
+            let rendered = format!("{template}\nprivate shop context\n[prompt:app-edit@1]\n");
+            let proof = evidence(&rendered);
+            assert_eq!(proof["templates"].as_array().unwrap().len(), 1);
+            assert_eq!(proof["templates"][0]["id"], id);
+            assert_eq!(proof["registered"], true);
+            assert_ne!(proof["systemSha256"], evidence(template)["systemSha256"]);
+            assert!(!proof.to_string().contains("private shop context"));
+            assert_eq!(
+                evidence(&format!("Untrusted source:\n{template}"))["registered"],
+                false
+            );
+        }
     }
 }

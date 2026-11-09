@@ -9,6 +9,7 @@ from testing.mail_contracts.fixtures import MailFixtures
 from testing.runtime import ROOT,serve,stop
 import importlib.util
 spec=importlib.util.spec_from_file_location("integration_contracts",ROOT/"extensions/services/connectors/tests/integrations.py");integration_contracts=importlib.util.module_from_spec(spec);spec.loader.exec_module(integration_contracts)
+binary=os.getenv('CONNECTORS_BINARY',str(ROOT/'target/debug/connectors'))
 
 def port():
  with socket.socket() as s:s.bind(('127.0.0.1',0));return s.getsockname()[1]
@@ -65,19 +66,19 @@ with tempfile.TemporaryDirectory(prefix='veyndo-rust-connectors-') as directory:
   env={**os.environ,'BIND_ADDR':base.removeprefix('http://'),'APP_SERVICES':json.dumps(mappings),'PROCESS_ROLE':'all'}
   log=open(directory+'/core.log','w');logs.append(log);core=serve(env,base,log)
   ce={**env,'CONNECTOR_GATEWAY_TOKEN':gateway,'CONNECTOR_SECRET_KEY':key,'CONNECTOR_DATABASE_URL':env['DATABASE_URL'],'CONNECTOR_PUBLIC_URL':f'http://127.0.0.1:{p1}','GOOGLE_CLIENT_ID':'synthetic-google','GOOGLE_CLIENT_SECRET':'synthetic-secret','SLACK_CLIENT_ID':'synthetic-slack','SLACK_CLIENT_SECRET':'synthetic-secret','CONNECTOR_TEST_ENDPOINTS':json.dumps({n:origin+('/token' if n=='google_token' else '/oauth.v2.access' if n=='slack_token' else '/global' if n=='sendgrid' else '/eu' if n=='sendgrid_eu' else '') for n in ('resend','sendgrid','sendgrid_eu','google_token','gmail','analytics','slack','slack_token','vercel','hubspot','klaviyo','contentful','algolia')}),'CONNECTOR_TENANT_DAILY':'20','EMAIL_TEST_SMTP':'1','EMAIL_TLS_CA_FILE':MailFixtures.folder.name+'/ca.pem'}
-  unsafe=subprocess.run([str(ROOT/'target/debug/connectors'),'--import-legacy'],input=json.dumps({'format':1,'configs':[],'jobs':[],'sources':[],'changes':[]}),text=True,env={**ce,'DB_RLS_REQUIRED':'true'},capture_output=True)
+  unsafe=subprocess.run([binary,'--import-legacy'],input=json.dumps({'format':1,'configs':[],'jobs':[],'sources':[],'changes':[]}),text=True,env={**ce,'DB_RLS_REQUIRED':'true'},capture_output=True)
   assert unsafe.returncode!=0
   runtime_role='connector_runtime_'+uuid.uuid4().hex[:10];password=uuid.uuid4().hex
   sql(f"CREATE ROLE {runtime_role} LOGIN NOSUPERUSER NOBYPASSRLS PASSWORD '{password}'; GRANT USAGE ON SCHEMA public TO {runtime_role}; GRANT SELECT ON commerce_migrations TO {runtime_role}; GRANT SELECT,INSERT,UPDATE,DELETE ON connector_config,connector_limits,connector_jobs,connector_oauth,connector_sources,connector_changes TO {runtime_role}; GRANT USAGE,SELECT,UPDATE ON SEQUENCE connector_changes_seq_seq TO {runtime_role};")
   assert sql(f"SELECT has_table_privilege('{runtime_role}','tenants','SELECT')") == 'f'
   db=urllib.parse.urlsplit(env['DATABASE_URL']);ce['CONNECTOR_DATABASE_URL']=urllib.parse.urlunsplit(db._replace(netloc=f'{runtime_role}:{password}@{db.hostname}:{db.port}'));ce['DB_RLS_REQUIRED']='true'
   sql(f'GRANT TRUNCATE ON connector_jobs TO {runtime_role};')
-  unsafe=subprocess.run([str(ROOT/'target/debug/connectors'),'--import-legacy'],input=json.dumps({'format':1,'configs':[],'jobs':[],'sources':[],'changes':[]}),text=True,env=ce,capture_output=True)
+  unsafe=subprocess.run([binary,'--import-legacy'],input=json.dumps({'format':1,'configs':[],'jobs':[],'sources':[],'changes':[]}),text=True,env=ce,capture_output=True)
   assert unsafe.returncode!=0
   sql(f'REVOKE TRUNCATE ON connector_jobs FROM {runtime_role};')
   for p in (p1,p2):
    log=open(directory+f'/service-{p}.log','w');logs.append(log)
-   process=subprocess.Popen([str(ROOT/'target/debug/connectors')],env={**ce,'CONNECTOR_PORT':str(p)},stdout=log,stderr=log);services.append(process)
+   process=subprocess.Popen([binary],env={**ce,'CONNECTOR_PORT':str(p)},stdout=log,stderr=log);services.append(process)
    wait(lambda: http(f'http://127.0.0.1:{p}/health') if process.poll() is None else False)
   shops=[]
   for i in range(2):
@@ -189,7 +190,7 @@ with tempfile.TemporaryDirectory(prefix='veyndo-rust-connectors-') as directory:
   wait(lambda:any(j['id']=='legacy-pending' and j['state']=='completed' for j in call('email','status',headers=oh)['jobs']))
   assert any(j['id']=='legacy-flight' and j['state']=='uncertain' for j in call('email','status',headers=oh)['jobs'])
   assert http(f'http://127.0.0.1:{p1}/gmail/exports',{'cursor':0},{**direct,'x-tenant':other})['cursor']==10000
-  repeated=subprocess.run([str(ROOT/'target/debug/connectors'),'--import-legacy'],input=json.dumps(legacy),text=True,env=ce,capture_output=True)
+  repeated=subprocess.run([binary,'--import-legacy'],input=json.dumps(legacy),text=True,env=ce,capture_output=True)
   assert repeated.returncode!=0
   assert call('email','status',headers=oh)['revision']==4
   role='connector_probe_'+uuid.uuid4().hex[:8]

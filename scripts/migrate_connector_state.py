@@ -30,7 +30,8 @@ with sqlite3.connect(source.resolve().as_uri()+'?mode=ro',uri=True) as db:
    result['sources'].append({'tenant':row['tenant'],'app':row['app'],'id':row['id'],'value':clear(row['tenant'],row['app'],row['data'])})
  for row in db.execute('SELECT * FROM changes ORDER BY seq'):
   result['changes'].append({'tenant':row['tenant'],'app':row['app'],'seq':row['seq'],'value':clear(row['tenant'],row['app'],row['data'])})
-subprocess.run([str(ROOT/'target/debug/connectors'),'--import-legacy'],input=json.dumps(result).encode(),env=env,cwd=ROOT,check=True)
+binary=os.getenv('CONNECTORS_BINARY',str(ROOT/'target/debug/connectors'))
+subprocess.run([binary,'--import-legacy'],input=json.dumps(result).encode(),env=env,cwd=ROOT,check=True)
 # Original database remains untouched; marker only records a successful atomic import.
 marker=ROOT/'.run/connector-migrated';marker.parent.mkdir(exist_ok=True)
 fd=os.open(marker,os.O_WRONLY|os.O_CREAT|os.O_TRUNC,0o600)

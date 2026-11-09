@@ -57,7 +57,8 @@ the loopback SMTP fixture.
 
 ```sh
 CONNECTORS_BINARY=/absolute/path/to/connectors \
-  python3 scripts/verify_integration.py --container veyndo-postgres-1 --only email_tests
+  python3 scripts/verify_integration.py --container veyndo-postgres-1 \
+    --only email_tests rust_connectors
 ```
 
 The standalone journey commits an order while the app worker is stopped,

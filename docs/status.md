@@ -20,7 +20,7 @@ Connector with an independent database. Core accepted a simulated order
 before the worker started. Replaying checkout returned the original order ID.
 The worker finished one Flow, and the loopback SMTP receipt contained the
 order number. The same Connector binary also passed the existing Core
-database profile.
+database profile, nine provider fixtures and the offline import regression.
 
 The hosted Connector still runs Northflank build `bold-table-9699`
 from `d56d663`. Its old build source is unlinked from the GitHub app.

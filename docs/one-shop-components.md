@@ -14,7 +14,9 @@ flowchart LR
   UI --> Q["Checkout sessions"]
   Q -->|"Current quote and purchase"| C
   C --> DB[("Orders, stock and events")]
-  DB --> W["Workers and provider adapters"]
+  DB --> W["App worker"]
+  W --> D["Connectors"]
+  D --> P["Provider delivery"]
   DB --> K["Knowledge and reporting"]
 ```
 
@@ -35,7 +37,8 @@ The four public development repositories are linked below. The other links expla
 | Catalog AI and agents | Import, enrich and translate catalog data. Agents prepare revision-bound proposals within their grants. [Catalog and agent workflows](agentic-commerce.md) · [Agent rights](agent-authority-controls.md) |
 | Simulator | Runs isolated shopper scenarios so teams can compare changes before release. [Simulator](customer-scenarios.md) |
 | Canvas and Experience | Visual shop editing and the original Storyfront experience use their own presentation. Commerce supplies catalog and checkout operations. [Canvas](visual-workspace-canvas.md) · [Storyfront](storyfront.md) |
-| Connectors and Migration | Provider adapters handle delivery and integration work. Migration reads source shops and hands reviewed imports to the target shop. [Connectors](connectors.md) · [Migration](agentic-migration.md) |
+| Connectors | Nine provider adapters share encrypted settings, durable delivery and receipts. Run the service with Core or with its own database and scoped HTTP/MCP access. [Component guide](connector-component.md) |
+| Migration | Read source shops and hand reviewed imports to the target shop. [Migration guide](agentic-migration.md) |
 | B2B and EDI | Companies, budgets and approvals govern purchasing. EDI normalizes partner documents for the same purchasing workflow. [B2B](b2b-commerce.md) · [EDI](edi.md) |
 | POS | Cashier workspace and register protocol. Sales and refunds use the host's inventory, order and receipt rules. [Register guide](pos.md) |
 | Shipping | Package, label, tracking and return contracts for independent carrier apps. [Shipping guide](shipping-workflows.md) |
@@ -52,5 +55,7 @@ The hosted shop now runs its app worker separately from Core. The worker
 owns Flow execution, app scheduling and delivery from the existing queues.
 The checkout and its original receipt still use the same Commerce owner.
 [Hosted cutover and measurements](status.md#live-flow-draft-check-and-separate-app-worker-9-november-2026).
+
+[Connector composition and hosted response times](status.md#connector-composition-and-public-response-times-9-november-2026).
 
 [Checkout composition measurements, 8 November 2026](evidence/checkout-composition-performance-2026-11-08.md).

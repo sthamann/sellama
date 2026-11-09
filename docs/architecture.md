@@ -67,6 +67,11 @@ Northflank runs app work in a separate private process. Core keeps the public
 checkout and writes the order event. Both processes use the existing restricted
 runtime connections, and the app worker samples due queue ages.
 [Hosted cutover](status.md#live-flow-draft-check-and-separate-app-worker-9-november-2026).
+Connectors own provider credentials, delivery leases and receipts. The app
+worker calls the existing app gateway after checkout has committed. The
+Connector can use a separate PostgreSQL database and still consume the same
+order Flow. The local composition test verifies one delivery after an exact
+checkout replay. [Connector boundary](connector-component.md#verify-the-complete-shop).
 The validated graph also supplies typed directives for branching, effects,
 delays and stops. Core evaluates rules from the saved job, checks current
 rights and dispatches through the existing action owners. An app worker can

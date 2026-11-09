@@ -10,6 +10,44 @@ Updated 9 November 2026. Start here for the public product, observed journeys an
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Connector composition and public response times, 9 November 2026
+
+The private [Connector 0.1.0 prerelease](https://github.com/veyndo/connectors/releases/tag/v0.1.0)
+builds from its own repository. The Linux component run verified its non-root
+image with PostgreSQL, scoped HTTP and MCP, the SDK and a loopback provider.
+The native test against this separate binary ran Core, the app worker and the
+Connector with an independent database. Core accepted a simulated order
+before the worker started. Replaying checkout returned the original order ID.
+The worker finished one Flow, and the loopback SMTP receipt contained the
+order number. The same Connector binary also passed the existing Core
+database profile.
+
+The hosted Connector still runs Northflank build `bold-table-9699`
+from `d56d663`. Its old build source is unlinked from the GitHub app.
+The private Connector repository needs a scoped installation grant before
+the hosted service can build the replacement. The existing Core and private
+app worker remain deployed.
+
+The public Storyfront demo kept one item after leaving the unpaid checkout.
+A second visit completed the embedded checkout with its simulated payment
+method. The German confirmation appeared, and the basket stayed empty after
+returning and reloading the Experience.
+
+Four readers made 600 public requests over 150.6 seconds without an error.
+Each reader fetched one route per second and read the full response.
+
+| Public route | p50 | p95 | p99 |
+| --- | ---: | ---: | ---: |
+| Core health | 34.3 ms | 47.5 ms | 59.8 ms |
+| Storyfront catalogue | 72.2 ms | 86.3 ms | 104.3 ms |
+| Shop onboarding | 32.0 ms | 42.7 ms | 46.7 ms |
+| Experience onboarding | 31.4 ms | 40.3 ms | 46.3 ms |
+
+These are client-side times for four read routes at about four requests per
+second. The hosted test order's merchant-visible Flow trace and sustained
+traffic with active checkout and provider delivery still need acceptance.
+[Connector guide](connector-component.md) · [Component map](one-shop-components.md).
+
 ## Live Flow draft check and separate app worker, 9 November 2026
 
 Core and the private app worker run Northflank build `dashing-rain-5353`

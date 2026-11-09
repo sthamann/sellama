@@ -2220,6 +2220,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/inventory_batch.py](../scripts/testing/inventory_batch.py) | Concurrent two-product allocation/release on the actual HTTP path, reused by strict runtime verification. |
 | [scripts/testing/legacy_customer_ownership.py](../scripts/testing/legacy_customer_ownership.py) | Historical guest snapshots never grant account ownership from an unverified email. |
 | [scripts/testing/mail_contracts/__init__.py](../scripts/testing/mail_contracts/__init__.py) | Mail protocol fixtures and archived/native contract scenarios; local test data only. |
+| [scripts/testing/mail_contracts/connector_database.py](../scripts/testing/mail_contracts/connector_database.py) | Provision an isolated connector namespace and non-owner runtime for the native mail journey. |
 | [scripts/testing/mail_contracts/contracts.py](../scripts/testing/mail_contracts/contracts.py) | Archived email oracle contracts: protocols, revisions, secrecy, retries and multilingual envelopes. |
 | [scripts/testing/mail_contracts/fixtures.py](../scripts/testing/mail_contracts/fixtures.py) | Shared disposable mail servers, synthetic CA and isolated archived connector settings. |
 | [scripts/testing/mail_contracts/journey.py](../scripts/testing/mail_contracts/journey.py) | Native Rust checkout/outbox/Flow/MCP to Rust mail worker and loopback SMTP acceptance. |

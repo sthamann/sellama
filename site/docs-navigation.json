@@ -211,6 +211,7 @@
         "docs/architecture.md",
         "docs/source-map.md",
         "docs/rust-services.md",
+        "docs/connector-component.md",
         "docs/testing.md",
         "docs/formal-verification.md",
         "docs/shopware-parity.md",

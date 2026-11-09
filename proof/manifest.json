@@ -3471,8 +3471,8 @@
     },
     "src/cart_price.rs": {
       "status": "unproved",
-      "sha256": "2c3a72cb6410a84fedc7db6890c111d82d449222601097bbb690c43ac8438ec0",
-      "review": "Reviewed opt-in browser Checkout configuration and native quote marker against desktop and mobile purchases using the original cart, explicit reviewed fields, one stock decrement and recovery after a lost confirmation. Existing kernel policies stay unchanged."
+      "sha256": "52329efd36da16d615aecea522e7d3a77d273e831ed2264bb41455ba7939d481",
+      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
     },
     "src/cart_routes.rs": {
       "status": "unproved",
@@ -3531,13 +3531,13 @@
     },
     "src/checkout/buyer_identity.rs": {
       "status": "unproved",
-      "sha256": "074a20eb835707db9691f32fa362a93db821102c000daaeb892ad81a5a1485f7",
-      "review": "Reviewed opt-in browser Checkout configuration and native quote marker against desktop and mobile purchases using the original cart, explicit reviewed fields, one stock decrement and recovery after a lost confirmation. Existing kernel policies stay unchanged."
+      "sha256": "41af15242b363113f05e8e621737575d230b7b923630b1c38f9e31b4715269a6",
+      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
     },
     "src/checkout/commit.rs": {
       "status": "reviewed-binding",
-      "sha256": "cd9f90f0eb5ec2b8723d1f9f2682cf742265b14c71af5c2ceaaf31d66ef7d03d",
-      "review": "Reviewed checkout stage move and buyer-scoped host contract. Native stock, replay and contact predicates retain their consumers; isolated Commerce and Checkout tests verify legal review, current B2B authority, original receipt recovery and one atomic purchase."
+      "sha256": "9443c31a16fc137c8ef0c29290854fd063f1542bf147e5b5f14b74e90cd90525",
+      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
     },
     "src/checkout/lock.rs": {
       "status": "reviewed-binding",
@@ -3546,8 +3546,8 @@
     },
     "src/checkout/mod.rs": {
       "status": "unproved",
-      "sha256": "c95697abf2c1771474cb7cc7352316a1033abf6de8f493da9ac5f7ac3a46189c",
-      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
+      "sha256": "ed5a7e420c7fe966dc9c13c4f20e951ab988f1ec0326804a855089507cf9e38b",
+      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
     },
     "src/checkout/prepare.rs": {
       "status": "unproved",
@@ -3561,8 +3561,13 @@
     },
     "src/checkout/session_order.rs": {
       "status": "unproved",
-      "sha256": "9ae567d6b1b7b165382a7dc644c36a518e4aef84aac44121ad520a950166e4ce",
-      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
+      "sha256": "b23b219b4431bd75981a63eab65c8015d520a75d2c7edbb4e7205baf3dce821e",
+      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
+    },
+    "src/checkout/session_payment.rs": {
+      "status": "unproved",
+      "sha256": "68dd61bea5c592d329b6a9b6ffac3befa44f14508990924cb24b85d03e532e2f",
+      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
     },
     "src/checkout/session_quote.rs": {
       "status": "unproved",
@@ -4911,8 +4916,8 @@
     },
     "src/payments/registry.rs": {
       "status": "unproved",
-      "sha256": "3b97ae0ee661f3d9d6d6284563a2e02d9a13dee81848c909f0bc05acba1ff70a",
-      "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
+      "sha256": "6917391e8bf0d119470d6187ab1e5d56a7d382a467aa274793f763bab7ee65c6",
+      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
     },
     "src/payments/remote.rs": {
       "status": "unproved",
@@ -5166,8 +5171,8 @@
     },
     "src/runtime_config.rs": {
       "status": "unproved",
-      "sha256": "81197386813fdcd82fcae0d66b88ec76115dafe8d70016c0ed50d7aad0eb8ff3",
-      "review": "Identity-only Veyndo namespace and canonical-domain rename; reviewed migration checksum compatibility for six historical SQL versions, unchanged checkout predicates, 42 library and 169 binary tests pass; native component legacy boundary remains configured and guarded."
+      "sha256": "3d494b7a4561dc9a1a01ae6be3eab62e05588fa1f9638e8262d12161392c666f",
+      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
     },
     "src/sandbox_cache.rs": {
       "status": "unproved",

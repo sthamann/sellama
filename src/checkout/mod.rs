@@ -8,6 +8,7 @@ mod lock;
 mod prepare;
 mod price;
 mod session_order;
+pub(crate) mod session_payment;
 mod session_quote;
 mod state;
 

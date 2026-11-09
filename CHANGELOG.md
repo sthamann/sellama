@@ -1,5 +1,12 @@
 # Changelog
 
+## PayPal Sandbox through independent Checkout
+
+- Let enabled test shops route new PayPal Sandbox purchases through Checkout
+  and reuse the native payment attempt, reconciliation and refund paths.
+- Verify the payment account environment inside the Commerce transaction and
+  exercise lost-response recovery and refunds with local provider fixtures.
+
 ## App-owned MCP views in conversations
 
 - Let installed apps attach read-only tables and cards to merchant and shopper

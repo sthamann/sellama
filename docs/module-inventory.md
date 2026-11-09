@@ -252,6 +252,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/checkout/prepare.rs](../src/checkout/prepare.rs) | Native preparation performs original cart/channel/package admission before taking commerce locks. |
 | [src/checkout/price.rs](../src/checkout/price.rs) | Authoritative native quote uses locked products/settings, original taxes, promotions, App hooks, POS and stock checks. |
 | [src/checkout/session_order.rs](../src/checkout/session_order.rs) | Bind an explicitly reviewed session purchase to the native transaction and its original order. |
+| [src/checkout/session_payment.rs](../src/checkout/session_payment.rs) | Classify the opt-in Checkout test payment without introducing a second payment ledger. |
 | [src/checkout/session_quote.rs](../src/checkout/session_quote.rs) | Project the current native cart quote for the independent checkout session service. |
 | [src/checkout/state.rs](../src/checkout/state.rs) | Opaque native checkout states retain the original transaction and prepared package/language inputs. |
 | [src/checkout_handoff.rs](../src/checkout_handoff.rs) | Single-use checkout transfer for independent storefronts; no app-specific catalog or checkout rules. |
@@ -2101,6 +2102,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/check_site.py](../scripts/check_site.py) | Check the generated documentation's links and discovery metadata. |
 | [scripts/checkout_handoff.py](../scripts/checkout_handoff.py) | Exercise actual PostgreSQL checkout transfer, isolation, replay and durable ordering. |
 | [scripts/checkout_review.py](../scripts/checkout_review.py) | Real SQL checkout rejects unreviewed changes without orders or stock writes; synthetic fixture only. |
+| [scripts/checkout_sandbox_composition.py](../scripts/checkout_sandbox_composition.py) | Exercise independent Checkout and the native PayPal payment owner with synthetic provider responses. |
 | [scripts/cloud_benchmark.py](../scripts/cloud_benchmark.py) | Bounded private-cloud HTTP load using the existing validated benchmark sampler. |
 | [scripts/cognitive_experiments.py](../scripts/cognitive_experiments.py) | Real native consent/layout/payment paths with synthetic live-receipt fixtures, not a measured commerce experiment. |
 | [scripts/commerce.py](../scripts/commerce.py) | Real HTTP/PG tests for SKUs, moderated reviews, tax/shipping/payment and deliveries. |
@@ -2211,6 +2213,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/catalog_intake_checks.py](../scripts/testing/catalog_intake_checks.py) | Native catalogue intake through HTTP/MCP; real stage saves, exact replay, current rights and selected release, no model calls. |
 | [scripts/testing/catalog_preparation_checks.py](../scripts/testing/catalog_preparation_checks.py) | Durable preparation projection through the native catalogue API/MCP; fixture SQL creates an explicit failed provider result only. |
 | [scripts/testing/checkout_buyer_identity.py](../scripts/testing/checkout_buyer_identity.py) | Check native buyer exchange, private introspection and grant confinement through HTTP. |
+| [scripts/testing/checkout_paypal_fixture.py](../scripts/testing/checkout_paypal_fixture.py) | Local PayPal wire fixture for the composed Checkout purchase and reconciliation. |
 | [scripts/testing/ci_gate.py](../scripts/testing/ci_gate.py) | Fail-closed required CI result and same-source coverage transfer between runners. |
 | [scripts/testing/ci_scope.py](../scripts/testing/ci_scope.py) | Choose prototype CI by the complete Git diff; unknown or sensitive changes retain full verification. |
 | [scripts/testing/collection_work.py](../scripts/testing/collection_work.py) | Exercise one reviewed collection task through native categories, pages and durable translation drafts. |

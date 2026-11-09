@@ -178,7 +178,7 @@ pub(crate) async fn project_cart(
     b2b::contract_prices(&mut *a.db.begin().await?, c, &mut ps).await?;
     let (config, revision) = commerce::scoped_config(a, &c.tenant, &c.data.sales_channel).await?;
     let code = config.currencies.selected(&c.data.currency)?.code.clone();
-    let config = payments::currency_methods(
+    let (config, paypal_environment) = payments::currency_methods(
         a,
         &c.tenant,
         &c.data.sales_channel,
@@ -229,11 +229,23 @@ pub(crate) async fn project_cart(
         && c.data.admin_actor.is_none()
         && c.data.pos_actor.is_none()
         && !config.is_business(&c.data.group)
-        && result["paymentMethod"]["mode"] == "simulated"
         && checkout::buyer_identity::browser_checkout_enabled(&c.tenant)
     {
-        result["checkoutService"] =
-            json!({"legalPolicyVersion":legal::policy_version(&config.legal)});
+        let simulated = result["paymentMethod"]["mode"] == "simulated";
+        let paypal_sandbox = runtime_config::get().checkout_paypal_sandbox
+            && checkout::session_payment::provider(&result["paymentMethod"])
+                == Some("shopware_payments")
+            && paypal_environment
+                .as_deref()
+                .is_some_and(checkout::session_payment::test_environment)
+            && !checkout::session_payment::has_saved_funding(c);
+        if simulated || paypal_sandbox {
+            result["checkoutService"] =
+                json!({"legalPolicyVersion":legal::policy_version(&config.legal)});
+            if paypal_sandbox {
+                result["checkoutService"]["paypalSandbox"] = json!(true);
+            }
+        }
     }
     commerce::dates(a, &mut result).await?;
     let currency = config.currencies.selected(&c.data.currency)?;

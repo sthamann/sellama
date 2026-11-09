@@ -61,6 +61,10 @@ pub(crate) fn browser_checkout_enabled(tenant: &str) -> bool {
         .is_some_and(|c| c.browser_origin.is_some() && c.shops.iter().any(|shop| shop == tenant))
 }
 
+pub(super) fn admitted_shop(tenant: &str) -> bool {
+    config().is_some_and(|c| c.shops.iter().any(|shop| shop == tenant))
+}
+
 struct Grant {
     tenant: String,
     digest: String,

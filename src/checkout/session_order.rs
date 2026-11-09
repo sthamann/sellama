@@ -1,5 +1,5 @@
 //! Bind an explicitly reviewed session purchase to the native transaction and its original order.
-use super::execute;
+use super::{execute, session_payment};
 use crate::*;
 use axum::http::header::CACHE_CONTROL;
 
@@ -38,18 +38,20 @@ fn key(session: &str) -> Result<String> {
 }
 
 fn receipt(order: &Value, session: &str, cart: &str, customer: &str) -> Result<Value> {
+    let payment = &order["payment"];
+    let sandbox_attempt = session_payment::attempt(payment);
     if order["checkoutSessionId"] != session
         || order["cart"]["id"] != cart
         || order["orderCustomer"]["customerId"] != customer
-        || order["payment"]["provider"] != "simulated"
-        || order["payment"]["realMoneyCharged"] != false
+        || !(sandbox_attempt
+            || (payment["provider"] == "simulated" && payment["realMoneyCharged"] == false))
     {
         return Err(Error(
             StatusCode::NOT_FOUND,
             "Checkout receipt unavailable".into(),
         ));
     }
-    Ok(json!({
+    let mut result = json!({
         "sessionId": session,
         "cartId": cart,
         "customerId": customer,
@@ -59,7 +61,11 @@ fn receipt(order: &Value, session: &str, cart: &str, customer: &str) -> Result<V
         "paymentState": order["payment"]["state"],
         "currency": order["cart"]["price"]["currency"],
         "totalMinor": order["cart"]["price"]["totalMinor"],
-    }))
+    });
+    if sandbox_attempt {
+        result["paymentAttemptId"] = payment["attemptId"].clone();
+    }
+    Ok(result)
 }
 
 impl Review {
@@ -88,6 +94,11 @@ impl Review {
                 "Current buyer is required".into(),
             ));
         }
+        if self.paypal_sandbox && session_payment::has_saved_funding(c) {
+            return Err(conflict(
+                "Use a new PayPal Sandbox payment for this checkout",
+            ));
+        }
         Ok(())
     }
 
@@ -111,7 +122,12 @@ impl Review {
 
     pub(super) fn check_quote(&self, q: &Value, policy: &Value, minor: i64) -> Result<()> {
         let method = &q["paymentMethod"];
-        if method["mode"] != "simulated" {
+        let allowed = if self.paypal_sandbox {
+            session_payment::provider(method).is_some()
+        } else {
+            method["mode"] == "simulated"
+        };
+        if !allowed {
             return Err(conflict(
                 "The reviewed payment method is unavailable for this checkout profile",
             ));
@@ -131,11 +147,22 @@ impl Review {
 
     pub(super) fn check_replay(&self, order: &Value) -> Result<()> {
         receipt(order, &self.session_id, &self.cart_id, &self.customer_id)?;
+        if self.paypal_sandbox != session_payment::attempt(&order["payment"]) {
+            return Err(conflict("Review the original checkout payment profile"));
+        }
         let total = order["cart"]["price"]["totalMinor"]
             .as_str()
             .and_then(|value| value.parse().ok())
             .ok_or(conflict("Checkout receipt amount unavailable"))?;
         self.check_quote(&order["cart"], &order["legal"]["policyVersion"], total)
+    }
+
+    pub(super) fn check_prepared_payment(&self, payment: &Value) -> Result<()> {
+        if self.paypal_sandbox && session_payment::attempt(payment) {
+            Ok(())
+        } else {
+            Err(conflict("Use a PayPal Sandbox account for this checkout"))
+        }
     }
 }
 
@@ -148,7 +175,10 @@ pub(crate) async fn confirm_session(
     if !review.confirmed {
         return Err(bad("Explicit buyer confirmation is required"));
     }
-    if review.paypal_sandbox {
+    if review.paypal_sandbox
+        && (!runtime_config::get().checkout_paypal_sandbox
+            || !super::buyer_identity::admitted_shop(&tenant(&h)?))
+    {
         return Err(conflict(
             "Use the simulated payment method for this checkout profile",
         ));

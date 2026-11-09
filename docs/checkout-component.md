@@ -55,8 +55,8 @@ Storyfront still reach the same transaction directly.
 | CommitOrder | Recheck the review and buyer in the native transaction. Lock stock in native product order and commit the order, stock allocation, completed cart and outbox event together. The session ID gives the purchase its replay key. An altered review cannot replace an original receipt. |
 | Receipt | Read the original order by its indexed shop and purchase key, then check the original cart, channel and current buyer. Only the buyer credential is needed for recovery. A missing receipt is a read result, not proof that an in-flight confirmation failed. |
 
-The first Core profile confirms orders with the simulated payment method.
-Native payment attempts, provider callbacks and refunds use the existing
+Core supports the simulated payment method and an explicit PayPal Sandbox
+profile. Payment attempts, provider callbacks and refunds use the existing
 Payments owner. The independent Checkout process keeps draft sessions in its
 own database and uses HTTP for the three Commerce operations. Core requires
 no new schema or synchronous dependency on that process. If a response goes
@@ -296,14 +296,15 @@ browser purchase to the independent service, also set Core's
 that render this interface. Include the actual Core iframe origin for an
 embedded checkout, even when the parent storefront has a different origin.
 
-The shop offers this route only for a signed-in consumer cart with a simulated
-method in an enabled shop. The browser sends the short-lived grant and cart
+The shop offers this route for signed-in consumer carts in an enabled shop
+using simulated payment or an admitted Shopware Payments PayPal Sandbox account.
+The browser sends the short-lived grant and cart
 capability directly to Checkout. Commerce remains responsible for the final
 review and commit, and the storefront reads the complete receipt from its
 original cart. A lost confirmation response triggers a read of the same cart
 to recover the original order. Omit `CHECKOUT_BROWSER_ORIGIN` to stop offering
-the route on new cart reads. Guest and provider payments continue through
-the existing native endpoint.
+the route on new cart reads. Guest purchases, live payments and saved funding
+continue through the existing native endpoint.
 
 Accept the configured origins in the hosted native and Storyfront browsers
 before enabling the route. Guest checkout through the independent service and
@@ -345,3 +346,36 @@ Verify readiness with the assigned database role, then configure the exact
 browser origins and one signed-in test shop. The hosted native and Storyfront
 acceptance must cover the original receipt, cart, stock and outbox, followed by
 configured provider payment and refund.
+
+## PayPal Sandbox through the separate service
+
+Set `CHECKOUT_ENABLE_PAYPAL_SANDBOX_PURCHASE=true` on Core and Checkout only
+for the named test shops in `CHECKOUT_IDENTITY_SHOPS`. This flag is off by
+default. Install Shopware Payments, connect its Sandbox account and enable
+PayPal for the test channel. The native browser route reads the selected
+account's environment from the existing payment-method lookup and uses the
+separate service for a new PayPal payment. The service returns a reference
+to the original payment attempt. The existing Core payment screen, worker
+and merchant refund API use that attempt.
+
+The Commerce transaction rechecks the selected provider and the locked
+account environment before committing the order. A switch to Live after
+review rolls back the order, stock allocation and payment job. A lost reply
+can be recovered through the original receipt. Checkout owns no provider
+credentials or payment state. The built-in PayPal Sandbox method can also
+use the explicit service API.
+
+To repeat the local provider-contract test, build Core and Checkout and
+provide a fresh local PostgreSQL database. Set `CHECKOUT_REPOSITORY` to the
+Checkout repository, `BASE_URL` and `BIND_ADDR` to an unused loopback
+listener, and `DATABASE_URL` and `MERCHANT_TOKEN` to disposable test values.
+The local PostgreSQL user must be able to create a database and role for Checkout.
+Set `CHECKOUT_TEST_BINARY` if the Checkout binary uses a custom build
+directory. Run `python3 scripts/checkout_sandbox_composition.py`.
+
+The test races two buyers for the final unit, drops the response after commit
+and recovers the original payment attempt. It checks that an unverified
+return cannot capture funds, then exercises approval, capture and merchant
+refund using local provider responses. It also verifies the switched Live
+account denial. A hosted browser purchase and refund with a configured
+PayPal Sandbox account remain separate acceptance steps.

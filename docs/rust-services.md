@@ -106,6 +106,11 @@ upgrading the connector before activating authenticated Core SQL scopes.
 
 ### Private hosted networking
 
+The [Connector component guide](connector-component.md) covers both the Core
+profile and the independent database profile. The latter uses registered shop
+namespaces and scoped access. Keep the Core profile when changing only the
+image for an existing service.
+
 For Northflank, keep connector port 8797 private and configure the core with
 `APP_SERVICE_PRIVATE_ORIGINS=http://veyndo-connectors:8797`. Each operator-owned
 `APP_SERVICES` entry then uses `http://veyndo-connectors:8797/APP_ID` and the shared

@@ -7,13 +7,22 @@ import subprocess
 import time
 import urllib.parse
 import uuid
-from testing.runtime import ROOT
+from testing.mail_contracts.connector_database import independent_database
+from testing.runtime import ROOT, serve, stop
 from testing.reference_connector import email_config
 from testing.mail_contracts.wire import http
 
 
 class NativeMailJourney:
     def test_rust_api_mcp_permissions_checkout_and_real_order_flow(self):
+        self.mail_journey()
+
+    def test_independent_connector_and_worker_complete_native_checkout(self):
+        if not os.getenv("CONNECTORS_BINARY"):
+            self.skipTest("Set CONNECTORS_BINARY to the separately built Connector")
+        self.mail_journey(standalone=True)
+
+    def mail_journey(self, standalone=False):
         if not os.getenv("DATABASE_URL"):
             self.skipTest("DATABASE_URL required for real Rust/PostgreSQL path")
         from types import SimpleNamespace
@@ -24,6 +33,7 @@ class NativeMailJourney:
             sock.bind(("127.0.0.1", 0))
             port = sock.getsockname()[1]
         base = "http://127.0.0.1:" + str(port)
+        binary = os.getenv("CONNECTORS_BINARY", str(ROOT / "target/debug/connectors"))
         # Other running workers must never consume this fixture's flow jobs.
         database = "commerce_mail_" + uuid.uuid4().hex[:12]
         container = os.getenv("DB_CONTAINER", "veyndo-postgres-1")
@@ -56,33 +66,28 @@ class NativeMailJourney:
             ),
             "PROCESS_ROLE": "all",
         }
+        if standalone:
+            env["APP_WORKER_ENABLED"] = "false"
         log = open(self.temp.name + "/core.log", "w")
         self.addCleanup(log.close)
-        backend = subprocess.Popen(
-            [str(ROOT / "target/debug/veyndo")],
-            cwd=ROOT,
-            env=env,
-            stdout=log,
-            stderr=log,
-        )
-        self.addCleanup(lambda: (backend.send_signal(signal.SIGINT), backend.wait(timeout=10)))
+        backend = serve(env, base, log)
+        self.addCleanup(stop, backend)
 
         def api(path, body=None, headers=None, method=None, expected=200):
             return http(base + path, body, headers, method, expected)
 
-        for _ in range(100):
-            try:
-                api("/health")
-                break
-            except OSError:
-                time.sleep(0.1)
         # The actual standard service is Rust/PostgreSQL, not the archived Python oracle.
         service_env = {**env, **dict(self.env.in_dict), "CONNECTOR_DATABASE_URL": db_url,
                        "CONNECTOR_PORT": str(service.server_port)}
         service_env.pop("CONNECTOR_DATABASE", None)
+        if standalone:
+            connection, register_namespace = independent_database(
+                self, container, uuid.uuid4().hex[:12], self.connector.token, binary, db_url,
+            )
+            service_env.update(connection)
         mail_log = open(self.temp.name + "/rust-mail.log", "w")
         self.addCleanup(mail_log.close)
-        mail_service = subprocess.Popen([str(ROOT / "target/debug/connectors")], cwd=ROOT,
+        mail_service = subprocess.Popen([binary], cwd=ROOT,
                                        env=service_env, stdout=mail_log, stderr=mail_log)
         self.addCleanup(lambda: (mail_service.send_signal(signal.SIGINT), mail_service.wait(timeout=70)))
         for _ in range(100):
@@ -105,6 +110,9 @@ class NativeMailJourney:
             },
         )
         tenant = user["workspace"]
+        if standalone:
+            self.assertEqual(tenant, "mail-" + suffix)
+            register_namespace(tenant)
         h = {"Authorization": "Bearer " + user["token"], "x-tenant": tenant}
         api("/api/apps", {"builtIn": "email"}, h)
         api("/api/apps/email/actions/status", {}, {"x-tenant": tenant}, expected=401)
@@ -175,11 +183,18 @@ class NativeMailJourney:
             ch,
             "PUT",
         )
-        order = api(
-            "/store-api/checkout/order",
-            {},
-            {**ch, "Idempotency-Key": "order-" + suffix},
-        )
+        order_headers = {**ch, "Idempotency-Key": "order-" + suffix}
+        order = api("/store-api/checkout/order", {}, order_headers)
+        if standalone:
+            self.assertFalse(self.smtp.messages)
+            worker_env = {**env, "PROCESS_ROLE": "app-worker", "BOOTSTRAP_MODE": "serve"}
+            del worker_env["APP_WORKER_ENABLED"]
+            worker_log = open(self.temp.name + "/app-worker.log", "w")
+            self.addCleanup(worker_log.close)
+            worker = subprocess.Popen([str(ROOT / "target/debug/veyndo")], cwd=ROOT,
+                                      env=worker_env, stdout=worker_log, stderr=worker_log)
+            self.addCleanup(stop, worker)
+            self.assertEqual(api("/store-api/checkout/order", {}, order_headers)["id"], order["id"])
         for _ in range(150):
             if self.smtp.messages:
                 break
@@ -193,6 +208,14 @@ class NativeMailJourney:
             },
         )
         self.assertIn(order["orderNumber"].encode(), self.smtp.messages[0][1])
+        if standalone:
+            for _ in range(100):
+                runs = [job for job in api("/api/automation/executions", headers=h)["jobs"]
+                        if job["flow"] == "mail_order"]
+                if len(runs) == 1 and runs[0]["state"] == "completed":
+                    break
+                time.sleep(0.1)
+            self.assertEqual([job["state"] for job in runs], ["completed"])
         for _ in range(100):
             jobs = api("/api/apps/email/actions/status", {}, h)["jobs"]
             if jobs[0]["result"] and jobs[0]["result"].get("outcome") == "accepted":

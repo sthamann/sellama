@@ -479,12 +479,23 @@ The following are implementation tasks; existing UI foundations do not complete 
     without writing or enqueuing anything. [Draft check](automation-component.md#check-a-flow-draft-before-saving).
 - [ ] CON-01 Move connector host and app-owned adapters to `veyndo/connectors`
   with source history and independently buildable Rust images.
+  - [x] Publish the history and nine adapters in the access-controlled component
+    repository. Build the independent non-root image and verify it with its
+    PostgreSQL and provider fixtures. [Connector guide](connector-component.md).
+  - [ ] Point the existing Northflank service at the independent image and
+    verify readiness on the retained Core profile before retiring the old image.
 - [ ] CON-02 Replace Core tenant foreign-key provisioning with an authenticated
   namespace/identity contract while retaining forced service-owned isolation.
+  - [x] Verify the independent profile with explicit namespaces and per-app
+    grants, and attach it to native Core through the existing app gateway in
+    the local composition test.
 - [ ] CON-03 Preserve encrypted settings, OAuth states, idempotency, quotas,
   leased workers and uncertainty; no automatic resend after ambiguous delivery.
 - [ ] CON-04 Add standalone API/MCP/SDK examples and real fixture integration;
   rerun native checkout -> outbox -> flow -> connector -> delivery acceptance.
+  - [x] Verify the JavaScript receipt reader and an isolated Core order,
+    separate app worker, independent Connector database and loopback SMTP
+    delivery. [Repeat the test](connector-component.md#verify-the-complete-shop).
 
 ## MARKETPLACES and other additional channels
 

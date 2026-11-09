@@ -69,6 +69,9 @@ gives app tasks a bounded window to persist progress before the process
 releases its database connections.
 [Flow directives](automation-component.md#portable-flow-directives) ·
 [Worker rollout](automation-component.md#move-the-app-worker-out-of-core).
+Worker queue freshness is sampled through the existing PostgreSQL pool
+and reported in process logs. Checkout stays independent of this read.
+[Queue signals](automation-component.md#read-the-worker-queue-logs).
 
 See the [SaaS scalability roadmap](scalability.md) for code-specific bottlenecks,
 cell architecture, delivery order and proposed capacity/economics tests.

@@ -3,6 +3,8 @@ use crate::*;
 use std::{future::Future, time::Duration};
 use tokio::{sync::watch, task::JoinHandle};
 
+mod queue_health;
+
 pub(crate) struct AppWorkers {
     stop: watch::Sender<bool>,
     tasks: Vec<JoinHandle<()>>,
@@ -11,7 +13,20 @@ pub(crate) struct AppWorkers {
 impl AppWorkers {
     pub(super) fn start(a: &App) -> Self {
         let (stop, signal) = watch::channel(false);
-        let mut tasks = Vec::with_capacity(10);
+        let mut tasks = Vec::with_capacity(11);
+        let db = a.db.clone();
+        let mut halt = signal.clone();
+        tasks.push(veyndo::tenant_scope::spawn(async move {
+            let mut ticks = tokio::time::interval(Duration::from_secs(60));
+            ticks.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Skip);
+            while next(&mut halt, async {
+                ticks.tick().await;
+            })
+            .await
+            {
+                queue_health::report(&db).await;
+            }
+        }));
         let collector = a.clone();
         let mut halt = signal.clone();
         tasks.push(veyndo::tenant_scope::spawn(async move {

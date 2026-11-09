@@ -119,11 +119,14 @@
   display: block;
   margin: 3px 0 9px;
 }
-.message-body > p {
+.message-body > p,
+.message-body > .assistant-markdown {
   font-size: 14px;
   line-height: 1.85;
-  white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+.message-body > p {
+  white-space: pre-wrap;
 }
 .from-user .message-body > p {
   background: var(--panel);

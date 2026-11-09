@@ -704,7 +704,6 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/apps/service-integrations.ts](../frontend/src/admin/apps/service-integrations.ts) | Installed provider UI capabilities come from their app packages, not an alternate commerce registry. |
 | [frontend/src/admin/apps/upgrade-i18n.ts](../frontend/src/admin/apps/upgrade-i18n.ts) | Upgrade admission vocabulary shared by installed package consent and App Studio. |
 | [frontend/src/admin/assistant/CopilotNavigation.tsx](../frontend/src/admin/assistant/CopilotNavigation.tsx) | Suggested navigation stays explicit, using the shared native route. |
-| [frontend/src/admin/assistant/MessageText.tsx](../frontend/src/admin/assistant/MessageText.tsx) | MessageText keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/assistant/ProposalCard.tsx](../frontend/src/admin/assistant/ProposalCard.tsx) | ProposalCard keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/assistant/SettingsDialog.tsx](../frontend/src/admin/assistant/SettingsDialog.tsx) | SettingsDialog keeps merchant interaction separate from workspace orchestration. |
 | [frontend/src/admin/assistant/WorkspaceCopilot.tsx](../frontend/src/admin/assistant/WorkspaceCopilot.tsx) | Contextual drawer reuses the existing scoped conversation, permissions and proposal execution without unmounting editors. |
@@ -1249,7 +1248,9 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/shared/canvas/VisualCanvas.tsx](../frontend/src/shared/canvas/VisualCanvas.tsx) | Shared overview owns only bounded preview mounting, zoom and pointer/keyboard navigation; adapters own every edit. |
 | [frontend/src/shared/canvas/canvas-i18n.ts](../frontend/src/shared/canvas/canvas-i18n.ts) | Shared visual-workspace controls use the Studio interface language, independently of content. |
 | [frontend/src/shared/canvas/canvas.css](../frontend/src/shared/canvas/canvas.css) | The common Studio canvas separates navigation from real bounded scene previews. |
+| [frontend/src/shared/content/AssistantMarkdown.tsx](../frontend/src/shared/content/AssistantMarkdown.tsx) | Render assistant prose as React elements without model-defined navigation or HTML. |
 | [frontend/src/shared/content/RichDescription.tsx](../frontend/src/shared/content/RichDescription.tsx) | Safe rich blocks with native image/video rendering; no HTML interpretation or script execution. |
+| [frontend/src/shared/content/assistant-markdown.css](../frontend/src/shared/content/assistant-markdown.css) | Shared assistant prose, with contained scrolling for wide tables and code. |
 | [frontend/src/shared/content/editor/EditorBuffer.ts](../frontend/src/shared/content/editor/EditorBuffer.ts) | Unsaved Markdown source participates in the aggregate's save/navigation guard without becoming product content. |
 | [frontend/src/shared/content/editor/MarkdownSource.tsx](../frontend/src/shared/content/editor/MarkdownSource.tsx) | Live Markdown buffer updates the same structured product document; no raw HTML is rendered or persisted. |
 | [frontend/src/shared/content/editor/RichEditor.tsx](../frontend/src/shared/content/editor/RichEditor.tsx) | Actual Tiptap WYSIWYG editor with structured safe content, media, formatting and per-language drafts. |

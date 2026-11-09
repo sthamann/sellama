@@ -6,6 +6,7 @@ Each file starts with its responsibility. See [the source inventory](../../../..
 
 ## Modules
 
+- [`AssistantMarkdown.tsx`](AssistantMarkdown.tsx): Display model prose and tables in Studio and storefront without enabling model-generated links or HTML.
 - [`RichDescription.tsx`](RichDescription.tsx): Safe rich blocks with native image/video rendering; no HTML interpretation or script execution.
 - [`product-seo.ts`](product-seo.ts): Shared per-field SEO inheritance, encoded product paths and client feedback matching native metadata limits.
 - [`rich-document.tsx`](rich-document.tsx): Safe structured editor rendering. Only known nodes/marks produce elements; URLs are never executable.

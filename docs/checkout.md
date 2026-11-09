@@ -11,6 +11,29 @@ address edits survive quantity/coupon updates. Native form validation, visible
 errors, pending-state locks and small-screen layout cover the browser path.
 This is implemented behavior, not a measured conversion advantage over Shopify.
 
+## Add a one-page PayPal checkout to your frontend
+
+**Use the checkout that already exists.** In Veyndo Studio, connect a PayPal
+Sandbox seller through Shopware Payments and make PayPal available to your
+sales channel. On your storefront, put items into the Veyndo cart and open
+`/checkout` on the shop origin in the same browser session. The existing
+page takes care of contact, delivery, totals, PayPal approval and the order
+receipt. A separate site that already has its own cart UI can use the registered
+origin and single-use cart handoff used by
+[Storyfront](checkout-component.md#how-native-and-embedded-checkout-share-one-order).
+The handoff preserves the cart rather than making the customer start over.
+
+**Build the page yourself.** Start with the
+[external storefront example](checkout-component.md#external-reference-storefront)
+and the [JavaScript and TypeScript SDK](https://github.com/veyndo/sdk).
+Your page owns the layout and calls your server. Your server requests the
+current quote, shows that exact total, sends confirmation after the buyer's
+approval and recovers the same receipt if the response gets lost. Keep the
+service credentials on the server. The example runs a simulated payment.
+The composed PayPal Sandbox purchase through the separate Checkout service
+still needs hosted acceptance. The built-in storefront and embedded Storyfront
+already have [recorded PayPal Sandbox wallet and refund tests](shopware-payments-acceptance.md#actual-paypal-sandbox-purchases-and-refunds-4-november-2026).
+
 ## API contract
 
 `POST /store-api/checkout/order` can bind its review using both
@@ -45,13 +68,12 @@ Polling is bounded and non-overlapping; terminal states stop it.
 
 ## Private Shopware Payments connector
 
-The separate private repository is `sthamann/veyndo-shopware-payments`.
-It currently establishes the proprietary attribution/source boundary, not a
-working Shopware Payments network adapter. The official standalone API/SDK,
-onboarding agreement and VEYNDO-authorized test account are still required.
-Do not relabel the native PayPal adapter as Shopware Payments or invent endpoints.
-Vendor implementation and authorized codes remain private; the public core keeps
-generic commerce/payment contracts.
+The private repository is `veyndo/shopware-payments`. It owns the separate
+payment service and its authorized provider configuration. The public core
+keeps the generic commerce and payment contracts. The recorded wallet tests
+use Veyndo's connected PayPal Sandbox seller. The
+[provider acceptance matrix](shopware-payments-acceptance.md) distinguishes
+those tests from production credentials and provider method coverage.
 
 Already released migration 016 and public Git history cannot become private
 retroactively. Additive migration 039 removes the SQL attribution default;
@@ -68,9 +90,9 @@ approval capture, lost reply, refunds, webhook verification and restart.
 
 If an order-create reply is lost, the browser reads the same cart once and restores its committed order. Active or different carts and failed reads preserve the original error. It never repeats the purchase command as a recovery action.
 
-No actual PSP transaction or live-money charge is claimed. Accelerated wallets,
-advanced cards, vaulting, authorize/void, disputes and full original payment parity
-remain open. Mobile/browser checks use synthetic fixtures without paid AI calls.
+These local regressions use synthetic providers. For tests against PayPal
+Sandbox and current coverage of individual payment methods, see the
+[provider acceptance matrix](shopware-payments-acceptance.md).
 
 ## Responsive storefront and order receipt
 

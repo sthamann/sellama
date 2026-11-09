@@ -76,6 +76,27 @@ export default function StudioConversation({
     request: RequestFn;
   }>();
   const [elapsed, setElapsed] = useState(0);
+  const activeViews =
+    savedRun?.state === "running" && !progressUnavailable
+      ? savedRun.appViews
+      : undefined;
+  const visibleMessages =
+    activeViews?.length &&
+    savedRun &&
+    !messages.some(
+      (m) => m.role === "assistant" && m.data.taskId === savedRun.taskId,
+    )
+      ? [
+          ...messages,
+          {
+            id: -1,
+            role: "assistant",
+            content: "",
+            applied: false,
+            data: { taskId: savedRun.taskId },
+          },
+        ]
+      : messages;
   useEffect(() => {
     if (!busy) {
       setElapsed(0);
@@ -168,10 +189,12 @@ export default function StudioConversation({
             )}
           </div>
         ) : (
-          messages.map((m) => (
+          visibleMessages.map((m) => (
             <article
               className={`studio-message ${m.role === "user" ? "from-user" : "from-assistant"}`}
-              key={m.id}
+              key={
+                m.role === "assistant" && m.data.taskId ? m.data.taskId : m.id
+              }
             >
               <div className="message-avatar">
                 <Icon name={m.role === "user" ? "chat" : "spark"} size={18} />
@@ -180,7 +203,8 @@ export default function StudioConversation({
                 <span className="message-name">
                   {m.role === "user" ? t("you") : t("assistant")}
                 </span>
-                {m.role === "assistant" && !m.data.error ? (
+                {m.id === -1 ? null : m.role === "assistant" &&
+                  !m.data.error ? (
                   <AssistantMarkdown text={m.content} />
                 ) : (
                   <p>
@@ -197,29 +221,30 @@ export default function StudioConversation({
                     {m.content}
                   </details>
                 )}
+                {m.role === "assistant" && (
+                  <ConversationAppViews
+                    views={m.id === -1 ? activeViews : m.data.preview?.appViews}
+                    readCurrent
+                    request={request}
+                    onUseFilter={(filter, previous) => {
+                      const next = draftWithAppFilter(
+                        draft,
+                        filter,
+                        locale,
+                        context ? Math.max(1, 4000 - context.length - 2) : 4000,
+                        "\n",
+                        previous,
+                      );
+                      if (busy || !connected || next === undefined)
+                        return false;
+                      setDraft(next);
+                      composer.current?.focus();
+                      return true;
+                    }}
+                  />
+                )}
                 {m.data.preview && (
                   <>
-                    <ConversationAppViews
-                      views={m.data.preview.appViews}
-                      request={request}
-                      onUseFilter={(filter, previous) => {
-                        const next = draftWithAppFilter(
-                          draft,
-                          filter,
-                          locale,
-                          context
-                            ? Math.max(1, 4000 - context.length - 2)
-                            : 4000,
-                          "\n",
-                          previous,
-                        );
-                        if (busy || !connected || next === undefined)
-                          return false;
-                        setDraft(next);
-                        composer.current?.focus();
-                        return true;
-                      }}
-                    />
                     <CopilotNavigation
                       value={m.data.preview.proposal.navigation}
                     />

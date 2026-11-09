@@ -192,8 +192,14 @@ pub(crate) async fn rounds_for(
             }
             let has_view = entry["appView"].is_string();
             transcript.push(entry);
-            if let Some(views) = views.filter(|_| has_view) {
-                let _ = views.try_send(json!(apps::mcp_views::attachments(&transcript)));
+            if has_view {
+                if public {
+                    if let Some(views) = views {
+                        let _ = views.try_send(json!(apps::mcp_views::attachments(&transcript)));
+                    }
+                } else {
+                    agent_runs::checkpoint::app_views(a, &transcript).await?;
+                }
             }
         }
         native_history.push(json!({"provider":output.provider,"assistant":output.usage["toolContinuation"],"results":native_results}));

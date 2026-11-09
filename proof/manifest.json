@@ -2416,8 +2416,8 @@
     },
     "src/agent_runs/checkpoint.rs": {
       "status": "unproved",
-      "sha256": "efa799bd6885ea0fa952503bbe0892cb9b9c3c649758a8f136fa6909cafdcdbb",
-      "review": "Customer scenarios: independent scenario_security_review completed; native signed-role, cohort, replay, injection, cancellation and post-lock lease-expiry regressions pass. Shared checkout preflight avoids nested-pool deadlock; authority is rechecked at the fenced transaction commit."
+      "sha256": "0789c599a0f587857629f761e16be6de4af89fca07061804557a3aa2fb019557",
+      "review": "A running Studio chat journals only bounded view references after admitted reads. Original actor and scope checks gate run status; current resource revision and tool rights gate browser data. Local PostgreSQL and Chrome confirm isolation, early filtering, unchanged frame identity, and final approval separation."
     },
     "src/agent_runs/context.rs": {
       "status": "unproved",
@@ -2426,8 +2426,8 @@
     },
     "src/agent_runs/contract.rs": {
       "status": "unproved",
-      "sha256": "ab866459f3c1b5a4e2ebfae260c214f2c88e45e59a56e6971de62b44ab4b0b42",
-      "review": "Reviewed scenario source attribution and configuration evidence: native actor/channel/applied-state admission before and after inference; existing release projection excludes operational data; local strict split-role PostgreSQL purchase, cancellation, restart, stale-source and configuration-change cases pass. Async source checks and boundary digests remain outside Lean proof coverage."
+      "sha256": "24ad87d08e69ff480c7d35ec474d44f533b39ff8bc0326124583bf3005c99b7a",
+      "review": "A running Studio chat journals only bounded view references after admitted reads. Original actor and scope checks gate run status; current resource revision and tool rights gate browser data. Local PostgreSQL and Chrome confirm isolation, early filtering, unchanged frame identity, and final approval separation."
     },
     "src/agent_runs/controls.rs": {
       "status": "reviewed-binding",
@@ -2496,13 +2496,13 @@
     },
     "src/agent_runs/worker.rs": {
       "status": "unproved",
-      "sha256": "4c5a01509d94a11b1d6f3ca4fe8f2594370ca550f8978aa4176e75dd5180a6c4",
-      "review": "Customer scenarios: independent scenario_security_review completed; native signed-role, cohort, replay, injection, cancellation and post-lock lease-expiry regressions pass. Shared checkout preflight avoids nested-pool deadlock; authority is rechecked at the fenced transaction commit."
+      "sha256": "fd9f07d338cc078ea27026102ffb56e7f82423d6568cc235121f3d4aabe1f9b9",
+      "review": "A running Studio chat journals only bounded view references after admitted reads. Original actor and scope checks gate run status; current resource revision and tool rights gate browser data. Local PostgreSQL and Chrome confirm isolation, early filtering, unchanged frame identity, and final approval separation."
     },
     "src/agent_runs.rs": {
       "status": "unproved",
-      "sha256": "f2d94123c9312efbcb1dfaaf6dc5f3bbc69d97d772429f6744bf09f0fbb17b3d",
-      "review": "Reviewed persistent copilot navigation as unproved adapter: registered views, current domain and PII rights, tenant-scoped record existence, no URLs or mutations; prompt v5 and isolated HTTP invalid-target regressions."
+      "sha256": "56abc34ae0025ac60c98b9e52f513f2cf17a02483b2a2c43e7b60315268f602e",
+      "review": "A running Studio chat journals only bounded view references after admitted reads. Original actor and scope checks gate run status; current resource revision and tool rights gate browser data. Local PostgreSQL and Chrome confirm isolation, early filtering, unchanged frame identity, and final approval separation."
     },
     "src/apps/action_admission.rs": {
       "status": "unproved",
@@ -2751,8 +2751,8 @@
     },
     "src/apps/mcp_views.rs": {
       "status": "reviewed-binding",
-      "sha256": "4b5784b22aeb1b2169819a52b8a681cf1cba142ec533cb9835e9db2c7042edd1",
-      "review": "Shopper App streaming uses only completed bounded public reads; retains scoped model and AI capacity until the stream ends, and preserves the native JSON path. The held-answer test exercises early and final output."
+      "sha256": "41894dbdf535d3f6f8d4cde8c046858c78c75e1ba6fc36a4be64c79688f8e3ab",
+      "review": "A running Studio chat journals only bounded view references after admitted reads. Original actor and scope checks gate run status; current resource revision and tool rights gate browser data. Local PostgreSQL and Chrome confirm isolation, early filtering, unchanged frame identity, and final approval separation."
     },
     "src/apps/mod.rs": {
       "status": "unproved",
@@ -3736,8 +3736,8 @@
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
-      "sha256": "e87fa7c2b312261ee6ebb1656e2ecda4d31f39784b33f496b88d421b62c06c9c",
-      "review": "Shopper App streaming uses only completed bounded public reads; retains scoped model and AI capacity until the stream ends, and preserves the native JSON path. The held-answer test exercises early and final output."
+      "sha256": "02063b9bb94399ebb748b2d14cf1f841de9c1c1cdcbf25cbbeb4a179eeb2aec1",
+      "review": "A running Studio chat journals only bounded view references after admitted reads. Original actor and scope checks gate run status; current resource revision and tool rights gate browser data. Local PostgreSQL and Chrome confirm isolation, early filtering, unchanged frame identity, and final approval separation."
     },
     "src/commerce/app_adjustments.rs": {
       "status": "unproved",

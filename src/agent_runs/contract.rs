@@ -156,7 +156,15 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
     let state: String = row.get("run_state");
     let revision: i64 = row.get("run_revision");
     if name == "merchant.run.status" {
-        return Ok(project(&row));
+        let mut value = project(&row);
+        if state == "running"
+            && value["conversationId"].is_string()
+            && h.principal.agent_key.is_none()
+            && let Some(views) = row.get::<Value, _>("run_checkpoint").get("app-views")
+        {
+            value["appViews"] = views.clone();
+        }
+        return Ok(value);
     }
     if v["approve"] != true || v["revision"].as_i64() != Some(revision) {
         return Err(conflict(

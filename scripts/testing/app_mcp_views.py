@@ -139,3 +139,50 @@ def verify_shopper_stream(base, visitor, expected_uri, finished, release):
             assert kind == "complete" and complete["answer"]["appViews"] == views
     finally:
         release.set()
+
+
+def verify_studio_progress(call, merchant, other, colleague, expected_uri, finished, release):
+    from time import monotonic, sleep
+
+    chat = call("/api/agent/chat", {
+        "message": "Read merchandise fixture. Hold Studio final.",
+        "background": True,
+        "inference": {"provider": "openai", "model": "local-fixture"},
+    }, merchant)
+    path = "/api/agent/runs/" + chat["run"]["taskId"]
+
+    def wait_for(predicate):
+        deadline = monotonic() + 12
+        while monotonic() < deadline:
+            status = call(path, headers=merchant)
+            if predicate(status):
+                return status
+            sleep(.15)
+        raise AssertionError(f"Expected Studio run transition, last state: {status['state']}")
+
+    try:
+        status = wait_for(lambda run: run.get("appViews"))
+        assert status["state"] == "running" and status["preview"] is None
+        assert not finished.is_set()
+        views = status["appViews"]
+        assert views == [{"attachmentId": 0, "resourceUri": expected_uri,
+                          "arguments": {"limit": 1, "filter": {"product_id": "mug"}}}]
+        call(path, headers=other, expected=404)
+        call(path, headers=colleague, expected=403)
+        result = call("/mcp", {
+            "jsonrpc": "2.0", "id": 1, "method": "tools/call",
+            "params": {"name": "app.example_agent_results.list_merchant_entries",
+                       "arguments": views[0]["arguments"],
+                       "_meta": {"ai.veyndo/resourceUri": expected_uri}},
+        }, merchant)["result"]
+        assert result["structuredContent"]["elements"][0]["id"] == "private"
+        conversation = call("/api/agent/conversations/" + chat["conversationId"], headers=merchant)
+        assert [message["role"] for message in conversation["messages"]] == ["user"]
+        release.set()
+        complete = wait_for(lambda run: run["state"] == "ready")
+        assert "appViews" not in complete
+        final_view = complete["preview"]["appViews"][0]
+        assert {key: final_view[key] for key in views[0]} == views[0]
+        assert final_view["result"]["structuredContent"]["elements"][0]["id"] == "private"
+    finally:
+        release.set()

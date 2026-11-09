@@ -148,17 +148,28 @@ pub(crate) async fn list(a: &App, h: &RequestContext) -> Result<Vec<Value>> {
 
 /// Only the server's executed tool trace can produce a conversation attachment.
 pub(crate) fn attachments(trace: &[Value]) -> Vec<Value> {
+    attachment_views(trace, true)
+}
+
+pub(crate) fn attachment_references(trace: &[Value]) -> Vec<Value> {
+    attachment_views(trace, false)
+}
+
+fn attachment_views(trace: &[Value], include_result: bool) -> Vec<Value> {
     trace
         .iter()
         .enumerate()
         .rev()
         .filter_map(|(index, entry)| {
-            Some(json!({
+            let mut view = json!({
                 "attachmentId":index,
                 "resourceUri":entry["appView"].as_str()?,
                 "arguments":entry["input"],
-                "result":{"structuredContent":entry["result"]},
-            }))
+            });
+            if include_result {
+                view["result"] = json!({"structuredContent":entry["result"]});
+            }
+            Some(view)
         })
         .take(3)
         .collect()

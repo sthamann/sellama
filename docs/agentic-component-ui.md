@@ -314,8 +314,8 @@ After disabling the app, subsequent reads of its resource are rejected, includin
 
 This path covers installed Veyndo packages with declarative read views.
 `resources/read` is also available to external clients that support MCP Apps.
-Studio includes the views when its existing durable run completes. In the shop,
-the card can appear while the assistant is still preparing the text.
+The card can appear while the assistant prepares the text in both Studio and
+the shop. Studio uses the saved run. The shop uses its existing chat stream.
 
 ### Show the shopper's app view during the answer
 
@@ -334,6 +334,21 @@ the final attachments. When the shop leaves the chat or changes its context,
 it cancels the pending stream. The server keeps its inference limit throughout
 the stream and authorizes the card's separate read requests in their current
 shop and channel.
+
+### Show the merchant's app view during the answer
+
+The Studio chat polls its existing saved run. For a running conversation,
+`GET /api/agent/runs/{id}` can return up to three `appViews` references with
+their attachment ID, revision-bound resource URI and original tool arguments.
+The run status admits the original actor and checks the permissions recorded
+when the run began. The app card loads the resource and makes its scoped read
+with current access through `/mcp`. Polling carries no app result rows and does
+not rerun the model or query the app. A worker taking over a run clears the
+published references and rebuilds them from revalidated reads.
+
+The card remains mounted when Studio loads the completed message. Its filter
+stays selected, and its verified filter can go into an editable follow-up.
+Only the finished message can show the native proposal for approval.
 
 ### One capability, two ways to present it
 

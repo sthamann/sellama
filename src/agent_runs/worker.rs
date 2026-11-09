@@ -25,7 +25,7 @@ pub(crate) async fn once(a: &App) -> Result<bool> {
     if busy {
         return Ok(false);
     };
-    sqlx::query("UPDATE tasks SET run_state='running',run_lease=$3,run_until=now()+interval '240 seconds',run_revision=run_revision+1,run_updated=now() WHERE tenant=$1 AND id=$2")
+    sqlx::query("UPDATE tasks SET run_state='running',run_checkpoint=run_checkpoint-'app-views',run_lease=$3,run_until=now()+interval '240 seconds',run_revision=run_revision+1,run_updated=now() WHERE tenant=$1 AND id=$2")
         .bind(&t).bind(&id).bind(&lease).execute(&mut *tx).await?;
     tx.commit().await?;
     let request: Value = row.get("run_request");
@@ -51,6 +51,7 @@ pub(crate) async fn once(a: &App) -> Result<bool> {
                 id: id.clone(),
                 lease: lease.clone(),
                 workspace: request["workspaceContext"].clone(),
+                conversation: row.get::<Option<String>, _>("conversation_id").is_some(),
             };
             veyndo::tenant_scope::scoped(
                 scope,

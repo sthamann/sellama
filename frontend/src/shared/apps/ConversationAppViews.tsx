@@ -10,11 +10,15 @@ import {
 } from "./conversation-app-context";
 import "./conversation-app-views.css";
 
-export type ConversationAppView = {
+export type ConversationAppReference = {
   attachmentId?: number;
   resourceUri: string;
   arguments: Record<string, unknown>;
-  result: { structuredContent: unknown };
+};
+
+type AppResult = { structuredContent: unknown };
+export type ConversationAppView = ConversationAppReference & {
+  result: AppResult;
 };
 
 type Definition = {
@@ -46,18 +50,27 @@ function productIds(result: unknown, reference: string | null | undefined) {
 }
 function Frame({
   view,
+  readCurrent,
   request,
   locale,
   renderProducts,
   onUseFilter,
 }: {
-  view: ConversationAppView;
+  view: ConversationAppReference & { result?: AppResult };
+  readCurrent: boolean;
   request: RequestFn;
   locale: string;
   renderProducts?: (ids: string[]) => ReactNode;
   onUseFilter?: UseFilter;
 }) {
-  const [definition, setDefinition] = useState<Definition>();
+  const uri = view.resourceUri;
+  const argumentsKey = JSON.stringify(view.arguments);
+  const suppliedResult = readCurrent ? undefined : view.result;
+  const [loaded, setLoaded] = useState<{
+    definition: Definition;
+    result: AppResult;
+  }>();
+  const definition = loaded?.definition;
   const [visibleResult, setVisibleResult] = useState<unknown>();
   const [unavailable, setUnavailable] = useState(false);
   const [height, setHeight] = useState(116);
@@ -71,16 +84,15 @@ function Frame({
   } = conversationAppText(locale);
   useEffect(() => {
     let current = true;
-    setDefinition(undefined);
+    setLoaded(undefined);
     setUnavailable(false);
-    const uri = view.resourceUri;
     request("/mcp", {
       jsonrpc: "2.0",
       id: "app-resource",
       method: "resources/read",
       params: { uri },
     })
-      .then((response) => {
+      .then(async (response) => {
         if (!current) return;
         const content = response.result?.contents?.[0];
         const data = content?._meta?.["ai.veyndo/definition"];
@@ -91,16 +103,39 @@ function Frame({
           data.label &&
           typeof data.toolName === "string"
         ) {
-          setDefinition(data);
+          let result = suppliedResult;
+          if (readCurrent) {
+            const rpc = await request("/mcp", {
+              jsonrpc: "2.0",
+              id: "app-initial-read",
+              method: "tools/call",
+              params: {
+                name: data.toolName,
+                arguments: JSON.parse(argumentsKey),
+                _meta: { "ai.veyndo/resourceUri": uri },
+              },
+            });
+            if (!current) return;
+            if (
+              !rpc.result?.isError &&
+              Array.isArray(rpc.result?.structuredContent?.elements)
+            ) {
+              result = { structuredContent: rpc.result.structuredContent };
+            }
+          }
+          if (result) setLoaded({ definition: data, result });
+          else setUnavailable(true);
         } else setUnavailable(true);
       })
       .catch(() => current && setUnavailable(true));
     return () => {
       current = false;
     };
-  }, [request, view.resourceUri]);
+  }, [request, uri, argumentsKey, readCurrent, suppliedResult]);
   useLayoutEffect(() => {
-    if (!definition) return;
+    if (!loaded) return;
+    const { definition, result } = loaded;
+    const argsForView = JSON.parse(argumentsKey) as Record<string, unknown>;
     let ready = false;
     let initialized = false;
     let reading = false;
@@ -147,14 +182,14 @@ function Frame({
         !initialized
       ) {
         initialized = true;
-        setVisibleResult(view.result.structuredContent);
+        setVisibleResult(result.structuredContent);
         reply({
           method: "ui/notifications/tool-input",
-          params: { arguments: view.arguments },
+          params: { arguments: argsForView },
         });
         reply({
           method: "ui/notifications/tool-result",
-          params: { content: [], ...view.result },
+          params: { content: [], ...result },
         });
       }
       if (
@@ -181,7 +216,7 @@ function Frame({
         const { id, params } = message;
         const after = params?.arguments?.after;
         const filters = params?.arguments?.filter;
-        const baseFilters = view.arguments.filter;
+        const baseFilters = argsForView.filter;
         const filter = definition.filter;
         const allowedFilter =
           filter &&
@@ -213,7 +248,7 @@ function Frame({
           });
           return;
         }
-        const args = { ...view.arguments };
+        const args = { ...argsForView };
         delete args.after;
         if (after !== undefined) args.after = after;
         if (validSelection && filter) {
@@ -227,7 +262,7 @@ function Frame({
           params: {
             name: definition.toolName,
             arguments: args,
-            _meta: { "ai.veyndo/resourceUri": view.resourceUri },
+            _meta: { "ai.veyndo/resourceUri": uri },
           },
         })
           .then((rpc) => {
@@ -285,7 +320,7 @@ function Frame({
       window.clearTimeout(timeout);
       window.removeEventListener("message", handle);
     };
-  }, [definition, locale, request, view]);
+  }, [loaded, locale, request, uri, argumentsKey]);
   if (unavailable)
     return (
       <p className="conversation-app-status" role="status">
@@ -320,11 +355,13 @@ function Frame({
 
 export default function ConversationAppViews({
   views,
+  readCurrent = false,
   request,
   renderProducts,
   onUseFilter,
 }: {
-  views?: ConversationAppView[];
+  views?: (ConversationAppReference & { result?: AppResult })[];
+  readCurrent?: boolean;
   request: RequestFn;
   renderProducts?: (ids: string[]) => ReactNode;
   onUseFilter?: UseFilter;
@@ -335,6 +372,7 @@ export default function ConversationAppViews({
       <Frame
         key={`${view.resourceUri}:${view.attachmentId ?? index}`}
         view={view}
+        readCurrent={readCurrent}
         request={request}
         locale={locale}
         renderProducts={renderProducts}

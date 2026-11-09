@@ -14,9 +14,10 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 In a local Chrome test with Core, PostgreSQL and a controlled model response,
 Studio showed the private merchandising card before the final answer. The
-merchant filtered the card while the model was waiting. The same frame and
-filter remained when the answer arrived. The original actor could see the
-progress, while another administrator in the same shop and an unrelated shop
+merchant filtered the card and prepared an editable follow-up while the
+model was waiting. The same frame and filter remained when the answer arrived.
+The original actor could see the progress. Another administrator in the same
+shop and an unrelated shop
 could not access the run. The status contained only the card reference and
 tool arguments. The browser made one initial app read through the current
 MCP permissions. [Studio progress](agentic-component-ui.md#show-the-merchants-app-view-during-the-answer).

@@ -36,9 +36,18 @@ and native quote stayed available with Checkout stopped. These are local
 fixture measurements. The [opt-in browser route](https://github.com/veyndo/veyndo/pull/371)
 is merged. Desktop and mobile Chromium used it with a signed-in buyer and
 simulated payment. Recovery preserved the receipt and the empty cart after
-reload. The independent Checkout process still needs its own hosted runtime and
-database. Hosted native and Storyfront purchases, provider payment and refund
-through that process remain open.
+reload. The local Storyfront checkout also signed in inside the iframe, placed
+the order through Checkout and kept the originating bag empty after return and
+reload. When the confirmation response and iframe message were both lost, two
+transport attempts resolved to one receipt, one stock decrement and one
+`order.placed` event.
+
+Northflank built `puffy-soup-2325` from Checkout commit `eaa34f2`. The new
+private service is paused with zero replicas while its separate database and
+restricted login are prepared. The public shops still use the existing Core
+checkout. Hosted native and Storyfront purchases, provider payment and refund
+through the independent service remain open.
+[Checkout verification and rollout](checkout-component.md#storyfront-composition-and-hosted-rollout).
 
 ## Orders and shipping in agentic workspaces, 9 November 2026
 

@@ -277,6 +277,9 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
     Checkout in Chromium. Verify the original receipt and empty bag after
     response loss and reload. Build the private Northflank service image.
     [Local proof and hosted status](checkout-component.md#storyfront-composition-and-hosted-rollout).
+  - [x] Start the private Northflank service on its dedicated database. Verify
+    signed readiness with the restricted login and remove temporary maintenance
+    access. [Hosted readiness](checkout-component.md#storyfront-composition-and-hosted-rollout).
 - [ ] CHK-09 Accept foreign/revoked/private/paused/stale/B2B/stock/provider failures,
   restart/uncertainty recovery and existing Flow/document/outbox behavior.
   - [x] CHK-09a Accept the local native composition with a company buyer, current

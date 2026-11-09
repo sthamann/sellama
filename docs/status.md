@@ -12,9 +12,9 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## MCP App conversation views and independent Checkout rehearsal
 
-The Core image `alleged-degree-4325` from
+The MCP App rollout used Core image `alleged-degree-4325` from
 [`e133b155`](https://github.com/veyndo/veyndo/commit/e133b15573c5ea3e1c4df991750c08ba70bc8d53)
-is live on Northflank. The new instance passed readiness with zero restarts.
+on Northflank. The instance passed readiness with zero restarts.
 Studio, the native demo and the Storyfront demo returned HTTP 200. The public
 demo shop negotiated MCP Apps with a compatible client. A text-only client
 received the ordinary MCP capabilities and a request for an unknown view was
@@ -42,11 +42,15 @@ reload. When the confirmation response and iframe message were both lost, two
 transport attempts resolved to one receipt, one stock decrement and one
 `order.placed` event.
 
-Northflank built `puffy-soup-2325` from Checkout commit `eaa34f2`. The new
-private service is paused with zero replicas while its separate database and
-restricted login are prepared. The public shops still use the existing Core
-checkout. Hosted native and Storyfront purchases, provider payment and refund
-through the independent service remain open.
+Northflank runs Checkout image `puffy-soup-2325` from `eaa34f2` with one
+ready private replica and zero restarts at verification. Its separate database
+enforces row-level access. The restricted login authenticated and could not
+read the database signing key. The temporary administrator connection was
+removed from the maintenance job after installation. Public shops still use
+the existing Core checkout. Hosted native and Storyfront purchases, provider
+payment and refund through the independent service remain open. Core image
+`max-tendency-8164` from [`6edb6a8`](https://github.com/veyndo/veyndo/commit/6edb6a8aaf04e21282207059f286680f43e05408)
+is live with one ready replica and zero restarts. The browser switch remains off.
 [Checkout verification and rollout](checkout-component.md#storyfront-composition-and-hosted-rollout).
 
 The local PayPal Sandbox composition exercised the built-in PayPal adapter

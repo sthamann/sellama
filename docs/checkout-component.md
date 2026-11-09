@@ -337,15 +337,19 @@ event. The fixture ran the Storyfront checkout path without starting the full
 Experience deployment. The published Storyfront and provider sandbox require
 separate acceptance.
 
-Northflank built Checkout image `puffy-soup-2325` from `eaa34f2` for the
-private `veyndo-checkout` service. It is paused and has an HTTP readiness probe
-at `/ready` on port 8810. Before it can serve a test shop, provision the
-dedicated database and restricted runtime login described in the
+Northflank runs Checkout image `puffy-soup-2325` from `eaa34f2` with one
+ready private replica on port 8810. The dedicated database and login passed
+the scope and permission checks in the
 [Checkout service guide](https://github.com/veyndo/checkout/tree/main/service).
-Verify readiness with the assigned database role, then configure the exact
-browser origins and one signed-in test shop. The hosted native and Storyfront
-acceptance must cover the original receipt, cart, stock and outbox, followed by
-configured provider payment and refund.
+The runtime cannot read the signing key. The maintenance job's temporary
+administrator connection and access to Checkout's runtime secrets were removed
+after installation. The HTTP `/ready` probe verifies the service can establish
+a signed database scope.
+
+The hosted browser rollout still needs the exact HTTPS Checkout origin and
+the named test shop in Core. Accept the original receipt, cart, stock and
+outbox in the native and Storyfront browsers, followed by configured Sandbox
+payment and refund.
 
 ## PayPal Sandbox through the separate service
 

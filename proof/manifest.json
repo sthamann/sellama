@@ -701,8 +701,8 @@
     },
     "crates/cognition/src/prompts.rs": {
       "status": "unproved",
-      "sha256": "5c0c3dca814bcc0948358b7c29aa0e04da0d0478935e50678dde07f2ef98a64b",
-      "review": "Reviewed native presentation consistency: linked product/order/customer navigation must match the working-view entity; one discriminator replaces same-shaped union alternatives, exact native grid admission and current rights retained. New native and UI mismatch regressions plus provider HTTP rejection checks."
+      "sha256": "59073e8455c0a79b15a7d5968e1fb7bbb65f4202d295ab976c684d6470f152cb",
+      "review": "Test-only change: fixed fixtures verify prompt evidence for merchant planner versions 1 and 6 independently of registry order, including embedded prompt markers and private context. All 16 cognition unit tests pass."
     },
     "crates/commerce/src/discount.rs": {
       "status": "reviewed-binding",

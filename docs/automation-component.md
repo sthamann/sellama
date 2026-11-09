@@ -229,7 +229,8 @@ this debug build and isolated test database.
 
 ## Read the worker queue logs
 
-Search the active app process logs for `app_worker_queue_sample`. The
+Search the active app process logs for `app_worker_queue_sample` at the
+Info level. The
 first sample follows startup. The worker samples again every minute, using
 one read through its existing database pool. The query checks the oldest
 due queued Flow and app delivery with the existing ready indexes.

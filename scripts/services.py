@@ -38,7 +38,7 @@ with tempfile.TemporaryDirectory() as directory:
     pin(config,app_id,manifest)
     env={'APP_SERVICES':json.dumps(config),'PROCESS_ROLE':'all','APP_WORKER_ENABLED':'false',
          'BIND_ADDR':f'127.0.0.1:{api_port}'}
-    worker_env={**env,'PROCESS_ROLE':'app-worker'}
+    worker_env={**env,'PROCESS_ROLE':'app-worker','RUST_LOG':'info'}
     del worker_env['APP_WORKER_ENABLED']
     try:
         start(['python3',str(ROOT/'extensions/apps/service-example/server.py')],{'APP_PORT':str(service_port),'APP_TOKEN':token,'APP_DB':db,'APP_ID':app_id},'service-example-test.log')

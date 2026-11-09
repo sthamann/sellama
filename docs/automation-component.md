@@ -119,23 +119,24 @@ rights and the expected revision. The editor keeps the draft open so you can
 correct it, then save it explicitly.
 
 Send the same Flow definition from a server using
-`PUT /api/automation/flows/{id}` with `{revision, data, validateOnly: true}`,
-or use `automation.save` in MCP. For a new Flow, use revision 0. For an existing
+`POST /api/automation/flows/{id}/validate` with `{revision, data}`,
+or use `automation.validate_flow` in MCP. For a new Flow, use revision 0. For an existing
 Flow, use its current revision. Use the shop's main content language for the
 Flow name.
 
 ```js
-const result = await client.tool("automation.save", {
-  kind: "flows",
+const result = await client.tool("automation.validate_flow", {
   id: "confirm_purchase",
   revision: 0,
-  validateOnly: true,
   data: flowDraft,
 });
 // { valid: true, saved: false, revision: 0 }
 ```
 
 Use a current `automation.manage` grant plus the rights required by each action.
+If the route or MCP tool is unavailable on an older Core, report that the
+check is unsupported. Calling the save operation as a fallback can write
+a Flow.
 Core reads a consistent shop snapshot. The check creates no saved configuration,
 job or event. Saving is a separate request and checks the current dependencies
 and revision again. A revision conflict means you need to reload and reconcile

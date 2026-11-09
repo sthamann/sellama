@@ -22,6 +22,11 @@ pub(crate) fn router() -> Router<App> {
             get(lifecycle::dependencies),
         )
         .secure_route(
+            "/api/automation/flows/{id}/validate",
+            &[("POST", "automation.manage")],
+            post(flow_policy::validate_draft),
+        )
+        .secure_route(
             "/api/automation/rules/preview",
             &[("POST", "read")],
             post(preview),
@@ -112,10 +117,7 @@ pub(crate) async fn save(
         .transpose()?
         .unwrap_or(false);
     if kind == "flows" {
-        data.as_object_mut().ok_or(bad("Invalid flow"))?.insert(
-            "actor".into(),
-            json!(header(&h, "x-rac-user").unwrap_or("bootstrap")),
-        );
+        flow_policy::bind_actor(&h, &mut data)?;
         if validate_only {
             return flow_policy::preflight(&a, &t, &h, &id, expected, &data)
                 .await

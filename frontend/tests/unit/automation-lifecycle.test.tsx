@@ -128,7 +128,7 @@ it("checks the current Flow draft without saving or reloading and clears stale f
           fields: [],
           apps: [],
         };
-      if (path === "/api/automation/flows/notify")
+      if (path === "/api/automation/flows/notify/validate")
         return { valid: true, saved: false, revision: 2 };
       return { elements: [] };
     },
@@ -149,9 +149,9 @@ it("checks the current Flow draft without saving or reloading and clears stale f
     await screen.findByText("Draft checked. Nothing was saved."),
   ).toBeVisible();
   expect(request).toHaveBeenCalledExactlyOnceWith(
-    "/api/automation/flows/notify",
-    { revision: 2, data: draft.data, validateOnly: true },
-    "PUT",
+    "/api/automation/flows/notify/validate",
+    { revision: 2, data: draft.data },
+    "POST",
   );
   await user.type(screen.getByLabelText("Title"), " updated");
   expect(

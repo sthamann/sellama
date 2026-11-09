@@ -140,6 +140,7 @@ permissions. Customer/tag actions emit the events supported by Core.
 | Catalog | `GET /api/automation/catalog` | `automation.catalog` |
 | Definitions and latest jobs | `GET /api/automation` (configuration), `GET /api/automation/executions` (bounded refreshed jobs) | `automation.list` |
 | Revision-bound configuration write | `PUT /api/automation/{rules,flows,promotions,channels}/{id}` | `automation.save` (`kind`, `id`, `revision`, `data`) |
+| Check a Flow draft without saving | `POST /api/automation/flows/{id}/validate` with `revision` and `data` | `automation.validate_flow` (`id`, `revision`, `data`) |
 | Dependencies | `GET /api/automation/{kind}/{id}/dependencies` | `automation.dependencies` (`kind`, `id`) |
 | Delete unused configuration | `DELETE /api/automation/{kind}/{id}` with `revision` | `automation.delete` (`kind`, `id`, `revision`) |
 | Side-effect-free cart rule preview | `POST /api/automation/rules/preview` | `automation.preview` (`condition`) |

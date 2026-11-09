@@ -6,7 +6,7 @@ pub(crate) fn capability_visible(h: &RequestContext, name: &str) -> bool {
     match name {
         "automation.compare_history" => rule_history::visible(h),
         "automation.catalog" | "automation.preview" => auth::allowed(h, "automation.read"),
-        "automation.import" => auth::allowed(h, "automation.manage"),
+        "automation.import" | "automation.validate_flow" => auth::allowed(h, "automation.manage"),
         "automation.list" | "automation.dependencies" => any(&["automation.read", "channels.read"]),
         "automation.save" | "automation.delete" => any(&["automation.manage", "channels.manage"]),
         _ => false,
@@ -20,6 +20,15 @@ pub(crate) async fn invoke(a: &App, h: &RequestContext, name: &str, v: &Value) -
         }
         "automation.catalog" => catalog::catalog(State(a.clone()), h.clone()).await?,
         "automation.list" => routes::list(State(a.clone()), h.clone()).await?,
+        "automation.validate_flow" => {
+            flow_policy::validate_draft(
+                State(a.clone()),
+                h.clone(),
+                Path(v["id"].as_str().ok_or(bad("ID required"))?.into()),
+                Json(v.clone()),
+            )
+            .await?
+        }
         "automation.save" => {
             routes::save(
                 State(a.clone()),

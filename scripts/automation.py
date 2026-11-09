@@ -60,26 +60,32 @@ call('/api/automation/rules/positive',{'revision':0,'data':{'name':names,'active
 assert mcp('automation.preview',{'condition':{'type':'ruleReference','ruleId':'positive'}},{**mh,**ch})['structuredContent']['matched']
 assert mcp('automation.preview',{'condition':{'type':'ruleReference','ruleId':'foreign'}},{**mh,**ch})['isError']
 first=flow([{'kind':'condition','id':'branch','condition':{'type':'ruleReference','ruleId':'positive'},'on_true':'tag','on_false':'stop'},action('tag','action.add.customer.tag',{'tagIds':['vip']},'delay'),{'kind':'delay','id':'delay','seconds':2,'next':'recheck'},{'kind':'condition','id':'recheck','condition':{'type':'ruleReference','ruleId':'positive'},'on_true':'state','on_false':'stop'},action('state','action.set.order.state',{'kind':'order','state':'in_progress'},'field'),action('field','action.set.order.custom.field',{'field':'handled','value':True},'stop'),{'kind':'stop','id':'stop'}])
-draft={'revision':0,'data':{**first,'actor':'untrusted-caller'},'validateOnly':True}
-path='/api/automation/flows/pipeline'
-assert call(path,draft,mh,'PUT')=={'valid':True,'saved':False,'revision':0}
-assert mcp('automation.save',{'kind':'flows','id':'pipeline',**draft})['structuredContent']=={'valid':True,'saved':False,'revision':0}
-call(path,draft,fh,'PUT',403)
-call(path,{**draft,'validateOnly':'true'},mh,'PUT',400)
-call(path,{**draft,'data':[]},mh,'PUT',400)
-call('/api/automation/rules/positive',draft,mh,'PUT',400)
+draft={'revision':0,'data':{**first,'actor':'untrusted-caller'}}
+path='/api/automation/flows/pipeline/validate'
+tool='automation.validate_flow'
+tool_meta=next(x for x in call('/mcp',tools_list,mh)['result']['tools'] if x['name']==tool)
+assert tool_meta['annotations']['readOnlyHint'] is True
+assert call(path,draft,mh)=={'valid':True,'saved':False,'revision':0}
+assert mcp(tool,{'id':'pipeline',**draft})['structuredContent']=={'valid':True,'saved':False,'revision':0}
+call(path,draft,fh,expected=403)
+call(path,draft,public,expected=401)
+call(path,{**draft,'data':[]},mh,expected=400)
+legacy_path='/api/automation/flows/pipeline'
+assert call(legacy_path,{**draft,'validateOnly':True},mh,'PUT')['saved'] is False
+call(legacy_path,{**draft,'validateOnly':'true'},mh,'PUT',400)
+call('/api/automation/rules/positive',{**draft,'validateOnly':True},mh,'PUT',400)
 missing_rule=copy.deepcopy(first)
 missing_rule['pipeline']['nodes'][0]['condition']['ruleId']='does_not_exist'
-call(path,{**draft,'data':missing_rule},mh,'PUT',400)
-assert mcp('automation.save',{'kind':'flows','id':'pipeline',**draft,'data':missing_rule})['isError']
+call(path,{**draft,'data':missing_rule},mh,expected=400)
+assert mcp(tool,{'id':'pipeline',**draft,'data':missing_rule})['isError']
 untouched=call('/api/automation',h=mh)
 assert not any(r['id']=='pipeline' for r in untouched['flows'])
 assert not any(j['flow']=='pipeline' for j in untouched['jobs'])
 assert save('pipeline',draft['data'])=={'saved':True,'revision':1}
 assert next(r for r in call('/api/automation',h=mh)['flows'] if r['id']=='pipeline')['data']['actor']!='untrusted-caller'
-call(path,draft,mh,'PUT',409)
-assert mcp('automation.save',{'kind':'flows','id':'pipeline',**draft})['isError']
-check('HTTP and MCP check the same unsaved graph, enforce tenant and reference ownership, and detect stale revisions without writes')
+call(path,draft,mh,expected=409)
+assert mcp(tool,{'id':'pipeline',**draft})['isError']
+check('Dedicated HTTP and MCP draft endpoints share validation, deny foreign access and stale revisions, and never save or enqueue')
 false=flow([{'kind':'condition','id':'branch','condition':source('cartCartAmount',operator='>',amount=100000),'on_true':'wrong','on_false':'correct'},action('wrong','action.add.order.tag',{'tags':['wrong']}),action('correct','action.add.order.tag',{'tags':['false-branch']})]);save('false_branch',false)
 call('/api/merchant/receipts/settings',{'revision':0,'data':{'name':'Synthetic Flow Seller','address':'Test 1, Berlin','taxId':'TEST-ONLY'}},mh,'PUT')
 invoice=flow([action('document','action.generate.document',{'kind':'invoice'})]);save('invoice',invoice)
@@ -89,7 +95,7 @@ terminal_delay=flow([
 ]);save('terminal_delay',terminal_delay)
 invalid=copy.deepcopy(first);invalid['pipeline']['nodes'][1]['next']='branch';call('/api/automation/flows/cycle',{'data':invalid,'revision':0},mh,'PUT',400)
 invalid=flow([{'kind':'delay','id':'long','seconds':2592001,'next':None}]);call('/api/automation/flows/long',{'data':invalid,'revision':0},mh,'PUT',400)
-call('/api/automation/flows/long',{'data':invalid,'revision':0,'validateOnly':True},mh,'PUT',400)
+call('/api/automation/flows/long/validate',{'data':invalid,'revision':0},mh,expected=400)
 check('Graph admission rejects cycles and delays beyond thirty days before saving')
 # One corrupted rule must become a visible failed job instead of poisoning the outbox for other flows.
 save('bad_scope',flow([action('note','note',{'instruction':names})]))

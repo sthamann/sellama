@@ -349,9 +349,9 @@ export default function AutomationEditor({
               setChecked(undefined);
               void run(async () => {
                 await request(
-                  `/api/automation/flows/${id}`,
-                  { revision, data: JSON.parse(draft), validateOnly: true },
-                  "PUT",
+                  `/api/automation/flows/${id}/validate`,
+                  { revision, data: JSON.parse(draft) },
+                  "POST",
                 );
                 setChecked(draftKey);
               }, false);

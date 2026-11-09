@@ -22,7 +22,7 @@ mod facts;
 mod flow_access;
 pub(crate) use flow_access::proposal_headers as flow_proposal_headers;
 mod flow_policy;
-pub(crate) use flow_policy::{authorize_flow, validate_flow_config};
+pub(crate) use flow_policy::{DRAFT_CAPABILITY, authorize_flow, validate_flow_config};
 pub(crate) use flows::Flow;
 mod flow_actions;
 mod flow_jobs;

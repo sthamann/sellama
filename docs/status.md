@@ -19,8 +19,9 @@ MCP calls. [Source ownership and checks](automation-component.md#library-and-ser
 The independent Automation service runs privately alongside Core. It evaluates
 supplied rule facts through HTTP and MCP. The deployed image passed the container
 tests. In Northflank, health, OpenAPI and unauthorized access checks passed.
-A scoped merchant key is still required for a hosted rule comparison and
-revocation test. [Deployment and acceptance](automation-component.md#private-northflank-pilot).
+A one-day `automation.read` merchant key was created and revoked in Lumen.
+The hosted authenticated comparison and rejection after revocation still
+need evidence from both interfaces. [Deployment and acceptance](automation-component.md#private-northflank-pilot).
 
 ## Private Checkout live in the Lumen test shop
 
@@ -37,14 +38,18 @@ cart retains its line items for the receipt.
 The native browser and the original Storyfront iframe then each completed a
 EUR 59.90 Shopware Payments purchase using the actual PayPal Sandbox. Both
 used the private Checkout route. The native cart was empty on return, and the
-Storyfront bag stayed empty after a full reload. The hosted read-only check
-found both EUR 59.90 Sandbox captures, with zero refunded on each. For each
-order, the app worker completed the default order and payment Flows, which
-wrote internal notes. Neither order had an invoice. The order and capture
-events are therefore verified through the worker. Invoice and delivery
-require a Flow that actually performs those actions.
-Both orders use addresses under the reserved `example.test` domain. To verify
-delivery to a mailbox, use a separate test with a reachable recipient.
+Storyfront bag stayed empty after a full reload. Studio then refunded the
+original native order `RAC-a31ce698` and Storyfront order `RAC-2e7cfc2a`.
+Each EUR 59.90 refund showed a completed PayPal Sandbox provider record
+and the original payment showed `refunded`.
+
+The default order and capture Flows wrote internal notes for those two
+orders. A separate live demo payment created order `RAC-7048dee8` and its
+scoped order Flow generated invoice `INV-00000001` automatically. Repeating
+confirmation returned the same order and the lamp's stock moved once, from
+one to zero. Lumen has the Email Delivery app installed. It still needs a
+configured sender and transport before the Connector receipt and delivery
+to a reachable mailbox can be verified.
 [Pilot setup and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026). The
 [ordered release checklist](commerce-components.md#release-acceptance-order)
 tracks the remaining pilot, composition, hosted load and external integration checks.
@@ -69,8 +74,10 @@ received one mail with that order number.
 A separate local run followed a Shopware Payments fixture purchase through
 the same services. Verified capture triggered the invoice and order mail.
 The Connector receipt matched the message ID received by SMTP. The refund
-and its replay preserved the original order and payment attempt. The hosted
-Lumen orders still need the merchant and provider evidence for these steps.
+and its replay preserved the original order and payment attempt. The
+[hosted Lumen checks](#private-checkout-live-in-the-lumen-test-shop) cover
+both Sandbox refunds and an automatic invoice after a separate demo payment.
+Provider acceptance and arrival of the hosted order mail are still open.
 
 ## Mixed shop traffic and app-worker recovery
 
@@ -129,9 +136,13 @@ tunnel, liveness and database readiness returned 204, OpenAPI returned 200
 and an unauthenticated source request returned 401. Core and the app worker
 have the same pinned private catalog app destination. Core's identity
 endpoint is scoped to Lumen. The running Knowledge service reached the
-broker and rejected an unknown token. Successful catalog delivery still
-requires installing the app and granting Lumen's dedicated callback and
-delivery keys.
+broker and rejected an unknown token. The installed Lumen catalog app has
+separate short-lived keys for event delivery and for reading current product
+content from Core. Both the Core callback and the private Knowledge refresh
+returned HTTP 200. Studio recorded first-attempt delivery of two live
+`product.updated` events (`#926` and `#927`) for the demo lamp, including
+the restoration of its original description at product version 28. Reading
+that revision back with a separate evidence-consumer key remains open.
 [Core identity setup](knowledge-component.md#use-core-as-the-identity-provider-for-one-live-shop).
 
 ## Knowledge database recovery

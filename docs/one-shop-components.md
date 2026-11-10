@@ -24,8 +24,9 @@ Commerce owns the catalogue, prices, stock and orders. Checkout coordinates the 
 Core supplies checkout to both the native storefront and Storyfront. In the
 public Lumen test shop, both browser routes completed a PayPal Sandbox capture
 through the private Checkout service and returned to an empty cart. Both use
-the same Commerce owner for quote, commit and receipt. Refunds, invoicing
-and mail delivery are still open in the hosted pilot.
+the same Commerce owner for quote, commit and receipt. Studio refunded both
+Sandbox captures. A separate demo order generated an invoice through the app
+worker. The hosted mail delivery test still needs a sender and transport.
 [Live pilot and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026).
 
 The storefront and Studio use that same shop identity and transaction boundary. Provider calls run through durable jobs. Knowledge and reporting can be rebuilt from their sources. They add context and visibility without joining the purchase transaction. Agents use the same admitted operations as the team and prepare changes for review where approval is required.

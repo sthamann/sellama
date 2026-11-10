@@ -10,6 +10,28 @@ Updated 10 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Flow contracts and sales channels
+
+Core `636a05b8` brought the typed Flow validation result to Northflank. The
+public shop exposes catalogue search over MCP. Its anonymous tool list
+excludes Flow validation. The published SDK 0.4.1 prerelease was installed
+from its release package and tested against Core and PostgreSQL with a
+merchant test account. Validation reported the checked revision, rejected an
+outdated draft and left both saved Flows and jobs unchanged.
+[Contract and example](agentic-component-ui.md#typed-results-for-native-tools).
+
+In local PostgreSQL tests, the native register recorded one cash order and
+one stock change across repeated submissions. A B2B buyer negotiated an offer,
+obtained approval and completed the purchase through UCP. Shipping kept the
+order total, stock and invoice consistent across split shipments and retries.
+The independent Marketplace gateway imported a paid order with one stock
+movement, one Flow and an invoice. The separate EDI gateway processed
+EDIFACT, UBL and cXML into scoped requisitions. A requisition completed in
+native B2B checkout, and a revoked credential prevented further imports.
+Marketplace provider requests used local fixtures. These tests covered
+separate shops and did not measure capacity across channels in one live shop.
+[Complete shop acceptance](commerce-components.md#complete-product-release-acceptance).
+
 ## Private Automation preview on Northflank
 
 Core's build now links the rule library pinned to the private preview's source

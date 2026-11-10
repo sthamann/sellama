@@ -28,6 +28,7 @@ admin('unit.save',{'id':'it','companyId':'acme','revision':0,'data':unit})
 for cid in [buyer,approver]:admin('member.save',{'unitId':'it','customerId':cid,'revision':0,'data':{'active':True,'permissions':['buy','quotes','approve']}})
 profile=call('/.well-known/ucp',h=public)['ucp']
 assert profile['capabilities'][EXT][0]['extends']==['dev.ucp.shopping.checkout']
+assert profile['capabilities'][EXT][0]['spec']=='https://www.veyndo.ai/docs/b2b-ucp-negotiation.html'
 assert profile['services']['dev.ucp.shopping'][0]['endpoint'].startswith('https://studio.example.test/ucp/v1')
 schema=call('/ucp/2026-10-13/b2b-negotiation.json',h=public)
 assert call('/ucp/2026-10-13/b2b-negotiation.json')==schema

@@ -50,6 +50,10 @@ schemas keyed by tool name, and an additive WIT interface for typed results.
 The existing WIT interface still returns JSON strings. Operations without a
 declared result continue to use their existing response.
 
+Use the [SDK 0.4.1 prerelease](https://github.com/veyndo/sdk/releases/tag/v0.4.1)
+to consume this result from TypeScript. The installed release package was
+tested with native MCP discovery, current merchant access and PostgreSQL.
+
 ## Three delivery modes from one UI owner
 
 Each service repository owns its Rust service and versioned UI package. Its UI

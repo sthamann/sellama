@@ -49,7 +49,7 @@ Set `CHECKOUT_TEST_BINARY` to the absolute path of the independent Checkout
 binary in addition to the configuration above.
 
 ```sh
-VEYNDO_MIXED_LOAD=1 python3 scripts/email_tests.py \
+DEMO_CATALOG=legacy-furniture VEYNDO_MIXED_LOAD=1 python3 scripts/email_tests.py \
   Contracts.test_independent_checkout_and_connector_recover_order
 ```
 
@@ -81,6 +81,18 @@ the server. The time to the final mail includes orders that completed after
 the worker restarted. These are local observations with simulated payments,
 a model fixture and a local SMTP recipient. Hosted capacity uses a separate
 test.
+
+### Shorter wait after a refused Checkout request
+
+Core now returns `Retry-After: 1` when local or cluster admission refuses an
+independent Checkout request before it reaches the Checkout service. The four
+relay slots per shop still reserve Core capacity for callbacks. A lost or
+uncertain confirmation still follows the original receipt recovery path.
+
+Repeating the local debug test with the same workload brought confirmation
+p95 from **10,046.54 ms to 2,040.01 ms**. Median confirmation was **39.31 ms**.
+Eight orders still needed a retry, twelve in total. Each of the 48 purchases
+again had one order, one stock decrement, one invoice and one SMTP delivery.
 
 ## Isolate the database
 

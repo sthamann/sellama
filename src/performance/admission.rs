@@ -175,7 +175,7 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
     };
     let Some(mut permits) = a.admission.enter(&tenant, class) else {
         a.admission.rejected.fetch_add(1, Ordering::Relaxed);
-        return overloaded("Resource concurrency limit reached");
+        return overloaded(class, "Resource concurrency limit reached");
     };
     let _cluster_lease = if validated {
         let (scope, limit) = if class == CHECKOUT_RELAY {
@@ -185,6 +185,9 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
         };
         match super::cluster_lease::Lease::acquire(a, &tenant, scope, limit).await {
             Ok(lease) => Some(lease),
+            Err(e) if class == CHECKOUT_RELAY && e.0 == StatusCode::TOO_MANY_REQUESTS => {
+                return overloaded(class, &e.1);
+            }
             Err(e) => return e.into_response(),
         }
     } else {
@@ -205,7 +208,7 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
         && let Err(e) = reserve_ai_attempt(a, &tenant).await
     {
         return if e.0 == StatusCode::TOO_MANY_REQUESTS {
-            overloaded(&e.1)
+            overloaded(class, &e.1)
         } else {
             e.into_response()
         };
@@ -263,11 +266,14 @@ pub(crate) async fn reserve_ai_attempt_tx(
     }
     Ok(())
 }
-fn overloaded(message: &str) -> Response {
+fn overloaded(class: &str, message: &str) -> Response {
     let mut response = Error(StatusCode::TOO_MANY_REQUESTS, message.into()).into_response();
+    // These refusals occur before dispatch to Checkout. Its relay slots are
+    // released when the request ends, so a short retry preserves the limits.
+    let delay = if class == CHECKOUT_RELAY { "1" } else { "5" };
     response
         .headers_mut()
-        .insert("retry-after", "5".parse().unwrap());
+        .insert("retry-after", axum::http::HeaderValue::from_static(delay));
     response
 }
 
@@ -299,6 +305,22 @@ mod tests {
         assert!(a.enter("one", relay).is_none());
         let _service_callback = a.enter("one", "checkout").unwrap();
         assert!(a.enter("one", "api").is_none());
+    }
+
+    #[test]
+    fn checkout_relay_capacity_refusals_allow_earlier_retry() {
+        for path in [
+            "/store-api/checkout/independent/create",
+            "/store-api/checkout/independent/confirm",
+        ] {
+            let response = overloaded(class(path), "Busy");
+            assert_eq!(response.status(), StatusCode::TOO_MANY_REQUESTS);
+            assert_eq!(response.headers()["retry-after"], "1");
+        }
+        for path in ["/store-api/checkout/session-order", "/api/concierge"] {
+            let response = overloaded(class(path), "Busy");
+            assert_eq!(response.headers()["retry-after"], "5");
+        }
     }
 
     #[test]

@@ -22,9 +22,10 @@ and owns the resulting changes.
 Commerce owns the catalogue, prices, stock and orders. Checkout coordinates the buyer's session and asks that owner for the current quote and the purchase. Commerce checks current purchasing authority and commits the order, stock allocation and event in one transaction. [Company and shop authority tests](checkout-component.md#current-buyer-channel-and-company-authority). The receipt can be read independently of the original purchase request.
 
 Core supplies checkout to both the native storefront and Storyfront. In the
-public Lumen test shop, a signed-in buyer can complete a simulated purchase
-in Storyfront through a private Checkout service. The service uses the same
-Commerce owner for quote, commit and receipt.
+public Lumen test shop, both browser routes completed a PayPal Sandbox capture
+through the private Checkout service and returned to an empty cart. Both use
+the same Commerce owner for quote, commit and receipt. Refunds, invoicing
+and mail delivery are still open in the hosted pilot.
 [Live pilot and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026).
 
 The storefront and Studio use that same shop identity and transaction boundary. Provider calls run through durable jobs. Knowledge and reporting can be rebuilt from their sources. They add context and visibility without joining the purchase transaction. Agents use the same admitted operations as the team and prepare changes for review where approval is required.

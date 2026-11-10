@@ -45,7 +45,9 @@ events are therefore verified through the worker. Invoice and delivery
 require a Flow that actually performs those actions.
 Both orders use addresses under the reserved `example.test` domain. To verify
 delivery to a mailbox, use a separate test with a reachable recipient.
-[Pilot setup and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026).
+[Pilot setup and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026). The
+[ordered release checklist](commerce-components.md#release-acceptance-order)
+tracks the remaining pilot, composition, hosted load and external integration checks.
 
 ## Independent Connector image live
 

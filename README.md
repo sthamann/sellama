@@ -21,7 +21,7 @@ Create a shop, design its storefront and build apps with agents and a visual
 workspace. Products, orders, knowledge and automation share one commerce core.
 People and agents use the same operations, permissions and versioned changes.
 
-**Start here: [current status, tested scope and open acceptance](docs/status.md).**
+**[Current status](docs/status.md) · [Release checklist](docs/commerce-components.md#release-acceptance-order)**
 
 ## What you can do
 

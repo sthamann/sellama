@@ -33,6 +33,11 @@ local link, anchor, article, search record and sitemap entry before publication.
 `site/docs-navigation.json` owns the curated chapter order;
 `site/docs-copy.json` owns the interface text.
 
+The site package copies media used by the rendered pages and the screenshot
+viewer. Public manifests and downloadable projects keep their established
+URLs. Older source files are kept in the repository archive. The site check
+also verifies absolute links to showcase files on the Veyndo domains.
+
 The private website runtime serves `/docs/` on the apex from the fixed public
 GitHub Pages publication. It does not copy articles into another knowledge store
 or use merchant sessions. Cookies, authorization and tenant headers are never

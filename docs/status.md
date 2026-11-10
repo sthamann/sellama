@@ -215,7 +215,10 @@ from three to five dimensions and verified Qdrant indexing, document edits
 and archive after restart. The rolling test kept two Core workers active
 and verified a newer revision could not be replaced by the old worker.
 Search stayed available while 150 products and a concurrent edit were
-indexed. Hosted rollout remains open.
+indexed. Core `8c9baf80` is live on Northflank with the current model.
+The existing deployment completed its backup, migration and rollout.
+Afterward, the public demo catalog and MCP discovery returned their
+expected data. The live provider model change remains a separate check.
 [Lifecycle checks](knowledge-component.md#verify-source-and-model-changes).
 
 The local Knowledge acceptance rejected a wrong database signing key at

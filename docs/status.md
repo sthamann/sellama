@@ -79,6 +79,18 @@ and its replay preserved the original order and payment attempt. The
 both Sandbox refunds and an automatic invoice after a separate demo payment.
 Provider acceptance and arrival of the hosted order mail are still open.
 
+## Pinned purchase recovery rehearsal
+
+Fresh builds of Core, Checkout and Connector started on a disposable
+PostgreSQL cluster with the independent app worker. One order survived a
+discarded confirmation and Checkout restart. While independent confirmation
+and the worker were paused, the native route accepted a distinct second order.
+The worker restart generated its invoice and SMTP fixture mail. Re-enabling
+Checkout and retrying the first confirmation preserved both orders and stock
+effects. A separate payment fixture also passed capture, invoice, mail and
+refund. The full hosted image and load checks remain open.
+[Source pins, schema fingerprints and reproduction](evidence/composed-release-rehearsal-2026-11-10.md).
+
 ## Mixed shop traffic and app-worker recovery
 
 An isolated local Core with 200,000 synthetic products accepted 48 simulated

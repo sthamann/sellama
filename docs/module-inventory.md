@@ -2257,6 +2257,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/mail_contracts/fixtures.py](../scripts/testing/mail_contracts/fixtures.py) | Shared disposable mail servers, synthetic CA and isolated archived connector settings. |
 | [scripts/testing/mail_contracts/journey.py](../scripts/testing/mail_contracts/journey.py) | Native Rust checkout/outbox/Flow/MCP to Rust mail worker and loopback SMTP acceptance. |
 | [scripts/testing/mail_contracts/mixed.py](../scripts/testing/mail_contracts/mixed.py) | Measure catalog, simulated checkout and agent requests while a private worker restarts. |
+| [scripts/testing/mail_contracts/release.py](../scripts/testing/mail_contracts/release.py) | Exercise purchase continuity while independent confirmation and the app worker are paused. |
 | [scripts/testing/mail_contracts/wire.py](../scripts/testing/mail_contracts/wire.py) | Loopback SMTP/TLS and HTTP mail-provider fixtures plus consent-aware test requests. |
 | [scripts/testing/media_caption_checks.py](../scripts/testing/media_caption_checks.py) | Actual caption proposal, ownership, locale persistence and selected page-release regressions; synthetic provider only. |
 | [scripts/testing/merchant_guidance.py](../scripts/testing/merchant_guidance.py) | Explicit versioned merchant guidance reaches actual model input and is withdrawn by the native archive path. |

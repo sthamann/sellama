@@ -40,7 +40,7 @@ This folder owns the Rust modules listed below. Each source begins with its resp
 - [`proposal_model.rs`](proposal_model.rs): Typed proposals and validation before persistence or execution.
 - [`proposal_routes.rs`](proposal_routes.rs): HTTP proposal creation, approval and task listing.
 - [`routes.rs`](routes.rs): HTTP transport registry; domain behavior lives in dedicated modules.
-- [`rule_comparison.rs`](rule_comparison.rs): Behavioral port of Shopware 6.7.14.2 RuleComparison::numeric and FloatComparator's exact epsilon boundaries.
+- [`rule_comparison.rs`](../crates/automation/src/rule_comparison.rs): Behavioral port of Shopware 6.7.14.2 RuleComparison::numeric and FloatComparator's exact epsilon boundaries.
 - [`sandbox.rs`](../crates/apps/src/sandbox.rs): Pure Wasmtime guest execution with bounded resources and no host imports.
 - [`seed.rs`](seed.rs): Idempotent synthetic template catalogue initialization.
 - [`shop_domains.rs`](shop_domains.rs): Resolve configured shop subdomains before authentication; reject unknown hosts and conflicting scopes.

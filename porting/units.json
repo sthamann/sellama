@@ -304,7 +304,7 @@
         "Framework/Util/FloatComparator.php"
       ],
       "implementation": [
-        "src/rule_comparison.rs",
+        "crates/automation/src/rule_comparison.rs",
         "src/marketing/rules.rs"
       ],
       "gates": [

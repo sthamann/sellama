@@ -316,6 +316,27 @@
         "tests/postgres.rs": "fb23164298c398c81c3f83e645870f46a2a1bc0d2b14f1b88f0eda5b9798f6a9",
         "tests/schema.sql": "ae53e238d13a77a73bb7cd64dafd7b16a89da62bd0bcf9bbe79e4257a3cc5d1b"
       }
+    },
+    "automation": {
+      "repository": "https://github.com/veyndo/automation",
+      "commit": "c4e50f6151d2beb1f4db19565235347040d287c7",
+      "path": "crates/automation",
+      "files": {
+        "Cargo.toml": "36e2c0525a3ec589efb8c1cf6268ec3e641252e9578d56c0a2eba36d8718dae4",
+        "LICENSE": "0d23edbf3c7fa0daf472c04bc952f4d62216c5d49f08be1b3c69a86689eb46df",
+        "PROVENANCE.json": "896c51a78152a1b3cc67132ab32db0ca704c1acb9c14f038e8c8c27cbebea777",
+        "reference/automation-registry.json": "2a13b82189be0fbad9be67e68505114f31b776f57d63ad914f128a67238088a1",
+        "src/lib.rs": "aba200943ec80e2fabfbdeac1ac5e38b741c6d5fcf8fe5669d64593a8d422840",
+        "src/rule_comparison.rs": "7abcd8da0fa7f8995dc2453fbec8e12137b9868737bba5cde2ba070b8350957d",
+        "src/rules/comparison.rs": "36487e460f2f5bce2e7b1686b3806437861a33d69c755f6e15f071f5e3681a1c",
+        "src/rules/containers.rs": "cd2811d34baa62853d198b8935ed363b2a1f2db55b6733e73a414b4315e08bde",
+        "src/rules/evaluation.rs": "657e73a38e50c7d05ecfd89a4373e1a7fe2af74c1e4ecece2caf97102df512df",
+        "src/rules/fields.rs": "ad598591f5dc756e59705aeb1bac18c6126a49bf664c675e74784c6136996a56",
+        "src/rules/mod.rs": "11128c3a959c1e7997e2dc19c27c75c63b038be91e32f61c6bbdaf8ba1b2bae3",
+        "src/rules/tests.rs": "e702f7168b116749a0c9d83990ef53d407777be9ee2ca679b6df75499c54fe22",
+        "src/rules/time.rs": "e737e6ac931c788f20050a4b64286e79bb530e95e1cf25da1fe52d2db3bbe563",
+        "src/rules/validation.rs": "97531aa986bded1655213c57e29d4e655b818f4b6df4110949255308f53e3bd8"
+      }
     }
   }
 }

@@ -108,9 +108,9 @@ verified separately by native integration tests rather than proved by Lean.
 | `platform_admissible` | Operator access requires a personal identity, active grant and account | `src/platform/auth.rs` |
 | `app_read_admissible` | Read aliases admit declared read-only, non-mutating handlers | `src/apps/surfaces.rs` |
 | `rule_authenticated` | A guest cannot satisfy the authenticated-customer condition; both Boolean branches match exactly | `src/marketing/rule_match.rs` |
-| `rule_boolean_comparison` | Equality, inequality and emptiness select the exact Boolean result | `src/rule_comparison.rs` |
+| `rule_boolean_comparison` | Equality, inequality and emptiness select the exact Boolean result | `crates/automation/src/rule_comparison.rs` |
 | `app_flow_admissible` | Only explicitly eligible private mutation actions can be flow targets | `src/marketing/app_flows.rs` |
-| `rule_xor_count` | XOR matches exactly one child; no matches cannot satisfy it | `src/automation_rules/evaluation.rs` |
+| `rule_xor_count` | XOR matches exactly one child; no matches cannot satisfy it | `crates/automation/src/rules/evaluation.rs` |
 | `flow_delay_admissible` | Durable delays are positive and at most thirty days | `src/marketing/pipeline.rs` |
 | `destination_tax_admissible` | Condition, country, state, postcode and date guards must all match | `src/commerce/tax_rules.rs` |
 | `customer_group_net` | Net basis requires a configured business group; unknown groups cannot claim it | `src/commerce/customer_groups.rs` |

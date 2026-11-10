@@ -1,9 +1,8 @@
 //! Reusable pricing, context, sandbox, graph and inference modules.
-pub mod automation_rules;
 pub mod context;
 pub mod knowledge;
-pub mod rule_comparison;
 pub use veyndo_apps::{component_runtime, sandbox};
+pub use veyndo_automation::{rule_comparison, rules as automation_rules};
 pub use veyndo_cognition::inference;
 pub use veyndo_commerce::{discount, money, pricing};
 pub use veyndo_kernel::verified_kernel;

@@ -18,6 +18,7 @@ def negative_controls(packages):
                               ('veyndo-app-model', 'veyndo-app-storage'), ('veyndo-app-model', 'veyndo-runtime'),
                               ('veyndo-app-model', 'veyndo'), ('veyndo-app-runtime', 'sqlx'),
                               ('veyndo-flow-graph', 'sqlx'), ('veyndo-flow-graph', 'veyndo'),
+                              ('veyndo-automation', 'reqwest'), ('veyndo-automation', 'veyndo'),
                               ('veyndo-app-runtime', 'reqwest'), ('veyndo-app-runtime', 'veyndo-kernel'),
                               ('veyndo-app-runtime', 'veyndo-app-storage'), ('veyndo-app-runtime', 'veyndo')]:
         variant(name)['dependencies'].append({'name': dependency})

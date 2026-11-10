@@ -180,14 +180,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/auth/routes.rs](../src/auth/routes.rs) | Identity, recovery and personal-security routes share canonical authentication admission. |
 | [src/auth/sessions.rs](../src/auth/sessions.rs) | Login/logout and personal workspace discovery. Only hashed opaque tokens persist. |
 | [src/auth/totp.rs](../src/auth/totp.rs) | RFC 6238 authenticator codes, bounded clock drift and constant-time comparison. |
-| [src/automation_rules/comparison.rs](../src/automation_rules/comparison.rs) | Original comparison primitives plus literal wildcard/zip operators; no regex or executable expressions. |
-| [src/automation_rules/containers.rs](../src/automation_rules/containers.rs) | Source line wrappers, quantified goods and all-line containers retain one selected line scope. |
-| [src/automation_rules/evaluation.rs](../src/automation_rules/evaluation.rs) | Evaluate native rule scopes from authoritative JSON facts with precise line/container selection. |
-| [src/automation_rules/fields.rs](../src/automation_rules/fields.rs) | Source custom fields retain typed equality and selection intersection; purchase prices use private server facts. |
-| [src/automation_rules/mod.rs](../src/automation_rules/mod.rs) | Source-named rule registry and checked evaluation; absent required facts are errors, including under NOT. |
-| [src/automation_rules/tests.rs](../src/automation_rules/tests.rs) | Regression cases cover missing authority under NOT, original quantifiers, dates, metadata types and registry bounds. |
-| [src/automation_rules/time.rs](../src/automation_rules/time.rs) | Calendar comparisons use an explicit server clock, IANA zones and the original exclusive date-range end. |
-| [src/automation_rules/validation.rs](../src/automation_rules/validation.rs) | Bounded source payload validation against exported field/operator metadata and nested condition scopes. |
 | [src/b2b/access.rs](../src/b2b/access.rs) | Re-resolves active customer sessions, company policy and unit membership at every procurement boundary. |
 | [src/b2b/approval.rs](../src/b2b/approval.rs) | Revision-bound purchasing approval inbox; approvers must be active peers and cannot approve themselves. |
 | [src/b2b/catalog.rs](../src/b2b/catalog.rs) | Private unit catalog scope is derived from the current employee/cart, never caller criteria; indexed before pagination. |
@@ -576,7 +568,6 @@ This lists every checked-in source module in these roots, including files with n
 | [src/proposal_routes.rs](../src/proposal_routes.rs) | HTTP proposal creation, approval and task listing. |
 | [src/request_context.rs](../src/request_context.rs) | Trusted request identity lives in extensions; HTTP headers carry transport inputs only. |
 | [src/routes.rs](../src/routes.rs) | HTTP transport registry; domain behavior lives in dedicated modules. |
-| [src/rule_comparison.rs](../src/rule_comparison.rs) | Behavioral port of Shopware 6.7.14.2 RuleComparison::numeric and FloatComparator's exact epsilon boundaries. |
 | [src/runtime_config.rs](../src/runtime_config.rs) | Immutable process configuration, validated once at startup. Mutable shop/provider settings remain in PostgreSQL. |
 | [src/sandbox_cache.rs](../src/sandbox_cache.rs) | Bounded tenant-policy compilation cache. Prepare outside commerce locks; verify the digest under the lock. |
 | [src/security_headers.rs](../src/security_headers.rs) | Common browser defenses on successful responses and errors, including reverse-proxy HTTPS deployments. |
@@ -634,6 +625,16 @@ This lists every checked-in source module in these roots, including files with n
 | [crates/apps/src/component_runtime.rs](../crates/apps/src/component_runtime.rs) | Native namespace/configuration adapter for the independent typed read-only commerce component runtime. |
 | [crates/apps/src/lib.rs](../crates/apps/src/lib.rs) | Isolated app component execution; no HTTP, SQL or inference authority. |
 | [crates/apps/src/sandbox.rs](../crates/apps/src/sandbox.rs) | Native verified resource admission adapter for the independent bounded Wasm/WIT executor. |
+| [crates/automation/src/lib.rs](../crates/automation/src/lib.rs) | Independent deterministic commerce rule evaluation; facts come from the host, never ambient SQL or a model. |
+| [crates/automation/src/rule_comparison.rs](../crates/automation/src/rule_comparison.rs) | Behavioral port of Shopware 6.7.14.2 RuleComparison::numeric and FloatComparator's exact epsilon boundaries. |
+| [crates/automation/src/rules/comparison.rs](../crates/automation/src/rules/comparison.rs) | Original comparison primitives plus literal wildcard/zip operators; no regex or executable expressions. |
+| [crates/automation/src/rules/containers.rs](../crates/automation/src/rules/containers.rs) | Source line wrappers, quantified goods and all-line containers retain one selected line scope. |
+| [crates/automation/src/rules/evaluation.rs](../crates/automation/src/rules/evaluation.rs) | Evaluate native rule scopes from authoritative JSON facts with precise line/container selection. |
+| [crates/automation/src/rules/fields.rs](../crates/automation/src/rules/fields.rs) | Source custom fields retain typed equality and selection intersection; purchase prices use private server facts. |
+| [crates/automation/src/rules/mod.rs](../crates/automation/src/rules/mod.rs) | Source-named rule registry and checked evaluation; absent required facts are errors, including under NOT. |
+| [crates/automation/src/rules/tests.rs](../crates/automation/src/rules/tests.rs) | Regression cases cover missing authority under NOT, original quantifiers, dates, metadata types and registry bounds. |
+| [crates/automation/src/rules/time.rs](../crates/automation/src/rules/time.rs) | Calendar comparisons use an explicit server clock, IANA zones and the original exclusive date-range end. |
+| [crates/automation/src/rules/validation.rs](../crates/automation/src/rules/validation.rs) | Bounded source payload validation against exported field/operator metadata and nested condition scopes. |
 | [crates/cognition/src/inference/budget.rs](../crates/cognition/src/inference/budget.rs) | Durable conservative model allocations use existing agent keys and the live shop stop switch. |
 | [crates/cognition/src/inference/error.rs](../crates/cognition/src/inference/error.rs) | Typed admission failures survive provider adapters; HTTP status never depends on parsing message text. |
 | [crates/cognition/src/inference/protocol.rs](../crates/cognition/src/inference/protocol.rs) | Self-hosted chat-completions adapter and opt-in provider prompt caching; neither caches private commerce responses. |

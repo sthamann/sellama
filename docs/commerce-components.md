@@ -24,6 +24,9 @@ to native Veyndo through the same owner.
   Both previews agree on real cart inputs. Core prices a coupon and commits its
   order and invoice Flow while the separate preview process is offline.
   [Local acceptance](automation-component.md#keep-checkout-independent-of-the-preview-service).
+  - [x] Link the exact preview rule sources and catalog into the Core build.
+    Verify the component pin, kernel binding and the existing rule/Flow paths.
+    [Library ownership](automation-component.md#library-and-service).
 - [ ] AUTO-01b Deploy the independent preview alongside Core and check scoped
   HTTP/MCP calls, revocation and latency against the running shop.
   - [x] Reuse current Core permissions and verify key issuance and revocation

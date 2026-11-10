@@ -7,7 +7,7 @@ distributed MIT versions retain their original terms; see [licensing](docs/licen
 
 The quantity calculation and proportional delivery-tax allocation behavior in
 `src/pricing.rs`, context/tier/quantity selection behavior in `src/context.rs`,
-and numeric epsilon/null comparison semantics in `src/rule_comparison.rs`,
+and numeric epsilon/null comparison semantics in `crates/automation/src/rule_comparison.rs`,
 are partial behavioral
 port of Shopware Core 6.7.14.2, reference commit
 `de074a584d77d8abb09ddb21d8799f083a61a3da`.

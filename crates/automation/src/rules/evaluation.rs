@@ -88,7 +88,7 @@ pub fn evaluate(name: &str, config: &Value, facts: &Value) -> Result<bool, Strin
         return match name {
             "andContainer" => Ok(result.iter().all(|x| *x)),
             "orContainer" => Ok(result.contains(&true)),
-            "xorContainer" => Ok(crate::verified_kernel::rule_xor_count(
+            "xorContainer" => Ok(veyndo_kernel::verified_kernel::rule_xor_count(
                 result.iter().filter(|x| **x).count() as u64,
             )),
             "notContainer" if result.len() == 1 => Ok(!result[0]),

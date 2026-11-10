@@ -7,7 +7,6 @@ COPY crates/ crates/
 COPY extensions ./extensions
 COPY migrations ./migrations
 COPY fixtures ./fixtures
-COPY reference/automation-registry.json ./reference/automation-registry.json
 COPY reference/app-manifests ./reference/app-manifests
 RUN cargo build --locked --release --bin erp-handoff
 FROM debian:bookworm-slim

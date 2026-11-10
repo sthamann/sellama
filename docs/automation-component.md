@@ -2,21 +2,33 @@
 
 The independent `veyndo/automation` repository contains the deterministic rule
 registry, input validation, comparison, container, calendar and time-zone logic,
-custom fields and selected-line evaluation. The released Core still builds its
-in-tree evaluator. The preview service runs the extracted copy and evaluates facts
-supplied by its caller. Core owns native rule configuration, trusted fact collection,
-checkout and Flow execution.
+custom fields and selected-line evaluation. Core links the pinned library into
+its native process. The independent preview service uses the same rule source
+to evaluate facts supplied by its caller. Core owns native rule configuration,
+trusted fact collection, checkout and Flow execution.
 
 ## Library and service
 
 The Rust library depends on JSON/calendar support and the existing pinned pure
 kernel library. It imports no Core server, SQL, provider or model runtime.
-Component provenance records the extraction and kernel source hashes. In the
-10 November comparison against Core `483a9b3c`, the rule registry and comparison
-module were byte-identical. The evaluator and validation differed only in how
-they imported the same kernel functions. Core and the preview lock different
-`serde_json` patch versions, so the source comparison is separate from runtime
-parity. Linking Core to the extracted crate remains open.
+Core imports the pure sources and registry from Automation `c4e50f6`, the
+revision running in the private preview. The import points Cargo to the local
+kernel and verifies that its Automation policy source matches the pinned
+standalone policy. All rule source and catalog files retain their upstream
+bytes. The Core build uses its own dependency lock. The preview retains its
+separate lock and runtime.
+
+The 10 November local comparison exercised the Core-linked evaluator and the
+standalone build of that preview revision. All 440 HTTP cases and three MCP
+calls agreed, including large integers, floating-point boundaries and missing
+facts. The independent PHP comparison also passed 432 original rule cases.
+These results cover the tested inputs and both resolved dependency builds.
+
+Future updates go through `scripts/component_sources.py --import-source
+automation --checkout PATH --commit SHA` against a clean reviewed revision. The
+import keeps the HTTP server out of Core and records the exact files in
+`components.lock.json`. Changes to the registry belong in the upstream
+component before an updated snapshot is committed in Core.
 
 The service has its own Rust binary, Dockerfile, operator configuration,
 OpenAPI, MCP operations and SDK example. Current OAuth access comes from the
@@ -87,7 +99,7 @@ and `examples/workspace.mjs`. Repository access is currently private.
 
 ## Keep checkout independent of the preview service
 
-Core runs its evaluator in-process. The separate service can preview a rule for
+Core runs the pinned evaluator in-process. The separate service can preview a rule for
 another application or an agent using supplied facts. Core reads its own
 current cart, checks whether a discount applies and owns the transaction and
 its resulting event. The Flow worker uses that committed event and runs

@@ -17,7 +17,6 @@ COPY crates/ crates/
 COPY migrations/ migrations/
 COPY extensions/ extensions/
 COPY fixtures/ fixtures/
-COPY reference/automation-registry.json reference/automation-registry.json
 COPY reference/app-manifests/ reference/app-manifests/
 RUN cargo build --release --locked --bin veyndo
 FROM debian:bookworm-slim

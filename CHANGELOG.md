@@ -1,5 +1,11 @@
 # Changelog
 
+## Shared Automation rule library
+
+- Link the released Automation rule source into Core. Keep native rule APIs,
+  checkout, Flow ownership and policy checks on the existing paths.
+- Verify the pinned crate, catalog and kernel source in the workspace checks.
+
 ## Invoice and confirmation after payment
 
 - Add a disabled Flow example that creates the order invoice before queuing the

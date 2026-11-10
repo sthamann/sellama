@@ -150,7 +150,7 @@
     },
     "rule_boolean_comparison": {
       "bindings": [
-        "src/rule_comparison.rs",
+        "crates/automation/src/rule_comparison.rs",
         "src/marketing/rule_match.rs"
       ],
       "theorems": [
@@ -187,7 +187,7 @@
     },
     "rule_xor_count": {
       "bindings": [
-        "src/automation_rules/evaluation.rs"
+        "crates/automation/src/rules/evaluation.rs"
       ],
       "theorems": [
         "rule_xor_exact",
@@ -633,6 +633,56 @@
       "status": "reviewed-binding",
       "sha256": "9f393d24b48d41baf2f4361cca70ed5593c42f5d833afed2fc98bc556fc94877",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "crates/automation/src/lib.rs": {
+      "status": "unproved",
+      "sha256": "aba200943ec80e2fabfbdeac1ac5e38b741c6d5fcf8fe5669d64593a8d422840",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
+    },
+    "crates/automation/src/rule_comparison.rs": {
+      "status": "reviewed-binding",
+      "sha256": "7abcd8da0fa7f8995dc2453fbec8e12137b9868737bba5cde2ba070b8350957d",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
+    },
+    "crates/automation/src/rules/comparison.rs": {
+      "status": "unproved",
+      "sha256": "36487e460f2f5bce2e7b1686b3806437861a33d69c755f6e15f071f5e3681a1c",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
+    },
+    "crates/automation/src/rules/containers.rs": {
+      "status": "unproved",
+      "sha256": "cd2811d34baa62853d198b8935ed363b2a1f2db55b6733e73a414b4315e08bde",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
+    },
+    "crates/automation/src/rules/evaluation.rs": {
+      "status": "reviewed-binding",
+      "sha256": "657e73a38e50c7d05ecfd89a4373e1a7fe2af74c1e4ecece2caf97102df512df",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
+    },
+    "crates/automation/src/rules/fields.rs": {
+      "status": "unproved",
+      "sha256": "ad598591f5dc756e59705aeb1bac18c6126a49bf664c675e74784c6136996a56",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
+    },
+    "crates/automation/src/rules/mod.rs": {
+      "status": "unproved",
+      "sha256": "11128c3a959c1e7997e2dc19c27c75c63b038be91e32f61c6bbdaf8ba1b2bae3",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
+    },
+    "crates/automation/src/rules/tests.rs": {
+      "status": "unproved",
+      "sha256": "e702f7168b116749a0c9d83990ef53d407777be9ee2ca679b6df75499c54fe22",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
+    },
+    "crates/automation/src/rules/time.rs": {
+      "status": "unproved",
+      "sha256": "e737e6ac931c788f20050a4b64286e79bb530e95e1cf25da1fe52d2db3bbe563",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
+    },
+    "crates/automation/src/rules/validation.rs": {
+      "status": "unproved",
+      "sha256": "97531aa986bded1655213c57e29d4e655b818f4b6df4110949255308f53e3bd8",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
     },
     "crates/cognition/src/inference/budget.rs": {
       "status": "unproved",
@@ -3204,46 +3254,6 @@
       "sha256": "b352bc5f42ae55c79ca2334339463eb2e90ed9e229b27b5add8045aa891a7217",
       "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
     },
-    "src/automation_rules/comparison.rs": {
-      "status": "unproved",
-      "sha256": "36487e460f2f5bce2e7b1686b3806437861a33d69c755f6e15f071f5e3681a1c",
-      "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
-    },
-    "src/automation_rules/containers.rs": {
-      "status": "unproved",
-      "sha256": "cd2811d34baa62853d198b8935ed363b2a1f2db55b6733e73a414b4315e08bde",
-      "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
-    },
-    "src/automation_rules/evaluation.rs": {
-      "status": "reviewed-binding",
-      "sha256": "a332f227d44595b3d296174c3326588e54c5df3cf485b74b6c7ad38d9cfd0743",
-      "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
-    },
-    "src/automation_rules/fields.rs": {
-      "status": "unproved",
-      "sha256": "ad598591f5dc756e59705aeb1bac18c6126a49bf664c675e74784c6136996a56",
-      "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
-    },
-    "src/automation_rules/mod.rs": {
-      "status": "unproved",
-      "sha256": "11128c3a959c1e7997e2dc19c27c75c63b038be91e32f61c6bbdaf8ba1b2bae3",
-      "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
-    },
-    "src/automation_rules/tests.rs": {
-      "status": "unproved",
-      "sha256": "e702f7168b116749a0c9d83990ef53d407777be9ee2ca679b6df75499c54fe22",
-      "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
-    },
-    "src/automation_rules/time.rs": {
-      "status": "unproved",
-      "sha256": "e737e6ac931c788f20050a4b64286e79bb530e95e1cf25da1fe52d2db3bbe563",
-      "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
-    },
-    "src/automation_rules/validation.rs": {
-      "status": "unproved",
-      "sha256": "97531aa986bded1655213c57e29d4e655b818f4b6df4110949255308f53e3bd8",
-      "review": "Reviewed equivalent date/datetime rejection and product price range expressions required by Rust 1.96 Clippy; accepted date/string shapes and finite 0 through 1000000 prices stay unchanged. Rust formatting, lint and unit tests passed. Complete Docker image builds and the existing AGE PostgreSQL image smoke test passes personal operator/shop provisioning and auth gates. No business guarantee or Lean property changed."
-    },
     "src/b2b/access.rs": {
       "status": "unproved",
       "sha256": "8a7cbc7944f7bb7a1199fac905c26044f0eb035ea16b083f2e8598b82b717378",
@@ -4341,8 +4351,8 @@
     },
     "src/lib.rs": {
       "status": "unproved",
-      "sha256": "56304999140814bf884f5d2cc289fe323b3e7426186c1e149bc6e059b8b50974",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "b6e1f24b8e444afdb59ba63a4862e3f84905b03f25bf9c1c0e99528abe3c0705",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
     },
     "src/localization.rs": {
       "status": "unproved",
@@ -5184,11 +5194,6 @@
       "sha256": "9f4c5baf5424bc6b3f3cb2266e55bbb1276800b062a0848001e8ac85b2406d70",
       "review": "Reviewed chat cart preview and conditional edit reuse native quote and optimistic mutation, and app metadata derives from an admitted public product reference. Catalogue approval checks original task actor and current scopes before applying. The Rust/PostgreSQL regression covers stale quotes, wrong items, foreign cart scope, and same-shop approval denial."
     },
-    "src/rule_comparison.rs": {
-      "status": "reviewed-binding",
-      "sha256": "21896c8f75ba14ebf30b4c35a1ee3e99658fd821aa411c601b7d5ebcb3c24011",
-      "review": "Reviewed connected app OAuth/encryption/tenant evidence, current-rights event and flow dispatch, original rule comparisons and 9 real HTTP connector fixture groups; 18 existing commerce suites passed across two batches. Adapters remain unproved."
-    },
     "src/runtime_config.rs": {
       "status": "unproved",
       "sha256": "3d494b7a4561dc9a1a01ae6be3eab62e05588fa1f9638e8262d12161392c666f",
@@ -5441,20 +5446,28 @@
       "review": "Run the same static Rust image input and mutation guard once in admission for all CI lanes. Standalone contexts follow their own manifests and local dependency roots and keep lock and source removal negative controls. Full coverage and native jobs retain their cadence."
     },
     "Cargo.lock": {
-      "sha256": "3ecf12719149ab827688d7fc52d2dbdbbab1da240453bad36c75c07f868dc6e8",
-      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
+      "sha256": "8b5ea57ffffaf8c19e6671af92cda0a0cd470c06bb0d769789de04f0afff9f75",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
     },
     "Cargo.toml": {
-      "sha256": "1c4d2d796c14d5731ae1d03fed6779941996d1250dee1c1af622fad0eae7c046",
-      "review": "The native Flow save and worker call one dependency-free graph validator. Existing node validation and errors retain their order, the worker uses the validated ID index, and its persisted cursor format and actor rechecks are unchanged. Unit cases cover merged branches and malformed graphs. The existing Lean delay predicate remains at the native call site; graph traversal and effects remain unproved."
+      "sha256": "452dc6881b63278c1c563f8a9b8137f3be1538bc634ffaf6498192b014c550dd",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
     },
     "components.lock.json": {
-      "sha256": "fe9d61e3fcedef9a22df788e6b14e929185b6a7fb2a473f80df8fa2248a1ea66",
-      "review": "Import the App image build inputs that match the existing compile-time shared SQL export. The staged images include the signed scope SQL without changing runtime access policies."
+      "sha256": "27888ec784bd2d1a4541f398e6cf65db00c2634737793edb4a98cd7d21d26233",
+      "review": "Move reviewed deterministic rules and catalog to the deployed Automation source snapshot. The selected kernel source is byte-identical, and only the two imports of its checked functions changed relative to the previous Core. Pure unit, PHP differential, 440 HTTP and 3 MCP parity cases, and real PostgreSQL rule, checkout and Flow tests passed. Pin only the reviewed library and data; private server source is excluded."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",
       "review": "Reviewed actual Wasm/WIT executor extraction into pinned Apps runtime 0.1.0: required resource-policy calls on both constructors retain native direct verified predicate; explicit namespace configuration, identical WIT bytes, single pooled engine, per-call stores/fuel/epochs/memory/table/host-call/snapshot/output budgets unchanged. 17 independent guest tests, native adapters/configuration handoff, 74 app units, 34 unchanged package digests and ten real PostgreSQL/HTTP checkout/B2B/preview/release/AI/Marketplace modules pass. Cargo capability, image build contexts and SDK/WIT mutation controls pass; kernel unchanged, runtime/host/SQL remains unproved."
+    },
+    "crates/automation/Cargo.toml": {
+      "sha256": "36e2c0525a3ec589efb8c1cf6268ec3e641252e9578d56c0a2eba36d8718dae4",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
+    },
+    "crates/automation/reference/automation-registry.json": {
+      "sha256": "2a13b82189be0fbad9be67e68505114f31b776f57d63ad914f128a67238088a1",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
     },
     "crates/cognition/Cargo.toml": {
       "sha256": "c809dfd4e1d26a84f4adfa5beab3de02e6eb7b51c5c51bcb0dfaacb9b41df97f",
@@ -5581,8 +5594,8 @@
       "review": "Apps reader 0.25.0: current OAuth merchant/action admission, signed read-only fixed-schema host and shared original scope/page/field code; real independent PostgreSQL/HTTP/MCP/SDK and runtime/storage regressions pass. Native task context, privileged provisioning, object resolver and write owners retained. No new mathematical claim for host SQL or network."
     },
     "deploy/Dockerfile": {
-      "sha256": "32cff221980fddc3973e774760e28c3bc7dff414234d8b400fea9683b465a99e",
-      "review": "Review compiler-enforced foundation crates with unchanged native owners; native provider read-tool aliases and current authorization, private checkpoint continuation and versioned prompt evidence; fixed subscriber acknowledgements preserve commit gaps, independent quarantine and explicit replay; traced requests/tasks/outbox without payloads; exact decimal-to-minor-unit rounding retains legacy price boundary; real SQL poison-isolation regression passes and workspace unit/clippy checks pass"
+      "sha256": "aa0e1526fde41e34fad193a4a00697efb4878c1954ea4e817efa6d1815b063fb",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
     },
     "extensions/apps/marketplaces/Cargo.lock": {
       "sha256": "2b38dfedc96b9acb5ff19003964e3fcb1daa33df27ef594eb29bf4cdd1821e81",
@@ -6140,10 +6153,6 @@
       "sha256": "2e1c6b88bcd8bcc33e4e18b99b85c082e2f53603475ac8e97f08490e5213f4ef",
       "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
     },
-    "reference/automation-registry.json": {
-      "sha256": "2a13b82189be0fbad9be67e68505114f31b776f57d63ad914f128a67238088a1",
-      "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
-    },
     "reference/automation-source.json": {
       "sha256": "b598dbc87d85c970ccec741b618e729f8f5ac83abb093ed24d87e1175ff5cb2c",
       "review": "Reviewed source-named native scopes and strict missing-fact propagation, tenant-owned private metadata and indexed frozen rule references, bounded acyclic flow graph admission, current actor rechecks, stable local effect receipts and uncertain external step handling, persistent cursors/delays and isolated per-flow projection failures. Additive migration 025 and chrono dependencies reviewed; 432 original PHP class comparisons and real branch/delay/state/tag/custom-field/invoice/replay/revocation regressions pass. Extracted exact XOR and thirty-day delay guards with negative mutations; SQL, async runtime and full rule interpreter remain unproved."
@@ -6177,8 +6186,8 @@
       "review": "Native multi-capture admission, immutable receipts and per-capture refund budgets; async adapters remain unproved"
     },
     "scripts/formal/registry.py": {
-      "sha256": "81cb5fe34b456e4bde12172a08f9741c1de4c83d633f2e7444b6581126037be2",
-      "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+      "sha256": "9ff6a7793e526f752ef2d469af94db66c52d0754631dc84094416de196427c9a",
+      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
     },
     "scripts/formal/runners.py": {
       "sha256": "30249280fde2b234aaa1fc6dfd6eff9c0423e7e8e5cca72cb4221325468dc58f",

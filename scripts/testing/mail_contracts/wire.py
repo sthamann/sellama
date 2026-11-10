@@ -22,7 +22,7 @@ def http(url, body=None, headers=None, method=None, expected=200):
     except urllib.error.HTTPError as e:
         status, result = e.code, json.load(e)
         e.close()
-    assert status == expected, (req.selector, status, result)
+    assert status in (expected if isinstance(expected, tuple) else (expected,)), (req.selector, status, result)
     return result
 
 

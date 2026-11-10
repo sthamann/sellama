@@ -6,6 +6,7 @@ import secrets
 import socket
 import subprocess
 import time
+from urllib.error import HTTPError
 from urllib.parse import urlsplit
 from urllib.request import Request, urlopen
 
@@ -82,7 +83,7 @@ def provision(case, container, suffix, binary, core_origin, core_url, paypal=Fal
     }, start
 
 
-def prepare(api, tenant, product, suffix, method=None):
+def register_buyer(api, tenant, suffix):
     headers = {"x-tenant": tenant}
     address = {
         "name": "Fixture Buyer", "firstName": "Fixture", "lastName": "Buyer",
@@ -94,7 +95,12 @@ def prepare(api, tenant, product, suffix, method=None):
         "shippingAddress": address,
     }, headers)
     headers["x-customer-token"] = account["customerToken"]
-    cart = api("/store-api/checkout/cart", {}, headers)
+    return headers
+
+
+def prepare(api, tenant, product, suffix, method=None, *, buyer=None):
+    headers = dict(buyer) if buyer else register_buyer(api, tenant, suffix)
+    cart = api("/store-api/checkout/cart", {"session": "mail-checkout-" + suffix}, headers)
     headers["sw-context-token"] = cart["token"]
     cart = api("/store-api/checkout/cart/line-item", {
         "items": [{"referencedId": product, "quantity": 1}],
@@ -131,6 +137,25 @@ def discard_confirmation(url, headers, body):
                       {"Content-Type": "application/json", **headers})
     with urlopen(request, timeout=15) as response:
         assert response.status == 200
+
+
+def confirm_with_backpressure(url, headers, body):
+    request = Request(url, json.dumps(body).encode(),
+                      {"Content-Type": "application/json", **headers})
+    for retries in range(6):
+        try:
+            with urlopen(request, timeout=15) as response:
+                assert response.status == 200
+                return json.load(response), retries
+        except HTTPError as error:
+            with error:
+                failure = json.load(error)
+                delay = error.headers.get("Retry-After", "")
+                assert error.code == 429 and delay.isdecimal() and 1 <= int(delay) <= 5, failure
+                assert failure["errors"][0]["retryable"] is True, failure
+                if retries == 5:
+                    raise AssertionError("Checkout did not admit the original confirmation after five retries")
+        time.sleep(int(delay))
 
 
 def payment_fixture(case, tenant):

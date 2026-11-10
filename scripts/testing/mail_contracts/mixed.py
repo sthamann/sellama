@@ -46,8 +46,8 @@ def model(case):
     return f"http://127.0.0.1:{server.server_port}"
 
 
-def measure(api, merchant, checkout_headers, stop_worker, start_worker,
-            container, database, messages):
+def measure(api, merchant, prepare_purchase, stop_worker, start_worker,
+            container, database, messages, *, checkout_route):
     tenant = merchant["x-tenant"]
     assert tenant.startswith("mail-") and tenant.removeprefix("mail-").isalnum()
     assert database.startswith("commerce_mail_")
@@ -87,11 +87,7 @@ def measure(api, merchant, checkout_headers, stop_worker, start_worker,
     assert int(sql(f"SELECT count(*) FROM products WHERE tenant='{tenant}' "
                    "AND id LIKE 'mixed-%'")) == catalog_size
     headers = {"x-tenant": tenant}
-    ready = []
-    for i in range(orders):
-        sku = f"mixed-{i + 1:06}"
-        ch = checkout_headers(sku, f"mixed-{uuid4().hex}")
-        ready.append((sku, ch))
+    ready = [prepare_purchase(f"mixed-{i + 1:06}", uuid4().hex) for i in range(orders)]
 
     worker_stopped = Event()
     first_committed = Event()
@@ -105,9 +101,7 @@ def measure(api, merchant, checkout_headers, stop_worker, start_worker,
 
     def buy(i):
         assert worker_stopped.wait(10)
-        _, ch = ready[i]
-        result = api("/store-api/checkout/order", {}, ch)
-        assert result["payment"]["realMoneyCharged"] is False
+        result = ready[i]()
         first_committed.set()
         return result
 
@@ -116,15 +110,27 @@ def measure(api, merchant, checkout_headers, stop_worker, start_worker,
         assert len(result["elements"]) == 50 and result["hasMore"]
 
     def ask(i):
-        result = api("/api/concierge", {"request": f"Show available mugs. Fixture {i}."}, headers)
-        assert result["answer"]["explanation"] == "The catalog is available."
+        question = {"request": f"Show available mugs. Fixture {i}."}
+        for refreshes in range(6):
+            result = api("/api/concierge", question, headers, expected=(200, 409))
+            if "answer" in result:
+                assert result["answer"]["explanation"] == "The catalog is available."
+                return refreshes
+            assert result["errors"][0]["detail"] == "Advice sources changed during inference; ask again", result
+        raise AssertionError("Shopping advice could not obtain current sources after five refreshes")
 
     def restart():
         stop_worker()
         worker_stopped.set()
         assert first_committed.wait(15), "Core must commit while its app worker is stopped"
         assert len(messages) == received_before
+        resumed_at = monotonic()
         start_worker()
+        until = resumed_at + 90
+        while len(messages) < received_before + orders and monotonic() < until:
+            sleep(.1)
+        assert len(messages) == received_before + orders
+        return monotonic() - resumed_at
 
     with (ThreadPoolExecutor(max_workers=12) as buying,
           ThreadPoolExecutor(max_workers=4) as reading,
@@ -135,21 +141,18 @@ def measure(api, merchant, checkout_headers, stop_worker, start_worker,
         read_jobs = reading.map(lambda i: timed(lambda: catalog(i)), range(reads))
         agent_jobs = asking.map(lambda i: timed(lambda: ask(i)), range(agent_calls))
         purchases, catalogs, answers = list(order_jobs), list(read_jobs), list(agent_jobs)
-        reboot.result()
-    elapsed = monotonic() - started
+        elapsed = monotonic() - started
+        delivery_seconds = reboot.result()
 
-    order_ids = {result["id"] for _, result in purchases}
+    order_ids = {result["id"] for _, (result, _) in purchases}
     assert len(order_ids) == orders
-    for (_, ch), (_, result) in zip(ready, purchases):
-        assert api("/store-api/checkout/order", {}, ch)["id"] == result["id"]
+    for purchase, (_, (result, _)) in zip(ready, purchases):
+        assert purchase()[0] == result
     assert int(sql(f"SELECT count(*) FROM products WHERE tenant='{tenant}' "
                    f"AND id BETWEEN 'mixed-000001' AND 'mixed-{orders:06}' AND stock=19")) == orders
-    until = monotonic() + 90
-    while len(messages) < received_before + orders and monotonic() < until:
-        sleep(.1)
     delivered = messages[received_before:]
     assert len(delivered) == orders
-    for _, result in purchases:
+    for _, (result, _) in purchases:
         number = result["orderNumber"].encode()
         assert sum(number in body for _, body in delivered) == 1
         assert len(api(f"/api/merchant/orders/{result['id']}/receipts",
@@ -162,7 +165,13 @@ def measure(api, merchant, checkout_headers, stop_worker, start_worker,
         samples[name] = {"count": len(values), **{
             f"p{p}Ms": round(centiles[p - 1], 2) for p in (50, 95, 99)
         }}
-    report = {"syntheticProducts": catalog_size, "seconds": round(elapsed, 2),
-              "orders": orders, "uniqueMailReceipts": len(delivered), "samples": samples}
+    report = {
+        "checkoutRoute": checkout_route, "syntheticProducts": catalog_size, "seconds": round(elapsed, 2),
+        "orders": orders, "uniqueMailReceipts": len(delivered), "samples": samples,
+        "checkoutRetries": sum(retries for _, (_, retries) in purchases),
+        "checkoutOrdersRetried": sum(retries > 0 for _, (_, retries) in purchases),
+        "agentSourceRefreshes": sum(refreshes for _, refreshes in answers),
+        "workerRestartToLastMailSeconds": round(delivery_seconds, 2),
+    }
     artifact_path("mixed-commerce-load.json").write_text(json.dumps(report, indent=2) + "\n")
     print("MIXED_COMMERCE_LOAD", json.dumps(report), flush=True)

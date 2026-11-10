@@ -92,7 +92,7 @@ class NativeMailJourney:
             if paypal:
                 provider, payment_env = checkout_fixture.payment_fixture(self, "mail-" + suffix)
                 env.update(payment_env)
-        mixed = standalone and not checkout and os.getenv("VEYNDO_MIXED_LOAD") == "1"
+        mixed = standalone and not paypal and os.getenv("VEYNDO_MIXED_LOAD") == "1"
         if mixed:
             from testing.mail_contracts import mixed as workload
             env.update(OLLAMA_URL=workload.model(self), TENANT_CONCURRENCY="32",
@@ -363,5 +363,30 @@ class NativeMailJourney:
             expected=400,
         )
         if mixed:
-            workload.measure(api, h, checkout_headers, lambda: stop(worker), start_worker,
-                             container, database, self.smtp.messages)
+            if checkout:
+                buyer = checkout_fixture.register_buyer(api, tenant, "mixed-" + suffix)
+
+                def prepare_purchase(product, key):
+                    headers, confirmation = checkout_fixture.prepare(api, tenant, product, key, buyer=buyer)
+
+                    def purchase():
+                        receipt, retries = checkout_fixture.confirm_with_backpressure(
+                            base + confirm_path, headers, confirmation,
+                        )
+                        self.assertEqual(receipt["paymentState"], "authorized")
+                        return {"id": receipt["orderId"], "orderNumber": receipt["orderNumber"]}, retries
+
+                    return purchase
+            else:
+                def prepare_purchase(product, key):
+                    headers = checkout_headers(product, "mixed-" + key)
+
+                    def purchase():
+                        result = api("/store-api/checkout/order", {}, headers)
+                        self.assertFalse(result["payment"]["realMoneyCharged"])
+                        return {"id": result["id"], "orderNumber": result["orderNumber"]}, 0
+
+                    return purchase
+            workload.measure(api, h, prepare_purchase, lambda: stop(worker), start_worker,
+                             container, database, self.smtp.messages,
+                             checkout_route="independent" if checkout else "native")

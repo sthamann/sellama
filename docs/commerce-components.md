@@ -269,6 +269,10 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
     after returning from the provider. Repeat in the original Storyfront iframe.
   - [ ] Trace the hosted order event. Run the hosted response-loss and
     concurrency checks before broadening the pilot.
+  - [x] Compare the native and independent routes under the same local
+    200,000-product workload. Verify bounded retry, original order IDs and
+    one invoice and mail for each purchase.
+    [Local comparison](benchmarks.md#run-the-same-load-through-independent-checkout).
   - [x] Compose the independent confirmation with native PayPal Sandbox and
     Shopware Payments PayPal. Verify the original payment attempt, denial of a
     switched Live account, capture and refund with local provider responses.

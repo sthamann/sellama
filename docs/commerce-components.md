@@ -25,10 +25,11 @@ verified in the live shop.
    worker restart and a rollback. Match one order and one stock allocation
    per purchase. Recovery passed locally and in an isolated Northflank job with
    checksummed executables from the running services. The original Core and
-   App Worker images also passed a fresh hosted database boot, native
-   purchase recovery and Worker restart. The image-level run with
-   independent Checkout, Connector and payment fixtures remains open.
-   [Hosted image boot and remaining checks](evidence/composed-release-rehearsal-2026-11-10.md#boot-the-original-core-and-worker-images).
+   App Worker images also passed a fresh hosted database boot with distinct
+   restricted system and tenant roles, native purchase recovery and Worker
+   restart. The image-level run with independent Checkout, Connector and
+   payment fixtures remains open.
+   [Hosted image boot and isolation checks](evidence/composed-release-rehearsal-2026-11-10.md#run-the-original-images-with-restricted-database-roles).
 3. [ ] **Measure hosted checkout under matched load.** Run the native and
    independent routes under equivalent catalog and purchase traffic in an
    isolated hosted test shop. Record latency percentiles, retries, callback

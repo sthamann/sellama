@@ -30,6 +30,10 @@ worker. The hosted mail delivery test still needs a sender and transport.
 [Live pilot and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026).
 [Reproduce purchase recovery and compare the isolated Northflank runs](evidence/composed-release-rehearsal-2026-11-10.md#northflank-rehearsal-with-deployed-executables).
 
+The original Core and App Worker images also passed native purchase and
+invoice recovery as separate hosted services with restricted system and
+tenant database roles. [Hosted startup and isolation checks](evidence/composed-release-rehearsal-2026-11-10.md#run-the-original-images-with-restricted-database-roles).
+
 The storefront and Studio use that same shop identity and transaction boundary. Provider calls run through durable jobs. Knowledge and reporting can be rebuilt from their sources. They add context and visibility without joining the purchase transaction. Agents use the same admitted operations as the team and prepare changes for review where approval is required.
 
 ```mermaid

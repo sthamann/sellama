@@ -1,0 +1,42 @@
+[
+  {
+    "id": "amount-at-minimum",
+    "request": {"name": "cartCartAmount", "config": {"operator": ">=", "amount": 100}, "facts": {"price": {"totalPrice": 100}}},
+    "expected": true
+  },
+  {
+    "id": "amount-below-minimum",
+    "request": {"name": "cartCartAmount", "config": {"operator": ">=", "amount": 100}, "facts": {"price": {"totalPrice": 99.99}}},
+    "expected": false
+  },
+  {
+    "id": "adjacent-large-integers",
+    "request": {"name": "cartCartAmount", "config": {"operator": "=", "amount": 9007199254740993}, "facts": {"price": {"totalPrice": 9007199254740992}}},
+    "expected": true
+  },
+  {
+    "id": "unsigned-limit",
+    "request": {"name": "cartCartAmount", "config": {"operator": "=", "amount": 18446744073709551614}, "facts": {"price": {"totalPrice": 18446744073709551615}}},
+    "expected": true
+  },
+  {
+    "id": "fractional-round-trip",
+    "request": {"name": "cartCartAmount", "config": {"operator": "=", "amount": 0.3}, "facts": {"price": {"totalPrice": 0.30000000000000004}}},
+    "expected": true
+  },
+  {
+    "id": "negative-zero",
+    "request": {"name": "cartCartAmount", "config": {"operator": "=", "amount": 0}, "facts": {"price": {"totalPrice": -0.0}}},
+    "expected": true
+  },
+  {
+    "id": "xor-two-matches",
+    "request": {"name": "xorContainer", "config": {"children": [{"type": "alwaysValid", "config": {}}, {"type": "alwaysValid", "config": {}}]}, "facts": {}},
+    "expected": false
+  },
+  {
+    "id": "not-with-missing-facts",
+    "request": {"name": "notContainer", "config": {"children": [{"type": "cartCartAmount", "config": {"operator": ">=", "amount": 100}}]}, "facts": {}},
+    "expected": {"error": "Missing server fact: price.totalPrice"}
+  }
+]

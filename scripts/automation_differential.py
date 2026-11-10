@@ -55,6 +55,17 @@ for name in ['cartGoodsCount','cartGoodsPrice','cartLineItemGoodsTotal']:
   f=copy.deepcopy(base)
   cases.append({'name':name,'config':{'operator':'=','amount' if name=='cartGoodsPrice' else 'count':100 if name=='cartGoodsPrice' else 2 if name=='cartLineItemGoodsTotal' else 1,'filter':{'type':'andContainer','config':{'children':[{'type':'cartLineItemInCategory','config':{'operator':'=','categoryIds':[tag]}}]}}},'facts':f})
 payload=json.dumps(cases).encode();expected=json.loads(subprocess.check_output(['php',str(ROOT/'reference/automation-rules.php')],input=payload));actual=json.loads(subprocess.check_output([str(ROOT/'target/debug/automation_rules')],input=payload))
-errors=[(c['name'],c['config'],e,a)for c,e,a in zip(cases,expected,actual)if e!=a]
+errors=[(c['name'],c['config'],e,a)for c,e,a in zip(cases,expected,actual,strict=True)if e!=a]
 if errors:print(json.dumps(errors[:30],indent=2));raise SystemExit(f'{len(errors)}/{len(cases)} original rule mismatches')
 print(f'PASS {len(cases)} original condition-class cases across {len(set(c["name"]for c in cases))} scopes; broader catalogue parity remains separately documented')
+
+# Both dependency builds must preserve these cross-interface rule results.
+release_cases = json.loads((ROOT / 'scripts/testing/automation-release-cases.json').read_text())
+assert release_cases, 'Missing Automation release cases'
+release_payload = json.dumps([case['request'] for case in release_cases]).encode()
+results = json.loads(subprocess.check_output(
+    [str(ROOT / 'target/debug/automation_rules')], input=release_payload))
+for case, result in zip(release_cases, results, strict=True):
+    expected = case['expected']
+    assert type(result) is type(expected) and result == expected, (case['id'], expected, result)
+print(f'PASS {len(release_cases)} shared Automation release cases')

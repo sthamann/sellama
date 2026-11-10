@@ -27,6 +27,9 @@ to native Veyndo through the same owner.
   - [x] Link the exact preview rule sources and catalog into the Core build.
     Verify the component pin, kernel binding and the existing rule/Flow paths.
     [Library ownership](automation-component.md#library-and-service).
+  - [x] Gate preview image publication on Core's rule pin and common HTTP/MCP
+    cases. Core runs those cases against the linked evaluator.
+    [Release check](automation-component.md#shared-release-check).
 - [ ] AUTO-01b Deploy the independent preview alongside Core and check scoped
   HTTP/MCP calls, revocation and latency against the running shop.
   - [x] Reuse current Core permissions and verify key issuance and revocation

@@ -1,45 +1,13 @@
-//! Persisted cart, item and customer-context types.
+//! Bind the shared cart contract to native contexts and hydrate tenant-scoped stored carts.
 use crate::*;
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub(crate) struct Item {
-    pub(crate) id: String,
-    pub(crate) quantity: u32,
-}
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub(crate) struct Cart {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub(crate) admin_actor: Option<String>,
-    #[serde(default)]
-    pub(crate) coupons: Vec<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub(crate) pos_actor: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub(crate) pos_discount: Option<pos::Discount>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub(crate) b2b: Option<b2b::Context>,
-    #[serde(default)]
-    pub(crate) currency: String,
-    #[serde(default = "default_channel")]
-    pub(crate) sales_channel: String,
-    #[serde(default)]
-    pub(crate) app_configurations: HashMap<String, apps::Configuration>,
-    pub(crate) items: Vec<Item>,
-    pub(crate) group: String,
-    pub(crate) email: Option<String>,
-    #[serde(default)]
-    pub(crate) customer_id: Option<String>,
-    pub(crate) company: Option<String>,
-    pub(crate) session: String,
-    pub(crate) buyer: Option<Value>,
-    pub(crate) order: Option<Value>,
-    #[serde(default)]
-    pub(crate) locale: String,
-    #[serde(default)]
-    pub(crate) channel: String,
-    #[serde(default)]
-    pub(crate) checkout: Option<commerce::CheckoutSelection>,
-}
+pub(crate) use veyndo::cart::Item;
+pub(crate) type Cart = veyndo::cart::Cart<
+    pos::Discount,
+    b2b::Context,
+    apps::Configuration,
+    commerce::CheckoutSelection,
+>;
 #[derive(Clone)]
 pub(crate) struct StoredCart {
     pub(crate) id: String,
@@ -60,8 +28,4 @@ pub(crate) fn stored(r: &sqlx::postgres::PgRow) -> Result<StoredCart> {
         revision: r.get("revision"),
         status: r.get("status"),
     })
-}
-
-pub(crate) fn default_channel() -> String {
-    "default".into()
 }

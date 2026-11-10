@@ -307,6 +307,10 @@ Each component task remains open until these checks are demonstrated for it.
 - [ ] CORE-05 Extract cart and checkout orchestration through the explicit
   [independent Checkout tasks](#checkout-independent-service-and-ui); preserve CAS, legal receipt,
   stock locks, idempotency and one order/stock/outbox transaction.
+  - [x] Extract the persisted Item/Cart contract into Commerce with typed
+    host contexts. Bind it to the original native POS, B2B, App and checkout
+    types; retain tenant/token storage and transaction ownership in Core.
+    [Cart contract and integration checks](source-map.md#shared-cart-contract).
 - [ ] CORE-06 Extract inventory/reservation/allocation ports; test concurrent
   purchases, cancellation and content edits without overwriting fresh stock.
 - [ ] CORE-07 Extract order, fulfillment, documents and refund contracts; keep

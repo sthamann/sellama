@@ -353,6 +353,10 @@ Only the finished message can show the native proposal for approval.
 
 ### One capability, two ways to present it
 
+The [Product Guide tutorial](product-guide-mcp-app.md) walks through installing
+one app, using its separate shopper and merchant views, and exercising both
+read tools from an external JavaScript client.
+
 MCP Apps is the protocol between a chat host and an app view. The host reads the
 resource declared by the tool, initializes the isolated view, delivers tool
 arguments and results, and mediates subsequent tool calls. OpenUI describes the

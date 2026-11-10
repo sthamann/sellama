@@ -5,6 +5,8 @@
 - Link the released Automation rule source into Core. Keep native rule APIs,
   checkout, Flow ownership and policy checks on the existing paths.
 - Verify the pinned crate, catalog and kernel source in the workspace checks.
+- Block Automation image publication when its rule source differs from Core or
+  the shared HTTP and MCP cases fail.
 
 ## Invoice and confirmation after payment
 

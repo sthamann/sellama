@@ -53,6 +53,23 @@ The service calculates the immutable registry fingerprint once per process.
 It continues to check current identity and evaluate the submitted facts on
 each request.
 
+## Shared release check
+
+Core's differential test and the Automation image workflow use the
+[same synthetic cases](https://github.com/veyndo/veyndo/blob/main/scripts/testing/automation-release-cases.json).
+They cover passing and failing thresholds, the existing numeric tolerance,
+large inputs, XOR and a missing fact inside NOT. Core runs the cases through
+its linked rule evaluator. Automation verifies them through HTTP and MCP in
+the native binary and the image that is published.
+
+Before publishing, the Automation workflow compares the exact set and SHA-256
+hashes of the shared rule sources, catalog and provenance with Core's
+`components.lock.json`. It accounts for the one intentional Cargo change
+that selects Core's local kernel. For a shared rule change, review it in
+Automation, land its pinned snapshot in Core, and then release the matching
+Automation build. Changes to the preview HTTP service alone do not require a
+new Core rule pin. The live checkout continues to evaluate its rules locally.
+
 ## Connect the service to Veyndo Core
 
 Set `AUTOMATION_CORE_ORIGIN` to the Core HTTPS origin and leave the OAuth

@@ -103,6 +103,38 @@ def compare(name, row, deployment, logs=None):
     require(digests == {row["digest"]}, f"{name}: build has no unique matching manifest digest")
 
 
+def verify_source(row, directory):
+    def git(*arguments):
+        result = subprocess.run(["git", "-C", str(directory), *arguments],
+                                capture_output=True, text=True, timeout=15, check=False)
+        require(result.returncode == 0, "Source checkout is missing the pinned commit or schema input")
+        return result.stdout.strip()
+
+    sha = row["commit"]
+    git("cat-file", "-e", f"{sha}^{{commit}}")
+    schema = row["schema"]
+    if schema is None:
+        return
+    for path, expected in schema["inputs"].items():
+        require(git("rev-parse", f"{sha}:{path}") == expected,
+                f"Source schema input differs from the lock: {path}")
+    if "through" in schema:
+        folders = [path for path in schema["inputs"] if path.rsplit("/", 1)[-1] == "migrations"]
+        require(len(folders) == 1, "Migration boundary has no unique schema directory")
+        git("cat-file", "-e", f"{sha}:{folders[0]}/{schema['through']}")
+
+
+def verify_sources(lock, sources):
+    selected = set()
+    for selection in sources:
+        name, separator, directory = selection.partition("=")
+        require(separator and directory and name in lock["components"] and name not in selected,
+                "Use --source COMPONENT=CHECKOUT once per known component")
+        selected.add(name)
+        verify_source(lock["components"][name], directory)
+        print(f"{name}: pinned source and schema inputs matched")
+
+
 def verify_hosted(lock, cli, project):
     def request(*arguments):
         result = subprocess.run([cli, "get", "service", *arguments, "--project", project, "-o", "json"],
@@ -130,11 +162,14 @@ def verify_hosted(lock, cli, project):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--northflank", metavar="CLI", help="read live metadata with the authenticated CLI")
+    parser.add_argument("--source", action="append", default=[], metavar="COMPONENT=CHECKOUT",
+                        help="check pinned commits and schema inputs in a local component repository")
     parser.add_argument("--project", default="vendune")
     args = parser.parse_args()
     try:
         lock = json.loads(LOCK.read_text(), object_pairs_hook=unique_keys)
         validate(lock)
+        verify_sources(lock, args.source)
         if args.northflank:
             verify_hosted(lock, args.northflank, args.project)
     except (ValueError, TypeError, KeyError, OSError, subprocess.TimeoutExpired) as error:

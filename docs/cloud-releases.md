@@ -49,8 +49,19 @@ accepts either a build ID or a commit selector for this operation.
 When changing any component, update the lock from its selected build and
 source checkout, verify storage with the existing migration and readiness
 checks, and run the applicable purchase, replay and rollback tests. Use
-`git rev-parse <commit>:<path>` in the component repository to verify each
-schema input. The lock verification confirms artifact identity. Purchase,
+`--source COMPONENT=CHECKOUT` to check each available source repository
+and its migration inputs. Repeat it for each component, including
+`app-worker` with a Core source checkout:
+
+```sh
+python3 scripts/composition_release.py \
+  --source checkout=../checkout --source knowledge=../knowledge
+```
+
+The source check reads Git objects at the pinned commit, so the current
+branch of that checkout can differ. A missing commit, changed schema object
+or absent migration boundary fails the check. Fetch the pinned source before
+running it. The lock verification confirms artifact identity. Purchase,
 provider callbacks and database recovery each have their own acceptance.
 [Hosted rehearsal](evidence/composed-release-rehearsal-2026-11-10.md).
 

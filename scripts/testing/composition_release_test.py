@@ -2,13 +2,15 @@
 
 import copy
 import json
+import subprocess
 import sys
+import tempfile
 import unittest
 
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from composition_release import LOCK, compare, unique_keys, validate
+from composition_release import LOCK, compare, unique_keys, validate, verify_source, verify_sources
 
 
 class CompositionReleaseTest(unittest.TestCase):
@@ -68,6 +70,39 @@ class CompositionReleaseTest(unittest.TestCase):
         deployment["importedImage"]["imageId"] = "other-import"
         with self.assertRaisesRegex(ValueError, "import"):
             compare("automation", row, deployment)
+
+
+    def test_pinned_source_checks_actual_git_objects_and_migration_boundary(self):
+        with tempfile.TemporaryDirectory() as directory:
+            def git(*arguments):
+                return subprocess.check_output(["git", "-C", directory, *arguments],
+                                               stderr=subprocess.DEVNULL, text=True).strip()
+            git("init", "--quiet")
+            migration = Path(directory) / "migrations" / "001.sql"
+            migration.parent.mkdir()
+            migration.write_text("SELECT 1;\n")
+            git("add", "migrations")
+            git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.test",
+                "-c", "commit.gpgsign=false", "commit", "--quiet", "-m", "Fixture")
+            row = {"commit": git("rev-parse", "HEAD"),
+                   "schema": {"inputs": {"migrations": git("rev-parse", "HEAD:migrations")},
+                              "through": "001.sql"}}
+            verify_source(row, directory)
+            row["schema"]["inputs"]["migrations"] = "1" * 40
+            with self.assertRaisesRegex(ValueError, "differs"):
+                verify_source(row, directory)
+            row["schema"]["inputs"]["migrations"] = git("rev-parse", "HEAD:migrations")
+            row["schema"]["through"] = "002.sql"
+            with self.assertRaisesRegex(ValueError, "missing"):
+                verify_source(row, directory)
+            row["commit"] = "2" * 40
+            with self.assertRaisesRegex(ValueError, "missing"):
+                verify_source(row, directory)
+
+    def test_unknown_or_malformed_source_selection_is_rejected(self):
+        for selection in ("missing=repo", "checkout", "checkout="):
+            with self.assertRaisesRegex(ValueError, "COMPONENT=CHECKOUT"):
+                verify_sources(self.lock, [selection])
 
 
 if __name__ == "__main__":

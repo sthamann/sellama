@@ -414,6 +414,12 @@ EUR 59.90. Both browsers used same-origin independent create and confirm.
 The native cart was empty on return. The Storyfront bag stayed empty after
 return and a full reload. Hosted refund, the order-event trace and production
 concurrency remain separate acceptance steps.
+
+The two Sandbox orders use reserved `example.test` buyer addresses. Check the
+original order, Flow run, invoice and Connector receipt under the same order
+identifier. A Connector receipt can record what the provider accepted. Verify
+delivery separately with a reachable test mailbox and match the message to
+its order number.
 [Implementation plan](commerce-components.md#checkout-independent-service-and-ui).
 
 ## PayPal Sandbox through the separate service

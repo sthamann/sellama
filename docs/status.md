@@ -27,6 +27,8 @@ EUR 59.90 Shopware Payments purchase using the actual PayPal Sandbox. Both
 used the private Checkout route. The native cart was empty on return, and the
 Storyfront bag stayed empty after a full reload. Refund and the hosted Flow,
 invoice and mail trace remain to be verified for those orders.
+Both receipts use addresses under the reserved `example.test` domain. To verify
+delivery to a mailbox, run a separate test with a reachable test recipient.
 [Pilot setup and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026).
 
 ## Independent Connector image live

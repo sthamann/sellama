@@ -89,3 +89,14 @@ one stock decrement. The separate app worker then executes the configured
 Flow, and the independent Connector delivers one mail with the same order
 number. Core exposes one invoice for that order. This run uses simulated
 payment and a local SMTP recipient.
+
+With the same two binary paths and a disposable PostgreSQL instance, run
+`python3 scripts/email_tests.py Contracts.test_independent_checkout_capture_drives_invoice_mail_and_refund`
+to verify the external payment path against the local Shopware Payments
+fixture. The test restarts Checkout after discarding the first confirmation.
+It checks that an unverified return leaves the payment ready and creates
+neither an invoice nor a mail. After verified capture, two Flows process
+`payment.captured`. Core creates one invoice and Connector records the same
+message ID that the SMTP fixture receives for the order. Repeating payment
+reconciliation and the refund preserves the original order, payment and
+invoice. The provider responses and SMTP recipient are local fixtures.

@@ -92,9 +92,9 @@ refund. A separate Northflank job reproduced these tests with the
 checksummed executables from the running Core, worker, Checkout and Connector.
 It completed 48 purchases per route with one invoice and one loopback SMTP
 message per order. Purchase p95 was 430.84 ms native and 3195.01 ms independent,
-including 27 retries across 11 independent orders. The matched load check
-with separate service placement and the provider callback load check
-remain open.
+including 27 retries across 11 independent orders. The separate service
+comparison below measured both demo routes. Provider callback capacity
+remains open.
 [Source pins, schema fingerprints and hosted results](evidence/composed-release-rehearsal-2026-11-10.md#northflank-rehearsal-with-deployed-executables).
 
 The Northflank builds used in this rehearsal for Core, the app worker,
@@ -131,6 +131,16 @@ The Connector receipt matched the SMTP Message-ID. These were API
 journeys with synthetic data. The public Lumen browser and PayPal
 Sandbox results are recorded separately above.
 [Build pins, database roles and checks](evidence/composed-release-rehearsal-2026-11-10.md#run-five-separate-workloads-on-northflank).
+
+## Matched checkout load with separate services
+
+In Northflank, four original Veyndo images ran as separate private services.
+Each purchase route handled 48 simulated orders and 240 catalogue requests
+in a shop with 200,000 products. Both produced one stock movement, one
+invoice and one SMTP fixture acceptance per order. Confirmation p95 was
+590 ms native and 3.11 seconds through independent Checkout. Twelve
+independent purchases retried, with 17 retries in total.
+[Method, build pins and results](evidence/composed-release-rehearsal-2026-11-10.md#compare-the-checkout-routes-across-separate-services).
 
 ## Mixed shop traffic and app-worker recovery
 

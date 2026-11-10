@@ -210,8 +210,8 @@ scenarios, preserving the original receipt and empty cart after reload.
 
 The isolated run `fb6f5c9a-b2c7-4629-b1fe-80e0710347ae` completed at
 13:02 UTC. It used the production executables with fixture credentials.
-Separate hosted service placement and real provider callback load remain
-open for acceptance.
+The later [separate service placement test](#compare-the-checkout-routes-across-separate-services)
+measured both demo purchase routes. Provider callback load remains open.
 
 ## Match the deployed builds to image manifests
 
@@ -414,3 +414,40 @@ route for the actual PayPal Sandbox. The [public Lumen pilot](../status.md#priva
 records the native and Storyfront journeys through that provider. This
 private rehearsal used no external payment account or inbox. All six
 temporary services, including PostgreSQL, were paused after the test.
+
+## Compare the checkout routes across separate services
+
+The Northflank load test used the Core, App Worker, Checkout and Connector
+builds from the five-workload rehearsal above. Each ran as one private
+service. The measurement client ran in a separate container in the same
+Northflank project. PostgreSQL 17 held three fresh databases, with signed
+database scope active in Core. The two synthetic shops each had 200,000
+products. All services used test credentials and the SMTP receiver was local
+to the Connector container.
+
+Each run issued 48 purchase confirmations from 12 clients alongside 240
+catalogue page requests from four clients. The native route used guest
+carts. The independent route used one signed-in synthetic customer and the
+same set of product positions and stock levels. Each run used the demo
+payment and prepared its carts before the timed portion. Confirmation
+timings include wait and retry time. Retries kept the original purchase
+request and honoured the server's retryable 429 and `Retry-After`.
+
+| Route | Confirmation p50 | Confirmation p95 | Confirmation p99 | Catalogue p95 | Orders retried | Retries |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Native | 495.29 ms | 589.72 ms | 605.53 ms | 364.27 ms | 0 / 48 | 0 |
+| Independent | 656.90 ms | 3,109.45 ms | 4,013.84 ms | 186.23 ms | 12 / 48 | 17 |
+
+Each shop recorded 48 distinct orders. Replaying each confirmation returned
+its original order. The 48 purchased products each went from 20 units to
+19. The 199,952 other synthetic products retained 20 units. Each route
+generated 48 invoices and 48 completed Connector delivery jobs. The SMTP
+receiver recorded 96 distinct Message-IDs across both routes.
+
+The independent path needs further work on latency under contention. Twelve
+confirmations retried after admission refused the original request. This
+run used one replica per service, omitted model calls and measured the
+simulated purchase path. The earlier co-located comparison used a different
+profile with assistant traffic and a worker restart. Provider callback
+capacity and production throughput remain open. All six test services
+including the client and PostgreSQL were paused after the run.

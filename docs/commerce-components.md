@@ -40,15 +40,16 @@ verified in the live shop.
    journey combining independent Checkout, invoice and external mailbox
    receipt remains open.
    [Five hosted workloads and test scope](evidence/composed-release-rehearsal-2026-11-10.md#run-five-separate-workloads-on-northflank).
-3. [ ] **Measure hosted checkout under matched load.** Run the native and
-   independent routes under equivalent catalog and purchase traffic in an
-   isolated hosted test shop. Record latency percentiles, retries, callback
-   capacity and order and stock consistency before broadening the pilot.
-   The isolated Northflank job completed the paired purchase workload.
-   The [matched Northflank retest](evidence/composed-release-rehearsal-2026-11-10.md#hosted-relay-admission-comparison)
-   reduced p95 and retries with the new live Core and the existing Checkout,
-   Worker and Connector executables. Separate service placement and provider
-   callback capacity remain open.
+3. [ ] **Measure hosted checkout under matched load.**
+   - [x] Compare native and independent confirmation under the same purchase
+     and catalogue traffic with separate service placement. Each route
+     preserved 48 orders, stock movements, invoices and SMTP test receipts.
+     [Northflank workload and results](evidence/composed-release-rehearsal-2026-11-10.md#compare-the-checkout-routes-across-separate-services).
+   - [ ] Trace the independent route's admission refusals and retest changes
+     against the same workload. The measured confirmation p95 was 3.11 seconds
+     versus 590 ms native, including 17 independent-route retries.
+   - [ ] Measure provider callback capacity in an isolated hosted test shop
+     before broadening the pilot.
 4. [x] **Release an external integration example.** Connected Shop uses the
    published SDK for one product, an interactive MCP App in its conversation
    and a reviewed purchase through independent Checkout. The external host

@@ -393,6 +393,10 @@ The following are implementation tasks; existing UI foundations do not complete 
     restart. A native purchase continues, the current source reaches Knowledge
     after retry, and a replay cannot undo an applied withdrawal.
     [Evidence and contract](knowledge-component.md#keep-the-shop-running-during-a-knowledge-outage).
+  - [x] Validate Core as the authority for one shop's catalog delivery and
+    evidence reads. The local test exercises native keys, wrong shops and
+    scopes, and revocation.
+    [Core identity setup](knowledge-component.md#use-core-as-the-identity-provider-for-one-live-shop).
   - [ ] Validate the installed delivery and service recovery in the hosted shop.
   - [x] Verify that the independent service starts only with working signed
     database scope, reports loss of readiness during a database outage and

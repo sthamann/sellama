@@ -2611,8 +2611,8 @@
     },
     "src/apps/credentials.rs": {
       "status": "reviewed-binding",
-      "sha256": "ee909f21dace8cb563b7cf5b13c5cb6ed345b720e89d13ac8173fc4c7584b68e",
-      "review": "Reviewed extraction of original Action wire and current-authority/callback scope rules into pinned apps model 0.2; native RequestContext, verified consent/current-role predicate, personal/live key checks and credential persistence retained. Original package shared lock/active scoped row read and digest moved to storage 0.4 with typed native digest comparison retained. 22 model tests, actual PG package lock/isolation tests, 74 native app units, callbacks/consent/surfaces/jobs/schema/core extensions/lifecycle/isolation/visual workspace and composed Marketplace fixtures pass; all 34 bundled package fingerprints unchanged. New adapters and SQL remain unproved; extracted kernel unchanged."
+      "sha256": "a187a98221344c9434f1a22fc29d4377bacd0df92fad77f100482301a57fa499",
+      "review": "Knowledge introspection reuses current scoped native identity, expiring integration keys and app package approval. Real catalog delivery, read-only evidence, foreign-shop and revoked-key checks and Checkout tenant isolation passed locally."
     },
     "src/apps/data.rs": {
       "status": "unproved",
@@ -2761,8 +2761,8 @@
     },
     "src/apps/mod.rs": {
       "status": "unproved",
-      "sha256": "b4d54bcfa6e632bb382c13006b2d62ad36f4e71e92bb3a1c814cee4cac00e125",
-      "review": "Restore the product-only catalog evidence callback under installed app scope and project selected publication through the native outbox transaction. Local Core and isolated Knowledge PostgreSQL composition verifies event retry, private staging, locale, withdrawal, restart, one order, and current source inventory."
+      "sha256": "4c022b31b00e04ef4130b65f36243d67f40d2bdb2428aade2f18bd830813491b",
+      "review": "Knowledge introspection reuses current scoped native identity, expiring integration keys and app package approval. Real catalog delivery, read-only evidence, foreign-shop and revoked-key checks and Checkout tenant isolation passed locally."
     },
     "src/apps/model_contract.rs": {
       "status": "unproved",
@@ -3121,18 +3121,23 @@
     },
     "src/auth/identity.rs": {
       "status": "unproved",
-      "sha256": "5f267860cc6629effc8d3c5a15f5d72998b3f410ef637a68056a706d3afd4b83",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "856cb7fa5b01fcee93b1bfd4fe51bf3758d5cc978b01692416a9b2e21869c531",
+      "review": "Knowledge introspection reuses current scoped native identity, expiring integration keys and app package approval. Real catalog delivery, read-only evidence, foreign-shop and revoked-key checks and Checkout tenant isolation passed locally."
     },
     "src/auth/integrations.rs": {
       "status": "reviewed-binding",
-      "sha256": "de3fc697233ee83f6fef2ca37a0bc58bceb6eb90e249fe43f2775c5b008b0056",
-      "review": "Reviewed live-only agent-key issuance: trusted admitted sandbox parent rejects budget delegation before credential insertion; existing personal/team/current-scope authority and generic integration behavior remain. Actual separate-role allocation/stop tests and in-flight worker fence already pass; added own-sandbox negative issuance regression. No proof claim for SQL/auth/provider code."
+      "sha256": "f244c6df69f8a56430322c7c0ca6f46b217803e7fa6f5d117fc18b4c6d6f79d1",
+      "review": "Knowledge introspection reuses current scoped native identity, expiring integration keys and app package approval. Real catalog delivery, read-only evidence, foreign-shop and revoked-key checks and Checkout tenant isolation passed locally."
     },
     "src/auth/invitations.rs": {
       "status": "unproved",
       "sha256": "bb92c9500a3efee431d5da7772d5506894c6283825cb8794d48102492a12fc42",
       "review": "Tenant roles and current grants independently reviewed; owner/retained-override/acceptance races repaired and PostgreSQL-blocked regressions passed; PII and Flow projection boundaries documented; B2B feature settings delegate shared CAS/history and preserve financial guards. Existing extracted policies unchanged; SQL/async/UI remain reviewed adapters, not full proofs."
+    },
+    "src/auth/knowledge_identity.rs": {
+      "status": "unproved",
+      "sha256": "882db39af5c2bf4e13aa6ace9bcd5a0e9d63782ff89fef0e72106871903158db",
+      "review": "Knowledge introspection reuses current scoped native identity, expiring integration keys and app package approval. Real catalog delivery, read-only evidence, foreign-shop and revoked-key checks and Checkout tenant isolation passed locally."
     },
     "src/auth/members.rs": {
       "status": "unproved",
@@ -3146,13 +3151,13 @@
     },
     "src/auth/middleware.rs": {
       "status": "reviewed-binding",
-      "sha256": "80acee6c1a57c5f1021016d8d8cbe54f361428c8e5484b46745517ff2a071ae5",
-      "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
+      "sha256": "bddef838febeaaa2e1d38805ae72bcada50eb34762632b9ee6e770e545550127",
+      "review": "Knowledge introspection reuses current scoped native identity, expiring integration keys and app package approval. Real catalog delivery, read-only evidence, foreign-shop and revoked-key checks and Checkout tenant isolation passed locally."
     },
     "src/auth/mod.rs": {
       "status": "unproved",
-      "sha256": "7c17be7ec2de34b04179ab08d3fc7d79120777362f06f273f9a8d068077627d1",
-      "review": "Reviewed browser adapters against existing personal/customer ledgers, exact host/origin/CSRF admission, passive-response races, current database scopes, explicit MCP compatibility and intersecting build-owned credential-origin CSP; no pure money or authorization policy changed"
+      "sha256": "a9fe1bb9823442278e84b04a3ae2e2ed4d5b573ca2baada91baedf949699e1cb",
+      "review": "Knowledge introspection reuses current scoped native identity, expiring integration keys and app package approval. Real catalog delivery, read-only evidence, foreign-shop and revoked-key checks and Checkout tenant isolation passed locally."
     },
     "src/auth/permissions.rs": {
       "status": "reviewed-binding",
@@ -3186,8 +3191,8 @@
     },
     "src/auth/routes.rs": {
       "status": "unproved",
-      "sha256": "04da83d3cc71d7d64828da705edc1192d3c46997826948c76a2118ff1925b1fa",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "f0c6e8fc577a1dea8df003e9381b765e4b15579821d749532087639e5d4b67ce",
+      "review": "Knowledge introspection reuses current scoped native identity, expiring integration keys and app package approval. Real catalog delivery, read-only evidence, foreign-shop and revoked-key checks and Checkout tenant isolation passed locally."
     },
     "src/auth/sessions.rs": {
       "status": "reviewed-binding",
@@ -6183,8 +6188,8 @@
       "review": "Designer acceptance: app-owned versioned style prompt, bounded style-only schema preserving native page content/structure, shared proposal validation unchanged for content edits. Registered visual_workspace RED to GREEN and real Qwen screenshot returns three review-only alternatives. Prompt registry/governance extends app-owned version files. SQL/inference/rendering remain unproved."
     },
     "src/auth/identity.sql": {
-      "sha256": "0ec0ba5c629ccaff103d09302f79d77223a36cd197ea04d6b41065ecd4847b7a",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "18f5242cce96f0e5157e5baf780d04ed7b2b8ec0c91ad795400160c6cf6021d2",
+      "review": "Knowledge introspection reuses current scoped native identity, expiring integration keys and app package approval. Real catalog delivery, read-only evidence, foreign-shop and revoked-key checks and Checkout tenant isolation passed locally."
     },
     "src/catalog_channel.sql": {
       "sha256": "2eca0d892fc281f0948daac41f59a67d1fab8443e341eb5e9bf64fded533c1e6",

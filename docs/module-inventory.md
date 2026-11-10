@@ -166,6 +166,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/auth/identity.rs](../src/auth/identity.rs) | Resolve the current credential and membership once; bootstrap and sandbox checks share the same boundary. |
 | [src/auth/integrations.rs](../src/auth/integrations.rs) | Explicit-lifetime API/MCP keys are bounded to one workspace and intersect their creator's current membership. |
 | [src/auth/invitations.rs](../src/auth/invitations.rs) | Single-use, expiring invitations. Acceptance verifies an existing account password. |
+| [src/auth/knowledge_identity.rs](../src/auth/knowledge_identity.rs) | Inspect current, expiring native credentials for the one configured Knowledge catalog pilot. |
 | [src/auth/members.rs](../src/auth/members.rs) | Workspace member visibility and immediately effective role/revocation changes. |
 | [src/auth/mfa.rs](../src/auth/mfa.rs) | Personal MFA enrollment and one-use sign-in challenges share the native session and encryption owners. |
 | [src/auth/middleware.rs](../src/auth/middleware.rs) | Resolve sessions from PostgreSQL on every request: role changes/revocation work across replicas. |

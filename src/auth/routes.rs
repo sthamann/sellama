@@ -5,6 +5,12 @@ pub(crate) fn entry_router() -> Router<App> {
         .merge(auth::roles::router())
         .merge(auth::mfa::router())
         .secure_route(
+            "/api/identity/knowledge/introspect",
+            &[("POST", "public")],
+            post(super::knowledge_identity::inspect)
+                .layer(axum::extract::DefaultBodyLimit::max(2048)),
+        )
+        .secure_route(
             "/api/identity/session",
             &[("POST", "public")],
             post(auth::broker_session::session),

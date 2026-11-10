@@ -545,6 +545,11 @@
     "source": "src/auth/routes.rs"
   },
   {
+    "path": "/api/identity/knowledge/introspect",
+    "method": "POST",
+    "source": "src/auth/routes.rs"
+  },
+  {
     "path": "/api/identity/recovery",
     "method": "POST",
     "source": "src/auth/routes.rs"

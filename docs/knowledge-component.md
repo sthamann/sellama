@@ -106,6 +106,25 @@ deactivated product is represented as inactive so a retry can withdraw old
 evidence. The separate service owns its search records and does not receive
 the Core database connection.
 
+### Use Core as the identity provider for one live shop
+
+Set `KNOWLEDGE_IDENTITY_SHOP` on Core to the shop's internal tenant ID.
+Configure a dedicated `KNOWLEDGE_INTROSPECTION_TOKEN` on both services and
+point Knowledge's `KNOWLEDGE_INTROSPECTION_URL` to the Core endpoint
+`/api/identity/knowledge/introspect` with audience `veyndo-knowledge`.
+For the catalog app, approve the installed package digest and its private
+Knowledge destination on Core. Store a current, expiring `products.read` key
+for that installation in its encrypted `service` setting. Use a separate
+app callback key in Knowledge's `KNOWLEDGE_CATALOG_CALLBACKS` for snapshot
+reads from Core.
+
+For evidence consumers, issue an expiring Core integration key with
+`catalog.read` and `knowledge.read`. That grants `knowledge.products.read`.
+Only the approved catalog app credential grants `knowledge.catalog.sync`.
+Revoked keys lose access on the next request. Document access continues to
+use its own scopes. Standalone deployments can use their own identity
+provider as described in the service README.
+
 ## Keep the shop running during a Knowledge outage
 
 Core owns products, stock and orders. It records catalog changes and queues
@@ -131,7 +150,10 @@ test owner that can create a second database and restricted role. Set
 Set `KNOWLEDGE_REPOSITORY` to the component checkout and
 `KNOWLEDGE_TEST_BINARY` to its built binary. Optionally set
 `KNOWLEDGE_SDK_MODULE` to the SDK's JavaScript entry. Run
-`python3 scripts/knowledge_catalog_integration.py`.
+`python3 scripts/knowledge_catalog_integration.py`. Set
+`KNOWLEDGE_TEST_NATIVE_AUTHORITY=1` to also test the actual Core identity
+endpoint with the current Knowledge acceptance suite. That phase checks real
+catalog delivery, evidence reads, foreign shop keys and revocation.
 
 Hosted delivery, capacity and switching the product's knowledge consumers to
 this service are tracked separately. [Implementation plan](commerce-components.md#knowledge-first-complete-standalone-ai-component).

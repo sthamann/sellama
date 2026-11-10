@@ -73,6 +73,13 @@ liveness stayed up. Readiness recovered once the database accepted
 connections again, with the same service process.
 [Readiness and authenticated rollout checks](knowledge-component.md#check-readiness-before-routing-traffic).
 
+A local run also used Core's current integration and app keys for a single
+live shop. A catalog edit reached the independent Knowledge database and
+the read key returned current evidence. Both revoked keys and keys from a
+different shop were denied. The hosted service still needs deployment and
+an authenticated catalog delivery check.
+[Core identity setup](knowledge-component.md#use-core-as-the-identity-provider-for-one-live-shop).
+
 ## App cards during replies in Studio and the shop
 
 In a local Chrome test with Core, PostgreSQL and a controlled model response,

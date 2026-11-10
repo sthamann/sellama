@@ -3,6 +3,7 @@
 import json
 import os
 from pathlib import Path
+import secrets
 import socket
 import sys
 from urllib.parse import urlsplit
@@ -25,6 +26,12 @@ def main():
     ):
         raise SystemExit("Use only a disposable local database and Core listener")
     env.update(BIND_ADDR=listener.netloc, PROCESS_ROLE="all", APP_WORKER_ENABLED="true")
+    if env.get("KNOWLEDGE_TEST_NATIVE_AUTHORITY") == "1":
+        env.update(
+            KNOWLEDGE_IDENTITY_SHOP="knowledge-sync-" + secrets.token_hex(5),
+            KNOWLEDGE_INTROSPECTION_TOKEN=secrets.token_hex(32),
+            PLATFORM_SECRET_KEY=secrets.token_hex(32),
+        )
     component = Path(env["KNOWLEDGE_REPOSITORY"]).resolve()
     binary = str(Path(env["KNOWLEDGE_TEST_BINARY"]).resolve())
     manifest_path = ROOT / "extensions/apps/knowledge-catalog/manifest.json"

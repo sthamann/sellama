@@ -61,8 +61,12 @@ def provision(case, container, suffix, binary, core_origin, core_url, paypal=Fal
     log = open(case.temp.name + "/checkout.log", "w")
     case.addCleanup(log.close)
 
-    def start():
-        process = subprocess.Popen([binary], env=checkout_env, stdout=log, stderr=log)
+    def start(purchases_enabled=True):
+        active_env = checkout_env
+        if not purchases_enabled:
+            active_env = {**checkout_env, "CHECKOUT_ENABLE_SIMULATED_PURCHASE": "false",
+                          "CHECKOUT_ENABLE_PAYPAL_SANDBOX_PURCHASE": "false"}
+        process = subprocess.Popen([binary], env=active_env, stdout=log, stderr=log)
         case.addCleanup(stop, process)
         for _ in range(100):
             if process.poll() is not None:

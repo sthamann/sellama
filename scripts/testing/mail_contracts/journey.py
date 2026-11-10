@@ -30,13 +30,19 @@ class NativeMailJourney:
             self.skipTest("Set CHECKOUT_TEST_BINARY and CONNECTORS_BINARY to the separately built services")
         self.mail_journey(standalone=True, checkout=checkout)
 
+    def test_independent_checkout_rollback_and_worker_restart(self):
+        checkout = os.getenv("CHECKOUT_TEST_BINARY")
+        if not checkout or not os.getenv("CONNECTORS_BINARY"):
+            self.skipTest("Set CHECKOUT_TEST_BINARY and CONNECTORS_BINARY to the separately built services")
+        self.mail_journey(standalone=True, checkout=checkout, rollback=True)
+
     def test_independent_checkout_capture_drives_invoice_mail_and_refund(self):
         checkout = os.getenv("CHECKOUT_TEST_BINARY")
         if not checkout or not os.getenv("CONNECTORS_BINARY"):
             self.skipTest("Set CHECKOUT_TEST_BINARY and CONNECTORS_BINARY to the separately built services")
         self.mail_journey(standalone=True, checkout=checkout, paypal=True)
 
-    def mail_journey(self, standalone=False, checkout=None, paypal=False):
+    def mail_journey(self, standalone=False, checkout=None, paypal=False, rollback=False):
         if not os.getenv("DATABASE_URL"):
             self.skipTest("DATABASE_URL required for real Rust/PostgreSQL path")
         from types import SimpleNamespace
@@ -92,7 +98,7 @@ class NativeMailJourney:
             if paypal:
                 provider, payment_env = checkout_fixture.payment_fixture(self, "mail-" + suffix)
                 env.update(payment_env)
-        mixed = standalone and not paypal and os.getenv("VEYNDO_MIXED_LOAD") == "1"
+        mixed = standalone and not (paypal or rollback) and os.getenv("VEYNDO_MIXED_LOAD") == "1"
         if mixed:
             from testing.mail_contracts import mixed as workload
             env.update(OLLAMA_URL=workload.model(self), TENANT_CONCURRENCY="32",
@@ -242,7 +248,7 @@ class NativeMailJourney:
             checkout_fixture.discard_confirmation(base + confirm_path, ch, confirmation)
             self.assertEqual(api("/store-api/product/mug", headers=h)["product"]["stock"], stock - 1)
             stop(checkout_process)
-            start_checkout()
+            checkout_process = start_checkout()
             recovered = api(confirm_path, confirmation, ch)
             if not paypal:
                 self.assertEqual(recovered["paymentState"], "authorized")
@@ -338,6 +344,25 @@ class NativeMailJourney:
             self.assertEqual(api("/store-api/product/mug", headers=h)["product"]["stock"], stock - 1)
             self.assertEqual(api(receipt_path, headers=h)["elements"], receipts)
             self.assertEqual(len(self.smtp.messages), 1)
+            return
+        if rollback:
+            from testing.mail_contracts.release import verify_rollback
+
+            stop(worker)
+            stop(checkout_process)
+            paused = start_checkout(purchases_enabled=False)
+            verify_rollback(
+                self, api, h, ch, confirmation, order, receipts, stock,
+                checkout_headers, start_worker,
+            )
+            stop(paused)
+            start_checkout()
+            replay = api(confirm_path, confirmation, ch)
+            self.assertEqual(replay["orderId"], order["id"])
+            self.assertEqual(api("/store-api/product/mug", headers=h)["product"]["stock"], stock - 2)
+            self.assertEqual(len(api("/api/search/order", {}, h)["data"]), 2)
+            self.assertEqual(api(receipt_path, headers=h)["elements"], receipts)
+            self.assertEqual(len(self.smtp.messages), 2)
             return
         # Public legal declaration takes the actual outbox → email app → SMTP path.
         request = api("/store-api/legal/requests", {

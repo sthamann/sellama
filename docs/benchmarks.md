@@ -45,6 +45,12 @@ VEYNDO_MIXED_LOAD=1 python3 scripts/email_tests.py \
 
 ### Run the same load through independent Checkout
 
+A repeat using [pinned Core, Checkout and Connector builds](evidence/composed-release-rehearsal-2026-11-10.md#compare-the-two-purchase-routes-under-load)
+measured checkout p95 at 55.63 ms on the native route and 2051.50 ms on
+the independent route. Eight independent purchases retried after admission
+refusal. Both runs verified 48 orders and their matching invoices and mails.
+
+
 Set `CHECKOUT_TEST_BINARY` to the absolute path of the independent Checkout
 binary in addition to the configuration above.
 

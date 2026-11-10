@@ -23,12 +23,14 @@ verified in the live shop.
    images, API contracts and migration revisions. Start a clean composition
    from those inputs and verify an original receipt after response loss, a
    worker restart and a rollback. Match one order and one stock allocation
-   per purchase. [Release requirements](#complete-product-release-acceptance).
+   per purchase. The pinned local purchase paths passed. A clean boot from the
+   complete set of production image digests remains open.
+   [Rehearsal and inputs](evidence/composed-release-rehearsal-2026-11-10.md).
 3. [ ] **Measure hosted checkout under matched load.** Run the native and
    independent routes under equivalent catalog and purchase traffic in an
    isolated hosted test shop. Record latency percentiles, retries, callback
    capacity and order and stock consistency before broadening the pilot.
-   [Local baseline](benchmarks.md#run-the-same-load-through-independent-checkout).
+   [Pinned local baseline](evidence/composed-release-rehearsal-2026-11-10.md#compare-the-two-purchase-routes-under-load).
 4. [ ] **Release a complete external integration example.** Use the published
    SDK for catalog and Checkout, show an interactive app card in the agent
    conversation and complete a purchase. Verify that the example can be run
@@ -862,6 +864,9 @@ The following are implementation tasks; existing UI foundations do not complete 
   inventory against isolated fixture services and explicit provider test modes.
 - [ ] SYS-06 Verify service failure/restart, rolling contract versions, duplicate
   events, revoked rights, foreign tenants and restore across all storage owners.
+  - [x] Rehearse lost confirmation, purchase-routing rollback and app-worker
+    restart together with pinned Core, Checkout and Connector sources.
+    [Local recovery checks](evidence/composed-release-rehearsal-2026-11-10.md).
 - [ ] SYS-07 Keep README, website, component references, examples and current status
   synchronized with released artifacts and actual acceptance evidence.
 

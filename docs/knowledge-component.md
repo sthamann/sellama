@@ -109,6 +109,33 @@ history or an authoritative read of the Core catalog. Withdrawn sources stay
 listed for reconciliation. Use search and evidence validation for the actual
 passages. [SDK example](https://github.com/veyndo/sdk/blob/main/examples/knowledge.mjs).
 
+## Restore Knowledge into a fresh database
+
+The logical archive covers the two tables that hold source records and
+localized chunks. It preserves revisions, relationships and withdrawals.
+Install the same Knowledge schema into an empty destination with its own
+restricted runtime login. The migration owners transfer the data with
+PostgreSQL row security enabled. The destination keeps its own access
+grants and signing key. Rebuild the lexical projection with
+`veyndo-knowledge-service --print-rebuild` before starting the new runtime.
+
+The PostgreSQL 17 rehearsal started Knowledge from the restored database
+and compared its HTTP and MCP results with the original. A Polish product
+passage, a private document, graph links and withdrawal records survived.
+A token for another tenant was denied and the old database key could not
+start the restored runtime. Core and the separate Knowledge service also
+passed the local checkout and catalog delivery checks.
+
+For a planned move, pause Knowledge writes before the final backup.
+When recovering an older copy, keep it isolated until edits, withdrawals
+and tenant removals since the backup are accounted for. Use point-in-time
+recovery, a newer backup or an authoritative change record for withdrawals
+recorded only in Knowledge. Core and the original documents can verify
+source content. Keep affected sources and tenants out of service until you
+can establish their current state. Keep the archive encrypted because it
+contains private content.
+[Operator commands for repository members](https://github.com/veyndo/knowledge#restore-knowledge-into-a-fresh-database).
+
 ## Synchronize a Veyndo catalog
 
 Install the [Knowledge catalog app](https://github.com/veyndo/veyndo/tree/main/extensions/apps/knowledge-catalog)

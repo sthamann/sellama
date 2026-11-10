@@ -404,6 +404,9 @@ The following are implementation tasks; existing UI foundations do not complete 
     evidence reads. The local test exercises native keys, wrong shops and
     scopes, and revocation.
     [Core identity setup](knowledge-component.md#use-core-as-the-identity-provider-for-one-live-shop).
+  - [x] Start the private Knowledge service on Northflank with its own restricted
+    database login. Verify readiness and Lumen-scoped identity routing.
+    [Hosted verification](status.md#knowledge-source-inventory).
   - [ ] Validate the installed delivery and service recovery in the hosted shop.
   - [x] Verify that the independent service starts only with working signed
     database scope, reports loss of readiness during a database outage and
@@ -411,6 +414,10 @@ The following are implementation tasks; existing UI foundations do not complete 
     [Readiness check](knowledge-component.md#check-readiness-before-routing-traffic).
 - [ ] KNOW-04 Give the independent service its own rebuildable projections,
   ingestion checkpoints, vector configuration and migration/restore procedures.
+  - [x] Restore an actual PostgreSQL archive into a fresh database with a
+    separate runtime login and signing key. Rebuild lexical search and check
+    localized evidence, graphs, withdrawals and tenant isolation.
+    [Recovery procedure](knowledge-component.md#restore-knowledge-into-a-fresh-database).
 - [ ] KNOW-05 Expose ingest/search/graph/source/withdraw/delete over HTTP and MCP;
   preserve private-source admission, current evidence and tenant isolation.
   - [x] Add separate document and product source inventories over HTTP and MCP

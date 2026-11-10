@@ -54,6 +54,9 @@ read scope serves the resulting evidence. The buyer transaction has no
 dependency on Knowledge or its identity endpoint. External applications can
 import their own sources and verify localized evidence through the typed SDK
 against the service without Core.
+The standalone database recovery keeps source records and localized chunks.
+It rebuilds the search index under fresh runtime credentials.
+[Recovery procedure](knowledge-component.md#restore-knowledge-into-a-fresh-database).
 [External SDK example](knowledge-component.md#import-your-own-catalog-and-documents-with-the-sdk) ·
 [Knowledge service boundary](knowledge-component.md#keep-the-shop-running-during-a-knowledge-outage).
 

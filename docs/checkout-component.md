@@ -412,7 +412,9 @@ The native browser and original Storyfront iframe also completed Shopware
 Payments PayPal purchases with the actual provider Sandbox. Each capture was
 EUR 59.90. Both browsers used same-origin independent create and confirm.
 The native cart was empty on return. The Storyfront bag stayed empty after
-return and a full reload. Hosted refund, the order-event trace and production
+return and a full reload. The order and capture events reached their
+default Flows in production. Those Flows wrote notes and produced no invoice
+for either order. Hosted refund, invoice, mail delivery and production
 concurrency remain separate acceptance steps.
 
 The two Sandbox orders use reserved `example.test` buyer addresses. Check the

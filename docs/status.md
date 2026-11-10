@@ -202,6 +202,21 @@ assistant request received HTTP 429 while the existing app filter still
 worked. The same API returned JSON when the client asked for it.
 [Shopper stream](agentic-component-ui.md#show-the-shoppers-app-view-during-the-answer).
 
+## External SDK example with an MCP App and Checkout
+
+[Connected Shop](https://github.com/veyndo/sdk/tree/0870b2d3510a3274272dc756a1de50c5fa4b00df/examples/connected-shop) is available from the public SDK repository.
+The example runs an external Node host with SDK 0.4.0, the Core catalog,
+the installed Product Guide MCP App and independent Checkout. A fixed
+question opens the guide without requiring a model key. The browser can
+filter its public records and explicitly confirm the reviewed simulated order.
+
+On desktop and mobile, Core recorded one order and one stock decrement
+per purchase. The mobile run dropped the successful Core confirmation
+response before it reached the example. The host read back the original
+receipt, and reload preserved it. The same test rejected a different
+product requested by the iframe and an unrelated origin on confirmation.
+[Setup and test scope](checkout-component.md#combine-checkout-and-an-installed-mcp-app).
+
 ## MCP App conversation views and independent Checkout rehearsal
 
 Core image `gorgeous-seat-2912` from

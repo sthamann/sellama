@@ -147,6 +147,21 @@ both paths completed 192 quote requests without errors. The local p95 was
 PostgreSQL, synthetic identities and the same cart and quote on both paths.
 [Measurement method](evidence/checkout-composition-performance-2026-11-08.md).
 
+### Combine checkout and an installed MCP App
+
+The public [Connected Shop example](https://github.com/veyndo/sdk/tree/0870b2d3510a3274272dc756a1de50c5fa4b00df/examples/connected-shop)
+starts a separate Node host. It uses SDK 0.4.0 to display a Core product and
+its filterable guide, then starts independent Checkout through the Store
+API relay. The shopper reviews the quote and confirms in the host. If the
+Core reply is lost, the host looks up the original session receipt.
+
+The local browser test used separate Core and Checkout PostgreSQL databases.
+Desktop and mobile each completed one simulated purchase of the selected
+product. Each reduced stock once. On mobile the Core response was discarded
+after successful confirmation. The host recovered the same receipt, and
+reload preserved it. A forged product from the iframe and a confirmation
+from an unrelated browser origin were rejected.
+
 ## UI and agent integration
 
 Export the same cart, address, delivery, payment, review and completion controls as

@@ -36,12 +36,13 @@ verified in the live shop.
    reduced p95 and retries with the new live Core and the existing Checkout,
    Worker and Connector executables. Separate service placement and provider
    callback capacity remain open.
-4. [ ] **Release a complete external integration example.** Use the published
-   SDK for catalog and Checkout, show an interactive app card in the agent
-   conversation and complete a purchase. Verify that the example can be run
-   independently, that the host enforces the granted rights, and that the
-   purchase and receipt agree with the assembled Veyndo shop.
-   [External checkout baseline](checkout-component.md#external-reference-storefront).
+4. [x] **Release an external integration example.** Connected Shop uses the
+   published SDK for one product, an interactive MCP App in its conversation
+   and a reviewed purchase through independent Checkout. The external host
+   uses a fixed guide question. Browser tests checked filter scope, explicit
+   confirmation and original receipt recovery with Core and Checkout running
+   against separate local databases.
+   [Run Connected Shop](https://github.com/veyndo/sdk/tree/0870b2d3510a3274272dc756a1de50c5fa4b00df/examples/connected-shop).
 
 ## Current implementation priority
 

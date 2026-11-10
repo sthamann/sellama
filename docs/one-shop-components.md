@@ -51,7 +51,7 @@ The four public development repositories are linked below. The other links expla
 | Component | What it owns and where to start |
 | --- | --- |
 | Commerce | The complete shop, Studio, checkout transaction, inventory, orders, rights and shared API. [Repository](https://github.com/veyndo/veyndo) · [Run it locally](quickstart.md) |
-| SDK | JavaScript and TypeScript clients for Veyndo's HTTP and MCP interfaces, including separately scoped services. [Repository and examples](https://github.com/veyndo/sdk) |
+| SDK | JavaScript and TypeScript clients for Veyndo's HTTP and MCP interfaces, including separately scoped services. [Repository](https://github.com/veyndo/sdk) · [Connected Shop](checkout-component.md#combine-checkout-and-an-installed-mcp-app) |
 | Apps | App manifests, bounded Wasm execution and common storage for records, settings and jobs. [Repository](https://github.com/veyndo/apps) · [Runtime guide](app-runtime-service.md) |
 | Marketplaces | Provider mapping, listings and imported orders for Amazon, eBay and Kaufland. A compatible commerce host owns inventory and order creation. [Repository](https://github.com/veyndo/marketplaces) · [Merchant guide](marketplaces.md) |
 | Checkout | Buyer review, checkout sessions and recovery of the original result. The commerce host owns prices, stock and the final purchase. [Native and Storyfront](checkout-component.md#how-native-and-embedded-checkout-share-one-order) · [External storefront example](checkout-component.md#external-reference-storefront) |

@@ -102,9 +102,12 @@ manifest digests. The original Core and App Worker builds then ran as
 separate containers in the private Northflank release lab. Core booted
 against empty PostgreSQL. Two simulated native purchases each preserved
 one order and one stock decrement after a confirmation retry. The Worker
-generated one invoice per order, including after a stop and restart.
-Independent Checkout and Connector image wiring still need a separate run.
-[Hosted image boot](evidence/composed-release-rehearsal-2026-11-10.md#boot-the-original-core-and-worker-images).
+generated one invoice per order, including after a stop and restart. A second
+fresh database run enforced distinct restricted system and tenant roles.
+Startup rejected a runtime role with `TRUNCATE`, and the isolated shops
+could not read each other's orders or receipts. Independent Checkout and
+Connector image wiring still need a separate run.
+[Hosted image boot with restricted roles](evidence/composed-release-rehearsal-2026-11-10.md#run-the-original-images-with-restricted-database-roles).
 [Image evidence and next checks](evidence/composed-release-rehearsal-2026-11-10.md#match-the-deployed-builds-to-image-manifests).
 
 ## Mixed shop traffic and app-worker recovery

@@ -272,8 +272,36 @@ owner. The Worker ran in `serve` mode with `PROCESS_ROLE=app-worker`.
 The test used simulated native payment and the order Flow for invoice
 generation. Northflank denied the independent Checkout build reference
 from the lab with HTTP 403. The complete image-level purchase through
-independent Checkout, payment and Connector remains open, as does the
-production-style startup with separately restricted database roles.
+independent Checkout, payment and Connector remains open. The next run
+replaced the database owner at runtime with two restricted roles.
 The lab's runtime services were paused after the run, and the temporary
 build access was removed.
 [Northflank cross-project build access](https://northflank.com/docs/v1/application/build/share-builds-across-projects).
+
+## Run the original images with restricted database roles
+
+The same original Core and Worker images ran as separate private Northflank
+services against another empty PostgreSQL 17 database. A one-shot Core
+migration job used the database owner and applied 103 migration ledger
+entries with demo seeding disabled. The database then reported signed
+scope enforcement active with distinct system and tenant logins. Core and
+the Worker ran with `BOOTSTRAP_MODE=serve`, `DB_RLS_REQUIRED=true` and
+`DB_SCOPE_REQUIRED=true`. Neither received the migration connection or a
+staged exception. See [the database role setup](../authenticated-database-scope.md#coordinated-deployment).
+
+| Test | Observed result |
+| --- | --- |
+| Give the fixture system login `TRUNCATE` and start the original Core image | Startup exited with code 101 and reported an unsafe runtime role. Core passed health after the grant was revoked. |
+| Buy from two separate fixture shops and discard each first successful confirmation | Retrying returned the original order in each shop. Each had one order and stock moved from 80 to 79. |
+| Query the other shop's orders and invoice records in both directions | A foreign shop header was denied with HTTP 403. Searching for the other shop's receipt within the caller's shop returned an empty result. |
+| Run the signed-scope probes with the actual tenant login | Forged scope, actor and signature attempts failed. The role could not read signing keys or private identity data, change the schema or write to managed projections. |
+| Resume the Worker after Core has dispatched both orders | Each order gained exactly one invoice. Reading the receipt and retrying again after the Core restart preserved the order, stock and invoice. |
+
+Core must run an outbox consumer for this setup. The initial
+`PROCESS_ROLE=http` configuration accepted the purchases and left the
+invoices pending. Changing Core to `PROCESS_ROLE=all` with
+`APP_WORKER_ENABLED=false` dispatched both committed orders while the
+separate `app-worker` was still paused. Resuming that Worker processed the
+two Flows. The test used native simulated payments and checked invoice
+generation. Provider payment, mail delivery and independent Checkout and
+Connector images remain separate checks.

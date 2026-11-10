@@ -1,6 +1,8 @@
 /** Route an admitted, reviewed browser purchase through the independent Checkout service. */
 import { shopApi, type Cart } from "../../shared/api/shop-api";
 import { responseError } from "../../shared/i18n/errors-i18n";
+import { customerSessionGeneration } from "../../shared/api/customer-session";
+import { shopScope } from "../../shared/api/shop-scope";
 
 export async function confirmIndependentCheckout(cart: Cart, channel: string) {
   const { totalMinor, currency } = cart.price;
@@ -21,11 +23,32 @@ export async function confirmIndependentCheckout(cart: Cart, channel: string) {
     const confirm = action === "confirm";
     try {
       if (!access) {
-        return await shopApi<T>(
-          `/store-api/checkout/independent/${action}`,
-          body,
-          confirm ? cart.token : undefined,
-        );
+        const tenant = shopScope();
+        const generation = customerSessionGeneration(tenant);
+        const href = location.href;
+        const send = () =>
+          shopApi<T>(
+            `/store-api/checkout/independent/${action}`,
+            body,
+            confirm ? cart.token : undefined,
+          );
+        try {
+          return await send();
+        } catch (error) {
+          if (
+            !(error instanceof Error) ||
+            !("checkoutAdmissionRefused" in error) ||
+            error.checkoutAdmissionRefused !== true
+          )
+            throw error;
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          if (
+            location.href !== href ||
+            customerSessionGeneration(tenant) !== generation
+          )
+            throw error;
+          return await send();
+        }
       }
       const { access_token, checkout_origin } = access;
       const path = confirm ? "/v1/sessions/confirm" : "/v1/sessions";

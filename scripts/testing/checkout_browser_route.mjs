@@ -45,6 +45,7 @@ if (sameOrigin) {
 const browser = await chromium.launch({ headless: true });
 try {
   for (const drop of [false, true]) {
+    const retry = sameOrigin && !drop;
     const page = await browser.newPage({
       viewport: drop
         ? { width: 390, height: 844 }
@@ -54,6 +55,7 @@ try {
       independentWrites = [];
     const exposedGrants = [];
     let remoteReceipt;
+    let refusedBody;
     if (paypal) {
       await page.route(providerOrigin + "/fixture/**", async (route) => {
         const path = new URL(route.request().url()).pathname;
@@ -95,6 +97,24 @@ try {
         assert.equal(response.status(), 200, await response.text());
         remoteReceipt = await response.json();
         await route.abort("failed");
+      });
+    if (retry)
+      await page.route(confirmationPath, async (route) => {
+        if (route.request().method() !== "POST") return route.continue();
+        if (refusedBody !== undefined) {
+          assert.equal(route.request().postData(), refusedBody);
+          return route.continue();
+        }
+        refusedBody = route.request().postData();
+        assert.ok(refusedBody);
+        await route.fulfill({
+          status: 429,
+          headers: {
+            "retry-after": "1",
+            "x-veyndo-checkout-admission": "refused",
+          },
+          json: { errors: [{ status: 429, detail: "Busy", retryable: true }] },
+        });
       });
     await page.goto(base + "/?shop=atelier&lang=en-GB");
     if (sameOrigin) {
@@ -231,7 +251,8 @@ try {
         ? page.waitForResponse(
             (response) =>
               response.url() === confirmationPath &&
-              response.request().method() === "POST",
+              response.request().method() === "POST" &&
+              response.ok(),
           )
         : undefined;
     await page
@@ -313,7 +334,7 @@ try {
       })
       .click();
     assert.equal(nativeWrites.length, 0);
-    assert.equal(independentWrites.length, 1);
+    assert.equal(independentWrites.length, retry ? 2 : 1);
     assert.deepEqual(exposedGrants, []);
     const after = await (
       await page.request.get(base + "/store-api/product/lamp", {
@@ -327,7 +348,7 @@ try {
       .first()
       .waitFor();
     console.log(
-      `PASS native browser ${drop ? "lost confirmation recovery at mobile size" : "purchase at desktop size"}: one service confirmation, one stock decrement, same receipt after reload, empty bag${paypal ? ", provider-frame approval and full refund on the original attempt" : ""}`,
+      `PASS native browser ${drop ? "lost confirmation recovery at mobile size" : "purchase at desktop size"}: ${retry ? "one pre-dispatch refusal, same confirmation repeated once, " : ""}one service confirmation, one stock decrement, same receipt after reload, empty bag${paypal ? ", provider-frame approval and full refund on the original attempt" : ""}`,
     );
     await page.close();
   }

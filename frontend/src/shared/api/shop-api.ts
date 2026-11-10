@@ -348,6 +348,9 @@ export async function shopApi<T = unknown>(
       responseError(v.errors?.[0]?.detail ?? r.statusText, r.status),
       {
         customerScope: { tenant: shop, generation: sessionGeneration },
+        ...(r.checkoutAdmissionRefused
+          ? { checkoutAdmissionRefused: true }
+          : {}),
       },
     );
   return v;

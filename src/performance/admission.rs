@@ -274,6 +274,12 @@ fn overloaded(class: &str, message: &str) -> Response {
     response
         .headers_mut()
         .insert("retry-after", axum::http::HeaderValue::from_static(delay));
+    if class == CHECKOUT_RELAY {
+        response.headers_mut().insert(
+            "x-veyndo-checkout-admission",
+            axum::http::HeaderValue::from_static("refused"),
+        );
+    }
     response
 }
 

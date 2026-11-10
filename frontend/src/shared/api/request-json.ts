@@ -14,6 +14,7 @@ type JsonResponse = {
   ok: boolean;
   status: number;
   statusText: string;
+  checkoutAdmissionRefused?: boolean;
 };
 const pending = new Map<string, Promise<JsonResponse>>();
 let generation = 0;
@@ -86,6 +87,12 @@ export async function requestJson(
       ok: response.ok && !value.errors,
       status: value.errors?.[0]?.status ?? response.status,
       statusText: response.statusText,
+      ...(response.status === 429 &&
+      value.errors?.[0]?.retryable === true &&
+      response.headers?.get("x-veyndo-checkout-admission") === "refused" &&
+      response.headers?.get("retry-after") === "1"
+        ? { checkoutAdmissionRefused: true }
+        : {}),
     };
   })();
   const admitted = read && pending.size < 128;

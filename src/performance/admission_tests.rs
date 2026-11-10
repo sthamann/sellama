@@ -36,10 +36,16 @@ fn checkout_relay_capacity_refusals_allow_earlier_retry() {
         let response = overloaded(class(path), "Busy");
         assert_eq!(response.status(), StatusCode::TOO_MANY_REQUESTS);
         assert_eq!(response.headers()["retry-after"], "1");
+        assert_eq!(response.headers()["x-veyndo-checkout-admission"], "refused");
     }
     for path in ["/store-api/checkout/session-order", "/api/concierge"] {
         let response = overloaded(class(path), "Busy");
         assert_eq!(response.headers()["retry-after"], "5");
+        assert!(
+            !response
+                .headers()
+                .contains_key("x-veyndo-checkout-admission")
+        );
     }
 }
 

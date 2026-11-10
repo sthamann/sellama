@@ -422,6 +422,23 @@ delivery separately with a reachable test mailbox and match the message to
 its order number.
 [Implementation plan](commerce-components.md#checkout-independent-service-and-ui).
 
+### Recover a busy browser checkout
+
+Core marks a request it refused before forwarding it to Checkout with
+`429`, `Retry-After: 1` and `X-Veyndo-Checkout-Admission: refused`. The native
+storefront and the embedded Core checkout can repeat that same request once
+after a second, while the buyer session and page are unchanged. The order
+confirmation keeps the original draft, cart and reviewed amount.
+
+A lost response or an error without this marker uses the existing completed
+cart lookup. The browser checks for the original order before the buyer can
+try again.
+
+The local Chromium test sends a marked refusal at desktop size and discards a
+real confirmation response at mobile size. Both journeys commit one order,
+decrement stock once and show the same receipt after reload. Returning to the
+shop shows an empty cart.
+
 ## PayPal Sandbox through the separate service
 
 Set `CHECKOUT_ENABLE_PAYPAL_SANDBOX_PURCHASE=true` on Core and Checkout only

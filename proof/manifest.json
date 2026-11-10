@@ -4981,13 +4981,13 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "421cb69cfca50bdd3ff3ea39ee7d9adb0496d5081991dd249e0b9fe973b64cfc",
-      "review": "Reviewed the one-second retry for Core checkout relay capacity refusals before dispatch. Process and cluster limits, original receipt recovery and native and AI retry timing are retained. Moved admission regression checks into a test-only module; the adapter remains unproved."
+      "sha256": "faf14c5832df237927631945e484553d37d8f447f0fed321f1a3e169e909bf3f",
+      "review": "Reviewed the additional response marker: it is written only on Core checkout relay admission refusals before handler dispatch. The browser waits once on the explicit marker and never replays an uncertain order. Rust and browser regression tests cover the marker and receipt recovery. Adapter remains unproved."
     },
     "src/performance/admission_tests.rs": {
       "status": "unproved",
-      "sha256": "525463156a8a876f43d86adf1e114f5d3cb91917dae0289651ab5580f76881e2",
-      "review": "Reviewed the one-second retry for Core checkout relay capacity refusals before dispatch. Process and cluster limits, original receipt recovery and native and AI retry timing are retained. Moved admission regression checks into a test-only module; the adapter remains unproved."
+      "sha256": "088ee83152c8bdf2cd8d5703aaeba65f172e170edc34721bdb2cd75b2eb699e4",
+      "review": "Reviewed the additional response marker: it is written only on Core checkout relay admission refusals before handler dispatch. The browser waits once on the explicit marker and never replays an uncertain order. Rust and browser regression tests cover the marker and receipt recovery. Adapter remains unproved."
     },
     "src/performance/authority.rs": {
       "status": "unproved",

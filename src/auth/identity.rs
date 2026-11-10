@@ -20,7 +20,7 @@ pub(super) async fn resolve(
     h: &mut RequestContext,
     path: &str,
     protected: bool,
-) -> Result<()> {
+) -> Result<Option<i64>> {
     let selected = header(h, "x-tenant").map(str::to_string);
     let token = header(h, "authorization")
         .and_then(|s| s.strip_prefix("Bearer "))
@@ -48,7 +48,7 @@ pub(super) async fn resolve(
                 "Merchant login required".into(),
             ));
         }
-        return Ok(());
+        return Ok(None);
     };
     if credentials::bootstrap_matches(&token, &a.token) {
         if !crate::runtime_config::get().allow_bootstrap {
@@ -69,7 +69,7 @@ pub(super) async fn resolve(
         h.principal.user = Some("bootstrap".into());
         h.principal.role = Some("owner".into());
         h.principal.tenant = Some(t);
-        return Ok(());
+        return Ok(None);
     }
     let channel_id = crate::marketing::channel_id(h).to_owned();
     let identity =
@@ -139,7 +139,7 @@ pub(super) async fn resolve(
         h.principal.permissions = Some(json!(allowed).to_string());
         h.principal.role = Some("admin".into());
     }
-    Ok(())
+    Ok(identity.key_expiry)
 }
 
 // Identity remains uncached. This only reuses the same request's authoritative shop/channel read.

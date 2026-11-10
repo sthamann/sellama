@@ -14,6 +14,7 @@ pub(crate) mod handoff;
 mod identity;
 mod integrations;
 mod invitations;
+mod knowledge_identity;
 pub(crate) use integrations::*;
 mod members;
 mod middleware;

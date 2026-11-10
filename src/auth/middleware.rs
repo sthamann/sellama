@@ -146,7 +146,13 @@ async fn authenticate_scoped(State(a): State<App>, mut request: Request, next: N
     let protected = path.starts_with("/api/") && !public;
     let auth_result = async {
         // Introspection validates its own service credential before resolving the grant's tenant.
-        if path != crate::checkout::buyer_identity::INTROSPECTION || method != "POST" {
+        if method != "POST"
+            || !matches!(
+                path.as_str(),
+                crate::checkout::buyer_identity::INTROSPECTION
+                    | super::knowledge_identity::INTROSPECTION
+            )
+        {
             super::identity::resolve(&a, &mut h, &path, protected).await?;
         }
         if protected {

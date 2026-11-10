@@ -20,10 +20,10 @@ The source record lists original paths and exact kernel source hashes.
 
 ## Native composition
 
-The product consumes the exact independent library with original public facades.
-Native kernel dependency is resolved to the existing local reviewed owner, not a
-second kernel copy. Native real-storage and formal acceptance are in progress;
-no unobserved full-system or public service acceptance is claimed here.
+The local composition branch linked the independent library behind the original
+public facades and used the existing local kernel dependency. The released Core
+still builds the evaluator from its own source tree. See the current
+[Automation component guide](../automation-component.md) for deployment status.
 
 The service evaluates supplied facts only. Native fact collection, actual rules/
 prices, Flow writes and durable jobs retain their current authenticated owners.

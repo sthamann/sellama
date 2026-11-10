@@ -8,6 +8,8 @@ root=pathlib.Path(__file__).resolve().parents[1]
 qdrant_url=os.environ.get("QDRANT_URL")
 if not qdrant_url:raise SystemExit("Managed-search verification requires an explicitly configured QDRANT_URL")
 state={"outage":False,"batches":[],"rerank":[],"bad_rerank":False}
+old_request=threading.Event()
+release_old=threading.Event()
 class Embed(BaseHTTPRequestHandler):
     def log_message(self,*args): pass
     def forward(self):
@@ -32,13 +34,18 @@ class Embed(BaseHTTPRequestHandler):
         body=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
         assert self.path=='/api/embed' and body['truncate'] is False
         state['batches'].append(body['input'])
+        if body['model']==state.get('hold_model') and any('Edit before model rollout' in text for text in body['input']):
+            old_request.set()
+            if not release_old.wait(20):
+                self.send_error(503)
+                return
         self.send_response(200); self.send_header('Content-Type','application/json'); self.end_headers()
         self.wfile.write(json.dumps({'embeddings':[[1.0]+[0.0]*383 for _ in (body['input'] if isinstance(body['input'],list) else [body['input']])]}).encode())
 fixture=ThreadingHTTPServer(('127.0.0.1',0),Embed)
 threading.Thread(target=fixture.serve_forever,daemon=True).start()
 with socket.socket() as probe:
     probe.bind(('127.0.0.1',0)); port=probe.getsockname()[1]
-env={**os.environ,'BIND_ADDR':f'127.0.0.1:{port}','SHOP_DOMAIN_SUFFIX':'veyndo.ai','OLLAMA_URL':f'http://127.0.0.1:{fixture.server_port}','EMBEDDING_MODEL':'synthetic-managed-contract-'+uuid.uuid4().hex[:8],'QDRANT_URL':f'http://127.0.0.1:{fixture.server_port}','RERANKER_URL':f'http://127.0.0.1:{fixture.server_port}'}
+env={**os.environ,'BIND_ADDR':f'127.0.0.1:{port}','SHOP_DOMAIN_SUFFIX':'veyndo.ai','OLLAMA_URL':f'http://127.0.0.1:{fixture.server_port}','EMBEDDING_MODEL':'synthetic-managed-contract-'+uuid.uuid4().hex[:8],'EMBEDDING_MODEL_REVISION':'0','QDRANT_URL':f'http://127.0.0.1:{fixture.server_port}','RERANKER_URL':f'http://127.0.0.1:{fixture.server_port}'}
 base=f'http://127.0.0.1:{port}'; token=os.environ['MERCHANT_TOKEN']
 def qdrant(path,body=None,method=None):
     req=urllib.request.Request(qdrant_url+path,data=None if body is None else json.dumps(body).encode(),method=method,headers={'Content-Type':'application/json'})
@@ -64,6 +71,7 @@ env['TEST_DATABASE']=fixture_db
 os.environ['TEST_DATABASE']=fixture_db
 log=open(root/'.run/managed-search.log','w')
 process=None
+replacement=None
 old_namespace='legacy-'+uuid.uuid4().hex[:8]
 suffix='product_v2_'+hashlib.sha256(env['EMBEDDING_MODEL'].encode()).hexdigest()[:16]+'_384'
 old_collection=old_namespace+'_'+suffix
@@ -177,19 +185,52 @@ try:
     sql("UPDATE products SET price=11,stock=9 WHERE tenant='workshop' AND id='batch-1'")
     assert sql("SELECT count(*) FROM embedding_jobs WHERE tenant='workshop' AND object_id='batch-1'")=='0'
     print('PASS 150 products index automatically in bounded batches; source changes re-embed, commerce-only changes do not')
-    process.terminate();process.wait(timeout=15)
-    env['EMBEDDING_MODEL']+='-changed'
-    process=subprocess.Popen([str(root/'target/debug/veyndo')],cwd=root,env=env,stdout=log,stderr=log)
-    for _ in range(400):
-        if process.poll() is not None: raise RuntimeError('Model-change restart failed')
-        if sql("SELECT count(*) FROM semantic_products WHERE tenant='workshop' AND product_id LIKE 'batch-%' AND embedding_model='"+env['EMBEDDING_MODEL']+"'")=='150' and sql("SELECT count(*) FROM embedding_generations WHERE tenant IN ('atelier','workshop') AND phase='complete' AND model='"+env['EMBEDDING_MODEL']+"'")=='2' and sql("SELECT count(*) FROM embedding_jobs WHERE tenant IN ('atelier','workshop')")=='0':break
+    with socket.socket() as probe:
+        probe.bind(('127.0.0.1',0))
+        replacement_port=probe.getsockname()[1]
+    new_model=env['EMBEDDING_MODEL']+'-changed'
+    state['hold_model']=env['EMBEDDING_MODEL']
+    sql("UPDATE products SET description='Edit before model rollout' WHERE tenant='workshop' AND id='batch-1'")
+    assert old_request.wait(15), 'Old worker did not start the held embedding request'
+    replacement_env={**env,'BIND_ADDR':f'127.0.0.1:{replacement_port}',
+                     'EMBEDDING_MODEL':new_model,'EMBEDDING_MODEL_REVISION':'1'}
+    replacement=subprocess.Popen([str(root/'target/debug/veyndo')],cwd=root,
+                                 env=replacement_env,stdout=log,stderr=log)
+
+    for _ in range(100):
+        if sql("SELECT model_revision FROM embedding_generations WHERE tenant='workshop'")=='1':
+            break
         time.sleep(.1)
-    assert sql("SELECT count(*) FROM semantic_products WHERE tenant='workshop' AND product_id LIKE 'batch-%' AND embedding_model='"+env['EMBEDDING_MODEL']+"'")=='150'
-    assert sql("SELECT count(*) FROM embedding_jobs WHERE tenant IN ('atelier','workshop')")=='0',sql("SELECT tenant,kind,object_id,attempts,error_code FROM embedding_jobs WHERE tenant IN ('atelier','workshop')")
-    print('PASS cold model-change restart automatically rebuilds existing tenant catalogs without a reindex API call')
+    else:
+        raise AssertionError('New generation did not take ownership during the old provider call')
+    release_old.set()
+
+    def current_batch():
+        return sql(f"SELECT count(*) FROM semantic_products WHERE tenant='workshop' AND product_id LIKE 'batch-%' AND embedding_model='{new_model}'")
+
+    for _ in range(400):
+        assert replacement.poll() is None and process.poll() is None, 'An embedding worker stopped during rollout'
+        complete=sql(f"SELECT count(*) FROM embedding_generations WHERE tenant IN ('atelier','workshop') AND phase='complete' AND model='{new_model}' AND model_revision=1")
+        if complete=='2' and current_batch()=='150':break
+        time.sleep(.1)
+    assert complete=='2' and current_batch()=='150'
+    # Prove a later tick and a real edit cannot be claimed by the still-running old worker.
+    sql("UPDATE products SET description='Edited during model rollout' WHERE tenant='workshop' AND id='batch-1'")
+    for _ in range(150):
+        if sql(f"SELECT count(*) FROM semantic_products WHERE tenant='workshop' AND product_id='batch-1' AND embedding_model='{new_model}' AND content_hash=encode(sha256(convert_to('Batch 1'||chr(10)||'fixtures'||chr(10)||'Edited during model rollout','UTF8')),'hex')")=='1':break
+        time.sleep(.1)
+    else:
+        raise AssertionError('An edit during rollout did not reach the new model')
+    assert process.poll() is None
+    assert sql("SELECT count(*) FROM embedding_generations WHERE tenant IN ('atelier','workshop') AND model_revision=1")=='2'
+    assert current_batch()=='150'
+    assert call('/api/knowledge/search',{'query':'lamp'},'workshop')['hits']
+    print('PASS overlapping model revisions converge, index new edits and keep search available')
 
 finally:
-    if process is not None:process.terminate();process.wait(timeout=15)
+    release_old.set()
+    for runtime in (replacement,process):
+        if runtime is not None:runtime.terminate();runtime.wait(timeout=15)
     log.close();fixture.shutdown()
     # These physical collections and their alias were created solely by this fixture.
     for collection in [old_collection,conflict_collection]:

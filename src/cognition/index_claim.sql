@@ -1,7 +1,10 @@
 -- One ready tenant per batch; expired claims are retried, live claims never stolen.
 WITH candidate AS (
- SELECT j.tenant FROM embedding_jobs j JOIN tenants t ON t.id=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=j.tenant),j.tenant)
- WHERE j.attempts<8 AND j.available_at<=now() AND (j.lease_until IS NULL OR j.lease_until<now()) AND t.status='active'
+ SELECT j.tenant FROM embedding_jobs j
+ JOIN tenants t ON t.id=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=j.tenant),j.tenant)
+ JOIN embedding_generations g ON g.tenant=t.id
+ WHERE j.attempts<8 AND j.available_at<=now() AND (j.lease_until IS NULL OR j.lease_until<now())
+   AND t.status='active' AND g.model=$2 AND g.model_revision=$3
  ORDER BY j.available_at,j.tenant LIMIT 1
 ), picked AS (
  SELECT j.tenant,j.kind,j.object_id FROM embedding_jobs j JOIN candidate c ON c.tenant=j.tenant

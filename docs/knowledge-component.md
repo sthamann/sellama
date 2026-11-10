@@ -136,6 +136,44 @@ can establish their current state. Keep the archive encrypted because it
 contains private content.
 [Operator commands for repository members](https://github.com/veyndo/knowledge#restore-knowledge-into-a-fresh-database).
 
+## Verify source and model changes
+
+The standalone service uses lexical retrieval. Its PostgreSQL acceptance
+changes a private source, verifies that older evidence is rejected, withdraws
+the source and checks that it stays withdrawn after restart. The restore test
+rebuilds search from the source tables and verifies the result through HTTP
+and MCP with fresh database credentials.
+
+Core owns optional embeddings. A separate local run used PostgreSQL 17 and
+Qdrant 1.16.3 with two deterministic models exposed by a local
+OpenAI-compatible endpoint. Core indexed a catalog product and a document
+under a three-dimensional model, then restarted with a five-dimensional
+model. Both source types reached new Qdrant collections. Search reported
+the new model, an edit invalidated the earlier excerpt, and a further
+restart kept the current content. Archiving the document removed it from
+merchant retrieval.
+
+## Change the Core embedding model
+
+First deploy Core with the existing model and the current
+`EMBEDDING_MODEL_REVISION` on all workers. Existing installations start at
+revision zero. For a model change, set the new `EMBEDDING_MODEL` and increase
+`EMBEDDING_MODEL_REVISION`. To return to a previous model, set its model name
+again with a higher revision. Use a distinct model name for different embedding
+weights or dimensions.
+
+Core records the highest accepted revision per shop and rebuilds it from
+the existing source queue. Older workers stop claiming work for that shop.
+A result that returns from an older provider call after the revision changed
+cannot overwrite the newer projection. Catalog updates continue to queue and
+search can use lexical results while the new vectors arrive.
+
+The local PostgreSQL and Qdrant regression keeps both Core workers running,
+reindexes 150 products, changes a product during the overlap and verifies
+the new revision and working search. A second local run also exercised the
+dimension change and both product and document projections. Provider and
+Northflank rollout acceptance are tracked separately.
+
 ## Synchronize a Veyndo catalog
 
 Install the [Knowledge catalog app](https://github.com/veyndo/veyndo/tree/main/extensions/apps/knowledge-catalog)

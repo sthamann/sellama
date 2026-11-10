@@ -209,6 +209,15 @@ stopped. The queued product update was delivered after restart and the
 inventory showed the recovered revision.
 [API and example](knowledge-component.md#audit-which-sources-arrived).
 
+Local lifecycle checks also restored Knowledge into a fresh PostgreSQL
+database and rebuilt search. A separate Core run changed the embedding model
+from three to five dimensions and verified Qdrant indexing, document edits
+and archive after restart. The rolling test kept two Core workers active
+and verified a newer revision could not be replaced by the old worker.
+Search stayed available while 150 products and a concurrent edit were
+indexed. Hosted rollout remains open.
+[Lifecycle checks](knowledge-component.md#verify-source-and-model-changes).
+
 The local Knowledge acceptance rejected a wrong database signing key at
 startup. While PostgreSQL refused connections, readiness returned 503 and
 liveness stayed up. Readiness recovered once the database accepted

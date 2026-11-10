@@ -1,5 +1,12 @@
 # Changelog
 
+## Embedding model changes across workers
+
+- Record a per-shop model revision so a worker on an older configuration
+  cannot reset the current generation or publish a late result.
+- Verify the rollout with PostgreSQL and Qdrant while two Core processes
+  overlap. Product changes remain searchable during reindexing.
+
 ## Short waits for the independent Checkout
 
 - Let a small number of requests wait briefly for a free relay slot. Keep

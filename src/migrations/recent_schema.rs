@@ -260,4 +260,8 @@ pub(super) const SCHEMA: &[(&str, &str)] = &[
         "112-hosted-checkout-recovery",
         include_str!("../../migrations/112-hosted-checkout-recovery.sql"),
     ),
+    (
+        "113-embedding-model-revisions",
+        include_str!("../../migrations/113-embedding-model-revisions.sql"),
+    ),
 ];

@@ -237,6 +237,9 @@ Product edits and knowledge ingestion store source-linked graph data in PostgreS
 Configured embedding workers separately index retrieval vectors in Qdrant. Search
 uses tenant/model filters and hydrates candidates through current database and
 publication checks. An embedding result is a candidate, not authorization.
+A rolling model change uses a higher revision per shop so old workers
+cannot replace the new target or publish an earlier result.
+[Embedding model rollout](knowledge-component.md#change-the-core-embedding-model).
 
 Committed order/payment events pass an event-receipt deduplication fence. Confirmed
 provider captures produce observed product pairs, evidence-linked relationships and

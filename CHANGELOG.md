@@ -1,5 +1,11 @@
 # Changelog
 
+## Invoice and confirmation after payment
+
+- Add a disabled Flow example that creates the order invoice before queuing the
+  confirmation email. The independent Checkout test exercises that definition
+  through capture, the app worker, the connector and a refund.
+
 ## App cards during Studio replies
 
 - Show interactive private app cards during saved chat runs. Poll only for

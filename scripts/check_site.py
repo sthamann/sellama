@@ -68,6 +68,10 @@ def check():
         for link in page.links:
             url = urlsplit(link)
             if url.scheme or url.netloc:
+                if (url.netloc in {'www.veyndo.ai', 'veyndo.ai'}
+                        and url.path.startswith('/docs/assets/showcase/')):
+                    asset = SITE / unquote(url.path).lstrip('/')
+                    assert asset.is_file(), (name, link, 'Missing public showcase asset')
                 continue
             target = ((SITE / name).parent / unquote(url.path)).resolve() if url.path else SITE / name
             assert target.is_relative_to(SITE), (name, link, 'Link escapes site')

@@ -91,6 +91,12 @@ The four public development repositories are linked below. The other links expla
 
 ## What we check when components work together
 
+The hosted Lumen profile records the exact builds and database inputs of the
+eight services it connects. Operators can compare the running deployment with
+that lock before a change. This gives a test run a reproducible version set
+without adding requests to the storefront or checkout.
+[Verify the hosted profile](cloud-releases.md#verify-the-hosted-lumen-composition).
+
 Compare the same commerce operation through both entry points under equivalent load. Check the actual quote and receipt as well as latency. In the local [Checkout rollback rehearsal](checkout-component.md#pause-and-resume-checkout-confirmation), Core placed native and hosted handoff orders while Checkout was stopped and reconciled an existing payment. The recovered receipt kept the original purchase identity.
 
 The [benchmarks](benchmarks.md) explain which paths, workloads and environments were measured. Local synthetic results and public reachability checks are reported separately from hosted capacity and provider acceptance.

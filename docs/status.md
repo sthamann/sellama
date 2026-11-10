@@ -10,6 +10,19 @@ Updated 10 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Pinned Lumen composition
+
+The eight services in the hosted Lumen commerce profile matched the checked
+in composition lock on 10 November. Northflank now selects the exact
+existing builds for Checkout and Knowledge, and both deployments completed.
+Both services returned HTTP 204 from their private database readiness probes.
+Public Core health, the Lumen Storyfront page and its native product endpoint
+all returned HTTP 200.
+The lock includes source revisions, image digests, integration contracts and
+migration inputs. The release script can detect version drift before a
+rollout. Whole shop load and provider acceptance remain separately measured.
+[Deployment verification](cloud-releases.md#verify-the-hosted-lumen-composition).
+
 ## Flow contracts and sales channels
 
 Core `636a05b8` brought the typed Flow validation result to Northflank. The

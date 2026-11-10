@@ -2119,6 +2119,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/commerce.py](../scripts/commerce.py) | Real HTTP/PG tests for SKUs, moderated reviews, tax/shipping/payment and deliveries. |
 | [scripts/company_settings.py](../scripts/company_settings.py) | Real HTTP company basis/channel inheritance, immutable issuer snapshots, bounded logos and private staging. No external services. |
 | [scripts/component_sources.py](../scripts/component_sources.py) | Verify pinned component source snapshots; explicit imports use clean, reviewed Git commits, never mutable branches. |
+| [scripts/composition_release.py](../scripts/composition_release.py) | Validate the Lumen release lock and optionally compare it with Northflank. |
 | [scripts/connected_apps.py](../scripts/connected_apps.py) | Registered connected-app suite: archived OAuth oracle to real Rust knowledge, MCP and Flow consumers. |
 | [scripts/connector_store_tests.py](../scripts/connector_store_tests.py) | Concurrent private state, settings/import fences and encrypted mailbox persistence. |
 | [scripts/connectors.py](../scripts/connectors.py) | Start the local connector apps with private generated keys; preserve all existing app services. |
@@ -2230,6 +2231,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/testing/ci_scope.py](../scripts/testing/ci_scope.py) | Choose prototype CI by the complete Git diff; unknown or sensitive changes retain full verification. |
 | [scripts/testing/collection_work.py](../scripts/testing/collection_work.py) | Exercise one reviewed collection task through native categories, pages and durable translation drafts. |
 | [scripts/testing/component_sources_test.py](../scripts/testing/component_sources_test.py) | Mutation checks for the exact upstream component snapshot consumed by the Veyndo composition. |
+| [scripts/testing/composition_release_test.py](../scripts/testing/composition_release_test.py) | Reject drift and incomplete evidence in the hosted composition preflight. |
 | [scripts/testing/connected_contracts/__init__.py](../scripts/testing/connected_contracts/__init__.py) | OAuth, private retrieval and Slack-flow regression modules using local provider fixtures. |
 | [scripts/testing/connected_contracts/access.py](../scripts/testing/connected_contracts/access.py) | OAuth/PKCE, encrypted tenant binding, revision fences, channel tracking and read-only access. |
 | [scripts/testing/connected_contracts/client.py](../scripts/testing/connected_contracts/client.py) | Consent-aware native test API and scoped app actions; shared polling and result reporting. |

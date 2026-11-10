@@ -14,6 +14,46 @@ for its successful migration-only run, then deploys the same image to Core and
 waits for readiness. Core's direct CD and the builder's direct CI stay disabled.
 A failed backup, build or migration prevents the service deployment.
 
+## Verify the hosted Lumen composition
+
+The [composition lock](https://github.com/veyndo/veyndo/blob/main/deploy/composition.lock.json)
+pins the eight running services used by the Lumen commerce pilot. It records
+the owning repositories, full source commits, OCI manifest digests and exact
+Northflank build or import identifiers. The contract entries link each
+dependency to its integration guide. Schema entries record Git object IDs for
+the migration inputs. The App Worker shares Core's database and declares
+the migration boundary in its own build.
+
+Before using this profile for a release or rollback, validate the selected
+builds and compare the active deployment with the approved lock:
+
+```sh
+python3 scripts/composition_release.py
+python3 scripts/composition_release.py --northflank northflank
+```
+
+The second command uses an authenticated Northflank CLI with permission to
+read deployment metadata and build logs. It compares the selected and active
+commits, build IDs and pushed manifests for builds managed by Northflank. For
+Automation it checks the immutable import ID and the source revision tag. The
+digest in the lock comes from that import's image metadata. A floating
+`latest` selection, mismatched image or incomplete deployment fails the check.
+The command only reads metadata. It keeps environment values and raw build
+logs out of its output.
+
+Checkout and Knowledge were pinned in Northflank to their already running
+builds on 10 November. Pinning uses an explicit build ID. The Northflank API
+accepts either a build ID or a commit selector for this operation.
+[Deployment API](https://northflank.com/docs/v1/api/project/services/update-service-deployment).
+
+When changing any component, update the lock from its selected build and
+source checkout, verify storage with the existing migration and readiness
+checks, and run the applicable purchase, replay and rollback tests. Use
+`git rev-parse <commit>:<path>` in the component repository to verify each
+schema input. The lock verification confirms artifact identity. Purchase,
+provider callbacks and database recovery each have their own acceptance.
+[Hosted rehearsal](evidence/composed-release-rehearsal-2026-11-10.md).
+
 After a repository transfer, check the workflow trigger and the build service
 separately. If the trigger still points to the previous owner, update its
 repository and retain the `main` reference used by the build node. To release

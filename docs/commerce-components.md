@@ -915,6 +915,17 @@ The following are implementation tasks; existing UI foundations do not complete 
   capture/refund events and configured flow execution.
 - [ ] SYS-04 Create an app via agent/visual editor, configure, test privately,
   publish selected changes, update and restore with retained records.
+  - [x] Verify the assembled Core flow against a fresh PostgreSQL database.
+    Exercise model proposal, visual editing, private records, selected release,
+    native order Flow, version recovery and tenant isolation. Verify app
+    surfaces in the merchant and shopper assistant paths.
+    [Integration and editor checks](app-studio.md#assembled-app-lifecycle-test).
+  - [x] Use the local browser to create a Product Advisor from its template,
+    save a product record privately, release two versions and restore the
+    original design as a new version. Verify three releases and record
+    isolation in PostgreSQL.
+  - [ ] Repeat the full lifecycle through an actual browser on the hosted
+    stack and exercise the same package in the standalone host.
 - [x] SYS-05 Exercise POS, marketplace import, B2B/EDI, shipment and cross-channel
   inventory against isolated fixture services and explicit provider test modes.
   - [x] Verify native cash register, B2B through UCP and split shipments, plus

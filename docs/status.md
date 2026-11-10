@@ -23,6 +23,19 @@ migration inputs. The release script can detect version drift before a
 rollout. Whole shop load and provider acceptance remain separately measured.
 [Deployment verification](cloud-releases.md#verify-the-hosted-lumen-composition).
 
+## App creation, publication and restore
+
+Five targeted integration suites passed against local Core and a fresh
+PostgreSQL database. A generated app went through a private draft, real
+records and selected publication. A native order activated the configured
+Flow. App restore retained installed packages and data. The merchant and
+shopper assistant paths exercised the admitted app views. Fifteen editor
+component checks also passed. A separate Chromium run published two
+versions of a Product Advisor app and restored the first design as a new
+version. The private test record remained private across all three
+publications.
+[Test scope and open hosted checks](app-studio.md#assembled-app-lifecycle-test).
+
 ## Flow contracts and sales channels
 
 Core `636a05b8` brought the typed Flow validation result to Northflank. The

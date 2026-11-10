@@ -335,6 +335,17 @@ it cancels the pending stream. The server keeps its inference limit throughout
 the stream and authorizes the card's separate read requests in their current
 shop and channel.
 
+### Run a guide and Checkout in an external host
+
+[Connected Shop](https://github.com/veyndo/sdk/tree/0870b2d3510a3274272dc756a1de50c5fa4b00df/examples/connected-shop) uses the published JavaScript SDK 0.4.0
+to read a Veyndo product, discover the installed MCP App and complete a
+reviewed simulated purchase through independent Checkout. The official
+AppBridge presents the resource in an isolated iframe. The host fixes the
+tool and product and accepts only its declared filter. The browser receives
+no Commerce credential. A fixed guide question makes the sample runnable
+without a model key. Its purchase uses the same order and stock transaction
+as the native shop.
+
 ### Show the merchant's app view during the answer
 
 The Studio chat polls its existing saved run. For a running conversation,

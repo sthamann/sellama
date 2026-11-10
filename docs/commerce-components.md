@@ -488,8 +488,11 @@ The following are implementation tasks; existing UI foundations do not complete 
   - [x] Deliver live product updates from Lumen through the installed app.
     Verify the separately scoped Core callback and private refresh.
     [Hosted verification](status.md#knowledge-source-inventory).
-  - [ ] Read the resulting revision through the hosted evidence API and verify
-    queued delivery recovery after a hosted Knowledge outage.
+  - [x] Verify queued delivery recovery and read the resulting revision through
+    HTTP and MCP after a Knowledge outage in an isolated Northflank shop.
+    [Hosted outage rehearsal](knowledge-component.md#rehearse-a-knowledge-outage-on-northflank).
+  - [ ] Read the previously delivered Lumen revision with an independently
+    scoped evidence-consumer key.
   - [x] Verify that the independent service starts only with working signed
     database scope, reports loss of readiness during a database outage and
     recovers without a process restart.

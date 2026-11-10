@@ -253,6 +253,13 @@ the restoration of its original description at product version 28. Reading
 that revision back with a separate evidence-consumer key remains open.
 [Core identity setup](knowledge-component.md#use-core-as-the-identity-provider-for-one-live-shop).
 
+The isolated Northflank outage rehearsal paused Knowledge while Core and the
+App Worker remained active. A simulated purchase and its replay produced one
+order, one stock decrement and an empty next cart. The queued catalog change
+arrived after restart. HTTP and MCP verified revision 2 and rejected the
+revoked read key.
+[Hosted outage rehearsal](knowledge-component.md#rehearse-a-knowledge-outage-on-northflank).
+
 ## Knowledge database recovery
 
 The standalone PostgreSQL 17 acceptance restored a source archive into a

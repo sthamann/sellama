@@ -209,6 +209,25 @@ Revoked keys lose access on the next request. Document access continues to
 use its own scopes. Standalone deployments can use their own identity
 provider as described in the service README.
 
+## Rehearse a Knowledge outage on Northflank
+
+The isolated Northflank rehearsal on 10 November ran Core
+`e42fd0fc`, the private App Worker `687bbae8` and Knowledge `874534dd`.
+The shop used synthetic data. Core and Knowledge had separate PostgreSQL 17
+databases with restricted runtime roles.
+
+The installed app imported product revision 1. While Knowledge was paused,
+a product edit recorded a failed delivery and stayed queued for retry.
+The native simulated purchase completed during that outage. Replaying its
+confirmation returned the same order, stock fell from 40 to 39 once, and
+the next cart was empty.
+
+After Knowledge restarted, the worker delivered the queued event. A scoped
+key read revision 2 and verified the current German evidence through HTTP
+and MCP. A mismatched shop was rejected. Both transports rejected the
+reader after revocation, and the two app credentials were revoked too.
+The test services were paused afterward.
+
 ## Keep the shop running during a Knowledge outage
 
 Core owns products, stock and orders. It records catalog changes and queues

@@ -95,8 +95,14 @@ With the same two binary paths and a disposable PostgreSQL instance, run
 to verify the external payment path against the local Shopware Payments
 fixture. The test restarts Checkout after discarding the first confirmation.
 It checks that an unverified return leaves the payment ready and creates
-neither an invoice nor a mail. After verified capture, two Flows process
-`payment.captured`. Core creates one invoice and Connector records the same
+neither an invoice nor a mail. After verified capture, one Flow processes
+`payment.captured` with an invoice action followed by the mail action.
+Core creates one invoice and Connector records the same
 message ID that the SMTP fixture receives for the order. Repeating payment
 reconciliation and the refund preserves the original order, payment and
 invoice. The provider responses and SMTP recipient are local fixtures.
+
+The [private Northflank rehearsal](evidence/composed-release-rehearsal-2026-11-10.md#run-five-separate-workloads-on-northflank)
+also connected the original Connector image to the separate app worker and
+Payments simulator. Its SMTP receiver confirmed the same Message-ID as the
+Connector receipt. The test used a native purchase and a loopback inbox.

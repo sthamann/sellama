@@ -11,14 +11,16 @@ verified in the live shop.
 
 ## Release acceptance order
 
-1. [ ] **Complete the hosted Lumen pilot.** Verify refunds against the original
-   native and Storyfront PayPal Sandbox captures. For one fresh paid order,
-   match the order and verified capture to its Flow, invoice, Connector
-   receipt and arrival in a reachable test mailbox. Deliver a current catalog
-   change to Knowledge and read back its source revision. Verify that a
-   scoped Automation key can evaluate a rule and that revocation denies the
-   next request over HTTP and MCP.
-   [Observed pilot results](status.md#private-checkout-live-in-the-lumen-test-shop).
+1. [ ] **Complete the hosted Lumen pilot.**
+   - [x] Match both original PayPal Sandbox captures to completed refunds.
+     [Native and Storyfront pilot](status.md#private-checkout-live-in-the-lumen-test-shop).
+   - [ ] Match one fresh paid order to its verified capture, Flow, invoice,
+     Connector receipt and arrival in the reachable test mailbox.
+   - [ ] Read back the source revision of a delivered Lumen catalog update.
+     [Core delivery and Knowledge refresh are verified](status.md#knowledge-source-inventory).
+   - [ ] Evaluate a rule with a scoped Automation key and verify that
+     revocation denies the next request over HTTP and MCP.
+     [Hosted Automation admission](status.md#private-automation-preview-on-northflank).
 2. [ ] **Reproduce the assembled release.** Record exact component versions,
    images, API contracts and migration revisions. Start a clean composition
    from those inputs and verify an original receipt after response loss, a

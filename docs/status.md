@@ -25,10 +25,14 @@ cart retains its line items for the receipt.
 The native browser and the original Storyfront iframe then each completed a
 EUR 59.90 Shopware Payments purchase using the actual PayPal Sandbox. Both
 used the private Checkout route. The native cart was empty on return, and the
-Storyfront bag stayed empty after a full reload. Refund and the hosted Flow,
-invoice and mail trace remain to be verified for those orders.
-Both receipts use addresses under the reserved `example.test` domain. To verify
-delivery to a mailbox, run a separate test with a reachable test recipient.
+Storyfront bag stayed empty after a full reload. The hosted read-only check
+found both EUR 59.90 Sandbox captures, with zero refunded on each. For each
+order, the app worker completed the default order and payment Flows, which
+wrote internal notes. Neither order had an invoice. The order and capture
+events are therefore verified through the worker. Invoice and delivery
+require a Flow that actually performs those actions.
+Both orders use addresses under the reserved `example.test` domain. To verify
+delivery to a mailbox, use a separate test with a reachable recipient.
 [Pilot setup and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026).
 
 ## Independent Connector image live
@@ -82,8 +86,7 @@ JavaScript example use the same scoped operation. The existing database index
 serves the pages. Core catalog and checkout do not call this inventory.
 In the local composition, a native purchase completed while Knowledge was
 stopped. The queued product update was delivered after restart and the
-inventory showed the recovered revision. The hosted Knowledge connection
-remains a separate rollout step.
+inventory showed the recovered revision.
 [API and example](knowledge-component.md#audit-which-sources-arrived).
 
 The local Knowledge acceptance rejected a wrong database signing key at
@@ -98,15 +101,23 @@ the read key returned current evidence. Both revoked keys and keys from a
 different shop were denied. A withdrawal rejected after revocation stayed
 queued, and the next delivery after key rotation removed it from search.
 
-Northflank runs Core build `fast-winter-7173` at `d3a2042`. The new instance
+The initial Core identity rollout used Northflank build `fast-winter-7173`
+at `d3a2042`. That instance
 passed its readiness check with zero restarts. All 48 public health samples
 succeeded during rollout. Afterward, the native demo and Storyfront loaded,
 and an isolated demo cart passed quote, change, replay rejection and cleanup.
 Across 12 requests each, median client times were 30 ms for Core health,
 72 ms for the native demo and 65 ms for the Lumen Storyfront landing page.
 Capacity testing uses a separate load run.
-The identity route reports unavailable until configured. The hosted Knowledge
-service still needs deployment and an authenticated catalog delivery check.
+One private Knowledge replica is running on Northflank with its own PostgreSQL
+database, a restricted login and enforced row security. Through a private
+tunnel, liveness and database readiness returned 204, OpenAPI returned 200
+and an unauthenticated source request returned 401. Core and the app worker
+have the same pinned private catalog app destination. Core's identity
+endpoint is scoped to Lumen. The running Knowledge service reached the
+broker and rejected an unknown token. Successful catalog delivery still
+requires installing the app and granting Lumen's dedicated callback and
+delivery keys.
 [Core identity setup](knowledge-component.md#use-core-as-the-identity-provider-for-one-live-shop).
 
 ## Knowledge database recovery

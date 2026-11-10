@@ -127,10 +127,12 @@ start the restored runtime. Core and the separate Knowledge service also
 passed the local checkout and catalog delivery checks.
 
 For a planned move, pause Knowledge writes before the final backup.
-When recovering an older copy, keep it isolated until edits and withdrawals
-since the backup have been reconciled with Core and the original document
-sources. Use a newer backup or point-in-time recovery for newer document
-edits that exist only in Knowledge. Keep the archive encrypted because it
+When recovering an older copy, keep it isolated until edits, withdrawals
+and tenant removals since the backup are accounted for. Use point-in-time
+recovery, a newer backup or an authoritative change record for withdrawals
+recorded only in Knowledge. Core and the original documents can verify
+source content. Keep affected sources and tenants out of service until you
+can establish their current state. Keep the archive encrypted because it
 contains private content.
 [Operator commands for repository members](https://github.com/veyndo/knowledge#restore-knowledge-into-a-fresh-database).
 

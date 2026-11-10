@@ -404,6 +404,9 @@ The following are implementation tasks; existing UI foundations do not complete 
     evidence reads. The local test exercises native keys, wrong shops and
     scopes, and revocation.
     [Core identity setup](knowledge-component.md#use-core-as-the-identity-provider-for-one-live-shop).
+  - [x] Start the private Knowledge service on Northflank with its own restricted
+    database login. Verify readiness and Lumen-scoped identity routing.
+    [Hosted verification](status.md#knowledge-source-inventory).
   - [ ] Validate the installed delivery and service recovery in the hosted shop.
   - [x] Verify that the independent service starts only with working signed
     database scope, reports loss of readiness during a database outage and

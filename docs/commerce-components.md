@@ -4,9 +4,37 @@ For the developer entry point and the relationship between the product and the
 individual components, see [One shop, composable parts](one-shop-components.md).
 
 This is the authoritative task list for extracting independently usable Veyndo
-components. Updated 9 November 2026. Checked tasks name observed evidence;
-repository transfer, local tests, remote CI and hosted acceptance are separate.
-The full component extraction is in progress, not released.
+components. Updated 10 November 2026. Checkmarks record the specific result
+listed on each task. The complete extraction is in progress. See
+[the current status](status.md) for which parts are running and what has been
+verified in the live shop.
+
+## Release acceptance order
+
+1. [ ] **Complete the hosted Lumen pilot.** Verify refunds against the original
+   native and Storyfront PayPal Sandbox captures. For one fresh paid order,
+   match the order and verified capture to its Flow, invoice, Connector
+   receipt and arrival in a reachable test mailbox. Deliver a current catalog
+   change to Knowledge and read back its source revision. Verify that a
+   scoped Automation key can evaluate a rule and that revocation denies the
+   next request over HTTP and MCP.
+   [Observed pilot results](status.md#private-checkout-live-in-the-lumen-test-shop).
+2. [ ] **Reproduce the assembled release.** Record exact component versions,
+   images, API contracts and migration revisions. Start a clean composition
+   from those inputs and verify an original receipt after response loss, a
+   worker restart and a rollback. Match one order and one stock allocation
+   per purchase. [Release requirements](#complete-product-release-acceptance).
+3. [ ] **Measure hosted checkout under matched load.** Run the native and
+   independent routes under equivalent catalog and purchase traffic in an
+   isolated hosted test shop. Record latency percentiles, retries, callback
+   capacity and order and stock consistency before broadening the pilot.
+   [Local baseline](benchmarks.md#run-the-same-load-through-independent-checkout).
+4. [ ] **Release a complete external integration example.** Use the published
+   SDK for catalog and Checkout, show an interactive app card in the agent
+   conversation and complete a purchase. Verify that the example can be run
+   independently, that the host enforces the granted rights, and that the
+   purchase and receipt agree with the assembled Veyndo shop.
+   [External checkout baseline](checkout-component.md#external-reference-storefront).
 
 ## Current implementation priority
 
@@ -65,7 +93,7 @@ to native Veyndo through the same owner.
   - [ ] Test the same operations from a compatible external host and keep the
     generated OpenUI presentation separate from action authority.
 
-## Latest completed extraction, 6 November 2026
+## App runtime milestone, 6 November 2026
 
 Apps 0.29.0 / Data service 0.5.0 supplies bounded job history/detail and approved
 cancel/retry/resolve/archive through HTTP, MCP and the unchanged SDK, without Core.

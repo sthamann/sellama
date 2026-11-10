@@ -246,3 +246,34 @@ payment and mail traffic routed to fixtures. Then repeat the purchase,
 response-loss recovery, worker restart and routing rollback with the same
 assertions for order, stock, invoice and mail.
 [Northflank image retrieval](https://northflank.com/docs/v1/application/build/pull-images-from-Northflank).
+
+## Boot the original Core and Worker images
+
+The private Northflank release lab started the original Core build
+`joyful-turn-9296` and App Worker build `last-mine-6458` by their exact
+Northflank build IDs. Only the lab could reference the build service during
+setup. The two runtime containers had no public ports and used synthetic
+credentials. Their executable fingerprints matched the previously recorded
+Core `8bcfb2db…` and Worker `485b8511…`.
+
+The separate PostgreSQL 17 fixture database had zero tables in the public
+schema before Core started. After bootstrap it had 104 migration ledger
+entries, including `112-hosted-checkout-recovery`. Core returned HTTP 200 on
+`/health`. The fixture used Core's automatic bootstrap with the test database
+owner. The Worker ran in `serve` mode with `PROCESS_ROLE=app-worker`.
+
+| Test | Observed result |
+| --- | --- |
+| Discard the first successful native order confirmation and retry it | The retry returned the original order. The test shop had one order and stock moved from 80 to 79. |
+| Start the separate Worker | Its order Flow created exactly one invoice for the original order. |
+| Stop the Worker and place a second simulated order in a new fixture shop | Core returned the original second order on retry, decremented its stock once and left its invoice pending. |
+| Resume the pinned Worker and recheck both orders | Each shop still had one order, one stock decrement and one invoice for its original order. |
+
+The test used simulated native payment and the order Flow for invoice
+generation. Northflank denied the independent Checkout build reference
+from the lab with HTTP 403. The complete image-level purchase through
+independent Checkout, payment and Connector remains open, as does the
+production-style startup with separately restricted database roles.
+The lab's runtime services were paused after the run, and the temporary
+build access was removed.
+[Northflank cross-project build access](https://northflank.com/docs/v1/application/build/share-builds-across-projects).

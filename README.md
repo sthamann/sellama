@@ -17,11 +17,10 @@
 
 </div>
 
-Create a shop, design its storefront and build apps with agents and a visual
-workspace. Products, orders, knowledge and automation share one commerce core.
-People and agents use the same operations, permissions and versioned changes.
+Build a shop and extend it with agents and a visual app editor. People and
+agents use the same products, orders, permissions and versioned changes.
 
-**[Current status](docs/status.md) · [Release checklist](docs/commerce-components.md#release-acceptance-order)**
+**[Current status](docs/status.md) · [Release checklist](docs/commerce-components.md#release-acceptance-order) · [Benchmarks](docs/benchmarks.md)**
 
 ## What you can do
 

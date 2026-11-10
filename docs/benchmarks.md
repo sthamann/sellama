@@ -131,9 +131,10 @@ The native route on the updated Core completed its own 48-order run at a
 refund fixtures passed on that same Core build.
 [Relay limits and recovery contract](checkout-component.md#route-a-test-shop-through-private-checkout).
 
-[Previous isolated Northflank results](evidence/composed-release-rehearsal-2026-11-10.md#hosted-paired-load)
-used the earlier relay behavior. Repeat the hosted workload with the updated
-Core before using these numbers for a capacity decision.
+The [matched Northflank comparison](evidence/composed-release-rehearsal-2026-11-10.md#hosted-relay-admission-comparison)
+used the running Linux executables. Independent confirmation p95 fell from
+4,078.00 ms to 1,717.01 ms. Retries fell from 30 to 9. These are measurements
+from a single isolated job with simulated payments and loopback SMTP.
 
 ## Isolate the database
 

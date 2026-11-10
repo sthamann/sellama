@@ -173,3 +173,42 @@ of services with their own deployments and a separate provider callback
 capacity test. An executable checksum covers the program file used here.
 It does not cover the libraries, startup configuration or filesystem of
 its production image.
+
+### Hosted relay admission comparison
+
+The follow-up used the same isolated Northflank job plan and PostgreSQL
+settings as above. The Core executable came from running build
+`workable-river-5946` at [`9ed1c0bb`](https://github.com/veyndo/veyndo/commit/9ed1c0bb2613a2ad1eca9847c2d4e1b14f987ab7).
+Its SHA-256 was
+`8bcfb2db2ec2f9aa6c61950b863db5a871a0cdc15ad1e887e272164a1004c992`.
+The job checked this fingerprint before execution. It used the original
+Core executable from the preceding table as the baseline and ran the
+same Worker, Checkout and Connector executables for all three arms. The
+Worker stayed on `687bbae8`, Checkout on `eaa34f27`, and Connector on
+`fc36cad5`. Set `APP_WORKER_TEST_BINARY` to an absolute Worker binary
+path to reproduce that distinction with the existing test.
+
+Each arm used a fresh test shop, 200,000 synthetic products, 48 purchase
+confirmations, 240 catalog reads, 16 assistant requests and a worker
+restart. The new Core runs in the public shop. The test workloads ran in
+separate databases inside the isolated job with simulated payments and
+loopback SMTP.
+
+| Route and Core | Confirmation p50 | Confirmation p95 | Confirmation p99 | Orders with retries | Retries |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Independent, before | 269.03 ms | 4,078.00 ms | 4,202.43 ms | 11 / 48 | 30 |
+| Independent, with bounded waiting | 476.62 ms | 1,717.01 ms | 1,924.65 ms | 9 / 48 | 9 |
+| Native, updated Core | 226.34 ms | 298.18 ms | 380.77 ms | 0 / 48 | 0 |
+
+Each purchase committed one order and one stock decrement and produced
+one invoice and one SMTP fixture receipt. The independent p95 improved
+by 58% while its median rose. The test includes the buyer's retry wait.
+The updated Core also passed route pause, worker restart, lost
+confirmation recovery and provider-fixture capture and refund. Local
+Chromium passed the desktop pre-dispatch retry and mobile lost response
+scenarios, preserving the original receipt and empty cart after reload.
+
+The isolated run `fb6f5c9a-b2c7-4629-b1fe-80e0710347ae` completed at
+13:02 UTC. It used the production executables with fixture credentials.
+Separate hosted service placement and real provider callback load remain
+open for acceptance.

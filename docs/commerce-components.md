@@ -32,11 +32,10 @@ verified in the live shop.
    isolated hosted test shop. Record latency percentiles, retries, callback
    capacity and order and stock consistency before broadening the pilot.
    The isolated Northflank job completed the paired purchase workload.
-   The [local follow-up](benchmarks.md#absorb-a-short-burst-before-refusing-a-relay-request)
-   reduced retries without increasing the active relay limit. Repeat the
-   comparison with the new hosted build. Separate deployments and provider
+   The [matched Northflank retest](evidence/composed-release-rehearsal-2026-11-10.md#hosted-relay-admission-comparison)
+   reduced p95 and retries with the new live Core and the existing Checkout,
+   Worker and Connector executables. Separate service placement and provider
    callback capacity remain open.
-   [Hosted paired load](evidence/composed-release-rehearsal-2026-11-10.md#hosted-paired-load).
 4. [ ] **Release a complete external integration example.** Use the published
    SDK for catalog and Checkout, show an interactive app card in the agent
    conversation and complete a purchase. Verify that the example can be run
@@ -876,6 +875,9 @@ The following are implementation tasks; existing UI foundations do not complete 
   - [x] Repeat the same recovery and paired load with the running Linux
     executables in an isolated Northflank job.
     [Hosted recovery checks](evidence/composed-release-rehearsal-2026-11-10.md#northflank-rehearsal-with-deployed-executables).
+  - [x] Compare the previous and current Core with the same deployed worker,
+    Checkout and Connector after introducing bounded relay waiting.
+    [Northflank comparison](evidence/composed-release-rehearsal-2026-11-10.md#hosted-relay-admission-comparison).
 - [ ] SYS-07 Keep README, website, component references, examples and current status
   synchronized with released artifacts and actual acceptance evidence.
 

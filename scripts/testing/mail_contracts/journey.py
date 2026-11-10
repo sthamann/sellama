@@ -267,8 +267,9 @@ class NativeMailJourney:
             del worker_env["APP_WORKER_ENABLED"]
             worker_log = open(self.temp.name + "/app-worker.log", "w")
             self.addCleanup(worker_log.close)
+            worker_binary = os.getenv("APP_WORKER_TEST_BINARY", str(ROOT / "target/debug/veyndo"))
             def start_worker():
-                process = subprocess.Popen([str(ROOT / "target/debug/veyndo")], cwd=ROOT,
+                process = subprocess.Popen([worker_binary], cwd=ROOT,
                                            env=worker_env, stdout=worker_log, stderr=worker_log)
                 self.addCleanup(stop, process)
                 return process

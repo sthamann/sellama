@@ -121,7 +121,12 @@ confirmation p95 from 2,047.84 ms to 129.65 ms in a matched 48-order test.
 All 48 purchases completed without a retry. Median latency went from 41.62 ms
 to 107.22 ms. Each purchase still produced one order, stock decrement, invoice
 and loopback SMTP delivery. [Comparison and scope](benchmarks.md#absorb-a-short-burst-before-refusing-a-relay-request).
-The equivalent run with the new Northflank build is pending.
+Core `9ed1c0bb` is live on Northflank. The isolated comparison using
+the running Linux executables reduced independent confirmation p95 from
+4,078.00 ms to 1,717.01 ms and retries from 30 to 9. The native control
+completed at 298.18 ms p95 with zero retries. All three runs produced one
+order, stock decrement, invoice and loopback SMTP message per purchase.
+[Hosted versions, method and results](evidence/composed-release-rehearsal-2026-11-10.md#hosted-relay-admission-comparison).
 
 ## Knowledge source inventory
 

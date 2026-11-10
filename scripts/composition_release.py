@@ -117,11 +117,13 @@ def request(cli, project, *arguments):
     return json.loads(result.stdout)
 
 
-def core_candidate(lock, build, builder, logs, commit, directory):
+def component_candidate(lock, name, build, builder, logs, commit, directory):
     """Prepare an exact build while retaining every peer and reviewed schema input."""
-    current = lock["components"]["core"]
+    require(name in REPOSITORIES and name != "automation",
+            "Candidate requires a build-backed component")
+    current = lock["components"][name]
     require(GIT_SHA.fullmatch(commit) and commit != current["commit"],
-            "Candidate must name a new exact Core commit")
+            "Candidate must name a new exact component commit")
     require(build.get("status") == "SUCCESS" and build.get("sha") == commit,
             "Candidate build did not successfully build the requested commit")
     require(builder.get("id") == current["build_service"]
@@ -129,12 +131,17 @@ def core_candidate(lock, build, builder, logs, commit, directory):
             and builder.get("vcsData", {}).get("projectUrl") == current["repository"],
             "Candidate builder has a different source owner")
     candidate = copy.deepcopy(lock)
-    row = candidate["components"]["core"]
+    row = candidate["components"][name]
     row.update(commit=commit, build_id=build["id"], digest=manifest_digest(logs))
     validate(candidate)
     # Schema changes require a separately reviewed lock and migration boundary.
     verify_source(row, directory)
     return candidate
+
+
+def core_candidate(lock, build, builder, logs, commit, directory):
+    """Compatibility entry point for existing Core release tooling."""
+    return component_candidate(lock, "core", build, builder, logs, commit, directory)
 
 
 def verify_source(row, directory):
@@ -187,27 +194,34 @@ def verify_hosted(lock, cli, project):
         list(pool.map(verify, lock["components"].items()))
 
 
-def prepare_core(lock, args):
+def prepare_component(lock, args, name, build_id):
+    require(name in REPOSITORIES and name != "automation",
+            "Candidate requires a build-backed component")
     require(args.northflank and args.commit and args.output,
-            "Core preparation requires --northflank, --commit and --output")
+            "Preparation requires --northflank, --commit and --output")
     sources = dict(selection.split("=", 1) for selection in args.source)
-    require("core" in sources, "Core preparation requires --source core=CHECKOUT")
-    require(RESOURCE.fullmatch(args.prepare_core), "Invalid candidate build ID")
+    require(name in sources, f"Preparation requires --source {name}=CHECKOUT")
+    require(RESOURCE.fullmatch(build_id), "Invalid candidate build ID")
     verify_hosted(lock, args.northflank, args.project)
-    service = lock["components"]["core"]["build_service"]
+    service = lock["components"][name]["build_service"]
     builder = request(args.northflank, args.project, "--service", service)
     build = request(args.northflank, args.project, "build", "--service", service,
-                    "--build", args.prepare_core)
+                    "--build", build_id)
     logs = request(args.northflank, args.project, "build-logs", "--service", service,
-                   "--build", args.prepare_core, "--lineLimit", "300",
+                   "--build", build_id, "--lineLimit", "300",
                    "--textIncludes", "pushing manifest for")
-    candidate = core_candidate(lock, build, builder, logs, args.commit, sources["core"])
-    require(candidate["components"]["core"]["build_id"] == args.prepare_core,
+    candidate = component_candidate(lock, name, build, builder, logs, args.commit, sources[name])
+    require(candidate["components"][name]["build_id"] == build_id,
             "Candidate response returned a different build")
     with Path(args.output).open("x") as output:
         json.dump(candidate, output, indent=2)
         output.write("\n")
-    print(f"Core candidate prepared: {args.prepare_core}; no deployment was changed")
+    print(f"{name} candidate prepared: {build_id}; no deployment was changed")
+
+
+def prepare_core(lock, args):
+    """Keep the existing CLI and callers on the same component preparation path."""
+    return prepare_component(lock, args, "core", args.prepare_core)
 
 
 def main():
@@ -217,18 +231,25 @@ def main():
     parser.add_argument("--source", action="append", default=[], metavar="COMPONENT=CHECKOUT",
                         help="check pinned commits and schema inputs in a local component repository")
     parser.add_argument("--project", default="vendune")
-    parser.add_argument("--prepare-core", metavar="BUILD", help="prepare one exact successful Core build")
+    preparation = parser.add_mutually_exclusive_group()
+    preparation.add_argument("--prepare-core", metavar="BUILD", help="prepare one exact successful Core build")
+    preparation.add_argument("--prepare-component", metavar="COMPONENT=BUILD",
+                             help="prepare one exact successful build-backed component")
     parser.add_argument("--commit", metavar="SHA", help="expected candidate source commit")
     parser.add_argument("--output", metavar="FILE", help="new candidate file; existing files are rejected")
     args = parser.parse_args()
     try:
-        require(args.prepare_core or not (args.commit or args.output),
-                "Use --commit and --output only with --prepare-core")
+        require(args.prepare_core or args.prepare_component or not (args.commit or args.output),
+                "Use --commit and --output only when preparing a component")
         lock = json.loads(args.lock.read_text(), object_pairs_hook=unique_keys)
         validate(lock)
         verify_sources(lock, args.source)
         if args.prepare_core:
             prepare_core(lock, args)
+        elif args.prepare_component:
+            name, separator, build_id = args.prepare_component.partition("=")
+            require(separator and build_id, "Use --prepare-component COMPONENT=BUILD")
+            prepare_component(lock, args, name, build_id)
         elif args.northflank:
             verify_hosted(lock, args.northflank, args.project)
     except (ValueError, TypeError, KeyError, OSError, subprocess.TimeoutExpired) as error:

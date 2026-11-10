@@ -283,6 +283,10 @@ Each component task remains open until these checks are demonstrated for it.
     Reject changed schema inputs and overwriting a candidate. Reuse the same
     verifier for post-deployment comparison.
     [Candidate preparation](cloud-releases.md#prepare-a-core-release-candidate).
+  - [x] Apply the same candidate preparation to all seven build-backed owners.
+    Preserve the other seven artifacts, enforce source and schema ownership,
+    and reject imported-image substitution. Thirteen targeted release tests pass.
+    [Component candidates](cloud-releases.md#prepare-a-core-release-candidate).
   - [ ] Make the lock an automatic admission check for the complete deployment
     workflow and extend it to the other release profiles.
 - [ ] FND-09 Build component CI and complete-product CI; short affected checks per
@@ -924,9 +928,11 @@ The following are implementation tasks; existing UI foundations do not complete 
     Verify German product naming, original bag clearing and persistence after
     reload, the native Admin order, stock decrement and `order.placed` entry.
     [Cart release acceptance](status.md#shared-cart-contract-on-northflank).
-  - [ ] Reflect current native stock in the original Storyfront add control.
-    The zero-stock demo article still offered add-to-bag; final purchase
-    correctly rejected it. Preserve the authoritative purchase check.
+  - [x] Reflect current native stock in the original Storyfront add control.
+    The public route now disables purchase at zero stock, re-enables after a
+    native restock without republishing, and disables again after purchase.
+    Verify embedded order, empty bag after reload, native stock and order Flow.
+    [Current availability acceptance](status.md#current-stock-in-original-storyfront).
 - [ ] RPT-01 Extract metric definitions, consent-bound ingestion/projections and
   dashboard configuration without a second financial order ledger.
 - [ ] RPT-02 Expose API/MCP/SDK and embedded cards; test revenue periods, currency,

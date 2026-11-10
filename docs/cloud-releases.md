@@ -79,6 +79,21 @@ python3 scripts/composition_release.py --northflank northflank \
   --commit FULL_SOURCE_COMMIT --output /tmp/veyndo-candidate.json
 ```
 
+The same path supports every build-backed component in this profile, including
+Experience, Checkout, Knowledge, Connectors, Payments and the App worker:
+
+```sh
+python3 scripts/composition_release.py --northflank northflank \
+  --source experience=../experience \
+  --prepare-component experience=CANDIDATE_BUILD_ID \
+  --commit FULL_SOURCE_COMMIT --output /tmp/veyndo-experience-candidate.json
+```
+
+Only the selected component changes. The other seven artifacts and all
+compatibility contracts are preserved. The imported Automation image keeps its
+separate exact import identity; a build candidate cannot replace that protocol.
+The existing `--prepare-core` command delegates to this same implementation.
+
 The candidate source must contain the same reviewed schema objects and
 migration boundary. A schema change needs a separate schema and rollout
 review. Wrong source owners, unfinished builds, mismatched commits, ambiguous
@@ -106,6 +121,11 @@ prepared against the previous eight live artifacts before migration. The
 same candidate file passed the eight-service and source/schema comparison
 after rollout. The public embedded demo purchase and return also passed.
 [Hosted Cart acceptance](status.md#shared-cart-contract-on-northflank).
+
+For Experience `643010e5`, `--prepare-component` checked build
+`honest-holiday-8885` against the previous eight hosted artifacts and the
+unchanged storage schema before rollout. Its candidate retains Core `efe8928f`
+and all other peers. [Original stock refresh](status.md#current-stock-in-original-storyfront).
 
 After a repository transfer, check the workflow trigger and the build service
 separately. If the trigger still points to the previous owner, update its

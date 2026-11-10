@@ -26,6 +26,16 @@ An extracted DTO carries data. Its host still admits the caller and
 loads the current shop and channel context. An API adapter or app gateway
 must not become another price, order or inventory owner.
 
+## Original Storyfront availability
+
+The private original renderer's `commerce-availability.ts` adapts current native
+catalogue reads into its existing sold-out state. It never stores inventory.
+The same tenant/channel admission used by catalog and checkout supplies exact
+SKU identities. Current availability participates in the HTML cache identity;
+published design remains independently cached. The eventual order still runs
+through Core's locked stock and commit transaction.
+[Public rollout and tests](status.md#current-stock-in-original-storyfront).
+
 ## Shared cart contract
 
 `veyndo-commerce::cart` owns Item and the persisted Cart data contract.

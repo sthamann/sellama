@@ -138,6 +138,9 @@ built candidate. The candidate replaces one exact Core artifact and retains
 the seven peer artifacts and reviewed schema inputs. This avoids a lock that
 must contain its own future commit. Automatic pipeline admission remains
 tracked separately. [Release candidates](cloud-releases.md#prepare-a-core-release-candidate).
+The same candidate path now covers every build-backed component and retains
+its seven peers, source owner and reviewed schema inputs. The imported
+Automation image retains its separate immutable import contract.
 
 Fresh installations use Rust/Axum, ordinary PostgreSQL 17 and private Qdrant
 v1.16.3. PostgreSQL owns commerce records, knowledge relations, source vectors

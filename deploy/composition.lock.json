@@ -92,10 +92,10 @@
     "experience": {
       "service": "vendune-experience",
       "repository": "https://github.com/veyndo/experience",
-      "commit": "465f0a97f72c3795198e02ccdc594162b535614e",
-      "digest": "sha256:e47c2f943dabb3055e99edb03b85531a7ab874240f7e8cc4ab0c36eb1eaafd96",
+      "commit": "643010e57f5aa4bbf9531535c80af12cdd887a47",
+      "digest": "sha256:e99b7a1ef8f169e30403e51b65f7185dae090666d1d608ad824d6e91c16f618f",
       "build_service": "vendune-experience",
-      "build_id": "guided-eggs-5114",
+      "build_id": "honest-holiday-8885",
       "schema": {
         "owner": "experience",
         "inputs": {

@@ -69,6 +69,11 @@ flowchart LR
 
 The four public development repositories are linked below. The other links explain the component's contract and its place in the complete shop. Some have separate builds or access-controlled source, and some are still domains in the product repository. The [implementation plan](commerce-components.md) tracks each extraction and the [current status](status.md) records what has been released and tested.
 
+The same release checker prepares a pinned update for any build-backed
+component while retaining every peer. A presentation update does not move
+stock, pricing or order ownership into the frontend.
+[Component release procedure](cloud-releases.md#prepare-a-core-release-candidate).
+
 The [machine-readable component catalog](https://www.veyndo.ai/docs/components.json)
 lists verified public release tags and their commits, along with the exact
 source and image versions recorded for the hosted pilot. Each entry links

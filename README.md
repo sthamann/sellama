@@ -27,12 +27,12 @@ agents use the same products, orders, permissions and versioned changes.
 | Work | What connects it |
 | --- | --- |
 | **Work with an agent** | Use the contextual sidebar to answer questions, open native views and compose working UIs. [AI workspace](docs/agentic-workspace.md#a-connected-conversation-surface), [catalogue](docs/product-management.md#preparing-a-catalogue-together). |
-| **Bring your shop** | The [Migration Assistant](docs/agentic-migration.md) connects versioned source profiles, saved background inspection, readable variant review and native imports into private previews. |
+| **Bring your shop** | Inspect sources, review variants and import into private previews with the [Migration Assistant](docs/agentic-migration.md). |
 | **Build the business** | Describe an app with forms, uploads, settings and views. Connect materials and dimensions to company approval, checkout and reorder. Visual editing and coding agents share one versioned definition. [App Studio](docs/app-studio.md), [configurator](docs/furniture-configurator.md), [object extensions](docs/app-core-extensions.md). |
 | **Shape the shop** | Design shop pages and app placements on one zoomable canvas. Drag elements, retain drafts and compare AI proposals. Add multilingual image captions and [3D product models with variant materials](docs/product-3d-models.md). Storyfront powers Experiences. [Visual design](docs/personal-workspace-and-shop-design.md). |
 | **Automate the work** | Repeat reviewed work as a Flow and compare rule drafts with recorded order inputs before saving. [Automation](docs/automation.md), [reusable work](docs/personal-workspace-and-shop-design.md#repeat-completed-work-as-a-flow), [rule comparison](docs/rule-history-comparison.md). |
 | **Shop by intent** | Describe a gift, budget or comparison; edit the visual selection with real product cards, then use native variants, app configuration and checkout. [Shopper workspace](docs/ui-experience.md#standard-storefront-and-customer-account). |
-| **Test before release** | Let fictional customers try private proposals with native baskets and simulated purchases. Review outcomes and configuration freshness, then open the interactive shop preview before publication. [Customer simulator](docs/customer-scenarios.md). |
+| **Test before release** | Let fictional customers test private proposals with native baskets and simulated purchases. Review outcomes and preview before publication. [Customer simulator](docs/customer-scenarios.md). |
 | **See what works** | Build sales and conversion reports. [Merchant reports](docs/merchant-reports.md). |
 | **Stay in control** | Current roles, private sandboxes, immutable versions, saved-data upgrade checks and selected publication govern changes. [Security](docs/security.md). |
 
@@ -71,7 +71,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 
 | Area | Start here |
 | --- | --- |
-| AI Commerce Components | [Component map](docs/one-shop-components.md) · [Checkout integration](docs/checkout-component.md#commerce-host-ports-in-core) · [Knowledge](docs/knowledge-component.md) · [Automation](docs/automation-component.md) · [Connectors](docs/connector-component.md) · [Hosted versions](docs/cloud-releases.md#verify-the-hosted-lumen-composition) |
+| AI Commerce Components | [Component map](docs/one-shop-components.md) · [Checkout integration](docs/checkout-component.md#commerce-host-ports-in-core) · [Knowledge](docs/knowledge-component.md) · [Automation](docs/automation-component.md) · [Connectors](docs/connector-component.md) · [Hosted versions](docs/cloud-releases.md#verify-the-hosted-lumen-composition) · [Update one component](docs/cloud-releases.md#prepare-a-core-release-candidate) |
 | AI shopping channels and inward shop imports | [Cart transfer, consent and shop imports](docs/agentic-commerce.md) |
 | Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |

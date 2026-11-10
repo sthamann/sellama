@@ -13,7 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from composition_release import (
-    LOCK, compare, core_candidate, prepare_core, unique_keys, validate, verify_source, verify_sources,
+    LOCK, compare, component_candidate, core_candidate, prepare_component, prepare_core, unique_keys, validate, verify_source, verify_sources,
 )
 
 
@@ -171,6 +171,57 @@ class CompositionReleaseTest(unittest.TestCase):
                         prepare_core(self.lock, args)
                         self.assertEqual(json.loads(output.read_text())["components"]["core"]["commit"],
                                          commit)
+
+    def test_each_build_backed_component_preserves_every_other_owner_and_contract(self):
+        for name, current in self.lock["components"].items():
+            if name == "automation":
+                continue
+            with self.subTest(component=name):
+                build = {"id": "isolated-build", "status": "SUCCESS", "sha": "7" * 40}
+                builder = {"id": current["build_service"], "buildSource": "git",
+                           "vcsData": {"projectUrl": current["repository"]}}
+                logs = [{"log": "pushing manifest for registry/test@sha256:" + "8" * 64}]
+                before = copy.deepcopy(self.lock)
+                with patch("composition_release.verify_source") as source:
+                    candidate = component_candidate(self.lock, name, build, builder, logs,
+                                                    build["sha"], "source")
+                    source.assert_called_once_with(candidate["components"][name], "source")
+                self.assertEqual(before, self.lock)
+                self.assertEqual(candidate["contracts"], self.lock["contracts"])
+                self.assertEqual(candidate["components"][name]["schema"], current["schema"])
+                for peer in self.lock["components"]:
+                    if peer != name:
+                        self.assertEqual(candidate["components"][peer], self.lock["components"][peer])
+
+    def test_component_preparation_rejects_imports_foreign_builders_and_missing_source(self):
+        build, builder, logs, commit = self.candidate_inputs()
+        for name in ("automation", "unknown"):
+            with self.assertRaisesRegex(ValueError, "build-backed"):
+                component_candidate(self.lock, name, build, builder, logs, commit, "fixture")
+        with self.assertRaisesRegex(ValueError, "source owner"):
+            component_candidate(self.lock, "experience", build, builder, logs, commit, "fixture")
+        args = SimpleNamespace(northflank="fixture", commit=commit, output="unused", source=["core=fixture"])
+        with self.assertRaisesRegex(ValueError, "experience=CHECKOUT"):
+            prepare_component(self.lock, args, "experience", "candidate")
+
+    def test_component_candidate_is_written_only_after_all_baseline_peers_match(self):
+        row = self.lock["components"]["experience"]
+        build = {"id": "experience-candidate", "status": "SUCCESS", "sha": "7" * 40}
+        builder = {"id": row["build_service"], "buildSource": "git",
+                   "vcsData": {"projectUrl": row["repository"]}}
+        logs = [{"log": "pushing manifest for registry/test@sha256:" + "8" * 64}]
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "candidate.json"
+            args = SimpleNamespace(northflank="fixture", project="fixture", commit=build["sha"],
+                                   output=output, source=["experience=fixture"])
+            with patch("composition_release.verify_hosted", side_effect=ValueError("peer drift")):
+                with self.assertRaisesRegex(ValueError, "peer drift"):
+                    prepare_component(self.lock, args, "experience", build["id"])
+            self.assertFalse(output.exists())
+            with patch("composition_release.verify_hosted"), patch("composition_release.verify_source"), \
+                    patch("composition_release.request", side_effect=[builder, build, logs]):
+                prepare_component(self.lock, args, "experience", build["id"])
+            self.assertEqual(json.loads(output.read_text())["components"]["experience"]["commit"], build["sha"])
 
 
 if __name__ == "__main__":

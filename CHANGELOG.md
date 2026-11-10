@@ -1,5 +1,17 @@
 # Changelog
 
+## Current native stock in original Storyfront
+
+- Refresh exact tenant and channel availability outside published design caches,
+  reusing original sold-out controls and native variant admission.
+- Include current stock in the HTML cache identity and coalesce bounded reads
+  for one second. Core remains the stock and order authority.
+- Validate public restock, embedded simulated order, return, empty bag after
+  reload, native stock consumption, order Flow and manual invoice creation.
+- Extend immutable release candidates to all seven build-backed components,
+  preserving other artifacts, contract edges and reviewed schema inputs.
+
+
 ## Shared product contracts and hosted component versions
 
 - Move the native Product snapshot and Tier DTO into the transport-free

@@ -31,11 +31,14 @@ pub(crate) async fn enqueue(a: &App, t: &str, document: Option<&str>) -> Result<
     Ok(count)
 }
 pub(crate) async fn index_once(a: &App) -> Result<bool> {
-    let advanced = super::generations::advance(a).await?;
     let model = model();
+    let model_revision = super::generations::model_revision();
+    let advanced = super::generations::advance(a, &model, model_revision).await?;
     let mut tx = a.db.begin().await?;
     let jobs = sqlx::query(include_str!("index_claim.sql"))
         .bind(uid())
+        .bind(&model)
+        .bind(model_revision)
         .fetch_all(&mut *tx)
         .await?;
     tx.commit().await?;
@@ -87,6 +90,21 @@ pub(crate) async fn index_once(a: &App) -> Result<bool> {
         Ok(vectors) => {
             for ((job, text), vector) in sources.into_iter().zip(vectors) {
                 let mut tx = a.db.begin().await?;
+                // Lock the generation before publishing a result from the external provider.
+                // A newer worker can advance it while inference is running.
+                let generation_current: bool = sqlx::query_scalar(
+                    "SELECT EXISTS(SELECT 1 FROM embedding_generations
+                     WHERE tenant=coalesce((SELECT live_tenant FROM shop_environments WHERE tenant=$1),$1)
+                       AND model=$2 AND model_revision=$3 FOR SHARE)",
+                )
+                .bind(&tenant)
+                .bind(&model)
+                .bind(model_revision)
+                .fetch_one(&mut *tx)
+                .await?;
+                if !generation_current {
+                    break;
+                }
                 // Match source mutation lock order (source first, queue second).
                 if job.get::<String, _>("kind") == "product" {
                     sqlx::query("SELECT id FROM products WHERE tenant=$1 AND id=$2 FOR SHARE")

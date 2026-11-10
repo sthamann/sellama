@@ -488,8 +488,11 @@ The following are implementation tasks; existing UI foundations do not complete 
   - [x] Deliver live product updates from Lumen through the installed app.
     Verify the separately scoped Core callback and private refresh.
     [Hosted verification](status.md#knowledge-source-inventory).
-  - [ ] Read the resulting revision through the hosted evidence API and verify
-    queued delivery recovery after a hosted Knowledge outage.
+  - [x] Verify queued delivery recovery and read the resulting revision through
+    HTTP and MCP after a Knowledge outage in an isolated Northflank shop.
+    [Hosted outage rehearsal](knowledge-component.md#rehearse-a-knowledge-outage-on-northflank).
+  - [ ] Read the previously delivered Lumen revision with an independently
+    scoped evidence-consumer key.
   - [x] Verify that the independent service starts only with working signed
     database scope, reports loss of readiness during a database outage and
     recovers without a process restart.
@@ -510,6 +513,16 @@ The following are implementation tasks; existing UI foundations do not complete 
   [Local acceptance and runnable example](knowledge-component.md#import-your-own-catalog-and-documents-with-the-sdk).
 - [ ] KNOW-07 Prove update/delete/reindex/restart/model-version handling without
   paid provider calls; keep real-provider acceptance separate.
+  - [x] Exercise source edits and withdrawal, search rebuild and restart with
+    the standalone service on PostgreSQL. Exercise a sequential embedding
+    model change in Core with real Qdrant and a local test endpoint.
+    [Lifecycle acceptance](knowledge-component.md#verify-source-and-model-changes).
+  - [x] Locally verify a rolling model change with overlapping Core workers.
+    A newer revision stays authoritative, the catalogue reindexes and new
+    edits still reach the new model. Search remains available.
+    [Operator procedure](knowledge-component.md#change-the-core-embedding-model).
+  - [ ] Rehearse the rolling change on the deployed Core images and verify
+    the provider configuration separately.
 - [ ] KNOW-08 Switch Veyndo to the same released service and pass existing
   knowledge, merchant advice, app discovery and source-withdrawal regressions.
 

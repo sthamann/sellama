@@ -3706,8 +3706,8 @@
     },
     "src/cognition/generations.rs": {
       "status": "unproved",
-      "sha256": "55c108a2f49568eeb74593d35fc4f97e2a02d1597b85f35a2abcb1e41a0c250b",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "cb58e13e1fbaae7637676a91ee2d3551981f5344d8ed21304430419db280a226",
+      "review": "Codex source review: the per-shop model revision only advances; queue claims bind the live shop's active model and revision, and result publication locks that generation before checking the existing source and lease fences. The additive migration preserves revision zero for existing installations. The PostgreSQL and Qdrant test overlapped two Core processes, released an old provider response after takeover, reindexed 150 products and verified current edits and search. SQL and worker code remain unproved; no extracted policy changed."
     },
     "src/cognition/guardrails.rs": {
       "status": "reviewed-binding",
@@ -3716,8 +3716,8 @@
     },
     "src/cognition/indexing.rs": {
       "status": "unproved",
-      "sha256": "d34c70c215653c96886a4f7a4d39b5ec57008f5dbc48d3e0b2e377c2bcd48c04",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "c2e35f34ffd201b1084fb42e5cca15f69e005b63338679d35b0e5d11ca18aa08",
+      "review": "Codex source review: the per-shop model revision only advances; queue claims bind the live shop's active model and revision, and result publication locks that generation before checking the existing source and lease fences. The additive migration preserves revision zero for existing installations. The PostgreSQL and Qdrant test overlapped two Core processes, released an old provider response after takeover, reindexed 150 products and verified current edits and search. SQL and worker code remain unproved; no extracted policy changed."
     },
     "src/cognition/mod.rs": {
       "status": "unproved",
@@ -4576,8 +4576,8 @@
     },
     "src/migrations/recent_schema.rs": {
       "status": "unproved",
-      "sha256": "a8b37c4c1faf1526142969a429d5faf7f9ed6270e13172c751fc809c6b1af4d5",
-      "review": "Reviewed the hosted checkout recovery binding and additive migration. Signed PostgreSQL HTTP tests reject foreign tenant, unregistered origin, forged key and expired recovery, enforce one-time cart transfer and show concurrent purchase and reopen preserve the original order or invalidate the old token. Existing extracted policy proofs are unchanged; SQL and hosted provider behavior are outside Lean."
+      "sha256": "75a35e40b2fa8eaa36b3e43eeb41f29f29853b7f8d664609f734ac092e93d5d8",
+      "review": "Codex source review: the per-shop model revision only advances; queue claims bind the live shop's active model and revision, and result publication locks that generation before checking the existing source and lease fences. The additive migration preserves revision zero for existing installations. The PostgreSQL and Qdrant test overlapped two Core processes, released an old provider response after takeover, reindexed 150 products and verified current edits and search. SQL and worker code remain unproved; no extracted policy changed."
     },
     "src/migrations/schema.rs": {
       "status": "unproved",
@@ -6114,6 +6114,10 @@
       "sha256": "7282172a7c6edceedc6e639d9e8592d389c32af45ef1f8362dab522a67f806de",
       "review": "Reviewed the hosted checkout recovery binding and additive migration. Signed PostgreSQL HTTP tests reject foreign tenant, unregistered origin, forged key and expired recovery, enforce one-time cart transfer and show concurrent purchase and reopen preserve the original order or invalidate the old token. Existing extracted policy proofs are unchanged; SQL and hosted provider behavior are outside Lean."
     },
+    "migrations/113-embedding-model-revisions.sql": {
+      "sha256": "5ab0588edad3518c2175cbf1bead0cf5e164c64f20ae62b65a7872e804c9ac6d",
+      "review": "Codex source review: the per-shop model revision only advances; queue claims bind the live shop's active model and revision, and result publication locks that generation before checking the existing source and lease fences. The additive migration preserves revision zero for existing installations. The PostgreSQL and Qdrant test overlapped two Core processes, released an old provider response after takeover, reindexed 150 products and verified current edits and search. SQL and worker code remain unproved; no extracted policy changed."
+    },
     "proof/Commerce/Claims/Access.lean": {
       "sha256": "f884142fe393e6ea189473d8e02add783f80cef3e45f08d4d0d8e01a57f0a205",
       "review": "Split unchanged extracted policies and theorem bodies by domain; bind exact existing planning/private-preview admission; prove sequential integer allocations and denial after limit reduction; add u128 edge regressions and closed module inventory."
@@ -6239,8 +6243,8 @@
       "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
     },
     "src/cognition/index_claim.sql": {
-      "sha256": "ce13faa6c8537437ec20aaf3fd11bfd77583ca7071367023d5ab791adce86be5",
-      "review": "Reviewed bounded tenant-scoped embedding intake/model-generation cursors, revision/lease fencing and fair vector retry drain; pooled geometry-checked Qdrant hydration and admitted reranking; current-right read tools, structured protocols and SSE transport; exact source quotation/review/public compilation/signatures; transactional price corridors and non-compounding daily autonomy; consent-bound assignments/preferences and delayed cached native-payment readout including stop/withdrawal invalidation. New migration RLS/composite links and extracted predicate consumers reviewed. Native HTTP/PG/Qdrant/provider/UI regressions cover contracts; semantic quality, statistical assumptions, SQL, network and surrounding Rust remain unproved."
+      "sha256": "e15887aeaec732b29e7407c480b0461661cc867242fad4ba7c53f0ba369acfb0",
+      "review": "Codex source review: the per-shop model revision only advances; queue claims bind the live shop's active model and revision, and result publication locks that generation before checking the existing source and lease fences. The additive migration preserves revision zero for existing installations. The PostgreSQL and Qdrant test overlapped two Core processes, released an old provider response after takeover, reindexed 150 products and verified current edits and search. SQL and worker code remain unproved; no extracted policy changed."
     },
     "src/commerce/external_order_labels.sql": {
       "sha256": "3f131887429e16594a5d0354e0194d49191ee4bf857d732780da5324c53e6d7a",

@@ -209,6 +209,15 @@ stopped. The queued product update was delivered after restart and the
 inventory showed the recovered revision.
 [API and example](knowledge-component.md#audit-which-sources-arrived).
 
+Local lifecycle checks also restored Knowledge into a fresh PostgreSQL
+database and rebuilt search. A separate Core run changed the embedding model
+from three to five dimensions and verified Qdrant indexing, document edits
+and archive after restart. The rolling test kept two Core workers active
+and verified a newer revision could not be replaced by the old worker.
+Search stayed available while 150 products and a concurrent edit were
+indexed. Hosted rollout remains open.
+[Lifecycle checks](knowledge-component.md#verify-source-and-model-changes).
+
 The local Knowledge acceptance rejected a wrong database signing key at
 startup. While PostgreSQL refused connections, readiness returned 503 and
 liveness stayed up. Readiness recovered once the database accepted
@@ -243,6 +252,13 @@ returned HTTP 200. Studio recorded first-attempt delivery of two live
 the restoration of its original description at product version 28. Reading
 that revision back with a separate evidence-consumer key remains open.
 [Core identity setup](knowledge-component.md#use-core-as-the-identity-provider-for-one-live-shop).
+
+The isolated Northflank outage rehearsal paused Knowledge while Core and the
+App Worker remained active. A simulated purchase and its replay produced one
+order, one stock decrement and an empty next cart. The queued catalog change
+arrived after restart. HTTP and MCP verified revision 2 and rejected the
+revoked read key.
+[Hosted outage rehearsal](knowledge-component.md#rehearse-a-knowledge-outage-on-northflank).
 
 ## Knowledge database recovery
 

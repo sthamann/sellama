@@ -394,6 +394,10 @@ The following are implementation tasks; existing UI foundations do not complete 
     after retry, and a replay cannot undo an applied withdrawal.
     [Evidence and contract](knowledge-component.md#keep-the-shop-running-during-a-knowledge-outage).
   - [ ] Validate the installed delivery and service recovery in the hosted shop.
+  - [x] Verify that the independent service starts only with working signed
+    database scope, reports loss of readiness during a database outage and
+    recovers without a process restart.
+    [Readiness check](knowledge-component.md#check-readiness-before-routing-traffic).
 - [ ] KNOW-04 Give the independent service its own rebuildable projections,
   ingestion checkpoints, vector configuration and migration/restore procedures.
 - [ ] KNOW-05 Expose ingest/search/graph/source/withdraw/delete over HTTP and MCP;

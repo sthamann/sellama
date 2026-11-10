@@ -10,6 +10,22 @@ owner installs the schema. The runtime uses a restricted database login and a
 fixed OAuth introspection endpoint. Current token scopes supply the shop and
 the operation grants. [Setup and examples for repository members](https://github.com/veyndo/knowledge).
 
+## Check readiness before routing traffic
+
+Run the service on a private listener and use `GET /health` for liveness
+and `GET /ready` for readiness. Readiness returns 204 after a transaction
+accepts the configured signed scope through the restricted database login.
+The transaction rolls back without reading or changing shop data. A database
+failure returns 503 while liveness stays available. Startup also requires
+the signed transaction to succeed.
+
+Before sending catalog events, make an authenticated source request with the
+test shop's token and check that a token for another shop cannot read that
+source. Then run a real catalog edit through the installed app, restart
+Knowledge and verify that the new passage is current. The readiness endpoint
+checks storage. These authenticated checks cover the identity and catalog
+connections.
+
 ## Read and verify evidence
 
 | Operation | HTTP | MCP |

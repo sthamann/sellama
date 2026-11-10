@@ -16,6 +16,12 @@ profile. Keep the existing provider configuration and encryption key when
 switching images. See [Rust services](rust-services.md#deployment-and-existing-data)
 for database roles, configuration and recovery.
 
+On 10 November 2026, Northflank switched the existing service to the
+independent repository's root Dockerfile. Build `mint-meeting-7629`
+(`fc36cad`) passed the service checks with one instance. Its retained Core
+profile preserves the installed integrations and queue. The separate-database
+configuration below has its own local integration test.
+
 ## Run it with a dedicated database
 
 The [Connector repository](https://github.com/veyndo/connectors) contains the

@@ -11,6 +11,38 @@ debug-build comparison and raw report. It does not replace this release-build
 million-product measurement; its six-product improvement percentages have not
 been demonstrated at that scale.
 
+## Mixed shop traffic and worker restart
+
+On 10 November 2026, a local debug build of Core ran with PostgreSQL, a separate
+app worker and the independent Connector built from its own repository. The
+isolated shop had 200,000 synthetic products. It served 240 catalog requests,
+48 simulated checkout confirmations and 16 assistant requests in parallel.
+The model fixture waited 80 ms per call. All mail went to a loopback SMTP sink.
+
+| Operation | Samples | p50 | p95 | p99 |
+| --- | ---: | ---: | ---: | ---: |
+| Catalog page | 240 | 9.94 ms | 15.21 ms | 16.30 ms |
+| Checkout confirmation | 48 | 30.31 ms | 43.73 ms | 49.42 ms |
+| Assistant reply | 16 | 323.70 ms | 346.42 ms | 356.55 ms |
+
+Core accepted the first order while the worker was stopped. After restarting
+the worker, the test matched one invoice and one delivered mail to each order.
+Replaying each purchase returned the same order ID and stock decremented once.
+The timings include test-side request overhead and the initial worker pause
+coordination for checkout. Cart preparation, import, real model and payment
+provider latency, and Northflank capacity are outside this measurement.
+
+Build `target/debug/veyndo` and the independent Connector binary first. Use a
+local PostgreSQL container with disposable credentials and a user that can
+create temporary databases. Set `DATABASE_URL`, `DB_CONTAINER` if using a
+non-default container, and `CONNECTORS_BINARY` to the absolute Connector binary
+path. The test writes `mixed-commerce-load.json` in `TEST_ARTIFACT_DIR` when set.
+
+```sh
+VEYNDO_MIXED_LOAD=1 python3 scripts/email_tests.py \
+  Contracts.test_independent_connector_and_worker_complete_native_checkout
+```
+
 ## Isolate the database
 
 Use a separate checkout and database. The fixture command deletes products and

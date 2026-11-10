@@ -67,6 +67,12 @@ inventory showed the recovered revision. The hosted Knowledge connection
 remains a separate rollout step.
 [API and example](knowledge-component.md#audit-which-sources-arrived).
 
+The local Knowledge acceptance rejected a wrong database signing key at
+startup. While PostgreSQL refused connections, readiness returned 503 and
+liveness stayed up. Readiness recovered once the database accepted
+connections again, with the same service process.
+[Readiness and authenticated rollout checks](knowledge-component.md#check-readiness-before-routing-traffic).
+
 ## App cards during replies in Studio and the shop
 
 In a local Chrome test with Core, PostgreSQL and a controlled model response,

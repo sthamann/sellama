@@ -1,5 +1,6 @@
 //! Bounded behavioral ports of Shopware 6.7.14.2 context and product-cart selection.
 use serde::{Deserialize, Serialize};
+pub use veyndo_commerce::catalog::Tier;
 
 pub const SYSTEM_LANGUAGE: &str = "2fbb5fe2e29a4d70aa5854ce7ce3e20b";
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -40,13 +41,6 @@ pub fn language_chain(
     .flatten()
     .filter(|id| !id.is_empty())
     .collect())
-}
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct Tier {
-    pub rule_id: String,
-    pub quantity_start: u32,
-    pub quantity_end: Option<u32>,
-    pub discount: f64,
 }
 pub fn select_tier<'a>(tiers: &'a [Tier], rule_ids: &[String], quantity: u32) -> Option<&'a Tier> {
     // ProductPriceCalculator::filterRulePrices picks the FIRST available rule

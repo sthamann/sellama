@@ -1,33 +1,6 @@
-//! Tenant product model and database hydration.
+//! Hydrate the shared Commerce product contract through the native tenant-scoped database.
 use crate::*;
-
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub(crate) struct Product {
-    #[serde(default, serialize_with = "public_extra")]
-    pub(crate) extra: Value,
-    pub(crate) id: String,
-    #[serde(default)]
-    pub(crate) product_number: String,
-    pub(crate) name: String,
-    pub(crate) category: String,
-    pub(crate) description: String,
-    pub(crate) price: f64,
-    pub(crate) tax_rate: f64,
-    pub(crate) stock: i32,
-    pub(crate) revision: i64,
-    pub(crate) list_price: Option<f64>,
-    pub(crate) regulation_price: Option<f64>,
-    pub(crate) reference_price: Option<veyndo::pricing::ReferenceDefinition>,
-    pub(crate) advanced_prices: Vec<veyndo::context::Tier>,
-    pub(crate) min_purchase: u32,
-    pub(crate) purchase_steps: u32,
-    pub(crate) max_purchase: Option<u32>,
-    pub(crate) parent_id: Option<String>,
-    pub(crate) options: Value,
-    pub(crate) media: Value,
-    pub(crate) properties: Value,
-    pub(crate) delivery_days: i32,
-}
+pub(crate) use veyndo::catalog::Product;
 pub(crate) fn product(r: &sqlx::postgres::PgRow) -> Product {
     Product {
         extra: r.get("extra"),
@@ -69,16 +42,4 @@ pub(crate) async fn prototype_products(a: &App, t: &str) -> Result<Vec<Product>>
     .iter()
     .map(product)
     .collect())
-}
-
-/// Public product serialization excludes internal rule facts, notably supplier purchase prices.
-fn public_extra<S: serde::Serializer>(
-    extra: &Value,
-    serializer: S,
-) -> std::result::Result<S::Ok, S::Error> {
-    let mut public = extra.clone();
-    if let Some(object) = public.as_object_mut() {
-        object.remove("automation");
-    }
-    public.serialize(serializer)
 }

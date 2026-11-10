@@ -123,6 +123,12 @@ current rights and commerce writes retain their original owners.
 
 ## One transactional core, independently deployable workers
 
+The Commerce crate now owns the Product snapshot and price-tier DTO
+consumed by the native catalog and transaction paths. Database hydration,
+permissions and storage ownership stay attached to Core's existing
+operations. The shared contract can be imported by other Rust components.
+[Product ownership](source-map.md#shared-product-contract).
+
 Fresh installations use Rust/Axum, ordinary PostgreSQL 17 and private Qdrant
 v1.16.3. PostgreSQL owns commerce records, knowledge relations, source vectors
 and the durable synchronization queue; Qdrant supplies rebuildable vector search.

@@ -5,6 +5,28 @@ SDK, test requirements and complete-product acceptance](commerce-components.md).
 Existing owners remain authoritative until their replacement is integrated and
 accepted. Moving a repository does not establish standalone service behavior.
 
+## Shared product contract
+
+`veyndo-commerce::catalog` owns the Product snapshot and Tier DTO used by
+native catalog, cart, rules and order paths. It depends on Serde and the
+existing Commerce pricing types. It has no database, HTTP or inference
+dependency. Other Rust components can use `veyndo_commerce::catalog::Product`;
+the product library also reexports `veyndo::catalog`.
+
+`src/catalog_model.rs` hydrates that same type through Core's existing
+tenant-scoped queries. The established `veyndo::context::Tier` path reexports
+the shared DTO. Public product serialization continues to remove the
+internal `extra.automation` facts, including supplier purchase prices,
+while preserving them in the server snapshot. Defaults for older products
+and the existing JSON field names are retained.
+
+The extraction passed the Commerce crate tests, 1,446 comparisons with
+the original Shopware context and tier behavior, and the existing
+PostgreSQL catalog and automation suites. Those suites exercise product
+intake, selective publication, current rule facts, native checkout and
+invoice creation. Category writes, product storage and the standalone
+catalog hosting boundary remain with their current owners.
+
 **App package installation service:** Pinned Apps `src/models.rs` owns the original
 model install/rebuild sequence and required compatibility port. Native
 `src/apps/records.rs` delegates with actual core-extension compatibility on its

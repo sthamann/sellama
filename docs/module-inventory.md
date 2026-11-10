@@ -230,7 +230,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/cart_price.rs](../src/cart_price.rs) | Authoritative quantity pricing and localized checkout quote assembly. |
 | [src/cart_routes.rs](../src/cart_routes.rs) | Store API cart and order route adapters. |
 | [src/cart_storage.rs](../src/cart_storage.rs) | Cart creation, loading and input validation. |
-| [src/catalog_model.rs](../src/catalog_model.rs) | Tenant product model and database hydration. |
+| [src/catalog_model.rs](../src/catalog_model.rs) | Hydrate the shared Commerce product contract through the native tenant-scoped database. |
 | [src/catalog_page.rs](../src/catalog_page.rs) | Bounded tenant-scoped catalog reads. A cursor is a product ID, never an offset. |
 | [src/catalog_routes.rs](../src/catalog_routes.rs) | Health and localized catalogue HTTP routes. |
 | [src/categories/admin.rs](../src/categories/admin.rs) | Revision-bound category writes, bounded translations and serialized cycle-safe tree moves. |
@@ -650,9 +650,10 @@ This lists every checked-in source module in these roots, including files with n
 | [crates/cognition/src/inference.rs](../crates/cognition/src/inference.rs) | Provider adapters. Credentials stay on the server; domain validation is separate. |
 | [crates/cognition/src/lib.rs](../crates/cognition/src/lib.rs) | Provider protocol adapters and prompt evidence; no commerce write capability. |
 | [crates/cognition/src/prompts.rs](../crates/cognition/src/prompts.rs) | Versioned system-prompt provenance; no prompt text or private context is exposed in evidence. |
+| [crates/commerce/src/catalog.rs](../crates/commerce/src/catalog.rs) | Shared product snapshot and tier contracts, without database or transport authority. |
 | [crates/commerce/src/discount.rs](../crates/commerce/src/discount.rs) | Integer-cent proportional discount allocation; cumulative rounding conserves the exact basket discount. |
 | [crates/commerce/src/discount_boundaries.rs](../crates/commerce/src/discount_boundaries.rs) | Discount conservation at signed limits and against an independent prefix-rounding oracle. |
-| [crates/commerce/src/lib.rs](../crates/commerce/src/lib.rs) | Commerce amounts and deterministic calculation contracts; no transport or inference dependencies. |
+| [crates/commerce/src/lib.rs](../crates/commerce/src/lib.rs) | Product, amount and deterministic calculation contracts without transport or inference dependencies. |
 | [crates/commerce/src/money.rs](../crates/commerce/src/money.rs) | Exact signed minor-unit amounts with explicit currency scale; legacy Shopware float pricing stays isolated. |
 | [crates/commerce/src/pricing.rs](../crates/commerce/src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. |
 | [crates/flow-graph/src/catalog.rs](../crates/flow-graph/src/catalog.rs) | Stable built-in Flow identifiers shared by discovery and native admission. |

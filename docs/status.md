@@ -105,10 +105,14 @@ one order and one stock decrement after a confirmation retry. The Worker
 generated one invoice per order, including after a stop and restart. A second
 fresh database run enforced distinct restricted system and tenant roles.
 Startup rejected a runtime role with `TRUNCATE`, and the isolated shops
-could not read each other's orders or receipts. Independent Checkout and
-Connector image wiring still need a separate run.
+could not read each other's orders or receipts. Checkout, Payments and
+Connector original images each started in a Northflank job. A local
+purchase through the actual Payments adapter and separate Checkout,
+worker and Connector recovered the same order, produced one invoice
+and one SMTP message, and refunded once under replay. The journey across
+all original hosted images is still open.
 [Hosted image boot with restricted roles](evidence/composed-release-rehearsal-2026-11-10.md#run-the-original-images-with-restricted-database-roles).
-[Image evidence and next checks](evidence/composed-release-rehearsal-2026-11-10.md#match-the-deployed-builds-to-image-manifests).
+[Payment replay and original image probes](evidence/composed-release-rehearsal-2026-11-10.md#connect-the-payments-adapter-and-replay-a-callback).
 
 ## Mixed shop traffic and app-worker recovery
 

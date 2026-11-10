@@ -98,8 +98,13 @@ OCI images and the provider callback load check remain open.
 
 The active Northflank deployments for Core, the app worker, Checkout,
 Knowledge, Connector, Payments and Automation now have recorded image
-manifest digests. The current session received 403 on the private registry
-manifest request. Pulls by digest and a clean boot remain open.
+manifest digests. The original Core and App Worker builds then ran as
+separate containers in the private Northflank release lab. Core booted
+against empty PostgreSQL. Two simulated native purchases each preserved
+one order and one stock decrement after a confirmation retry. The Worker
+generated one invoice per order, including after a stop and restart.
+Independent Checkout and Connector image wiring still need a separate run.
+[Hosted image boot](evidence/composed-release-rehearsal-2026-11-10.md#boot-the-original-core-and-worker-images).
 [Image evidence and next checks](evidence/composed-release-rehearsal-2026-11-10.md#match-the-deployed-builds-to-image-manifests).
 
 ## Mixed shop traffic and app-worker recovery

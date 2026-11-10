@@ -30,9 +30,14 @@ verified in the live shop.
    restart. The original Checkout, Payments and Connector images passed
    individual Northflank startup probes. Locally the built components
    preserved one capture, order, invoice, mail and refund after callback
-   and purchase replay. The same journey across the original hosted
-   images remains open.
-   [Image startup and payment replay evidence](evidence/composed-release-rehearsal-2026-11-10.md#connect-the-payments-adapter-and-replay-a-callback).
+   and purchase replay. Five original builds now also passed a private
+   Northflank composition with signed database scope. Independent Checkout
+   recovered a demo purchase after restart. A second purchase exercised
+   native checkout with the separate Payments simulator, worker, invoice,
+   standalone Connector, SMTP and refund. A single hosted provider-backed
+   journey combining independent Checkout, invoice and external mailbox
+   receipt remains open.
+   [Five hosted workloads and test scope](evidence/composed-release-rehearsal-2026-11-10.md#run-five-separate-workloads-on-northflank).
 3. [ ] **Measure hosted checkout under matched load.** Run the native and
    independent routes under equivalent catalog and purchase traffic in an
    isolated hosted test shop. Record latency percentiles, retries, callback
@@ -882,6 +887,11 @@ The following are implementation tasks; existing UI foundations do not complete 
   - [x] Repeat the same recovery and paired load with the running Linux
     executables in an isolated Northflank job.
     [Hosted recovery checks](evidence/composed-release-rehearsal-2026-11-10.md#northflank-rehearsal-with-deployed-executables).
+  - [x] Boot Core, Checkout, Payments, App Worker and Connector as five
+    private services with separate fixture databases. Verify independent
+    checkout recovery and the native payment, signed callback, invoice,
+    SMTP and refund chain in the same strict Core deployment.
+    [Private Northflank results](evidence/composed-release-rehearsal-2026-11-10.md#run-five-separate-workloads-on-northflank).
   - [x] Compare the previous and current Core with the same deployed worker,
     Checkout and Connector after introducing bounded relay waiting.
     [Northflank comparison](evidence/composed-release-rehearsal-2026-11-10.md#hosted-relay-admission-comparison).

@@ -34,9 +34,12 @@ The original Core and App Worker images also passed native purchase and
 invoice recovery as separate hosted services with restricted system and
 tenant database roles. [Hosted startup and isolation checks](evidence/composed-release-rehearsal-2026-11-10.md#run-the-original-images-with-restricted-database-roles).
 
-A local run with the independent Payments adapter covered repeated provider
-callbacks and the order through invoice, mail and refund. The authoritative
-order and stock effect stayed in Core. [Payment replay and hosted image probes](evidence/composed-release-rehearsal-2026-11-10.md#connect-the-payments-adapter-and-replay-a-callback).
+Five separately hosted workloads now passed a private Northflank rehearsal.
+Independent Checkout recovered a demo purchase after a restart. A native
+purchase exercised the separate Payments simulator, signed callback,
+app worker, invoice, Connector, SMTP receiver and refund. The two tests
+shared the same Core with signed database scope. Core owned each order
+and stock movement. [Builds and results](evidence/composed-release-rehearsal-2026-11-10.md#run-five-separate-workloads-on-northflank).
 
 The storefront and Studio use that same shop identity and transaction boundary. Provider calls run through durable jobs. Knowledge and reporting can be rebuilt from their sources. They add context and visibility without joining the purchase transaction. Agents use the same admitted operations as the team and prepare changes for review where approval is required.
 
@@ -46,6 +49,8 @@ flowchart LR
   UI --> Q["Checkout sessions"]
   Q -->|"Current quote and purchase"| C
   C --> DB[("Orders, stock and events")]
+  C -->|"Payment command"| M["Payments adapter"]
+  M -->|"Signed notification"| C
   DB --> W["App worker"]
   W --> D["Connectors"]
   D --> P["Provider delivery"]

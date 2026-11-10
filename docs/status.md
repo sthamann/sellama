@@ -92,8 +92,9 @@ refund. A separate Northflank job reproduced these tests with the
 checksummed executables from the running Core, worker, Checkout and Connector.
 It completed 48 purchases per route with one invoice and one loopback SMTP
 message per order. Purchase p95 was 430.84 ms native and 3195.01 ms independent,
-including 27 retries across 11 independent orders. A full boot from pinned
-OCI images and the provider callback load check remain open.
+including 27 retries across 11 independent orders. The matched load check
+with separate service placement and the provider callback load check
+remain open.
 [Source pins, schema fingerprints and hosted results](evidence/composed-release-rehearsal-2026-11-10.md#northflank-rehearsal-with-deployed-executables).
 
 The Northflank builds used in this rehearsal for Core, the app worker,
@@ -109,8 +110,7 @@ could not read each other's orders or receipts. Checkout, Payments and
 Connector original images each started in a Northflank job. A local
 purchase through the actual Payments adapter and separate Checkout,
 worker and Connector recovered the same order, produced one invoice
-and one SMTP message, and refunded once under replay. The journey across
-all original hosted images is still open.
+and one SMTP message, and refunded once under replay.
 [Hosted image boot with restricted roles](evidence/composed-release-rehearsal-2026-11-10.md#run-the-original-images-with-restricted-database-roles).
 [Payment replay and original image probes](evidence/composed-release-rehearsal-2026-11-10.md#connect-the-payments-adapter-and-replay-a-callback).
 
@@ -118,6 +118,19 @@ Payments build `luminous-ink-2350` is live in Sandbox mode. It fixes
 simulated invoice approval and retains the provider risk session check.
 The complete Payments workflow passed, including saved methods and all
 17 simulated methods. [Release and verification scope](evidence/composed-release-rehearsal-2026-11-10.md#release-the-simulated-invoice-correction).
+
+## Five original images together on Northflank
+
+A private Northflank rehearsal ran Core, Checkout, Payments, the app
+worker and Connector as separate services with four test databases.
+Independent Checkout recovered the same demo order after restart, with
+one stock decrement and an empty next cart. A separate native payment
+used the Payments simulator. Its signed callback, two replays and
+repeated full refund preserved one payment, invoice and SMTP acceptance.
+The Connector receipt matched the SMTP Message-ID. These were API
+journeys with synthetic data. The public Lumen browser and PayPal
+Sandbox results are recorded separately above.
+[Build pins, database roles and checks](evidence/composed-release-rehearsal-2026-11-10.md#run-five-separate-workloads-on-northflank).
 
 ## Mixed shop traffic and app-worker recovery
 

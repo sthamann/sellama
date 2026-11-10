@@ -4,7 +4,7 @@ For the developer entry point and the relationship between the product and the
 individual components, see [One shop, composable parts](one-shop-components.md).
 
 This is the authoritative task list for extracting independently usable Veyndo
-components. Updated 10 November 2026. Checkmarks record the specific result
+components. Updated 11 November 2026. Checkmarks record the specific result
 listed on each task. The complete extraction is in progress. See
 [the current status](status.md) for which parts are running and what has been
 verified in the live shop.

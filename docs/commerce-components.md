@@ -297,6 +297,10 @@ Each component task remains open until these checks are demonstrated for it.
 - [ ] CORE-02 Replace broad App dependencies with explicit domain ports/context;
   enforce one-way crate dependencies and prohibit importing the product shell.
 - [ ] CORE-03 Extract catalog/category/variant/media contracts and domain module.
+  - [x] Move the native Product snapshot and price-tier DTO into the
+    transport-free Commerce crate. Keep the existing hydration and permissions
+    in Core, and preserve public serialization and legacy field defaults.
+    [Shared contract](source-map.md#shared-product-contract).
 - [ ] CORE-04 Extract customer/account/address contracts with immutable order
   ownership and PII field admission preserved.
 - [ ] CORE-05 Extract cart and checkout orchestration through the explicit

@@ -1,6 +1,8 @@
 """Exercise installed MCP App placement, native tool calls, actor admission and conversation attachments."""
 import copy
 import json
+import os
+import subprocess
 import urllib.request
 
 
@@ -69,6 +71,14 @@ def verify(root, base, call, merchant, visitor, other, restricted):
         assert iframe.headers['content-security-policy'].startswith("sandbox allow-scripts;")
         assert "connect-src 'none'" in iframe.headers['content-security-policy']
         assert 'Machine washable' not in iframe.read().decode()
+    if os.getenv('VEYNDO_SDK_MODULE'):
+        subprocess.run(
+            [os.getenv('NODE', 'node'), str(root / 'extensions/apps/assistant-examples/product-guide.mjs')],
+            env={**os.environ, 'VEYNDO_URL': base, 'VEYNDO_SHOP': merchant['x-tenant'],
+                 'VEYNDO_PRODUCT': 'mug',
+                 'VEYNDO_STUDIO_TOKEN': merchant['Authorization'].removeprefix('Bearer ')},
+            check=True, timeout=20,
+        )
     return app, public_uri, private_uri
 
 

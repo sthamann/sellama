@@ -88,8 +88,13 @@ and the worker were paused, the native route accepted a distinct second order.
 The worker restart generated its invoice and SMTP fixture mail. Re-enabling
 Checkout and retrying the first confirmation preserved both orders and stock
 effects. A separate payment fixture also passed capture, invoice, mail and
-refund. The full hosted image and load checks remain open.
-[Source pins, schema fingerprints and reproduction](evidence/composed-release-rehearsal-2026-11-10.md).
+refund. A separate Northflank job reproduced these tests with the
+checksummed executables from the running Core, worker, Checkout and Connector.
+It completed 48 purchases per route with one invoice and one loopback SMTP
+message per order. Purchase p95 was 430.84 ms native and 3195.01 ms independent,
+including 27 retries across 11 independent orders. A full boot from pinned
+OCI images and the provider callback load check remain open.
+[Source pins, schema fingerprints and hosted results](evidence/composed-release-rehearsal-2026-11-10.md#northflank-rehearsal-with-deployed-executables).
 
 ## Mixed shop traffic and app-worker recovery
 

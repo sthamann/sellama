@@ -28,7 +28,7 @@ the same Commerce owner for quote, commit and receipt. Studio refunded both
 Sandbox captures. A separate demo order generated an invoice through the app
 worker. The hosted mail delivery test still needs a sender and transport.
 [Live pilot and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026).
-[Reproduce purchase recovery from pinned sources](evidence/composed-release-rehearsal-2026-11-10.md).
+[Reproduce purchase recovery and compare the isolated Northflank runs](evidence/composed-release-rehearsal-2026-11-10.md#northflank-rehearsal-with-deployed-executables).
 
 The storefront and Studio use that same shop identity and transaction boundary. Provider calls run through durable jobs. Knowledge and reporting can be rebuilt from their sources. They add context and visibility without joining the purchase transaction. Agents use the same admitted operations as the team and prepare changes for review where approval is required.
 

@@ -102,3 +102,74 @@ Record pre-forward refusal counts and retry waits separately from accepted
 request latency. Compare the purchase attempts with committed orders,
 stock allocations and the outbox after each run. Report provider callback
 capacity as a separate workload.
+
+## Northflank rehearsal with deployed executables
+
+A follow-up on 10 November used a separate Northflank project in Europe
+West with one manual job, no public ports, no linked production secrets,
+and no production database. The Linux x86-64 job used the
+`nf-compute-200-4` plan and a fresh Debian PostgreSQL 17.11 cluster.
+`fsync`, `synchronous_commit` and `full_page_writes` were enabled.
+Core, Checkout, the app worker and Connector ran as separate processes
+inside that job and used loopback addresses. Checkout and Connector had
+separate databases and dedicated runtime roles.
+
+The executables were copied from the four running services. Their SHA-256
+checksums matched both the production container files and the files started
+in the test job. Core and its worker had different build revisions and
+byte-identical executables. The rehearsal code was pinned to Core
+`76ca4eb2c13ed257a408c42462018ab4205ece2b`.
+
+| Service | Deployed source revision observed | Executable SHA-256 |
+| --- | --- | --- |
+| Core | `76ca4eb2c13ed257a408c42462018ab4205ece2b` | `485b851124edddf174d094441e32beb65fab256910bb7f280487a3f0da0916d8` |
+| App worker | `687bbae83dd3c5c07d3bf97009fb2f07e2d2510c` | `485b851124edddf174d094441e32beb65fab256910bb7f280487a3f0da0916d8` |
+| Checkout | `eaa34f27386e0de2b34de6085fef78ac237943e9` | `be10b8fe602248796ba0bd224819ccf0a180d809d442f7e5b8d226c8a20b9120` |
+| Connector | `fc36cad517533a18922966c7f3aa2322860ce19c` | `a4de4879de28fae10b4b31171b9536449c67c0913619371f15e8d49e1603c8d7` |
+
+Both recovery tests above passed. The run recovered the original order
+after response loss, preserved its invoice during the routing pause and
+processed a distinct native order when the app worker restarted. The
+payment fixture completed capture, invoice, mail and refund. The job
+exited with code 0 at 12:19 UTC.
+
+### Hosted paired load
+
+Each arm used a fresh test shop with 200,000 synthetic products, 48
+purchase confirmations, 240 catalog reads and 16 assistant calls. The
+same driver used up to 12 purchase clients, four catalog clients and one
+assistant client concurrently. Both arms matched each of the 48 orders
+to one stock decrement, one invoice and one loopback SMTP message.
+
+| Route | Confirm p50 | Confirm p95 | Confirm p99 | Orders with retries | Total retries | Worker restart to last mail |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Native | 260.48 ms | 430.84 ms | 540.24 ms | 0 / 48 | 0 | 10.54 s |
+| Independent | 222.44 ms | 3195.01 ms | 4171.13 ms | 11 / 48 | 27 | 13.45 s |
+
+The independent confirmations include the wait after a retryable HTTP
+429. The 3.20 s p95 is buyer-visible time in this driver. The sample does
+not separate that wait from accepted-request processing or isolate
+provider callback throughput. Since the services share one job, these
+numbers exclude the service-to-service network and separate resource
+limits of the production deployment. The purchase and SMTP tests use
+fixtures and do not establish provider availability or mailbox arrival.
+
+To repeat the job, copy only the approved executable files from the
+active containers and verify their checksums again in the test container.
+In a disposable `postgres:17-bookworm` job install Python, cryptography and
+OpenSSL, start PostgreSQL on loopback, and run the recovery commands
+above followed by the [two mixed traffic tests](../benchmarks.md#run-the-same-load-through-independent-checkout).
+On Debian Python 3.11 invoke the suite with the script directory after the
+standard library so `scripts/platform.py` cannot shadow Python's module:
+
+```sh
+python3 -P -c 'import runpy,sys; sys.path.append("scripts"); runpy.run_path("scripts/email_tests.py", run_name="__main__")' \
+  Contracts.test_independent_checkout_rollback_and_worker_restart \
+  Contracts.test_independent_checkout_capture_drives_invoice_mail_and_refund
+```
+
+The complete hosted gate still needs pulls by OCI digest, the full set
+of services with their own deployments and a separate provider callback
+capacity test. An executable checksum covers the program file used here.
+It does not cover the libraries, startup configuration or filesystem of
+its production image.

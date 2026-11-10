@@ -50,6 +50,12 @@ measured checkout p95 at 55.63 ms on the native route and 2051.50 ms on
 the independent route. Eight independent purchases retried after admission
 refusal. Both runs verified 48 orders and their matching invoices and mails.
 
+The [isolated Northflank comparison](evidence/composed-release-rehearsal-2026-11-10.md#hosted-paired-load)
+used the running Linux executables and the same 48 purchases per route.
+Checkout p95 was 430.84 ms native and 3195.01 ms independent, with 27
+retries across 11 independent purchases. The test co-located the services
+and PostgreSQL inside a private job.
+
 
 Set `CHECKOUT_TEST_BINARY` to the absolute path of the independent Checkout
 binary in addition to the configuration above.

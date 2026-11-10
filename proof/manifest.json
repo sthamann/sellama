@@ -4981,8 +4981,13 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "34f29532958462ca06887b4f10824c282f9e488d32e4a25f94b5682310ea6763",
-      "review": "Reviewed only checkout relay capacity refusals before dispatch: Retry-After changes to one second for process and cluster limits. Permit counts, order identity and commit/recovery paths are untouched. Targeted admission tests preserve native and AI retry timing; adapter remains unproved."
+      "sha256": "421cb69cfca50bdd3ff3ea39ee7d9adb0496d5081991dd249e0b9fe973b64cfc",
+      "review": "Reviewed the one-second retry for Core checkout relay capacity refusals before dispatch. Process and cluster limits, original receipt recovery and native and AI retry timing are retained. Moved admission regression checks into a test-only module; the adapter remains unproved."
+    },
+    "src/performance/admission_tests.rs": {
+      "status": "unproved",
+      "sha256": "525463156a8a876f43d86adf1e114f5d3cb91917dae0289651ab5580f76881e2",
+      "review": "Reviewed the one-second retry for Core checkout relay capacity refusals before dispatch. Process and cluster limits, original receipt recovery and native and AI retry timing are retained. Moved admission regression checks into a test-only module; the adapter remains unproved."
     },
     "src/performance/authority.rs": {
       "status": "unproved",

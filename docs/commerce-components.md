@@ -45,9 +45,14 @@ verified in the live shop.
      and catalogue traffic with separate service placement. Each route
      preserved 48 orders, stock movements, invoices and SMTP test receipts.
      [Northflank workload and results](evidence/composed-release-rehearsal-2026-11-10.md#compare-the-checkout-routes-across-separate-services).
-   - [ ] Trace the independent route's admission refusals and retest changes
-     against the same workload. The measured confirmation p95 was 3.11 seconds
-     versus 590 ms native, including 17 independent-route retries.
+   - [x] Reproduce relay admission timeouts locally under matched load and
+     verify that a bounded wait removes the observed retries. With 180 ms
+     added to the service call, confirmation p95 went from 1,795 ms to
+     677 ms and retries from eight to zero. Both runs preserved 48 orders.
+     [Local comparison](benchmarks.md#compare-confirmation-admission-waits).
+   - [ ] Retest the longer confirmation wait across separate Northflank
+     services. The previous hosted run recorded 3.11 s confirmation p95 and
+     17 retries. Record refusal reasons with the new instance counters.
    - [ ] Measure provider callback capacity in an isolated hosted test shop
      before broadening the pilot.
 4. [x] **Release an external integration example.** Connected Shop uses the

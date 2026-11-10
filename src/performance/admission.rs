@@ -6,12 +6,13 @@ use std::{
         Mutex,
         atomic::{AtomicU64, Ordering},
     },
-    time::Instant,
+    time::{Duration, Instant},
 };
 use tokio::sync::{OwnedSemaphorePermit, Semaphore};
 
 #[path = "relay_admission.rs"]
 mod relay_admission;
+use relay_admission::{CONFIRM_PATH, RelayRejection, RelayRejections, confirmation_wait};
 
 const CHECKOUT_RELAY: &str = "checkout-relay";
 
@@ -34,6 +35,8 @@ pub(crate) struct Admission {
     checkout: Arc<Semaphore>,
     relay: Arc<Semaphore>,
     relay_waiters: Semaphore,
+    relay_rejections: RelayRejections,
+    relay_confirm_wait: Duration,
     tenants: Mutex<HashMap<String, Budget>>,
     metrics: Mutex<HashMap<&'static str, Metric>>,
     rejected: AtomicU64,
@@ -55,6 +58,8 @@ impl Default for Admission {
             checkout: Arc::new(Semaphore::new(number("CHECKOUT_CONCURRENCY", 32, 1024))),
             relay: Arc::new(Semaphore::new(8)),
             relay_waiters: Semaphore::new(16),
+            relay_rejections: RelayRejections::default(),
+            relay_confirm_wait: confirmation_wait(),
             tenants: Mutex::new(HashMap::new()),
             metrics: Mutex::new(HashMap::new()),
             rejected: AtomicU64::new(0),
@@ -65,10 +70,6 @@ impl Default for Admission {
     }
 }
 impl Admission {
-    fn relay_limit(&self) -> usize {
-        self.tenant_limit.min(4)
-    }
-
     fn budget<T>(&self, tenant: &str, read: impl FnOnce(&Budget) -> T) -> Option<T> {
         let mut tenants = self.tenants.lock().unwrap();
         if !tenants.contains_key(tenant) && tenants.len() >= 4096 {
@@ -124,11 +125,14 @@ impl Admission {
     }
     pub(crate) fn snapshot(&self) -> Value {
         let metrics = self.metrics.lock().unwrap();
+        let [local_capacity, local_timeout, cluster_capacity] = self.relay_rejections.snapshot();
         json!({"scope":"process + database leases","clusterTenantLimits":true,"tenantLimit":self.tenant_limit,"tenantAiLimit":self.ai_limit,
             "dailyAiQuotaDefault":self.daily_ai,"dailyQuotaScope":"database / UTC day",
             "generalAvailable":self.general.available_permits(),"checkoutAvailable":self.checkout.available_permits(),
             "checkoutRelayAvailable":self.relay.available_permits(),"tenantCheckoutRelayLimit":self.relay_limit(),
             "checkoutRelayWaitersAvailable":self.relay_waiters.available_permits(),
+            "checkoutRelayConfirmWaitMs":self.relay_confirm_wait.as_millis(),
+            "checkoutRelayRejections":{"localCapacity":local_capacity,"localTimeout":local_timeout,"clusterCapacity":cluster_capacity},
             "trackedTenants":self.tenants.lock().unwrap().len(),"rejected":self.rejected.load(Ordering::Relaxed),
             "latencyBucketUpperMs":[5,20,50,100,250,1000,5000,null],
             "classes":metrics.iter().map(|(name,m)|json!({"class":name,"calls":m.calls,"failures":m.failures,"totalMs":m.total_ms,"buckets":m.buckets})).collect::<Vec<_>>()})
@@ -147,7 +151,7 @@ fn class(path: &str) -> &'static str {
         "ai"
     } else if matches!(
         path,
-        "/store-api/checkout/independent/create" | "/store-api/checkout/independent/confirm"
+        "/store-api/checkout/independent/create" | CONFIRM_PATH
     ) {
         CHECKOUT_RELAY
     } else if path.starts_with("/store-api/checkout/")
@@ -187,7 +191,7 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
         "anonymous".into()
     };
     let permits = if class == CHECKOUT_RELAY {
-        a.admission.enter_relay(&tenant).await
+        a.admission.enter_http_relay(path, &tenant).await
     } else {
         a.admission.enter(&tenant, class)
     };
@@ -205,6 +209,9 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
             Ok(lease) => Some(lease),
             Err(e) if class == CHECKOUT_RELAY && e.0 == StatusCode::TOO_MANY_REQUESTS => {
                 a.admission.rejected.fetch_add(1, Ordering::Relaxed);
+                a.admission
+                    .relay_rejections
+                    .record(RelayRejection::ClusterCapacity);
                 return overloaded(class, &e.1);
             }
             Err(e) => return e.into_response(),

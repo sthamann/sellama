@@ -459,6 +459,17 @@ storefront and the embedded Core checkout can repeat that same request once
 after a second, while the buyer session and page are unchanged. The order
 confirmation keeps the original draft, cart and reviewed amount.
 
+Before forwarding a confirmation, Core can wait up to one second for a free
+relay slot. Set `CHECKOUT_RELAY_CONFIRM_WAIT_MS` to an integer from 1 to 1500
+to tune that wait. Creating a session still waits at most 300 ms. The number
+of concurrent requests and waiting callers stays bounded. The queue does
+not hold a database lease.
+
+In the instance diagnostics under `/api/runtime`,
+`checkoutRelayRejections` separates a full local queue, an expired local
+wait and an exhausted cluster quota. Use the change in each counter over
+the test interval to identify why Core refused requests.
+
 A lost response or an error without this marker uses the existing completed
 cart lookup. The browser checks for the original order before the buyer can
 try again.

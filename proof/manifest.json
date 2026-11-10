@@ -4991,13 +4991,13 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "82bacf8339f600a5ba3b77bbc5291985779eac7e4fa23737d8a4727dfe534d19",
-      "review": "Reviewed independent Checkout local and cluster admission. Only relay requests wait, for at most 300 ms with separate tenant and process queue caps and no database lease while queued. Relay cleanup uses its original lease ID with Drop fallback. Six Rust admission checks and the local 200,000-product purchase, recovery, worker and provider-fixture paths check the behavior. Asynchronous admission and database leases remain unproved."
+      "sha256": "ce147439c52dd3f0a62713a8d7141e53127d81a99143e72c8b982ae31c28a28a",
+      "review": "Reviewed the same bounded confirmation wait, refusal counters, and release of local slots in the dedicated relay module. Seven Rust admission tests pass. The matched real HTTP/PostgreSQL comparison reproduces the local wait timeouts and validates 48 orders, stock movements, invoices and SMTP receipts per arm. Async admission and leases remain outside the proof."
     },
     "src/performance/admission_tests.rs": {
       "status": "unproved",
-      "sha256": "f6b33577861a27f074dc686f0c49a26db898942212d7a876b384944ddb941fee",
-      "review": "Reviewed independent Checkout local and cluster admission. Only relay requests wait, for at most 300 ms with separate tenant and process queue caps and no database lease while queued. Relay cleanup uses its original lease ID with Drop fallback. Six Rust admission checks and the local 200,000-product purchase, recovery, worker and provider-fixture paths check the behavior. Asynchronous admission and database leases remain unproved."
+      "sha256": "935b767c7b94ed6b85ba780ac6bbb1da00bb25b225f1e7cc5355700a8d7cf6fe",
+      "review": "Reviewed the same bounded confirmation wait, refusal counters, and release of local slots in the dedicated relay module. Seven Rust admission tests pass. The matched real HTTP/PostgreSQL comparison reproduces the local wait timeouts and validates 48 orders, stock movements, invoices and SMTP receipts per arm. Async admission and leases remain outside the proof."
     },
     "src/performance/authority.rs": {
       "status": "unproved",
@@ -5041,8 +5041,8 @@
     },
     "src/performance/relay_admission.rs": {
       "status": "unproved",
-      "sha256": "33b594b97e45bde07dcca60bdf1561aaa591c360fd9d541d6fb796cadb066b6d",
-      "review": "Reviewed independent Checkout local and cluster admission. Only relay requests wait, for at most 300 ms with separate tenant and process queue caps and no database lease while queued. Relay cleanup uses its original lease ID with Drop fallback. Six Rust admission checks and the local 200,000-product purchase, recovery, worker and provider-fixture paths check the behavior. Asynchronous admission and database leases remain unproved."
+      "sha256": "97fa2c0a6e70468191f495687952adb07d432c8fb5f9da93ccc3288f97d9af5f",
+      "review": "Reviewed the same bounded confirmation wait, refusal counters, and release of local slots in the dedicated relay module. Seven Rust admission tests pass. The matched real HTTP/PostgreSQL comparison reproduces the local wait timeouts and validates 48 orders, stock movements, invoices and SMTP receipts per arm. Async admission and leases remain outside the proof."
     },
     "src/performance/row_security.rs": {
       "status": "unproved",

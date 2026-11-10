@@ -142,6 +142,13 @@ invoice and one SMTP fixture acceptance per order. Confirmation p95 was
 independent purchases retried, with 17 retries in total.
 [Method, build pins and results](evidence/composed-release-rehearsal-2026-11-10.md#compare-the-checkout-routes-across-separate-services).
 
+In a subsequent local comparison with a fixed 180 ms service delay, a
+one-second confirmation admission window reduced p95 from 1,795 ms to
+677 ms and eliminated eight retries caused by local wait timeouts. Both
+arms verified 48 orders, invoices, stock movements and SMTP acceptances.
+The comparison across separate Northflank services is still pending.
+[Local method and timings](benchmarks.md#compare-confirmation-admission-waits).
+
 ## Mixed shop traffic and app-worker recovery
 
 An isolated local Core with 200,000 synthetic products accepted 48 simulated

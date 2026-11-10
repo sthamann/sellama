@@ -48,6 +48,10 @@ Knowledge projects private source and catalog content into a separate database.
 The installed app receives product events through the existing delivery queue.
 Projection reads the current Core product, and the local test verifies a
 purchase while Knowledge is down and source delivery after restart.
+For a single configured shop, Core can check current app and integration keys
+for the catalog projection. A scoped callback reads the snapshot. A distinct
+read scope serves the resulting evidence. The buyer transaction has no
+dependency on Knowledge or its identity endpoint.
 [Knowledge service boundary](knowledge-component.md#keep-the-shop-running-during-a-knowledge-outage).
 
 Core links the shared Automation evaluator into native pricing and Flow

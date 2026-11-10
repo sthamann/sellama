@@ -14,8 +14,9 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 Core `636a05b8` brought the typed Flow validation result to Northflank. The
 public shop exposes catalogue search over MCP. Its anonymous tool list
-excludes Flow validation. The published SDK 0.4.1 prerelease was installed
-from its release package and tested against Core and PostgreSQL with a
+excludes Flow validation, and the signed-in Lumen Studio API Explorer
+discovers the validation result schema. The published SDK 0.4.1 prerelease
+was installed from its release package and tested against Core and PostgreSQL with a
 merchant test account. Validation reported the checked revision, rejected an
 outdated draft and left both saved Flows and jobs unchanged.
 [Contract and example](agentic-component-ui.md#typed-results-for-native-tools).
@@ -40,6 +41,10 @@ two single-unit parcels. Repeating checkout and the split preserved the
 original order, total, parcel quantities and zero remaining stock.
 [Marketplace regression](https://github.com/veyndo/marketplaces/pull/2).
 [Complete shop acceptance](commerce-components.md#complete-product-release-acceptance).
+
+Core `d80a55b5` advertises the current [B2B negotiation guide](b2b-ucp-negotiation.md)
+in the public UCP profile. The advertised guide and the demo storefront,
+catalogue and MCP discovery responded after the Northflank rollout.
 
 ## Private Automation preview on Northflank
 
@@ -79,9 +84,10 @@ The default order and capture Flows wrote internal notes for those two
 orders. A separate live demo payment created order `RAC-7048dee8` and its
 scoped order Flow generated invoice `INV-00000001` automatically. Repeating
 confirmation returned the same order and the lamp's stock moved once, from
-one to zero. Lumen has the Email Delivery app installed. It still needs a
-configured sender and transport before the Connector receipt and delivery
-to a reachable mailbox can be verified.
+one to zero. Lumen has the Email Delivery app installed. The live app
+showed an empty sender address and SMTP server. A configured sender and
+transport are required to verify the Connector receipt and delivery to a
+reachable mailbox.
 [Pilot setup and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026). The
 [ordered release checklist](commerce-components.md#release-acceptance-order)
 tracks the remaining pilot, composition, hosted load and external integration checks.

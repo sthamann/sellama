@@ -537,6 +537,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/performance/languages.rs](../src/performance/languages.rs) | Global language registry is versioned in the same transaction as every registry mutation. |
 | [src/performance/mod.rs](../src/performance/mod.rs) | Shared read-context caching with authoritative versions; mutations and checkout locks stay outside memoization. |
 | [src/performance/pool.rs](../src/performance/pool.rs) | Explicit per-process database budgets and bounded queue waits; invalid deployment values fail fast. |
+| [src/performance/relay_admission.rs](../src/performance/relay_admission.rs) | Short, bounded relay admission waiting before contacting the independent Checkout service. |
 | [src/performance/row_security.rs](../src/performance/row_security.rs) | Bind each borrowed PostgreSQL connection to task scope, and reject unsafe strict-runtime roles. |
 | [src/performance/settings.rs](../src/performance/settings.rs) | One MVCC snapshot validates base/override UUIDs; warm reads avoid transmitting or decoding JSON. |
 | [src/planner/admission.rs](../src/planner/admission.rs) | Every initial or repaired model proposal traverses the same native read-only admission. |

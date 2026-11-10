@@ -1,8 +1,9 @@
 //! Cluster-wide tenant resource leases. DB serialization protects admission; cancellation releases the fenced lease.
 use crate::{App, Error, Result, StatusCode, uid};
+use std::time::Duration;
 pub(crate) struct Lease {
     db: veyndo::scoped_pool::ScopedPool,
-    id: String,
+    id: Option<String>,
     heartbeat: Option<tokio::task::JoinHandle<()>>,
 }
 impl Lease {
@@ -35,7 +36,7 @@ impl Lease {
             }
             Ok(Self {
                 db: db.clone(),
-                id,
+                id: Some(id),
                 heartbeat: None,
             })
         })
@@ -52,7 +53,7 @@ impl Lease {
         )
         .await?;
         let pool = db.clone();
-        let id = lease.id.clone();
+        let id = lease.id.clone().expect("new connection lease");
         lease.heartbeat = Some(veyndo::tenant_scope::spawn(async move {
             let mut timer = tokio::time::interval(std::time::Duration::from_secs(60));
             loop {
@@ -70,30 +71,48 @@ impl Lease {
         Ok(lease)
     }
 
+    /// Free the cluster slot before handing the local relay slot to a queued request.
+    /// Drop still schedules cleanup if the request is cancelled or the database stalls.
+    pub(super) async fn finish_relay(mut self) {
+        if tokio::time::timeout(Duration::from_millis(100), self.delete())
+            .await
+            .is_ok_and(|result| result.is_ok())
+        {
+            self.id = None;
+        }
+    }
+
     /// Await release before the Tokio runtime exits; background tasks still hold App clones.
     pub(crate) async fn release(&self) {
         if let Some(heartbeat) = &self.heartbeat {
             heartbeat.abort();
         }
+        if let Err(error) = self.delete().await {
+            eprintln!("Connection lease release failed; expiry will recover it: {error}");
+        }
+    }
+
+    async fn delete(&self) -> std::result::Result<(), sqlx::Error> {
         veyndo::tenant_scope::scoped(veyndo::tenant_scope::Scope::System, async {
-            if let Err(error) = sqlx::query("DELETE FROM resource_leases WHERE id=$1")
+            sqlx::query("DELETE FROM resource_leases WHERE id=$1")
                 .bind(&self.id)
                 .execute(&self.db)
-                .await
-            {
-                eprintln!("Connection lease release failed; expiry will recover it: {error}");
-            }
+                .await?;
+            Ok(())
         })
-        .await;
+        .await
     }
 }
+
 impl Drop for Lease {
     fn drop(&mut self) {
         if let Some(heartbeat) = self.heartbeat.take() {
             heartbeat.abort();
         }
+        let Some(id) = self.id.take() else {
+            return;
+        };
         let db = self.db.clone();
-        let id = self.id.clone();
         // Only this UUID is released. Expiry recovers a killed process; it cannot remove a replacement lease.
         tokio::spawn(veyndo::tenant_scope::scoped(
             veyndo::tenant_scope::Scope::System,

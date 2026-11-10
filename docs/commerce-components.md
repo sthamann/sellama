@@ -32,7 +32,10 @@ verified in the live shop.
    isolated hosted test shop. Record latency percentiles, retries, callback
    capacity and order and stock consistency before broadening the pilot.
    The isolated Northflank job completed the paired purchase workload.
-   Separate service deployments and provider callback capacity remain open.
+   The [local follow-up](benchmarks.md#absorb-a-short-burst-before-refusing-a-relay-request)
+   reduced retries without increasing the active relay limit. Repeat the
+   comparison with the new hosted build. Separate deployments and provider
+   callback capacity remain open.
    [Hosted paired load](evidence/composed-release-rehearsal-2026-11-10.md#hosted-paired-load).
 4. [ ] **Release a complete external integration example.** Use the published
    SDK for catalog and Checkout, show an interactive app card in the agent

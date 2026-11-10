@@ -576,8 +576,11 @@ The following are implementation tasks; existing UI foundations do not complete 
   - [x] Publish the history and nine adapters in the access-controlled component
     repository. Build the independent non-root image and verify it with its
     PostgreSQL and provider fixtures. [Connector guide](connector-component.md).
-  - [ ] Point the existing Northflank service at the independent image and
-    verify readiness on the retained Core profile before retiring the old image.
+  - [x] Deploy the independent image on the existing Northflank service and
+    verify readiness on the retained Core profile. Keep the previous image
+    available for rollback.
+    [Hosted Connector](status.md#independent-connector-image-live).
+  - [ ] Verify hosted delivery for a new order using the independent image.
 - [ ] CON-02 Replace Core tenant foreign-key provisioning with an authenticated
   namespace/identity contract while retaining forced service-owned isolation.
   - [x] Verify the independent profile with explicit namespaces and per-app

@@ -29,6 +29,16 @@ Storyfront bag stayed empty after a full reload. Refund and the hosted Flow,
 invoice and mail trace remain to be verified for those orders.
 [Pilot setup and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026).
 
+## Independent Connector image live
+
+Northflank runs Connector build `mint-meeting-7629` from the independent
+`veyndo/connectors` repository at `fc36cad`. One instance passed its
+checks with zero restarts. The deployed service retains the existing Core
+profile and provider configuration. The dedicated Connector database was
+exercised in the local composition below. A hosted order mail through the new
+image still needs an authorized test shop and a receipt from the provider.
+[Connector deployment and verification](connector-component.md).
+
 ## Mixed shop traffic and app-worker recovery
 
 An isolated local Core with 200,000 synthetic products accepted 48 simulated
@@ -293,7 +303,7 @@ The worker finished one Flow, and the loopback SMTP receipt contained the
 order number. The same Connector binary also passed the existing Core
 database profile, nine provider fixtures and the offline import regression.
 
-The hosted Connector still runs Northflank build `bold-table-9699`
+Before the cutover the hosted Connector ran Northflank build `bold-table-9699`
 from `d56d663`. Its old build source is unlinked from the GitHub app.
 The private Connector repository needs a scoped installation grant before
 the hosted service can build the replacement. The existing Core and private

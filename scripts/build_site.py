@@ -139,7 +139,15 @@ def build():
     for asset in (ROOT / 'docs/assets').iterdir():
         if asset.is_file():
             shutil.copyfile(asset, DEST / 'assets' / asset.name)
-    shutil.copytree(ROOT / 'docs/assets/showcase', DEST / 'docs/assets/showcase')
+    # Linked media is copied from the pages that use it. Retain the source
+    # inventories and downloadable projects at their established URLs.
+    showcase = ROOT / 'docs/assets/showcase'
+    screenshots = json.loads((showcase / 'manifest.json').read_text())['screenshots']
+    for asset in sorted({*showcase.rglob('*.json'), *showcase.rglob('*.zip'),
+                         *(showcase / name for name in screenshots)}):
+        output = DEST / asset.relative_to(ROOT)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(asset, output)
     shutil.copytree(ROOT / 'docs/brand', DEST / 'docs/brand')
     urls = []
 

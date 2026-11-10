@@ -186,7 +186,7 @@ class NativeMailJourney:
         flow = {
             "name": {l: "Email order" for l in email_config.LOCALES},
             "active": True,
-            "event": "payment.captured" if paypal else "order.placed",
+            "event": "order.placed",
             "condition": {"type": "alwaysValid"},
             "action": "app_action",
             "instruction": {l: "Order email" for l in email_config.LOCALES},
@@ -197,11 +197,23 @@ class NativeMailJourney:
                 "arguments": {"locale": "de"},
             },
         }
-        api("/api/automation/flows/mail_order", {"revision": 0, "data": flow}, h, "PUT")
         if standalone:
             api("/api/merchant/receipts/settings", {"revision": 0, "data": {
                 "name": "Synthetic Flow Seller", "address": "Test 1, Berlin", "taxId": "TEST-ONLY",
             }}, h, "PUT")
+        flow_path = "/api/automation/flows/mail_order"
+        if paypal:
+            recipe_path = ROOT / "extensions/apps/email/paid-order-flow.json"
+            recipe = json.loads(recipe_path.read_text(encoding="utf-8"))
+            self.assertFalse(recipe["active"])
+            draft = {"revision": 0, "data": recipe}
+            self.assertEqual(api(flow_path + "/validate", draft, h),
+                             {"valid": True, "saved": False, "revision": 0})
+            saved = api(flow_path, draft, h, "PUT")
+            api(flow_path, {"revision": saved["revision"], "data": {**recipe, "active": True}}, h, "PUT")
+        else:
+            api(flow_path, {"revision": 0, "data": flow}, h, "PUT")
+        if standalone and not paypal:
             invoice = {k: v for k, v in flow.items() if k != "appAction"}
             invoice.update(action="pipeline", pipeline={"entry": "invoice", "nodes": [{
                 "kind": "action", "id": "invoice", "action": "action.generate.document",
@@ -309,6 +321,9 @@ class NativeMailJourney:
                          [("smtp", "accepted")])
         if paypal:
             self.assertEqual(receipts[0]["kind"], "invoice")
+            trace = runs[0]["result"]["trace"]
+            self.assertEqual([step["node"] for step in trace], ["invoice", "confirmation"])
+            self.assertEqual(trace[0]["result"]["documentId"], receipts[0]["id"])
             refund_path = f"/api/payments/{attempt}/refund"
             refund_headers = {**h, "Idempotency-Key": attempt + ":refund"}
             refund = {"approve": True, "amountMinor": captured["amountMinor"]}

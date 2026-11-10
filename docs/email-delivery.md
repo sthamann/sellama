@@ -160,6 +160,33 @@ shows text without running template HTML/scripts. Per-customer language selectio
 and sales-channel-specific sender profiles are future work; default and explicit
 four-language selection work now.
 
+### Invoice and confirmation after payment
+
+For shops that send a confirmation after payment, use the
+[paid order Flow](../extensions/apps/email/paid-order-flow.json). A confirmed
+`payment.captured` event first creates the native invoice and then queues the
+order confirmation through Email Delivery. The invoice is available on the order.
+The confirmation is a separate message without a PDF attachment.
+
+1. Configure the legal seller under the shop's document settings. Install Email
+   Delivery and check its sender and test recipient before enabling delivery.
+2. In Flow Builder, choose **Payment captured** and connect **Generate document
+   → Invoice** to **Email Delivery → send_order**. The saved Flow owner needs
+   permission to create documents and invoke the app.
+3. API clients can pass the example as `data` to
+   `POST /api/automation/flows/{id}/validate` with `revision: 0` for a new Flow.
+   Save it via `PUT /api/automation/flows/{id}` with the same envelope. It starts
+   inactive. After review, save with `active: true` and the returned revision.
+   Leave automatic order confirmation off if this Flow owns confirmation.
+4. Place a fresh test order with a mailbox you control. Match the order number
+   across the invoice, Flow execution and Email Delivery receipt. The Flow trace
+   shows the invoice first and the mail queue request second. Provider acceptance
+   and receipt in the test mailbox are separate checks.
+
+An existing capture does not trigger this newly saved Flow. For earlier orders,
+use the individual order's document and communication actions after checking
+whether a confirmation was already sent.
+
 ## Persistence, errors and deployment boundaries
 
 The independent Rust connector owns tenant/app-bound encrypted PostgreSQL configuration,

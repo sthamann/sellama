@@ -23,6 +23,9 @@ customers, call a model, or enable a discount. Connect the relevant app before
 adding email, Slack or AI actions. Built-in names/instructions ship in EN/DE/ES/FR;
 content editing uses one selected language with the shop-main-language fallback.
 
+To create an invoice and send one order confirmation after a payment capture,
+review and enable the separate [paid order Flow](email-delivery.md#invoice-and-confirmation-after-payment).
+
 Migration 040 backfills missing start definitions once, without overwriting any
 existing definition. Signup provisioning runs the same database function before
 customer creation. Deleted starter rules/flows stay deleted on later server starts.

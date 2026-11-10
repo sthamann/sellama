@@ -1,0 +1,39 @@
+{
+  "name": {
+    "en": "Invoice and confirmation after payment",
+    "de": "Rechnung und Bestellbestätigung nach Zahlung",
+    "es": "Factura y confirmación tras el pago",
+    "fr": "Facture et confirmation après paiement"
+  },
+  "active": false,
+  "event": "payment.captured",
+  "condition": {
+    "type": "alwaysValid"
+  },
+  "action": "pipeline",
+  "instruction": {},
+  "locale": "en-GB",
+  "pipeline": {
+    "entry": "invoice",
+    "nodes": [
+      {
+        "id": "invoice",
+        "kind": "action",
+        "action": "action.generate.document",
+        "config": { "kind": "invoice" },
+        "next": "confirmation"
+      },
+      {
+        "id": "confirmation",
+        "kind": "action",
+        "action": "app_action",
+        "config": {
+          "app": "email",
+          "action": "send_order",
+          "arguments": {}
+        },
+        "next": null
+      }
+    ]
+  }
+}

@@ -175,7 +175,7 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
     };
     let Some(mut permits) = a.admission.enter(&tenant, class) else {
         a.admission.rejected.fetch_add(1, Ordering::Relaxed);
-        return overloaded("Resource concurrency limit reached");
+        return overloaded(class, "Resource concurrency limit reached");
     };
     let _cluster_lease = if validated {
         let (scope, limit) = if class == CHECKOUT_RELAY {
@@ -185,6 +185,9 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
         };
         match super::cluster_lease::Lease::acquire(a, &tenant, scope, limit).await {
             Ok(lease) => Some(lease),
+            Err(e) if class == CHECKOUT_RELAY && e.0 == StatusCode::TOO_MANY_REQUESTS => {
+                return overloaded(class, &e.1);
+            }
             Err(e) => return e.into_response(),
         }
     } else {
@@ -205,7 +208,7 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
         && let Err(e) = reserve_ai_attempt(a, &tenant).await
     {
         return if e.0 == StatusCode::TOO_MANY_REQUESTS {
-            overloaded(&e.1)
+            overloaded(class, &e.1)
         } else {
             e.into_response()
         };
@@ -263,56 +266,17 @@ pub(crate) async fn reserve_ai_attempt_tx(
     }
     Ok(())
 }
-fn overloaded(message: &str) -> Response {
+fn overloaded(class: &str, message: &str) -> Response {
     let mut response = Error(StatusCode::TOO_MANY_REQUESTS, message.into()).into_response();
+    // These refusals occur before dispatch to Checkout. Its relay slots are
+    // released when the request ends, so a short retry preserves the limits.
+    let delay = if class == CHECKOUT_RELAY { "1" } else { "5" };
     response
         .headers_mut()
-        .insert("retry-after", "5".parse().unwrap());
+        .insert("retry-after", axum::http::HeaderValue::from_static(delay));
     response
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn saturated_tenant_does_not_block_another_or_leak_cancelled_permits() {
-        let a = Admission {
-            tenant_limit: 1,
-            ai_limit: 1,
-            ..Admission::default()
-        };
-        let first = a.enter("one", "ai").unwrap();
-        assert!(a.enter("one", "api").is_none());
-        assert!(a.enter("two", "checkout").is_some());
-        drop(first);
-        assert!(a.enter("one", "ai").is_some());
-    }
-    #[test]
-    fn checkout_relay_leaves_capacity_for_native_callback() {
-        let a = Admission {
-            tenant_limit: 1,
-            ..Admission::default()
-        };
-        let relay = class("/store-api/checkout/independent/confirm");
-        assert_eq!(relay, CHECKOUT_RELAY);
-        let _waiting_for_service = a.enter("one", relay).unwrap();
-        assert!(a.enter("one", relay).is_none());
-        let _service_callback = a.enter("one", "checkout").unwrap();
-        assert!(a.enter("one", "api").is_none());
-    }
-
-    #[test]
-    fn latency_and_keys_have_bounded_cardinality() {
-        let a = Admission::default();
-        a.record("api", 25, false);
-        a.record("api", 6000, true);
-        assert_eq!(
-            a.snapshot()["classes"][0]["buckets"],
-            json!([0, 0, 1, 0, 0, 0, 0, 1])
-        );
-        assert_eq!(class("/store-api/checkout/order"), "checkout");
-        assert_eq!(class("/api/agent/chat"), "ai");
-        assert_eq!(class("/api/agent/chat/stream"), "ai");
-        assert_eq!(class("/store-api/product/mug/questions"), "ai");
-    }
-}
+#[path = "admission_tests.rs"]
+mod tests;

@@ -4981,8 +4981,13 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "b77192c28e33f9316dc1c9e7abce8056f6d207d28429e25f8a5e75db48f6a160",
-      "review": "Shopper App streaming holds the original AI admission in a bounded scoped producer, emits only completed public tool results and cancels the producer when the client disconnects. Existing native authorization and JSON response are retained."
+      "sha256": "421cb69cfca50bdd3ff3ea39ee7d9adb0496d5081991dd249e0b9fe973b64cfc",
+      "review": "Reviewed the one-second retry for Core checkout relay capacity refusals before dispatch. Process and cluster limits, original receipt recovery and native and AI retry timing are retained. Moved admission regression checks into a test-only module; the adapter remains unproved."
+    },
+    "src/performance/admission_tests.rs": {
+      "status": "unproved",
+      "sha256": "525463156a8a876f43d86adf1e114f5d3cb91917dae0289651ab5580f76881e2",
+      "review": "Reviewed the one-second retry for Core checkout relay capacity refusals before dispatch. Process and cluster limits, original receipt recovery and native and AI retry timing are retained. Moved admission regression checks into a test-only module; the adapter remains unproved."
     },
     "src/performance/authority.rs": {
       "status": "unproved",

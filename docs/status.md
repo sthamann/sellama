@@ -69,6 +69,11 @@ needed the server's retry interval. Checkout p95 was 10.05 seconds with
 those waits, compared with 51.77 ms on the native route in the paired run.
 [Independent Checkout load](benchmarks.md#run-the-same-load-through-independent-checkout).
 
+The local follow-up reduced the retry interval for independent Checkout
+admission from five seconds to one. Confirmation p95 fell to 2.04 seconds in
+the same workload, with one order, stock decrement, invoice and SMTP delivery
+per cart. [Follow-up measurement](benchmarks.md#shorter-wait-after-a-refused-checkout-request).
+
 ## Knowledge source inventory
 
 The independent Knowledge service 0.5.0 can list imported products and private

@@ -536,6 +536,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/payments/worker.rs](../src/payments/worker.rs) | Leased payment jobs; network runs after claim commit, fenced receipts prevent duplicate local effects. |
 | [src/performance/access_snapshot.rs](../src/performance/access_snapshot.rs) | One fresh, server-owned admission read shared by domain, identity, availability, channel and proxy middleware. |
 | [src/performance/admission.rs](../src/performance/admission.rs) | Bounded instance/tenant concurrency, durable UTC-day AI quotas, and low-cardinality latency telemetry. |
+| [src/performance/admission_tests.rs](../src/performance/admission_tests.rs) | Regression checks for Core admission limits and the Checkout relay retry interval. |
 | [src/performance/authority.rs](../src/performance/authority.rs) | Connect separately admitted SQL roles within one process budget; rotate authenticated transaction scopes. |
 | [src/performance/cache.rs](../src/performance/cache.rs) | Bounded weighted LRU for immutable decoded read models; no network I/O under its mutex. |
 | [src/performance/cluster_lease.rs](../src/performance/cluster_lease.rs) | Cluster-wide tenant resource leases. DB serialization protects admission; cancellation releases the fenced lease. |

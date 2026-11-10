@@ -908,12 +908,16 @@ The following are implementation tasks; existing UI foundations do not complete 
   capture/refund events and configured flow execution.
 - [ ] SYS-04 Create an app via agent/visual editor, configure, test privately,
   publish selected changes, update and restore with retained records.
-- [ ] SYS-05 Exercise POS, marketplace import, B2B/EDI, shipment and cross-channel
+- [x] SYS-05 Exercise POS, marketplace import, B2B/EDI, shipment and cross-channel
   inventory against isolated fixture services and explicit provider test modes.
   - [x] Verify native cash register, B2B through UCP and split shipments, plus
     separately running Marketplace and EDI gateways, with Core and PostgreSQL.
     [Local channel results](status.md#flow-contracts-and-sales-channels).
-  - [ ] Exercise those channels together against the same shop and stock.
+  - [x] Verify web checkout, POS and Marketplace against the same shop and last
+    stock unit. Confirm one order, two stock conflicts and the original order
+    on replay. [Local stock contention](status.md#flow-contracts-and-sales-channels).
+  - [x] Continue in the same shop and SKU with an independent UBL import, native
+    B2B purchase and split shipment. Replays conserve the order, total and stock.
 - [ ] SYS-06 Verify service failure/restart, rolling contract versions, duplicate
   events, revoked rights, foreign tenants and restore across all storage owners.
   - [x] Rehearse lost confirmation, purchase-routing rollback and app-worker

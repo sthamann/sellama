@@ -1,6 +1,6 @@
 # Reproduce the million-product commerce measurement
 
-The [published benchmark page](https://sthamann.github.io/veyndo/benchmarks.html)
+The [published benchmark page](https://veyndo.github.io/veyndo/benchmarks.html)
 contains the current bounded million-product workloads and the earlier full-catalog
 baseline comparison. Raw JSON includes every measured latency, errors, source and
 binary metadata. These are local synthetic HTTP/PostgreSQL measurements, not

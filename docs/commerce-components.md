@@ -564,6 +564,9 @@ The following are implementation tasks; existing UI foundations do not complete 
   - [x] Measure local mixed traffic with 200,000 synthetic products and 48
     simulated purchases. Restart the worker and verify one invoice and one mail
     per order. [Workload and results](benchmarks.md#mixed-shop-traffic-and-worker-restart).
+  - [x] Trace one local order through independent Checkout, a Checkout restart,
+    the app worker, invoice generation and the independent Connector.
+    [Composed test](connector-component.md#verify-the-complete-shop).
   - [ ] Verify a specific hosted order's saved Flow trace with an authorized
     test shop and measure sustained concurrent shop and worker traffic.
 - [ ] AUTO-03 Expose independent API/MCP and graphical/SDK authoring through one

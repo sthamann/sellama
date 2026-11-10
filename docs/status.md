@@ -39,6 +39,13 @@ exercised in the local composition below. A hosted order mail through the new
 image still needs an authorized test shop and a receipt from the provider.
 [Connector deployment and verification](connector-component.md).
 
+In a local run, the same order passed through private Checkout, Core, the
+separate app worker and the independent Connector. The client discarded the
+first confirmation body and recovered the order after a Checkout restart.
+Core showed one stock decrement and one invoice, and the SMTP fixture
+received one mail with that order number.
+[Reproduce the composed journey](connector-component.md#verify-the-complete-shop).
+
 ## Mixed shop traffic and app-worker recovery
 
 An isolated local Core with 200,000 synthetic products accepted 48 simulated

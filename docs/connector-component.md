@@ -73,3 +73,19 @@ original order ID, one completed Flow and one SMTP receipt with its order
 number. The shop's order transaction stays on Core. See [current hosted
 status](status.md#connector-composition-and-public-response-times-9-november-2026)
 for the image and measurement scope.
+
+To include the private Checkout service, build it separately and use its
+binary with the same disposable PostgreSQL instance and loopback mail server:
+
+```sh
+CONNECTORS_BINARY=/absolute/path/to/connectors \
+CHECKOUT_TEST_BINARY=/absolute/path/to/veyndo-checkout-service \
+  python3 scripts/email_tests.py Contracts.test_independent_checkout_and_connector_recover_order
+```
+
+The test discards the first confirmation body, restarts Checkout and
+recovers the order through the same shop route. Core records one order and
+one stock decrement. The separate app worker then executes the configured
+Flow, and the independent Connector delivers one mail with the same order
+number. Core exposes one invoice for that order. This run uses simulated
+payment and a local SMTP recipient.

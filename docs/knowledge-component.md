@@ -169,7 +169,8 @@ test owner that can create a second database and restricted role. Set
 Set `KNOWLEDGE_REPOSITORY` to the component checkout and
 `KNOWLEDGE_TEST_BINARY` to its built binary. Optionally set
 `KNOWLEDGE_SDK_MODULE` to the SDK's JavaScript entry. Run
-`python3 scripts/knowledge_catalog_integration.py`. Set
+`python3 scripts/knowledge_catalog_integration.py`. The runner selects the
+furniture fixture for the catalog edit and test purchase. Set
 `KNOWLEDGE_TEST_NATIVE_AUTHORITY=1` to also test the actual Core identity
 endpoint with the current Knowledge acceptance suite. That phase checks real
 catalog delivery, evidence reads, foreign shop keys and revocation.

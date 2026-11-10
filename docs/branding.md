@@ -2,8 +2,8 @@
 
 **Product:** VEYNDO. **Merchant workspace:** VEYNDO Studio.
 **Operator console:** VEYNDO Platform.
-**Canonical repository:** https://github.com/sthamann/veyndo.
-**Documentation:** https://sthamann.github.io/veyndo/docs/.
+[Canonical repository](https://github.com/veyndo/veyndo) ·
+[Documentation](https://www.veyndo.ai/docs/).
 
 The VEYNDO identity uses the approved Living V symbol and custom outlined
 geometric lettering. Two offset solid elements form one directed V, expressing

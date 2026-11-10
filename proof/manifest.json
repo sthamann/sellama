@@ -5459,8 +5459,8 @@
       "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
     },
     "components.lock.json": {
-      "sha256": "27888ec784bd2d1a4541f398e6cf65db00c2634737793edb4a98cd7d21d26233",
-      "review": "Move reviewed deterministic rules and catalog to the deployed Automation source snapshot. The selected kernel source is byte-identical, and only the two imports of its checked functions changed relative to the previous Core. Pure unit, PHP differential, 440 HTTP and 3 MCP parity cases, and real PostgreSQL rule, checkout and Flow tests passed. Pin only the reviewed library and data; private server source is excluded."
+      "sha256": "49f68822ff7991a278fce4924d0aea0e600887b495e355faa3b40c8b3b950b0e",
+      "review": "Codex source review: Marketplace source pin advances only to the upstream test-only commit. The locked runtime, application manifest and business policies are byte-identical. The connected PostgreSQL integration passed the last-unit race and exact replay."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",

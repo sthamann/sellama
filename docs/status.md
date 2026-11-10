@@ -29,7 +29,16 @@ movement, one Flow and an invoice. The separate EDI gateway processed
 EDIFACT, UBL and cXML into scoped requisitions. A requisition completed in
 native B2B checkout, and a revoked credential prevented further imports.
 Marketplace provider requests used local fixtures. These tests covered
-separate shops and did not measure capacity across channels in one live shop.
+separate shops. A further PostgreSQL test put the web shop, cash register
+and Marketplace callback in the same shop and made them compete for the
+last unit of one product. One order committed, both other routes rejected
+the sale for insufficient stock, and the winning request returned the same
+order on replay. The connected Marketplace suite retains that regression.
+The same shop then restocked two units, imported a UBL requisition for
+the same SKU, completed native B2B checkout and split the shipment into
+two single-unit parcels. Repeating checkout and the split preserved the
+original order, total, parcel quantities and zero remaining stock.
+[Marketplace regression](https://github.com/veyndo/marketplaces/pull/2).
 [Complete shop acceptance](commerce-components.md#complete-product-release-acceptance).
 
 ## Private Automation preview on Northflank

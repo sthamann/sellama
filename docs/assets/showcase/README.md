@@ -3,7 +3,7 @@
 > Historical capture inventory. For the current product interface, use the [2 November screenshots and animated workflows](../product-tour-20261102/README.md). Original dates and checksums below are retained.
 
 
-[Open the showcase](https://sthamann.github.io/veyndo/index.html#demo) · [Complete feature guide](../../features.md) · [All media provenance](../README.md)
+[Open the showcase](https://veyndo.github.io/veyndo/#demo) · [Complete feature guide](../../features.md) · [All media provenance](../README.md)
 
 The earlier workflow films and posters were refreshed on 13 October 2026 with the approved VEYNDO Living V identity and “Commerce that thinks and acts.” claim. The UI source revision is `5b2ebb5`. [The manifest](manifest.json) records exact durations, dimensions, file hashes, capture source and demonstration boundaries. [Video descriptions](../../video-tours.md) distinguish actual screencasts from editorial sequences of real UI stills.
 

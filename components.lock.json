@@ -3,7 +3,7 @@
   "components": {
     "marketplaces": {
       "repository": "https://github.com/veyndo/marketplaces",
-      "commit": "f653e89ef49c8af34b3f21d9c8c18d4ee8efa66f",
+      "commit": "e49f5e93728decc20c6be65d992ca9a645799a46",
       "path": "extensions/apps/marketplaces",
       "files": {
         ".github/CODEOWNERS": "7cdbaae40b6d894ef5154a74cfeb40bc2da025f6c80cd8e1f857cf68c2776c5e",
@@ -51,8 +51,9 @@
         "studio/marketplace-order-i18n.ts": "7f8590dae3cf8d4b4d8ebb6c906ecd7f4e637e45dad6ed4accbcca7a7e0ffd4e",
         "studio/marketplace-setup-i18n.ts": "0b02f31b2618e108215356417a201c640847d59ad7683d70aca58aa38300cbc7",
         "studio/marketplaces.css": "275eae92fd19381bb4a2e0530b39295c84de6a64459e6d1d0f2b87bf5b209d13",
-        "tests/integration.py": "861cf95a29bf2f06235a8cb2c415d4bf877cf4415e5ad593f28daef97308cc23",
+        "tests/integration.py": "3256762cfb242cae62a8f78eca85b5b1de0ece0e3343e738fe86199bcccd9d3b",
         "tests/order_localization.py": "3c203bf3207605149ddc8a1a8632c3e363a80afaae3b857ee4d52ad98174a6df",
+        "tests/shared_stock.py": "d2a6b04e54924c2985b66f3fd435847ce1655ea2bb6fed6d419d732ce96bd67b",
         "tests/standalone.py": "486e1d0bc9e879b87d8df07985867d452b908b90b40da333ea1183dd0f37fb27"
       }
     },

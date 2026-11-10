@@ -193,6 +193,9 @@ Each component task remains open until these checks are demonstrated for it.
   host with no Veyndo implementation dependency.
 - [ ] FND-05 Complete typed response contracts, pagination and compatibility tests;
   current generated native contracts cover inputs, not all domain responses.
+  - [x] Type the standalone Knowledge v1 inputs, source pages and evidence.
+    Verify the external import example against the real service and database.
+    [Example](knowledge-component.md#import-your-own-catalog-and-documents-with-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;
@@ -414,7 +417,8 @@ The following are implementation tasks; existing UI foundations do not complete 
     with a JavaScript example. A bounded cursor lists current revisions and
     withdrawals using the existing source index.
     [Source inventory](knowledge-component.md#audit-which-sources-arrived).
-- [ ] KNOW-06 Provide SDK examples using an external catalog and documents.
+- [x] KNOW-06 Provide SDK examples using an external catalog and documents.
+  [Local acceptance and runnable example](knowledge-component.md#import-your-own-catalog-and-documents-with-the-sdk).
 - [ ] KNOW-07 Prove update/delete/reindex/restart/model-version handling without
   paid provider calls; keep real-provider acceptance separate.
 - [ ] KNOW-08 Switch Veyndo to the same released service and pass existing

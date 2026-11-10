@@ -18,7 +18,9 @@ order transaction. Receipt recovery uses the original indexed purchase key.
 The normal storefront and Storyfront both call Core. For a configured test
 shop, Core relays the browser's two session operations to private Checkout,
 with separate request capacity for the relay and its Commerce callbacks.
-The public Lumen pilot verifies this composition in the original Storyfront
+A short bounded wait absorbs bursts before requests reach Checkout. The
+cluster still caps simultaneous purchases per shop, and Commerce owns the
+order, stock and event transaction. The public Lumen pilot verifies this composition in the original Storyfront
 iframe with demo payment.
 [Commerce host ports](checkout-component.md#commerce-host-ports-in-core) ·
 [Hosted Lumen pilot](checkout-component.md#hosted-lumen-pilot-10-november-2026).

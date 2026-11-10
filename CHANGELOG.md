@@ -1,5 +1,13 @@
 # Changelog
 
+## Short waits for the independent Checkout
+
+- Let a small number of requests wait briefly for a free relay slot. Keep
+  the separate limits for Commerce callbacks and the safe retry response
+  when admission refuses a request before it reaches Checkout.
+- Release the cluster lease before handing the local relay slot to a
+  queued request during normal operation.
+
 ## Shared Automation rule library
 
 - Link the released Automation rule source into Core. Keep native rule APIs,

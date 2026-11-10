@@ -10,10 +10,14 @@ use std::{
 };
 use tokio::sync::{OwnedSemaphorePermit, Semaphore};
 
+#[path = "relay_admission.rs"]
+mod relay_admission;
+
 const CHECKOUT_RELAY: &str = "checkout-relay";
 
 struct Budget {
     relay: Arc<Semaphore>,
+    relay_waiters: Arc<Semaphore>,
     slots: Arc<Semaphore>,
     ai: Arc<Semaphore>,
     touched: Instant,
@@ -29,6 +33,7 @@ pub(crate) struct Admission {
     general: Arc<Semaphore>,
     checkout: Arc<Semaphore>,
     relay: Arc<Semaphore>,
+    relay_waiters: Semaphore,
     tenants: Mutex<HashMap<String, Budget>>,
     metrics: Mutex<HashMap<&'static str, Metric>>,
     rejected: AtomicU64,
@@ -49,6 +54,7 @@ impl Default for Admission {
             general: Arc::new(Semaphore::new(number("HTTP_CONCURRENCY", 128, 4096))),
             checkout: Arc::new(Semaphore::new(number("CHECKOUT_CONCURRENCY", 32, 1024))),
             relay: Arc::new(Semaphore::new(8)),
+            relay_waiters: Semaphore::new(16),
             tenants: Mutex::new(HashMap::new()),
             metrics: Mutex::new(HashMap::new()),
             rejected: AtomicU64::new(0),
@@ -63,13 +69,14 @@ impl Admission {
         self.tenant_limit.min(4)
     }
 
-    fn enter(&self, tenant: &str, class: &str) -> Option<Vec<OwnedSemaphorePermit>> {
+    fn budget<T>(&self, tenant: &str, read: impl FnOnce(&Budget) -> T) -> Option<T> {
         let mut tenants = self.tenants.lock().unwrap();
         if !tenants.contains_key(tenant) && tenants.len() >= 4096 {
             tenants.retain(|_, b| {
                 b.touched.elapsed().as_secs() < 60
                     || b.slots.available_permits() != self.tenant_limit
                     || b.relay.available_permits() != self.relay_limit()
+                    || b.relay_waiters.available_permits() != self.relay_waiter_limit()
             });
             if tenants.len() >= 4096 {
                 return None;
@@ -77,26 +84,31 @@ impl Admission {
         }
         let budget = tenants.entry(tenant.into()).or_insert_with(|| Budget {
             relay: Arc::new(Semaphore::new(self.relay_limit())),
+            relay_waiters: Arc::new(Semaphore::new(self.relay_waiter_limit())),
             slots: Arc::new(Semaphore::new(self.tenant_limit)),
             ai: Arc::new(Semaphore::new(self.ai_limit)),
             touched: Instant::now(),
         });
         budget.touched = Instant::now();
-        // A relay waits for Checkout to call Core back. Its permits must leave room
-        // for that callback in both the process and workspace pools.
-        let (process, workspace) = match class {
-            CHECKOUT_RELAY => (&self.relay, &budget.relay),
-            "checkout" => (&self.checkout, &budget.slots),
-            _ => (&self.general, &budget.slots),
-        };
-        let mut permits = vec![
-            process.clone().try_acquire_owned().ok()?,
-            workspace.clone().try_acquire_owned().ok()?,
-        ];
-        if class == "ai" {
-            permits.push(budget.ai.clone().try_acquire_owned().ok()?);
-        }
-        Some(permits)
+        Some(read(budget))
+    }
+
+    fn enter(&self, tenant: &str, class: &str) -> Option<Vec<OwnedSemaphorePermit>> {
+        self.budget(tenant, |budget| {
+            let process = if class == "checkout" {
+                &self.checkout
+            } else {
+                &self.general
+            };
+            let mut permits = vec![
+                process.clone().try_acquire_owned().ok()?,
+                budget.slots.clone().try_acquire_owned().ok()?,
+            ];
+            if class == "ai" {
+                permits.push(budget.ai.clone().try_acquire_owned().ok()?);
+            }
+            Some(permits)
+        })?
     }
     fn record(&self, class: &'static str, elapsed: u64, failed: bool) {
         let mut metrics = self.metrics.lock().unwrap();
@@ -116,6 +128,7 @@ impl Admission {
             "dailyAiQuotaDefault":self.daily_ai,"dailyQuotaScope":"database / UTC day",
             "generalAvailable":self.general.available_permits(),"checkoutAvailable":self.checkout.available_permits(),
             "checkoutRelayAvailable":self.relay.available_permits(),"tenantCheckoutRelayLimit":self.relay_limit(),
+            "checkoutRelayWaitersAvailable":self.relay_waiters.available_permits(),
             "trackedTenants":self.tenants.lock().unwrap().len(),"rejected":self.rejected.load(Ordering::Relaxed),
             "latencyBucketUpperMs":[5,20,50,100,250,1000,5000,null],
             "classes":metrics.iter().map(|(name,m)|json!({"class":name,"calls":m.calls,"failures":m.failures,"totalMs":m.total_ms,"buckets":m.buckets})).collect::<Vec<_>>()})
@@ -173,11 +186,16 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
     } else {
         "anonymous".into()
     };
-    let Some(mut permits) = a.admission.enter(&tenant, class) else {
+    let permits = if class == CHECKOUT_RELAY {
+        a.admission.enter_relay(&tenant).await
+    } else {
+        a.admission.enter(&tenant, class)
+    };
+    let Some(mut permits) = permits else {
         a.admission.rejected.fetch_add(1, Ordering::Relaxed);
         return overloaded(class, "Resource concurrency limit reached");
     };
-    let _cluster_lease = if validated {
+    let cluster_lease = if validated {
         let (scope, limit) = if class == CHECKOUT_RELAY {
             (CHECKOUT_RELAY, a.admission.relay_limit())
         } else {
@@ -186,6 +204,7 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
         match super::cluster_lease::Lease::acquire(a, &tenant, scope, limit).await {
             Ok(lease) => Some(lease),
             Err(e) if class == CHECKOUT_RELAY && e.0 == StatusCode::TOO_MANY_REQUESTS => {
+                a.admission.rejected.fetch_add(1, Ordering::Relaxed);
                 return overloaded(class, &e.1);
             }
             Err(e) => return e.into_response(),
@@ -233,6 +252,11 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
             )
             .into_response(),
         };
+    if class == CHECKOUT_RELAY
+        && let Some(lease) = cluster_lease
+    {
+        lease.finish_relay().await;
+    }
     a.admission.record(
         class,
         start.elapsed().as_millis().min(u64::MAX as u128) as u64,

@@ -106,6 +106,35 @@ p95 from **10,046.54 ms to 2,040.01 ms**. Median confirmation was **39.31 ms**.
 Eight orders still needed a retry, twelve in total. Each of the 48 purchases
 again had one order, one stock decrement, one invoice and one SMTP delivery.
 
+### Absorb a short burst before refusing a relay request
+
+The next local comparison used the same 200,000-product fixture, twelve
+concurrent purchase clients, 240 catalog reads, sixteen assistant requests
+and an app worker restart. Both runs used debug builds, PostgreSQL 17,
+simulated payments and a loopback SMTP recipient. Only Core relay admission
+changed between the two runs.
+
+| Checkout confirmation | Before | With bounded waiting and lease handoff |
+| --- | ---: | ---: |
+| p50 | 41.62 ms | 107.22 ms |
+| p95 | 2,047.84 ms | 129.65 ms |
+| p99 | 2,056.12 ms | 140.28 ms |
+| Orders requiring a retry | 8 of 48 | 0 of 48 |
+| Total retries | 12 | 0 |
+
+Both runs kept one order, stock decrement, invoice and mail per purchase.
+The median rose as requests waited briefly at Core. The longer waits caused
+by client retries disappeared in this run. Core still caps running relays and
+returns the same pre-dispatch refusal when local or cluster capacity runs out.
+The native route on the updated Core completed its own 48-order run at a
+47.28 ms p95 with zero retries. The recovery, worker restart, capture and
+refund fixtures passed on that same Core build.
+[Relay limits and recovery contract](checkout-component.md#route-a-test-shop-through-private-checkout).
+
+[Previous isolated Northflank results](evidence/composed-release-rehearsal-2026-11-10.md#hosted-paired-load)
+used the earlier relay behavior. Repeat the hosted workload with the updated
+Core before using these numbers for a capacity decision.
+
 ## Isolate the database
 
 Use a separate checkout and database. The fixture command deletes products and

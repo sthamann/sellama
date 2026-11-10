@@ -116,6 +116,13 @@ admission from five seconds to one. Confirmation p95 fell to 2.04 seconds in
 the same workload, with one order, stock decrement, invoice and SMTP delivery
 per cart. [Follow-up measurement](benchmarks.md#shorter-wait-after-a-refused-checkout-request).
 
+The bounded relay queue and explicit lease handoff reduced local independent
+confirmation p95 from 2,047.84 ms to 129.65 ms in a matched 48-order test.
+All 48 purchases completed without a retry. Median latency went from 41.62 ms
+to 107.22 ms. Each purchase still produced one order, stock decrement, invoice
+and loopback SMTP delivery. [Comparison and scope](benchmarks.md#absorb-a-short-burst-before-refusing-a-relay-request).
+The equivalent run with the new Northflank build is pending.
+
 ## Knowledge source inventory
 
 The independent Knowledge service 0.5.0 can list imported products and private

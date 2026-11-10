@@ -323,9 +323,16 @@ neither the grant nor the private service address.
 | `POST /store-api/checkout/independent/confirm` | `POST /v1/sessions/confirm` |
 
 The relay has eight concurrent slots per Core process and at most four per
-shop across Core replicas, capped by the existing shop limit. Waiting for
-Checkout leaves the native request slots available for its Commerce callbacks.
-The authoritative order, stock and outbox commit stays in Core.
+shop across Core replicas, capped by the existing shop limit. A burst can
+wait up to 300 ms for a local slot, with at most 16 waiters per process and
+eight per shop. A lower configured shop limit also reduces its queue. While
+waiting for a local slot, requests hold no database lease. Core normally
+releases the cluster lease before the next local request takes the slot.
+A full queue, elapsed wait or refused cluster lease still returns the
+explicit pre-dispatch refusal with `Retry-After: 1`.
+
+Checkout's Commerce callbacks have their own request capacity. The
+authoritative order, stock and outbox commit stays in Core.
 
 The canary applies to signed-in consumer carts in the named live shop using
 simulated payment or an explicitly admitted PayPal Sandbox account. Guest

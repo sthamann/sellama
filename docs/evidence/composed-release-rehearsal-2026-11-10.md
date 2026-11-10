@@ -212,3 +212,37 @@ The isolated run `fb6f5c9a-b2c7-4629-b1fe-80e0710347ae` completed at
 13:02 UTC. It used the production executables with fixture credentials.
 Separate hosted service placement and real provider callback load remain
 open for acceptance.
+
+## Match the deployed builds to image manifests
+
+At 13:50 UTC, Northflank's deployment API reported these source revisions
+and build IDs for the active services. For each build, the build log
+reported exactly one distinct manifest digest pushed to the managed
+registry. The image library reported each matching build tag ready. Core and
+the app worker use the same build service with different build IDs. The
+recorded digests identify the images to use in the next rehearsal.
+
+| Service | Deployed source | Northflank build | Pushed image manifest SHA-256 |
+| --- | --- | --- | --- |
+| Core | `333f604592a7a2ba3d3a2de808ca6947e1a3ea57` | `joyful-turn-9296` | `3364bd60d7049343e5784a5c93ffbfa3dea8e0eb387c1c7b15d9878331538bf3` |
+| App worker | `687bbae83dd3c5c07d3bf97009fb2f07e2d2510c` | `last-mine-6458` | `a2c15af0b71c8bf2b0e6d85370659cf1368834cae956b1ec149020e2b07e2a21` |
+| Checkout | `eaa34f27386e0de2b34de6085fef78ac237943e9` | `puffy-soup-2325` | `8524590889e27bc2163058b97b5966265f8c9525028d519515101a09d365de1e` |
+| Knowledge | `874534dd80425f741d7b1a749b64281efda62340` | `sleek-belief-4263` | `df734b6fcd415f81d48f0aa3eae83afa27676ddcb7c7214b8c283aaf55bab16c` |
+| Connector | `fc36cad517533a18922966c7f3aa2322860ce19c` | `mint-meeting-7629` | `4ffb567056f7a6187d0e2a579532a6a9f840ac8e1fa33218ca5398dcb621cdef` |
+| Payments | `4946228a4033c99b4399f0d1d1fb6ca696f11187` | `bold-flower-2375` | `05bd0e1cb994e90d8594648b1d1cbaf2da897a92d0ab0375046a4093b80a8b37` |
+| Automation | `c4e50f6151d2beb1f4db19565235347040d287c7` | Imported source revision tag | `31c04335a7db0fade07ce0d090a1e75281aedd3688397319064853f303f9e9ca` |
+
+Automation uses the imported image version
+`sha-c4e50f6151d2beb1f4db19565235347040d287c7`. The deployment points to
+the exact import record, which the image API reported ready for Linux amd64
+with the digest above.
+[Northflank image metadata API](https://northflank.com/docs/v1/api/project/images/get-image).
+
+The first digest-pinned lookup returned 403 from the private registry with
+the current Northflank session. The table establishes build provenance from
+Northflank metadata. The clean boot requires registry read access, verified
+image pulls, empty databases migrated at startup, healthy instances, and
+payment and mail traffic routed to fixtures. Then repeat the purchase,
+response-loss recovery, worker restart and routing rollback with the same
+assertions for order, stock, invoice and mail.
+[Northflank image retrieval](https://northflank.com/docs/v1/application/build/pull-images-from-Northflank).

@@ -427,6 +427,9 @@ The following are implementation tasks; existing UI foundations do not complete 
 - [ ] UI-01 Extend existing operation/App definitions with typed outputs, resources,
   precise effect/review/preview/replay semantics and compatible UI references;
   generate SDK/OpenAPI/MCP contracts without duplicate operation/rights lists.
+  - [x] Declare and check the Flow draft validation result through the native
+    registry. Generate TypeScript, OpenAPI and an additive WIT interface
+    from the same declaration. [Typed results](agentic-component-ui.md#typed-results-for-native-tools).
 - [ ] UI-02 Define typed UiHost context/API/theme/locale/navigation/picker/result/
   cancellation/return ports and required/optional service dependency negotiation.
 - [ ] UI-03 Extract the actual renderer/design tokens and versioned UI packages;

@@ -1,5 +1,22 @@
 //! Native operation input contracts; transports consume this owner instead of maintaining their own schemas.
 use crate::*;
+/// Start with operations whose domain owners guarantee a stable result shape.
+pub(super) fn output(name: &str) -> Option<Value> {
+    if name != marketing::DRAFT_CAPABILITY.0 {
+        return None;
+    }
+    Some(json!({
+        "type":"object",
+        "properties":{
+            "valid":{"type":"boolean","enum":[true]},
+            "saved":{"type":"boolean","enum":[false]},
+            "revision":{"type":"integer","minimum":0}
+        },
+        "required":["valid","saved","revision"],
+        "additionalProperties":false
+    }))
+}
+
 pub(crate) fn input(name: &str) -> Value {
     if let Some(schema) = studio::reports::schema(name) {
         return schema;

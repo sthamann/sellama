@@ -16,7 +16,7 @@ forms or a second agent implementation.
 
 | Existing owner | Observed capability | Required extension |
 | --- | --- | --- |
-| `src/capabilities/registry.rs` and `contract.rs` | One native dispatch/input/discovery contract, current admission and conservative agent reads | Native tool descriptions currently pass no output schema; read/write and generic safety hints do not describe resource roles, precise external/financial effects or UI composition |
+| `src/capabilities/registry.rs` and `contract.rs` | One native dispatch/input/discovery contract, current admission and conservative agent reads | Flow draft validation publishes a typed result; other native outputs and precise external/financial effects still need per-operation contracts |
 | Apps model `surfaces.rs`, `view_types.rs`, `ui_ast.rs` | Strict localized placements, native controls, context/data/action bindings and bounded behavior | Reusable service operation references, shared picker/navigation/results and component compatibility negotiation |
 | `extensions/sdk/browser.js` | Host context/locales, declared actions, resize and nonce-bound results | A documented cross-component host contract for opening resources, selection dialogs, results, cancellation, return and unsaved state |
 | Current native admission/preview/release owners | Tenant and actor checks, private preview, reviewed immutable definitions | Same connected path for independent service UI packages and generated workspace proposals |
@@ -36,6 +36,19 @@ flowchart LR
     R --> W[Complete Veyndo workspace]
     R --> H[External frontend or MCP host]
 ```
+
+## Typed results for native tools
+
+The Core operation registry declares the successful result of
+`automation.validate_flow`. MCP tool discovery publishes the schema and Core
+checks the result before returning it. The result identifies the draft
+revision and confirms the check did not save the Flow. An agent can present
+that result in the current draft and offer a separate save action.
+
+The compiled registry produces TypeScript input and result types, OpenAPI
+schemas keyed by tool name, and an additive WIT interface for typed results.
+The existing WIT interface still returns JSON strings. Operations without a
+declared result continue to use their existing response.
 
 ## Three delivery modes from one UI owner
 

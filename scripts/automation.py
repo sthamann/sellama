@@ -73,6 +73,9 @@ path='/api/automation/flows/pipeline/validate'
 tool='automation.validate_flow'
 tool_meta=next(x for x in call('/mcp',tools_list,mh)['result']['tools'] if x['name']==tool)
 assert tool_meta['annotations']['readOnlyHint'] is True
+schema=tool_meta['outputSchema']
+assert set(schema['required'])=={'valid','saved','revision'} and not schema['additionalProperties']
+assert schema['properties']['valid']['enum']==[True] and schema['properties']['saved']['enum']==[False]
 assert call(path,draft,mh)=={'valid':True,'saved':False,'revision':0}
 assert mcp(tool,{'id':'pipeline',**draft})['structuredContent']=={'valid':True,'saved':False,'revision':0}
 call(path,draft,fh,expected=403)

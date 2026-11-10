@@ -353,3 +353,23 @@ database or one another. The remaining hosted check starts those exact
 images as private services with dedicated fixture databases and follows
 one purchase across the network through the same recovery, callback,
 invoice, mail and refund checks.
+
+### Release the simulated invoice correction
+
+The Payments simulation deliberately omits the provider risk session
+identifier. Invoice approval now accepts that simulated session and
+keeps the identifier mandatory for provider invoice confirmation. The
+Payments CI uses the current Core contract for safe diagnostics on
+saved payment failures. The complete Payments workflow passed with
+disposable PostgreSQL. It includes repeated approval callbacks, saved
+method revocation, all 17 simulated methods, and receipt replay after a
+service restart.
+
+Northflank deployed build `luminous-ink-2350` from `1b52f500` without a
+schema migration. Its image manifest digest is
+`sha256:95a11b66220fa52cdc6c1823e02b4a73e2ef05f0c99ac8ce703679cb2c937eea`.
+The old replica retired and the active provider endpoint reported
+`status: ok`, `mode: sandbox` and implementation version `1.6.6`.
+Core health and the Lumen storefront also responded. The hosted check
+verified service readiness. The payment and invoice behavior was
+verified against provider and simulation fixtures in CI.

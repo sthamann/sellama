@@ -96,9 +96,9 @@ including 27 retries across 11 independent orders. A full boot from pinned
 OCI images and the provider callback load check remain open.
 [Source pins, schema fingerprints and hosted results](evidence/composed-release-rehearsal-2026-11-10.md#northflank-rehearsal-with-deployed-executables).
 
-The active Northflank deployments for Core, the app worker, Checkout,
-Knowledge, Connector, Payments and Automation now have recorded image
-manifest digests. The original Core and App Worker builds then ran as
+The Northflank builds used in this rehearsal for Core, the app worker,
+Checkout, Knowledge, Connector, Payments and Automation have recorded
+image manifest digests. The original Core and App Worker builds ran as
 separate containers in the private Northflank release lab. Core booted
 against empty PostgreSQL. Two simulated native purchases each preserved
 one order and one stock decrement after a confirmation retry. The Worker
@@ -113,6 +113,11 @@ and one SMTP message, and refunded once under replay. The journey across
 all original hosted images is still open.
 [Hosted image boot with restricted roles](evidence/composed-release-rehearsal-2026-11-10.md#run-the-original-images-with-restricted-database-roles).
 [Payment replay and original image probes](evidence/composed-release-rehearsal-2026-11-10.md#connect-the-payments-adapter-and-replay-a-callback).
+
+Payments build `luminous-ink-2350` is live in Sandbox mode. It fixes
+simulated invoice approval and retains the provider risk session check.
+The complete Payments workflow passed, including saved methods and all
+17 simulated methods. [Release and verification scope](evidence/composed-release-rehearsal-2026-11-10.md#release-the-simulated-invoice-correction).
 
 ## Mixed shop traffic and app-worker recovery
 

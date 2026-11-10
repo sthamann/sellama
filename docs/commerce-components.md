@@ -114,6 +114,8 @@ service adapters must reuse their implementation rather than duplicate rules.
     transferred repositories. Existing CI/CD settings and running deployment
     versions are retained; the Payments service starts its normal enabled build.
     Source mapping is not acceptance of a new runtime deployment.
+  - [x] Extend the existing installation to the separately approved private
+    `veyndo/connectors` and `veyndo/knowledge` repositories.
   - [ ] Complete source/build/runtime acceptance and remaining deployment links.
 - [ ] ORG-08 Verify repository permissions, rules, Actions settings, webhooks and
   secret/deploy-key availability without exporting secret values.
@@ -263,14 +265,17 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
     buyer authentication, shop isolation, embedded Storyfront return and
     empty bag, and native Store API confirmation replay with one stock change.
     [Hosted Lumen pilot](checkout-component.md#hosted-lumen-pilot-10-november-2026).
-  - [ ] Accept the top-level native browser and trace the hosted order event.
-    Run the hosted response-loss and concurrency checks before broadening the pilot.
+  - [x] Accept the top-level native browser purchase and verify the empty cart
+    after returning from the provider. Repeat in the original Storyfront iframe.
+  - [ ] Trace the hosted order event. Run the hosted response-loss and
+    concurrency checks before broadening the pilot.
   - [x] Compose the independent confirmation with native PayPal Sandbox and
     Shopware Payments PayPal. Verify the original payment attempt, denial of a
     switched Live account, capture and refund with local provider responses.
     [Sandbox verification](checkout-component.md#paypal-sandbox-through-the-separate-service).
-  - [ ] Accept the hosted independent service with configured Sandbox payment
-    and verify payment attempt, callback, settlement and refund.
+  - [x] Verify actual hosted PayPal Sandbox approval, callback and capture
+    through the private Checkout service in both browser entry points.
+  - [ ] Verify refunds for both captured Sandbox orders.
 - [ ] CHK-03 Extract Rust checkout orchestration/session storage to its own repo;
   no Core-process dependency, private Core SQL access or second financial ledger.
 - [ ] CHK-04 Publish own versioned HTTP/MCP interfaces and JS/TS SDK, preserving
@@ -556,6 +561,9 @@ The following are implementation tasks; existing UI foundations do not complete 
     process roles, private queue signals, rolling reachability and the public
     Storyfront purchase with the dedicated worker active.
     [Live cutover](status.md#live-flow-draft-check-and-separate-app-worker-9-november-2026).
+  - [x] Measure local mixed traffic with 200,000 synthetic products and 48
+    simulated purchases. Restart the worker and verify one invoice and one mail
+    per order. [Workload and results](benchmarks.md#mixed-shop-traffic-and-worker-restart).
   - [ ] Verify a specific hosted order's saved Flow trace with an authorized
     test shop and measure sustained concurrent shop and worker traffic.
 - [ ] AUTO-03 Expose independent API/MCP and graphical/SDK authoring through one

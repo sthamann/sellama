@@ -20,10 +20,23 @@ return and reload, and the demo lamp's stock moved from four to three.
 
 A separate native Store API purchase returned the same order ID when its
 confirmation was repeated. Stock moved from three to two. The completed API
-cart retains its line items for the receipt. The top-level native browser
-journey, hosted provider payment and refund, and load acceptance remain
-separate checks.
+cart retains its line items for the receipt.
+
+The native browser and the original Storyfront iframe then each completed a
+EUR 59.90 Shopware Payments purchase using the actual PayPal Sandbox. Both
+used the private Checkout route. The native cart was empty on return, and the
+Storyfront bag stayed empty after a full reload. Refund and the hosted Flow,
+invoice and mail trace remain to be verified for those orders.
 [Pilot setup and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026).
+
+## Mixed shop traffic and app-worker recovery
+
+An isolated local Core with 200,000 synthetic products accepted 48 simulated
+purchases while serving catalog and agent requests. Core committed an order
+while the private app worker was stopped. After restart, every order had one
+invoice and one SMTP delivery through the independent Connector. Purchase
+retries returned the original order IDs and stock moved once per order.
+[Reproduce the test and see the timings](benchmarks.md#mixed-shop-traffic-and-worker-restart).
 
 ## Knowledge source inventory
 
@@ -166,7 +179,7 @@ after the quote left order, stock and payment job state unchanged.
 The local browser run also verified provider-frame approval, full refund and
 an empty bag after reload in native Veyndo and Storyfront. Closing Storyfront
 while payment was pending preserved the bag and reopened the original order.
-Hosted Sandbox payment with PayPal remains open.
+The [hosted Lumen pilot](#private-checkout-live-in-the-lumen-test-shop) later verified Sandbox capture in both browser entry points.
 [PayPal Sandbox setup and local test](checkout-component.md#paypal-sandbox-through-the-separate-service).
 
 ## Orders and shipping in agentic workspaces, 9 November 2026

@@ -68,6 +68,13 @@ class NativeMailJourney:
         }
         if standalone:
             env["APP_WORKER_ENABLED"] = "false"
+        mixed = standalone and os.getenv("VEYNDO_MIXED_LOAD") == "1"
+        if mixed:
+            from testing.mail_contracts import mixed as workload
+            env.update(OLLAMA_URL=workload.model(self), TENANT_CONCURRENCY="32",
+                       INFERENCE_ALLOW_LOOPBACK="true", INFERENCE_MODEL="fixture")
+            env.pop("OPENAI_API_KEY", None)
+            env.pop("ANTHROPIC_API_KEY", None)
         log = open(self.temp.name + "/core.log", "w")
         self.addCleanup(log.close)
         backend = serve(env, base, log)
@@ -166,24 +173,30 @@ class NativeMailJourney:
             },
         }
         api("/api/automation/flows/mail_order", {"revision": 0, "data": flow}, h, "PUT")
-        ch = {"x-tenant": tenant}
-        cart = api("/store-api/checkout/cart", {"session": suffix}, ch)
-        ch["sw-context-token"] = cart["token"]
-        cart = api(
-            "/store-api/checkout/cart/line-item",
-            {"items": [{"referencedId": "mug", "quantity": 1}]},
-            ch,
-        )
-        cart = api(
-            "/store-api/checkout/context",
-            {
-                "revision": cart["revision"],
+        if standalone:
+            api("/api/merchant/receipts/settings", {"revision": 0, "data": {
+                "name": "Synthetic Flow Seller", "address": "Test 1, Berlin", "taxId": "TEST-ONLY",
+            }}, h, "PUT")
+            invoice = {k: v for k, v in flow.items() if k != "appAction"}
+            invoice.update(action="pipeline", pipeline={"entry": "invoice", "nodes": [{
+                "kind": "action", "id": "invoice", "action": "action.generate.document",
+                "config": {"kind": "invoice"}, "next": None,
+            }]})
+            api("/api/automation/flows/mail_invoice", {"revision": 0, "data": invoice}, h, "PUT")
+
+        def checkout_headers(product, key):
+            ch = {"x-tenant": tenant}
+            cart = api("/store-api/checkout/cart", {"session": key}, ch)
+            ch["sw-context-token"] = cart["token"]
+            cart = api("/store-api/checkout/cart/line-item",
+                       {"items": [{"referencedId": product, "quantity": 1}]}, ch)
+            api("/store-api/checkout/context", {"revision": cart["revision"],
                 "checkout": {**cart["checkout"], "customerEmail": "buyer@example.test"},
-            },
-            ch,
-            "PUT",
-        )
-        order_headers = {**ch, "Idempotency-Key": "order-" + suffix}
+            }, ch, "PUT")
+            return {**ch, "Idempotency-Key": key}
+
+        order_headers = checkout_headers("mug", "order-" + suffix)
+        ch = order_headers
         order = api("/store-api/checkout/order", {}, order_headers)
         if standalone:
             self.assertFalse(self.smtp.messages)
@@ -191,9 +204,13 @@ class NativeMailJourney:
             del worker_env["APP_WORKER_ENABLED"]
             worker_log = open(self.temp.name + "/app-worker.log", "w")
             self.addCleanup(worker_log.close)
-            worker = subprocess.Popen([str(ROOT / "target/debug/veyndo")], cwd=ROOT,
-                                      env=worker_env, stdout=worker_log, stderr=worker_log)
-            self.addCleanup(stop, worker)
+            def start_worker():
+                process = subprocess.Popen([str(ROOT / "target/debug/veyndo")], cwd=ROOT,
+                                           env=worker_env, stdout=worker_log, stderr=worker_log)
+                self.addCleanup(stop, process)
+                return process
+
+            worker = start_worker()
             self.assertEqual(api("/store-api/checkout/order", {}, order_headers)["id"], order["id"])
         for _ in range(150):
             if self.smtp.messages:
@@ -216,6 +233,13 @@ class NativeMailJourney:
                     break
                 time.sleep(0.1)
             self.assertEqual([job["state"] for job in runs], ["completed"])
+            receipt_path = f"/api/merchant/orders/{order['id']}/receipts"
+            for _ in range(100):
+                receipts = api(receipt_path, headers=h)["elements"]
+                if receipts:
+                    break
+                time.sleep(.1)
+            self.assertEqual(len(receipts), 1)
         for _ in range(100):
             jobs = api("/api/apps/email/actions/status", {}, h)["jobs"]
             if jobs[0]["result"] and jobs[0]["result"].get("outcome") == "accepted":
@@ -262,3 +286,6 @@ class NativeMailJourney:
             {**h, "x-tenant": stage["id"]},
             expected=400,
         )
+        if mixed:
+            workload.measure(api, h, checkout_headers, lambda: stop(worker), start_worker,
+                             container, database, self.smtp.messages)

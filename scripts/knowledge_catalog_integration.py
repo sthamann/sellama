@@ -25,7 +25,15 @@ def main():
         or origin != f"http://127.0.0.1:{listener.port}"
     ):
         raise SystemExit("Use only a disposable local database and Core listener")
-    env.update(BIND_ADDR=listener.netloc, PROCESS_ROLE="all", APP_WORKER_ENABLED="true")
+    # The acceptance purchases lamp and edits mug from the furniture fixture.
+    env.update(
+        BIND_ADDR=listener.netloc,
+        PROCESS_ROLE="all",
+        APP_WORKER_ENABLED="true",
+        DEMO_CATALOG="legacy-furniture",
+        SEED_DEMO="true",
+    )
+    env.setdefault("MERCHANT_TOKEN", secrets.token_hex(32))
     if env.get("KNOWLEDGE_TEST_NATIVE_AUTHORITY") == "1":
         env.update(
             KNOWLEDGE_IDENTITY_SHOP="knowledge-sync-" + secrets.token_hex(5),

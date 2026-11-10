@@ -278,6 +278,11 @@ Each component task remains open until these checks are demonstrated for it.
   - [x] Lock the hosted Lumen commerce profile and verify the selected and
     running builds on Northflank. Pin Checkout and Knowledge to exact builds.
     [Verification and release procedure](cloud-releases.md#verify-the-hosted-lumen-composition).
+  - [x] Prepare a separate Core candidate from a successful exact build while
+    checking the accepted composition and preserving all seven peer artifacts.
+    Reject changed schema inputs and overwriting a candidate. Reuse the same
+    verifier for post-deployment comparison.
+    [Candidate preparation](cloud-releases.md#prepare-a-core-release-candidate).
   - [ ] Make the lock an automatic admission check for the complete deployment
     workflow and extend it to the other release profiles.
 - [ ] FND-09 Build component CI and complete-product CI; short affected checks per
@@ -311,6 +316,7 @@ Each component task remains open until these checks are demonstrated for it.
     host contexts. Bind it to the original native POS, B2B, App and checkout
     types; retain tenant/token storage and transaction ownership in Core.
     [Cart contract and integration checks](source-map.md#shared-cart-contract).
+    [Northflank rollout and public embedded purchase](status.md#shared-cart-contract-on-northflank).
 - [ ] CORE-06 Extract inventory/reservation/allocation ports; test concurrent
   purchases, cancellation and content edits without overwriting fresh stock.
 - [ ] CORE-07 Extract order, fulfillment, documents and refund contracts; keep
@@ -914,6 +920,13 @@ The following are implementation tasks; existing UI foundations do not complete 
   adapt only host contracts and new repository/deployment references.
 - [ ] EXP-02 Test onboarding, return/login, channel identity, embedded checkout,
   confirmed return, purchased-item removal and replay after reload.
+  - [x] Recheck the public embedded demo purchase after the shared Cart rollout.
+    Verify German product naming, original bag clearing and persistence after
+    reload, the native Admin order, stock decrement and `order.placed` entry.
+    [Cart release acceptance](status.md#shared-cart-contract-on-northflank).
+  - [ ] Reflect current native stock in the original Storyfront add control.
+    The zero-stock demo article still offered add-to-bag; final purchase
+    correctly rejected it. Preserve the authoritative purchase check.
 - [ ] RPT-01 Extract metric definitions, consent-bound ingestion/projections and
   dashboard configuration without a second financial order ledger.
 - [ ] RPT-02 Expose API/MCP/SDK and embedded cards; test revenue periods, currency,

@@ -133,6 +133,12 @@ The same crate also owns the persisted cart data contract. Core binds its
 typed extension contexts and retains session authority, row locks and the
 order transaction. [Cart ownership](source-map.md#shared-cart-contract).
 
+Release tooling keeps the accepted service composition separate from a newly
+built candidate. The candidate replaces one exact Core artifact and retains
+the seven peer artifacts and reviewed schema inputs. This avoids a lock that
+must contain its own future commit. Automatic pipeline admission remains
+tracked separately. [Release candidates](cloud-releases.md#prepare-a-core-release-candidate).
+
 Fresh installations use Rust/Axum, ordinary PostgreSQL 17 and private Qdrant
 v1.16.3. PostgreSQL owns commerce records, knowledge relations, source vectors
 and the durable synchronization queue; Qdrant supplies rebuildable vector search.

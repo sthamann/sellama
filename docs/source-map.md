@@ -42,6 +42,9 @@ dependency to Commerce. Constructing the DTO grants no authority. Current
 identity, grants, review, pricing and commit admission remain with the
 host operations. Native checkout handoff/review, App quote hooks, POS,
 B2B and B2B UCP passed against PostgreSQL after the extraction.
+The same contract is deployed in Core `efe8928f`. A public embedded demo
+purchase returned to an empty Storyfront bag after reload, with the order
+visible in Studio. [Hosted verification](status.md#shared-cart-contract-on-northflank).
 
 ## Shared product contract
 

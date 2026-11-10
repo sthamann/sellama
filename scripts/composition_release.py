@@ -3,6 +3,7 @@
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor
+import copy
 import json
 from pathlib import Path
 import re
@@ -95,12 +96,45 @@ def compare(name, row, deployment, logs=None):
         "repository": row["repository"], "buildSHA": row["commit"], "deployedSHA": row["commit"],
     }.items():
         require(build.get(field) == expected, f"{name}: deployment {field} differs from the lock")
+    require(manifest_digest(logs) == row["digest"],
+            f"{name}: build has no unique matching manifest digest")
+
+
+def manifest_digest(logs):
     digests = {
         digest for line in logs
         if "pushing manifest for" in line["log"]
         for digest in OCI_DIGEST.findall(line["log"])
     }
-    require(digests == {row["digest"]}, f"{name}: build has no unique matching manifest digest")
+    require(len(digests) == 1, "Build has no unique manifest digest")
+    return digests.pop()
+
+
+def request(cli, project, *arguments):
+    result = subprocess.run([cli, "get", "service", *arguments, "--project", project, "-o", "json"],
+                            capture_output=True, text=True, timeout=30, check=False)
+    require(result.returncode == 0, f"Northflank query failed: {' '.join(arguments[:3])}")
+    return json.loads(result.stdout)
+
+
+def core_candidate(lock, build, builder, logs, commit, directory):
+    """Prepare an exact build while retaining every peer and reviewed schema input."""
+    current = lock["components"]["core"]
+    require(GIT_SHA.fullmatch(commit) and commit != current["commit"],
+            "Candidate must name a new exact Core commit")
+    require(build.get("status") == "SUCCESS" and build.get("sha") == commit,
+            "Candidate build did not successfully build the requested commit")
+    require(builder.get("id") == current["build_service"]
+            and builder.get("buildSource") == "git"
+            and builder.get("vcsData", {}).get("projectUrl") == current["repository"],
+            "Candidate builder has a different source owner")
+    candidate = copy.deepcopy(lock)
+    row = candidate["components"]["core"]
+    row.update(commit=commit, build_id=build["id"], digest=manifest_digest(logs))
+    validate(candidate)
+    # Schema changes require a separately reviewed lock and migration boundary.
+    verify_source(row, directory)
+    return candidate
 
 
 def verify_source(row, directory):
@@ -136,21 +170,15 @@ def verify_sources(lock, sources):
 
 
 def verify_hosted(lock, cli, project):
-    def request(*arguments):
-        result = subprocess.run([cli, "get", "service", *arguments, "--project", project, "-o", "json"],
-                                capture_output=True, text=True, timeout=30, check=False)
-        require(result.returncode == 0, f"Northflank query failed: {' '.join(arguments[:3])}")
-        return json.loads(result.stdout)
-
     def verify(item):
         name, row = item
-        deployment = request("deployment", "--service", row["service"])
+        deployment = request(cli, project, "deployment", "--service", row["service"])
         logs = None
         if "build_id" in row:
-            logs = request("build-logs", "--service", row["build_service"], "--build", row["build_id"],
+            logs = request(cli, project, "build-logs", "--service", row["build_service"], "--build", row["build_id"],
                            "--lineLimit", "300", "--textIncludes", "pushing manifest for")
         compare(name, row, deployment, logs)
-        service = request("--service", row["service"])
+        service = request(cli, project, "--service", row["service"])
         require(service.get("status", {}).get("deployment", {}).get("status") == "COMPLETED",
                 f"{name}: deployment has not completed")
         print(f"{name}: exact deployment matched ({row['commit'][:8]})")
@@ -159,18 +187,49 @@ def verify_hosted(lock, cli, project):
         list(pool.map(verify, lock["components"].items()))
 
 
+def prepare_core(lock, args):
+    require(args.northflank and args.commit and args.output,
+            "Core preparation requires --northflank, --commit and --output")
+    sources = dict(selection.split("=", 1) for selection in args.source)
+    require("core" in sources, "Core preparation requires --source core=CHECKOUT")
+    require(RESOURCE.fullmatch(args.prepare_core), "Invalid candidate build ID")
+    verify_hosted(lock, args.northflank, args.project)
+    service = lock["components"]["core"]["build_service"]
+    builder = request(args.northflank, args.project, "--service", service)
+    build = request(args.northflank, args.project, "build", "--service", service,
+                    "--build", args.prepare_core)
+    logs = request(args.northflank, args.project, "build-logs", "--service", service,
+                   "--build", args.prepare_core, "--lineLimit", "300",
+                   "--textIncludes", "pushing manifest for")
+    candidate = core_candidate(lock, build, builder, logs, args.commit, sources["core"])
+    require(candidate["components"]["core"]["build_id"] == args.prepare_core,
+            "Candidate response returned a different build")
+    with Path(args.output).open("x") as output:
+        json.dump(candidate, output, indent=2)
+        output.write("\n")
+    print(f"Core candidate prepared: {args.prepare_core}; no deployment was changed")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--lock", type=Path, default=LOCK, help="approved lock or prepared candidate")
     parser.add_argument("--northflank", metavar="CLI", help="read live metadata with the authenticated CLI")
     parser.add_argument("--source", action="append", default=[], metavar="COMPONENT=CHECKOUT",
                         help="check pinned commits and schema inputs in a local component repository")
     parser.add_argument("--project", default="vendune")
+    parser.add_argument("--prepare-core", metavar="BUILD", help="prepare one exact successful Core build")
+    parser.add_argument("--commit", metavar="SHA", help="expected candidate source commit")
+    parser.add_argument("--output", metavar="FILE", help="new candidate file; existing files are rejected")
     args = parser.parse_args()
     try:
-        lock = json.loads(LOCK.read_text(), object_pairs_hook=unique_keys)
+        require(args.prepare_core or not (args.commit or args.output),
+                "Use --commit and --output only with --prepare-core")
+        lock = json.loads(args.lock.read_text(), object_pairs_hook=unique_keys)
         validate(lock)
         verify_sources(lock, args.source)
-        if args.northflank:
+        if args.prepare_core:
+            prepare_core(lock, args)
+        elif args.northflank:
             verify_hosted(lock, args.northflank, args.project)
     except (ValueError, TypeError, KeyError, OSError, subprocess.TimeoutExpired) as error:
         parser.exit(1, f"Composition verification failed: {error}\n")

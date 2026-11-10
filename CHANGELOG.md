@@ -9,6 +9,8 @@
 - Pin the existing Checkout and Knowledge deployments to exact builds.
   Add a composition lock and checks for eight hosted artifacts, their source
   commits and migration inputs.
+- Prepare immutable Core candidate manifests from successful builds, checking
+  the accepted composition and unchanged peer artifacts and schema inputs.
 - Generate the public component release catalog from verified public tags
   and the hosted composition lock.
 - Verify Product Advisor creation, private records, two selected releases

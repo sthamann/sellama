@@ -6,11 +6,15 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from types import SimpleNamespace
+from unittest.mock import patch
 
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from composition_release import LOCK, compare, unique_keys, validate, verify_source, verify_sources
+from composition_release import (
+    LOCK, compare, core_candidate, prepare_core, unique_keys, validate, verify_source, verify_sources,
+)
 
 
 class CompositionReleaseTest(unittest.TestCase):
@@ -103,6 +107,70 @@ class CompositionReleaseTest(unittest.TestCase):
         for selection in ("missing=repo", "checkout", "checkout="):
             with self.assertRaisesRegex(ValueError, "COMPONENT=CHECKOUT"):
                 verify_sources(self.lock, [selection])
+
+    def candidate_inputs(self):
+        current = self.lock["components"]["core"]
+        commit = "7" * 40
+        build = {"id": "candidate-build", "status": "SUCCESS", "sha": commit}
+        builder = {"id": current["build_service"], "buildSource": "git",
+                   "vcsData": {"projectUrl": current["repository"]}}
+        logs = [{"log": "pushing manifest for registry/demo@sha256:" + "8" * 64}]
+        return build, builder, logs, commit
+
+    def test_candidate_changes_only_core_artifact_after_source_validation(self):
+        build, builder, logs, commit = self.candidate_inputs()
+        original = copy.deepcopy(self.lock)
+        with patch("composition_release.verify_source") as source:
+            candidate = core_candidate(self.lock, build, builder, logs, commit, "fixture")
+            source.assert_called_once_with(candidate["components"]["core"], "fixture")
+        self.assertEqual(self.lock, original)
+        for name, row in original["components"].items():
+            if name != "core":
+                self.assertEqual(candidate["components"][name], row)
+        self.assertEqual(candidate["contracts"], original["contracts"])
+        self.assertEqual(candidate["components"]["core"]["schema"],
+                         original["components"]["core"]["schema"])
+        self.assertEqual(candidate["components"]["core"]["commit"], commit)
+        self.assertEqual(candidate["components"]["core"]["digest"], "sha256:" + "8" * 64)
+
+    def test_candidate_rejects_wrong_build_owner_source_schema_and_manifest(self):
+        build, builder, logs, commit = self.candidate_inputs()
+        for field, value in (("status", "BUILDING"), ("sha", "6" * 40)):
+            altered = {**build, field: value}
+            with self.assertRaisesRegex(ValueError, "requested commit"):
+                core_candidate(self.lock, altered, builder, logs, commit, "fixture")
+        foreign = {**builder, "vcsData": {"projectUrl": "https://example.test/foreign"}}
+        with self.assertRaisesRegex(ValueError, "source owner"):
+            core_candidate(self.lock, build, foreign, logs, commit, "fixture")
+        with self.assertRaisesRegex(ValueError, "manifest"):
+            core_candidate(self.lock, build, builder, [], commit, "fixture")
+        with patch("composition_release.verify_source", side_effect=ValueError("schema changed")):
+            with self.assertRaisesRegex(ValueError, "schema changed"):
+                core_candidate(self.lock, build, builder, logs, commit, "fixture")
+
+    def test_candidate_file_is_exclusive_and_baseline_drift_prevents_output(self):
+        build, builder, logs, commit = self.candidate_inputs()
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "candidate.json"
+            args = SimpleNamespace(northflank="fixture-cli", project="fixture", commit=commit,
+                                   prepare_core=build["id"], output=output, source=["core=fixture"])
+            with patch("composition_release.verify_hosted", side_effect=ValueError("live drift")):
+                with self.assertRaisesRegex(ValueError, "live drift"):
+                    prepare_core(self.lock, args)
+            self.assertFalse(output.exists())
+            for exists in (False, True):
+                with patch("composition_release.verify_hosted"), \
+                        patch("composition_release.verify_source"), \
+                        patch("composition_release.request", side_effect=[builder, build, logs]):
+                    if exists:
+                        before = output.read_bytes()
+                        with self.assertRaises(FileExistsError):
+                            prepare_core(self.lock, args)
+                        self.assertEqual(output.read_bytes(), before)
+                    else:
+                        prepare_core(self.lock, args)
+                        self.assertEqual(json.loads(output.read_text())["components"]["core"]["commit"],
+                                         commit)
 
 
 if __name__ == "__main__":

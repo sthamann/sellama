@@ -23,6 +23,39 @@ migration inputs. The release script can detect version drift before a
 rollout. Whole shop load and provider acceptance remain separately measured.
 [Deployment verification](cloud-releases.md#verify-the-hosted-lumen-composition).
 
+## Shared cart contract on Northflank
+
+Core `efe8928f`, build `makeshift-shade-6829`, completed the normal snapshot,
+migration and deployment workflow on 10 November. Commerce now owns the
+persisted Item/Cart contract. Native POS, B2B, App and checkout contexts retain
+their concrete types. Tenant identity, cart credentials, revision and the
+atomic order transaction remain with Core.
+
+Seventeen Commerce unit tests and six targeted PostgreSQL integration suites
+passed. They covered checkout handoff/review, App quote hooks, POS, B2B and UCP,
+including legacy stored carts, receipt replay and current purchasing authority.
+Workspace lint, dependency boundaries and the existing formal policy checks
+also passed.
+
+The public Storyfront iframe completed demo order `RAC-7aaacbd4` for EUR 59.90
+after rollout. Its German product name and total matched the native Admin order.
+Returning to the Experience emptied the originating bag. The bag remained empty
+after a full reload. The Admin showed the `order.placed` Flow entry. The shop's
+demo article had zero stock before the test. The first purchase was rejected for
+insufficient stock. Exactly one synthetic unit was added through the native
+product editor, and the successful purchase consumed it, returning stock to zero.
+This purchase used simulated payment and an `example.test` address.
+
+![Public embedded confirmation after the Cart contract rollout](assets/checkout/cart-contract-storyfront-confirmed-20261110.jpg)
+
+![Original Storyfront bag remains empty after return and reload](assets/checkout/cart-contract-storyfront-empty-20261110.jpg)
+
+The separate candidate manifest passed against the previous eight running
+artifacts before migration. After deployment, all eight services and their
+pinned source/schema inputs matched the same candidate file. That file was
+then promoted to the composition lock. Automatic invocation by the deployment
+workflow remains open. [Release procedure](cloud-releases.md#prepare-a-core-release-candidate).
+
 ## Shared product contract on Northflank
 
 Core build `astute-chance-6558` from `ab340128` completed the normal

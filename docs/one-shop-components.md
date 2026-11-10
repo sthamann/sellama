@@ -28,6 +28,7 @@ the same Commerce owner for quote, commit and receipt. Studio refunded both
 Sandbox captures. A separate demo order generated an invoice through the app
 worker. The hosted mail delivery test still needs a sender and transport.
 [Live pilot and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026).
+[Current shared Cart rollout and public demo purchase](status.md#shared-cart-contract-on-northflank).
 [Reproduce purchase recovery and compare the isolated Northflank runs](evidence/composed-release-rehearsal-2026-11-10.md#northflank-rehearsal-with-deployed-executables).
 
 The original Core and App Worker images also passed native purchase and

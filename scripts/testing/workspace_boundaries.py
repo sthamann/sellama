@@ -5,7 +5,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OWNERS = {name: ROOT / 'crates' / name.removeprefix('veyndo-') for name in (
-    'veyndo-kernel', 'veyndo-flow-graph', 'veyndo-runtime', 'veyndo-commerce', 'veyndo-apps', 'veyndo-cognition')}
+    'veyndo-kernel', 'veyndo-flow-graph', 'veyndo-runtime', 'veyndo-commerce', 'veyndo-apps', 'veyndo-cognition',
+    'veyndo-automation')}
 OWNERS.update({'veyndo': ROOT, 'veyndo-migration': ROOT / 'extensions/apps/migration',
                'veyndo-marketplaces': ROOT / 'extensions/apps/marketplaces',
                'veyndo-app-storage': ROOT / 'extensions/services/app-storage',
@@ -19,6 +20,7 @@ ALLOWED = {
     'veyndo-marketplaces': set(),
     'veyndo-kernel': set(),
     'veyndo-flow-graph': set(),
+    'veyndo-automation': {'veyndo-kernel'},
     'veyndo-runtime': {'veyndo-app-authority'},
     'veyndo-app-authority': set(),
     'veyndo-commerce': {'veyndo-kernel'},
@@ -36,6 +38,7 @@ EXTERNAL = {
     'veyndo-marketplaces': {'axum', 'tokio', 'serde', 'serde_json', 'sha2', 'hmac', 'ring', 'chrono', 'reqwest'},
     'veyndo-kernel': set(),
     'veyndo-flow-graph': set(),
+    'veyndo-automation': {'serde_json', 'chrono', 'chrono-tz'},
     'veyndo-commerce': {'serde', 'serde_json'},
     'veyndo-apps': set(),
     'veyndo-runtime': {'hmac', 'sha2', 'zeroize', 'sqlx', 'tokio', 'futures-util',

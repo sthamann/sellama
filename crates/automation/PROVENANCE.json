@@ -1,0 +1,27 @@
+{
+  "sourceRepository": "https://github.com/veyndo/veyndo",
+  "sourceCommit": "ba19977612d91733bb37f89b6d8bb5d22b558415",
+  "sourcePaths": [
+    "src/automation_rules",
+    "src/rule_comparison.rs",
+    "reference/automation-registry.json"
+  ],
+  "changes": [
+    "Move rules and comparison into independent library; retain exact algorithms and registry",
+    "Use pinned no-dependency kernel crate for original boolean and XOR policies",
+    "Add stateless supplied-fact simulation service, fresh shared OAuth adapter and HTTP/MCP contract"
+  ],
+  "kernelBoundary": "The independent library pins the existing kernel crate source. Native composition patches that dependency to its reviewed local kernel owner; no second policy implementation.",
+  "kernelFiles": {
+    "crates/kernel/src/contract_tests.rs": "78815ea23f2086c73dae8eba6e3f0c26eb7f23d71edb3aeba8cb04921b76ed79",
+    "crates/kernel/src/lib.rs": "784b8e9a13aae748af73871464f3921a9ae64bce2f7e6ce0c32f385e17f3ffbd",
+    "crates/kernel/src/verified_kernel/access.rs": "497b6213f231a9082d57d847a689ef85b8160c65e65e8ce2fdae9f0806d8af1b",
+    "crates/kernel/src/verified_kernel/agents.rs": "eae270bf08ced442cac9d9e2bf8dadef61e4ebf81179a43312a1e5c1d6021c96",
+    "crates/kernel/src/verified_kernel/apps.rs": "6cc569eb42ede4266cbd72c7f6f0aa0906ae38ad867dd7f45290a7d2a2db2c12",
+    "crates/kernel/src/verified_kernel/automation.rs": "ea673bd373e96743c966abe781ce802a1530030e79839a8d0c810789133a743d",
+    "crates/kernel/src/verified_kernel/commerce.rs": "d7f67d19c5770afde2a5b399946b14114d3ae98bd06a8182ad1d695009da6532",
+    "crates/kernel/src/verified_kernel/fulfillment.rs": "09e0d1b4bc7f7400461df941fb817c33b8b1969beb6cf1e61ec2c83ddb1d621f",
+    "crates/kernel/src/verified_kernel/intelligence.rs": "03e54752ca619bfd66822bf203e2d11f2dfa6dd3e078256f8dc70195b0be89f6",
+    "crates/kernel/src/verified_kernel.rs": "1866e4b24c2b769f14e2b4442e18f2e6fba406ebcc69f9669a0dc15176555352"
+  }
+}

@@ -7,7 +7,6 @@ COPY crates/ crates/
 COPY migrations/ migrations/
 COPY extensions/ extensions/
 COPY fixtures/ fixtures/
-COPY reference/automation-registry.json reference/automation-registry.json
 ARG BUILD_JOBS=4
 RUN CARGO_BUILD_JOBS=${BUILD_JOBS} cargo build --release --locked --bin connectors
 FROM debian:bookworm-slim

@@ -9,7 +9,7 @@ import sys
 import subprocess
 import os
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from component_sources import OWNERS, digest, safe_path, verify
+from component_sources import AUTOMATION_KERNEL, OWNERS, digest, safe_path, verify
 import component_sources
 
 with tempfile.TemporaryDirectory() as directory:
@@ -40,6 +40,12 @@ with tempfile.TemporaryDirectory() as directory:
     app_scope.parent.mkdir(parents=True)
     app_scope.write_text('-- provenance\nSELECT 1;\n')
     lock['components']['apps']['files']['authority/sql/signed_scope.sql'] = digest(app_scope.read_bytes())
+    kernel = root / AUTOMATION_KERNEL
+    kernel.parent.mkdir(parents=True)
+    kernel.write_text('original pure policy')
+    provenance = root / OWNERS['automation'] / 'PROVENANCE.json'
+    provenance.write_text(json.dumps({'kernelFiles':{AUTOMATION_KERNEL:digest(kernel.read_bytes())}}))
+    lock['components']['automation']['files']['PROVENANCE.json'] = digest(provenance.read_bytes())
     def save(value): (root / 'components.lock.json').write_text(json.dumps(value))
     def check():
         with contextlib.redirect_stdout(io.StringIO()): verify(root)
@@ -48,6 +54,7 @@ with tempfile.TemporaryDirectory() as directory:
         except AssertionError: return
         raise AssertionError('Invalid source snapshot accepted')
     save(lock);check()
+    kernel.write_text('changed pure policy');denied();kernel.write_text('original pure policy')
     source.write_text('changed');denied();source.write_text('original')
     source.unlink();denied();source.write_text('original')
     extra = package / 'extra.rs';extra.write_text('extra');denied();extra.unlink()

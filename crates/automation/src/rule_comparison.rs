@@ -55,7 +55,7 @@ fn boolean(equal: bool, empty: bool, op: &str) -> Result<bool, String> {
     if !["=", "!=", "empty"].contains(&op) {
         return Err("unsupported".into());
     }
-    Ok(crate::verified_kernel::rule_boolean_comparison(
+    Ok(veyndo_kernel::verified_kernel::rule_boolean_comparison(
         equal,
         empty,
         op == "=",

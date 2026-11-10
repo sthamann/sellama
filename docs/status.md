@@ -12,6 +12,10 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## Private Automation preview on Northflank
 
+Core's build now links the rule library pinned to the private preview's source
+revision. A local comparison found matching results in 440 HTTP cases and three
+MCP calls. [Source ownership and checks](automation-component.md#library-and-service).
+
 The independent Automation service runs privately alongside Core. It evaluates
 supplied rule facts through HTTP and MCP. The deployed image passed the container
 tests. In Northflank, health, OpenAPI and unauthorized access checks passed.

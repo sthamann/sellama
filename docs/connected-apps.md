@@ -147,7 +147,7 @@ schema-declared `requestKey`, `event`, `kind` and translated `template` fields. 
 team rights, app activation and staging restrictions are checked again at execution.
 
 The current executable production inventory is
-`reference/automation-registry.json`: 114 concrete source rule classes, with 108
+`crates/automation/reference/automation-registry.json`: 114 concrete source rule classes, with 108
 native scope bindings, and 16 Core action names. The graphical builder supports
 branches, sequences, saved references, durable delays and typed domain/app
 nodes. Complete source behavior, original trigger coverage, configuration/UUID

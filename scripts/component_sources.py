@@ -10,8 +10,11 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 LOCK = ROOT / 'components.lock.json'
 # A component may write only its reviewed package/service owner, never Core or another component.
-OWNERS = {'marketplaces': 'extensions/apps/marketplaces', 'apps': 'extensions/services/app-storage'}
+OWNERS = {'marketplaces': 'extensions/apps/marketplaces', 'apps': 'extensions/services/app-storage',
+          'automation': 'crates/automation'}
 IGNORED = {'__pycache__', 'node_modules', 'target'}
+AUTOMATION_FILES = {'Cargo.toml', 'LICENSE', 'PROVENANCE.json', 'reference/automation-registry.json'}
+AUTOMATION_KERNEL = 'crates/kernel/src/verified_kernel/automation.rs'
 
 
 def digest(data):
@@ -52,6 +55,9 @@ def verify(root=ROOT):
     native_sql = (root / 'migrations/099-authenticated-database-scope.sql').read_text()
     assert scope_sql.is_file(), "Missing shared signed database verifier"
     assert scope_sql.read_text().split('\n', 1)[1] == native_sql.split('-- Keep all existing per-table/actor checks;')[0].rstrip() + '\n', 'App host signed database verifier drifted from native authority'
+    automation = root / OWNERS['automation']
+    provenance = json.loads((automation / 'PROVENANCE.json').read_text())
+    assert provenance['kernelFiles'][AUTOMATION_KERNEL] == digest((root / AUTOMATION_KERNEL).read_bytes()), 'Automation kernel differs from the standalone rule policy'
     print('PASS exact component commits, owner paths, file sets, SHA-256 contents and runtime/SDK WIT parity')
 
 
@@ -71,7 +77,18 @@ def import_source(name, checkout, commit):
         path = raw_path.decode()
         safe_path(path)
         assert not set(PurePosixPath(path).parts) & IGNORED, 'Build artifacts must not be imported'
+        if name == 'automation' and path not in AUTOMATION_FILES and not (
+                path.startswith('src/') and path.endswith('.rs')):
+            continue
         files[path] = run('cat-file', 'blob', oid.decode())
+    if name == 'automation':
+        # Build the exact rule source against the existing workspace kernel. Core
+        # builds need neither the private repository nor a second kernel checkout.
+        manifest, count = re.subn(
+            rb'^veyndo-kernel = \{ git = "https://github\.com/veyndo/veyndo", rev = "[0-9a-f]{40}" \}$',
+            b'veyndo-kernel = { path = "../kernel" }', files['Cargo.toml'], flags=re.M)
+        assert count == 1, 'Unexpected standalone Automation kernel dependency'
+        files['Cargo.toml'] = manifest
     lock = json.loads(LOCK.read_text()) if LOCK.exists() else {'version': 1, 'components': {}}
     folder = ROOT / OWNERS[name]
     assert not folder.is_symlink()

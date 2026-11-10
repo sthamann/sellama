@@ -125,7 +125,7 @@
     "src/apps/mod.rs",
     "src/apps/surface_tests.rs",
     "src/auth/mod.rs",
-    "src/automation_rules/tests.rs",
+    "crates/automation/src/rules/tests.rs",
     "src/cognition/mod.rs",
     "src/commerce/mod.rs",
     "src/lib.rs",

@@ -572,7 +572,7 @@ Shopware compatibility claim is made.
 | `src/accounts/{mod,profile}.rs`, `customer.rs`, `cart_storage.rs` | Separate customer sessions, profile/password/history and trusted identity reuse | `marketing_accounts.py`, `commerce.py` |
 | `src/auth/provision.rs`, `registration.rs` | Shared synthetic template provisioning for first and additional owned shops | `marketing_accounts.py`, `users.py` |
 | `src/marketing/{rules,promotions,flows,channels,routes,mod}.rs` | Bounded AST, authoritative campaigns, durable note/proposal jobs and sales-channel scope | Rust rule tests, `marketing_accounts.py`, `developer_documents.py` |
-| `src/rule_comparison.rs`, `src/bin/rules.rs`, `reference/rules.php` | Original Shopware numeric comparison behavior, independent batch oracle | `rule_differential.py`: 1,280 comparisons |
+| `crates/automation/src/rule_comparison.rs`, `src/bin/rules.rs`, `reference/rules.php` | Original Shopware numeric comparison behavior, independent batch oracle | `rule_differential.py`: 1,280 comparisons |
 | `crates/commerce/src/discount.rs` | Exact-cent proportional basket discount allocation | Rust conservation/bounds tests, concurrent coupon HTTP checkout |
 | `src/commerce/product_edit.rs` | Revision-bound translations and advanced metadata; own product/reference validation | `marketing_accounts.py` and selected release |
 | `src/experience.rs` | Persisted layout policy plus owned-session signal ranking/clearing | `intelligence.py`, `marketing_accounts.py` |
@@ -687,7 +687,7 @@ manifest fields and shared app records.
 
 | Module | Behavior | Evidence / remaining boundary |
 |---|---|---|
-| `automation_rules/*`, `reference/automation-{catalog,rules}.php` | Source-named native comparison, typed custom fields, quantities/containers and calendar conditions | 432 actual original-class cases across 74 classes; full catalog/API parity remains unproved |
+| `crates/automation/src/rules/*`, `reference/automation-{catalog,rules}.php` | Source-named native comparison, typed custom fields, quantities/containers and calendar conditions | 432 actual original-class cases across 74 classes; full catalog/API parity remains unproved |
 | `marketing/{facts,line_facts,customer_facts,rule_snapshot}.rs` | Private tenant-owned facts, variant metadata inheritance and frozen referenced-rule versions | Real cart preview and event flow tests; source UUID and every original field/scope require further migration |
 | `marketing/{pipeline,pipeline_runtime,flow_actions,flow_mutations,flow_access}.rs` | DAG admission, branches/actions/delays, step receipts, actual domain writes and current rights | `scripts/automation.py` real HTTP/PostgreSQL checks; all original triggers/configurations and external exactly-once effects remain open |
 | `marketing/flow_jobs.rs` | Claims and attempt-scoped renewal, cursor checkpoint, delay and completion | Terminal delay, expired lease and stale attempt in `scripts/automation.py` |

@@ -69,7 +69,7 @@ lists and failures that remain visible. These checks are not whole-core coverage
 
 `reference/automation-catalog.php` reflects **114 concrete production Rule subclasses and 16 Core FlowAction names**. It excludes test classes and abstract helpers. This corrects the old text-only 120-name inventory, which was not an accurate count of executable production classes.
 
-`reference/automation-native.json` explicitly binds **108 of the 114** classes to native scope implementations. `reference/automation-registry.json` combines those bindings with the original configuration metadata. Registered scope support is not complete behavioral equivalence: every catalog row keeps `behavioralParity:false`, and the complete-catalog flag stays false. The independent PHP comparison currently checks **432 cases across 74 original condition classes**, including missing customers, wildcard/set/numeric operators, calendar boundaries, custom fields, purchase prices, goods filters and Boolean containers.
+`reference/automation-native.json` explicitly binds **108 of the 114** classes to native scope implementations. `crates/automation/reference/automation-registry.json` combines those bindings with the original configuration metadata. Registered scope support is not complete behavioral equivalence: every catalog row keeps `behavioralParity:false`, and the complete-catalog flag stays false. The independent PHP comparison currently checks **432 cases across 74 original condition classes**, including missing customers, wildcard/set/numeric operators, calendar boundaries, custom fields, purchase prices, goods filters and Boolean containers.
 
 These six source names remain disabled, with a visible explanation in the editor:
 
@@ -179,7 +179,7 @@ Graphs are acyclic, contain 1..100 reachable nodes and allow delays up to thirty
 
 ## Files and verification
 
-- `src/automation_rules/`: pure source comparison, field, calendar and container evaluation.
+- `crates/automation/src/rules/`: pure source comparison, field, calendar and container evaluation.
 - `src/marketing/{facts,line_facts,customer_facts,rule_snapshot}.rs`: authoritative tenant context and frozen references.
 - `src/marketing/{pipeline,pipeline_runtime,flow_actions,flow_mutations,flow_access}.rs`: graph admission, receipts/delays, action dispatch, transactions and current rights.
 - `frontend/src/admin/automation/`: localized rule/action editors, graph overview and typed graph helpers.

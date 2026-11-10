@@ -13,8 +13,9 @@ for row in registry['conditions']:
     row.update(binding)
     if original:row['config']=original
 registry['completeCatalogParity']=False
-for filename,value in [('automation-source.json',source),('automation-registry.json',registry)]:
-    text=json.dumps(value,indent=2)+'\n';path=ROOT/'reference'/filename
+for filename,value in [('reference/automation-source.json',source),
+                       ('crates/automation/reference/automation-registry.json',registry)]:
+    text=json.dumps(value,indent=2)+'\n';path=ROOT/filename
     if args.write:path.write_text(text)
     else:assert path.read_text()==text,filename+' needs explicit reviewed regeneration'
 print(f'PASS pinned catalog: {len(registry["conditions"])} rule classes, {sum(r["supported"] for r in registry["conditions"])} native scopes, {len(registry["actions"])} Core action names; whole behavior equivalence remains unproved')

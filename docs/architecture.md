@@ -60,9 +60,10 @@ It rebuilds the search index under fresh runtime credentials.
 [External SDK example](knowledge-component.md#import-your-own-catalog-and-documents-with-the-sdk) ·
 [Knowledge service boundary](knowledge-component.md#keep-the-shop-running-during-a-knowledge-outage).
 
-Core links the shared Automation evaluator into native pricing and Flow
-execution. The separate service runs supplied-fact previews for SDK and MCP
-clients. In the local outage test, native coupon pricing, purchase and the
+Core links the pinned Automation rule library into native pricing and Flow
+execution. The separate service uses the same source for SDK and MCP previews of
+caller-supplied facts. Those previews run separately from the checkout transaction.
+In the local outage test, native coupon pricing, purchase and the
 invoice Flow completed while the preview process was stopped.
 [Automation service boundary](automation-component.md#keep-checkout-independent-of-the-preview-service).
 The optional Core identity profile uses dedicated integration keys with

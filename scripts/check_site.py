@@ -83,13 +83,15 @@ def check():
     sitemap_urls = {x.text for x in sitemap.findall('.//{*}loc')}
     assert sitemap_urls == canonicals, 'Sitemap and canonical URLs differ'
     assert (SITE / 'llms.txt').is_file()
-    catalog = json.loads((SITE / 'components.json').read_text())
+    catalog = json.loads((SITE / 'docs/components.json').read_text())
     assert catalog == component_catalog(), 'Published component catalog drift'
     rows = list(catalog['public_releases'].values()) + list(catalog['hosted_profile']['components'].values())
     for row in rows:
         guide = urlsplit(row['guide'])
-        assert not (guide.netloc or guide.scheme or guide.query) and guide.path in pages, row['guide']
-        assert not guide.fragment or guide.fragment in pages[guide.path].ids, row['guide']
+        local = guide.path.lstrip('/')
+        assert guide.scheme == 'https' and guide.netloc == 'www.veyndo.ai', row['guide']
+        assert not guide.query and local in pages, row['guide']
+        assert not guide.fragment or guide.fragment in pages[local].ids, row['guide']
     manifest = json.loads((SITE / 'docs/manifest.json').read_text())
     expected = {source.as_posix(): destination(source).as_posix() for source in sources()}
     assert {row['source']: row['url'] for row in manifest} == expected, 'Markdown publication inventory drift'

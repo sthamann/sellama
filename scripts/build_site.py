@@ -37,14 +37,16 @@ def component_catalog():
         'version': 1,
         'public_releases_checked_at': source['checked_at'],
         'public_releases': {
-            name: {**row, 'release': f"https://github.com/veyndo/{name}/releases/tag/{row['tag']}"}
+            name: {**row, 'guide': f"https://www.veyndo.ai/{row['guide']}",
+                   'release': f"https://github.com/veyndo/{name}/releases/tag/{row['tag']}"}
             for name, row in releases.items()
         },
         'hosted_profile': {
             'name': lock['profile'],
             'lock': f'{REPO}/blob/main/deploy/composition.lock.json',
             'components': {
-                name: {'commit': row['commit'], 'image_digest': row['digest'], 'guide': guides[name]}
+                name: {'commit': row['commit'], 'image_digest': row['digest'],
+                       'guide': f"https://www.veyndo.ai/{guides[name]}"}
                 for name, row in lock['components'].items()
             },
         },
@@ -234,7 +236,7 @@ def build():
         content = re.sub(r'\{\{(\w+)\}\}', lambda match: evidence[match[1]], content)
         write_page(Path(page['file']), page['title'], page['description'], content)
     documents = build_documents(DEST, write_page)
-    (DEST / 'components.json').write_text(json.dumps(component_catalog(), indent=2) + '\n')
+    (DEST / 'docs/components.json').write_text(json.dumps(component_catalog(), indent=2) + '\n')
     # Finish shared styles after page-specific assets have been copied. Marketing
     # and handbook use identical bytes at their existing URLs, with no import waterfall.
     styles = stylesheet()

@@ -3466,18 +3466,18 @@
     },
     "src/capabilities/registry.rs": {
       "status": "unproved",
-      "sha256": "3e04fe4e145ff2f94d83e6f837ffb535ba41c27bedcd5aeb3053625771ad44ce",
-      "review": "Separate Flow validation HTTP and MCP entry points are read-only, use the same tenant action and revision checks and cannot call save on older hosts. Legacy validation-only clients continue to get a read-only check on the new host. Signed PostgreSQL regression verifies denied access, invalid graphs and no Flow writes."
+      "sha256": "12c293b9822fe60696079284395da6544ef880a1648aab5b3aa61188088398b2",
+      "review": "Codex source review: the admitted Flow draft tool publishes one closed result schema, validates it at the existing shared dispatch boundary, and preserves all other operation contracts. Native PostgreSQL HTTP and MCP tests cover correct revision, no save or queue, denied authority and stale drafts. The unit test rejects a claimed save and missing or negative revision; generated TypeScript, OpenAPI and WIT were checked. The adapter remains unproved; no policy or theorem changed."
     },
     "src/capabilities/schema.rs": {
       "status": "unproved",
-      "sha256": "956168a01a9502625a136cd3a2dcee5588aaaf6d746e0b2476459f5beadbc55b",
-      "review": "Separate Flow validation HTTP and MCP entry points are read-only, use the same tenant action and revision checks and cannot call save on older hosts. Legacy validation-only clients continue to get a read-only check on the new host. Signed PostgreSQL regression verifies denied access, invalid graphs and no Flow writes."
+      "sha256": "7aa20a316772adbce79a322c4b8cd51dcc14366ce8c52ab1c78173ea294a01bd",
+      "review": "Codex source review: the admitted Flow draft tool publishes one closed result schema, validates it at the existing shared dispatch boundary, and preserves all other operation contracts. Native PostgreSQL HTTP and MCP tests cover correct revision, no save or queue, denied authority and stale drafts. The unit test rejects a claimed save and missing or negative revision; generated TypeScript, OpenAPI and WIT were checked. The adapter remains unproved; no policy or theorem changed."
     },
     "src/capabilities.rs": {
       "status": "unproved",
-      "sha256": "5c42c2dd18e2a388bb1102f278954348de7609f6d9185db073cfd03c6c3056bc",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "6a71cc8f4bd76222de064b3edf7ab5bb253a138650141c97dcbc17c8805a6ddc",
+      "review": "Codex source review: the admitted Flow draft tool publishes one closed result schema, validates it at the existing shared dispatch boundary, and preserves all other operation contracts. Native PostgreSQL HTTP and MCP tests cover correct revision, no save or queue, denied authority and stale drafts. The unit test rejects a claimed save and missing or negative revision; generated TypeScript, OpenAPI and WIT were checked. The adapter remains unproved; no policy or theorem changed."
     },
     "src/cart_model.rs": {
       "status": "unproved",

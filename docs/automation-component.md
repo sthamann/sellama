@@ -188,6 +188,10 @@ const result = await client.tool("automation.validate_flow", {
 // { valid: true, saved: false, revision: 0 }
 ```
 
+MCP discovery exposes the three fields through `outputSchema`. The same
+[registry declaration](agentic-component-ui.md#typed-results-for-native-tools)
+generates the TypeScript, OpenAPI and WIT result contracts.
+
 Use a current `automation.manage` grant plus the rights required by each action.
 If the route or MCP tool is unavailable on an older Core, report that the
 check is unsupported. Calling the save operation as a fallback can write

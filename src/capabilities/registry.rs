@@ -12,6 +12,7 @@ pub(crate) struct Operation {
     description: &'static str,
     pub(super) owner: Owner,
     input: Value,
+    output: Option<Value>,
     effect: Effect,
     agent_read: bool,
 }
@@ -71,6 +72,7 @@ pub(crate) static OPERATIONS: LazyLock<Vec<Operation>> = LazyLock::new(|| {
                 description,
                 owner: Owner::for_name(name),
                 input: schema::input(name),
+                output: schema::output(name),
                 effect: if read { Effect::Read } else { Effect::Write },
                 agent_read,
             }
@@ -98,6 +100,12 @@ impl Operation {
     pub(crate) fn input_schema(&self) -> Value {
         self.input.clone()
     }
+    pub(super) fn check_output(&self, value: Value) -> Result<Value> {
+        if let Some(schema) = &self.output {
+            apps::validate_native_input(schema, &value).map_err(|_| Error::output_contract())?;
+        }
+        Ok(value)
+    }
     pub(crate) fn admitted(&self, a: &App, h: &RequestContext) -> bool {
         if h.principal.agent_key.is_some()
             && self.effect != Effect::Read
@@ -115,14 +123,25 @@ impl Operation {
             self.name,
             self.description,
             &self.input,
-            None,
+            self.output.as_ref(),
             self.effect == Effect::Read,
         )
     }
 }
 /// Build-time contract export is offline and includes no actor credentials or records.
 pub(crate) fn export() -> Value {
-    json!({"version":1,"operations":OPERATIONS.iter().map(|o|json!({"name":o.name,"description":o.description,"inputSchema":o.input,"readOnly":o.effect==Effect::Read})).collect::<Vec<_>>()})
+    let operations = OPERATIONS
+        .iter()
+        .map(|operation| {
+            let mut value = json!({"name":operation.name,"description":operation.description,
+            "inputSchema":operation.input,"readOnly":operation.effect==Effect::Read});
+            if let Some(schema) = &operation.output {
+                value["outputSchema"] = schema.clone();
+            }
+            value
+        })
+        .collect::<Vec<_>>();
+    json!({"version":1,"operations":operations})
 }
 
 #[cfg(test)]
@@ -141,6 +160,22 @@ mod tests {
             parsed.page_size().unwrap();
         }
         assert!(apps::validate_native_input(&schema, &json!({"categoryId":true})).is_err());
+    }
+    #[test]
+    fn flow_check_result_cannot_claim_a_save_or_omit_its_revision() {
+        let operation = find(marketing::DRAFT_CAPABILITY.0).unwrap();
+        assert!(
+            operation
+                .check_output(json!({"valid":true,"saved":false,"revision":0}))
+                .is_ok()
+        );
+        for value in [
+            json!({"valid":true,"saved":true,"revision":0}),
+            json!({"valid":true,"saved":false}),
+            json!({"valid":true,"saved":false,"revision":-1}),
+        ] {
+            assert!(operation.check_output(value).is_err());
+        }
     }
     #[test]
     fn every_operation_has_one_contract_and_agent_reads_are_conservative() {

@@ -56,9 +56,15 @@ pub(crate) fn invoke<'a>(
     if let Err(error) = apps::validate_native_input(&operation.input_schema(), v) {
         return Box::pin(async move { Err(error) });
     }
-    Box::pin(operation.owner.invoke(a, h, name, v).instrument(
-        tracing::info_span!("operation",operation=name,trace_id=%veyndo::trace::current()),
-    ))
+    Box::pin(
+        async move {
+            let value = operation.owner.invoke(a, h, name, v).await?;
+            operation.check_output(value)
+        }
+        .instrument(
+            tracing::info_span!("operation",operation=name,trace_id=%veyndo::trace::current()),
+        ),
+    )
 }
 
 pub(super) type CapabilityFuture<'a> =

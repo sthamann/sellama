@@ -1,22 +1,22 @@
 # Independent Automation component
 
-The first Automation extraction contains the actual native deterministic rule
-engine in `veyndo/automation`: registry, input validation, comparison, container,
-calendar/time-zone, custom-field and selected-line evaluation. Native Veyndo
-imports that same library through the existing `veyndo::automation_rules` and
-`veyndo::rule_comparison` facades. Native rule configuration, trusted fact
-collection, Flow execution, current actor checks, queues and events retain their
-existing owners. No price or checkout writer moves into this service.
+The independent `veyndo/automation` repository contains the deterministic rule
+registry, input validation, comparison, container, calendar and time-zone logic,
+custom fields and selected-line evaluation. The released Core still builds its
+in-tree evaluator. The preview service runs the extracted copy and evaluates facts
+supplied by its caller. Core owns native rule configuration, trusted fact collection,
+checkout and Flow execution.
 
 ## Library and service
 
 The Rust library depends on JSON/calendar support and the existing pinned pure
-kernel library. It imports no Core server, SQL, provider or model runtime. The
-native composition patches the kernel dependency to the actual reviewed local
-kernel. Exact source pins and file hashes in `components.lock.json`, plus kernel
-source hashes in component provenance, reject a drifting or duplicated policy
-implementation. This retains the existing Lean policy boundary; moving the engine
-does not prove its surrounding JSON, time, IO or complete rule catalog.
+kernel library. It imports no Core server, SQL, provider or model runtime.
+Component provenance records the extraction and kernel source hashes. In the
+10 November comparison against Core `483a9b3c`, the rule registry and comparison
+module were byte-identical. The evaluator and validation differed only in how
+they imported the same kernel functions. Core and the preview lock different
+`serde_json` patch versions, so the source comparison is separate from runtime
+parity. Linking Core to the extracted crate remains open.
 
 The service has its own Rust binary, Dockerfile, operator configuration,
 OpenAPI, MCP operations and SDK example. Current OAuth access comes from the
@@ -51,12 +51,28 @@ current permissions at Core's `/api/auth/access` on every request. Personal
 sessions, browser origins and keys with additional permissions are rejected.
 The preview only uses facts submitted with the request.
 
-Run the image with the repository root as build context, `service/Dockerfile`,
-and HTTP port 8808. Use `GET /health` for liveness. This endpoint stays
-independent of Core. Use a scoped key to verify authenticated readiness after
-deployment. An isolated test with the real Core issued a key, exercised HTTP
-and MCP, denied a broader key and verified that revocation took effect on the
-next call. [Component README](https://github.com/veyndo/automation).
+Run the private component image by the digest reported by its release workflow,
+with port 8808 and `GET /health` for liveness. This endpoint stays independent of
+Core. Use a scoped key to verify authenticated readiness after deployment.
+Compare an eligible and an ineligible rule through both HTTP and MCP, then revoke
+the key and check that the next request is refused. An isolated test with the
+real Core issued a key, exercised HTTP and MCP, denied a broader key and
+verified that revocation took effect on the next call.
+[Component README](https://github.com/veyndo/automation).
+
+### Private Northflank pilot
+
+On 10 November the private service started one replica from Automation
+`c4e50f6`. The project image import preserved the digest from the
+[tested GitHub build](https://github.com/veyndo/automation/actions/runs/42792827027).
+Port 8808 stays inside the project. The service has no database and uses Core's
+HTTPS access endpoint for current authorization.
+
+Through a private tunnel, health returned HTTP 204 and OpenAPI returned 200.
+Anonymous access and invalid Core keys were refused with 401. An unexpected
+browser origin was refused with 403. Both HTTP and MCP were exercised. Core
+and the public Lumen Storyfront still responded. Authenticated previews,
+revocation and latency for valid calls remain open on Northflank.
 
 ## Agent and host composition
 
@@ -71,7 +87,7 @@ and `examples/workspace.mjs`. Repository access is currently private.
 
 ## Keep checkout independent of the preview service
 
-Core links the evaluator directly. The separate service can preview a rule for
+Core runs its evaluator in-process. The separate service can preview a rule for
 another application or an agent using supplied facts. Core reads its own
 current cart, checks whether a discount applies and owns the transaction and
 its resulting event. The Flow worker uses that committed event and runs

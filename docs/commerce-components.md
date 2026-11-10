@@ -28,6 +28,11 @@ to native Veyndo through the same owner.
   HTTP/MCP calls, revocation and latency against the running shop.
   - [x] Reuse current Core permissions and verify key issuance and revocation
     against the real Core in isolation. [Setup](automation-component.md#connect-the-service-to-veyndo-core).
+  - [x] Run the tested image privately on Northflank. Verify health, OpenAPI,
+    rejection of invalid keys over HTTP and MCP, and reachability of Core and
+    Storyfront. [Hosted pilot](automation-component.md#private-northflank-pilot).
+  - [ ] Verify eligible and ineligible rules with a scoped merchant key and
+    measure the authenticated path before and after revocation.
 - [ ] CHK-01..03 Independent checkout domain ports and own session orchestration.
   - [x] Trace both native and Storyfront purchases and verify their shared quote,
     commit, payment and recovery contract.

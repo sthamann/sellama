@@ -10,6 +10,14 @@ Updated 10 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Private Automation preview on Northflank
+
+The independent Automation service runs privately alongside Core. It evaluates
+supplied rule facts through HTTP and MCP. The deployed image passed the container
+tests. In Northflank, health, OpenAPI and unauthorized access checks passed.
+A scoped merchant key is still required for a hosted rule comparison and
+revocation test. [Deployment and acceptance](automation-component.md#private-northflank-pilot).
+
 ## Private Checkout live in the Lumen test shop
 
 Northflank routes signed-in Lumen buyers using the demo payment through the

@@ -1,5 +1,11 @@
 # Changelog
 
+## Agent integration contracts
+
+- Publish the typed Flow draft validation result from the shared operation
+  registry in MCP, OpenAPI, TypeScript and WIT.
+- Point the public B2B UCP capability at the current negotiation guide.
+
 ## Embedding model changes across workers
 
 - Record a per-shop model revision so a worker on an older configuration

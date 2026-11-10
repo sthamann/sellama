@@ -26,7 +26,7 @@ pub(crate) async fn ucp_profile(h: RequestContext) -> Result<Json<Value>> {
         json!("https://ucp.dev/2026-08-25/specification/shopping/checkout/");
     meta["capabilities"][CHECKOUT][0]["schema"] =
         json!("https://ucp.dev/2026-08-25/schemas/shopping/checkout.json");
-    meta["capabilities"][B2B] = json!([{"version":VERSION,"extends":[CHECKOUT],"schema":SCHEMA,"spec":"https://sthamann.github.io/veyndo/docs/b2b-ucp-negotiation.html"}]);
+    meta["capabilities"][B2B] = json!([{"version":VERSION,"extends":[CHECKOUT],"schema":SCHEMA,"spec":"https://www.veyndo.ai/docs/b2b-ucp-negotiation.html"}]);
     meta["capabilities"][cart::CAPABILITY] = json!([{"version":UCP_VERSION,"spec":"https://ucp.dev/2026-08-25/specification/shopping/cart/","schema":"https://ucp.dev/2026-08-25/schemas/shopping/cart.json"}]);
     meta["capabilities"][consent::CAPABILITY] = json!([{"version":UCP_VERSION,"extends":[CHECKOUT,cart::CAPABILITY],"schema":"https://ucp.dev/2026-08-25/schemas/shopping/buyer_consent.json","spec":"https://ucp.dev/2026-08-25/specification/buyer-consent/"}]);
     meta["payment_handlers"] = json!({});

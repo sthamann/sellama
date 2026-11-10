@@ -5416,8 +5416,8 @@
     },
     "src/ucp/profile.rs": {
       "status": "unproved",
-      "sha256": "f1b15f47bfd4fad15e67e55566636723ef0326c238bc3940507d09d31bfce9a9",
-      "review": "Reviewed inbound UCP/native cart and consent transactions, native finalization contact guard, immutable order snapshots, explicit optional negotiation, public HTTPS app-owned catalogue adapters; independent whole-branch review findings repaired and six isolated HTTP/PG suites pass. No extracted kernel policy changed; SQL/provider behavior remains unproved."
+      "sha256": "57a674d26dbb9de0a278d37a69d2369709f191690d3585108837786bff00c887",
+      "review": "Codex source review: UCP discovery changes only the public B2B negotiation guide URL from a verified HTTP 404 to the canonical HTTP 200 location. Real HTTP/PostgreSQL regression asserts the URL and verifies negotiation, approvals, immutable order and exact replay. Schema, authorization and kernel policies are unchanged."
     },
     "src/ucp/readiness.rs": {
       "status": "unproved",

@@ -1,0 +1,39 @@
+{
+  "checked_at": "2026-11-10",
+  "public_releases": {
+    "veyndo": {
+      "tag": "v0.5.0",
+      "commit": "2b69566c636e89f5eaaf507a5891f9e570839c05",
+      "prerelease": true,
+      "guide": "docs/quickstart.html"
+    },
+    "sdk": {
+      "tag": "v0.4.1",
+      "commit": "f3887a3d38d5aa04578189569716c3426bfb9d8d",
+      "prerelease": true,
+      "guide": "docs/checkout-component.html#external-reference-storefront"
+    },
+    "apps": {
+      "tag": "v0.29.0",
+      "commit": "f9524c6ee07a4a1fb201a0a2e6cebe3d81074b00",
+      "prerelease": true,
+      "guide": "docs/app-runtime-service.html"
+    },
+    "marketplaces": {
+      "tag": "v0.2.0",
+      "commit": "f653e89ef49c8af34b3f21d9c8c18d4ee8efa66f",
+      "prerelease": true,
+      "guide": "docs/marketplaces.html"
+    }
+  },
+  "hosted_guides": {
+    "core": "docs/architecture.html#one-transactional-core-independently-deployable-workers",
+    "app-worker": "docs/automation-component.html#move-the-app-worker-out-of-core",
+    "checkout": "docs/checkout-component.html#hosted-lumen-pilot-10-november-2026",
+    "knowledge": "docs/knowledge-component.html",
+    "connectors": "docs/connector-component.html",
+    "payments": "docs/payment-provider-api.html",
+    "experience": "docs/storyfront.html",
+    "automation": "docs/automation-component.html"
+  }
+}

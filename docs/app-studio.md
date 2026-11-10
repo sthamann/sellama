@@ -195,6 +195,34 @@ permission additions and stage it through the same operations.
 
 ## Limits and tests
 
+### Assembled app lifecycle test
+
+The 10 November local acceptance ran `app_studio`, `app_preview`,
+`app_schema`, `app_generation` and `app_surfaces` against Core and a fresh
+PostgreSQL database. The model endpoint used a test response. The server
+validated the response into an immutable draft, installed the draft in a
+private environment and saved real scoped records. A selected release
+activated the intended package and its native surfaces. A committed order
+then triggered the configured Flow. Project restore retained installed
+packages, records and revision digests. Invalid conversions rolled back,
+and requests from another shop were rejected. The merchant and shopper
+assistant paths exercised the app's admitted views and actions.
+
+In a fresh local shop, a Chromium run signed in, opened the Product Advisor
+template, added a visual block and saved a product-specific record in the
+working preview. Versions 0.1.0 and 0.1.1 went through package review,
+private installation and selected publication. Reopening 0.1.0 from the
+version history restored its design as version 0.1.2. After that release,
+PostgreSQL showed the original block active, the block added in 0.1.1 absent,
+three release entries, one private test record and zero live copies of it.
+
+Fifteen editor component tests separately covered editing and reordering
+blocks, reviewing an agent proposal, reopening a saved canvas, preserving
+drafts, publishing the selected package and restoring versions. These
+checks use component test rendering. A hosted browser lifecycle and a
+repeat with the standalone host are tracked in the
+[release acceptance list](commerce-components.md#complete-product-release-acceptance).
+
 Sixteen views, 32 blocks/view, twelve models, sixteen fields/model and 24 actions/
 routes keep previews and parsing bounded. Per-app storage has database-enforced
 row/byte quotas; file quotas remain with the existing product asset owner.

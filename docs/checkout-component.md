@@ -392,10 +392,25 @@ administrator connection and access to Checkout's runtime secrets were removed
 after installation. The HTTP `/ready` probe verifies the service can establish
 a signed database scope.
 
-The hosted browser rollout requires the private Core-to-Checkout route and
-the buyer identity settings for the named test shop. Accept the original
-receipt, cart, stock and outbox in the native and Storyfront browsers,
-followed by configured Sandbox payment and refund.
+### Hosted Lumen pilot, 10 November 2026
+
+Northflank runs one ready private Checkout replica. Core relays signed-in
+consumer checkouts using the demo payment for
+`lumen-story-lab-15-o-98aa4751fa`. Both runtimes inherit
+`CHECKOUT_INTROSPECTION_TOKEN` from one restricted group. Core inherits
+`CHECKOUT_IDENTITY_KEY` from its own group. The Checkout service has no
+local override for the shared credential.
+
+| Hosted check | Observed result |
+| --- | --- |
+| Lumen without buyer authentication | HTTP 401 from the independent create route. |
+| Shop outside the allowlist | HTTP 503 from the independent create route. |
+| Original Storyfront iframe | Independent create and confirm both returned HTTP 200. Order `RAC-694ba533` cost EUR 59.90 with demo payment. The bag stayed empty on return and after a full reload. Stock moved from four to three. |
+| Native Store API | A second demo purchase and its repeated confirmation returned the same order ID. Stock moved from three to two. The completed cart retained its receipt line item. |
+
+Hosted top-level browser checkout, provider payment and refund, the outbox
+trace for these purchases and concurrency acceptance are tracked separately.
+[Implementation plan](commerce-components.md#checkout-independent-service-and-ui).
 
 ## PayPal Sandbox through the separate service
 

@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "profile": "hosted-lumen-commerce",
+  "components": {
+    "core": {
+      "service": "vendune-core",
+      "repository": "https://github.com/veyndo/veyndo",
+      "commit": "d80a55b54537c7e359ec8b302d1faef05e7080ee",
+      "digest": "sha256:519c31d733ad9a468e69136074723eae373843547ef709a13f80cfa186f45233",
+      "build_service": "vendune-core-build",
+      "build_id": "typical-guitar-3376",
+      "schema": {
+        "owner": "core",
+        "inputs": {
+          "migrations": "26f210b38b429fdd4559aa7726c7b31474bbb6fd"
+        },
+        "through": "113-embedding-model-revisions.sql"
+      }
+    },
+    "app-worker": {
+      "service": "vendune-app-worker",
+      "repository": "https://github.com/veyndo/veyndo",
+      "commit": "687bbae83dd3c5c07d3bf97009fb2f07e2d2510c",
+      "digest": "sha256:a2c15af0b71c8bf2b0e6d85370659cf1368834cae956b1ec149020e2b07e2a21",
+      "build_service": "vendune-core-build",
+      "build_id": "last-mine-6458",
+      "schema": {
+        "owner": "core",
+        "inputs": {
+          "migrations": "3cc453d235ddaf9aa058abeb18d239edf92d49f7"
+        },
+        "through": "112-hosted-checkout-recovery.sql"
+      }
+    },
+    "checkout": {
+      "service": "veyndo-checkout",
+      "repository": "https://github.com/veyndo/checkout",
+      "commit": "eaa34f27386e0de2b34de6085fef78ac237943e9",
+      "digest": "sha256:8524590889e27bc2163058b97b5966265f8c9525028d519515101a09d365de1e",
+      "build_service": "veyndo-checkout",
+      "build_id": "puffy-soup-2325",
+      "schema": {
+        "owner": "checkout",
+        "inputs": {
+          "service/sql/sessions.sql": "5a069bc7c4fdc1cf90b6821c6623c4ba6fb8fd61"
+        }
+      }
+    },
+    "knowledge": {
+      "service": "veyndo-knowledge",
+      "repository": "https://github.com/veyndo/knowledge",
+      "commit": "874534dd80425f741d7b1a749b64281efda62340",
+      "digest": "sha256:df734b6fcd415f81d48f0aa3eae83afa27676ddcb7c7214b8c283aaf55bab16c",
+      "build_service": "veyndo-knowledge",
+      "build_id": "sleek-belief-4263",
+      "schema": {
+        "owner": "knowledge",
+        "inputs": {
+          "service/sql": "b057eefc6e84b76f79f235c70be3490c5208ecf5"
+        }
+      }
+    },
+    "connectors": {
+      "service": "vendune-connectors",
+      "repository": "https://github.com/veyndo/connectors",
+      "commit": "fc36cad517533a18922966c7f3aa2322860ce19c",
+      "digest": "sha256:4ffb567056f7a6187d0e2a579532a6a9f840ac8e1fa33218ca5398dcb621cdef",
+      "build_service": "vendune-connectors",
+      "build_id": "mint-meeting-7629",
+      "schema": {
+        "owner": "connectors",
+        "inputs": {
+          "sql/standalone.sql": "baed75aa63ca41e67a24e05d7e41af8458db2052"
+        }
+      }
+    },
+    "payments": {
+      "service": "veyndo-payments",
+      "repository": "https://github.com/veyndo/shopware-payments",
+      "commit": "63a2858d0790e1791a57f1744bc37ad705c29102",
+      "digest": "sha256:6b169184c5f3ee32200d7a8dd5e3ee23b9aaa6855123f70b8792b89373805d53",
+      "build_service": "veyndo-payments",
+      "build_id": "invincible-can-6909",
+      "schema": {
+        "owner": "payments",
+        "inputs": {
+          "migrations": "8bd85958797e9472c76a477e002903763a94f648"
+        },
+        "through": "004.sql"
+      }
+    },
+    "experience": {
+      "service": "vendune-experience",
+      "repository": "https://github.com/veyndo/experience",
+      "commit": "465f0a97f72c3795198e02ccdc594162b535614e",
+      "digest": "sha256:e47c2f943dabb3055e99edb03b85531a7ab874240f7e8cc4ab0c36eb1eaafd96",
+      "build_service": "vendune-experience",
+      "build_id": "guided-eggs-5114",
+      "schema": {
+        "owner": "experience",
+        "inputs": {
+          "server/storage.ts": "f4be9c5e1193286a0f9dd2c6c340e060378e3e73"
+        }
+      }
+    },
+    "automation": {
+      "service": "veyndo-automation",
+      "repository": "https://github.com/veyndo/automation",
+      "commit": "c4e50f6151d2beb1f4db19565235347040d287c7",
+      "digest": "sha256:31c04335a7db0fade07ce0d090a1e75281aedd3688397319064853f303f9e9ca",
+      "import_id": "6af2e86cb6e8d519d0633e5c",
+      "schema": null
+    }
+  },
+  "contracts": [
+    {
+      "consumer": "experience",
+      "provider": "core",
+      "contract": "Storyfront cart handoff and checkout completion",
+      "guide": "docs/storyfront.md#responsibilities-and-contracts"
+    },
+    {
+      "consumer": "core",
+      "provider": "checkout",
+      "contract": "Signed Checkout v1 sessions and Core commerce host",
+      "guide": "docs/checkout-component.md#commerce-host-ports-in-core"
+    },
+    {
+      "consumer": "core",
+      "provider": "payments",
+      "contract": "Private payment service and signed callbacks",
+      "guide": "docs/evidence/composed-release-rehearsal-2026-11-10.md#compare-signed-payment-callback-delivery"
+    },
+    {
+      "consumer": "app-worker",
+      "provider": "core",
+      "contract": "Core PostgreSQL outbox and shared schema",
+      "guide": "docs/evidence/composed-release-rehearsal-2026-11-10.md#run-the-original-images-with-restricted-database-roles"
+    },
+    {
+      "consumer": "app-worker",
+      "provider": "connectors",
+      "contract": "App gateway actions and durable delivery",
+      "guide": "docs/connector-component.md"
+    },
+    {
+      "consumer": "app-worker",
+      "provider": "knowledge",
+      "contract": "Scoped catalog source projection",
+      "guide": "docs/knowledge-component.md"
+    },
+    {
+      "consumer": "automation",
+      "provider": "core",
+      "contract": "Automation v1 rule evaluation and current scope checks",
+      "guide": "docs/automation-component.md"
+    }
+  ]
+}

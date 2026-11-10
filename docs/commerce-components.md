@@ -275,6 +275,11 @@ Each component task remains open until these checks are demonstrated for it.
   reuse existing outbox/subscriber checkpoints and uncertainty handling.
 - [ ] FND-08 Add a composition lock with exact repository commits/image digests,
   API compatibility and migrations. No unpinned branch deployment dependencies.
+  - [x] Lock the hosted Lumen commerce profile and verify the selected and
+    running builds on Northflank. Pin Checkout and Knowledge to exact builds.
+    [Verification and release procedure](cloud-releases.md#verify-the-hosted-lumen-composition).
+  - [ ] Make the lock an automatic admission check for the complete deployment
+    workflow and extend it to the other release profiles.
 - [ ] FND-09 Build component CI and complete-product CI; short affected checks per
   change and daily full coverage retain the existing verification cadence.
 - [ ] FND-10 Generate a public component catalog and detailed docs from actual

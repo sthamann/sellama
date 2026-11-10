@@ -147,6 +147,11 @@ key. Status reads use the last committed state while an order is in progress.
 Only reopening an open cart takes the purchase lock and invalidates the old
 frame. [Storyfront recovery contract](storyfront.md#responsibilities-and-contracts).
 
+The hosted Lumen profile pins the builds, interface dependencies and schema
+inputs of its services. Deployment verification compares the active artifacts
+with the recorded set before testing checkout and background work.
+[Composition release lock](cloud-releases.md#verify-the-hosted-lumen-composition).
+
 The [illustrated production architecture](production-architecture.md) explains
 implemented money, database security, inventory, payment, cache, admission and
 observability foundations. Orders/provider boundaries now use explicit minor

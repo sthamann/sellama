@@ -46,6 +46,12 @@ Core showed one stock decrement and one invoice, and the SMTP fixture
 received one mail with that order number.
 [Reproduce the composed journey](connector-component.md#verify-the-complete-shop).
 
+A separate local run followed a Shopware Payments fixture purchase through
+the same services. Verified capture triggered the invoice and order mail.
+The Connector receipt matched the message ID received by SMTP. The refund
+and its replay preserved the original order and payment attempt. The hosted
+Lumen orders still need the merchant and provider evidence for these steps.
+
 ## Mixed shop traffic and app-worker recovery
 
 An isolated local Core with 200,000 synthetic products accepted 48 simulated

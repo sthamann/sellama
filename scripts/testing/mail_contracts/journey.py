@@ -7,6 +7,8 @@ import subprocess
 import time
 import urllib.parse
 import uuid
+from email import policy
+from email.parser import BytesParser
 from testing.mail_contracts.connector_database import independent_database
 from testing.runtime import ROOT, serve, stop
 from testing.reference_connector import email_config
@@ -28,7 +30,13 @@ class NativeMailJourney:
             self.skipTest("Set CHECKOUT_TEST_BINARY and CONNECTORS_BINARY to the separately built services")
         self.mail_journey(standalone=True, checkout=checkout)
 
-    def mail_journey(self, standalone=False, checkout=None):
+    def test_independent_checkout_capture_drives_invoice_mail_and_refund(self):
+        checkout = os.getenv("CHECKOUT_TEST_BINARY")
+        if not checkout or not os.getenv("CONNECTORS_BINARY"):
+            self.skipTest("Set CHECKOUT_TEST_BINARY and CONNECTORS_BINARY to the separately built services")
+        self.mail_journey(standalone=True, checkout=checkout, paypal=True)
+
+    def mail_journey(self, standalone=False, checkout=None, paypal=False):
         if not os.getenv("DATABASE_URL"):
             self.skipTest("DATABASE_URL required for real Rust/PostgreSQL path")
         from types import SimpleNamespace
@@ -78,9 +86,12 @@ class NativeMailJourney:
         if checkout:
             from testing.mail_contracts import checkout as checkout_fixture
             connection, start_checkout = checkout_fixture.provision(
-                self, container, suffix, checkout, base, db_url,
+                self, container, suffix, checkout, base, db_url, paypal=paypal,
             )
             env.update(connection, COMMERCE_PUBLIC_ORIGIN=base)
+            if paypal:
+                provider, payment_env = checkout_fixture.payment_fixture(self, "mail-" + suffix)
+                env.update(payment_env)
         mixed = standalone and not checkout and os.getenv("VEYNDO_MIXED_LOAD") == "1"
         if mixed:
             from testing.mail_contracts import mixed as workload
@@ -133,6 +144,8 @@ class NativeMailJourney:
             self.assertEqual(tenant, "mail-" + suffix)
             register_namespace(tenant)
         h = {"Authorization": "Bearer " + user["token"], "x-tenant": tenant}
+        if paypal:
+            checkout_fixture.enable_payment(api, h, "payment-" + suffix)
         api("/api/apps", {"builtIn": "email"}, h)
         api("/api/apps/email/actions/status", {}, {"x-tenant": tenant}, expected=401)
         api(
@@ -173,7 +186,7 @@ class NativeMailJourney:
         flow = {
             "name": {l: "Email order" for l in email_config.LOCALES},
             "active": True,
-            "event": "order.placed",
+            "event": "payment.captured" if paypal else "order.placed",
             "condition": {"type": "alwaysValid"},
             "action": "app_action",
             "instruction": {l: "Order email" for l in email_config.LOCALES},
@@ -209,7 +222,8 @@ class NativeMailJourney:
 
         if checkout:
             checkout_process = start_checkout()
-            ch, confirmation = checkout_fixture.prepare(api, tenant, "mug", suffix)
+            method = checkout_fixture.PAYPAL_METHOD if paypal else None
+            ch, confirmation = checkout_fixture.prepare(api, tenant, "mug", suffix, method)
             confirm_path = "/store-api/checkout/independent/confirm"
             stock = api("/store-api/product/mug", headers=h)["product"]["stock"]
             # The original client does not use the successful confirmation body.
@@ -218,7 +232,8 @@ class NativeMailJourney:
             stop(checkout_process)
             start_checkout()
             recovered = api(confirm_path, confirmation, ch)
-            self.assertEqual(recovered["paymentState"], "authorized")
+            if not paypal:
+                self.assertEqual(recovered["paymentState"], "authorized")
             orders = api("/api/search/order", {}, h)["data"]
             self.assertEqual(len(orders), 1)
             order = orders[0]
@@ -243,6 +258,16 @@ class NativeMailJourney:
             worker = start_worker()
             if not checkout:
                 self.assertEqual(api("/store-api/checkout/order", {}, order_headers)["id"], order["id"])
+        if paypal:
+            attempt = recovered["paymentAttemptId"]
+            self.assertEqual(order["payment"]["attemptId"], attempt)
+            checkout_fixture.wait_payment(api, ch, attempt, "ready")
+            api(f"/store-api/payments/{attempt}/reconcile", {"requestKey": attempt + ":unverified"}, ch)
+            checkout_fixture.wait_payment(api, ch, attempt, "ready")
+            receipt_path = f"/api/merchant/orders/{order['id']}/receipts"
+            self.assertEqual(api(receipt_path, headers=h)["elements"], [])
+            self.assertFalse(self.smtp.messages)
+            captured = checkout_fixture.capture(api, ch, provider, attempt)
         for _ in range(150):
             if self.smtp.messages:
                 break
@@ -271,12 +296,34 @@ class NativeMailJourney:
                     break
                 time.sleep(.1)
             self.assertEqual(len(receipts), 1)
+        message_id = BytesParser(policy=policy.default).parsebytes(self.smtp.messages[0][1])["Message-ID"]
         for _ in range(100):
             jobs = api("/api/apps/email/actions/status", {}, h)["jobs"]
-            if jobs[0]["result"] and jobs[0]["result"].get("outcome") == "accepted":
+            delivered = [job["result"] for job in jobs
+                         if job["result"] and job["result"].get("messageId") == message_id]
+            if delivered:
                 break
             time.sleep(0.1)
-        self.assertEqual(jobs[0]["result"]["outcome"], "accepted")
+        self.assertTrue(message_id)
+        self.assertEqual([(result["provider"], result["outcome"]) for result in delivered],
+                         [("smtp", "accepted")])
+        if paypal:
+            self.assertEqual(receipts[0]["kind"], "invoice")
+            refund_path = f"/api/payments/{attempt}/refund"
+            refund_headers = {**h, "Idempotency-Key": attempt + ":refund"}
+            refund = {"approve": True, "amountMinor": captured["amountMinor"]}
+            api(refund_path, refund, refund_headers)
+            refunded = checkout_fixture.wait_payment(api, ch, attempt, "refunded")
+            self.assertEqual(refunded["refundedMinor"], captured["amountMinor"])
+            api(refund_path, refund, refund_headers)
+            final = api(confirm_path, confirmation, ch)
+            self.assertEqual((final["orderId"], final["paymentAttemptId"], final["paymentState"]),
+                             (order["id"], attempt, "refunded"))
+            self.assertEqual(len(api("/api/search/order", {}, h)["data"]), 1)
+            self.assertEqual(api("/store-api/product/mug", headers=h)["product"]["stock"], stock - 1)
+            self.assertEqual(api(receipt_path, headers=h)["elements"], receipts)
+            self.assertEqual(len(self.smtp.messages), 1)
+            return
         # Public legal declaration takes the actual outbox → email app → SMTP path.
         request = api("/store-api/legal/requests", {
             "kind": "withdrawal", "name": "Fixture Buyer", "email": "buyer@example.test",
@@ -287,8 +334,6 @@ class NativeMailJourney:
                 break
             time.sleep(0.1)
         self.assertEqual(len(self.smtp.messages), 2)
-        from email import policy
-        from email.parser import BytesParser
         receipt_body = BytesParser(policy=policy.default).parsebytes(self.smtp.messages[1][1]).get_content()
         self.assertIn(request["id"], receipt_body)
         self.assertIn(b"receivedAt", self.smtp.messages[1][1])

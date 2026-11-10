@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "d80a55b54537c7e359ec8b302d1faef05e7080ee",
-      "digest": "sha256:519c31d733ad9a468e69136074723eae373843547ef709a13f80cfa186f45233",
+      "commit": "ab340128b0fae5240f8a7132dc7da2a782c3854a",
+      "digest": "sha256:7bcabe69445879061aeda9d3f5987addc98bb81704e46178d12afde8c22d165b",
       "build_service": "vendune-core-build",
-      "build_id": "typical-guitar-3376",
+      "build_id": "astute-chance-6558",
       "schema": {
         "owner": "core",
         "inputs": {

@@ -292,8 +292,9 @@ Each component task remains open until these checks are demonstrated for it.
 
 ## CORE: modular transactional commerce
 
-- [ ] CORE-01 Map current catalog, customer, cart, pricing, inventory, order,
+- [x] CORE-01 Map current catalog, customer, cart, pricing, inventory, order,
   payment, fulfillment and settings consumers before changing ownership.
+  [Current consumers, owners and invariants](source-map.md#commerce-domain-owners).
 - [ ] CORE-02 Replace broad App dependencies with explicit domain ports/context;
   enforce one-way crate dependencies and prohibit importing the product shell.
 - [ ] CORE-03 Extract catalog/category/variant/media contracts and domain module.

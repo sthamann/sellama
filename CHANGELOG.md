@@ -1,5 +1,17 @@
 # Changelog
 
+## Shared product contracts and hosted component versions
+
+- Move the native Product snapshot and Tier DTO into the transport-free
+  Commerce crate, preserving legacy wire fields and private rule fact redaction.
+- Pin the existing Checkout and Knowledge deployments to exact builds.
+  Add a composition lock and checks for eight hosted artifacts, their source
+  commits and migration inputs.
+- Generate the public component release catalog from verified public tags
+  and the hosted composition lock.
+- Verify Product Advisor creation, private records, two selected releases
+  and restoration of its original design in a real local browser.
+
 ## Agent integration contracts
 
 - Publish the typed Flow draft validation result from the shared operation

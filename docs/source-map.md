@@ -5,6 +5,27 @@ SDK, test requirements and complete-product acceptance](commerce-components.md).
 Existing owners remain authoritative until their replacement is integrated and
 accepted. Moving a repository does not establish standalone service behavior.
 
+## Commerce domain owners
+
+These are the current extraction boundaries. The same operation consumers
+remain connected while shared contracts move into crates.
+
+| Domain | Current consumers and owner | Preserve when extracting |
+| --- | --- | --- |
+| Catalog, categories, variants and media | Store catalog/detail, Studio and native operations use `src/commerce/{catalog,detail,product_admin,product_edit,product_fields}.rs`, `src/categories/` and the shared Product contract below. | Tenant/channel filtering, translation inheritance, content revision, variant identity and internal fact redaction. |
+| Customers, accounts and addresses | `src/accounts/` and `src/operations/{customers,customer_create,customer_lookup,addresses}.rs` serve storefront accounts, merchant lookup, manual orders and agent tools. | Verified account identity, immutable order ownership and current PII permissions. |
+| Cart and checkout | `src/cart_*.rs`, `src/order_checkout.rs` and `src/checkout/` serve Store API, reviewed merchant orders, agents, POS and the separate Checkout host ports. | Cart revision, legal and payment review, idempotency, original receipt recovery and the single commit transaction. |
+| Pricing and taxes | `crates/commerce/`, `src/cart_price.rs`, `src/checkout/price.rs`, `src/commerce/tax*.rs` and `src/currencies/` price the same current cart across those consumers. | Currency/rounding behavior, authoritative rule facts, price snapshots and tax context. |
+| Inventory | `src/checkout/lock.rs` and `src/commerce/inventory.rs` allocate and consume stock on the checkout transaction; cancellation releases persisted reservations. | Ordered product locks, aggregate stock revisions, one allocation per purchase and idempotent release. |
+| Orders | `src/checkout/commit.rs`, `src/commerce/external_orders.rs` and `src/operations/{orders,order_list,manual_orders}.rs` connect native purchase and imported orders to the same ledger. | Immutable amounts and buyer snapshots, tenant identity, order state guards and atomic order events. |
+| Payments and refunds | `src/payments/` admits commands and signed receipts from the separate Payments adapter; native checkout and merchant actions reuse that owner. | Verified amounts, allocations, receipt uniqueness, current authority and uncertainty after interrupted provider calls. |
+| Fulfillment and documents | `src/commerce/{fulfillment,delivery,delivery_split}.rs` and `src/operations/{order_documents,receipts,delivery_booking}.rs` serve Studio, Flow actions and carrier apps. | Persisted order quantities, split delivery conservation, original receipt identity and provider callback evidence. |
+| Settings and international context | `src/commerce/settings_*.rs`, `src/commerce/geography.rs`, `src/currencies/` and language configuration supply shared native contexts to HTTP, MCP and UCP adapters. | Current grants, basis/channel inheritance, revisions, dependent method usage and selective publication. |
+
+An extracted DTO carries data. Its host still admits the caller and
+loads the current shop and channel context. An API adapter or app gateway
+must not become another price, order or inventory owner.
+
 ## Shared product contract
 
 `veyndo-commerce::catalog` owns the Product snapshot and Tier DTO used by
@@ -26,6 +47,7 @@ PostgreSQL catalog and automation suites. Those suites exercise product
 intake, selective publication, current rule facts, native checkout and
 invoice creation. Category writes, product storage and the standalone
 catalog hosting boundary remain with their current owners.
+[Hosted rollout](status.md#shared-product-contract-on-northflank).
 
 **App package installation service:** Pinned Apps `src/models.rs` owns the original
 model install/rebuild sequence and required compatibility port. Native

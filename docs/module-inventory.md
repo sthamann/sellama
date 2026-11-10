@@ -225,7 +225,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/capabilities/registry.rs](../src/capabilities/registry.rs) | One immutable native operation record for dispatch, schemas, MCP discovery and bounded agent reads. |
 | [src/capabilities/schema.rs](../src/capabilities/schema.rs) | Native operation input contracts; transports consume this owner instead of maintaining their own schemas. |
 | [src/capabilities.rs](../src/capabilities.rs) | Shared HTTP/MCP capability dispatch and tool authorization. |
-| [src/cart_model.rs](../src/cart_model.rs) | Persisted cart, item and customer-context types. |
+| [src/cart_model.rs](../src/cart_model.rs) | Bind the shared cart contract to native contexts and hydrate tenant-scoped stored carts. |
 | [src/cart_mutation.rs](../src/cart_mutation.rs) | Optimistic cart mutations and quantity normalization. |
 | [src/cart_price.rs](../src/cart_price.rs) | Authoritative quantity pricing and localized checkout quote assembly. |
 | [src/cart_routes.rs](../src/cart_routes.rs) | Store API cart and order route adapters. |
@@ -650,10 +650,11 @@ This lists every checked-in source module in these roots, including files with n
 | [crates/cognition/src/inference.rs](../crates/cognition/src/inference.rs) | Provider adapters. Credentials stay on the server; domain validation is separate. |
 | [crates/cognition/src/lib.rs](../crates/cognition/src/lib.rs) | Provider protocol adapters and prompt evidence; no commerce write capability. |
 | [crates/cognition/src/prompts.rs](../crates/cognition/src/prompts.rs) | Versioned system-prompt provenance; no prompt text or private context is exposed in evidence. |
+| [crates/commerce/src/cart.rs](../crates/commerce/src/cart.rs) | Persisted cart data with explicit typed host contexts and no credential or storage authority. |
 | [crates/commerce/src/catalog.rs](../crates/commerce/src/catalog.rs) | Shared product snapshot and tier contracts, without database or transport authority. |
 | [crates/commerce/src/discount.rs](../crates/commerce/src/discount.rs) | Integer-cent proportional discount allocation; cumulative rounding conserves the exact basket discount. |
 | [crates/commerce/src/discount_boundaries.rs](../crates/commerce/src/discount_boundaries.rs) | Discount conservation at signed limits and against an independent prefix-rounding oracle. |
-| [crates/commerce/src/lib.rs](../crates/commerce/src/lib.rs) | Product, amount and deterministic calculation contracts without transport or inference dependencies. |
+| [crates/commerce/src/lib.rs](../crates/commerce/src/lib.rs) | Cart, product, amount and calculation contracts without transport or inference dependencies. |
 | [crates/commerce/src/money.rs](../crates/commerce/src/money.rs) | Exact signed minor-unit amounts with explicit currency scale; legacy Shopware float pricing stays isolated. |
 | [crates/commerce/src/pricing.rs](../crates/commerce/src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. |
 | [crates/flow-graph/src/catalog.rs](../crates/flow-graph/src/catalog.rs) | Stable built-in Flow identifiers shared by discovery and native admission. |

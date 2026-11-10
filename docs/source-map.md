@@ -26,6 +26,23 @@ An extracted DTO carries data. Its host still admits the caller and
 loads the current shop and channel context. An API adapter or app gateway
 must not become another price, order or inventory owner.
 
+## Shared cart contract
+
+`veyndo-commerce::cart` owns Item and the persisted Cart data contract.
+Its four context parameters retain the host's concrete discount, business,
+app configuration and checkout types. Native `src/cart_model.rs` binds
+those parameters to the existing POS, B2B, App and checkout definitions.
+They keep their original serializers and validators. The native StoredCart
+still owns tenant identity, bearer token, status, revision and database
+hydration.
+
+Existing saved carts retain their field names and defaults, including the
+default sales channel. The shared contract adds no database or network
+dependency to Commerce. Constructing the DTO grants no authority. Current
+identity, grants, review, pricing and commit admission remain with the
+host operations. Native checkout handoff/review, App quote hooks, POS,
+B2B and B2B UCP passed against PostgreSQL after the extraction.
+
 ## Shared product contract
 
 `veyndo-commerce::catalog` owns the Product snapshot and Tier DTO used by

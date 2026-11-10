@@ -754,6 +754,11 @@
       "sha256": "59073e8455c0a79b15a7d5968e1fb7bbb65f4202d295ab976c684d6470f152cb",
       "review": "Test-only change: fixed fixtures verify prompt evidence for merchant planner versions 1 and 6 independently of registry order, including embedded prompt markers and private context. All 16 cognition unit tests pass."
     },
+    "crates/commerce/src/cart.rs": {
+      "status": "unproved",
+      "sha256": "967754486c3b3e6c8254581d9f3851e7e42d231b5e8d4dc04d699ba6299c2795",
+      "review": "Moved the unchanged persisted Item/Cart schema into Commerce with typed host context parameters. Native aliases bind the original POS, B2B, App and Checkout types; StoredCart retains tenant/token/status and hydration. Seventeen Commerce tests, native handoff/review, all four App quote hooks, POS, B2B and B2B UCP passed with PostgreSQL. Legacy defaults and malformed context rejection passed. No new mathematical claim."
+    },
     "crates/commerce/src/catalog.rs": {
       "status": "unproved",
       "sha256": "13367b7553a93cb82ae5faf9c5b5ffd360c3710c65b44437aa194f5162cb4a0c",
@@ -771,8 +776,8 @@
     },
     "crates/commerce/src/lib.rs": {
       "status": "unproved",
-      "sha256": "b23b4b5e5744d01d8eb61cda506eed684afc125b4618ca0741d67bce126a7877",
-      "review": "Moved unchanged Product and Tier serialization contracts into the transport-free Commerce crate. Native hydration and context reexports preserve callers. Fourteen Commerce tests, 1446 original PHP context cases, PostgreSQL catalog and automation order/invoice/privacy suites passed; dependency negative controls passed. No new mathematical claim."
+      "sha256": "84d357634fa0429090df9499417b57fdabf6a7ca8e844602da417996c80fc3a3",
+      "review": "Moved the unchanged persisted Item/Cart schema into Commerce with typed host context parameters. Native aliases bind the original POS, B2B, App and Checkout types; StoredCart retains tenant/token/status and hydration. Seventeen Commerce tests, native handoff/review, all four App quote hooks, POS, B2B and B2B UCP passed with PostgreSQL. Legacy defaults and malformed context rejection passed. No new mathematical claim."
     },
     "crates/commerce/src/money.rs": {
       "status": "reviewed-binding",
@@ -3486,8 +3491,8 @@
     },
     "src/cart_model.rs": {
       "status": "unproved",
-      "sha256": "88ce85694719fbe6e5d4067b400ace9049dd7fbe3fd38fe7d8446a8bed6a3f5b",
-      "review": "Native admin creation uses existing CRM address and cart/checkout owners; independently reviewed tenant/actor tokens, final manual payment guard, channel/customer/cart lock order, replay and explicit customer acknowledgement; new SQL/HTTP adapters remain unproved and have real state regressions."
+      "sha256": "beb7a4cb76051fce2ab93a6c7aea5f739873e4944b89218ce1febc2e13f2bad8",
+      "review": "Moved the unchanged persisted Item/Cart schema into Commerce with typed host context parameters. Native aliases bind the original POS, B2B, App and Checkout types; StoredCart retains tenant/token/status and hydration. Seventeen Commerce tests, native handoff/review, all four App quote hooks, POS, B2B and B2B UCP passed with PostgreSQL. Legacy defaults and malformed context rejection passed. No new mathematical claim."
     },
     "src/cart_mutation.rs": {
       "status": "unproved",
@@ -4356,8 +4361,8 @@
     },
     "src/lib.rs": {
       "status": "unproved",
-      "sha256": "7bdee5352632c3e974f10fa7ec7a0dfbe29a62ca1f70650b760bb11340cf4bc1",
-      "review": "Moved unchanged Product and Tier serialization contracts into the transport-free Commerce crate. Native hydration and context reexports preserve callers. Fourteen Commerce tests, 1446 original PHP context cases, PostgreSQL catalog and automation order/invoice/privacy suites passed; dependency negative controls passed. No new mathematical claim."
+      "sha256": "76a8164a503a4903250911b31f16afed0e1ec03b135fc5d1c06acfb1f09bc149",
+      "review": "Moved the unchanged persisted Item/Cart schema into Commerce with typed host context parameters. Native aliases bind the original POS, B2B, App and Checkout types; StoredCart retains tenant/token/status and hydration. Seventeen Commerce tests, native handoff/review, all four App quote hooks, POS, B2B and B2B UCP passed with PostgreSQL. Legacy defaults and malformed context rejection passed. No new mathematical claim."
     },
     "src/localization.rs": {
       "status": "unproved",

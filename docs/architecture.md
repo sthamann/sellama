@@ -129,6 +129,10 @@ permissions and storage ownership stay attached to Core's existing
 operations. The shared contract can be imported by other Rust components.
 [Product ownership](source-map.md#shared-product-contract).
 
+The same crate also owns the persisted cart data contract. Core binds its
+typed extension contexts and retains session authority, row locks and the
+order transaction. [Cart ownership](source-map.md#shared-cart-contract).
+
 Fresh installations use Rust/Axum, ordinary PostgreSQL 17 and private Qdrant
 v1.16.3. PostgreSQL owns commerce records, knowledge relations, source vectors
 and the durable synchronization queue; Qdrant supplies rebuildable vector search.

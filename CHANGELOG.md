@@ -4,6 +4,8 @@
 
 - Move the native Product snapshot and Tier DTO into the transport-free
   Commerce crate, preserving legacy wire fields and private rule fact redaction.
+- Move Item and persisted Cart data into the same crate with explicit typed
+  host contexts. Core retains session credentials and transaction admission.
 - Pin the existing Checkout and Knowledge deployments to exact builds.
   Add a composition lock and checks for eight hosted artifacts, their source
   commits and migration inputs.

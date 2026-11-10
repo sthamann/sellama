@@ -321,7 +321,12 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
     [Sandbox verification](checkout-component.md#paypal-sandbox-through-the-separate-service).
   - [x] Verify actual hosted PayPal Sandbox approval, callback and capture
     through the private Checkout service in both browser entry points.
-  - [ ] Verify refunds for both captured Sandbox orders.
+  - [x] Verify both EUR 59.90 refunds against the original Sandbox captures.
+    [Hosted Lumen pilot](checkout-component.md#hosted-lumen-pilot-10-november-2026).
+  - [x] Generate an invoice from a hosted demo order through the app worker,
+    with one stock decrement and the same receipt on repeat confirmation.
+  - [ ] Match a hosted paid order, invoice and Connector receipt to delivery
+    in a reachable mailbox.
 - [ ] CHK-03 Extract Rust checkout orchestration/session storage to its own repo;
   no Core-process dependency, private Core SQL access or second financial ledger.
 - [ ] CHK-04 Publish own versioned HTTP/MCP interfaces and JS/TS SDK, preserving
@@ -446,7 +451,11 @@ The following are implementation tasks; existing UI foundations do not complete 
   - [x] Start the private Knowledge service on Northflank with its own restricted
     database login. Verify readiness and Lumen-scoped identity routing.
     [Hosted verification](status.md#knowledge-source-inventory).
-  - [ ] Validate the installed delivery and service recovery in the hosted shop.
+  - [x] Deliver live product updates from Lumen through the installed app.
+    Verify the separately scoped Core callback and private refresh.
+    [Hosted verification](status.md#knowledge-source-inventory).
+  - [ ] Read the resulting revision through the hosted evidence API and verify
+    queued delivery recovery after a hosted Knowledge outage.
   - [x] Verify that the independent service starts only with working signed
     database scope, reports loss of readiness during a database outage and
     recovers without a process restart.

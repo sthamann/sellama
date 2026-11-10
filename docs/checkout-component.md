@@ -413,15 +413,20 @@ Payments PayPal purchases with the actual provider Sandbox. Each capture was
 EUR 59.90. Both browsers used same-origin independent create and confirm.
 The native cart was empty on return. The Storyfront bag stayed empty after
 return and a full reload. The order and capture events reached their
-default Flows in production. Those Flows wrote notes and produced no invoice
-for either order. Hosted refund, invoice, mail delivery and production
-concurrency remain separate acceptance steps.
+default Flows in production. Those Flows wrote notes for both orders.
 
-The two Sandbox orders use reserved `example.test` buyer addresses. Check the
-original order, Flow run, invoice and Connector receipt under the same order
-identifier. A Connector receipt can record what the provider accepted. Verify
-delivery separately with a reachable test mailbox and match the message to
-its order number.
+Studio refunded the original native order `RAC-a31ce698` and the original
+Storyfront order `RAC-2e7cfc2a`. Each EUR 59.90 refund completed in PayPal
+Sandbox and its original payment showed `refunded`. A separate native demo
+payment created order `RAC-7048dee8`. Its order Flow generated invoice
+`INV-00000001` automatically. A repeated confirmation returned the same
+order and stock moved once, from one to zero.
+
+The two Sandbox orders use reserved `example.test` buyer addresses. The
+Email Delivery app is installed in Lumen and sending is disabled pending
+sender and transport configuration. Hosted verification still needs one
+paid order with a matching Flow, invoice, Connector receipt and message
+in a reachable mailbox. Production concurrency has its own load check.
 [Implementation plan](commerce-components.md#checkout-independent-service-and-ui).
 
 ### Recover a busy browser checkout

@@ -6,7 +6,7 @@ from testing.mail_contracts.fixtures import MailFixtures
 from testing.mail_contracts.journey import NativeMailJourney
 
 class Contracts(EmailContracts, NativeMailJourney, MailFixtures):
-    """Keep all nine mail cases in the existing registered unittest suite."""
+    """Keep provider contracts and composed purchase journeys in one registered suite."""
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

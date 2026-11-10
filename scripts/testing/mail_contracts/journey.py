@@ -22,7 +22,13 @@ class NativeMailJourney:
             self.skipTest("Set CONNECTORS_BINARY to the separately built Connector")
         self.mail_journey(standalone=True)
 
-    def mail_journey(self, standalone=False):
+    def test_independent_checkout_and_connector_recover_order(self):
+        checkout = os.getenv("CHECKOUT_TEST_BINARY")
+        if not checkout or not os.getenv("CONNECTORS_BINARY"):
+            self.skipTest("Set CHECKOUT_TEST_BINARY and CONNECTORS_BINARY to the separately built services")
+        self.mail_journey(standalone=True, checkout=checkout)
+
+    def mail_journey(self, standalone=False, checkout=None):
         if not os.getenv("DATABASE_URL"):
             self.skipTest("DATABASE_URL required for real Rust/PostgreSQL path")
         from types import SimpleNamespace
@@ -68,7 +74,14 @@ class NativeMailJourney:
         }
         if standalone:
             env["APP_WORKER_ENABLED"] = "false"
-        mixed = standalone and os.getenv("VEYNDO_MIXED_LOAD") == "1"
+        suffix = uuid.uuid4().hex[:12]
+        if checkout:
+            from testing.mail_contracts import checkout as checkout_fixture
+            connection, start_checkout = checkout_fixture.provision(
+                self, container, suffix, checkout, base, db_url,
+            )
+            env.update(connection, COMMERCE_PUBLIC_ORIGIN=base)
+        mixed = standalone and not checkout and os.getenv("VEYNDO_MIXED_LOAD") == "1"
         if mixed:
             from testing.mail_contracts import mixed as workload
             env.update(OLLAMA_URL=workload.model(self), TENANT_CONCURRENCY="32",
@@ -105,7 +118,6 @@ class NativeMailJourney:
                 time.sleep(0.1)
         else:
             raise AssertionError("Rust connector did not start")
-        suffix = uuid.uuid4().hex[:12]
         user = api(
             "/api/auth/register",
             {
@@ -195,9 +207,27 @@ class NativeMailJourney:
             }, ch, "PUT")
             return {**ch, "Idempotency-Key": key}
 
-        order_headers = checkout_headers("mug", "order-" + suffix)
-        ch = order_headers
-        order = api("/store-api/checkout/order", {}, order_headers)
+        if checkout:
+            checkout_process = start_checkout()
+            ch, confirmation = checkout_fixture.prepare(api, tenant, "mug", suffix)
+            confirm_path = "/store-api/checkout/independent/confirm"
+            stock = api("/store-api/product/mug", headers=h)["product"]["stock"]
+            # The original client does not use the successful confirmation body.
+            checkout_fixture.discard_confirmation(base + confirm_path, ch, confirmation)
+            self.assertEqual(api("/store-api/product/mug", headers=h)["product"]["stock"], stock - 1)
+            stop(checkout_process)
+            start_checkout()
+            recovered = api(confirm_path, confirmation, ch)
+            self.assertEqual(recovered["paymentState"], "authorized")
+            orders = api("/api/search/order", {}, h)["data"]
+            self.assertEqual(len(orders), 1)
+            order = orders[0]
+            self.assertEqual(recovered["orderId"], order["id"])
+            self.assertEqual(api("/store-api/product/mug", headers=h)["product"]["stock"], stock - 1)
+        else:
+            order_headers = checkout_headers("mug", "order-" + suffix)
+            ch = order_headers
+            order = api("/store-api/checkout/order", {}, order_headers)
         if standalone:
             self.assertFalse(self.smtp.messages)
             worker_env = {**env, "PROCESS_ROLE": "app-worker", "BOOTSTRAP_MODE": "serve"}
@@ -211,7 +241,8 @@ class NativeMailJourney:
                 return process
 
             worker = start_worker()
-            self.assertEqual(api("/store-api/checkout/order", {}, order_headers)["id"], order["id"])
+            if not checkout:
+                self.assertEqual(api("/store-api/checkout/order", {}, order_headers)["id"], order["id"])
         for _ in range(150):
             if self.smtp.messages:
                 break

@@ -43,6 +43,45 @@ VEYNDO_MIXED_LOAD=1 python3 scripts/email_tests.py \
   Contracts.test_independent_connector_and_worker_complete_native_checkout
 ```
 
+### Run the same load through independent Checkout
+
+Set `CHECKOUT_TEST_BINARY` to the absolute path of the independent Checkout
+binary in addition to the configuration above.
+
+```sh
+VEYNDO_MIXED_LOAD=1 python3 scripts/email_tests.py \
+  Contracts.test_independent_checkout_and_connector_recover_order
+```
+
+Two sequential local debug runs used separate disposable shop databases, the
+same 200,000 product fixture and the same load. Each prepared 48 carts, then
+used twelve concurrent purchase clients, four catalog readers and one
+assistant client. The separate Checkout run reused one signed-in test buyer
+across 48 carts and sessions. Its client retried a confirmation only on an
+explicit retryable HTTP 429 with a bounded `Retry-After`, using the original
+session and reviewed order. The assistant client submitted a fresh question
+if Core rejected its previous sources as stale.
+
+| Measurement | Native Core checkout | Independent Checkout |
+| --- | ---: | ---: |
+| Checkout confirmation p50 | 40.83 ms | 37.65 ms |
+| Checkout confirmation p95 | 51.77 ms | 10,046.54 ms |
+| Purchases needing retry | 0 of 48 | 8 of 48 |
+| Total confirmation retries | 0 | 12 |
+| Catalog p95, 240 reads | 17.68 ms | 13.53 ms |
+| Assistant p95, 16 replies | 354.69 ms | 645.88 ms |
+| Assistant source refreshes | 0 | 2 |
+| Worker restart to final SMTP receipt | 1.97 s | 10.30 s |
+
+Both runs committed 48 distinct orders, recovered the same IDs on replay and
+decremented stock once per cart. Each order had one invoice and one SMTP
+delivery. The independent route admits four relays per shop to reserve room
+for callbacks into Core. Its p95 includes the five-second waits prescribed by
+the server. The time to the final mail includes orders that completed after
+the worker restarted. These are local observations with simulated payments,
+a model fixture and a local SMTP recipient. Hosted capacity uses a separate
+test.
+
 ## Isolate the database
 
 Use a separate checkout and database. The fixture command deletes products and

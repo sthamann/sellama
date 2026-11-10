@@ -61,6 +61,12 @@ invoice and one SMTP delivery through the independent Connector. Purchase
 retries returned the original order IDs and stock moved once per order.
 [Reproduce the test and see the timings](benchmarks.md#mixed-shop-traffic-and-worker-restart).
 
+The same local load also passed through independent Checkout. All 48 orders
+had one stock decrement, one invoice and one mail. Eight confirmations
+needed the server's retry interval. Checkout p95 was 10.05 seconds with
+those waits, compared with 51.77 ms on the native route in the paired run.
+[Independent Checkout load](benchmarks.md#run-the-same-load-through-independent-checkout).
+
 ## Knowledge source inventory
 
 The independent Knowledge service 0.5.0 can list imported products and private

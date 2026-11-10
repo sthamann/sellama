@@ -96,6 +96,12 @@ including 27 retries across 11 independent orders. A full boot from pinned
 OCI images and the provider callback load check remain open.
 [Source pins, schema fingerprints and hosted results](evidence/composed-release-rehearsal-2026-11-10.md#northflank-rehearsal-with-deployed-executables).
 
+The active Northflank deployments for Core, the app worker, Checkout,
+Knowledge, Connector, Payments and Automation now have recorded image
+manifest digests. The current session received 403 on the private registry
+manifest request. Pulls by digest and a clean boot remain open.
+[Image evidence and next checks](evidence/composed-release-rehearsal-2026-11-10.md#match-the-deployed-builds-to-image-manifests).
+
 ## Mixed shop traffic and app-worker recovery
 
 An isolated local Core with 200,000 synthetic products accepted 48 simulated

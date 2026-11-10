@@ -24,9 +24,10 @@ verified in the live shop.
    from those inputs and verify an original receipt after response loss, a
    worker restart and a rollback. Match one order and one stock allocation
    per purchase. Recovery passed locally and in an isolated Northflank job with
-   checksummed executables from the running services. A clean boot from the
-   complete set of production image digests remains open.
-   [Hosted rehearsal](evidence/composed-release-rehearsal-2026-11-10.md#northflank-rehearsal-with-deployed-executables).
+   checksummed executables from the running services. The active deployments
+   now map to seven image manifest digests. Registry pull access and the
+   clean boot remain open.
+   [Image evidence and next checks](evidence/composed-release-rehearsal-2026-11-10.md#match-the-deployed-builds-to-image-manifests).
 3. [ ] **Measure hosted checkout under matched load.** Run the native and
    independent routes under equivalent catalog and purchase traffic in an
    isolated hosted test shop. Record latency percentiles, retries, callback

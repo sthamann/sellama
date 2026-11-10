@@ -109,6 +109,14 @@ The identity route reports unavailable until configured. The hosted Knowledge
 service still needs deployment and an authenticated catalog delivery check.
 [Core identity setup](knowledge-component.md#use-core-as-the-identity-provider-for-one-live-shop).
 
+## Knowledge database recovery
+
+The standalone PostgreSQL 17 acceptance restored a source archive into a
+fresh database with a separate runtime login and signing key. The test rebuilt
+lexical search, compared localized evidence and graphs, checked withdrawals
+and denied the old key and a foreign tenant. This was a local recovery test.
+[Recovery procedure](knowledge-component.md#restore-knowledge-into-a-fresh-database).
+
 ## App cards during replies in Studio and the shop
 
 In a local Chrome test with Core, PostgreSQL and a controlled model response,

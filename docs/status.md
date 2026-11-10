@@ -6,9 +6,24 @@ The local Checkout comparison records equivalent quote results and catalog
 availability across a Checkout restart. Hosted capacity remains a separate
 test. [Measurement](evidence/checkout-composition-performance-2026-11-08.md).
 
-Updated 9 November 2026. Start here for the public product, observed journeys and
+Updated 10 November 2026. Start here for the public product, observed journeys and
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
+
+## Private Checkout live in the Lumen test shop
+
+Northflank routes signed-in Lumen buyers using the demo payment through the
+private Checkout service. The original Storyfront iframe created and confirmed
+its session through the two same-origin Store API endpoints. Order
+`RAC-694ba533` cost EUR 59.90. The original Storyfront bag was empty after
+return and reload, and the demo lamp's stock moved from four to three.
+
+A separate native Store API purchase returned the same order ID when its
+confirmation was repeated. Stock moved from three to two. The completed API
+cart retains its line items for the receipt. The top-level native browser
+journey, hosted provider payment and refund, and load acceptance remain
+separate checks.
+[Pilot setup and verification](checkout-component.md#hosted-lumen-pilot-10-november-2026).
 
 ## Knowledge source inventory
 

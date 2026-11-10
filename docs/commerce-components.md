@@ -259,8 +259,12 @@ Checkout is an explicit independent service, target repository `veyndo/checkout`
     embedded Storyfront controller. Keep the buyer grant server-side, isolate
     callback capacity and recover the original receipt after a lost reply.
     [Private route and test setup](checkout-component.md#route-a-test-shop-through-private-checkout).
-  - [ ] Enable the private route for the named Northflank test shop and accept
-    both public simulated purchase journeys before testing a configured provider.
+  - [x] Enable the private route for the Northflank Lumen test shop. Verify
+    buyer authentication, shop isolation, embedded Storyfront return and
+    empty bag, and native Store API confirmation replay with one stock change.
+    [Hosted Lumen pilot](checkout-component.md#hosted-lumen-pilot-10-november-2026).
+  - [ ] Accept the top-level native browser and trace the hosted order event.
+    Run the hosted response-loss and concurrency checks before broadening the pilot.
   - [x] Compose the independent confirmation with native PayPal Sandbox and
     Shopware Payments PayPal. Verify the original payment attempt, denial of a
     switched Live account, capture and refund with local provider responses.

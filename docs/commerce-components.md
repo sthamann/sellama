@@ -286,7 +286,7 @@ Each component task remains open until these checks are demonstrated for it.
   releases; planned repositories must not be advertised as available services.
   - [x] Publish the four public release tags with their exact commits and
     generate the hosted Lumen profile from the checked composition lock.
-    [Developer catalog](https://www.veyndo.ai/components.json).
+    [Developer catalog](https://www.veyndo.ai/docs/components.json).
   - [ ] Extend verified release metadata to additional distribution profiles
     as they are released.
 

@@ -21,7 +21,7 @@ async fn checkout_relay_leaves_capacity_for_native_callback() {
     };
     let relay = class("/store-api/checkout/independent/confirm");
     assert_eq!(relay, CHECKOUT_RELAY);
-    let _waiting_for_service = a.enter_relay("one").await.unwrap();
+    let _waiting_for_service = a.enter_relay("one", CREATE_WAIT).await.unwrap();
     let _service_callback = a.enter("one", "checkout").unwrap();
     assert!(a.enter("one", "api").is_none());
 }
@@ -71,19 +71,19 @@ async fn relay_waiters_are_bounded_and_drop_cleanly() {
         tenant_limit: 1,
         ..Admission::default()
     };
-    let active = a.enter_relay("one").await.unwrap();
-    let mut first = Box::pin(a.enter_relay("one"));
-    let mut cancelled = Box::pin(a.enter_relay("one"));
+    let active = a.enter_relay("one", CREATE_WAIT).await.unwrap();
+    let mut first = Box::pin(a.enter_relay("one", CREATE_WAIT));
+    let mut cancelled = Box::pin(a.enter_relay("one", CREATE_WAIT));
     let mut context = Context::from_waker(Waker::noop());
     assert!(first.as_mut().poll(&mut context).is_pending());
     assert!(cancelled.as_mut().poll(&mut context).is_pending());
     assert_eq!(a.relay_waiters.available_permits(), 14);
-    let mut overflow = Box::pin(a.enter_relay("one"));
+    let mut overflow = Box::pin(a.enter_relay("one", CREATE_WAIT));
     assert!(matches!(
         overflow.as_mut().poll(&mut context),
-        Poll::Ready(None)
+        Poll::Ready(Err(RelayRejection::LocalCapacity))
     ));
-    let other = a.enter_relay("two").await.unwrap();
+    let other = a.enter_relay("two", CREATE_WAIT).await.unwrap();
     assert!(a.enter("one", "checkout").is_some());
     drop(cancelled);
     drop(active);
@@ -103,18 +103,21 @@ async fn relay_process_waiters_release_tenant_slots_on_timeout() {
     let tenants: Vec<_> = (0..16).map(|id| format!("tenant-{id}")).collect();
     let mut waiting: Vec<_> = tenants
         .iter()
-        .map(|tenant| Box::pin(a.enter_relay(tenant)))
+        .map(|tenant| Box::pin(a.enter_relay(tenant, CREATE_WAIT)))
         .collect();
     for waiter in &mut waiting {
         assert!(waiter.as_mut().poll(&mut context).is_pending());
     }
-    let mut overflow = Box::pin(a.enter_relay("overflow"));
+    let mut overflow = Box::pin(a.enter_relay("overflow", CREATE_WAIT));
     assert!(matches!(
         overflow.as_mut().poll(&mut context),
-        Poll::Ready(None)
+        Poll::Ready(Err(RelayRejection::LocalCapacity))
     ));
     assert!(a.enter(&tenants[0], "checkout").is_some());
-    assert!(waiting.pop().unwrap().await.is_none());
+    assert!(matches!(
+        waiting.pop().unwrap().await,
+        Err(RelayRejection::LocalTimeout)
+    ));
     assert_eq!(
         a.budget(&tenants[15], |budget| budget.relay.available_permits()),
         Some(4)
@@ -122,4 +125,23 @@ async fn relay_process_waiters_release_tenant_slots_on_timeout() {
     drop((waiting, all_slots));
     assert_eq!(a.relay_waiters.available_permits(), 16);
     assert_eq!(a.relay.available_permits(), 8);
+}
+
+#[test]
+fn only_confirmation_uses_the_longer_wait_and_refusals_are_distinct() {
+    let a = Admission {
+        relay_confirm_wait: Duration::from_secs(1),
+        ..Admission::default()
+    };
+    assert_eq!(a.relay_wait(CONFIRM_PATH), Duration::from_secs(1));
+    assert_eq!(
+        a.relay_wait("/store-api/checkout/independent/create"),
+        CREATE_WAIT
+    );
+    a.relay_rejections.record(RelayRejection::LocalTimeout);
+    a.relay_rejections.record(RelayRejection::ClusterCapacity);
+    assert_eq!(
+        a.snapshot()["checkoutRelayRejections"],
+        json!({"localCapacity":0,"localTimeout":1,"clusterCapacity":1})
+    );
 }

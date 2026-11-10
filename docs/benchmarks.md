@@ -63,7 +63,6 @@ and 240 catalogue requests against 200,000 synthetic products. All 96
 orders retained one stock movement, one invoice and one SMTP acceptance
 per order. The in-project client measured the simulated confirmation path.
 
-
 Set `CHECKOUT_TEST_BINARY` to the absolute path of the independent Checkout
 binary in addition to the configuration above.
 
@@ -142,6 +141,26 @@ The [matched Northflank comparison](evidence/composed-release-rehearsal-2026-11-
 used the running Linux executables. Independent confirmation p95 fell from
 4,078.00 ms to 1,717.01 ms. Retries fell from 30 to 9. These are measurements
 from a single isolated job with simulated payments and loopback SMTP.
+
+### Compare confirmation admission waits
+
+A local comparison added a fixed 180 ms delay before forwarding each
+confirmation to Checkout. Each arm used the same Core binary, a disposable
+database, 200,000 products, 48 purchases, 240 catalogue reads and 16
+assistant fixture calls. Up to 12 purchases and four catalogue reads ran
+concurrently. The only setting varied was `CHECKOUT_RELAY_CONFIRM_WAIT_MS`.
+
+| Confirmation wait | p50 | p95 | p99 | Expired local waits | Client retries |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 300 ms | 437.79 ms | 1795.04 ms | 1843.67 ms | 8 | 8 |
+| 1000 ms | 635.87 ms | 677.35 ms | 691.62 ms | 0 | 0 |
+
+Neither arm exhausted the local queue or cluster quota. Each produced one
+order, stock decrement, invoice and loopback SMTP acceptance per purchase.
+The longer wait let more requests finish on the first try and reduced tail
+latency. The median in this run increased. Without the injected delay,
+both settings completed with zero retries and p95 close to 123 ms.
+The separate hosted comparison remains an acceptance step.
 
 ## Isolate the database
 

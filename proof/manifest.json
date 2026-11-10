@@ -4991,13 +4991,13 @@
     },
     "src/performance/admission.rs": {
       "status": "unproved",
-      "sha256": "82bacf8339f600a5ba3b77bbc5291985779eac7e4fa23737d8a4727dfe534d19",
-      "review": "Reviewed independent Checkout local and cluster admission. Only relay requests wait, for at most 300 ms with separate tenant and process queue caps and no database lease while queued. Relay cleanup uses its original lease ID with Drop fallback. Six Rust admission checks and the local 200,000-product purchase, recovery, worker and provider-fixture paths check the behavior. Asynchronous admission and database leases remain unproved."
+      "sha256": "a4a7c5006d54d1f9fa1796dd33e50ccf013b2fa9c010df2a1d10ae5e7be02c97",
+      "review": "Reviewed bounded independent checkout confirmation admission, separate refusal counters and permit release. Rust admission regressions and the real HTTP/PostgreSQL recovery, rollback and simulated capture/refund journeys pass. The hosted comparison remains a separate acceptance check."
     },
     "src/performance/admission_tests.rs": {
       "status": "unproved",
-      "sha256": "f6b33577861a27f074dc686f0c49a26db898942212d7a876b384944ddb941fee",
-      "review": "Reviewed independent Checkout local and cluster admission. Only relay requests wait, for at most 300 ms with separate tenant and process queue caps and no database lease while queued. Relay cleanup uses its original lease ID with Drop fallback. Six Rust admission checks and the local 200,000-product purchase, recovery, worker and provider-fixture paths check the behavior. Asynchronous admission and database leases remain unproved."
+      "sha256": "4e77d69a1908cba077eaf02c21d1ced09c6c473c1dd2601deab5c467c973b013",
+      "review": "Reviewed bounded independent checkout confirmation admission, separate refusal counters and permit release. Rust admission regressions and the real HTTP/PostgreSQL recovery, rollback and simulated capture/refund journeys pass. The hosted comparison remains a separate acceptance check."
     },
     "src/performance/authority.rs": {
       "status": "unproved",
@@ -5041,8 +5041,8 @@
     },
     "src/performance/relay_admission.rs": {
       "status": "unproved",
-      "sha256": "33b594b97e45bde07dcca60bdf1561aaa591c360fd9d541d6fb796cadb066b6d",
-      "review": "Reviewed independent Checkout local and cluster admission. Only relay requests wait, for at most 300 ms with separate tenant and process queue caps and no database lease while queued. Relay cleanup uses its original lease ID with Drop fallback. Six Rust admission checks and the local 200,000-product purchase, recovery, worker and provider-fixture paths check the behavior. Asynchronous admission and database leases remain unproved."
+      "sha256": "2aa5ac8249477b6c6a2f8af96b299d47483673ee59a90038ca88a749043d9b5c",
+      "review": "Reviewed bounded independent checkout confirmation admission, separate refusal counters and permit release. Rust admission regressions and the real HTTP/PostgreSQL recovery, rollback and simulated capture/refund journeys pass. The hosted comparison remains a separate acceptance check."
     },
     "src/performance/row_security.rs": {
       "status": "unproved",

@@ -7,6 +7,8 @@
   when admission refuses a request before it reaches Checkout.
 - Release the cluster lease before handing the local relay slot to a
   queued request during normal operation.
+- Allow a longer, configurable queue wait for confirmation and distinguish
+  expired waits, full local queues and cluster quotas in instance diagnostics.
 
 ## Shared Automation rule library
 

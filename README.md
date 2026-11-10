@@ -47,8 +47,8 @@ Captured on 2 November with demo data and simulated payments.
 
 **Hosted:** [create a standard shop](https://start.veyndo.ai/start) or
 [create a Storyfront Experience](https://experience.veyndo.ai/).
-Models, payments and mail require provider configuration.
-[Current public acceptance](docs/status.md#public-acceptance).
+[Live acceptance](docs/status.md#public-acceptance) ·
+[Five-service rehearsal](docs/status.md#five-original-images-together-on-northflank).
 
 **Container tour:** Git, Docker Compose and OpenSSL; no local Rust/Node build.
 

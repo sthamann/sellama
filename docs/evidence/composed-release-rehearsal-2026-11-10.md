@@ -348,11 +348,9 @@ executed their schema command successfully.
 | Payments | `bold-flower-2375` | `711cd0b9-fcb7-433f-aa08-a586bf148734` | `79f68bb3b7801cebb923f5b196616152d6c154003590f19158a8f39b7cbb1653` |
 | Connector | `mint-meeting-7629` | `81662e5d-3df2-4212-b90f-6e989d306266` | `a4de4879de28fae10b4b31171b9536449c67c0913619371f15e8d49e1603c8d7` |
 
-The manual jobs establish image startup. They did not connect to a
-database or one another. The remaining hosted check starts those exact
-images as private services with dedicated fixture databases and follows
-one purchase across the network through the same recovery, callback,
-invoice, mail and refund checks.
+These manual jobs checked startup only. The later
+[five-workload rehearsal](#run-five-separate-workloads-on-northflank)
+connected the services with private fixture databases.
 
 ### Release the simulated invoice correction
 
@@ -373,3 +371,46 @@ The old replica retired and the active provider endpoint reported
 Core health and the Lumen storefront also responded. The hosted check
 verified service readiness. The payment and invoice behavior was
 verified against provider and simulation fixtures in CI.
+
+## Run five separate workloads on Northflank
+
+On 10 November the original hosted builds ran as private Northflank
+services in their source project. The workloads referenced the existing
+builds directly. PostgreSQL 17 held four fresh databases. The Core and
+app worker shared the Commerce database through distinct restricted
+system and tenant logins. Checkout, Payments and Connector each had
+their own database and login. The test verified that each login could
+connect only to its assigned database and lacked superuser, role
+creation and row-security bypass rights. Core's signed database scope
+was enforced. The two one-shot migration jobs finished before the
+application workflows started.
+
+| Workload | Northflank build | Source revision |
+| --- | --- | --- |
+| Core | `zippy-foot-5455` | `c783c6158f2078692cb15e16b98cd097f100d522` |
+| App worker | `last-mine-6458` | `687bbae83dd3c5c07d3bf97009fb2f07e2d2510c` |
+| Checkout | `puffy-soup-2325` | `eaa34f27386e0de2b34de6085fef78ac237943e9` |
+| Payments | `luminous-ink-2350` | `1b52f5005a954a2780153af8ee63fde7c7cc3e33` |
+| Connector | `mint-meeting-7629` | `fc36cad517533a18922966c7f3aa2322860ce19c` |
+
+All listeners were private. The test resources had synthetic credentials
+and no links to production secret groups or databases. A temporary test
+helper forwarded fixed loopback fixture addresses to the private
+services and received synthetic mail on the Connector's loopback
+interface. The services used the existing commerce, payment and mail
+contracts. This run shared the provider project network with production.
+
+| Exercise | Observed result |
+| --- | --- |
+| Independent Checkout with simulated demo payment | Discarded the successful confirmation body, restarted Checkout on a new instance and replayed the original confirmation. One order and one stock decrement remained. The next shopping cart was empty. The completed cart remained readable for receipt recovery. |
+| Native purchase with the separate Payments service | The simulated capture settled after the adapter's signed notification, without browser reconciliation. An invalid approval nonce and a forged notification were denied. Two valid replays left one notification in Core's inbox and one simulated provider order. |
+| Paid order through the app worker and standalone Connector | Before capture the order had no invoice. The completed Flow ran its invoice and confirmation actions once. The Connector receipt and the SMTP listener recorded the same Message-ID once. An unauthenticated action returned 401 and a foreign shop request returned 403. |
+| Refund and replay | The original attempt reached `refunded` for the full amount. Repeating the same refund preserved the order count, stock, invoice and one delivery. |
+
+The independent Checkout run used the demo payment. The capture, refund
+and mail run used the native purchase route with the separate Payments
+simulator. The strict Core profile reserves the separate Checkout provider
+route for the actual PayPal Sandbox. The [public Lumen pilot](../status.md#private-checkout-live-in-the-lumen-test-shop)
+records the native and Storyfront journeys through that provider. This
+private rehearsal used no external payment account or inbox. All six
+temporary services, including PostgreSQL, were paused after the test.

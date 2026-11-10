@@ -65,6 +65,48 @@ running it. The lock verification confirms artifact identity. Purchase,
 provider callbacks and database recovery each have their own acceptance.
 [Hosted rehearsal](evidence/composed-release-rehearsal-2026-11-10.md).
 
+### Prepare a Core release candidate
+
+Keep the checked-in lock as the last accepted composition. After a candidate
+Core build succeeds, prepare a separate file with that build's exact commit,
+build ID and pushed image digest. The command checks all eight current
+deployments against the accepted lock first. It retains the other seven
+artifacts, contract edges and reviewed schema inputs.
+
+```sh
+python3 scripts/composition_release.py --northflank northflank \
+  --source core=. --prepare-core CANDIDATE_BUILD_ID \
+  --commit FULL_SOURCE_COMMIT --output /tmp/veyndo-candidate.json
+```
+
+The candidate source must contain the same reviewed schema objects and
+migration boundary. A schema change needs a separate schema and rollout
+review. Wrong source owners, unfinished builds, mismatched commits, ambiguous
+manifests and drift in the active composition fail preparation. An existing
+candidate file cannot be overwritten. The command only reads Northflank and
+writes the new local file. It does not start a build or deployment.
+
+After the ordinary snapshot, migration and deployment sequence, compare all
+eight services against the prepared candidate:
+
+```sh
+python3 scripts/composition_release.py --lock /tmp/veyndo-candidate.json \
+  --northflank northflank --source core=.
+```
+
+Once the rollout and affected purchase tests pass, promote the candidate
+through a reviewed lock update. The existing Git-triggered Northflank workflow
+does not invoke these two checks automatically yet. Automatic admission,
+promotion and an explicit record of a failed post-migration rollout remain
+deployment work. The candidate check does not claim database rollback or
+atomicity across independently changing service configurations.
+
+For Core `efe8928f`, the actual successful build `makeshift-shade-6829` was
+prepared against the previous eight live artifacts before migration. The
+same candidate file passed the eight-service and source/schema comparison
+after rollout. The public embedded demo purchase and return also passed.
+[Hosted Cart acceptance](status.md#shared-cart-contract-on-northflank).
+
 After a repository transfer, check the workflow trigger and the build service
 separately. If the trigger still points to the previous owner, update its
 repository and retain the `main` reference used by the build node. To release

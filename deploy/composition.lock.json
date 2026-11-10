@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "ab340128b0fae5240f8a7132dc7da2a782c3854a",
-      "digest": "sha256:7bcabe69445879061aeda9d3f5987addc98bb81704e46178d12afde8c22d165b",
+      "commit": "efe8928f183e05e5962b4c9dec4a854fdf21fe3c",
+      "digest": "sha256:4df1d621385ca0e6e87cafb343ae1d85d906b84d54a85f87119491cd85ae4848",
       "build_service": "vendune-core-build",
-      "build_id": "astute-chance-6558",
+      "build_id": "makeshift-shade-6829",
       "schema": {
         "owner": "core",
         "inputs": {

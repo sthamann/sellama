@@ -160,7 +160,11 @@ order, stock decrement, invoice and loopback SMTP acceptance per purchase.
 The longer wait let more requests finish on the first try and reduced tail
 latency. The median in this run increased. Without the injected delay,
 both settings completed with zero retries and p95 close to 123 ms.
-The separate hosted comparison remains an acceptance step.
+
+The [matched Northflank comparison](evidence/composed-release-rehearsal-2026-11-10.md#compare-confirmation-waits-across-separate-services)
+reproduced the local timeouts without injected delay. Confirmation p95 fell
+from 2.99 s to 1.07 s. The median increased by 382 ms, local timeouts fell
+from 16 to zero and two requests retried after cluster quota refusals.
 
 ## Isolate the database
 

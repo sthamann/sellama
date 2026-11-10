@@ -100,8 +100,18 @@ HTTPS access endpoint for current authorization.
 Through a private tunnel, health returned HTTP 204 and OpenAPI returned 200.
 Anonymous access and invalid Core keys were refused with 401. An unexpected
 browser origin was refused with 403. Both HTTP and MCP were exercised. Core
-and the public Lumen Storyfront still responded. Authenticated previews,
-revocation and latency for valid calls remain open on Northflank.
+and the public Lumen Storyfront still responded.
+
+A separate private Northflank run used the same Automation image and a
+synthetic shop with its own Core and database. The two services communicated
+through the fixture's private relay using the supported loopback profile.
+The driver checked 48 eligible and ineligible evaluations per transport.
+HTTP and MCP agreed on every result and reported no effects. Valid calls
+took 14.48 ms at p95 over HTTP and 12.67 ms over MCP. A key with extra
+catalogue permission returned 403. After revoking the narrow
+`automation.read` key in Core, the next request on each transport returned
+401. The timings describe this private test path.
+[Image and test setup](evidence/composed-release-rehearsal-2026-11-10.md#verify-scoped-automation-in-the-private-composition).
 
 ## Agent and host composition
 

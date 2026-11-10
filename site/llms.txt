@@ -13,6 +13,7 @@
 - [Connected playground](https://www.veyndo.ai/docs/playground.html)
 
 ## Current release
+- [Component versions in JSON](https://www.veyndo.ai/components.json): Public release tags and the exact hosted pilot composition.
 - [Current status and recorded public journeys](https://www.veyndo.ai/docs/status.html): Canonical current deployment, observed acceptance and remaining work.
 - [Connected public journeys, 29 October](https://www.veyndo.ai/docs/evidence/platform-followups-hosted-2026-10-29.html): Actual model-composed native views, pinned layout, CSV intake, private design revisions, saved customer tests and localized simulated checkout with return/reload/empty basket.
 - [Description-led private apps](https://www.veyndo.ai/docs/evidence/guided-app-2026-10-29.html): Merchant brief to native product relation, private file upload, status, team setting, selected package publication and restoration. Local complete journey and public model generation are recorded separately.

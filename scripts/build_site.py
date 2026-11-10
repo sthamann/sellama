@@ -10,6 +10,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
 
+from composition_release import GIT_SHA, LOCK, unique_keys, validate
 from site_markdown import build_documents
 from site_navigation import shell
 
@@ -17,6 +18,37 @@ ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / '.site'
 BASE = 'https://veyndo.github.io/veyndo/'
 REPO = 'https://github.com/veyndo/veyndo'
+
+
+def component_catalog():
+    """Publish release and pilot identities without exposing internal service addresses."""
+    source = json.loads((ROOT / 'site/component-releases.json').read_text(), object_pairs_hook=unique_keys)
+    lock = json.loads(LOCK.read_text(), object_pairs_hook=unique_keys)
+    validate(lock)
+    guides = source['hosted_guides']
+    assert guides.keys() == lock['components'].keys(), 'Hosted component catalog does not match its release lock'
+    releases = source['public_releases']
+    assert releases.keys() == {'veyndo', 'sdk', 'apps', 'marketplaces'}, 'Unclassified public component'
+    for name, row in releases.items():
+        assert row.keys() == {'tag', 'commit', 'prerelease', 'guide'}, name
+        assert GIT_SHA.fullmatch(row['commit']) and re.fullmatch(r'v\d+\.\d+\.\d+', row['tag']), name
+        assert isinstance(row['prerelease'], bool), name
+    return {
+        'version': 1,
+        'public_releases_checked_at': source['checked_at'],
+        'public_releases': {
+            name: {**row, 'release': f"https://github.com/veyndo/{name}/releases/tag/{row['tag']}"}
+            for name, row in releases.items()
+        },
+        'hosted_profile': {
+            'name': lock['profile'],
+            'lock': f'{REPO}/blob/main/deploy/composition.lock.json',
+            'components': {
+                name: {'commit': row['commit'], 'image_digest': row['digest'], 'guide': guides[name]}
+                for name, row in lock['components'].items()
+            },
+        },
+    }
 
 
 def stylesheet():
@@ -202,6 +234,7 @@ def build():
         content = re.sub(r'\{\{(\w+)\}\}', lambda match: evidence[match[1]], content)
         write_page(Path(page['file']), page['title'], page['description'], content)
     documents = build_documents(DEST, write_page)
+    (DEST / 'components.json').write_text(json.dumps(component_catalog(), indent=2) + '\n')
     # Finish shared styles after page-specific assets have been copied. Marketing
     # and handbook use identical bytes at their existing URLs, with no import waterfall.
     styles = stylesheet()

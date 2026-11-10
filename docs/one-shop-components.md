@@ -68,6 +68,13 @@ flowchart LR
 
 The four public development repositories are linked below. The other links explain the component's contract and its place in the complete shop. Some have separate builds or access-controlled source, and some are still domains in the product repository. The [implementation plan](commerce-components.md) tracks each extraction and the [current status](status.md) records what has been released and tested.
 
+The [machine-readable component catalog](https://www.veyndo.ai/components.json)
+lists verified public release tags and their commits, along with the exact
+source and image versions recorded for the hosted pilot. Each entry links
+to its guide. The public release and hosted pilot sections track different
+artifacts, so an SDK or source tag does not imply that the same code is
+running on Northflank.
+
 | Component | What it owns and where to start |
 | --- | --- |
 | Commerce | The complete shop, Studio, checkout transaction, inventory, orders, rights and shared API. [Repository](https://github.com/veyndo/veyndo) · [Run it locally](quickstart.md) |

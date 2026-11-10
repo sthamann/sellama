@@ -37,7 +37,7 @@ class Page(HTMLParser):
 
 
 def check():
-    from build_site import stylesheet
+    from build_site import component_catalog, stylesheet
     styles = stylesheet()
     assert (SITE / 'style.css').read_text() == styles, 'Marketing stylesheet bundle drift'
     assert (SITE / 'docs/assets/ui/site.css').read_text() == styles, 'Handbook stylesheet bundle drift'
@@ -83,6 +83,13 @@ def check():
     sitemap_urls = {x.text for x in sitemap.findall('.//{*}loc')}
     assert sitemap_urls == canonicals, 'Sitemap and canonical URLs differ'
     assert (SITE / 'llms.txt').is_file()
+    catalog = json.loads((SITE / 'components.json').read_text())
+    assert catalog == component_catalog(), 'Published component catalog drift'
+    rows = list(catalog['public_releases'].values()) + list(catalog['hosted_profile']['components'].values())
+    for row in rows:
+        guide = urlsplit(row['guide'])
+        assert not (guide.netloc or guide.scheme or guide.query) and guide.path in pages, row['guide']
+        assert not guide.fragment or guide.fragment in pages[guide.path].ids, row['guide']
     manifest = json.loads((SITE / 'docs/manifest.json').read_text())
     expected = {source.as_posix(): destination(source).as_posix() for source in sources()}
     assert {row['source']: row['url'] for row in manifest} == expected, 'Markdown publication inventory drift'

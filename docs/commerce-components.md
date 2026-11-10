@@ -284,6 +284,11 @@ Each component task remains open until these checks are demonstrated for it.
   change and daily full coverage retain the existing verification cadence.
 - [ ] FND-10 Generate a public component catalog and detailed docs from actual
   releases; planned repositories must not be advertised as available services.
+  - [x] Publish the four public release tags with their exact commits and
+    generate the hosted Lumen profile from the checked composition lock.
+    [Developer catalog](https://www.veyndo.ai/components.json).
+  - [ ] Extend verified release metadata to additional distribution profiles
+    as they are released.
 
 ## CORE: modular transactional commerce
 

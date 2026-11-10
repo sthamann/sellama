@@ -76,8 +76,18 @@ connections again, with the same service process.
 A local run also used Core's current integration and app keys for a single
 live shop. A catalog edit reached the independent Knowledge database and
 the read key returned current evidence. Both revoked keys and keys from a
-different shop were denied. The hosted service still needs deployment and
-an authenticated catalog delivery check.
+different shop were denied. A withdrawal rejected after revocation stayed
+queued, and the next delivery after key rotation removed it from search.
+
+Northflank runs Core build `fast-winter-7173` at `d3a2042`. The new instance
+passed its readiness check with zero restarts. All 48 public health samples
+succeeded during rollout. Afterward, the native demo and Storyfront loaded,
+and an isolated demo cart passed quote, change, replay rejection and cleanup.
+Across 12 requests each, median client times were 30 ms for Core health,
+72 ms for the native demo and 65 ms for the Lumen Storyfront landing page.
+Capacity testing uses a separate load run.
+The identity route reports unavailable until configured. The hosted Knowledge
+service still needs deployment and an authenticated catalog delivery check.
 [Core identity setup](knowledge-component.md#use-core-as-the-identity-provider-for-one-live-shop).
 
 ## App cards during replies in Studio and the shop

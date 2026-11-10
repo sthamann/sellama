@@ -27,9 +27,12 @@ verified in the live shop.
    checksummed executables from the running services. The original Core and
    App Worker images also passed a fresh hosted database boot with distinct
    restricted system and tenant roles, native purchase recovery and Worker
-   restart. The image-level run with independent Checkout, Connector and
-   payment fixtures remains open.
-   [Hosted image boot and isolation checks](evidence/composed-release-rehearsal-2026-11-10.md#run-the-original-images-with-restricted-database-roles).
+   restart. The original Checkout, Payments and Connector images passed
+   individual Northflank startup probes. Locally the built components
+   preserved one capture, order, invoice, mail and refund after callback
+   and purchase replay. The same journey across the original hosted
+   images remains open.
+   [Image startup and payment replay evidence](evidence/composed-release-rehearsal-2026-11-10.md#connect-the-payments-adapter-and-replay-a-callback).
 3. [ ] **Measure hosted checkout under matched load.** Run the native and
    independent routes under equivalent catalog and purchase traffic in an
    isolated hosted test shop. Record latency percentiles, retries, callback

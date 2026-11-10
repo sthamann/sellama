@@ -34,6 +34,10 @@ The original Core and App Worker images also passed native purchase and
 invoice recovery as separate hosted services with restricted system and
 tenant database roles. [Hosted startup and isolation checks](evidence/composed-release-rehearsal-2026-11-10.md#run-the-original-images-with-restricted-database-roles).
 
+A local run with the independent Payments adapter covered repeated provider
+callbacks and the order through invoice, mail and refund. The authoritative
+order and stock effect stayed in Core. [Payment replay and hosted image probes](evidence/composed-release-rehearsal-2026-11-10.md#connect-the-payments-adapter-and-replay-a-callback).
+
 The storefront and Studio use that same shop identity and transaction boundary. Provider calls run through durable jobs. Knowledge and reporting can be rebuilt from their sources. They add context and visibility without joining the purchase transaction. Agents use the same admitted operations as the team and prepare changes for review where approval is required.
 
 ```mermaid

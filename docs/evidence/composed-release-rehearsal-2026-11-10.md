@@ -305,3 +305,51 @@ separate `app-worker` was still paused. Resuming that Worker processed the
 two Flows. The test used native simulated payments and checked invoice
 generation. Provider payment, mail delivery and independent Checkout and
 Connector images remain separate checks.
+
+## Connect the Payments adapter and replay a callback
+
+Core at [`3195dd4c`](https://github.com/veyndo/veyndo/commit/3195dd4c217caafe60f9c7a94396d79691f2e74f)
+ran on Darwin arm64 with a separate app worker. Checkout at `eaa34f27`,
+Connector at `fc36cad5` and Payments at `4946228a` were built from their
+pinned sources with Cargo's lockfiles. Checkout and Connector used their
+own databases and logins. A migration process initialized a separate
+Payments database before the restricted Payments login opened it. The
+only external interfaces in this run were a loopback payment provider
+fixture and a loopback SMTP receiver.
+
+The registered independent checkout and mail journey used the actual
+Payments adapter with the private repository's provider fixture. The
+client discarded the first checkout response and recovered the same
+order and attempt after restarting Checkout. Before verified capture
+there was no invoice or mail. Payments rejected a forged callback,
+accepted repeated deliveries of the same event, and also handled a
+separate event for the same payment. The completed run had one capture
+request at the provider fixture, one order, one stock decrement, one
+invoice and one SMTP message matched to the Connector receipt by
+Message-ID. Replaying the full refund preserved the original receipt and
+made one refund request at the provider fixture.
+
+The private Payments repository's existing native checkout regression
+also checks repeated approval callbacks. The fixture does not call an
+actual payment provider or deliver to a public mailbox.
+
+### Start the original Checkout, Payments and Connector images
+
+Northflank rejected the cross-project image reference for Checkout.
+Three manual jobs in the images' source project could start the exact
+build IDs instead. Each had an empty runtime environment, no public
+listener and a 90-second deadline. The jobs checked the program file
+fingerprint inside the running image. Checkout and Connector also
+executed their schema command successfully.
+
+| Service | Build | Northflank job run | Executable SHA-256 |
+| --- | --- | --- | --- |
+| Checkout | `puffy-soup-2325` | `fa9c97fd-49f5-4487-bef0-d5bdf2db4f49` | `be10b8fe602248796ba0bd224819ccf0a180d809d442f7e5b8d226c8a20b9120` |
+| Payments | `bold-flower-2375` | `711cd0b9-fcb7-433f-aa08-a586bf148734` | `79f68bb3b7801cebb923f5b196616152d6c154003590f19158a8f39b7cbb1653` |
+| Connector | `mint-meeting-7629` | `81662e5d-3df2-4212-b90f-6e989d306266` | `a4de4879de28fae10b4b31171b9536449c67c0913619371f15e8d49e1603c8d7` |
+
+The manual jobs establish image startup. They did not connect to a
+database or one another. The remaining hosted check starts those exact
+images as private services with dedicated fixture databases and follows
+one purchase across the network through the same recovery, callback,
+invoice, mail and refund checks.

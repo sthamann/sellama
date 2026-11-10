@@ -12,10 +12,9 @@ use tokio::sync::{OwnedSemaphorePermit, Semaphore};
 
 #[path = "relay_admission.rs"]
 mod relay_admission;
-use relay_admission::{CREATE_WAIT, RelayRejection, RelayRejections};
+use relay_admission::{CONFIRM_PATH, RelayRejection, RelayRejections, confirmation_wait};
 
 const CHECKOUT_RELAY: &str = "checkout-relay";
-const CONFIRM_PATH: &str = "/store-api/checkout/independent/confirm";
 
 struct Budget {
     relay: Arc<Semaphore>,
@@ -60,11 +59,7 @@ impl Default for Admission {
             relay: Arc::new(Semaphore::new(8)),
             relay_waiters: Semaphore::new(16),
             relay_rejections: RelayRejections::default(),
-            relay_confirm_wait: Duration::from_millis(number(
-                "CHECKOUT_RELAY_CONFIRM_WAIT_MS",
-                1000,
-                1500,
-            ) as u64),
+            relay_confirm_wait: confirmation_wait(),
             tenants: Mutex::new(HashMap::new()),
             metrics: Mutex::new(HashMap::new()),
             rejected: AtomicU64::new(0),
@@ -75,18 +70,6 @@ impl Default for Admission {
     }
 }
 impl Admission {
-    fn relay_wait(&self, path: &str) -> Duration {
-        if path == CONFIRM_PATH {
-            self.relay_confirm_wait
-        } else {
-            CREATE_WAIT
-        }
-    }
-
-    fn relay_limit(&self) -> usize {
-        self.tenant_limit.min(4)
-    }
-
     fn budget<T>(&self, tenant: &str, read: impl FnOnce(&Budget) -> T) -> Option<T> {
         let mut tenants = self.tenants.lock().unwrap();
         if !tenants.contains_key(tenant) && tenants.len() >= 4096 {
@@ -208,11 +191,7 @@ pub(crate) async fn run(a: &App, mut request: Request, next: Next) -> Response {
         "anonymous".into()
     };
     let permits = if class == CHECKOUT_RELAY {
-        a.admission
-            .enter_relay(&tenant, a.admission.relay_wait(path))
-            .await
-            .map_err(|reason| a.admission.relay_rejections.record(reason))
-            .ok()
+        a.admission.enter_http_relay(path, &tenant).await
     } else {
         a.admission.enter(&tenant, class)
     };

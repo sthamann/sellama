@@ -1,5 +1,6 @@
 //! Regression checks for Core admission limits and the Checkout relay retry interval.
 use super::*;
+use relay_admission::CREATE_WAIT;
 #[test]
 fn saturated_tenant_does_not_block_another_or_leak_cancelled_permits() {
     let a = Admission {

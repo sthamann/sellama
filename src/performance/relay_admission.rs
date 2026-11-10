@@ -1,10 +1,15 @@
 //! Short, bounded relay admission waiting before contacting the independent Checkout service.
-use super::{Admission, Ordering};
+use super::{Admission, Ordering, number};
 use std::sync::atomic::AtomicU64;
 use std::time::Duration;
 use tokio::sync::OwnedSemaphorePermit;
 
 pub(super) const CREATE_WAIT: Duration = Duration::from_millis(300);
+pub(super) const CONFIRM_PATH: &str = "/store-api/checkout/independent/confirm";
+
+pub(super) fn confirmation_wait() -> Duration {
+    Duration::from_millis(number("CHECKOUT_RELAY_CONFIRM_WAIT_MS", 1000, 1500) as u64)
+}
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum RelayRejection {
@@ -40,8 +45,31 @@ impl RelayRejections {
 }
 
 impl Admission {
+    pub(super) fn relay_wait(&self, path: &str) -> Duration {
+        if path == CONFIRM_PATH {
+            self.relay_confirm_wait
+        } else {
+            CREATE_WAIT
+        }
+    }
+
+    pub(super) fn relay_limit(&self) -> usize {
+        self.tenant_limit.min(4)
+    }
+
     pub(super) fn relay_waiter_limit(&self) -> usize {
         2 * self.relay_limit()
+    }
+
+    pub(super) async fn enter_http_relay(
+        &self,
+        path: &str,
+        tenant: &str,
+    ) -> Option<Vec<OwnedSemaphorePermit>> {
+        self.enter_relay(tenant, self.relay_wait(path))
+            .await
+            .map_err(|reason| self.relay_rejections.record(reason))
+            .ok()
     }
 
     pub(super) async fn enter_relay(

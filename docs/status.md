@@ -58,6 +58,9 @@ tests. In Northflank, health, OpenAPI and unauthorized access checks passed.
 An isolated Northflank shop then checked 48 authenticated calls per
 transport with a scoped `automation.read` key. HTTP and MCP matched on
 eligible and ineligible rules. Both rejected the next call after revocation.
+The live Lumen demo subsequently returned the same match and no-match
+results through both transports with a shop-scoped read key. Both returned
+401 immediately after its revocation.
 [Deployment and acceptance](automation-component.md#private-northflank-pilot).
 
 ## Private Checkout live in the Lumen test shop
@@ -289,8 +292,13 @@ separate short-lived keys for event delivery and for reading current product
 content from Core. Both the Core callback and the private Knowledge refresh
 returned HTTP 200. Studio recorded first-attempt delivery of two live
 `product.updated` events (`#926` and `#927`) for the demo lamp, including
-the restoration of its original description at product version 28. Reading
-that revision back with a separate evidence-consumer key remains open.
+the restoration of its original description at product version 28.
+A separate, expiring evidence-consumer key read Knowledge revision 3 by its
+`veyndo:` source ID over HTTP and MCP. Search returned the restored German
+description with the same content hash, and the current-evidence check accepted
+it. The reader could not list documents. After revocation, its next request
+through each transport returned 401. Core product version 28 and Knowledge
+source revision 3 are counters owned by their respective services.
 [Core identity setup](knowledge-component.md#use-core-as-the-identity-provider-for-one-live-shop).
 
 The isolated Northflank outage rehearsal paused Knowledge while Core and the

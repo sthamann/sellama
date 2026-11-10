@@ -190,6 +190,11 @@ deactivated product is represented as inactive so a retry can withdraw old
 evidence. The separate service owns its search records and does not receive
 the Core database connection.
 
+Read a synchronized product by its Knowledge source ID, which prefixes the
+Core product ID with `veyndo:`. The product inventory returns this source ID.
+Use it for product reads, search filters and graph requests. The Knowledge
+revision tracks changes to the stored evidence.
+
 ### Use Core as the identity provider for one live shop
 
 Set `KNOWLEDGE_IDENTITY_SHOP` on Core to the shop's internal tenant ID.

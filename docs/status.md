@@ -23,6 +23,28 @@ migration inputs. The release script can detect version drift before a
 rollout. Whole shop load and provider acceptance remain separately measured.
 [Deployment verification](cloud-releases.md#verify-the-hosted-lumen-composition).
 
+## Shared product contract on Northflank
+
+Core build `astute-chance-6558` from `ab340128` completed the normal
+snapshot, migration and deployment workflow on 10 November. The native
+catalog now hydrates the Product and Tier DTOs from the transport-free
+Commerce crate. The existing Context Tier path reexports the same type.
+
+Fourteen Commerce unit tests and 1,446 comparisons with the original
+Shopware context and tier behavior passed locally. The PostgreSQL catalog
+and automation suites completed native orders and invoice Flows while
+checking tenant isolation and private fact redaction. Twelve checkout
+handoff checks also passed, including lost browser notification recovery,
+native/transferred quote equality, original order replay and registered
+iframe origins.
+
+After the hosted rollout, Core health, the Lumen Storyfront page and its
+native product endpoint returned HTTP 200. The public product response
+excluded internal automation facts. The eight running component builds
+and their pinned schema inputs matched the updated composition lock.
+[Domain owners](source-map.md#commerce-domain-owners) ·
+[Shared Rust contract](source-map.md#shared-product-contract).
+
 ## App creation, publication and restore
 
 Five targeted integration suites passed against local Core and a fresh

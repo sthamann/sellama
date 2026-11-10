@@ -56,6 +56,13 @@ Checkout p95 was 430.84 ms native and 3195.01 ms independent, with 27
 retries across 11 independent purchases. The test co-located the services
 and PostgreSQL inside a private job.
 
+The later [separate service comparison on Northflank](evidence/composed-release-rehearsal-2026-11-10.md#compare-the-checkout-routes-across-separate-services)
+measured confirmation p95 at 589.72 ms native and 3,109.45 ms independent,
+with 17 retries across 12 independent purchases. Each route ran 48 purchases
+and 240 catalogue requests against 200,000 synthetic products. All 96
+orders retained one stock movement, one invoice and one SMTP acceptance
+per order. The in-project client measured the simulated confirmation path.
+
 
 Set `CHECKOUT_TEST_BINARY` to the absolute path of the independent Checkout
 binary in addition to the configuration above.

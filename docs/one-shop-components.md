@@ -41,6 +41,13 @@ app worker, invoice, Connector, SMTP receiver and refund. The two tests
 shared the same Core with signed database scope. Core owned each order
 and stock movement. [Builds and results](evidence/composed-release-rehearsal-2026-11-10.md#run-five-separate-workloads-on-northflank).
 
+A paired Northflank run then measured the cost of forwarding confirmations to
+Checkout while Core served catalogue reads. A bounded wait before forwarding
+reduced confirmation p95 from 2.99 s to 1.07 s. Both settings produced one
+order, stock movement, invoice and test mail per purchase. Core kept the same
+transaction boundary and limits for checkout and its callbacks.
+[Load and recovery evidence](evidence/composed-release-rehearsal-2026-11-10.md#compare-confirmation-waits-across-separate-services).
+
 The storefront and Studio use that same shop identity and transaction boundary. Provider calls run through durable jobs. Knowledge and reporting can be rebuilt from their sources. They add context and visibility without joining the purchase transaction. Agents use the same admitted operations as the team and prepare changes for review where approval is required.
 
 ```mermaid

@@ -451,3 +451,50 @@ simulated purchase path. The earlier co-located comparison used a different
 profile with assistant traffic and a worker restart. Provider callback
 capacity and production throughput remain open. All six test services
 including the client and PostgreSQL were paused after the run.
+
+## Compare confirmation waits across separate services
+
+The next isolated Northflank run used Core build `succinct-snow-553` from
+`5cd5642f7a239b64d3bdbffd07fe83f99d838ad7` in both arms. The app worker,
+Checkout and Connector used the same builds as the preceding comparison.
+Each ran as one private service with a fresh PostgreSQL 17 cluster and
+signed Core database scope. The two shops each contained 200,000 synthetic
+products. Each arm ran 48 independent purchase confirmations at concurrency
+12 and 240 catalogue reads at concurrency four. Core was restarted between
+arms to change only the confirmation admission setting. The driver used
+demo payments and measured elapsed time including retries.
+
+| Confirmation wait | p50 | p95 | p99 | Catalogue p95 | Local wait timeouts | Cluster quota refusals | Purchases retried | Total retries |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 300 ms | 594.89 ms | 2987.44 ms | 3685.80 ms | 173.11 ms | 16 | 0 | 11 / 48 | 16 |
+| 1000 ms | 976.98 ms | 1071.11 ms | 2490.97 ms | 181.01 ms | 0 | 2 | 2 / 48 | 2 |
+
+Neither arm filled the local waiter queue. Each confirmation replay recovered
+the original order. PostgreSQL recorded exactly 48 orders and 48 stock
+decrements per shop. The remaining 199,952 products per shop retained their
+initial stock. There were 96 invoices, 96 completed Connector jobs and 96
+distinct SMTP Message-IDs. A separate local test discarded Commerce's
+successful order response on its way to Checkout after commit. Restarting
+Checkout and replaying the original confirmation recovered one order with
+one stock movement, invoice and SMTP acceptance.
+
+The longer wait traded a higher median for fewer buyer retries and a lower
+p95. Cluster refusals remain measurable. These runs describe one replica
+per service and demo payment. The external provider callback workload
+is still separate.
+
+## Verify scoped Automation in the private composition
+
+The private run also used the released Automation image from
+`c4e50f6151d2beb1f4db19565235347040d287c7`, with a private relay to the
+fixture Core. Automation had no database. It checked the current shop key
+with Core before evaluating the supplied rule facts.
+
+The driver made 48 alternating eligible and ineligible calls per
+transport. HTTP and MCP returned the same decisions and registry
+fingerprint, with no effects. Authenticated p95 was 14.48 ms over HTTP
+and 12.67 ms over MCP in that private fixture. A key with the additional
+`catalog.read` permission returned 403 on both. Revoking the
+`automation.read` key made the next call return 401 on both. The test
+used synthetic credentials. All seven temporary services were paused
+after the tests.

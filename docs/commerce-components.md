@@ -50,9 +50,10 @@ verified in the live shop.
      added to the service call, confirmation p95 went from 1,795 ms to
      677 ms and retries from eight to zero. Both runs preserved 48 orders.
      [Local comparison](benchmarks.md#compare-confirmation-admission-waits).
-   - [ ] Retest the longer confirmation wait across separate Northflank
-     services. The previous hosted run recorded 3.11 s confirmation p95 and
-     17 retries. Record refusal reasons with the new instance counters.
+   - [x] Retest the longer confirmation wait across separate Northflank
+     services. At matched load, confirmation p95 fell from 2.99 s to 1.07 s
+     and retries from 16 to two. All 16 local wait timeouts disappeared.
+     [Hosted comparison and remaining cluster refusals](evidence/composed-release-rehearsal-2026-11-10.md#compare-confirmation-waits-across-separate-services).
    - [ ] Measure provider callback capacity in an isolated hosted test shop
      before broadening the pilot.
 4. [x] **Release an external integration example.** Connected Shop uses the
@@ -85,15 +86,16 @@ to native Veyndo through the same owner.
   - [x] Gate preview image publication on Core's rule pin and common HTTP/MCP
     cases. Core runs those cases against the linked evaluator.
     [Release check](automation-component.md#shared-release-check).
-- [ ] AUTO-01b Deploy the independent preview alongside Core and check scoped
+- [x] AUTO-01b Deploy the independent preview alongside Core and check scoped
   HTTP/MCP calls, revocation and latency against the running shop.
   - [x] Reuse current Core permissions and verify key issuance and revocation
     against the real Core in isolation. [Setup](automation-component.md#connect-the-service-to-veyndo-core).
   - [x] Run the tested image privately on Northflank. Verify health, OpenAPI,
     rejection of invalid keys over HTTP and MCP, and reachability of Core and
     Storyfront. [Hosted pilot](automation-component.md#private-northflank-pilot).
-  - [ ] Verify eligible and ineligible rules with a scoped merchant key and
-    measure the authenticated path before and after revocation.
+  - [x] Verify eligible and ineligible rules with a scoped merchant key in a
+    private Northflank test shop. Both transports reject the next call after
+    revocation. [Authenticated results](automation-component.md#private-northflank-pilot).
 - [ ] CHK-01..03 Independent checkout domain ports and own session orchestration.
   - [x] Trace both native and Storyfront purchases and verify their shared quote,
     commit, payment and recovery contract.

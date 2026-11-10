@@ -19,9 +19,10 @@ MCP calls. [Source ownership and checks](automation-component.md#library-and-ser
 The independent Automation service runs privately alongside Core. It evaluates
 supplied rule facts through HTTP and MCP. The deployed image passed the container
 tests. In Northflank, health, OpenAPI and unauthorized access checks passed.
-A one-day `automation.read` merchant key was created and revoked in Lumen.
-The hosted authenticated comparison and rejection after revocation still
-need evidence from both interfaces. [Deployment and acceptance](automation-component.md#private-northflank-pilot).
+An isolated Northflank shop then checked 48 authenticated calls per
+transport with a scoped `automation.read` key. HTTP and MCP matched on
+eligible and ineligible rules. Both rejected the next call after revocation.
+[Deployment and acceptance](automation-component.md#private-northflank-pilot).
 
 ## Private Checkout live in the Lumen test shop
 
@@ -146,8 +147,14 @@ In a subsequent local comparison with a fixed 180 ms service delay, a
 one-second confirmation admission window reduced p95 from 1,795 ms to
 677 ms and eliminated eight retries caused by local wait timeouts. Both
 arms verified 48 orders, invoices, stock movements and SMTP acceptances.
-The comparison across separate Northflank services is still pending.
 [Local method and timings](benchmarks.md#compare-confirmation-admission-waits).
+
+The matched follow-up across separate Northflank services used the same
+Core image with both wait settings. Confirmation p95 fell from 2.99 s to
+1.07 s and local wait timeouts from 16 to zero. The median rose from 595 ms
+to 977 ms. Two requests still retried after cluster quota refusals. Across
+both runs all 96 orders kept one stock movement, invoice and SMTP
+acceptance each. [Hosted method and timings](evidence/composed-release-rehearsal-2026-11-10.md#compare-confirmation-waits-across-separate-services).
 
 ## Mixed shop traffic and app-worker recovery
 

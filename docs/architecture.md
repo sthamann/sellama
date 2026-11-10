@@ -23,7 +23,8 @@ cluster still caps simultaneous purchases per shop, and Commerce owns the
 order, stock and event transaction. The public Lumen pilot verifies this composition in the original Storyfront
 iframe with demo payment.
 [Commerce host ports](checkout-component.md#commerce-host-ports-in-core) ·
-[Hosted Lumen pilot](checkout-component.md#hosted-lumen-pilot-10-november-2026).
+[Hosted Lumen pilot](checkout-component.md#hosted-lumen-pilot-10-november-2026) ·
+[Matched Northflank relay measurement](evidence/composed-release-rehearsal-2026-11-10.md#hosted-relay-admission-comparison).
 
 The separate Checkout service can also call a reference commerce host. The
 host has its own database and runs the same purchase orchestrator with its own

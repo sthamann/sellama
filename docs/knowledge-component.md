@@ -44,25 +44,44 @@ changes and withdrawal require the current revision. Documents and products
 can share the same external ID. The graph returns links only between current
 sources in the authenticated shop.
 
-```js
-import { createClient } from '@veyndo/sdk';
+## Import your own catalog and documents with the SDK
 
-const knowledge = createClient({
+Use `@veyndo/sdk/knowledge` from Node to call the standalone HTTP API.
+Your app supplies the service address, the expected tenant and a current
+access token. The service rejects a token for another tenant. Use a read
+token in the application that answers questions and a separate write token
+in the importer.
+
+```js
+import { createKnowledgeClient } from '@veyndo/sdk/knowledge';
+
+const knowledge = createKnowledgeClient({
   baseUrl: process.env.KNOWLEDGE_URL,
+  expectedTenant: process.env.KNOWLEDGE_TENANT,
   token: () => process.env.KNOWLEDGE_ACCESS_TOKEN,
 });
-await knowledge.initialize();
-const { sources } = await knowledge.tool('knowledge.documents.search', {
-  query: 'return policy', locale: 'de-DE', mainLocale: 'en-GB',
+
+const evidence = await knowledge.documents.search({
+  query: 'return policy', locale: 'en-GB', mainLocale: 'de-DE',
 });
-if (sources.length) {
-  const { current } = await knowledge.tool('knowledge.documents.current', { sources });
-  if (current) console.log(sources[0].text);
+if (evidence.sources.length && (await knowledge.documents.current(evidence)).current) {
+  console.log(evidence.sources[0].text);
 }
 ```
 
-Run this in a backend with a current, shop scoped read token.
-[SDK installation](https://github.com/veyndo/sdk).
+The same client exposes `products`, including an optional exact product ID
+on searches. TypeScript separates product and document evidence. For an
+agent host that needs to discover operations, the service still provides
+the same contract over MCP.
+
+The runnable example accepts one JSON source per import. Set the ID to
+your own SKU or document key. The first save uses revision zero. For an
+update or withdrawal, read the current revision and pass it with the change.
+The example also reads one inventory page and checks current evidence after
+search. It was exercised with an external product and a private document
+using the same ID, German translations, cursor pagination, separate read
+and write credentials, withdrawal and revoked access against the standalone
+service and PostgreSQL. [SDK installation and Node example](https://github.com/veyndo/sdk#use-standalone-knowledge).
 
 ## Audit which sources arrived
 
@@ -73,9 +92,9 @@ returns source IDs, revisions, titles, source languages, hashes and
 withdrawal state. It uses the existing tenant and source index on schema 4.
 
 ```js
-const page = await knowledge.tool('knowledge.products.list', { limit: 25 });
+const page = await knowledge.products.list({ limit: 25 });
 if (page.nextCursor) {
-  const next = await knowledge.tool('knowledge.products.list', {
+  const next = await knowledge.products.list({
     limit: 25,
     after: page.nextCursor,
   });
@@ -88,7 +107,7 @@ by page. A product update during the walk can be visible on a later request.
 The inventory describes what the projection has received. It is not an event
 history or an authoritative read of the Core catalog. Withdrawn sources stay
 listed for reconciliation. Use search and evidence validation for the actual
-passages. [SDK example](https://github.com/veyndo/knowledge/blob/main/examples/sources.mjs).
+passages. [SDK example](https://github.com/veyndo/sdk/blob/main/examples/knowledge.mjs).
 
 ## Synchronize a Veyndo catalog
 

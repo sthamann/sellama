@@ -51,7 +51,10 @@ purchase while Knowledge is down and source delivery after restart.
 For a single configured shop, Core can check current app and integration keys
 for the catalog projection. A scoped callback reads the snapshot. A distinct
 read scope serves the resulting evidence. The buyer transaction has no
-dependency on Knowledge or its identity endpoint.
+dependency on Knowledge or its identity endpoint. External applications can
+import their own sources and verify localized evidence through the typed SDK
+against the service without Core.
+[External SDK example](knowledge-component.md#import-your-own-catalog-and-documents-with-the-sdk) ·
 [Knowledge service boundary](knowledge-component.md#keep-the-shop-running-during-a-knowledge-outage).
 
 Core links the shared Automation evaluator into native pricing and Flow

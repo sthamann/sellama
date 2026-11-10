@@ -113,6 +113,12 @@ catalogue permission returned 403. After revoking the narrow
 401. The timings describe this private test path.
 [Image and test setup](evidence/composed-release-rehearsal-2026-11-10.md#verify-scoped-automation-in-the-private-composition).
 
+The same hosted service was then checked against the live Lumen demo shop.
+A key limited to `automation.read` evaluated the cart amount rule over
+HTTP and MCP. Both matched an amount of 100, rejected 99.99 and reported
+no effects. After the test key was revoked in Studio, both transports
+returned 401 on their next request.
+
 ## Agent and host composition
 
 The service advertises both operations as deterministic read tools. A trusted

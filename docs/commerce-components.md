@@ -16,9 +16,9 @@ verified in the live shop.
      [Native and Storyfront pilot](status.md#private-checkout-live-in-the-lumen-test-shop).
    - [ ] Match one fresh paid order to its verified capture, Flow, invoice,
      Connector receipt and arrival in the reachable test mailbox.
-   - [ ] Read back the source revision of a delivered Lumen catalog update.
-     [Core delivery and Knowledge refresh are verified](status.md#knowledge-source-inventory).
-   - [ ] Evaluate a rule with a scoped Automation key and verify that
+   - [x] Read back the source revision of a delivered Lumen catalog update.
+     [Live Knowledge read and evidence check](status.md#knowledge-source-inventory).
+   - [x] Evaluate a rule with a scoped Automation key and verify that
      revocation denies the next request over HTTP and MCP.
      [Hosted Automation admission](status.md#private-automation-preview-on-northflank).
 2. [ ] **Reproduce the assembled release.** Record exact component versions,
@@ -494,8 +494,10 @@ The following are implementation tasks; existing UI foundations do not complete 
   - [x] Verify queued delivery recovery and read the resulting revision through
     HTTP and MCP after a Knowledge outage in an isolated Northflank shop.
     [Hosted outage rehearsal](knowledge-component.md#rehearse-a-knowledge-outage-on-northflank).
-  - [ ] Read the previously delivered Lumen revision with an independently
-    scoped evidence-consumer key.
+  - [x] Read the previously delivered Lumen revision with an independently
+    scoped evidence-consumer key. Verify the German evidence and denial on
+    both transports after revocation.
+    [Live source inventory](status.md#knowledge-source-inventory).
   - [x] Verify that the independent service starts only with working signed
     database scope, reports loss of readiness during a database outage and
     recovers without a process restart.

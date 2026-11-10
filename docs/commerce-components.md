@@ -54,7 +54,12 @@ verified in the live shop.
      services. At matched load, confirmation p95 fell from 2.99 s to 1.07 s
      and retries from 16 to two. All 16 local wait timeouts disappeared.
      [Hosted comparison and remaining cluster refusals](evidence/composed-release-rehearsal-2026-11-10.md#compare-confirmation-waits-across-separate-services).
-   - [ ] Measure provider callback capacity in an isolated hosted test shop
+   - [x] Measure signed notification delivery in an isolated Northflank
+     shop with the separate Payments simulator. At eight concurrent approvals,
+     capture visibility p95 fell from 16.46 s to 4.77 s. Replays preserved one
+     capture, notification and stock decrement per order.
+     [Matched callback load](evidence/composed-release-rehearsal-2026-11-10.md#compare-signed-payment-callback-delivery).
+   - [ ] Measure callback capacity against the configured provider Sandbox
      before broadening the pilot.
 4. [x] **Release an external integration example.** Connected Shop uses the
    published SDK for one product, an interactive MCP App in its conversation

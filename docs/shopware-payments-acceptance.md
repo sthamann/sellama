@@ -1,10 +1,20 @@
 # Shopware Payments: integration and test acceptance
 
-Updated 4 November 2026. The private Rust connector implements the provider path;
+Updated 10 November 2026. The private Rust connector implements the provider path;
 the public Core owns the order and payment ledger. The public catalogue now ships
 the versioned 1.6.0 contract for all 17 methods. Install or upgrade it through the
 existing app lifecycle, connect the configured account and enable its methods.
 Installing the contract does not provision the private service or activate methods. Use [the provider contract](payment-provider-api.md) for deployment.
+
+## Signed notification delivery under load, 10 November 2026
+
+Two private Northflank runs checked 24 simulated approvals each with up to
+eight concurrent clients. Payments signed each notification and Core
+confirmed each capture once. Removing the wait between ready notifications
+reduced capture visibility p95 from 16.46 s to 4.77 s. Repeating approvals
+and order requests preserved the original capture IDs and stock movements.
+The runs used the separate Payments simulator and did not reach PayPal.
+[Matched workload and results](evidence/composed-release-rehearsal-2026-11-10.md#compare-signed-payment-callback-delivery).
 
 ## Actual PayPal Sandbox purchases and refunds, 4 November 2026
 

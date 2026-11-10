@@ -156,6 +156,16 @@ to 977 ms. Two requests still retried after cluster quota refusals. Across
 both runs all 96 orders kept one stock movement, invoice and SMTP
 acceptance each. [Hosted method and timings](evidence/composed-release-rehearsal-2026-11-10.md#compare-confirmation-waits-across-separate-services).
 
+## Signed payment callback load
+
+An isolated Northflank comparison ran 24 simulated approvals with eight
+concurrent clients through the separate Payments service. Draining ready
+notifications reduced capture visibility p95 from 16.46 s to 4.77 s.
+Each arm recorded 24 distinct orders, capture IDs and inbox events.
+Replaying every approval preserved the original bookings and stock.
+This measures the signed service callback path with demo funds.
+[Builds, timings and verification](evidence/composed-release-rehearsal-2026-11-10.md#compare-signed-payment-callback-delivery).
+
 ## Mixed shop traffic and app-worker recovery
 
 An isolated local Core with 200,000 synthetic products accepted 48 simulated

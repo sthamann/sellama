@@ -84,6 +84,10 @@ A private app action with handler `payment_command`, `payments.manage`, a paymen
 
 Core order/payment events contain the actual provider and environment. `payment.captured` is emitted only after verified ledger admission. Provider-specific webhook authentication belongs to the private service. It forwards a signed notification to `POST /store-api/payment-providers/{app}/webhooks` with x-tenant, x-payment-timestamp and HMAC-SHA256 x-payment-signature over `timestamp + '.' + raw JSON body`, using that version/environment's service credential. Matching notifications are deduplicated and only queue reconciliation; their payload is not settlement evidence.
 
+The [matched Payments callback test](evidence/composed-release-rehearsal-2026-11-10.md#compare-signed-payment-callback-delivery)
+exercises this contract with separately hosted Core and Payments. It
+checks the original capture and inventory after replaying each approval.
+
 ## Evidence and limits
 
 Real HTTP/PostgreSQL tests cover the neutral provider, existing native PayPal behavior, immutable upgrades, capture/refund/authorization/void, hostile onboarding identities/URLs, receipt reuse, signed callbacks, disconnected discovery, ownership and MCP/app actions. Frontend tests exercise agent/visual manifest round trips and forged iframe messages. A new extracted Lean policy proves the exact stock-release decision; SQL, async execution, provider code, SDKs, browser behavior and the transport remain outside that proof.

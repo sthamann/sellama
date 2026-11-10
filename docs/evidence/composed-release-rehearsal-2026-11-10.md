@@ -498,3 +498,30 @@ and 12.67 ms over MCP in that private fixture. A key with the additional
 `automation.read` key made the next call return 401 on both. The test
 used synthetic credentials. All seven temporary services were paused
 after the tests.
+
+## Compare signed payment callback delivery
+
+Both arms used Core build `succinct-snow-553`, one private Payments
+replica and separate Core and Payments databases on the same disposable
+PostgreSQL 17 cluster. Each arm started with a fresh shop and 24 native
+orders awaiting payment. Eight clients approved orders through the real
+Payments API in simulation mode. No client asked Core to reconcile.
+Core settled after the Payments service's signed notification. The driver
+timed approval and polled for the confirmed capture in Core.
+
+| Payments build | Approval p95 | Capture visible p50 | Capture visible p95 | Capture visible p99 | 24 approvals settled |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `luminous-ink-2350`, `1b52f500` | 34.78 ms | 16.22 s | 16.46 s | 16.55 s | 47.68 s |
+| `swanky-secretary-700`, `3a5035e7` | 45.53 ms | 4.42 s | 4.77 s | 5.11 s | 13.56 s |
+
+In the original run, Core's inbox received one notification about every
+two seconds. The worker slept after processing each row. The changed
+worker sleeps when a scan finds no due row or fails. It continues to claim
+one row at a time and honours each row's retry time.
+
+Both runs rejected an invalid approval nonce and replayed all 24 valid
+approvals. Each preserved exactly 24 orders, distinct capture IDs, Core
+inbox rows and capture events. Stock went from 100 to 76 per shop, including
+after replaying the order requests. All four temporary services were
+paused. The workload used simulated funds and did not contact the
+provider Sandbox.

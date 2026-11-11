@@ -10,6 +10,16 @@ Updated 11 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Typed buyer order history
+
+SDK 0.4.7 reads buyer order history and detail with receipt metadata.
+The installed package read a simulated purchase from independent Checkout
+and matched its amount and invoice in the account. With 100 additional
+synthetic orders in local PostgreSQL, it read a page of 100 and a second
+page of one, with no repeated orders. Core denied the detail and cursor
+to a different buyer. The public Lumen shop required authentication for
+order history. [Account walkthrough](merchant-operations.md#read-order-history-with-the-sdk).
+
 ## Connected Shop with the typed SDK
 
 The public Connected Shop source pins SDK 0.4.6. Its Node host uses the

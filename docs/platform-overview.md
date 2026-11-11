@@ -52,6 +52,9 @@ Core den Betrag und den Liefertermin für die gewählte Kombination.
 Connected Shop zeigt die SDK Aufrufe zusammen mit einem Produktratgeber.
 Der Beispielshop prüft eine Variante und zeigt nach dem simulierten Kauf
 den ursprünglichen Beleg. [Connected Shop starten](agentic-component-ui.md#run-a-guide-and-checkout-in-an-external-host).
+Für ein eigenes Kundenkonto kann die Oberfläche die Bestellungen des
+angemeldeten Käufers samt sichtbaren Belegen abrufen.
+[Bestellhistorie im SDK](merchant-operations.md#read-order-history-with-the-sdk).
 Mit dem Katalogclient im JavaScript SDK liest eine eigene Oberfläche dieselben
 Produkte und Varianten wie der öffentliche Shop. Core liefert die passende
 Sprache, Währung und das Sortiment des Verkaufskanals. Der Checkout prüft

@@ -72,6 +72,35 @@ allowed; the buyer supplies them before the visible storefront checkout.
 The explicit synthetic `buyer@example.test` fixture now has an example address.
 This does not insert invented addresses into real registered accounts.
 
+### Read order history with the SDK
+
+Install the [SDK 0.4.7 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.7).
+The account client reads the signed-in buyer's orders. Use the same shop and
+buyer context for each page and for order details.
+
+```js
+import { createAccountClient } from '@veyndo/sdk/account';
+
+const account = createAccountClient({ baseUrl: shopOrigin, shop });
+const buyer = { customerToken };
+const page = await account.orders.list({}, buyer);
+const first = page.elements[0];
+if (first) {
+  const order = await account.orders.detail(first.id, buyer);
+  console.log(order.orderNumber, order.cart.price?.totalMinor, order.receipts);
+}
+if (page.nextCursor) {
+  const next = await account.orders.list({ after: page.nextCursor }, buyer);
+  console.log(next.elements.length);
+}
+```
+
+Core returns up to 100 orders per page. Each detail contains the stored
+addresses and cart snapshot, current payment and delivery state and
+customer-visible receipt metadata. The receipt's `pdfPath` uses the same
+buyer session on the Store API. In a browser on the shop origin, use
+`credentials: 'same-origin'` to use the existing session cookie.
+
 ## Merchant API and MCP
 
 The CRM supports bounded customer search, detail, contact/group/status changes,

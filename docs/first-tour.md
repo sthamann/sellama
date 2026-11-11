@@ -5,13 +5,13 @@ a working prototype; use synthetic data and simulated payments.
 
 ## Watch without an account
 
-[Watch the 1:56 AI commerce overview](assets/showcase/product-films-20261030/veyndo-ai-commerce.mp4)
-with [English captions](assets/showcase/product-films-20261030/veyndo-ai-commerce.en.vtt).
+[Watch the 1:56 AI commerce overview](assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4)
+with [English captions](assets/showcase/product-films-20261102/veyndo-ai-commerce.en.vtt).
 It introduces the agent workspace, visual design and app platform with actual UI
 captures, synthetic data and simulated payments. The films have subtitles and no sound.
 [All product films and capture notes](video-tours.md).
 
-[![Veyndo Commerce product workspace](assets/showcase/product-films-20261030/veyndo-workspace.jpg)](video-tours.md)
+[![Veyndo Commerce product workspace](assets/showcase/product-films-20261102/veyndo-workspace.jpg)](video-tours.md)
 
 ## Run your own local tour
 

@@ -17,10 +17,18 @@
 
 </div>
 
-Build a shop and extend it with agents and a visual app editor. People and
-agents use the same products, orders, permissions and versioned changes.
+Run a storefront and merchant Studio on a shared Rust commerce core. Add apps
+and agents that work with the same catalog, orders and permissions, or connect
+an existing storefront to individual Veyndo components.
 
-**[Current status](docs/status.md) · [Release checklist](docs/commerce-components.md#release-acceptance-order) · [Benchmarks](docs/benchmarks.md)**
+[Current status](docs/status.md) · [Component map](docs/one-shop-components.md) · [Benchmarks](docs/benchmarks.md) · [Überblick auf Deutsch](docs/platform-overview.md)
+
+[![The hosted Product Guide lets a shopper review price and delivery before adding an item](docs/assets/apps/product-guide-cart-review-20261111.jpg)](docs/status.md#product-guide-actions-in-the-hosted-shop)
+
+The hosted Product Guide connects a shopper conversation to a reviewed cart.
+Studio can use a private app note to prepare a change and apply it after
+approval in a sandbox. Native and embedded Storyfront demo purchases return
+to empty carts and share the same stock. [Hosted journeys and screenshots](docs/status.md#shared-order-and-inventory-inputs).
 
 ## What you can do
 
@@ -36,12 +44,8 @@ agents use the same products, orders, permissions and versioned changes.
 | **See what works** | Build sales and conversion reports. [Merchant reports](docs/merchant-reports.md). |
 | **Stay in control** | Current roles, private sandboxes, immutable versions, saved-data upgrade checks and selected publication govern changes. [Security](docs/security.md). |
 
-[![Veyndo: AI commerce in 1:56](docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.jpg)](https://www.veyndo.ai/docs/video-tours.html)
-
-**Films:** [AI commerce · 1:56](docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4) · [Concept · 1:12](docs/assets/showcase/product-films-20261102/veyndo-concept.mp4) · [Product workspace · 1:36](docs/assets/showcase/product-films-20261102/veyndo-workspace.mp4) · [Product advisor app · 1:24](docs/assets/showcase/product-films-20261102/veyndo-app-platform.mp4). English subtitles, no sound.
-
-Captured on 2 November with demo data and simulated payments.
-[Latest public journey and screenshots](docs/status.md#current-product-films-and-screenshots) · [Film sources](docs/assets/showcase/product-films-20261102/README.md).
+[Watch the four captioned product films](docs/video-tours.md) for the storefront,
+merchant workspace, visual editor and Product Advisor app.
 
 ## Try one complete round
 
@@ -80,7 +84,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 | Agents and shared operations | [Agentic interfaces](docs/agentic-component-ui.md) · [Agent identities & limits](docs/agent-authority-controls.md) · [MCP workshop](docs/agent-workshop.md) · [UCP B2B](docs/b2b-ucp-negotiation.md) |
 | Operation and verification | [Architecture](docs/production-architecture.md) · [Integrations](docs/service-integrations.md) · [Testing](docs/testing.md) · [Proof boundaries](docs/formal-verification.md) |
 
-The searchable [handbook](https://veyndo.ai/docs/) has EN, DE, FR and ES navigation.
+The [handbook](https://www.veyndo.ai/docs/) labels the language of each guide.
 
 ## Current boundaries
 

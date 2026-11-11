@@ -1,107 +1,67 @@
-<section class="hero">
+<section class="hero home-hero">
   <div>
-    <p class="eyebrow">
-      <span class="status-dot"></span> Rust commerce. AI-native by design. Built in public.
-    </p>
-    <h1>Commerce.<br /><span>Rebuilt for the AI era.</span></h1>
-    <p class="lead">
-      A new commerce foundation in Rust. AI works with your products, business
-      knowledge and native actions. Connect agents, automate merchant work and
-      build apps that extend the business itself.
-    </p>
+    <h1>Run a shop.<br><span>Build what it needs.</span></h1>
+    <p class="lead">Veyndo is an AI native commerce platform built in Rust. Your storefront, Studio, apps and agents work with the same products, permissions and orders.</p>
     <div class="actions">
-      <a class="button primary" href="docs/first-tour.html"
-        >Run your own shop ↗</a
-      ><a class="button quiet" href="#platform">Discover the platform ↓</a>
+      <a class="button primary" href="https://start.veyndo.ai/start">Try a hosted shop</a>
+      <a class="button" href="docs/first-tour.html">Run it locally</a>
     </div>
-    <p class="hero-meta">Rust core / Connected intelligence / MCP + UCP / Self-hostable</p>
+    <p class="home-language"><a href="docs/platform-overview.html" lang="de">Überblick auf Deutsch</a> <span lang="en">·</span> <a href="docs/index.html">Developer handbook</a></p>
   </div>
-  <div class="hero-stage">
-    <div class="stage-top">
-      <span class="mono">01 / Nord Atelier, powered by Veyndo</span
-      ><span>Real product capture</span>
-    </div>
-    <div class="product-window">
-      <img
-        src="docs/assets/product-tour-20261102/storefront.jpg"
-        width="1440"
-        height="1000"
-        alt="Nord Atelier demo storefront captured on 2 November 2026, running on the native Veyndo Commerce core"
-        fetchpriority="high"
-      />
-    </div>
-    <div class="stage-bottom">
-      <span>Your brand.<br /><strong>Your commerce core.</strong></span
-      ><a
-        href="#current-films"
-        class="stage-play"
-        aria-label="Explore short product demos"
-        >↗</a
-      >
-    </div>
-  </div>
+  <figure class="home-capture home-hero-capture">
+    <a href="docs/status.html#product-guide-actions-in-the-hosted-shop">
+      <img src="docs/assets/apps/product-guide-cart-review-20261111.jpg" alt="Veyndo storefront with a Product Guide in the shopper conversation and a reviewed cart offer" fetchpriority="high">
+    </a>
+    <figcaption>From product advice to a reviewed cart in the hosted Lumen shop. 11 November 2026.</figcaption>
+  </figure>
 </section>
-<section class="section" id="platform">
-  <div class="section-heading"><div><p class="eyebrow">AI INSIDE THE BUSINESS</p><h2>Knowledge. Decisions. Actions.<br><span class="accent">One connected foundation.</span></h2></div><p>Studio, agents and apps use the same native commerce operations, current permissions and product context. Intelligence is part of how the business works.</p></div>
-  <div class="scope-grid">
-    <article><h3>AI for merchant and shopper</h3><p>Ask the merchant assistant, prepare catalog changes and advise shoppers with current product knowledge. Sources, proposals and native actions stay connected. Choose OpenAI, Anthropic or a local model.</p><a href="docs/cognitive-commerce.html">Explore connected intelligence ↗</a></article>
-    <article><h3>Automation with business context</h3><p>Connect order events, rules, delays, documents and installed app actions in visual Flows. Check a draft in Studio or through the API and MCP, then save it when ready. Review AI proposals and inspect each executed step.</p><a href="docs/automation-component.html#check-a-flow-draft-before-saving">Explore the native workflow ↗</a></article>
-    <article><h3>Describe an app. Work in it.</h3><p>Turn a merchant description into connected private forms, product relations, file uploads, settings and administration views. Visual App Studio and coding agents share the versioned definition. Check upgrades against saved records and current consumers before installing.</p><a href="docs/app-studio.html">Build with App Studio ↗</a><br><a href="docs/app-system-status.html">Delivered capabilities and next implementation gates ↗</a></article>
-  </div>
-  <div class="scope-grid">
-    <article><h3>Commerce for the agent world</h3><p>HTTP and MCP expose the same native operations. Implemented UCP checkout and B2B negotiation routes reuse carts, quotes and orders. Connect Claude Desktop and authorized ChatGPT/Claude remote clients; develop with Codex and Claude Code.</p><a href="docs/connectors.html">Client setup and connection requirements ↗</a></article>
-    <article><h3>Your working view, assembled by an agent</h3><p>Keep Ask Veyndo beside your work. Ask product questions, open the matching editor or request a product list, details and catalogue intake together. The agent composes registered native components through OpenUI with real authorized data. Open the original editor, import a CSV privately and pin a working view. Installed apps can also add filterable care cards for shoppers and private tables for merchants directly in the chat.</p><a href="docs/agentic-workspace.html">Explore the connected AI workspace ↗</a><br><a href="docs/product-guide-mcp-app.html">Build an interactive Product Guide ↗</a><br><a href="docs/status.html">Current delivery and verification ↗</a></article>
-    <article><h3>A modern Rust foundation</h3><p>Core commits orders and events in PostgreSQL. The app worker takes over after checkout, and the Connector handles provider delivery. The Connector can also run with its own database and scoped HTTP and MCP access. Shared Rust contracts for products, carts, contacts and addresses can be used without a Core process.</p><a href="docs/architecture.html">Inside the foundation ↗</a><br><a href="docs/connector-component.html">Run the Connector ↗</a><br><a href="docs/source-map.html#shared-customer-input-contract">Use the shared Rust contracts ↗</a></article>
-  </div>
-  <p>Our ambition: the most advanced publicly developed commerce platform for the AI era. Read the source, self-host and adapt it under the <a href="docs/licensing.html">Sustainable Use License</a>.</p>
-</section>
-<aside class="notice" aria-label="Connected feature audit">
-  <p><strong>One connected core.</strong> POS, B2B/EDI, marketplaces and visitor
-  intelligence share permissions, versions, settings, private publication and native APIs.
-  <a href="docs/one-shop-components.html">See how the components fit together ↗</a>
-  · <a href="docs/status.html#private-checkout-live-in-the-lumen-test-shop">See the live checkout pilot ↗</a>
-  · <a href="docs/feature-integration.html">Explore the integration map and verified limits ↗</a></p>
-</aside>
 
-<section class="section" id="first-round"><div class="section-heading"><div><p class="eyebrow">ONE USEFUL ROUND</p><h2>Change it privately.<br><span class="accent">Publish deliberately.</span></h2></div><p>Start a synthetic local shop, edit a product in its sandbox, inspect the difference and publish only that change. No model download or provider key is needed for this first round.</p></div><div class="scope-grid"><article><h3>1. Try the connected workflow</h3><p>Follow the short hands-on guide. Local orders and accounts survive a restart.</p><a href="docs/first-tour.html">Open the first tour ↗</a></article><article><h3>2. Give an agent a bounded job</h3><p>Connect your existing client and inspect a product proposal before applying it.</p><a href="docs/agent-workshop.html">Connect an agent ↗</a></article><article><h3>3. Build something useful</h3><p>Use existing app workshops or choose a small first contribution.</p><a href="docs/early-contributors.html">Find your first task ↗</a></article></div></section>
-<div class="stack-strip">
-  <span>COMMERCE, FROM THE CORE UP</span><strong>Rust</strong><span>/</span
-  ><strong>PostgreSQL</strong><span>/</span><strong>Wasm apps</strong
-  ><span>/</span><strong>MCP + UCP</strong><span>/</span
-  ><strong>Local LLMs</strong>
-</div>
-<section class="section" id="latest">
-  <div class="section-heading">
-    <div>
-      <p class="eyebrow">Connected merchant workflows · 29 October 2026</p>
-      <h2>
-        One commerce core.<br /><span class="accent"
-          >Connected intelligence.</span
-        >
-      </h2>
-    </div>
-    <p>
-      Ask an agent for a working view, create a private app from a description and
-      shape the shop around real products. Review saved-data compatibility before
-      installing an app upgrade. Let fictional customers try a private change,
-      inspect their steps and decide what to publish.
-    </p>
+<section class="section home-paths" id="first-round">
+  <h2>Choose where to start</h2>
+  <div class="home-route-list">
+    <article><h3>Open a shop</h3><p>Start with a catalog, test checkout and use Studio to manage products, orders and releases.</p><a href="https://start.veyndo.ai/start">Create a shop</a></article>
+    <article><h3>Design a Storyfront</h3><p>Build an Experience with Storyfront and use Veyndo for stock, price, checkout and orders.</p><a href="https://experience.veyndo.ai/">Open Experience Studio</a></article>
+    <article><h3>Connect your own app</h3><p>Use the JavaScript SDK to call HTTP and MCP or compose an independent Checkout with your storefront.</p><a href="docs/one-shop-components.html#choose-a-starting-point">Choose a component</a></article>
   </div>
-  <p>
-    <a class="button primary" href="docs/status.html"
-      >What is running now and how to try it ↗</a
-    >
-  </p>
-  <div class="scope-grid">
-    <article><h3>Try a change with customer agents</h3><p>Give one to six fictional customers a shopping goal, budget and language. Compare saved runs, inspect stock or checkout failures and open their native private test orders.</p><a href="docs/customer-scenarios.html">Try the customer simulator ↗</a></article>
-    <article><h3>Shape the shop with its agent</h3><p>Drag illustrated components into the actual preview. Work on a selected section or compare reference-based style proposals on desktop and mobile. Save the approved result as a private revision.</p><a href="docs/personal-workspace-and-shop-design.html">Open the design workflow ↗</a></article>
-    <article><h3>Check an app update against real data</h3><p>Inspect stored record counts, required migrations, saved examples and active Flow or payment consumers. The native installation check rolls its trial back and reports what needs attention.</p><a href="docs/evidence/app-upgrade-2026-10-29.html">See the upgrade checks ↗</a></article>
-  </div>
-  <p><a href="docs/ui-experience.html#standard-storefront-and-customer-account">From a shopping goal to visual product comparison and native checkout ↗</a></p>
 </section>
-<section class="section" id="current-films"><div class="section-heading"><h2>The current product.<br><span class="accent">Four refreshed films.</span></h2><p>Actual native Studio captures from 2 November 2026. English subtitles, no sound. Follow the shared canvas, product work, a product advisor app and contextual AI.</p></div><div class="current-film-grid"><article><h3>AI across the working shop</h3><p>1:56 · English · Silent</p><video controls playsinline muted preload="none" poster="docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.jpg" aria-label="AI across the working shop"><source src="docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4" type="video/mp4"><track kind="captions" src="docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.en.vtt" srclang="en" label="English"><a href="docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4">Download the film</a></video><p>Merchant intake, reviewed shop knowledge, design references, the shared canvas, app assistance and fictional customer scenarios.</p><a href="docs/video-tours.html">Captions and editable project ↗</a></article><article><h3>Commerce that thinks and acts</h3><p>1:12 · English · Silent</p><video controls playsinline muted preload="none" poster="docs/assets/showcase/product-films-20261102/veyndo-concept.jpg" aria-label="Commerce that thinks and acts"><source src="docs/assets/showcase/product-films-20261102/veyndo-concept.mp4" type="video/mp4"><track kind="captions" src="docs/assets/showcase/product-films-20261102/veyndo-concept.en.vtt" srclang="en" label="English"><a href="docs/assets/showcase/product-films-20261102/veyndo-concept.mp4">Download the film</a></video><p>Follow one wool coat through merchant tools, a saved product advisor record, visual shop design and a native simulated order.</p><a href="docs/video-tours.html">Captions and editable project ↗</a></article><article><h3>From product work to a connected shop</h3><p>1:36 · English · Silent</p><video controls playsinline muted preload="none" poster="docs/assets/showcase/product-films-20261102/veyndo-workspace.jpg" aria-label="From product work to a connected shop"><source src="docs/assets/showcase/product-films-20261102/veyndo-workspace.mp4" type="video/mp4"><track kind="captions" src="docs/assets/showcase/product-films-20261102/veyndo-workspace.en.vtt" srclang="en" label="English"><a href="docs/assets/showcase/product-films-20261102/veyndo-workspace.mp4">Download the film</a></video><p>Product content, multilingual captions, SEO, related products, native variants, private shop design, selected publication and content restoration.</p><a href="docs/video-tours.html">Captions and editable project ↗</a></article><article><h3>Build a product advisor app</h3><p>1:24 · English · Silent</p><video controls playsinline muted preload="none" poster="docs/assets/showcase/product-films-20261102/veyndo-app-platform.jpg" aria-label="Build a product advisor app"><source src="docs/assets/showcase/product-films-20261102/veyndo-app-platform.mp4" type="video/mp4"><track kind="captions" src="docs/assets/showcase/product-films-20261102/veyndo-app-platform.en.vtt" srclang="en" label="English"><a href="docs/assets/showcase/product-films-20261102/veyndo-app-platform.mp4">Download the film</a></video><p>App placements, graphical editing, the contextual coding assistant, installation settings, data relationships, actions and a saved care record.</p><a href="docs/video-tours.html">Captions and editable project ↗</a></article></div></section>
+
+<section class="section home-platform" id="platform">
+  <div class="section-heading"><h2>What you can build</h2><p>Start with the whole shop or use a component with the system you already run.</p></div>
+  <div class="home-feature-list">
+    <article><h3>A storefront and merchant workspace</h3><p>Manage a catalog, channel pricing, customers and orders in Studio. Build a storefront, run a register or import marketplace orders against shared inventory.</p><a href="docs/features.html">Explore the feature guide</a></article>
+    <article><h3>Apps inside the conversation</h3><p>A shopper can filter an app result and review price and delivery before adding an item. Merchants can inspect private app data and approve a proposal in a sandbox.</p><a href="docs/product-guide-mcp-app.html">Build an interactive Product Guide</a></article>
+    <article><h3>Rules and background work</h3><p>Connect commerce events, rules and app actions in Flows. Checkout commits the order and stock. Workers handle follow-up activity such as connector delivery.</p><a href="docs/automation-component.html">Explore rules and Flows</a></article>
+    <article><h3>A shop built from components</h3><p>Use the shared Rust contracts or connect independent services through HTTP and MCP. The commerce host keeps authoritative prices, inventory and orders.</p><a href="docs/one-shop-components.html">See the component map</a></article>
+  </div>
+</section>
+
+<section class="section home-evidence" id="latest">
+  <div class="section-heading"><h2>Verified in the hosted shop</h2><p>The Lumen pilot brings eight services together. The public release record links the running versions to the journeys that were checked.</p></div>
+  <div class="home-evidence-grid">
+    <figure class="home-capture">
+      <a href="docs/status.html#shared-order-and-inventory-inputs"><img src="docs/assets/checkout/native-commerce-order-20261111.jpg" alt="Order confirmation for a simulated purchase in the native Veyndo storefront" loading="lazy"></a>
+      <figcaption><strong>One stock ledger.</strong> A native simulated purchase consumed the last unit. Storyfront showed the item as sold out after reload.</figcaption>
+    </figure>
+    <figure class="home-capture">
+      <a href="docs/status.html#product-guide-actions-in-the-hosted-shop"><img src="docs/assets/apps/product-guide-sandbox-applied-20261111.jpg" alt="Studio showing a private Product Guide table and an approved change in a sandbox" loading="lazy"></a>
+      <figcaption><strong>One reviewed Studio change.</strong> A merchant applied a proposal based on a private app note in the sandbox.</figcaption>
+    </figure>
+  </div>
+  <p><a href="docs/status.html">Read the current acceptance record</a> · <a href="docs/components.json">View the release inventory</a></p>
+</section>
+
+<section class="section home-paths" id="merchant-flow">
+  <h2>Try the workflows yourself</h2>
+  <div class="home-route-list">
+    <article id="playground"><h3>Run the local playground</h3><p>Place a simulated order, inspect it in Studio and publish a selected catalog change.</p><a href="playground.html">Open the playground guide</a></article>
+    <article><h3>Connect an agent</h3><p>Read products, inspect a draft and review the operation in Studio.</p><a href="docs/agent-workshop.html">Open the agent workshop</a></article>
+    <article id="performance"><h3>Reproduce a measurement</h3><p>Explore the recorded workload, environment, latency and exact order counts.</p><a href="benchmarks.html">Read the benchmark results</a></article>
+  </div>
+</section>
+
+<section class="section" id="current-films"><div class="section-heading"><h2>Four product films</h2><p>Actual native Studio captures from 2 November 2026. English subtitles, no sound. Follow the shared canvas, product work, a product advisor app and contextual AI.</p></div><div class="current-film-grid"><article><h3>AI across the working shop</h3><p>1:56 · English · Silent</p><video controls playsinline muted preload="none" poster="docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.jpg" aria-label="AI across the working shop"><source src="docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4" type="video/mp4"><track kind="captions" src="docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.en.vtt" srclang="en" label="English"><a href="docs/assets/showcase/product-films-20261102/veyndo-ai-commerce.mp4">Download the film</a></video><p>Merchant intake, reviewed shop knowledge, design references, the shared canvas, app assistance and fictional customer scenarios.</p><a href="docs/video-tours.html">Captions and editable project ↗</a></article><article><h3>Commerce that thinks and acts</h3><p>1:12 · English · Silent</p><video controls playsinline muted preload="none" poster="docs/assets/showcase/product-films-20261102/veyndo-concept.jpg" aria-label="Commerce that thinks and acts"><source src="docs/assets/showcase/product-films-20261102/veyndo-concept.mp4" type="video/mp4"><track kind="captions" src="docs/assets/showcase/product-films-20261102/veyndo-concept.en.vtt" srclang="en" label="English"><a href="docs/assets/showcase/product-films-20261102/veyndo-concept.mp4">Download the film</a></video><p>Follow one wool coat through merchant tools, a saved product advisor record, visual shop design and a native simulated order.</p><a href="docs/video-tours.html">Captions and editable project ↗</a></article><article><h3>From product work to a connected shop</h3><p>1:36 · English · Silent</p><video controls playsinline muted preload="none" poster="docs/assets/showcase/product-films-20261102/veyndo-workspace.jpg" aria-label="From product work to a connected shop"><source src="docs/assets/showcase/product-films-20261102/veyndo-workspace.mp4" type="video/mp4"><track kind="captions" src="docs/assets/showcase/product-films-20261102/veyndo-workspace.en.vtt" srclang="en" label="English"><a href="docs/assets/showcase/product-films-20261102/veyndo-workspace.mp4">Download the film</a></video><p>Product content, multilingual captions, SEO, related products, native variants, private shop design, selected publication and content restoration.</p><a href="docs/video-tours.html">Captions and editable project ↗</a></article><article><h3>Build a product advisor app</h3><p>1:24 · English · Silent</p><video controls playsinline muted preload="none" poster="docs/assets/showcase/product-films-20261102/veyndo-app-platform.jpg" aria-label="Build a product advisor app"><source src="docs/assets/showcase/product-films-20261102/veyndo-app-platform.mp4" type="video/mp4"><track kind="captions" src="docs/assets/showcase/product-films-20261102/veyndo-app-platform.en.vtt" srclang="en" label="English"><a href="docs/assets/showcase/product-films-20261102/veyndo-app-platform.mp4">Download the film</a></video><p>App placements, graphical editing, the contextual coding assistant, installation settings, data relationships, actions and a saved care record.</p><a href="docs/video-tours.html">Captions and editable project ↗</a></article></div></section>
 <details class="section earlier-films"><summary>Earlier workflow recordings, captured 13 October 2026</summary>
-<section class="section showcase" id="demo" data-showcase data-tours><div class="section-heading showcase-heading"><div><p class="eyebrow">Earlier tours · 13 October 2026</p><h2>One core.<br><span class="accent">More possibilities.</span></h2></div><p>Three earlier connected tours, retained with their original capture date. Actual UI, readable English captions and no sound. Choose a tour or jump to a chapter.</p></div><div class="showcase-kicker"><span>Real application recordings</span><span>1080p · English captions</span><span>Local synthetic shops</span></div><div class="demo-selector" role="tablist" aria-label="Choose a new Veyndo tour">
+<section class="section showcase" id="demo" data-showcase data-tours><div class="section-heading showcase-heading"><div><p class="eyebrow">13 October 2026</p><h2>One core.<br><span class="accent">More possibilities.</span></h2></div><p>Three earlier connected tours, retained with their original capture date. Actual UI, readable English captions and no sound. Choose a tour or jump to a chapter.</p></div><div class="showcase-kicker"><span>Real application recordings</span><span>1080p · English captions</span><span>Local synthetic shops</span></div><div class="demo-selector" role="tablist" aria-label="Choose a new Veyndo tour">
 <button type="button" role="tab" id="tour-tab-connected-commerce" aria-controls="tour-panel-connected-commerce" aria-selected="true" tabindex="0"><span>01 · 0:38</span>Connected commerce</button>
 <button type="button" role="tab" id="tour-tab-build-and-automate" aria-controls="tour-panel-build-and-automate" aria-selected="false" tabindex="-1"><span>02 · 0:29</span>Build and automate</button>
 <button type="button" role="tab" id="tour-tab-connected-intelligence" aria-controls="tour-panel-connected-intelligence" aria-selected="false" tabindex="-1"><span>03 · 0:50</span>Connected intelligence</button>
@@ -553,230 +513,3 @@
   </div>
 </section>
 </details>
-<section class="section" id="playground">
-  <div class="section-heading">
-    <div>
-      <h2>The screens behind<br />the capabilities.</h2>
-    </div>
-    <p>
-      Open any capture at full size. The current interface was captured on
-      2 November with fictional local records and simulated purchases.
-    </p>
-  </div>
-  <div class="capture-grid">
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/product-general.jpg" data-open-shot data-caption="Edit the product, in context."><img src="docs/assets/product-tour-20261102/product-general.jpg" alt="Compact product navigation, one content language and rich text." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>Edit the product, in context.</h3><p>Compact product navigation, one content language and rich text.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/knowledge-overview.jpg" data-open-shot data-caption="See what your shop knows."><img src="docs/assets/product-tour-20261102/knowledge-overview.jpg" alt="Catalogue facts, sources and review controls in one connected workspace." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>See what your shop knows.</h3><p>Catalogue facts, sources and review controls in one connected workspace.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/app-overview.jpg" data-open-shot data-caption="Build across every placement."><img src="docs/assets/product-tour-20261102/app-overview.jpg" alt="Zoom from the shared app overview into direct editing, behavior and contextual AI." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>Build across every placement.</h3><p>Zoom from the shared app overview into direct editing, behavior and contextual AI.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/shop-agent.jpg" data-open-shot data-caption="Design the actual shop."><img src="docs/assets/product-tour-20261102/shop-agent.jpg" alt="Keep the storefront visible while preparing changes with a reference URL, screenshot or coding agent." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>Design the actual shop.</h3><p>Keep the storefront visible while preparing changes with a reference URL, screenshot or coding agent.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/agent-commerce.jpg" data-open-shot data-caption="Prepare customer scenarios in context."><img src="docs/assets/product-tour-20261102/agent-commerce.jpg" alt="The current agentic commerce workspace keeps fictional customer scenarios with the shop context." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>Prepare customer scenarios in context.</h3><p>The current agentic commerce workspace keeps fictional customer scenarios with the shop context.</p><p class="fine">Local browser capture · 2 November 2026 · fictional customer scenario workspace</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/storefront.jpg" data-open-shot data-caption="A storefront with a point of view."><img src="docs/assets/product-tour-20261102/storefront.jpg" alt="A native fashion catalogue with bundled fictional product artwork." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>A storefront with a point of view.</h3><p>A native fashion catalogue with bundled fictional product artwork.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/product-detail.jpg" data-open-shot data-caption="Every SKU has a real product page."><img src="docs/assets/product-tour-20261102/product-detail.jpg" alt="Real variants, native prices, current stock and the shared bag." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>Every SKU has a real product page.</h3><p>Real variants, native prices, current stock and the shared bag.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/app-preview-saved.jpg" data-open-shot data-caption="Build it. Work in it."><img src="docs/assets/product-tour-20261102/app-preview-saved.jpg" alt="A Product advisor app saves a product-bound care record through the actual private renderer." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>Build it. Work in it.</h3><p>A Product advisor app saves a product-bound care record through the actual private renderer.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/knowledge-connections.jpg" data-open-shot data-caption="Give intelligence a shared source."><img src="docs/assets/product-tour-20261102/knowledge-connections.jpg" alt="Inspect authoritative product facts and curated catalogue relationships." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>Give intelligence a shared source.</h3><p>Inspect authoritative product facts and curated catalogue relationships.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/shop-overview.jpg" data-open-shot data-caption="See the whole shop."><img src="docs/assets/product-tour-20261102/shop-overview.jpg" alt="Home, product and category previews together on the zoomable Canvas." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>See the whole shop.</h3><p>Home, product and category previews together on the zoomable Canvas.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/collection.jpg" data-open-shot data-caption="Discovery reaches the catalogue."><img src="docs/assets/product-tour-20261102/collection.jpg" alt="Current product cards, categories and prices in the standard storefront." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>Discovery reaches the catalogue.</h3><p>Current product cards, categories and prices in the standard storefront.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/products.jpg" data-open-shot data-caption="Keep the merchant in control."><img src="docs/assets/product-tour-20261102/products.jpg" alt="Search the native product grid and configure its shared columns and filters." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>Keep the merchant in control.</h3><p>Search the native product grid and configure its shared columns and filters.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/checkout-review.jpg" data-open-shot data-caption="Review the native checkout."><img src="docs/assets/product-tour-20261102/checkout-review.jpg" alt="Fictional contact details, the server quote and an explicit simulated-order review." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>Review the native checkout.</h3><p>Fictional contact details, the server quote and an explicit simulated-order review.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-    <figure class="capture-card">
-      <a href="docs/assets/product-tour-20261102/order-detail.jpg" data-open-shot data-caption="Save an order. Follow it through."><img src="docs/assets/product-tour-20261102/order-detail.jpg" alt="The saved coat purchase, native workflow, addresses, payment state and document controls." width="1440" height="1000" loading="lazy" /><span class="expand" aria-hidden="true">Open full size ↗</span></a>
-      <figcaption><h3>Save an order. Follow it through.</h3><p>The saved coat purchase, native workflow, addresses, payment state and document controls.</p><p class="fine">Local browser capture · 2 November 2026 · fictional demo records</p></figcaption>
-    </figure>
-  </div>
-  <p>
-    <a class="button" href="docs/features.html">Explore every workspace ↗</a>
-  </p>
-  <dialog
-    class="shot-viewer"
-    data-shot-viewer
-    aria-label="Full-size Veyndo screenshot"
-  >
-    <button type="button">Close screenshot ×</button>
-    <figure>
-      <img src="docs/assets/product-tour-20261102/storefront.jpg" width="1440" height="1000" alt="" loading="lazy" />
-      <figcaption></figcaption>
-    </figure>
-  </dialog>
-</section>
-<section class="section performance" id="performance">
-  <div class="section-heading">
-    <div>
-      <p class="eyebrow">Measured. Not imagined.</p>
-      <h2>The numbers.<br /><span class="accent">And the receipts.</span></h2>
-    </div>
-    <p>
-      One million products plus one million translations in PostgreSQL. Release
-      build. Fixed arrivals of 500 requests/s. Every response checked.
-    </p>
-  </div>
-  <div class="metric-grid">
-    <article class="metric">
-      <span class="mono">1M PRODUCTS / 50-PRODUCT PAGE</span
-      ><strong>{{million_catalog_p95}}<small>ms p95</small></strong>
-      <p>500 offered requests/s · real HTTP + PostgreSQL</p>
-    </article>
-    <article class="metric">
-      <span class="mono">20-LINE CART / 1M PRODUCTS</span
-      ><strong>{{million_cart_p95}}<small>ms p95</small></strong>
-      <p>500 offered requests/s · full validated quote</p>
-    </article>
-    <article class="metric">
-      <span class="mono">DURABLE CHECKOUT</span
-      ><strong>{{million_checkout_p95}}<small>ms p95</small></strong>
-      <p>500 offered requests/s · fresh durable orders</p>
-    </article>
-  </div>
-  <div class="perf-footer">
-    <p>
-      Local Apple M3 Ultra · 512 GiB RAM · warm caches · Python client on the
-      same host · 16 generator workers.<br />Short fixed-arrival probes with no
-      response cache; these results do not establish maximum or production
-      capacity. Payments are simulated.
-    </p>
-    <a class="button" href="benchmarks.html">Inspect the benchmark ↗</a>
-  </div>
-</section>
-<section class="section" id="merchant-flow">
-  <div class="section-heading">
-    <div>
-      <p class="eyebrow">One core. Every interface.</p>
-      <h2>Give agents tools.<br />Keep the keys.</h2>
-    </div>
-    <p>
-      The browser, an MCP client and UCP checkout reach the same commerce
-      operations. Permissions stay in the server. Follow the request, checkout,
-      tenant security and intelligence paths in the
-      <a href="docs/production-architecture.html"
-        >illustrated architecture guide</a
-      >. The <a href="docs/core-hardening.html">core hardening review</a>
-      explains trusted identity, shared resource limits, transaction-local
-      tenant scope and recoverable event processing, including the deployment
-      cutover.
-    </p>
-  </div>
-  <div class="architecture-layout">
-    <div
-      class="core-visual"
-      aria-label="Browser, MCP and UCP connect to Rust, PostgreSQL and Wasm"
-    >
-      <div class="inputs">
-        <span>Browser</span><span>MCP</span><span>UCP</span>
-      </div>
-      <div class="core-node">
-        <span class="mono">RUST COMMERCE CORE</span
-        ><strong>Prices. Carts.<br />Orders. Authority.</strong>
-      </div>
-      <div class="outputs">
-        <span>PostgreSQL</span><span>Bounded Wasm apps</span>
-      </div>
-    </div>
-    <div class="feature-list">
-      <article>
-        <h3>Commerce that agrees with itself.</h3>
-        <p>
-          SKU variants, quantity tiers, B2B prices and destination tax share the
-          same calculations.
-        </p>
-      </article>
-      <article>
-        <h3>Apps with their own capabilities.</h3>
-        <p>
-          Versioned packages own typed data and actions. Configuration
-          contributes to the actual cart and order.
-        </p>
-      </article>
-      <article>
-        <h3>AI with an approval boundary.</h3>
-        <p>
-          Local Ollama or optional cloud adapters produce inspectable proposals.
-          You approve; the core validates and applies.
-        </p>
-      </article>
-    </div>
-  </div>
-</section>
-<section class="section start-section">
-  <div>
-    <p class="eyebrow">From source to your shop</p>
-    <h2>Own the stack.<br />Start building.</h2>
-    <p>Explore commerce first. Add your model when you need it.</p>
-    <a class="button primary" href="quickstart.html">Open the quickstart ↗</a>
-  </div>
-  <div class="terminal">
-    <div class="terminal-bar">
-      <span aria-hidden="true">● ● ●</span><span>your-machine / commerce</span>
-    </div>
-    <pre><code><span class="code-comment"># Your code. Your infrastructure.</span>
-git clone https://github.com/veyndo/veyndo.git
-cd veyndo
-./scripts/dev.sh</code></pre>
-    <p>
-      Rust stable 1.96+ · Node 22+ · Docker · Python 3<br />No model download
-      for the initial commerce tour.
-    </p>
-  </div>
-</section>
-<section class="section">
-  <div class="section-heading">
-    <div>
-      <p class="eyebrow">Know what you're building on</p>
-      <h2>Open code. Clear boundaries.</h2>
-    </div>
-  </div>
-  <div class="scope-grid">
-    <article>
-      <h3>What you can explore today</h3>
-      <p>
-        Merchant-approved AI, durable orders and inventory, B2C/B2B checkout,
-        product variants, versioned apps and selected MCP/UCP bindings.
-      </p>
-      <a href="docs/shopware-parity.html">See the feature matrix ↗</a>
-    </article>
-    <article>
-      <h3>What still needs proving</h3>
-      <p>
-        Production operations, large-scale capacity, full protocol conformance,
-        live-money payments and a complete Shopware replacement.
-      </p>
-      <a href="shopware.html">Inspect the Shopware behavior ports ↗</a>
-    </article>
-  </div>
-</section>

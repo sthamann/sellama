@@ -1,8 +1,8 @@
 [
   {
     "file": "index.html",
-    "title": "Veyndo — Commerce rebuilt for the AI era",
-    "description": "AI-native commerce in Rust: connected business knowledge, agents, visual automation and a new app platform. Explore MCP/UCP interfaces and run your own shop."
+    "title": "Veyndo Commerce | Shops, apps and agents on one Rust core",
+    "description": "Run a shop or connect Veyndo components to an existing storefront. Explore native checkout, merchant Studio, interactive MCP Apps and verified hosted workflows."
   },
   {
     "file": "benchmarks.html",

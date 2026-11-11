@@ -83,7 +83,8 @@ Core mutation paths bind SQL/Cypher parameters and use row locks, persisted
 idempotency and optimistic revisions. Completed quotes are immutable. Payment
 methods are simulated/manual or explicitly configured PayPal Sandbox/Live.
 PayPal credentials stay on the server; card data is handled by the provider.
-Actual PSP transactions remain unverified; local tests use protocol fixtures.
+Local tests use protocol fixtures. The [hosted PayPal acceptance guide](shopware-payments-acceptance.md)
+records which Sandbox operations were observed and which Live checks remain open.
 Fulfillment records are internal states, not a dispatched physical shipment.
 Tax rates and calendars are prototype configuration, not jurisdiction advice.
 

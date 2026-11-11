@@ -185,7 +185,7 @@ def build():
     shutil.copytree(ROOT / 'docs/brand', DEST / 'docs/brand')
     urls = []
 
-    def write_page(path, title, description, content):
+    def write_page(path, title, description, content, language="en"):
         filename = path.as_posix()
         url = BASE + ('' if filename == 'index.html' else filename)
         if filename.startswith('docs/'):
@@ -193,7 +193,7 @@ def build():
         schema = {
             '@context': 'https://schema.org',
             '@type': 'SoftwareSourceCode' if filename == 'index.html' else 'TechArticle',
-            'name': title, 'description': description, 'url': url,
+            'name': title, 'description': description, 'url': url, 'inLanguage': language,
         }
         if filename == 'index.html':
             schema.update(codeRepository=REPO, programmingLanguage=['Rust', 'TypeScript'],
@@ -204,12 +204,13 @@ def build():
         header, footer = shell(prefix, filename.startswith('docs/'))
         fields = {
             'site_header': header, 'site_footer': footer,
+            'language': language, 'og_locale': {'en': 'en_US', 'de': 'de_DE'}[language],
             'skip_attrs': 'data-docs-copy="skip"' if filename.startswith('docs/') else '',
             'title': html.escape(title),
             'description': html.escape(description, quote=True),
             'canonical': url,
-            'image': BASE + ('docs/assets/launch-20261014/fashion-storefront.jpg' if filename == 'index.html'
-                             else 'docs/assets/launch-20261014/agentic-orders.jpg'),
+            'image': BASE + ('docs/assets/apps/product-guide-cart-review-20261111.jpg' if filename == 'index.html'
+                             else 'docs/assets/apps/product-guide-merchant-live-20261111.jpg'),
             'schema': json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c'),
             'content': content,
             'root': '' if path.parent == Path('.') else os.path.relpath('.', path.parent) + '/',

@@ -48,14 +48,15 @@ their own existing routes. GitHub Pages remains an independently readable mirror
 ## Language and evidence
 
 Handbook navigation, search messages and chapter descriptions ship in English,
-German, French and Spanish. Technical articles currently retain their original
-English content and are labeled accordingly. A localized interface is not a claim
-that all historical technical prose has been translated.
+German, French and Spanish. The [German platform overview](platform-overview.md)
+is written in German. Technical guides are primarily in English. The handbook
+labels each article's source language in navigation and search. Set
+`<!-- veyndo-language: de -->` on a German article so that its metadata and
+browser language reflect the text.
 
-Current README screenshots are genuine browser captures with the blue Veyndo
-identity. [Capture notes](assets/launch-20261014/README.md) distinguish synthetic
-commerce and local model fixtures from real provider transactions. Historical
-recordings remain dated evidence and are not presented as current-interface stills.
+The homepage and README use [hosted browser captures](status.md) for the Product
+Guide and checkout. [The film index](video-tours.md) lists the dated tours and their
+scope. Older recordings remain available with their original evidence dates.
 
 
 ## Build and validate
@@ -84,6 +85,10 @@ first commit; only committed files reach CI. Do not put private notes in the
 public repository.
 
 ## Publication and current facts
+
+Start with [Status](status.md), [the component map](commerce-components.md) and
+[the feature guide](features.md) for the current product. The dated entries below
+describe earlier documentation releases.
 
 The 21 October update consolidates current release and acceptance information in
 [Status](status.md). Dated deployment notes move to the linked history; app and

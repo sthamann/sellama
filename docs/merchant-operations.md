@@ -175,15 +175,15 @@ The public adapter contains no active vendor-code fallback; released migration
 Existing attempt snapshots retain their original attribution for reconciliation.
 Local fixtures use synthetic attribution and verify it on wire requests; they do
 not prove partner attribution or a real-money transaction. Live mode requires a
-public HTTPS commerce origin and private credentials. The proprietary connector
-and vendor-specific implementation belong in the private
-`sthamann/veyndo-shopware-payments` repository. See [checkout](checkout.md).
+public HTTPS commerce origin and private credentials. The separate Shopware Payments service lives in the private
+`veyndo/shopware-payments` repository.
 
-Advanced cards, vaulting, alternative methods, authorize/void, disputes and
-partner onboarding are not full ports. **Shopware Payments remains unconnected**:
-its source is private and a supported standalone connector/onboarding contract
-has not been obtained. No private source was copied into this public repository.
-No real PSP charge or additional paid model request was performed for this work.
+The hosted service completed actual PayPal Sandbox wallet purchases and refunds
+through the native shop and original Storyfront. The versioned method catalogue
+contains 17 methods and the complete simulator workflow passed. PayPal Live,
+saved-method reuse, provider invoice approval and other provider-specific paths
+retain separate acceptance requirements. See [checkout](checkout.md) and the
+[payment acceptance guide](shopware-payments-acceptance.md).
 
 ## Verification
 

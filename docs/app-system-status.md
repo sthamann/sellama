@@ -5,6 +5,13 @@ journeys. The [connected AI workspace](agentic-workspace.md) explains contextual
 planning, reviewed private execution, app composition, real preview, editable list
 handoff and remembered merchant guidance.
 
+**Hosted Product Guide, 11 November 2026.** Apps 0.29.1 exposes filters from
+declared indexed scalar fields and choices. The installed Product Guide
+delivered a public care card in the shopper conversation and a private table in
+Studio. The shopper confirmed a priced cart addition. A merchant approved a
+product edit in a private workspace. [Build and try the app](product-guide-mcp-app.md)
+and [read the hosted evidence](status.md#product-guide-actions-in-the-hosted-shop).
+
 **Managed writes, 6 November 2026:** [Apps 0.26.0](app-data-writes.md) adds
 independent approved portable record changes and retained history with current
 rights, package/revision fences and atomic outbox. Veyndo shares the original

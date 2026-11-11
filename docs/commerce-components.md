@@ -276,8 +276,10 @@ Each component task remains open until these checks are demonstrated for it.
   explicit endpoint configuration, scoped auth, cancellation and structured errors.
 - [x] FND-03 Test protocol/HTTP/domain failures, wrong response IDs, redirects,
   cancellation and ambiguous writes; never retry mutations automatically.
-- [ ] FND-04 Supply executable Node and browser examples and a minimal external
-  host with no Veyndo implementation dependency.
+- [x] FND-04 Ship executable Node and browser catalog examples in SDK 0.4.3.
+  The external host uses Node's standard library and the SDK. Verify search,
+  pagination and product detail against public Lumen in a desktop and mobile
+  browser. [Example](one-shop-components.md#run-the-browser-example).
 - [ ] FND-05 Complete typed response contracts, pagination and compatibility tests;
   current generated native contracts cover inputs, not all domain responses.
   - [x] Type the standalone Knowledge v1 inputs, source pages and evidence.

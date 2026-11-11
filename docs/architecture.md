@@ -45,6 +45,9 @@ from the public Store API through the typed catalog SDK. The client passes
 the sales context and cursors to Commerce. Commerce applies catalog
 visibility and resolves pricing and currency.
 [Catalog client](one-shop-components.md#read-the-catalog-from-javascript).
+The runnable browser example places a small Node host between the browser
+and the Store API. It configures the shop at startup and forwards catalog
+reads through the SDK. [Browser host](one-shop-components.md#run-the-browser-example).
 
 Storyfront can recover a purchase after its browser notification is lost. Core
 deploys the recovery route and migration first. The Experience uses the

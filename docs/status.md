@@ -12,6 +12,12 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## Typed catalog SDK
 
+SDK 0.4.3 includes a runnable browser example and a command line example.
+The browser host uses the published catalog client against Lumen. Chromium
+at desktop and mobile widths loaded two distinct product pages, opened a
+product with the keyboard, showed the returned price and stock, and handled
+an empty search. [Run the browser example](one-shop-components.md#run-the-browser-example).
+
 SDK 0.4.2 exposes public catalog listings, localized product details and
 variant pages to JavaScript and TypeScript. The installed package read two
 distinct public Lumen catalog pages, opened the German product detail and

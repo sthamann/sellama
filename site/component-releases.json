@@ -8,10 +8,10 @@
       "guide": "docs/quickstart.html"
     },
     "sdk": {
-      "tag": "v0.4.9",
-      "commit": "15633a4f65e6a7464e9de345e5b913a6194b1dc4",
+      "tag": "v0.4.10",
+      "commit": "b607dfb2f8180c7d3365040fad08cf48a3fff62f",
       "prerelease": true,
-      "guide": "docs/merchant-operations.html#manage-buyer-addresses-with-the-sdk"
+      "guide": "docs/merchant-operations.html#edit-the-buyer-profile-with-the-sdk"
     },
     "apps": {
       "tag": "v0.29.1",

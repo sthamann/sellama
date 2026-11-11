@@ -72,9 +72,34 @@ allowed; the buyer supplies them before the visible storefront checkout.
 The explicit synthetic `buyer@example.test` fixture now has an example address.
 This does not insert invented addresses into real registered accounts.
 
+### Edit the buyer profile with the SDK
+
+Install [SDK 0.4.10](https://github.com/veyndo/sdk/releases/tag/v0.4.10) to
+read the buyer's account and save editable contact fields.
+
+```js
+import { createAccountClient } from '@veyndo/sdk/account';
+
+const account = createAccountClient({ baseUrl: shopOrigin, shop });
+const buyer = { customerToken };
+const current = await account.profile.get(buyer);
+const { address, ...contact } = current.profile;
+await account.profile.save({
+  ...contact,
+  name: contact.name ?? 'Example Buyer',
+  phoneNumber: '+4930123456',
+}, buyer);
+```
+
+The save replaces the contact record. Send the editable values the buyer wants
+to keep. Account identity, email and customer group come from the buyer session
+and Core. Use the address book methods below to change delivery and billing
+addresses. In a browser on the shop origin, configure `credentials: 'same-origin'`
+to use the existing session cookie.
+
 ### Manage buyer addresses with the SDK
 
-Install [SDK 0.4.9](https://github.com/veyndo/sdk/releases/tag/v0.4.9) to
+Install [SDK 0.4.10](https://github.com/veyndo/sdk/releases/tag/v0.4.10) to
 read and update the signed-in buyer's address book. In a browser on the shop
 origin, configure `credentials: 'same-origin'` to use the session cookie.
 
@@ -102,7 +127,7 @@ its own copy of the shipping and billing addresses.
 
 ### Read order history with the SDK
 
-Install the [SDK 0.4.9 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.9).
+Install the [SDK 0.4.10 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.10).
 The account client reads the signed-in buyer's orders. Use the same shop and
 buyer context for each page and for order details.
 

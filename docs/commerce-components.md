@@ -317,6 +317,10 @@ Each component task remains open until these checks are demonstrated for it.
     in independent Checkout and verify revision conflicts, buyer isolation and
     the original order address after editing and deleting the saved address.
     [Address book](merchant-operations.md#manage-buyer-addresses-with-the-sdk).
+  - [x] Type buyer profile reads and contact replacement in SDK 0.4.10.
+    Verify that a contact change preserves buyer identity and the address
+    book, and that the same buyer can complete Checkout and read the invoice.
+    [Buyer profile](merchant-operations.md#edit-the-buyer-profile-with-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

@@ -26,6 +26,33 @@ An extracted DTO carries data. Its host still admits the caller and
 loads the current shop and channel context. An API adapter or app gateway
 must not become another price, order or inventory owner.
 
+## Shared customer input contract
+
+`veyndo-commerce::customer` owns Contact, Address and their original bounded
+syntax validation. Native `accounts::Contact` and `commerce::Address` reexport
+those same types. Legacy names, optional-field defaults, the `zipcode` alias,
+name normalization, byte limits and calendar checks remain unchanged. Native
+adapters map the portable validation error to the existing HTTP/MCP error.
+
+The library has no database, network, model, account session or identity store.
+Rust clients can run the [standalone contact example](../crates/commerce/examples/customer_contract.rs)
+without Core: `cargo run -p veyndo-commerce --example customer_contract`.
+[Package guide](../crates/commerce/README.md).
+
+Contact fields contain personal data. This input type grants no permission to
+read or publish them. PII projection, login, immutable order ownership and
+current channel/country/region/payment admission stay in the existing native
+owners. Syntactic country validation does not configure a selling country;
+a payment preference does not authorize a payment. Contact and Address reject
+unknown identity, credential, role and order-ownership fields.
+
+The crate checks old wire defaults, nested normalization, duplicate aliases,
+calendar and byte boundaries, hostile identity fields and the separation from
+host eligibility. Native account, administration, CRM history, tenant isolation,
+checkout handoff/review and international commerce remain the integration
+checks for this extraction. Moving the input contract does not complete the
+independent customer-storage or Commerce-service tasks.
+
 ## Original Storyfront availability
 
 The private original renderer's `commerce-availability.ts` adapts current native

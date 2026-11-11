@@ -12,7 +12,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/accounts/address_store.rs](../src/accounts/address_store.rs) | Tenant-owned address persistence, optimistic revisions and atomic default assignment. |
 | [src/accounts/addresses.rs](../src/accounts/addresses.rs) | Store API address book uses independent customer sessions, never merchant credentials. |
 | [src/accounts/browser.rs](../src/accounts/browser.rs) | Host-only customer cookies adapt the existing tenant session ledger without granting merchant authority. |
-| [src/accounts/contacts.rs](../src/accounts/contacts.rs) | Customer-editable contact fields; identity, price group and privileges remain server-owned. |
+| [src/accounts/contacts.rs](../src/accounts/contacts.rs) | Native customer projection; shared contact syntax never grants identity or PII access. |
 | [src/accounts/demo.rs](../src/accounts/demo.rs) | Public synthetic customer fixture for newly provisioned demo shops; never fills real customer addresses. |
 | [src/accounts/metadata.rs](../src/accounts/metadata.rs) | Standard customer read fields and indexed order metrics are derived from authoritative records. |
 | [src/accounts/mod.rs](../src/accounts/mod.rs) | Independent customer sessions, profile/password management and owning-account order history. |
@@ -650,8 +650,13 @@ This lists every checked-in source module in these roots, including files with n
 | [crates/cognition/src/inference.rs](../crates/cognition/src/inference.rs) | Provider adapters. Credentials stay on the server; domain validation is separate. |
 | [crates/cognition/src/lib.rs](../crates/cognition/src/lib.rs) | Provider protocol adapters and prompt evidence; no commerce write capability. |
 | [crates/cognition/src/prompts.rs](../crates/cognition/src/prompts.rs) | Versioned system-prompt provenance; no prompt text or private context is exposed in evidence. |
+| [crates/commerce/examples/customer_contract.rs](../crates/commerce/examples/customer_contract.rs) | Run contact normalization without a Core process, database, credentials or network. |
 | [crates/commerce/src/cart.rs](../crates/commerce/src/cart.rs) | Persisted cart data with explicit typed host contexts and no credential or storage authority. |
 | [crates/commerce/src/catalog.rs](../crates/commerce/src/catalog.rs) | Shared product snapshot and tier contracts, without database or transport authority. |
+| [crates/commerce/src/customer/address.rs](../crates/commerce/src/customer/address.rs) | Shared address wire contract and original bounded syntax normalization; hosts retain geography admission. |
+| [crates/commerce/src/customer/contact.rs](../crates/commerce/src/customer/contact.rs) | Customer-editable contact contract and bounded syntax checks; no account identity or persistence. |
+| [crates/commerce/src/customer/contract_tests.rs](../crates/commerce/src/customer/contract_tests.rs) | Compatibility and hostile-field cases for portable contact/address inputs; no authorization is inferred. |
+| [crates/commerce/src/customer/mod.rs](../crates/commerce/src/customer/mod.rs) | Portable customer contact and address contracts; credentials, identity and PII authorization belong to hosts. |
 | [crates/commerce/src/discount.rs](../crates/commerce/src/discount.rs) | Integer-cent proportional discount allocation; cumulative rounding conserves the exact basket discount. |
 | [crates/commerce/src/discount_boundaries.rs](../crates/commerce/src/discount_boundaries.rs) | Discount conservation at signed limits and against an independent prefix-rounding oracle. |
 | [crates/commerce/src/lib.rs](../crates/commerce/src/lib.rs) | Cart, product, amount and calculation contracts without transport or inference dependencies. |

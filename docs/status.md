@@ -10,6 +10,17 @@ Updated 11 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Shared customer input contracts
+
+The shared customer input extraction is locally validated: Contact and Address
+now come from the transport-free Commerce crate, including their original
+syntax checks and defaults. All 23 Commerce crate tests and seven targeted
+HTTP/PostgreSQL suites pass. These exercise accounts, manual orders, CRM history,
+tenant isolation, checkout handoff/review and international eligibility. The
+standalone Rust example runs without Core. Account identity, PII and immutable
+order ownership remain with the existing native host. This source change awaits
+its own hosted rollout. [Contract and example](source-map.md#shared-customer-input-contract).
+
 ## Pinned Lumen composition
 
 The eight services in the hosted Lumen commerce profile matched the checked

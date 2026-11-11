@@ -754,6 +754,11 @@
       "sha256": "59073e8455c0a79b15a7d5968e1fb7bbb65f4202d295ab976c684d6470f152cb",
       "review": "Test-only change: fixed fixtures verify prompt evidence for merchant planner versions 1 and 6 independently of registry order, including embedded prompt markers and private context. All 16 cognition unit tests pass."
     },
+    "crates/commerce/examples/customer_contract.rs": {
+      "status": "unproved",
+      "sha256": "0244b5b069f268478178980b1e48b8c23789751e444949c05440ba20602d36bc",
+      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
+    },
     "crates/commerce/src/cart.rs": {
       "status": "unproved",
       "sha256": "967754486c3b3e6c8254581d9f3851e7e42d231b5e8d4dc04d699ba6299c2795",
@@ -763,6 +768,26 @@
       "status": "unproved",
       "sha256": "13367b7553a93cb82ae5faf9c5b5ffd360c3710c65b44437aa194f5162cb4a0c",
       "review": "Moved unchanged Product and Tier serialization contracts into the transport-free Commerce crate. Native hydration and context reexports preserve callers. Fourteen Commerce tests, 1446 original PHP context cases, PostgreSQL catalog and automation order/invoice/privacy suites passed; dependency negative controls passed. No new mathematical claim."
+    },
+    "crates/commerce/src/customer/address.rs": {
+      "status": "unproved",
+      "sha256": "18b9d48ae007917c61a64cd29e0441ba5a9fa91d53d0eb9d5b0020babd3ae3fd",
+      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
+    },
+    "crates/commerce/src/customer/contact.rs": {
+      "status": "unproved",
+      "sha256": "3e470e34fcca478004e0c2add480bc2c3cc24def2d52afec98dddfad4d1ca145",
+      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
+    },
+    "crates/commerce/src/customer/contract_tests.rs": {
+      "status": "unproved",
+      "sha256": "2cdfd32d24f16885b7825150df584d8ea307ccaae91df2f4fc22555e2696112c",
+      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
+    },
+    "crates/commerce/src/customer/mod.rs": {
+      "status": "unproved",
+      "sha256": "72704dff9bd50ca546a00cd8aa3273d86507b38e0cb839949bad96b4eca10669",
+      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
     },
     "crates/commerce/src/discount.rs": {
       "status": "reviewed-binding",
@@ -776,8 +801,8 @@
     },
     "crates/commerce/src/lib.rs": {
       "status": "unproved",
-      "sha256": "84d357634fa0429090df9499417b57fdabf6a7ca8e844602da417996c80fc3a3",
-      "review": "Moved the unchanged persisted Item/Cart schema into Commerce with typed host context parameters. Native aliases bind the original POS, B2B, App and Checkout types; StoredCart retains tenant/token/status and hydration. Seventeen Commerce tests, native handoff/review, all four App quote hooks, POS, B2B and B2B UCP passed with PostgreSQL. Legacy defaults and malformed context rejection passed. No new mathematical claim."
+      "sha256": "b79b847a61c7bfb8733bf0f1d65145bbe894e8f2157af13f447ec2ba61be054b",
+      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
     },
     "crates/commerce/src/money.rs": {
       "status": "reviewed-binding",
@@ -2436,8 +2461,8 @@
     },
     "src/accounts/contacts.rs": {
       "status": "unproved",
-      "sha256": "08404f3dedaae028019441d6d090282ef9da3ba4fcc28a0db05b68101fd4fbdf",
-      "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
+      "sha256": "85e90e63f8a2b8be1811c3f2ce3fac463db2007721de9b18e8e56a397ca10e44",
+      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
     },
     "src/accounts/demo.rs": {
       "status": "unproved",
@@ -4036,8 +4061,8 @@
     },
     "src/commerce/types.rs": {
       "status": "unproved",
-      "sha256": "741e049166afe4108ffa7bf26f53cede695d123e9e9aa902c7f47cfec7bee4ac",
-      "review": "Reviewed generic saved-payment consent/session and opaque instrument ownership, forced signed-scope RLS and tenant FKs, immutable funding in native payment jobs, non-financial revocation receipt handling and optional metadata savepoint isolation. Actual local Rust/PG save/reuse/revoke, invalid late metadata, restart and distinct restricted-login cases pass. Existing extracted kernel unchanged; asynchronous SQL/provider paths remain unproved."
+      "sha256": "dd1273e173fe92a7eaf88c889aa2f36328b77bd0f01a12f6dd2fb2ee2ca8489f",
+      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
     },
     "src/concierge.rs": {
       "status": "unproved",
@@ -4251,8 +4276,8 @@
     },
     "src/foundation.rs": {
       "status": "unproved",
-      "sha256": "afefaf7af725b35194168349b665e57b145fa33249f80f2a9d9b325e5638aab2",
-      "review": "Reviewed migration 104 and all changed Rust/build owners: existing-key planning-only scope, trusted distinct agent identity, live-root lock before budget key, checked integer allocation with existing kernel guard, no network transaction, typed nonretryable quota errors, current credentials and lease-fenced late worker results; actual two-replica allocation/restart and in-flight-stop fixtures plus 623 UI tests pass. SQL/auth/provider integration is not formally proved."
+      "sha256": "ee45f6304a5f2d4cc68eab4361b09e67af5ced5555cee48e4968dd1a1f8ce736",
+      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
     },
     "src/history/capability.rs": {
       "status": "unproved",
@@ -4371,8 +4396,8 @@
     },
     "src/lib.rs": {
       "status": "unproved",
-      "sha256": "76a8164a503a4903250911b31f16afed0e1ec03b135fc5d1c06acfb1f09bc149",
-      "review": "Moved the unchanged persisted Item/Cart schema into Commerce with typed host context parameters. Native aliases bind the original POS, B2B, App and Checkout types; StoredCart retains tenant/token/status and hydration. Seventeen Commerce tests, native handoff/review, all four App quote hooks, POS, B2B and B2B UCP passed with PostgreSQL. Legacy defaults and malformed context rejection passed. No new mathematical claim."
+      "sha256": "36ed6b19aa460fd0ede2f16cafaa10690cba9464916857110454d68b47551d61",
+      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
     },
     "src/localization.rs": {
       "status": "unproved",

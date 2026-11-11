@@ -313,6 +313,11 @@ Each component task remains open until these checks are demonstrated for it.
     [Shared contract](source-map.md#shared-product-contract).
 - [ ] CORE-04 Extract customer/account/address contracts with immutable order
   ownership and PII field admission preserved.
+  - [x] Share the native Contact and Address inputs and bounded syntax checks
+    through the transport-free Commerce crate. Preserve existing serialization,
+    identity/PII admission and native error responses. Supply a Core-free Rust
+    example and test registration, manual orders, history and checkout.
+    [Input contract](source-map.md#shared-customer-input-contract).
 - [ ] CORE-05 Extract cart and checkout orchestration through the explicit
   [independent Checkout tasks](#checkout-independent-service-and-ui); preserve CAS, legal receipt,
   stock locks, idempotency and one order/stock/outbox transaction.

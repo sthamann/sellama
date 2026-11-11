@@ -12,6 +12,12 @@ and event transaction with Commerce. The component boundary changes how a
 caller reaches the operation. Its authority and business decisions stay with
 the same owner. [Component map and measured composition](one-shop-components.md).
 
+The transport-free Commerce crate now also owns customer-editable Contact and
+Address inputs and their original syntax validation. Account identity, PII
+projection, geography/payment eligibility and immutable order ownership stay
+in the native host. Other Rust components can use the same wire contract
+without importing that host. [Contract and runnable example](source-map.md#shared-customer-input-contract).
+
 Core exposes three host operations for an independent Checkout client. Quotes
 are read-only. Confirmation rechecks the quote and commits through the native
 order transaction. Receipt recovery uses the original indexed purchase key.

@@ -1,5 +1,14 @@
 # Changelog
 
+## Preserve interactive results at the agent read limit
+
+- Finish bounded agent reads with their collected evidence and App views,
+  reserving a tool-free answer after at most three read rounds.
+- Mark admitted interactive App tools for model discovery and expose the
+  remaining read rounds without expanding permissions or write authority.
+- Test a continuously reading model through actual HTTP/PostgreSQL, retaining
+  private table results and unchanged products alongside durable recovery tests.
+
 ## Current native stock in original Storyfront
 
 - Refresh exact tenant and channel availability outside published design caches,

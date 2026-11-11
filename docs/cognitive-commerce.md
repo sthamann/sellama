@@ -139,9 +139,11 @@ does not measure HTTP, inference, mixed tenant load or the entire platform.
 
 ## Agent reads, writes and progress
 
-Planner/Concierge separate read decisions from the final response. Up to four
-read-decision calls allow at most three executed read rounds, three tools per round,
-followed by one final response call (at most five model calls). The read-decision
+Planner/Concierge separate read decisions from the final response. At most three
+read-decision calls allow three tools per round, followed by one tool-free final
+response call (at most four model calls). Exhausting these rounds preserves the
+authorized evidence and App views for the final answer. Missing evidence must be
+identified rather than presented as a completed request. The read-decision
 schema cannot contain proposed changes. Malformed decisions stop without an
 executable proposal; durable merchant runs retain their stopped task for inspection.
 Core tools are explicitly classified; current actor permissions and input schemas

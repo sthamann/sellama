@@ -151,6 +151,25 @@ def verify_shopper_stream(base, visitor, expected_uri, finished, release):
         release.set()
 
 
+def verify_read_budget(call, merchant, expected_uri, requests):
+    before = call('/api/merchant/products/mug', headers=merchant)
+    start = len(requests)
+    plan = call('/api/agent/plan', {
+        'instruction': 'Exhaust guide read budget fixture',
+        'inference': {'provider': 'openai', 'model': 'local-fixture'},
+    }, merchant)
+    used = requests[start:]
+    assert len(used) == 4 and [bool(r.get('tools')) for r in used] == [True, True, True, False]
+    final = used[-1]['input']
+    assert 'Private notes fixture' in final and 'Standard notes fixture' in final
+    assert 'If evidence is insufficient, state exactly what is missing' in final
+    views = plan['preview']['appViews']
+    assert len(views) == 3 and all(v['resourceUri'] == expected_uri for v in views)
+    assert views[-1]['result']['structuredContent']['elements'][0]['id'] == 'private'
+    assert not plan['preview']['proposal']['changes']
+    assert call('/api/merchant/products/mug', headers=merchant) == before
+
+
 def verify_studio_progress(call, merchant, other, colleague, expected_uri, finished, release):
     from time import monotonic, sleep
 

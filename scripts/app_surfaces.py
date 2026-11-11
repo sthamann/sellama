@@ -4,7 +4,7 @@ from testing.native_tools import response as native_response
 from testing.app_approval import consent
 from testing.app_approval import pin
 from testing.app_mcp_views import verify as verify_mcp_views
-from testing.app_mcp_views import verify_cart_review, verify_shopper_stream, verify_studio_progress
+from testing.app_mcp_views import verify_cart_review, verify_read_budget, verify_shopper_stream, verify_studio_progress
 import concurrent.futures
 import copy
 import hashlib
@@ -71,7 +71,8 @@ def run():
                     for m in messages
                 )
                 catalog_review = "Approve mug stock fixture" in provider_input
-                mcp_query = "Inspect guide fixture" in provider_input or "Read merchandise fixture" in provider_input or catalog_review
+                budget_review = "Exhaust guide read budget fixture" in provider_input
+                mcp_query = "Inspect guide fixture" in provider_input or "Read merchandise fixture" in provider_input or catalog_review or budget_review
                 if mcp_query and not request.get("tools") and "Inspect guide fixture" in provider_input:
                     if "Hold shopper final" in provider_input:
                         release_stream_final.wait(timeout=8)
@@ -88,6 +89,12 @@ def run():
                     if mcp_query and not continued:
                         name = "list_entries" if "Inspect guide fixture" in provider_input else "list_merchant_entries"
                         calls = [{"name":f"app.example_agent_results.{name}","arguments_json":'{"limit":1,"filter":{"product_id":"mug"}}'}]
+                    if budget_review:
+                        # This model never elects to stop. The native owner must reserve a final answer.
+                        round_number = sum(m.get("type") == "function_call_output" for m in messages)
+                        assert round_number < 3, "An extra read decision would discard the bounded evidence"
+                        assert "interactive app view" in next(t['description'] for t in request['tools'] if 'list_merchant_entries:' in t['description'])
+                        calls = [{"name":"app.example_agent_results.list_merchant_entries", "arguments_json":json.dumps({"limit":round_number+1,"filter":{"product_id":"mug"}})}]
                     proposal = {"tool_calls":calls}
                 if request.get("tools"):
                     raw = json.dumps(native_response(request, proposal, "ollama" if ollama else "openai")).encode()
@@ -332,6 +339,8 @@ def run():
             plan = call("/api/agent/plan", {"instruction":"Read merchandise fixture", "inference":{"provider":"openai","model":"local-fixture"}}, h)
             assert plan["preview"]["appViews"][0]["resourceUri"] == private_view
             assert plan["preview"]["appViews"][0]["result"]["structuredContent"]["elements"][0]["id"] == "private"
+            verify_read_budget(call, h, private_view, model_requests)
+            passed("Three native app read rounds finish with their interactive evidence and a fourth tool-free model call, without product writes")
             verify_cart_review(call, h, public, oh)
             proposed = call("/api/agent/plan", {"instruction":"Approve mug stock fixture",
                             "inference":{"provider":"openai","model":"local-fixture"}}, h)

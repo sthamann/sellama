@@ -47,6 +47,27 @@ forwarded upstream. Only public documentation paths and GET/HEAD are accepted;
 recordings use streaming and bounded ranges. API, shop and Experience hosts keep
 their own existing routes. GitHub Pages remains an independently readable mirror.
 
+## Historical links and film downloads
+
+On 11 November 2026, the compatibility page was updated to route the five
+old GitHub Pages prefixes (`veyndo`, `vendune`, `rust-ai-commerce`, `sellm`,
+and `sellama`) to the organization Pages mirror. Browser checks preserved the
+full article path, language query and section anchor. Requests to the old
+Vendune root, www, Team, start, Experience and Lumen shop hosts preserved their
+paths and queries in HTTPS redirects to the current hosts.
+
+The old personal GitHub Pages site uses a browser redirect from its 404 page.
+For direct media requests and clients without JavaScript, use the current
+[Veyndo handbook](https://www.veyndo.ai/docs/) or its
+[Pages mirror](https://veyndo.github.io/veyndo/docs/).
+
+The site package now contains the four current SRT downloads alongside the
+WebVTT captions. After publication, 154 media responses matched the source
+bytes or, for videos and archives, a 1 KiB range and the original total size.
+The four current MP4 files also matched their full SHA-256 hashes on both
+hosts. The handbook browser played all four and opened the first SRT download
+from its visible link. [Film guide](video-tours.md).
+
 ## Language and evidence
 
 Handbook navigation, search messages and chapter descriptions ship in English,

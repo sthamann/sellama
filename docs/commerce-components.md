@@ -174,13 +174,16 @@ service adapters must reuse their implementation rather than duplicate rules.
 - [x] ORG-05 Redeploy the existing public Pages artifact in its new organization;
   GitHub Actions run 42022516564 succeeded. This alone does not repair upstream
   references in the running website proxy.
-- [ ] ORG-06 Update website proxy, media origins, CSP and canonical documentation
+- [x] ORG-06 Update website proxy, media origins, CSP and canonical documentation
   links; verify public homepage, handbook, screenshots, videos and old links.
   - [x] ORG-06a Deploy the organization-aware website/docs proxy and media CSP.
     Verify the public homepage/Team/start/Experience entries, current handbook,
     its actual logo/CSS/JS assets and video byte ranges without upstream cookies.
     [Live evidence](evidence/component-hosting-2026-11-05.md).
-  - [ ] ORG-06b Complete the historical alias/link and full media compatibility audit.
+  - [x] ORG-06b Repair historical browser links and publish the four SRT files.
+    Verify the five old GitHub Pages prefixes, former product domains, 154
+    public media responses and playback in the handbook.
+    [Live link and media checks](documentation-site.md#historical-links-and-film-downloads).
 - [ ] ORG-07 Reconnect hosting source integrations to new repository ownership;
   preserve running versions, private submodule pins, deploy keys and rollbacks.
   - [x] GitHub app installation linked to Northflank for exactly `veyndo/veyndo`,

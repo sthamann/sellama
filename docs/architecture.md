@@ -60,6 +60,10 @@ when applying it. [Cart preview and apply](checkout-component.md#review-a-cart-c
 Checkout choices use the same cart revision. Core validates the country,
 shipping and payment combination and returns the resulting quote before
 purchase confirmation. [Checkout selection](checkout-component.md#choose-shipping-and-payment-from-the-sdk).
+The Connected Shop host uses the catalog and Checkout clients for its variant review and
+purchase. It keeps the buyer and cart context on the server while the
+browser renders the guide and the current offer.
+[Connected Shop](agentic-component-ui.md#run-a-guide-and-checkout-in-an-external-host).
 
 Storyfront can recover a purchase after its browser notification is lost. Core
 deploys the recovery route and migration first. The Experience uses the

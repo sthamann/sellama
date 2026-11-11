@@ -359,7 +359,7 @@ shop and channel.
 
 ### Run a guide and Checkout in an external host
 
-[Connected Shop](https://github.com/veyndo/sdk/tree/main/examples/connected-shop) uses the published JavaScript SDK 0.4.0
+[Connected Shop](https://github.com/veyndo/sdk/tree/main/examples/connected-shop) uses the published JavaScript SDK 0.4.6
 to read a Veyndo product, discover the installed MCP App and complete a
 reviewed simulated purchase through independent Checkout. The official
 AppBridge presents the resource in an isolated iframe. The host fixes the
@@ -371,7 +371,9 @@ as the native shop.
 The Product Guide stays on the parent product while the host can review a
 variant. Switching the selection clears the displayed offer. Each fresh review
 binds the confirmation to the selected variant, total and Core cart revision.
-[Desktop and mobile acceptance](status.md#variant-purchase-from-an-external-host).
+The Node host uses the typed cart preview and apply calls to prepare that
+review, and the typed receipt lookup to recover the order after a lost reply.
+[Desktop and mobile acceptance](status.md#connected-shop-with-the-typed-sdk).
 
 The example renders Purchase and Product Guide as registered OpenUI panels.
 An optional model response selects their order from two allowed choices.

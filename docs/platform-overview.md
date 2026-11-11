@@ -49,6 +49,9 @@ Stand noch gilt. [Warenkorb im SDK](checkout-component.md#review-a-cart-change-f
 Die Oberfläche kann auch Versand und Zahlungsart auswählen. Danach liefert
 Core den Betrag und den Liefertermin für die gewählte Kombination.
 [Versand und Zahlung im SDK](checkout-component.md#choose-shipping-and-payment-from-the-sdk).
+Connected Shop zeigt die SDK Aufrufe zusammen mit einem Produktratgeber.
+Der Beispielshop prüft eine Variante und zeigt nach dem simulierten Kauf
+den ursprünglichen Beleg. [Connected Shop starten](agentic-component-ui.md#run-a-guide-and-checkout-in-an-external-host).
 Mit dem Katalogclient im JavaScript SDK liest eine eigene Oberfläche dieselben
 Produkte und Varianten wie der öffentliche Shop. Core liefert die passende
 Sprache, Währung und das Sortiment des Verkaufskanals. Der Checkout prüft

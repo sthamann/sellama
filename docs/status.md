@@ -10,6 +10,18 @@ Updated 11 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Connected Shop with the typed SDK
+
+The public Connected Shop source pins SDK 0.4.6. Its Node host uses the
+catalog client for variants and the Checkout client for cart preview,
+reviewed apply, confirmation and receipt lookup. In the local Chromium
+test, desktop confirmed normally and mobile recovered the receipt after
+the Core response was dropped. Both selected the same Graphite variant,
+reloaded the original receipt and showed an empty cart. With separate Core
+and Checkout databases, Core recorded two orders and deducted two units.
+The guide filter stayed on the product family.
+[Run Connected Shop](agentic-component-ui.md#run-a-guide-and-checkout-in-an-external-host).
+
 ## Typed Checkout SDK
 
 SDK 0.4.6 reads the available checkout choices and saves the buyer's

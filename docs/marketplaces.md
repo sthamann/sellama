@@ -49,10 +49,12 @@ flowchart LR
   Native --> Events[Native order events + flows]
 ```
 
-All provider logic lives in `extensions/apps/marketplaces/`. Generic host contracts
-are `src/apps/core_exchange.rs`, `src/commerce/external_order_input.rs` and
-`src/commerce/external_orders.rs`. The app creates no alternative commerce database,
-queue, pricing engine, order ledger or receipt implementation.
+All provider logic lives in `extensions/apps/marketplaces/`. The shared Rust
+contract `veyndo_commerce::external_order::PaidOrder` validates the paid
+snapshot, explicit tax and exact minor-unit totals. Core owns the exchange
+gateway, current app and channel admission, replay protection and the
+transaction that books the order and stock. The app uses the native queue,
+order ledger and receipt implementation.
 
 ## Merchant walkthrough
 

@@ -453,6 +453,18 @@ app gateway, avoiding a second authorization implementation.
 `core_callbacks.rs` checks explicit host versions; legacy callers retain v1.
 Native durable jobs, leases, rights, consent, order and stock owners remain unchanged.
 
+## Inventory write boundary
+
+`veyndo_commerce::inventory::InventoryLines` pairs product IDs and positive
+quantities that fit the existing signed database representation. Native checkout
+(including POS) and Marketplace each build the batch once. The same batch drives
+the native allocation ledger and the stock decrement; the storage adapter needs
+no cart or provider object. Core retains tenant scope, availability checks,
+ordered locks, transaction ordering and release from the persisted ledger.
+The change saves one pair of allocations per new order and adds no query or
+network call. Actual order and cancellation behavior is covered by the
+`production_foundations` and `marketplaces` suites.
+
 ## Marketplace app and generic intake
 
 The upstream owner is [veyndo/marketplaces](https://github.com/veyndo/marketplaces).
@@ -461,9 +473,13 @@ imports reviewed source into `extensions/apps/marketplaces/` for reproducible Co
 builds. CI rejects snapshot drift. Its independent Cargo package prohibits Core and
 SQL dependencies. The package owns provider protocols, mapping, inbox/review, worker,
 Studio vocabulary/UI, container packaging and local provider tests. Core only adds the
-provider-neutral `apps/core_exchange.rs`, `commerce/external_order_input.rs` and
-`commerce/external_orders.rs` host contracts, with its bounded
-`commerce/external_order_labels.sql` name lookup. Existing product/channel configuration,
+provider-neutral `apps/core_exchange.rs`, the native display adapter in
+`commerce/external_order_input.rs` and the intake transaction in
+`commerce/external_orders.rs`, with its bounded
+`commerce/external_order_labels.sql` name lookup. The strict wire model and
+exact minor-unit reconciliation live in `crates/commerce/src/external_order.rs`.
+Validating a snapshot checks its consistency; the authorized adapter and host
+still own source verification and admission. Existing product/channel configuration,
 app consent/jobs/records, currency, stock, customer projection, documents and event
 owners remain authoritative. [Detailed flow and actual limits](marketplaces.md).
 The registered `marketplaces` suite exercises native paid order/replay/restart,

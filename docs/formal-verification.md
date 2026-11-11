@@ -119,8 +119,8 @@ verified separately by native integration tests rather than proved by Lean.
 | `planning_request_admissible` | Admission is exactly a read classification or an explicitly allowed planning operation | `src/agent_runs/controls.rs` |
 | `agent_preview_admissible` | Private continuation requires an active shop, personal session, matching owner and current preview | `src/agent_runs/authority.rs` |
 | `shop_request_admissible` | Active shops admit requests; paused shops require an admitted read; archived shops deny ordinary operations while settlement callbacks remain available | `src/platform/lifecycle.rs` |
-| `external_amount_admissible` | Gross and tax are bounded, tax cannot exceed gross, rates are bounded and zero rate cannot carry nonzero tax | `src/commerce/external_order_input.rs` |
-| `external_paid_total_admissible` | A source order is paid with a positive, exactly reconciled total | `src/commerce/external_order_input.rs` |
+| `external_amount_admissible` | Gross and tax are bounded, tax cannot exceed gross, rates are bounded and zero rate cannot carry nonzero tax | `crates/commerce/src/external_order.rs` |
+| `external_paid_total_admissible` | A source order is paid with a positive, exactly reconciled total | `crates/commerce/src/external_order.rs` |
 
 These last two properties constrain source snapshots. They do not verify tax law
 or authenticate a marketplace's payment assertion. The import adapter rejects

@@ -1,6 +1,7 @@
 //! Generic authorized external order intake reuses native stock, customer snapshots, documents, history and outbox.
-use super::external_order_input::Input;
+use super::external_order_input::{Input, source_price};
 use crate::*;
+use veyndo_commerce::inventory::InventoryLines;
 pub(crate) async fn import_external(
     a: &App,
     h: &RequestContext,
@@ -158,14 +159,14 @@ pub(crate) async fn import_external(
             .remove(&l.product_id)
             .filter(|s| !s.trim().is_empty())
             .unwrap_or_else(|| r.get("name"));
-        lines.push(json!({"id":l.product_id,"referencedId":l.product_id,"label":label,"quantity":l.quantity,"productNumber":r.get::<Option<String>,_>("product_number"),"price":l.amount.price(currency.scale,l.quantity)}));
+        lines.push(json!({"id":l.product_id,"referencedId":l.product_id,"label":label,"quantity":l.quantity,"productNumber":r.get::<Option<String>,_>("product_number"),"price":source_price(&l.amount,currency.scale,l.quantity)}));
     }
     let tax =
         input.lines.iter().map(|l| l.amount.tax_minor).sum::<i64>() + input.shipping.tax_minor;
     let totals = json!({"currency":currency.code,"currencyScale":currency.scale,"totalMinor":input.total_minor.to_string(),"totalPrice":input.total_minor as f64/factor,"netPrice":(input.total_minor-tax) as f64/factor,"taxStatus":"gross","tax":tax as f64/factor,"taxMinor":tax.to_string()});
     let method = json!({"id":"external-marketplace","mode":"external_recorded","name":{"en":"Marketplace payment","de":"Marktplatz-Zahlung","fr":"Paiement marketplace","es":"Pago marketplace"}});
-    let delivery = json!({"id":uid(),"state":"open","shippingMethodId":"external-marketplace","trackingCodes":[],"shippingCosts":input.shipping.price(currency.scale,1)});
-    let quote = json!({"lineItems":lines,"price":totals,"shippingCosts":input.shipping.price(currency.scale,1),"paymentMethod":method,"deliveries":[delivery],"currencyContext":{"code":currency.code,"scale":currency.scale,"factor":currency.rate,"strategy":"external_snapshot"}});
+    let delivery = json!({"id":uid(),"state":"open","shippingMethodId":"external-marketplace","trackingCodes":[],"shippingCosts":source_price(&input.shipping,currency.scale,1)});
+    let quote = json!({"lineItems":lines,"price":totals,"shippingCosts":source_price(&input.shipping,currency.scale,1),"paymentMethod":method,"deliveries":[delivery],"currencyContext":{"code":currency.code,"scale":currency.scale,"factor":currency.rate,"strategy":"external_snapshot"}});
     let data:Cart=serde_json::from_value(json!({"items":ids.iter().zip(&input.lines).map(|(id,l)|json!({"id":id,"quantity":l.quantity})).collect::<Vec<_>>(),"group":"retail","email":input.email,"company":null,"session":key,"buyer":null,"order":null,"currency":currency.code,"sales_channel":input.sales_channel_id,"locale":input.locale,"channel":"marketplace"})).map_err(|_|bad("Invalid external cart"))?;
     let c = StoredCart {
         id: uid(),
@@ -195,8 +196,14 @@ pub(crate) async fn import_external(
         .execute(&mut *tx)
         .await?;
     sqlx::query("INSERT INTO orders(id,tenant,cart_id,idempotency_key,fingerprint,data) VALUES($1,$2,$3,$4,$5,$6)").bind(&id).bind(&t).bind(&c.id).bind(key).bind(fingerprint).bind(&order).execute(&mut *tx).await?;
-    super::inventory::allocate(&mut tx, &c, &id).await?;
-    super::inventory::consume(&mut tx, &c).await?;
+    let inventory = InventoryLines::new(
+        input
+            .lines
+            .iter()
+            .map(|l| (l.product_id.as_str(), l.quantity)),
+    )?;
+    super::inventory::allocate(&mut tx, &t, &inventory, &id).await?;
+    super::inventory::consume(&mut tx, &t, &inventory).await?;
     assets::snapshot(&mut tx, &c, &id).await?;
     {
         let kind = "order.placed";

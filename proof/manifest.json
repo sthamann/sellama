@@ -475,7 +475,7 @@
     },
     "external_amount_admissible": {
       "bindings": [
-        "src/commerce/external_order_input.rs"
+        "crates/commerce/src/external_order.rs"
       ],
       "theorems": [
         "external_amount_exact",
@@ -484,7 +484,7 @@
     },
     "external_paid_total_admissible": {
       "bindings": [
-        "src/commerce/external_order_input.rs"
+        "crates/commerce/src/external_order.rs"
       ],
       "theorems": [
         "external_paid_total_exact",
@@ -786,8 +786,8 @@
     },
     "crates/commerce/src/customer/mod.rs": {
       "status": "unproved",
-      "sha256": "72704dff9bd50ca546a00cd8aa3273d86507b38e0cb839949bad96b4eca10669",
-      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
+      "sha256": "5bb597f831f19640d89cca0a93e427c71efeddd3252b46caa6082c068cdac069",
+      "review": "Moved paid external order DTO and reconciliation without changing original field order, bounds, errors, or verified kernel predicates. Native still owns admission and the legacy display projection. Shared Commerce unit tests and exchange contract guard pass."
     },
     "crates/commerce/src/discount.rs": {
       "status": "reviewed-binding",
@@ -799,10 +799,20 @@
       "sha256": "716482f6adf361b9e445d7b8242c82432df11f98938a013f325e16fcd0bd55e9",
       "review": "Reviewed shared discount allocator: u128 positive sum and bounded per-line remainder carry preserve cumulative rounding; app price targets reject overflow before quote mutation; independent boundary and native promotion regressions."
     },
+    "crates/commerce/src/external_order.rs": {
+      "status": "reviewed-binding",
+      "sha256": "28433f6a9c86207623fa4c69625725da33982e33d2dfa5b6e2c8e812891277b1",
+      "review": "Moved paid external order DTO and reconciliation without changing original field order, bounds, errors, or verified kernel predicates. Native still owns admission and the legacy display projection. Shared Commerce unit tests and exchange contract guard pass."
+    },
+    "crates/commerce/src/inventory.rs": {
+      "status": "unproved",
+      "sha256": "3dd4fe71f3df9f29ea1df9134847fa33be81eafc3e23dcf7c7cceccb372d8d7c",
+      "review": "Both native order paths retain their existing ordered locks, availability predicates, SQL and write order. Checked positive i32 conversion preserves the existing allocation ledger range. One aligned batch feeds both writes; unit cases cover signed limits and line pairing. No Lean predicate, schema, cancellation or provider change."
+    },
     "crates/commerce/src/lib.rs": {
       "status": "unproved",
-      "sha256": "b79b847a61c7bfb8733bf0f1d65145bbe894e8f2157af13f447ec2ba61be054b",
-      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
+      "sha256": "f612f9317405db2129a79f9ca1dc04c78e30a840b928587dc31d5f230396c73c",
+      "review": "Both native order paths retain their existing ordered locks, availability predicates, SQL and write order. Checked positive i32 conversion preserves the existing allocation ledger range. One aligned batch feeds both writes; unit cases cover signed limits and line pairing. No Lean predicate, schema, cancellation or provider change."
     },
     "crates/commerce/src/money.rs": {
       "status": "reviewed-binding",
@@ -813,6 +823,11 @@
       "status": "unproved",
       "sha256": "421ebdf7a78c2b46da9c1ee567d2df7052077db7f7c7919cccb516b1e020baac",
       "review": "Initial extraction of 13 production policies; surrounding Rust explicitly unproved; existing HTTP regression suites retained"
+    },
+    "crates/commerce/src/validation.rs": {
+      "status": "unproved",
+      "sha256": "a99195e93e7d85ee91e1e43cac9987704fda0dfaf59a3153e177994a8400a901",
+      "review": "Moved paid external order DTO and reconciliation without changing original field order, bounds, errors, or verified kernel predicates. Native still owns admission and the legacy display projection. Shared Commerce unit tests and exchange contract guard pass."
     },
     "crates/flow-graph/src/catalog.rs": {
       "status": "unproved",
@@ -3601,8 +3616,8 @@
     },
     "src/checkout/commit.rs": {
       "status": "reviewed-binding",
-      "sha256": "9443c31a16fc137c8ef0c29290854fd063f1542bf147e5b5f14b74e90cd90525",
-      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
+      "sha256": "f1c48babcacf6a5910a5ac00b1b5ba5991093ac3f56b5e25943ff1a57017dc3a",
+      "review": "Both native order paths retain their existing ordered locks, availability predicates, SQL and write order. Checked positive i32 conversion preserves the existing allocation ledger range. One aligned batch feeds both writes; unit cases cover signed limits and line pairing. No Lean predicate, schema, cancellation or provider change."
     },
     "src/checkout/lock.rs": {
       "status": "reviewed-binding",
@@ -3875,14 +3890,14 @@
       "review": "Reviewed native historical review admission, immutable coupon provenance and explicit activation policy; independent review findings on malformed usage limits, imported-review PII projection and source-currency spend bounds reproduced and fixed with actual CLI/HTTP/checkout regressions. Existing package, creator, lease and tenant fences retained; SQL, networking and provider parity remain outside the extracted pure activation proof."
     },
     "src/commerce/external_order_input.rs": {
-      "status": "reviewed-binding",
-      "sha256": "ecdca4c6effefc326da37afe01eda49f2c58fb0f2dc51abe103867f89e22f2ac",
-      "review": "Reviewed exact paid external-order amount and positive-total guards, their live import consumers, signed-input rejection, Lean properties and negative mutations; provider tax law, SQL and external effects remain unproved"
+      "status": "unproved",
+      "sha256": "7645cb6845c6eb73720867ac2deb52c994c5fa73689bb62076a82cf3c9a5cc02",
+      "review": "Moved paid external order DTO and reconciliation without changing original field order, bounds, errors, or verified kernel predicates. Native still owns admission and the legacy display projection. Shared Commerce unit tests and exchange contract guard pass."
     },
     "src/commerce/external_orders.rs": {
       "status": "reviewed-binding",
-      "sha256": "d29f443e74102d27c9bc0bca0fa67ff553465b722a740b63392802d0252f58ea",
-      "review": "Batch external-order labels within the existing locked transaction; preserve locale-first variant precedence, tenant predicates, stock guard, package fence and idempotency; native baseline and optimized fixture compare the same frozen results."
+      "sha256": "1b7dfd5e90a873ab06e45adefbb2691fcc4f470a91bf749db8493f837e54c0e0",
+      "review": "Both native order paths retain their existing ordered locks, availability predicates, SQL and write order. Checked positive i32 conversion preserves the existing allocation ledger range. One aligned batch feeds both writes; unit cases cover signed limits and line pairing. No Lean predicate, schema, cancellation or provider change."
     },
     "src/commerce/fulfillment.rs": {
       "status": "reviewed-binding",
@@ -3906,8 +3921,8 @@
     },
     "src/commerce/inventory.rs": {
       "status": "unproved",
-      "sha256": "b54e25b8fd5e69ea0058654fe994aae58e8fff31995a01a1de5fb0182284adf4",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "1a1e935758ea3c43bb1cb700ae68832540404fe6cb36b254ca17fb00a2459cff",
+      "review": "Both native order paths retain their existing ordered locks, availability predicates, SQL and write order. Checked positive i32 conversion preserves the existing allocation ledger range. One aligned batch feeds both writes; unit cases cover signed limits and line pairing. No Lean predicate, schema, cancellation or provider change."
     },
     "src/commerce/method_text.rs": {
       "status": "unproved",
@@ -4276,8 +4291,8 @@
     },
     "src/foundation.rs": {
       "status": "unproved",
-      "sha256": "ee45f6304a5f2d4cc68eab4361b09e67af5ced5555cee48e4968dd1a1f8ce736",
-      "review": "Reviewed pure Contact/Address extraction: original strict wire fields, defaults, normalization, byte/calendar checks and safe validation messages retained in Commerce; native PII/account ownership, geography/payment admission and transactions unchanged. Portable crate cases and seven actual HTTP/PostgreSQL suites passed."
+      "sha256": "f920d2d1671d493e566571fa0f2f92e4b7971faf05028d26d397a4c3bafbb2dc",
+      "review": "Moved paid external order DTO and reconciliation without changing original field order, bounds, errors, or verified kernel predicates. Native still owns admission and the legacy display projection. Shared Commerce unit tests and exchange contract guard pass."
     },
     "src/history/capability.rs": {
       "status": "unproved",

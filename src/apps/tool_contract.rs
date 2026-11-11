@@ -26,10 +26,23 @@ pub(crate) async fn app_tools_for(
                     super::gateway::action_authorized(a, h, action),
                 )
             {
+                let input_schema = m
+                    .entities
+                    .iter()
+                    .find(|entity| {
+                        action.handler == "list" && action.entity.as_deref() == Some(&entity.name)
+                    })
+                    .map(|entity| {
+                        veyndo_app_model::query_contract::list_input_schema(
+                            entity,
+                            &action.input_schema,
+                        )
+                    })
+                    .unwrap_or_else(|| action.input_schema.clone());
                 let mut tool = capabilities::ToolContract::describe(
                     &format!("app.{}.{}", m.id, action.name),
                     &action.description,
-                    &action.input_schema,
+                    &input_schema,
                     action.output_schema.as_ref(),
                     super::surfaces::readonly(action),
                 );

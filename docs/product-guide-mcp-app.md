@@ -47,6 +47,15 @@ and the merchant view both behave as intended.
 
 ## Reuse the tool and view in another host
 
+The hosted Lumen check exercised both filters with the real model and verified
+that a public request could not open private merchandising notes.
+[Observed result and current repair scope](status.md#product-guide-in-both-live-conversations).
+
+When an initial tool call already selects a priority, the view keeps that
+restriction. Ask for all priorities first to use the selector yourself. The
+selector can narrow the original query; it cannot remove its product or other
+fixed filters. **Use filter in chat** updates a draft and never submits it.
+
 Run the [SDK example](../extensions/apps/assistant-examples/product-guide.mjs)
 from a Node 22 project with `@veyndo/sdk` installed. When working directly
 with an SDK checkout, set `VEYNDO_SDK_MODULE` to its absolute
@@ -70,6 +79,13 @@ the host's supported MCP Apps bridge for that lifecycle. A host that only
 supports text can still use the tool result. OpenUI can render a generated
 product comparison alongside these views using the same catalogue facts
 and reviewed cart operations.
+
+The native view uses the negotiated host theme with paired text and background
+colours. Hosts can send `theme: "light"` or `theme: "dark"` in `hostContext`
+and update it with `ui/notifications/host-context-changed`. An unrecognized
+theme value or a message from another window/origin cannot restyle the view.
+View references tell the agent what the host offers; they do not certify that a
+browser rendered it or that a customer completed an interaction.
 
 ## Let agents discover the valid filters
 

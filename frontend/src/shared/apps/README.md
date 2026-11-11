@@ -9,6 +9,7 @@ Each file starts with its responsibility. See [the source inventory](../../../..
 - [`AppFrame.tsx`](AppFrame.tsx): Opaque-origin app UI. Its SDK can invoke only this app's declared, server-authorized actions.
 - [`AppSlot.tsx`](AppSlot.tsx): Generic registered product configuration slot. App packages own labels, input names and business rules.
 - [`AppSurfaces.tsx`](AppSurfaces.tsx): One registry read per workspace; app bundles load only when their surface is mounted.
+- [`conversation-app-theme.ts`](conversation-app-theme.ts): Resolve the current host colour scheme and observe Studio theme changes for the existing MCP Apps bridge. No records are reloaded and no new tool access is granted.
 
 ## Verification
 

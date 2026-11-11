@@ -2,6 +2,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import type { RequestFn } from "../api/types";
+import { appTheme, observeAppTheme } from "./conversation-app-theme";
 import { conversationAppText } from "../i18n/conversation-app-i18n";
 import { useLocale } from "../i18n/i18n";
 import {
@@ -147,6 +148,13 @@ function Frame({
         { jsonrpc: "2.0", ...message },
         "*",
       );
+    const stopTheme = observeAppTheme(frame.current, (theme) => {
+      if (initialized)
+        reply({
+          method: "ui/notifications/host-context-changed",
+          params: { theme },
+        });
+    });
     const handle = (event: MessageEvent) => {
       const message = event.data;
       if (
@@ -172,7 +180,11 @@ function Frame({
                 ? { updateModelContext: { structuredContent: {} } }
                 : {}),
             },
-            hostContext: { locale, "ai.veyndo/definition": definition },
+            hostContext: {
+              locale,
+              theme: appTheme(frame.current),
+              "ai.veyndo/definition": definition,
+            },
           },
         });
       }
@@ -317,6 +329,7 @@ function Frame({
     }, 8000);
     return () => {
       current = false;
+      stopTheme();
       window.clearTimeout(timeout);
       window.removeEventListener("message", handle);
     };

@@ -16,6 +16,9 @@ while the assistant prepares its reply. Both conversations can carry an applied
 filter into an editable follow-up. Commerce checks the current shop context
 and owns the resulting changes.
 [MCP Apps and OpenUI](agentic-component-ui.md#one-capability-two-ways-to-present-it).
+[Build and connect the Product Guide](product-guide-mcp-app.md) for a complete
+example with public care cards, private merchant notes, interactive filters and
+JavaScript tool discovery from the independently released Apps model.
 
 ## How one shop works
 

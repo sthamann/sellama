@@ -498,8 +498,12 @@ The following are implementation tasks; existing UI foundations do not complete 
     separate public/private attachments and unchanged product data. SDK checks
     discover the actual indexed filter fields and choice values from the
     independently released Apps model contract.
-  - [ ] Repeat the installed Product guide request with the hosted merchant
-    agent and exercise its interactive priority filter with the real model.
+  - [x] Repeat the installed Product guide request with the hosted merchant
+    agent, exercise its priority filter and carry it into an editable follow-up.
+    Verify the public care card and its filter separately, and deny a public
+    request for internal merchandising notes. [Live result](status.md#product-guide-in-both-live-conversations).
+  - [ ] Retest the App-frame theme repair and the final answer's presentation
+    metadata with the public model after the next Core rollout.
 - [ ] UI-08 Test permissions/PII/current context, missing capabilities, versions,
   unsaved work, cancellation/return, hostile output, responsive/accessibility and
   actual business effects in both standalone host and complete Veyndo.

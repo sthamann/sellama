@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <title>App result</title>
 <style>
-:root{color-scheme:light dark;font:15px/1.5 system-ui}
+:root{color-scheme:light;color:CanvasText;background:Canvas;font:15px/1.5 system-ui}
 body{margin:0;padding:.85rem 1rem;overflow-wrap:anywhere}
 h1,h2{line-height:1.3;margin:0 0 .5rem}h1{font-size:1.15rem}h2{font-size:1rem}
 p{margin:.25rem 0}section{margin-top:.85rem}
@@ -102,6 +102,9 @@ select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px soli
   let hostOrigin;
   let locale = "en";
   let observer;
+  const applyTheme = (theme) => {
+    if (theme === "light" || theme === "dark") document.documentElement.style.colorScheme = theme;
+  };
   const text = (values) => typeof values === "string" ? values :
     (definition.localeChain ?? [locale]).map(key => values?.[key])
       .find(value => value != null) ?? "";
@@ -185,6 +188,7 @@ select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px soli
       }
       hostOrigin = event.origin;
       const context = message.result.hostContext;
+      applyTheme(context?.theme);
       if (!definition.view && context?.["ai.veyndo/definition"]?.view) {
         definition = context["ai.veyndo/definition"];
       }
@@ -206,6 +210,7 @@ select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px soli
       observer.observe(document.body);
     }
     if (!initialized || event.origin !== hostOrigin) return;
+    if (message.method === "ui/notifications/host-context-changed") applyTheme(message.params?.theme);
     if (message.method === "ui/notifications/tool-input") {
       args = message.params?.arguments ?? {};
       const filter = definition.filter;

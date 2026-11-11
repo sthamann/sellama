@@ -3776,8 +3776,8 @@
     },
     "src/cognition/tools.rs": {
       "status": "unproved",
-      "sha256": "352c79d2c642b20caae49eb3dece55ad2ddb454b3f23f6473b1c9f4776517b6f",
-      "review": "Reviewed bounded native read finalization: preserve at most three authorized read rounds and finalize without tools instead of rejecting collected evidence; retain current actor/source/checkpoint fences and app-view URI admission. App surfaces and durable agent HTTP/PostgreSQL regressions passed, including a continuously reading model, interactive evidence, unchanged product state, worker kill, revocation and source withdrawal."
+      "sha256": "f27a0de2d451a1d070135e2679baf0c52698340daf2f69f5c1a92c8d8345eac6",
+      "review": "Reviewed final response presentation metadata: only executed server App view references are attached, record claims cannot forge them, no rights, browser receipt or commerce fact is inferred. Unit and actual HTTP audience regressions cover the shared path."
     },
     "src/commerce/app_adjustments.rs": {
       "status": "unproved",

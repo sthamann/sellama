@@ -10,6 +10,21 @@ Updated 11 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Website and handbook refresh
+
+The public website at [veyndo.ai](https://www.veyndo.ai/) now opens with three
+entry points for a native shop, Storyfront and the JavaScript SDK. The new
+Product Guide and checkout screenshots come from the 11 November tests.
+The public handbook labels the German architecture overview and the English
+technical guides in chapter navigation and search. Older evidence retains its
+original dates. [Documentation guide](documentation-site.md).
+
+Northflank runs Experience `944943ea` (build `tranquil-sleep-9688`) and Core
+`61f4a6c9` (build `unwavering-face-5739`) for this refresh. The release
+inventory matched all eight live artifacts after rollout. Both schema inputs
+were unchanged. Experience readiness returned HTTP 200 in
+`storyfront-native` mode. This was a website and documentation acceptance.
+
 ## Shared customer input contracts
 
 The shared customer input extraction is locally validated: Contact and Address

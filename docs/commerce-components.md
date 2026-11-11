@@ -301,6 +301,10 @@ Each component task remains open until these checks are demonstrated for it.
     SDK 0.4.6. Verify public discovery on Lumen and carry a revised quote through
     an isolated purchase with separate Core and Checkout processes.
     [Checkout selection](checkout-component.md#choose-shipping-and-payment-from-the-sdk).
+  - [x] Use the published catalog and Checkout clients in Connected Shop.
+    Verify the guide, variant review, simulated purchase and receipt recovery
+    in desktop and mobile Chromium against separate Core and Checkout services.
+    [Browser verification](status.md#connected-shop-with-the-typed-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

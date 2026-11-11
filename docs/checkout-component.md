@@ -150,8 +150,9 @@ PostgreSQL, synthetic identities and the same cart and quote on both paths.
 ### Combine checkout and an installed MCP App
 
 The public [Connected Shop example](https://github.com/veyndo/sdk/tree/main/examples/connected-shop)
-starts a separate Node host. It uses SDK 0.4.0 to display a Core product
-family and its filterable guide. The shopper chooses a variant and reviews
+starts a separate Node host. It uses the SDK 0.4.6 catalog client to display
+a Core product family and the MCP client to load its filterable guide.
+The Checkout client previews and applies the chosen basket. The shopper reviews
 Core's total and delivery before confirming through the Store API relay
 to independent Checkout. If the Core reply is lost, the host looks up
 the original session receipt.
@@ -162,7 +163,7 @@ product. Each reduced stock once. On mobile the Core response was discarded
 after successful confirmation. The host recovered the same receipt, and
 reload preserved it. A forged product from the iframe and a confirmation
 from an unrelated browser origin were rejected.
-[Variant purchase results](status.md#variant-purchase-from-an-external-host).
+[Browser verification with SDK 0.4.6](status.md#connected-shop-with-the-typed-sdk).
 
 ## UI and agent integration
 

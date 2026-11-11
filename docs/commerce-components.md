@@ -297,6 +297,10 @@ Each component task remains open until these checks are demonstrated for it.
     in SDK 0.4.5. Verify unchanged preview state, stale revision rejection,
     matching price and delivery, and purchase through independent Checkout.
     [Cart SDK](checkout-component.md#review-a-cart-change-from-the-sdk).
+  - [x] Type checkout country, shipping and payment discovery and selection in
+    SDK 0.4.6. Verify public discovery on Lumen and carry a revised quote through
+    an isolated purchase with separate Core and Checkout processes.
+    [Checkout selection](checkout-component.md#choose-shipping-and-payment-from-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

@@ -57,6 +57,9 @@ buyer through Core. [Checkout SDK](checkout-component.md#use-the-checkout-relay-
 The same client can read and prepare a basket before confirmation.
 Core calculates the cart preview and checks its fingerprint and revision
 when applying it. [Cart preview and apply](checkout-component.md#review-a-cart-change-from-the-sdk).
+Checkout choices use the same cart revision. Core validates the country,
+shipping and payment combination and returns the resulting quote before
+purchase confirmation. [Checkout selection](checkout-component.md#choose-shipping-and-payment-from-the-sdk).
 
 Storyfront can recover a purchase after its browser notification is lost. Core
 deploys the recovery route and migration first. The Experience uses the

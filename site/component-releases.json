@@ -8,10 +8,10 @@
       "guide": "docs/quickstart.html"
     },
     "sdk": {
-      "tag": "v0.4.5",
-      "commit": "d4847995111a25ade86b120c6c57af54e5731bb4",
+      "tag": "v0.4.6",
+      "commit": "aa2902e01a56fa169be4674a9e8d20866adf63ec",
       "prerelease": true,
-      "guide": "docs/checkout-component.html#review-a-cart-change-from-the-sdk"
+      "guide": "docs/checkout-component.html#choose-shipping-and-payment-from-the-sdk"
     },
     "apps": {
       "tag": "v0.29.1",

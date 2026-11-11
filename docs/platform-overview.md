@@ -46,6 +46,9 @@ Beleg über Core abrufen. [Checkout im SDK](checkout-component.md#use-the-checko
 Vor dem Kauf kann eine eigene Oberfläche Preis und Lieferung einer
 Warenkorbänderung anzeigen. Core übernimmt die Änderung, wenn der geprüfte
 Stand noch gilt. [Warenkorb im SDK](checkout-component.md#review-a-cart-change-from-the-sdk).
+Die Oberfläche kann auch Versand und Zahlungsart auswählen. Danach liefert
+Core den Betrag und den Liefertermin für die gewählte Kombination.
+[Versand und Zahlung im SDK](checkout-component.md#choose-shipping-and-payment-from-the-sdk).
 Mit dem Katalogclient im JavaScript SDK liest eine eigene Oberfläche dieselben
 Produkte und Varianten wie der öffentliche Shop. Core liefert die passende
 Sprache, Währung und das Sortiment des Verkaufskanals. Der Checkout prüft

@@ -341,7 +341,7 @@ neither the grant nor the private service address.
 
 ### Review a cart change from the SDK
 
-Install [SDK 0.4.5](https://github.com/veyndo/sdk/releases/tag/v0.4.5) to
+Install [SDK 0.4.6](https://github.com/veyndo/sdk/releases/tag/v0.4.6) to
 use the Store API cart from `@veyndo/sdk/checkout`. Call `cart.create` once
 and use the returned token to read the same cart or add line items. To
 replace its contents, pass the complete proposed basket and the current
@@ -371,9 +371,36 @@ revision or reviewed quote changed. Read the current basket with
 `cart.read(access)`, request a new preview and show it to the buyer.
 Use the returned cart and total to start the checkout session below.
 
+### Choose shipping and payment from the SDK
+
+Read the configured countries, shipping methods and payment methods with
+`checkout.options(access)`. Pass the buyer and cart tokens through `access`
+to use the current cart's currency and buyer context. These are candidates.
+Core checks whether the chosen combination is available for this cart.
+
+```js
+const options = await checkout.options(access);
+const methodsForCountry = options.shipping.filter(method => method.countries.includes(country));
+// Show the buyer the methods and collect an explicit choice.
+const selected = await checkout.select({
+  revision: reviewedCart.revision,
+  checkout: {
+    ...reviewedCart.checkout,
+    country, shippingMethodId, paymentMethodId, address,
+  },
+}, access);
+console.log(selected.price.totalMinor, selected.shippingCosts.totalPrice, selected.deliveries);
+```
+
+Use the cart revision from the last cart response. The revision in
+`options` belongs to shop configuration. If Core returns HTTP 409,
+reload the cart before trying a selection again. Show the buyer the
+updated amount and delivery estimate, then create the checkout session
+from the returned cart.
+
 ### Use the Checkout relay from the SDK
 
-Install the [SDK 0.4.5 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.5)
+Install the [SDK 0.4.6 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.6)
 to use `@veyndo/sdk/checkout`. The client uses the two relay routes above and
 Core's original receipt lookup. Start with an admitted shop, a current buyer
 and a cart whose `checkoutService.transport` is `same-origin`.

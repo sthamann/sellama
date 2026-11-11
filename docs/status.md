@@ -12,6 +12,13 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## Typed Checkout SDK
 
+SDK 0.4.6 reads the available checkout choices and saves the buyer's
+selection at the current cart revision. The installed package read the
+public Lumen options. In an isolated Core and Checkout test, it selected
+standard delivery, switched the payment method, rejected an unavailable
+method and a stale revision, then confirmed the simulated purchase with
+the updated amount. [Shipping and payment walkthrough](checkout-component.md#choose-shipping-and-payment-from-the-sdk).
+
 SDK 0.4.5 adds typed cart reads, additions and reviewed replacement. The
 installed package previewed a change without saving it. Core rejected a
 stale revision and a changed proposal, then applied the reviewed basket.

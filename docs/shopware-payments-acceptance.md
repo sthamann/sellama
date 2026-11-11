@@ -56,10 +56,10 @@ not post-refund profit figures. The native Flow history records the Storyfront
 [Original Storyfront bag after return and reload](assets/paypal-sandbox-20261104/storyfront-empty-after-reload.jpg) ·
 [Structured observations](evidence/paypal-sandbox-2026-11-04.json).
 
-The public Core runs `db0e00c9` from build `abundant-crib-4273`, with one ready
-replica. The additional invoice and wallet corrections were delivered as private
+At the 4 November acceptance, Core ran `db0e00c9` from build
+`abundant-crib-4273`. The additional invoice and wallet corrections were delivered as private
 service **1.6.5**, commit `f174e0c9`, build `ambitious-crow-9499`; its public health
-endpoint reports `sandbox ok`. The accepted wallet purchases above ran on 1.6.4. Private migrations 003/004, restricted runtime grants and the vault
+endpoint then reported `sandbox ok`. The accepted wallet purchases above ran on 1.6.4. Private migrations 003/004, restricted runtime grants and the vault
 key are configured; temporary database admin access was removed.
 
 Two defects found on the real browser path were fixed: the SDK now receives the

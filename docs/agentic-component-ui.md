@@ -1,10 +1,15 @@
 # Agentic interfaces across independent components
 
-**Status, 6 November 2026:** the released SDK now supplies a shared versioned
-layout registry and current-service read composition. The existing native workspace
-renderer consumes that same layout registry after native rights/PII admission.
-The complete cross-service renderer and protocol adapter matrix remain in progress. The [component plan](commerce-components.md#cross-component-agentic-ui)
-tracks acceptance. Checkout is explicitly an independent service and UI owner.
+**Status, 11 November 2026.** The SDK supplies a shared versioned layout
+registry and current-service read composition. The native workspace consumes
+that registry after server-side permission checks. The hosted Product Guide
+shows an app result in both native conversations and presents a cart proposal
+for shopper confirmation. [Try both views](product-guide-mcp-app.md) and see
+the [hosted acceptance](status.md#product-guide-actions-in-the-hosted-shop).
+
+The [component plan](commerce-components.md#cross-component-agentic-ui) tracks
+the remaining cross-service renderer and protocol adapters. Independent Checkout
+owns its session and UI boundary.
 
 A developer should be able to use one Veyndo component with its own interface,
 embed a focused view in another product, or assemble the complete Veyndo workspace.

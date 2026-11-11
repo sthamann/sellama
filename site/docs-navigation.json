@@ -105,6 +105,7 @@
       },
       "sources": [
         "docs/app-system-status.md",
+        "docs/product-guide-mcp-app.md",
         "docs/business-capabilities.md",
         "docs/app-studio.md",
         "docs/furniture-configurator.md",

@@ -554,7 +554,7 @@ whole-shop completeness or large-scale performance.
 The `migration-image.yml` workflow builds the independent Rust Dockerfile, runs
 its actual non-root health endpoint and checks there is no Python interpreter.
 After a main push affecting packaged or unknown inputs it publishes an immutable
-`ghcr.io/sthamann/veyndo-migration:sha-SOURCE_SHA` tag. Core/Studio publication does
+`ghcr.io/veyndo/migration:sha-SOURCE_SHA` tag. Core/Studio publication does
 not start this separate service automatically. Configure its private gateway and
 per-shop revocable callback identities, then approve the same package digest in
 Core's existing `APP_SERVICES` entry. Keep source credentials in the installed
@@ -576,7 +576,7 @@ non-root Rust without Python. These results do not establish a hosted migration
 service journey; see the single [current status](status.md).
 
 A small public, credential-free source is available under
-[`extensions/apps/migration/examples/`](https://github.com/sthamann/veyndo/tree/main/extensions/apps/migration/examples).
+[`extensions/apps/migration/examples/`](https://github.com/veyndo/veyndo/tree/main/extensions/apps/migration/examples).
 It is a three-product frozen domain export for hosted acceptance, not a real shop
 or full-domain migration. Use an immutable raw commit URL plus the exact manifest
 hash; its README explains separate explicit review/publication and simulation.

@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "cca098c5d92f19e8b1d6bc5598f0823575b50345",
-      "digest": "sha256:f7532bd411712d246ea50e2fd58bd4bcf59a4cec8926462ff7c21516d00d358c",
+      "commit": "955bdc4d16b727a8cfbff542aad4fd89042b0de4",
+      "digest": "sha256:c0bda0025b6a0af74cacc055df139ee4749de361c87dcdf498d49249c997a576",
       "build_service": "vendune-core-build",
-      "build_id": "graceful-rail-9217",
+      "build_id": "pleasant-walk-724",
       "schema": {
         "owner": "core",
         "inputs": {

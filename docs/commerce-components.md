@@ -507,8 +507,9 @@ The following are implementation tasks; existing UI foundations do not complete 
     agent, exercise its priority filter and carry it into an editable follow-up.
     Verify the public care card and its filter separately, and deny a public
     request for internal merchandising notes. [Live result](status.md#product-guide-in-both-live-conversations).
-  - [ ] Retest the App-frame theme repair and the final answer's presentation
-    metadata with the public model after the next Core rollout.
+  - [x] Retest the App-frame theme repair and presentation context with the
+    real model in both live conversations. Compare the rendered content, apply
+    each filter and verify the editable handoff. [Live screenshots](status.md#product-guide-in-both-live-conversations).
 - [ ] UI-08 Test permissions/PII/current context, missing capabilities, versions,
   unsaved work, cancellation/return, hostile output, responsive/accessibility and
   actual business effects in both standalone host and complete Veyndo.

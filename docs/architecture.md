@@ -39,6 +39,13 @@ real persistence and simulated payment. An external storefront uses the
 JavaScript SDK on its server and recovers the same receipt after a browser
 reload. The sample runs separately from the native request path.
 [Browser example](checkout-component.md#external-reference-storefront).
+
+External storefronts can also read localized products and variant families
+from the public Store API through the typed catalog SDK. The client passes
+the sales context and cursors to Commerce. Commerce applies catalog
+visibility and resolves pricing and currency.
+[Catalog client](one-shop-components.md#read-the-catalog-from-javascript).
+
 Storyfront can recover a purchase after its browser notification is lost. Core
 deploys the recovery route and migration first. The Experience uses the
 verified Core receipt to decide when to clear its original cart.

@@ -283,6 +283,10 @@ Each component task remains open until these checks are demonstrated for it.
   - [x] Type the standalone Knowledge v1 inputs, source pages and evidence.
     Verify the external import example against the real service and database.
     [Example](knowledge-component.md#import-your-own-catalog-and-documents-with-the-sdk).
+  - [x] Type Store API catalog listings, localized details and variant pages
+    in SDK 0.4.2. Verify listing and detail against hosted Lumen and variant
+    pagination against local Core and PostgreSQL.
+    [Example](one-shop-components.md#read-the-catalog-from-javascript).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

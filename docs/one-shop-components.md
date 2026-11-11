@@ -24,6 +24,41 @@ JavaScript tool discovery from the independently released Apps model.
 
 Commerce owns the catalogue, prices, stock and orders. Checkout coordinates the buyer's session and asks that owner for the current quote and the purchase. Commerce checks current purchasing authority and commits the order, stock allocation and event in one transaction. [Company and shop authority tests](checkout-component.md#current-buyer-channel-and-company-authority). The receipt can be read independently of the original purchase request.
 
+### Read the catalog from JavaScript
+
+Install the [SDK 0.4.2 package](https://github.com/veyndo/sdk/releases/tag/v0.4.2).
+An external storefront can read the same public catalog as the hosted shop.
+This example uses the German content of the public Lumen demo.
+
+```js
+import { createCatalogClient } from '@veyndo/sdk/catalog';
+
+const catalog = createCatalogClient({
+  baseUrl: 'https://app.veyndo.ai',
+  shop: 'lumen-story-lab-15-o-98aa4751fa',
+  locale: 'de-DE',
+});
+const first = await catalog.list({ limit: 1 });
+const product = first.elements[0];
+if (product) {
+  const detail = await catalog.detail(product.id, { limit: 1 });
+  console.log(detail.product.name, detail.currencyContext.code);
+}
+if (first.nextCursor) {
+  const next = await catalog.list({ limit: 1, after: first.nextCursor });
+  console.log(next.elements[0]?.name);
+}
+```
+
+Use `detail.variantsPagination.nextCursor` to continue a variant family.
+The selected SKU and visible parent can repeat, so combine pages by product
+ID. Keep the same shop, channel, language, currency and filters between pages.
+Commerce supplies the displayed price and delivery estimate. Checkout uses
+the current quote at purchase.
+[Runnable example](https://github.com/veyndo/sdk/blob/v0.4.2/examples/store-catalog.mjs).
+
+### Connect checkout
+
 Core supplies checkout to both the native storefront and Storyfront. In the
 public Lumen test shop, both browser routes completed a PayPal Sandbox capture
 through the private Checkout service and returned to an empty cart. Both use

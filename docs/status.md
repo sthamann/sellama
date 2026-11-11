@@ -10,6 +10,16 @@ Updated 11 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Typed catalog SDK
+
+SDK 0.4.2 exposes public catalog listings, localized product details and
+variant pages to JavaScript and TypeScript. The installed package read two
+distinct public Lumen catalog pages, opened the German product detail and
+returned the expected error for an oversized page. Against a local Core
+and PostgreSQL, it read a complete family one page at a time and retained
+the selected SKU across pages. Both tests used the Store API.
+[Run the example](one-shop-components.md#read-the-catalog-from-javascript).
+
 ## Hosted component readiness
 
 The composition verifier checked all eight locked Lumen services on

@@ -15,7 +15,7 @@ from site_navigation import sidebar, onward, hub, chrome
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO = 'https://github.com/veyndo/veyndo'
-MEDIA = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.mp4', '.webm', '.vtt', '.pdf'}
+MEDIA = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.mp4', '.webm', '.vtt', '.srt', '.pdf'}
 
 
 def sources():

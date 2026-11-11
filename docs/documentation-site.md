@@ -35,8 +35,10 @@ local link, anchor, article, search record and sitemap entry before publication.
 
 The site package copies media used by the rendered pages and the screenshot
 viewer. Public manifests and downloadable projects keep their established
-URLs. Older source files are kept in the repository archive. The site check
-also verifies absolute links to showcase files on the Veyndo domains.
+URLs. The film guide publishes WebVTT for browser playback and copies linked
+SRT subtitles into the same site package for download. The site check compares
+those downloads with their source files and verifies the published links.
+Older source files are kept in the repository archive.
 
 The private website runtime serves `/docs/` on the apex from the fixed public
 GitHub Pages publication. It does not copy articles into another knowledge store

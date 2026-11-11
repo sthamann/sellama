@@ -2,6 +2,8 @@
 
 Four Full HD films recorded on 2 November 2026 cover the platform, product workflow, shared canvas and Product Advisor app. The films have English titles and captions, with no audio. The [latest hosted screenshots](status.md#product-guide-actions-in-the-hosted-shop) show cart review and private Studio approval from 11 November.
 
+Use the player captions while watching, or download the WebVTT or SRT file below each film.
+
 ## AI across the working shop
 
 **1:56 · English · 1080p · Silent · 2 November 2026**

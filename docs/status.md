@@ -12,6 +12,12 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## Typed buyer order history
 
+SDK 0.4.8 downloads a buyer-visible receipt as PDF bytes. A local simulated
+purchase through the separate Checkout service produced an invoice. The
+buyer downloaded it with the installed SDK. Core rejected the same download
+for a different buyer. Public Lumen requires a buyer session for receipt
+downloads. [Account walkthrough](merchant-operations.md#read-order-history-with-the-sdk).
+
 SDK 0.4.7 reads buyer order history and detail with receipt metadata.
 The installed package read a simulated purchase from independent Checkout
 and matched its amount and invoice in the account. With 100 additional

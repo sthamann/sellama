@@ -309,6 +309,10 @@ Each component task remains open until these checks are demonstrated for it.
     receipt metadata in SDK 0.4.7. Verify an owned invoice and reject foreign
     detail and cursor requests against local Core and PostgreSQL.
     [Account SDK](merchant-operations.md#read-order-history-with-the-sdk).
+  - [x] Download a buyer-visible receipt as bounded PDF bytes in SDK 0.4.8.
+    Exercise a simulated purchase, invoice issuance and buyer access
+    against Core and the independent Checkout.
+    [Receipt download](merchant-operations.md#read-order-history-with-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

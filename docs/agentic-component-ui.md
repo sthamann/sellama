@@ -373,7 +373,10 @@ model call has no tools and must identify missing evidence. Existing rights,
 source checks, durable checkpoints and approval requirements still apply.
 The local `app_surfaces` regression exercises a model that keeps asking for
 reads: three App reads produce a fourth, tool-free answer with the private
-table and unchanged product state. Public model selection is tested separately.
+table and unchanged product state. The same exhausted-budget case also runs
+through the shopper path: its catalogue has no private read tool, and neither
+its transcript nor its App results contain the private merchant notes. Hosted
+model selection is tested separately.
 
 The Studio chat polls its existing saved run. For a running conversation,
 `GET /api/agent/runs/{id}` can return up to three `appViews` references with

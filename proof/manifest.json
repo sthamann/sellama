@@ -1706,8 +1706,8 @@
     },
     "extensions/services/app-storage/model/src/lib.rs": {
       "status": "unproved",
-      "sha256": "7360765b5f7c22067e9a7734fc1816d423b09562d5461640a5bd89ac206e5a31",
-      "review": "Reviewed complete standard compiler extraction in Apps 0.16/model 0.12. All 19 original before/common/after domain stages now run inside one shared compiler with preserved order, first model kind/pointer or native host error, internal actual view lookup and exhaustive Manifest field coverage. Native manifest_policy delegates value/reference/currency/scope/source/base, current Ed25519 keys, namespace/network/read and clock decisions to original owners; direct verified predicates remain attached. No no-op host domain callbacks or alternative serving compiler. Independent 116 model and 24 runtime tests include all 34 canonical packages, nineteen invalid-domain controls and denied-policy/callback-order cases. Native 74 app and two provider units, seventeen real HTTP/PostgreSQL app/schema/preview/staging/isolation/lifecycle/distribution/surface/assistant/event/generation/marketplace/payment modules, unchanged native digests and Clippy pass. Kernel unchanged; shared compiler, policy adapters and SQL/host effects remain unproved."
+      "sha256": "860d9a79ccce062da3f02b4c171b88ed32630826adab8b3b2b007ced7a46d706",
+      "review": "Reviewed App model 0.14.0 exact source import from veyndo/apps and native tool metadata adapter: generic list schemas expose only existing indexed nontranslated scalar fields, labels and choices; explicit app schemas and runtime identity/query admission remain unchanged. Independent model, SQL storage, image/service tests and native HTTP/MCP plus JavaScript SDK audience/filter regressions passed. No new schema, indexes, permission grants or commerce writes."
     },
     "extensions/services/app-storage/model/src/lifecycle.rs": {
       "status": "unproved",
@@ -1773,6 +1773,11 @@
       "status": "unproved",
       "sha256": "120469ad62f878a4a728b510a72daca9b5185d917f0e5a7d8fd0dce702df7209",
       "review": "Reviewed pure app model extraction: exact entity serde defaults, declarations, bounded schema/value/language/workflow/publication rules now shared through pinned veyndo-app-model. Native money/rich/relation policy owners and verified core-reference guard retain authority. Fourteen independent model cases, 74 native app units, 34 unchanged canonical package digests, affected PostgreSQL/API/MCP/visual/state/isolation and marketplace fixtures pass. Async SQL/native adapters and model compiler remain unproved."
+    },
+    "extensions/services/app-storage/model/src/query_contract.rs": {
+      "status": "unproved",
+      "sha256": "628f704ce02e5a32ab247a2530420db35503135790e006a29c2b7a15c4401928",
+      "review": "Reviewed App model 0.14.0 exact source import from veyndo/apps and native tool metadata adapter: generic list schemas expose only existing indexed nontranslated scalar fields, labels and choices; explicit app schemas and runtime identity/query admission remain unchanged. Independent model, SQL storage, image/service tests and native HTTP/MCP plus JavaScript SDK audience/filter regressions passed. No new schema, indexes, permission grants or commerce writes."
     },
     "extensions/services/app-storage/model/src/schema.rs": {
       "status": "unproved",
@@ -1923,6 +1928,11 @@
       "status": "unproved",
       "sha256": "715609bdc67525d0ac86229e9b0398427455fab3bc40ddb20560374d506dcbe6",
       "review": "Reviewed Apps 0.15/model 0.11 complete strict Manifest and remaining domain contract extraction. Core aliases the same wire, common projection, canonical fingerprints and signature message; recursive key ordering preserves original 34 package digests under default and preserve_order JSON builds. Native Ed25519 current operator keys, original metadata/signature/dependency order and native 400/403 kinds, unsigned namespace/service pins, tenant-scoped locks and financial effects stay attached. Shared dependency version/cycle/active-dependant checks retain behavior, malformed ranges fail closed. Independent 116 model plus eight ordered-JSON cases, actual synthetic Ed25519 example, 19 runtime and PostgreSQL contract pass; 74 native app and two provider contract units, current native fingerprints and actual install/schema/preview/release/tenant/signed-dependency fixtures pass. Kernel unchanged; shared model, crypto adapters and SQL/host effects remain unproved."
+    },
+    "extensions/services/app-storage/model/tests/query_contract.rs": {
+      "status": "unproved",
+      "sha256": "2928207ddf0a0e1c1be0372acc63ac1a232f8e7a50d9a388eb82c10372dff77a",
+      "review": "Reviewed App model 0.14.0 exact source import from veyndo/apps and native tool metadata adapter: generic list schemas expose only existing indexed nontranslated scalar fields, labels and choices; explicit app schemas and runtime identity/query admission remain unchanged. Independent model, SQL storage, image/service tests and native HTTP/MCP plus JavaScript SDK audience/filter regressions passed. No new schema, indexes, permission grants or commerce writes."
     },
     "extensions/services/app-storage/model/tests/settings.rs": {
       "status": "unproved",
@@ -3021,8 +3031,8 @@
     },
     "src/apps/tool_contract.rs": {
       "status": "unproved",
-      "sha256": "0cba957d65341e9c9c2ffe18688d827060ee26e5a824e7707280f59ca5982151",
-      "review": "Review MCP read admission against the same active manifest at dispatch, native app placements with explicit list-action opt-in and tenant revision URI, and existing opaque document CSP. App model, direct HTTP and hosted composition checks cover their corresponding runtime contracts."
+      "sha256": "f8d1c93950c519d14069dc4a1de306f0fbf20771d846ee512f5746e07558e757",
+      "review": "Reviewed App model 0.14.0 exact source import from veyndo/apps and native tool metadata adapter: generic list schemas expose only existing indexed nontranslated scalar fields, labels and choices; explicit app schemas and runtime identity/query admission remain unchanged. Independent model, SQL storage, image/service tests and native HTTP/MCP plus JavaScript SDK audience/filter regressions passed. No new schema, indexes, permission grants or commerce writes."
     },
     "src/apps/ui_bundles.rs": {
       "status": "unproved",
@@ -5461,16 +5471,16 @@
       "review": "Run the same static Rust image input and mutation guard once in admission for all CI lanes. Standalone contexts follow their own manifests and local dependency roots and keep lock and source removal negative controls. Full coverage and native jobs retain their cadence."
     },
     "Cargo.lock": {
-      "sha256": "8b5ea57ffffaf8c19e6671af92cda0a0cd470c06bb0d769789de04f0afff9f75",
-      "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
+      "sha256": "4c346075447e7340f0cf7d859a0a50c15ffca513a68b5105921fe41caf6adae2",
+      "review": "Reviewed App model 0.14.0 exact source import from veyndo/apps and native tool metadata adapter: generic list schemas expose only existing indexed nontranslated scalar fields, labels and choices; explicit app schemas and runtime identity/query admission remain unchanged. Independent model, SQL storage, image/service tests and native HTTP/MCP plus JavaScript SDK audience/filter regressions passed. No new schema, indexes, permission grants or commerce writes."
     },
     "Cargo.toml": {
       "sha256": "452dc6881b63278c1c563f8a9b8137f3be1538bc634ffaf6498192b014c550dd",
       "review": "Move reviewed rule sources and their registry to the pinned Automation library. Compared every original rule and comparison module with the deployed source after normalizing the two equivalent kernel references. The shared Automation policy module is byte-identical. Rust library tests, PHP catalog verification and the 432 condition and 1976 comparison cases passed. The two existing Lean bindings now point at their actual production consumers."
     },
     "components.lock.json": {
-      "sha256": "49f68822ff7991a278fce4924d0aea0e600887b495e355faa3b40c8b3b950b0e",
-      "review": "Codex source review: Marketplace source pin advances only to the upstream test-only commit. The locked runtime, application manifest and business policies are byte-identical. The connected PostgreSQL integration passed the last-unit race and exact replay."
+      "sha256": "7b4a931ad81c6665d5d95e6b42b8ef4d09ebe8971ac24998d8f94bb6a737ff53",
+      "review": "Reviewed App model 0.14.0 exact source import from veyndo/apps and native tool metadata adapter: generic list schemas expose only existing indexed nontranslated scalar fields, labels and choices; explicit app schemas and runtime identity/query admission remain unchanged. Independent model, SQL storage, image/service tests and native HTTP/MCP plus JavaScript SDK audience/filter regressions passed. No new schema, indexes, permission grants or commerce writes."
     },
     "crates/apps/Cargo.toml": {
       "sha256": "2ae7f58d24c0cdbc04851b9108d3e945762e6b423be77131454fd119d60b06f4",
@@ -5633,16 +5643,16 @@
       "review": "Reviewed description-led native app compilation, typed handler generation, preserved surface restrictions, SDK asset contract and scoped draft UI; new compiler remains unproved Rust."
     },
     "extensions/services/app-storage/Cargo.lock": {
-      "sha256": "283fdbfdabb9d331c1bfd74910f49319732989480fded6063890d1f6690876ff",
-      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
+      "sha256": "029affc5308c621e6496c1410e8fe1406f0d316b8d277bb2aec7c5dd39e5c171",
+      "review": "Reviewed App model 0.14.0 exact source import from veyndo/apps and native tool metadata adapter: generic list schemas expose only existing indexed nontranslated scalar fields, labels and choices; explicit app schemas and runtime identity/query admission remain unchanged. Independent model, SQL storage, image/service tests and native HTTP/MCP plus JavaScript SDK audience/filter regressions passed. No new schema, indexes, permission grants or commerce writes."
     },
     "extensions/services/app-storage/Cargo.toml": {
-      "sha256": "cb840ade40c952d38f91172cf64527ff22764d0828fb5190db3a9e42a13a1927",
-      "review": "Reviewed Apps 0.29 job supervision: original native current-rights/current-package result redaction and queued-event selection share job_projection via the actual native authority adapter. Native detail/actor/retry/execution checks and the original job-control CAS/leases/outbox remain unchanged. Independent schema-5 supervisor uses fresh authority, explicit boolean/digest/revision/outcome approval and exact control-only grants; actual two-shop HTTP/MCP/SDK, rollback, SQL role and restart tests pass. Host/network/SQL remain unproved; kernel unchanged."
+      "sha256": "2930aa9787c62220193fedea258ba3ec36863ae941a6b843f77b46cfa60a26e9",
+      "review": "Reviewed App model 0.14.0 exact source import from veyndo/apps and native tool metadata adapter: generic list schemas expose only existing indexed nontranslated scalar fields, labels and choices; explicit app schemas and runtime identity/query admission remain unchanged. Independent model, SQL storage, image/service tests and native HTTP/MCP plus JavaScript SDK audience/filter regressions passed. No new schema, indexes, permission grants or commerce writes."
     },
     "extensions/services/app-storage/model/Cargo.toml": {
-      "sha256": "9438fe3ff98ee7adfa6c49eb83bd7605d89195e5fd28351c2a7e4f8472e16d1c",
-      "review": "Reviewed Apps 0.24 standalone runtime service with fixed fresh OAuth introspection, current subject/tenant/scope/audience/expiry, strict supplied synthetic snapshots, same HTTP/OpenAPI/MCP operation, sanitized output and task-owned cancellation-safe process limits. No Core, SQL, issuer, role store, live fetch or financial writer. Shared Frozen bounds are the original first block, still invoked before original native contextual record/field checks. Actual independent process/Fetch/existing SDK, non-root read-only Docker and Linux image HTTP/MCP acceptance pass; 116 model, 24 runtime, service config/cancellation, 74 native App units and seven native HTTP/PostgreSQL modules including material/dimension/approval/reorder workflow pass. Kernel unchanged; service OAuth/network/scheduling and SQL remain reviewed and unproved."
+      "sha256": "1144bca9507d0d084d0a91da817e4fc0d762541c82ed230713b998220625d50a",
+      "review": "Reviewed App model 0.14.0 exact source import from veyndo/apps and native tool metadata adapter: generic list schemas expose only existing indexed nontranslated scalar fields, labels and choices; explicit app schemas and runtime identity/query admission remain unchanged. Independent model, SQL storage, image/service tests and native HTTP/MCP plus JavaScript SDK audience/filter regressions passed. No new schema, indexes, permission grants or commerce writes."
     },
     "extensions/services/app-storage/tests/schema.sql": {
       "sha256": "ae53e238d13a77a73bb7cd64dafd7b16a89da62bd0bcf9bbe79e4257a3cc5d1b",

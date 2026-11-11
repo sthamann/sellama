@@ -4,7 +4,7 @@ Veyndo Commerce is an AI native commerce platform built in Rust. Changes should 
 merchant authority, tenant isolation and deterministic commerce operations explicit.
 
 Pick a concrete [first contribution](docs/early-contributors.md) or share an
-application in [Discussions](https://github.com/sthamann/veyndo/discussions).
+application in [Discussions](https://github.com/veyndo/veyndo/discussions).
 
 ## Start locally
 

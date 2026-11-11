@@ -14,8 +14,13 @@ async function openGuide(client, toolName, expectedField) {
   const hello = await client.initialize();
   assert.ok(hello.capabilities.extensions?.["io.modelcontextprotocol/ui"]);
   const { tools } = await client.tools();
-  const resourceUri = tools.find(({ name }) => name === toolName)?._meta?.ui?.resourceUri;
+  const tool = tools.find(({ name }) => name === toolName);
+  const resourceUri = tool?._meta?.ui?.resourceUri;
   assert.ok(resourceUri, "Install the Product Guide and enable its declared view");
+  const filter = tool.inputSchema.properties.filter;
+  assert.equal(filter.additionalProperties, false);
+  assert.deepEqual(Object.keys(filter.properties).sort(), ["product_id", "segment"]);
+  assert.deepEqual(filter.properties.segment.enum, ["standard", "priority"]);
   const { contents: [view] } = await client.resource(resourceUri);
   assert.equal(view.mimeType, mimeType);
   const definition = view._meta["ai.veyndo/definition"];

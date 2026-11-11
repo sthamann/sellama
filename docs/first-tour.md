@@ -19,7 +19,7 @@ The container path needs Git, Docker with Compose and OpenSSL. It does not requi
 Rust, Node, Python, a model download or provider credentials.
 
 ```sh
-git clone --depth 1 https://github.com/sthamann/veyndo.git
+git clone --depth 1 https://github.com/veyndo/veyndo.git
 cd veyndo
 ./scripts/try.sh
 ```
@@ -90,8 +90,8 @@ Documentation-only commits do not create another image. A manual **Run workflow*
 on main can rebuild intentionally; a documentation commit landing during a build
 does not prevent the tested runtime from advancing the preview tag.
 
-[Tell us where you got stuck or what you built](https://github.com/sthamann/veyndo/discussions)
-or [report a reproducible bug](https://github.com/sthamann/veyndo/issues/new/choose).
+[Tell us where you got stuck or what you built](https://github.com/veyndo/veyndo/discussions)
+or [report a reproducible bug](https://github.com/veyndo/veyndo/issues/new/choose).
 Include your source/image version, operating system and the first unexpected step.
 Keep credentials and customer data out of public reports.
 

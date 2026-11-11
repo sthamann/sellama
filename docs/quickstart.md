@@ -18,7 +18,7 @@ Ollama and API credentials are optional for the initial commerce tour.
 ## Start commerce without a model download
 
 ```sh
-git clone https://github.com/sthamann/veyndo.git
+git clone https://github.com/veyndo/veyndo.git
 cd veyndo
 ./scripts/dev.sh
 ```

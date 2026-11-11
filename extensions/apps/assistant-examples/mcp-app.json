@@ -1,6 +1,6 @@
 {
   "id": "example_agent_results",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "coreApi": "1",
   "runtime": "declarative",
   "name": {
@@ -20,20 +20,20 @@
     {
       "name": "entries",
       "label": {
-        "en": "Extension example",
-        "de": "Erweiterungsbeispiel",
-        "fr": "Exemple d’extension",
-        "es": "Ejemplo de extensión"
+        "en": "Product care",
+        "de": "Produktpflege",
+        "fr": "Entretien des produits",
+        "es": "Cuidado de productos"
       },
       "publicRead": true,
       "fields": [
         {
           "name": "product_id",
           "label": {
-            "en": "Core object",
-            "de": "Commerce-Objekt",
-            "fr": "Objet commerce",
-            "es": "Objeto de comercio"
+            "en": "Product",
+            "de": "Produkt",
+            "fr": "Produit",
+            "es": "Producto"
           },
           "kind": "string",
           "required": true,
@@ -99,20 +99,20 @@
     {
       "name": "merchandising",
       "label": {
-        "en": "Extension example",
-        "de": "Erweiterungsbeispiel",
-        "fr": "Exemple d’extension",
-        "es": "Ejemplo de extensión"
+        "en": "Private merchandising notes",
+        "de": "Private Sortimentsnotizen",
+        "fr": "Notes privées de merchandising",
+        "es": "Notas privadas de comercialización"
       },
       "publicRead": false,
       "fields": [
         {
           "name": "product_id",
           "label": {
-            "en": "Core object",
-            "de": "Commerce-Objekt",
-            "fr": "Objet commerce",
-            "es": "Objeto de comercio"
+            "en": "Product",
+            "de": "Produkt",
+            "fr": "Produit",
+            "es": "Producto"
           },
           "kind": "string",
           "required": true,
@@ -185,10 +185,10 @@
           "id": "editor",
           "kind": "form",
           "title": {
-            "en": "Shape your app",
-            "de": "Deine App gestalten",
-            "fr": "Configurez votre app",
-            "es": "Configura tu app"
+            "en": "Edit product care",
+            "de": "Produktpflege bearbeiten",
+            "fr": "Modifier les conseils d’entretien",
+            "es": "Editar cuidado del producto"
           },
           "entity": "entries",
           "readAction": "list_entries",
@@ -243,10 +243,10 @@
       "id": "workspace",
       "location": "admin.product.tab",
       "label": {
-        "en": "Extension example",
-        "de": "Erweiterungsbeispiel",
-        "fr": "Exemple d’extension",
-        "es": "Ejemplo de extensión"
+        "en": "Product care",
+        "de": "Produktpflege",
+        "fr": "Entretien des produits",
+        "es": "Cuidado de productos"
       },
       "uiPath": "native/workspace",
       "actions": [
@@ -295,10 +295,10 @@
   ],
   "intelligence": {
     "description": {
-      "en": "Extension example",
-      "de": "Erweiterungsbeispiel",
-      "fr": "Exemple d’extension",
-      "es": "Ejemplo de extensión"
+      "en": "Public product care and separate private merchandising notes.",
+      "de": "Öffentliche Produktpflege und getrennte private Sortimentsnotizen.",
+      "fr": "Conseils d’entretien publics et notes privées de merchandising distinctes.",
+      "es": "Cuidado público de productos y notas privadas de comercialización separadas."
     },
     "tools": [],
     "entities": []

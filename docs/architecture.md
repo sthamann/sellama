@@ -377,4 +377,8 @@ that view's pinned read tool within the original query. Other MCP hosts discover
 the same resource through the tool metadata. OpenUI is the optional renderer for
 model-generated layouts. The same service operations supply data and validate
 actions in either presentation.
+Generic native App list tools obtain their indexed filter fields, scalar types
+and choices from the independent Apps model contract. The same metadata reaches
+MCP discovery, the JavaScript SDK and the agent. Query and identity admission
+remain with their existing owners; discovery never creates a database index.
 [App views in conversations](agentic-component-ui.md#app-owned-views-in-the-conversation).

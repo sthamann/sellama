@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "722b3ee65ffcb2e244039cd5ef179674a66c082d",
-      "digest": "sha256:0ae3e3cde1ae14e3dc9fabf6c6be40341c4453044149aaa2ba093c2ec16b438a",
+      "commit": "61f4a6c9737c4dc4d26503f8d255fb994c08dff0",
+      "digest": "sha256:f49c2a48e57db7c78c4b05d71f79ffc6ef84a8110b2c8b3adb479f26d3b2c54d",
       "build_service": "vendune-core-build",
-      "build_id": "airy-umbrella-6504",
+      "build_id": "unwavering-face-5739",
       "schema": {
         "owner": "core",
         "inputs": {
@@ -92,10 +92,10 @@
     "experience": {
       "service": "vendune-experience",
       "repository": "https://github.com/veyndo/experience",
-      "commit": "643010e57f5aa4bbf9531535c80af12cdd887a47",
-      "digest": "sha256:e99b7a1ef8f169e30403e51b65f7185dae090666d1d608ad824d6e91c16f618f",
+      "commit": "944943eae266f727ce70bcbfdd5924eadd8c7651",
+      "digest": "sha256:e77e6fe920706efc21766876a80302fdb97eee1c46d64dd3216b60533ab9dec4",
       "build_service": "vendune-experience",
-      "build_id": "honest-holiday-8885",
+      "build_id": "tranquil-sleep-9688",
       "schema": {
         "owner": "experience",
         "inputs": {

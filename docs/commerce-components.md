@@ -318,6 +318,7 @@ Each component task remains open until these checks are demonstrated for it.
     identity/PII admission and native error responses. Supply a Core-free Rust
     example and test registration, manual orders, history and checkout.
     [Input contract](source-map.md#shared-customer-input-contract).
+    [Hosted checkout and address verification](status.md#shared-customer-input-contracts).
 - [ ] CORE-05 Extract cart and checkout orchestration through the explicit
   [independent Checkout tasks](#checkout-independent-service-and-ui); preserve CAS, legal receipt,
   stock locks, idempotency and one order/stock/outbox transaction.

@@ -37,6 +37,12 @@ def verify(root, base, call, merchant, visitor, other, restricted):
     assert private_tool not in tools
     merchant_tools = {t['name']: t for t in rpc('tools/list', who=merchant)['result']['tools']}
     private_uri = merchant_tools[private_tool]['_meta']['ui']['resourceUri']
+    for tool in [tools[public_tool], merchant_tools[private_tool]]:
+        filters = tool['inputSchema']['properties']['filter']
+        assert filters['additionalProperties'] is False
+        assert set(filters['properties']) == {'product_id', 'segment'}
+        assert filters['properties']['segment']['enum'] == ['standard', 'priority']
+        assert 'title' not in filters['properties']
     resource = rpc('resources/read', {'uri': public_uri})['result']['contents'][0]
     assert resource['mimeType'] == mime and resource['_meta']['ai.veyndo/definition']['toolName'] == public_tool
     assert resource['_meta']['ai.veyndo/definition']['productReference'] == 'product_id'
@@ -151,7 +157,7 @@ def verify_shopper_stream(base, visitor, expected_uri, finished, release):
         release.set()
 
 
-def verify_read_budget(call, merchant, expected_uri, requests):
+def verify_read_budget(call, merchant, visitor, expected_uri, public_uri, requests):
     before = call('/api/merchant/products/mug', headers=merchant)
     start = len(requests)
     plan = call('/api/agent/plan', {
@@ -167,6 +173,16 @@ def verify_read_budget(call, merchant, expected_uri, requests):
     assert len(views) == 3 and all(v['resourceUri'] == expected_uri for v in views)
     assert views[-1]['result']['structuredContent']['elements'][0]['id'] == 'private'
     assert not plan['preview']['proposal']['changes']
+    start = len(requests)
+    buyer = call('/api/concierge', {
+        'request': 'Inspect guide fixture. Exhaust guide read budget fixture',
+    }, visitor)['answer']
+    used = requests[start:]
+    assert len(used) == 4 and [bool(r.get('tools')) for r in used] == [True, True, True, False]
+    final = json.dumps(used[-1].get('input') or used[-1].get('messages'))
+    assert 'Air dry only' in final and 'Private notes fixture' not in final
+    assert len(buyer['appViews']) == 3 and all(v['resourceUri'] == public_uri for v in buyer['appViews'])
+    assert 'Private notes fixture' not in json.dumps(buyer) and 'Standard notes fixture' not in json.dumps(buyer)
     assert call('/api/merchant/products/mug', headers=merchant) == before
 
 

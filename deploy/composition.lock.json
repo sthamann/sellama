@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "efe8928f183e05e5962b4c9dec4a854fdf21fe3c",
-      "digest": "sha256:4df1d621385ca0e6e87cafb343ae1d85d906b84d54a85f87119491cd85ae4848",
+      "commit": "b3b7c83d4d6b7ed89aa5beb2568060ebc84778e8",
+      "digest": "sha256:aaa16e10efb6676c70ca4f666bd73caa494afb5edf6e71caa4e7172ab604c967",
       "build_service": "vendune-core-build",
-      "build_id": "makeshift-shade-6829",
+      "build_id": "living-popcorn-6201",
       "schema": {
         "owner": "core",
         "inputs": {

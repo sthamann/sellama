@@ -1,5 +1,17 @@
 # Changelog
 
+## Discover App filters through the shared component contract
+
+- Import Apps 0.29.1 with model 0.14.0. Generic list tools describe actual
+  indexed fields, scalar types, labels and choices for MCP, SDK and agents.
+- Preserve authored schemas, package digests and storage admission. No database
+  index, table or permission is added by tool discovery.
+- Verify the public and merchant read limit through the same native owner,
+  excluding private notes from public tools and results. Update the Product
+  Guide example with separate collection names and an SDK discovery example.
+- Point current Studio, storefront and contributor entry links at the Veyndo
+  organisation through the shared brand definition.
+
 ## Preserve interactive results at the agent read limit
 
 - Finish bounded agent reads with their collected evidence and App views,

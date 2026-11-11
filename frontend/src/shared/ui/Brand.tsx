@@ -3,7 +3,7 @@ import "./brand.css";
 export const BRAND = Object.freeze({
   name: "VEYNDO",
   studio: "Studio",
-  repository: "https://github.com/sthamann/veyndo",
+  repository: "https://github.com/veyndo/veyndo",
   mark: "/brand/veyndo-mark.svg?v=blue-20261014",
   logo: "/brand/veyndo-logo.svg?v=blue-20261014",
   logoDark: "/brand/veyndo-logo-dark.svg?v=blue-20261014",

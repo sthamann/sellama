@@ -3,6 +3,7 @@ import { openConsent } from "../../shared/legal/consent-store";
 import { useLegalText } from "../../shared/i18n/legal-i18n";
 import { useCompanyText } from "../../shared/i18n/company-i18n";
 import { useShopText } from "../../shared/i18n/shop-i18n";
+import { BRAND } from "../../shared/ui/Brand";
 export default function StorefrontFooter({ name }: { name: string }) {
   const { co } = useCompanyText(),
     { l } = useLegalText(),
@@ -18,7 +19,7 @@ export default function StorefrontFooter({ name }: { name: string }) {
       <a href="#privacy-rights">{l("rights")}</a>
       <button onClick={openConsent}>{l("consent")}</button>
       <p>{s("simulation")}</p>
-      <a href="https://github.com/sthamann/veyndo">GitHub ↗</a>
+      <a href={BRAND.repository}>GitHub ↗</a>
     </footer>
   );
 }

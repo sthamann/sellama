@@ -91,10 +91,15 @@ def run():
                         calls = [{"name":f"app.example_agent_results.{name}","arguments_json":'{"limit":1,"filter":{"product_id":"mug"}}'}]
                     if budget_review:
                         # This model never elects to stop. The native owner must reserve a final answer.
-                        round_number = sum(m.get("type") == "function_call_output" for m in messages)
+                        round_number = sum(m.get("type") == "function_call_output" or m.get("role") == "tool" for m in messages)
                         assert round_number < 3, "An extra read decision would discard the bounded evidence"
-                        assert "interactive app view" in next(t['description'] for t in request['tools'] if 'list_merchant_entries:' in t['description'])
-                        calls = [{"name":"app.example_agent_results.list_merchant_entries", "arguments_json":json.dumps({"limit":round_number+1,"filter":{"product_id":"mug"}})}]
+                        name = "list_entries" if "Inspect guide fixture" in provider_input else "list_merchant_entries"
+                        declared = [t.get('function', t) for t in request['tools']]
+                        assert "interactive app view" in next(t['description'] for t in declared if f'.{name}:' in t.get('description', ''))
+                        if name == "list_entries":
+                            assert 'list_merchant_entries' not in json.dumps(request['tools'])
+                            assert 'Private notes fixture' not in provider_input
+                        calls = [{"name":f"app.example_agent_results.{name}", "arguments_json":json.dumps({"limit":round_number+1,"filter":{"product_id":"mug"}})}]
                     proposal = {"tool_calls":calls}
                 if request.get("tools"):
                     raw = json.dumps(native_response(request, proposal, "ollama" if ollama else "openai")).encode()
@@ -339,8 +344,8 @@ def run():
             plan = call("/api/agent/plan", {"instruction":"Read merchandise fixture", "inference":{"provider":"openai","model":"local-fixture"}}, h)
             assert plan["preview"]["appViews"][0]["resourceUri"] == private_view
             assert plan["preview"]["appViews"][0]["result"]["structuredContent"]["elements"][0]["id"] == "private"
-            verify_read_budget(call, h, private_view, model_requests)
-            passed("Three native app read rounds finish with their interactive evidence and a fourth tool-free model call, without product writes")
+            verify_read_budget(call, h, public, private_view, public_view, model_requests)
+            passed("Both audiences finish three app read rounds with a tool-free fourth call; public tools/results exclude private notes and products remain unchanged")
             verify_cart_review(call, h, public, oh)
             proposed = call("/api/agent/plan", {"instruction":"Approve mug stock fixture",
                             "inference":{"provider":"openai","model":"local-fixture"}}, h)

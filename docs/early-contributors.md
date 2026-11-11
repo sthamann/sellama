@@ -1,7 +1,7 @@
 # Build the first useful things with Veyndo
 
 Start with the [first tour](first-tour.md), then pick one small task from
-[good first issues](https://github.com/sthamann/veyndo/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22).
+[good first issues](https://github.com/veyndo/veyndo/issues?q=is%3Aissue%20is%3Aopen%20label%3A%22good%20first%20issue%22).
 Comment on the task before starting so two people do not do the same work.
 
 Useful first contributions include an additional operating-system setup report,
@@ -42,5 +42,5 @@ white-label platforms and commerce SaaS for independent merchants require separa
 written commercial permission. Start with a non-confidential discussion describing
 which path you need; confidential terms belong in a private follow-up with the maintainer.
 
-[Questions and examples](https://github.com/sthamann/veyndo/discussions)
+[Questions and examples](https://github.com/veyndo/veyndo/discussions)
 · [Repository license](../LICENSE)

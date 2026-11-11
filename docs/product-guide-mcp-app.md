@@ -7,17 +7,17 @@ and priorities in Studio.
 
 ## Install and prepare two records for each view
 
-1. Open App Studio in a disposable shop. Import the
-   [Product Guide manifest](../extensions/apps/assistant-examples/mcp-app.json),
-   save a version and review its declared access. Install it into a private
-   environment first.
+1. Open **Apps** in a disposable shop. Choose **Import app package**, select
+   the [Product Guide manifest](../extensions/apps/assistant-examples/mcp-app.json)
+   and review its version and declared access. Use a private environment first.
 2. Pick an active product in the test channel. In the app's product tab,
    add two guide records tied to that product. Use the two values below for
    the care type.
-3. Add two private merchandising records using the existing
-   `save_merchant_entry` action from the app's action runner or the
-   merchant API. Use the same product ID and a different record ID for each
-   entry. Keep private notes out of the public `entries` model.
+3. Open **App data** and add two private merchandising records. The example's
+   Product care and Private merchandising notes collections are named
+   separately. The `save_merchant_entry` action also works through the merchant
+   API. Use the same product ID and a different record ID for each entry.
+   Keep private notes out of the public `entries` model.
 
 | Model | Segment | Example title |
 | --- | --- | --- |
@@ -70,5 +70,24 @@ the host's supported MCP Apps bridge for that lifecycle. A host that only
 supports text can still use the tool result. OpenUI can render a generated
 product comparison alongside these views using the same catalogue facts
 and reviewed cart operations.
+
+## Let agents discover the valid filters
+
+Tool discovery describes `filter.product_id` and `filter.segment`, including
+the `standard` and `priority` choice values. Translated text and unindexed
+fields are excluded from a generic native-list filter. The host derives this
+metadata from the installed model using Apps model 0.14.0; it does not alter
+the immutable package or create database indexes. Explicit app-authored filter
+schemas stay intact. The original data owner still checks every actual query.
+JavaScript clients receive this metadata through the existing SDK:
+
+```js
+const { tools } = await client.tools();
+const guide = tools.find(t => t.name === "app.example_agent_results.list_entries");
+const fields = guide.inputSchema.properties.filter.properties;
+// Use these actual fields and choices for controls or the agent's tool schema.
+console.log(Object.keys(fields), fields.segment.enum);
+```
+
 [MCP Apps lifecycle](https://apps.extensions.modelcontextprotocol.io/api/documents/Overview.html) ·
 [OpenUI storefront example](https://github.com/veyndo/sdk/blob/main/docs/nord-atelier.md).

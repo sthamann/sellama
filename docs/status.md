@@ -10,6 +10,17 @@ Updated 11 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Typed Checkout SDK
+
+SDK 0.4.4 adds draft creation, purchase confirmation and original receipt
+lookup through the Core relay. In an isolated test with separate Core and
+Checkout processes, the installed SDK completed a simulated purchase and
+recovered another after the confirmation response was lost. The corrected
+Connected Shop example displayed its normal confirmation directly. The
+three purchases produced three orders and deducted three units of stock.
+Public Lumen rejected the same SDK's anonymous draft request.
+[Checkout walkthrough](checkout-component.md#use-the-checkout-relay-from-the-sdk).
+
 ## Typed catalog SDK
 
 SDK 0.4.3 includes a runnable browser example and a command line example.

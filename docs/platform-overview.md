@@ -40,6 +40,9 @@ verbinden. Der lokale Beispielshop hat den Kauf über das JavaScript SDK
 durchgespielt und die ursprüngliche Bestellung nach einer unterbrochenen
 Antwort wiedergefunden. Preis, Bestand und Bestellung lagen dabei bei einem
 separaten Rust Dienst. [Beispielshop und Ablauf](checkout-component.md#external-reference-storefront).
+Für diesen Weg bietet das SDK typisierte Aufrufe an. Geht die Antwort
+auf eine Bestätigung verloren, kann die Oberfläche den ursprünglichen
+Beleg über Core abrufen. [Checkout im SDK](checkout-component.md#use-the-checkout-relay-from-the-sdk).
 Mit dem Katalogclient im JavaScript SDK liest eine eigene Oberfläche dieselben
 Produkte und Varianten wie der öffentliche Shop. Core liefert die passende
 Sprache, Währung und das Sortiment des Verkaufskanals. Der Checkout prüft

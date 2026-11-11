@@ -289,6 +289,10 @@ Each component task remains open until these checks are demonstrated for it.
     in SDK 0.4.2. Verify listing and detail against hosted Lumen and variant
     pagination against local Core and PostgreSQL.
     [Example](one-shop-components.md#read-the-catalog-from-javascript).
+  - [x] Type Checkout relay session creation, purchase confirmation and original
+    receipt lookup in SDK 0.4.4. Verify normal confirmation, lost response recovery
+    and buyer isolation with separate Core and Checkout processes.
+    [Checkout SDK](checkout-component.md#use-the-checkout-relay-from-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

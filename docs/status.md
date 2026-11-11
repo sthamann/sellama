@@ -25,6 +25,14 @@ inventory matched all eight live artifacts after rollout. Both schema inputs
 were unchanged. Experience readiness returned HTTP 200 in
 `storyfront-native` mode. This was a website and documentation acceptance.
 
+## Historical links and film downloads
+
+Five former GitHub Pages prefixes now open the organization handbook in a
+browser, preserving the article, language query and section. The four SRT
+caption files are available on both public handbook hosts. The live check
+matched 154 media responses and played the four current films in the browser.
+[Compatibility notes](documentation-site.md#historical-links-and-film-downloads).
+
 ## Shared customer input contracts
 
 The shared customer input extraction is locally validated: Contact and Address

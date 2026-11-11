@@ -654,6 +654,26 @@ receipt, and reload preserved it. The same test rejected a different
 product requested by the iframe and an unrelated origin on confirmation.
 [Setup and test scope](checkout-component.md#combine-checkout-and-an-installed-mcp-app).
 
+### Variant purchase from an external host
+
+The public [Connected Shop source](https://github.com/veyndo/sdk/tree/195cf17d9f17555232c6c1196829ea5f2458440b/examples/connected-shop)
+now supports a product family. In an isolated run on 11 November, Chromium
+opened the installed Product Guide and filtered its care records on desktop
+and mobile. The example host quoted Brass at €64.90 and Graphite at €79.90
+using Core's cart totals and delivery dates. Silver was out of stock.
+Changing the selection cleared the displayed offer. The host refused the
+old review after a fresh quote and confirmed one Graphite unit per session.
+
+Core and independent Checkout used separate PostgreSQL databases. The mobile
+run discarded the successful confirmation response. The host retrieved the
+original receipt and reload preserved it. Core had two orders and two
+Graphite stock decrements. Brass and Silver stock were unchanged. Payments
+used the demo card. The browser used the MCP App and the example's own
+checkout controls.
+
+[Desktop quote](assets/apps/connected-shop-variant-review-20261111.png) ·
+[Mobile receipt](assets/apps/connected-shop-variant-receipt-20261111.png).
+
 ## MCP App conversation views and independent Checkout rehearsal
 
 Core image `gorgeous-seat-2912` from

@@ -62,12 +62,12 @@ verified in the live shop.
    - [ ] Measure callback capacity against the configured provider Sandbox
      before broadening the pilot.
 4. [x] **Release an external integration example.** Connected Shop uses the
-   published SDK for one product, an interactive MCP App in its conversation
+   published SDK for one product family, an interactive MCP App in its conversation
    and a reviewed purchase through independent Checkout. The external host
    uses a fixed guide question. Browser tests checked filter scope, explicit
-   confirmation and original receipt recovery with Core and Checkout running
+   variant selection, confirmation and original receipt recovery with Core and Checkout running
    against separate local databases.
-   [Run Connected Shop](https://github.com/veyndo/sdk/tree/0870b2d3510a3274272dc756a1de50c5fa4b00df/examples/connected-shop).
+   [Run Connected Shop](https://github.com/veyndo/sdk/tree/main/examples/connected-shop).
 
 ## Current implementation priority
 
@@ -129,8 +129,12 @@ to native Veyndo through the same owner.
     different prices. Verify that changing the selection clears the prior
     offer, Core recalculates price and delivery, and confirmation adds the
     selected variant exactly once. [Hosted variant acceptance](status.md#product-guide-variant-selection).
-  - [ ] Test the same operations from a compatible external host and keep the
-    generated OpenUI presentation separate from action authority.
+  - [x] In Connected Shop, filter the installed MCP App, review two variant
+    prices and delivery, reject the previous quote, and confirm the current
+    choice through independent Checkout. Recover the original receipt after
+    response loss. [External variant acceptance](status.md#variant-purchase-from-an-external-host).
+  - [ ] Verify the same variant flow in an external generated OpenUI surface
+    with review and purchase authority in its host.
 
 ## App runtime milestone, 6 November 2026
 

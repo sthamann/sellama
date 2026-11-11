@@ -305,6 +305,10 @@ Each component task remains open until these checks are demonstrated for it.
     Verify the guide, variant review, simulated purchase and receipt recovery
     in desktop and mobile Chromium against separate Core and Checkout services.
     [Browser verification](status.md#connected-shop-with-the-typed-sdk).
+  - [x] Type buyer order history, cursor pagination and order detail with
+    receipt metadata in SDK 0.4.7. Verify an owned invoice and reject foreign
+    detail and cursor requests against local Core and PostgreSQL.
+    [Account SDK](merchant-operations.md#read-order-history-with-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

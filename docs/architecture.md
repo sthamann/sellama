@@ -64,6 +64,10 @@ The Connected Shop host uses the catalog and Checkout clients for its variant re
 purchase. It keeps the buyer and cart context on the server while the
 browser renders the guide and the current offer.
 [Connected Shop](agentic-component-ui.md#run-a-guide-and-checkout-in-an-external-host).
+The account SDK reads orders from Core after purchase. Core matches the
+current buyer to the customer ID recorded in the order snapshot and
+returns the customer-facing projection.
+[Buyer order history](merchant-operations.md#read-order-history-with-the-sdk).
 
 Storyfront can recover a purchase after its browser notification is lost. Core
 deploys the recovery route and migration first. The Experience uses the

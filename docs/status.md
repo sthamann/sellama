@@ -19,6 +19,19 @@ liveness probes. The App Worker reported a running instance. Worker execution
 is checked in the separate purchase recovery rehearsal.
 [Release procedure](cloud-releases.md#verify-the-hosted-lumen-composition).
 
+Core build `elevated-credit-8533` from `202c182c` passed the same composition
+check before and after the Northflank rollout. The seven peer artifacts and
+the pinned schema inputs matched. Core health and the public Lumen Storyfront
+returned HTTP 200 after deployment.
+
+Two local purchase rehearsals passed with separate Checkout, Core, Worker and
+Connector processes. One recovered the original receipt after response loss
+and a restart. The other traced a simulated provider capture to one invoice,
+one SMTP test receipt and the original refund on replay. Lumen Studio still
+shows external delivery disabled in test mode, with no configured sender or
+SMTP host. A fresh provider payment with delivery to the test mailbox remains
+open. [Purchase recovery procedure](evidence/composed-release-rehearsal-2026-11-10.md#run-the-recovery-checks).
+
 ## Website and handbook refresh
 
 The public website at [veyndo.ai](https://www.veyndo.ai/) now opens with three

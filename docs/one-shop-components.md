@@ -87,7 +87,8 @@ purchase and check the original receipt with the typed Checkout SDK.
 [Prepare and review a cart](checkout-component.md#review-a-cart-change-from-the-sdk).
 [Choose shipping and payment](checkout-component.md#choose-shipping-and-payment-from-the-sdk).
 [Use the Core relay](checkout-component.md#use-the-checkout-relay-from-the-sdk).
-[Read orders and download a receipt for the signed-in buyer](merchant-operations.md#read-order-history-with-the-sdk).
+[Manage buyer addresses](merchant-operations.md#manage-buyer-addresses-with-the-sdk) ·
+[Read orders and download a receipt](merchant-operations.md#read-order-history-with-the-sdk).
 
 Core supplies checkout to both the native storefront and Storyfront. In the
 public Lumen test shop, both browser routes completed a PayPal Sandbox capture

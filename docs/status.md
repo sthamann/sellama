@@ -10,6 +10,16 @@ Updated 11 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Buyer address book in the SDK
+
+SDK 0.4.9 reads, creates, updates and deletes saved addresses. In the local
+composition, a buyer used a saved shipping address in a simulated purchase
+through independent Checkout. Core rejected a different buyer's write and
+stale revisions. Editing and removing the saved address after purchase
+preserved the original shipping address and downloadable invoice.
+Public Lumen required a buyer session for address book reads.
+[Address book walkthrough](merchant-operations.md#manage-buyer-addresses-with-the-sdk).
+
 ## Typed buyer order history
 
 SDK 0.4.8 downloads a buyer-visible receipt as PDF bytes. A local simulated

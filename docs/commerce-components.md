@@ -313,6 +313,10 @@ Each component task remains open until these checks are demonstrated for it.
     Exercise a simulated purchase, invoice issuance and buyer access
     against Core and the independent Checkout.
     [Receipt download](merchant-operations.md#read-order-history-with-the-sdk).
+  - [x] Type the buyer address book in SDK 0.4.9. Use a saved shipping address
+    in independent Checkout and verify revision conflicts, buyer isolation and
+    the original order address after editing and deleting the saved address.
+    [Address book](merchant-operations.md#manage-buyer-addresses-with-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

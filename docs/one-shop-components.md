@@ -84,6 +84,7 @@ use another public catalog.
 
 JavaScript and TypeScript clients can create a draft, submit a reviewed
 purchase and check the original receipt with the typed Checkout SDK.
+[Prepare and review a cart](checkout-component.md#review-a-cart-change-from-the-sdk).
 [Use the Core relay](checkout-component.md#use-the-checkout-relay-from-the-sdk).
 
 Core supplies checkout to both the native storefront and Storyfront. In the

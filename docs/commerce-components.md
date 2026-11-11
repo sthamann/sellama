@@ -293,6 +293,10 @@ Each component task remains open until these checks are demonstrated for it.
     receipt lookup in SDK 0.4.4. Verify normal confirmation, lost response recovery
     and buyer isolation with separate Core and Checkout processes.
     [Checkout SDK](checkout-component.md#use-the-checkout-relay-from-the-sdk).
+  - [x] Type cart creation, reads, additions, preview and reviewed replacement
+    in SDK 0.4.5. Verify unchanged preview state, stale revision rejection,
+    matching price and delivery, and purchase through independent Checkout.
+    [Cart SDK](checkout-component.md#review-a-cart-change-from-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

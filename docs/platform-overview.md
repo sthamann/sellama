@@ -43,6 +43,9 @@ separaten Rust Dienst. [Beispielshop und Ablauf](checkout-component.md#external-
 Für diesen Weg bietet das SDK typisierte Aufrufe an. Geht die Antwort
 auf eine Bestätigung verloren, kann die Oberfläche den ursprünglichen
 Beleg über Core abrufen. [Checkout im SDK](checkout-component.md#use-the-checkout-relay-from-the-sdk).
+Vor dem Kauf kann eine eigene Oberfläche Preis und Lieferung einer
+Warenkorbänderung anzeigen. Core übernimmt die Änderung, wenn der geprüfte
+Stand noch gilt. [Warenkorb im SDK](checkout-component.md#review-a-cart-change-from-the-sdk).
 Mit dem Katalogclient im JavaScript SDK liest eine eigene Oberfläche dieselben
 Produkte und Varianten wie der öffentliche Shop. Core liefert die passende
 Sprache, Währung und das Sortiment des Verkaufskanals. Der Checkout prüft

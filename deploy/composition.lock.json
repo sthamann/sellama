@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "955bdc4d16b727a8cfbff542aad4fd89042b0de4",
-      "digest": "sha256:c0bda0025b6a0af74cacc055df139ee4749de361c87dcdf498d49249c997a576",
+      "commit": "633cb13a4a966d20635885fbecfbbf0c9950ff29",
+      "digest": "sha256:31c13647bcea3fa3110397a25bf46117a33232a086faaa6276c5cb4d1e735cf8",
       "build_service": "vendune-core-build",
-      "build_id": "pleasant-walk-724",
+      "build_id": "chunky-table-1730",
       "schema": {
         "owner": "core",
         "inputs": {

@@ -18,8 +18,20 @@ syntax checks and defaults. All 23 Commerce crate tests and seven targeted
 HTTP/PostgreSQL suites pass. These exercise accounts, manual orders, CRM history,
 tenant isolation, checkout handoff/review and international eligibility. The
 standalone Rust example runs without Core. Account identity, PII and immutable
-order ownership remain with the existing native host. This source change awaits
-its own hosted rollout. [Contract and example](source-map.md#shared-customer-input-contract).
+order ownership remain with the existing native host.
+[Contract and example](source-map.md#shared-customer-input-contract).
+
+Core `633cb13a` (Northflank build `chunky-table-1730`) passed the exact
+eight-service comparison before and after deployment. In the original public
+Lumen Storyfront, one synthetic lamp was restocked and purchased through the
+embedded checkout with a simulated payment. Order `RAC-0b4dd642` confirmed
+€59.90 including €9.56 tax. Native Studio showed the same synthetic contact and
+the billing and shipping addresses submitted in the frame. After returning to
+Storyfront and reloading, the bag was empty and the lamp was sold out.
+This purchase did not use PayPal or send a test email.
+
+[Checkout confirmation](assets/checkout/customer-contract-confirmation-20261111.jpg)
+and [empty bag after reload](assets/checkout/customer-contract-empty-bag-20261111.jpg).
 
 ## Pinned Lumen composition
 

@@ -14,6 +14,13 @@ for its successful migration-only run, then deploys the same image to Core and
 waits for readiness. Core's direct CD and the builder's direct CI stay disabled.
 A failed backup, build or migration prevents the service deployment.
 
+The trigger ignores a push only when all changed paths are under `docs/` or
+`site/`, or are `README.md`, `CHANGELOG.md`, `CONTRIBUTING.md` or
+`deploy/composition.lock.json`. GitHub Pages still publishes documentation.
+A mixed push with any runtime, build or migration change follows the full
+release workflow. The lock records the accepted composition; editing it alone
+does not deploy an image.
+
 ## Verify the hosted Lumen composition
 
 The [composition lock](https://github.com/veyndo/veyndo/blob/main/deploy/composition.lock.json)

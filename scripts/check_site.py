@@ -170,6 +170,11 @@ def check():
         assert film['codec'] == 'h264' and film['pixelFormat'] == 'yuv420p'
         assert film['audioStreams'] == 0 and film['captureWindow'] == '2026-11-02'
         assert (folder / (film['name'] + '.en.vtt')).read_text().startswith('WEBVTT\n')
+        subtitle = folder / (film['name'] + '.en.srt')
+        public_path = subtitle.relative_to(SITE)
+        assert subtitle.read_bytes() == (ROOT / public_path).read_bytes(), public_path
+        assert public_path.relative_to('docs').as_posix() in pages['docs/video-tours.html'].links, (
+            public_path, 'Film guide must link to the same-origin subtitle download')
     for key, row in (showcase['clips'] | tours['clips']).items():
         file = SITE / f'docs/assets/showcase/{key}.mp4'
         assert hashlib.sha256(file.read_bytes()).hexdigest() == row['sha256'], key

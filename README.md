@@ -44,8 +44,8 @@ to empty carts and share the same stock. [Hosted journeys and screenshots](docs/
 | **See what works** | Build sales and conversion reports. [Merchant reports](docs/merchant-reports.md). |
 | **Stay in control** | Current roles, private sandboxes, immutable versions, saved-data upgrade checks and selected publication govern changes. [Security](docs/security.md). |
 
-[Watch the four captioned product films](docs/video-tours.md) for the storefront,
-merchant workspace, visual editor and Product Advisor app.
+[Watch four product films](docs/video-tours.md) about the storefront, Studio,
+visual editor and Product Advisor app. Download captions as VTT or SRT.
 
 ## Try one complete round
 

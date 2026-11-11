@@ -49,6 +49,8 @@ def verify(root, base, call, merchant, visitor, other, restricted):
     assert [c['value'] for c in resource['_meta']['ai.veyndo/definition']['filter']['choices']] == ['standard', 'priority']
     assert r'\u003c/script\u003e' in resource['text'] and '<img src=x' not in resource['text']
     assert 'Machine washable' not in resource['text']
+    assert 'color:CanvasText;background:Canvas' in resource['text']
+    assert 'ui/notifications/host-context-changed' in resource['text']
     assert any(r['uri'] == public_uri for r in rpc('resources/list')['result']['resources'])
     private_resource = rpc('resources/read', {'uri': private_uri}, merchant)['result']['contents'][0]
     assert private_resource['_meta']['ai.veyndo/definition']['productReference'] is None
@@ -168,6 +170,8 @@ def verify_read_budget(call, merchant, visitor, expected_uri, public_uri, reques
     assert len(used) == 4 and [bool(r.get('tools')) for r in used] == [True, True, True, False]
     final = used[-1]['input']
     assert 'Private notes fixture' in final and 'Standard notes fixture' in final
+    assert 'Host-attached App view references:' in final and expected_uri in final
+    assert 'not claim successful browser rendering or interaction' in final
     assert 'If evidence is insufficient, state exactly what is missing' in final
     views = plan['preview']['appViews']
     assert len(views) == 3 and all(v['resourceUri'] == expected_uri for v in views)
@@ -181,6 +185,8 @@ def verify_read_budget(call, merchant, visitor, expected_uri, public_uri, reques
     assert len(used) == 4 and [bool(r.get('tools')) for r in used] == [True, True, True, False]
     final = json.dumps(used[-1].get('input') or used[-1].get('messages'))
     assert 'Air dry only' in final and 'Private notes fixture' not in final
+    assert 'Host-attached App view references:' in final and public_uri in final
+    assert expected_uri not in final
     assert len(buyer['appViews']) == 3 and all(v['resourceUri'] == public_uri for v in buyer['appViews'])
     assert 'Private notes fixture' not in json.dumps(buyer) and 'Standard notes fixture' not in json.dumps(buyer)
     assert call('/api/merchant/products/mug', headers=merchant) == before

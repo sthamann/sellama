@@ -1,5 +1,17 @@
 # Changelog
 
+## Keep App presentation and agent answers connected
+
+- Supply final answers with the same server-selected view references as the
+  host. Untrusted record text cannot create an attached view or establish that
+  a browser rendered it.
+- Pair App-frame foreground and background colours. Negotiate the host theme
+  and forward changes without reloading records or widening tool access.
+- Verify both live Product Guide filters and editable chat handoff. A public
+  request for private merchant notes returns neither records nor a private view.
+- Record the exact eight-service post-deployment comparison and retain the
+  separate open task for automatic admission before promotion.
+
 ## Discover App filters through the shared component contract
 
 - Import Apps 0.29.1 with model 0.14.0. Generic list tools describe actual

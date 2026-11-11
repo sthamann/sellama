@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "b3b7c83d4d6b7ed89aa5beb2568060ebc84778e8",
-      "digest": "sha256:aaa16e10efb6676c70ca4f666bd73caa494afb5edf6e71caa4e7172ab604c967",
+      "commit": "cca098c5d92f19e8b1d6bc5598f0823575b50345",
+      "digest": "sha256:f7532bd411712d246ea50e2fd58bd4bcf59a4cec8926462ff7c21516d00d358c",
       "build_service": "vendune-core-build",
-      "build_id": "living-popcorn-6201",
+      "build_id": "graceful-rail-9217",
       "schema": {
         "owner": "core",
         "inputs": {

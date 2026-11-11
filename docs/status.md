@@ -23,6 +23,39 @@ migration inputs. The release script can detect version drift before a
 rollout. Whole shop load and provider acceptance remain separately measured.
 [Deployment verification](cloud-releases.md#verify-the-hosted-lumen-composition).
 
+## Product guide in both live conversations
+
+On 11 November, the installed Product Guide 0.1.2 retained all four synthetic
+records after its upgrade. The real `gpt-6.1-sol` merchant agent opened the
+private merchandising table for the Lumen lamp. Changing its priority selector
+queried the same app action, reduced two notes to the priority note and copied
+only the verified filter into an editable follow-up. No product was edited.
+
+The public native storefront opened the separate care card. Its care selector
+returned the special-care record and carried that selection into the customer
+draft. Asking that public agent for internal merchandising notes returned no
+private records or private table. These are separate audiences of one installed
+package, using the shared Apps model and the existing MCP tool admission.
+[Reproduce the guide and use it through JavaScript](product-guide-mcp-app.md).
+
+Core `cca098c5`, build `graceful-rail-9217`, passed the post-deployment comparison
+against all eight exact hosted artifacts and their source/schema inputs. The
+automatic Northflank workflow had already promoted it before candidate
+preparation. This is post-deployment verification; automatic composition
+admission before promotion remains open under FND-08.
+
+The browser checks also found an App-frame colour mismatch and an answer that
+claimed an attached card was missing. The shared renderer now pairs its canvas
+and text colours, negotiates the host theme and accepts theme changes only from
+its initialized parent. Final answers receive the same server-selected view
+references as the host, separately from untrusted record text. Targeted bridge,
+HTTP/PostgreSQL and native unit checks cover these repairs. Their public visual
+and model retest follows the next Core rollout.
+
+The Lumen email app has received the tested order events, but sending remains
+disabled in test mode and its sender and transport are unconfigured. That is the
+remaining external mail-delivery prerequisite, not a successful mailbox receipt.
+
 ## Current stock in original Storyfront
 
 The original renderer now separates current native availability from published

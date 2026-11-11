@@ -44,7 +44,9 @@ Mit dem Katalogclient im JavaScript SDK liest eine eigene Oberfläche dieselben
 Produkte und Varianten wie der öffentliche Shop. Core liefert die passende
 Sprache, Währung und das Sortiment des Verkaufskanals. Der Checkout prüft
 beim Kauf den aktuellen Preis und Bestand.
-[Katalogbeispiel](one-shop-components.md#read-the-catalog-from-javascript).
+Das SDK Paket enthält ein Browserbeispiel, das sich lokal starten lässt
+und direkt im öffentlichen Lumen Sortiment sucht.
+[Browserbeispiel starten](one-shop-components.md#run-the-browser-example).
 Bei Storyfront ist der Warenkorb Teil der Experience. Nach der Zahlung fragt
 Storyfront den Stand der ursprünglichen Bestellung bei Core ab. Erst die
 bestätigte Bestellung leert den Warenkorb. [Abnahme für den Betrieb](storyfront.md#accept-a-hosted-release).

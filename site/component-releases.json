@@ -8,10 +8,10 @@
       "guide": "docs/quickstart.html"
     },
     "sdk": {
-      "tag": "v0.4.2",
-      "commit": "ca7006725a37ec144a7842d6e25ae12ac3ca3ab5",
+      "tag": "v0.4.3",
+      "commit": "8f2988fc7c73186dbcad36cb227f4e0c107c638b",
       "prerelease": true,
-      "guide": "docs/one-shop-components.html#read-the-catalog-from-javascript"
+      "guide": "docs/one-shop-components.html#run-the-browser-example"
     },
     "apps": {
       "tag": "v0.29.1",

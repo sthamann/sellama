@@ -38,12 +38,13 @@ next editable message. When a result references an available product, the
 Veyndo host can open its variant picker and show a cart preview with current
 price and delivery. The shopper confirms the cart change separately.
 
-In Studio, ask for the merchandising notes for the same product. Filter by
-priority. Ask the assistant to prepare a change to the care description.
-Review the saved proposal and its original product revision before applying
-it. The app's table is read-only. The Studio host owns the proposal and its
-approval. Publish the reviewed app version only when the shopper preview
-and the merchant view both behave as intended.
+In Studio, switch to a private sandbox before asking for an executable product
+proposal. The app can be present there without its private live records. Add a
+synthetic private note in the sandbox and ask the assistant to read it and
+prepare a care description change. Review the actual proposal beside the App
+table. Choose **Approve changes** to apply the draft in that sandbox, and check
+the result in its product editor. The App table can only read; Studio owns
+approval and publication. [Hosted action verification](status.md#product-guide-actions-in-the-hosted-shop).
 
 ## Reuse the tool and view in another host
 

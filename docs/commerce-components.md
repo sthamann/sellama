@@ -120,10 +120,13 @@ to native Veyndo through the same owner.
   - Installed App views use the same tool for the initial result and interactive
     filtering in Studio and the storefront.
     [App view contract](agentic-component-ui.md#app-owned-views-in-the-conversation).
-  - [ ] Verify native host actions in the public storefront and Studio after
-    rollout. The storefront can review and add an app-linked variant. Studio
-    can review and apply a stored catalogue proposal beside the app result.
-    [Interaction contract](agentic-component-ui.md#review-and-act-in-the-veyndo-chat).
+  - [x] In the public native storefront, review live price and delivery for an
+    app-linked simple product, then confirm one cart addition. Reject sold-out
+    products. In Studio, apply a stored catalogue proposal alongside an App
+    table in a private sandbox; verify the live product stays unchanged.
+    [Hosted action verification](status.md#product-guide-actions-in-the-hosted-shop).
+  - [ ] Verify selection, price and delivery for a distinct app-linked
+    variant in the public storefront. [Interaction contract](agentic-component-ui.md#review-and-act-in-the-veyndo-chat).
   - [ ] Test the same operations from a compatible external host and keep the
     generated OpenUI presentation separate from action authority.
 
@@ -339,6 +342,7 @@ Each component task remains open until these checks are demonstrated for it.
     the shared Commerce crate. Keep app consent, provider authority, replay
     and the order/stock transaction with their existing owners.
     [Marketplace intake](marketplaces.md).
+    [Hosted native purchase and shared stock](status.md#shared-order-and-inventory-inputs).
 - [ ] CORE-08 Isolate configuration, countries, currencies, taxes, promotions and
   language resolution behind shared domain contracts, never protocol calculators.
 - [ ] CORE-09 Extract `veyndo/commerce` with Core-independent Rust build, storage

@@ -33,6 +33,51 @@ This purchase did not use PayPal or send a test email.
 [Checkout confirmation](assets/checkout/customer-contract-confirmation-20261111.jpg)
 and [empty bag after reload](assets/checkout/customer-contract-empty-bag-20261111.jpg).
 
+## Shared order and inventory inputs
+
+Marketplace paid snapshots use the shared Commerce validator for exact amounts,
+tax and address shape. Native checkout, POS and Marketplace pass the same
+checked quantity representation to the allocation ledger and stock write.
+Core still books the order, stock and event in one transaction. The storage
+adapter no longer needs the original cart. There is no added network call.
+
+The three PostgreSQL suites covered the last unit across channels, exact stock
+after repeated cancellation across replicas, concurrent content edits, and
+tenant isolation. The independent Checkout build `eaa34f27` also recovered the
+original order and payment attempt after losing the confirm response. Local
+PayPal fixtures covered approval, capture and refund; no external provider was
+called. [Inventory boundary](source-map.md#inventory-write-boundary) ·
+[Marketplace intake](marketplaces.md).
+
+Before promoting Core `722b3ee6` (build `airy-umbrella-6504`), the release
+check matched the previous eight running artifacts and prepared the candidate.
+After rollout, all eight running services matched that candidate. A product
+from the public App-guided cart
+completed the native simulated checkout as order `RAC-67f3bdca` (€59.90).
+Studio showed the order; after returning and reloading, the native cart
+was empty and the original Storyfront reported the shared lamp sold out.
+[Native confirmation](assets/checkout/native-commerce-order-20261111.jpg).
+
+## Product Guide actions in the hosted shop
+
+The public native storefront opened the Product Guide with the actual model
+and a synthetic lamp in stock. The host calculated €59.90, the delivery
+estimate and collection at €0.00. The cart stayed empty during the review.
+Selecting **Add to cart** added exactly one unit. The same action on a sold-out
+product offered no cart confirmation. The lamp has no distinct variants.
+
+Studio refused to prepare an executable product change in the live workspace.
+In the private Product Guide acceptance sandbox, its public care records were
+available while the private notes started empty. A new synthetic private note
+then informed the actual model's proposed German care sentence. Studio showed
+the App table and the stored proposal in the same answer. After explicit
+approval, one action completed and the sentence appeared in the sandbox product
+editor. The live product description did not change.
+
+[Cart review](assets/apps/product-guide-cart-review-20261111.jpg) ·
+[Approved sandbox change](assets/apps/product-guide-sandbox-applied-20261111.jpg) ·
+[Reproduce both actions](product-guide-mcp-app.md#try-it-in-both-conversations).
+
 ## Pinned Lumen composition
 
 The eight services in the hosted Lumen commerce profile matched the accepted

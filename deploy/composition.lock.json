@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "633cb13a4a966d20635885fbecfbbf0c9950ff29",
-      "digest": "sha256:31c13647bcea3fa3110397a25bf46117a33232a086faaa6276c5cb4d1e735cf8",
+      "commit": "722b3ee65ffcb2e244039cd5ef179674a66c082d",
+      "digest": "sha256:0ae3e3cde1ae14e3dc9fabf6c6be40341c4453044149aaa2ba093c2ec16b438a",
       "build_service": "vendune-core-build",
-      "build_id": "chunky-table-1730",
+      "build_id": "airy-umbrella-6504",
       "schema": {
         "owner": "core",
         "inputs": {

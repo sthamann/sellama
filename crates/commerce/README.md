@@ -35,6 +35,10 @@ and that the total reconciles in minor units. It does not prove provider payment
 or authorize writes. The host checks the current app and channel and handles
 replay and the atomic order, stock and event write.
 
+`inventory::InventoryLines` is the checked quantity batch used by the two native
+inventory writes. It does not reserve stock on its own. The product lock,
+tenant scope, transaction and idempotent release belong to the storage owner.
+
 The [component plan](../../docs/commerce-components.md#core-modular-transactional-commerce)
 tracks the remaining storage and service extraction. This package is currently
 a crate in the product workspace, not a separately hosted Commerce service.

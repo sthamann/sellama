@@ -1,6 +1,7 @@
 //! Generic authorized external order intake reuses native stock, customer snapshots, documents, history and outbox.
 use super::external_order_input::{Input, source_price};
 use crate::*;
+use veyndo_commerce::inventory::InventoryLines;
 pub(crate) async fn import_external(
     a: &App,
     h: &RequestContext,
@@ -195,8 +196,14 @@ pub(crate) async fn import_external(
         .execute(&mut *tx)
         .await?;
     sqlx::query("INSERT INTO orders(id,tenant,cart_id,idempotency_key,fingerprint,data) VALUES($1,$2,$3,$4,$5,$6)").bind(&id).bind(&t).bind(&c.id).bind(key).bind(fingerprint).bind(&order).execute(&mut *tx).await?;
-    super::inventory::allocate(&mut tx, &c, &id).await?;
-    super::inventory::consume(&mut tx, &c).await?;
+    let inventory = InventoryLines::new(
+        input
+            .lines
+            .iter()
+            .map(|l| (l.product_id.as_str(), l.quantity)),
+    )?;
+    super::inventory::allocate(&mut tx, &t, &inventory, &id).await?;
+    super::inventory::consume(&mut tx, &t, &inventory).await?;
     assets::snapshot(&mut tx, &c, &id).await?;
     {
         let kind = "order.placed";

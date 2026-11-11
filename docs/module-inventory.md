@@ -660,6 +660,7 @@ This lists every checked-in source module in these roots, including files with n
 | [crates/commerce/src/discount.rs](../crates/commerce/src/discount.rs) | Integer-cent proportional discount allocation; cumulative rounding conserves the exact basket discount. |
 | [crates/commerce/src/discount_boundaries.rs](../crates/commerce/src/discount_boundaries.rs) | Discount conservation at signed limits and against an independent prefix-rounding oracle. |
 | [crates/commerce/src/external_order.rs](../crates/commerce/src/external_order.rs) | Portable paid-order input and minor-unit reconciliation; host still verifies source authority and commits stock. |
+| [crates/commerce/src/inventory.rs](../crates/commerce/src/inventory.rs) | Checked item quantities for inventory writes. Availability and locks belong to the host. |
 | [crates/commerce/src/lib.rs](../crates/commerce/src/lib.rs) | Cart, product, amount and calculation contracts without transport or inference dependencies. |
 | [crates/commerce/src/money.rs](../crates/commerce/src/money.rs) | Exact signed minor-unit amounts with explicit currency scale; legacy Shopware float pricing stays isolated. |
 | [crates/commerce/src/pricing.rs](../crates/commerce/src/pricing.rs) | Behavioral port of Shopware 6.7.14.2 quantity calculators. |

@@ -804,10 +804,15 @@
       "sha256": "28433f6a9c86207623fa4c69625725da33982e33d2dfa5b6e2c8e812891277b1",
       "review": "Moved paid external order DTO and reconciliation without changing original field order, bounds, errors, or verified kernel predicates. Native still owns admission and the legacy display projection. Shared Commerce unit tests and exchange contract guard pass."
     },
+    "crates/commerce/src/inventory.rs": {
+      "status": "unproved",
+      "sha256": "3dd4fe71f3df9f29ea1df9134847fa33be81eafc3e23dcf7c7cceccb372d8d7c",
+      "review": "Both native order paths retain their existing ordered locks, availability predicates, SQL and write order. Checked positive i32 conversion preserves the existing allocation ledger range. One aligned batch feeds both writes; unit cases cover signed limits and line pairing. No Lean predicate, schema, cancellation or provider change."
+    },
     "crates/commerce/src/lib.rs": {
       "status": "unproved",
-      "sha256": "06df9f79a1e4382c95635a0d89c7b85630cfea217cc6b13c3cf3973cfb914190",
-      "review": "Moved paid external order DTO and reconciliation without changing original field order, bounds, errors, or verified kernel predicates. Native still owns admission and the legacy display projection. Shared Commerce unit tests and exchange contract guard pass."
+      "sha256": "f612f9317405db2129a79f9ca1dc04c78e30a840b928587dc31d5f230396c73c",
+      "review": "Both native order paths retain their existing ordered locks, availability predicates, SQL and write order. Checked positive i32 conversion preserves the existing allocation ledger range. One aligned batch feeds both writes; unit cases cover signed limits and line pairing. No Lean predicate, schema, cancellation or provider change."
     },
     "crates/commerce/src/money.rs": {
       "status": "reviewed-binding",
@@ -3611,8 +3616,8 @@
     },
     "src/checkout/commit.rs": {
       "status": "reviewed-binding",
-      "sha256": "9443c31a16fc137c8ef0c29290854fd063f1542bf147e5b5f14b74e90cd90525",
-      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
+      "sha256": "f1c48babcacf6a5910a5ac00b1b5ba5991093ac3f56b5e25943ff1a57017dc3a",
+      "review": "Both native order paths retain their existing ordered locks, availability predicates, SQL and write order. Checked positive i32 conversion preserves the existing allocation ledger range. One aligned batch feeds both writes; unit cases cover signed limits and line pairing. No Lean predicate, schema, cancellation or provider change."
     },
     "src/checkout/lock.rs": {
       "status": "reviewed-binding",
@@ -3891,8 +3896,8 @@
     },
     "src/commerce/external_orders.rs": {
       "status": "reviewed-binding",
-      "sha256": "55aa30cda0a68d4f6d0cece8db3bb51370b0956f2c56da27d964cf670bb17027",
-      "review": "Moved paid external order DTO and reconciliation without changing original field order, bounds, errors, or verified kernel predicates. Native still owns admission and the legacy display projection. Shared Commerce unit tests and exchange contract guard pass."
+      "sha256": "1b7dfd5e90a873ab06e45adefbb2691fcc4f470a91bf749db8493f837e54c0e0",
+      "review": "Both native order paths retain their existing ordered locks, availability predicates, SQL and write order. Checked positive i32 conversion preserves the existing allocation ledger range. One aligned batch feeds both writes; unit cases cover signed limits and line pairing. No Lean predicate, schema, cancellation or provider change."
     },
     "src/commerce/fulfillment.rs": {
       "status": "reviewed-binding",
@@ -3916,8 +3921,8 @@
     },
     "src/commerce/inventory.rs": {
       "status": "unproved",
-      "sha256": "b54e25b8fd5e69ea0058654fe994aae58e8fff31995a01a1de5fb0182284adf4",
-      "review": "Reviewed native-only static bypass with hosted denial and Lean exact acceptance; one fresh domain/environment/status/channel/mount SQL snapshot and current membership lookup preserve scoped admission, binding identity and revocation; immutable Arc settings retain locked mutation/checkout reads; secret-free compression opt-in and deterministic precompressed assets preserve streams/ranges; batched inventory uses existing checkout locks and ordered idempotent release; bounded overview SQL preserves currency-separated historical facts. Real two-replica read/channel/tenant/checkout and strict-runtime regressions passed; SQL and build inputs now explicitly locked. These adapters remain unproved."
+      "sha256": "1a1e935758ea3c43bb1cb700ae68832540404fe6cb36b254ca17fb00a2459cff",
+      "review": "Both native order paths retain their existing ordered locks, availability predicates, SQL and write order. Checked positive i32 conversion preserves the existing allocation ledger range. One aligned batch feeds both writes; unit cases cover signed limits and line pairing. No Lean predicate, schema, cancellation or provider change."
     },
     "src/commerce/method_text.rs": {
       "status": "unproved",

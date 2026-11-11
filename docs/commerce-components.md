@@ -329,6 +329,10 @@ Each component task remains open until these checks are demonstrated for it.
     [Northflank rollout and public embedded purchase](status.md#shared-cart-contract-on-northflank).
 - [ ] CORE-06 Extract inventory/reservation/allocation ports; test concurrent
   purchases, cancellation and content edits without overwriting fresh stock.
+  - [x] Give native checkout, POS and Marketplace the same checked quantity
+    batch for the reservation ledger and the stock write. Core retains ordered
+    row locks, the transaction and release against persisted quantities.
+    [Inventory write boundary](source-map.md#inventory-write-boundary).
 - [ ] CORE-07 Extract order, fulfillment, documents and refund contracts; keep
   money snapshots and provider receipt verification authoritative.
   - [x] Move the paid external order input and minor-unit reconciliation into

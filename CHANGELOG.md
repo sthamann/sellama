@@ -1,5 +1,12 @@
 # Changelog
 
+## Share the inventory write batch
+
+- Checkout, POS and Marketplace reuse one checked ID and quantity batch for
+  the allocation ledger and the stock decrement.
+- Keep ordered locks, transaction order and cancellation unchanged. The
+  inventory write adapter no longer takes a stored cart.
+
 ## Share the paid external order contract
 
 - Extract the strict order snapshot, address normalization and minor-unit

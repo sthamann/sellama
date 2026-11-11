@@ -453,6 +453,18 @@ app gateway, avoiding a second authorization implementation.
 `core_callbacks.rs` checks explicit host versions; legacy callers retain v1.
 Native durable jobs, leases, rights, consent, order and stock owners remain unchanged.
 
+## Inventory write boundary
+
+`veyndo_commerce::inventory::InventoryLines` pairs product IDs and positive
+quantities that fit the existing signed database representation. Native checkout
+(including POS) and Marketplace each build the batch once. The same batch drives
+the native allocation ledger and the stock decrement; the storage adapter needs
+no cart or provider object. Core retains tenant scope, availability checks,
+ordered locks, transaction ordering and release from the persisted ledger.
+The change saves one pair of allocations per new order and adds no query or
+network call. Actual order and cancellation behavior is covered by the
+`production_foundations` and `marketplaces` suites.
+
 ## Marketplace app and generic intake
 
 The upstream owner is [veyndo/marketplaces](https://github.com/veyndo/marketplaces).

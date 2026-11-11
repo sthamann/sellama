@@ -6,6 +6,7 @@ use crate::{
     commerce, conflict, header, json, operations, payments, pos, staging, uid, verified_kernel,
 };
 use sqlx::Row;
+use veyndo_commerce::inventory::InventoryLines;
 pub(super) async fn run(
     a: &App,
     h: &RequestContext,
@@ -111,7 +112,8 @@ pub(super) async fn run(
     sqlx::query("INSERT INTO orders(id,tenant,cart_id,idempotency_key,fingerprint,data) VALUES($1,$2,$3,$4,$5,$6)").bind(&id).bind(&c.tenant).bind(&c.id).bind(key).bind(&fingerprint).bind(&order).execute(&mut *tx).await?;
     b2b::record(&mut tx, &c, &id, procurement.as_ref()).await?;
     b2b::consume_quote(&mut tx, &c, &id).await?;
-    commerce::inventory::allocate(&mut tx, &c, &id).await?;
+    let inventory = InventoryLines::new(c.data.items.iter().map(|i| (i.id.as_str(), i.quantity)))?;
+    commerce::inventory::allocate(&mut tx, &c.tenant, &inventory, &id).await?;
     marketing::record_uses(&mut tx, &c.tenant, &id, &q).await?;
     assets::snapshot(&mut tx, &c, &id).await?;
     if external {
@@ -143,7 +145,7 @@ pub(super) async fn run(
             .execute(&mut *tx)
             .await?;
     }
-    commerce::inventory::consume(&mut tx, &c).await?;
+    commerce::inventory::consume(&mut tx, &c.tenant, &inventory).await?;
     c.data.order = Some(order.clone());
     sqlx::query("UPDATE carts SET status='completed',data=$1,revision=revision+1 WHERE id=$2")
         .bind(json!(c.data))

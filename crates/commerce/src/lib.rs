@@ -4,5 +4,8 @@ pub mod cart;
 pub mod catalog;
 pub mod customer;
 pub mod discount;
+pub mod external_order;
 pub mod money;
 pub mod pricing;
+mod validation;
+pub use validation::ValidationError;

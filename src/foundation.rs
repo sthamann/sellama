@@ -19,8 +19,8 @@ pub(crate) struct App {
 #[path = "failure.rs"]
 mod failure;
 pub(crate) use failure::Error;
-impl From<veyndo_commerce::customer::ValidationError> for Error {
-    fn from(error: veyndo_commerce::customer::ValidationError) -> Self {
+impl From<veyndo_commerce::ValidationError> for Error {
+    fn from(error: veyndo_commerce::ValidationError) -> Self {
         bad(error.to_string())
     }
 }

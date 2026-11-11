@@ -6,14 +6,15 @@ contract=json.loads((ROOT/'extensions/sdk/host-exchange-v1.json').read_text())
 assert contract['version']==1
 schemas=contract['operations']
 assert set(schemas)=={'record_action','channel','channel_product','order_import','job_enqueue','job_claim','job_progress'}
-text=(ROOT/'src/commerce/external_order_input.rs').read_text()
+assert 'pub(super) use veyndo_commerce::external_order::PaidOrder as Input;' in (ROOT/'src/commerce/external_order_input.rs').read_text()
+text=(ROOT/'crates/commerce/src/external_order.rs').read_text()
 def fields(name):
     body=re.search(r'struct '+name+r' \{(.*?)\n}',text,re.S)[1]
     return {re.sub(r'_([a-z])',lambda m:m[1].upper(),f) for f in re.findall(r'pub (\w+):',body)}
 order=schemas['order_import']['inputSchema']
-assert set(order['properties'])==fields('Input')
-assert set(order['properties']['lines']['items']['properties'])==fields('Line')
-assert set(order['properties']['shipping']['properties'])==fields('Amount')
+assert set(order['properties'])==fields('PaidOrder')
+assert set(order['properties']['lines']['items']['properties'])==fields('OrderLine')
+assert set(order['properties']['shipping']['properties'])==fields('SourceAmount')
 assert 'pub(crate) use veyndo_commerce::customer::Address;' in (ROOT/'src/commerce/types.rs').read_text()
 address=(ROOT/'crates/commerce/src/customer/address.rs').read_text()
 body=re.search(r'struct Address \{(.*?)\n}',address,re.S)[1]

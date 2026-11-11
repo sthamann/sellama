@@ -461,9 +461,13 @@ imports reviewed source into `extensions/apps/marketplaces/` for reproducible Co
 builds. CI rejects snapshot drift. Its independent Cargo package prohibits Core and
 SQL dependencies. The package owns provider protocols, mapping, inbox/review, worker,
 Studio vocabulary/UI, container packaging and local provider tests. Core only adds the
-provider-neutral `apps/core_exchange.rs`, `commerce/external_order_input.rs` and
-`commerce/external_orders.rs` host contracts, with its bounded
-`commerce/external_order_labels.sql` name lookup. Existing product/channel configuration,
+provider-neutral `apps/core_exchange.rs`, the native display adapter in
+`commerce/external_order_input.rs` and the intake transaction in
+`commerce/external_orders.rs`, with its bounded
+`commerce/external_order_labels.sql` name lookup. The strict wire model and
+exact minor-unit reconciliation live in `crates/commerce/src/external_order.rs`.
+Validating a snapshot checks its consistency; the authorized adapter and host
+still own source verification and admission. Existing product/channel configuration,
 app consent/jobs/records, currency, stock, customer projection, documents and event
 owners remain authoritative. [Detailed flow and actual limits](marketplaces.md).
 The registered `marketplaces` suite exercises native paid order/replay/restart,

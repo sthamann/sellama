@@ -1,5 +1,12 @@
 # Changelog
 
+## Share the paid external order contract
+
+- Extract the strict order snapshot, address normalization and minor-unit
+  reconciliation into Commerce. Preserve the exchange schema and error messages.
+- Keep provider verification with the adapter and order admission, replay, stock
+  booking and event creation in Core.
+
 ## Share customer contact and address contracts
 
 - Move native Contact and Address inputs, normalization and bounded syntax

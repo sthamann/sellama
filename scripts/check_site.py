@@ -52,7 +52,8 @@ def check():
         page.feed(source)
         pages[file.relative_to(SITE).as_posix()] = page
         assert page.h1 == 1, (file, 'Expected one h1')
-        assert '<html lang="en">' in source, file
+        language = re.search(r'<html lang="(en|de)">', source)
+        assert language, file
         title = re.search(r'<title>(.*?)</title>', source).group(1)
         assert title and title not in titles, file
         titles.add(title)
@@ -62,7 +63,8 @@ def check():
         assert page.canonical and page.canonical not in canonicals, file
         canonicals.add(page.canonical)
         schema = re.search(r'<script type="application/ld\+json">(.*?)</script>', source, re.S)
-        assert json.loads(schema.group(1))['url'] == page.canonical, file
+        structured = json.loads(schema.group(1))
+        assert structured['url'] == page.canonical and structured['inLanguage'] == language[1], file
     links = 0
     for name, page in pages.items():
         for link in page.links:
@@ -99,6 +101,11 @@ def check():
     search = json.loads((SITE / 'docs/search.json').read_text())
     assert {row['source']: row['url'] for row in search} == expected, 'Search inventory drift'
     assert all(row['text'] for row in search), 'Empty searchable document'
+    for row in search:
+        language = row['language']
+        assert ('div', {'lang': language}) in pages[row['url']].elements
+        label = 'german' if language == 'de' else 'english'
+        assert ('span', {'data-docs-copy': label}) in pages[row['url']].elements
     navigation = json.loads((SITE / 'docs/assets/ui/docs-navigation.json').read_text())
     copy = json.loads((SITE / 'docs/assets/ui/docs-copy.json').read_text())
     assert set(copy) == {'en', 'de', 'fr', 'es'}

@@ -132,7 +132,8 @@ def render(source, dest, known):
     content = ''.join(document.output)
     if not document.headings:
         content = '<h1>' + html.escape(title) + '</h1>' + content
-    return title, content, converter.toc if converter.toc_tokens else '', text
+    language = 'de' if re.search(r'^<!-- veyndo-language: de -->$', original, re.M) else 'en'
+    return title, content, converter.toc if converter.toc_tokens else '', text, language
 
 
 def build_documents(dest, write_page):
@@ -140,22 +141,25 @@ def build_documents(dest, write_page):
     records = []
     rendered = []
     for source in sorted(known):
-        title, body, toc, text = render(source, dest, known)
+        title, body, toc, text, language = render(source, dest, known)
         path = destination(source)
         description = text[len(title):].strip()[:180] or title
         records.append({'source': source.as_posix(), 'url': path.as_posix(),
-                        'title': title, 'description': description, 'text': text})
-        rendered.append((source, title, body, toc, text, path, description))
-    for source, title, body, toc, text, path, description in rendered:
+                        'title': title, 'description': description, 'text': text, 'language': language})
+        rendered.append((source, title, body, toc, text, path, description, language))
+    for source, title, body, toc, text, path, description, language in rendered:
         prefix = os.path.relpath('.', path.parent).replace(os.sep, '/') + '/'
         navigation, group = sidebar(source.as_posix(), prefix, records, toc)
         minutes = max(1, (len(text.split()) + 229) // 230)
+        language_label = 'Deutsche Quelle' if language == 'de' else 'English source'
+        language_key = {'de': 'german', 'en': 'english'}[language]
         content = (chrome(prefix) + '<div class="docs-layout">' + navigation + '<article class="article docs-article">'
                    '<div class="docs-source"><span>' + html.escape(source.as_posix()) + '</span>'
                    f'<a href="{REPO}/blob/main/{quote(source.as_posix(), safe="/")}" data-docs-copy="source">View source ↗</a>'
-                   f'</div><p class="docs-reading"><span data-docs-copy="english">English source</span> · {minutes} min</p>' + body +
+                   f'</div><p class="docs-reading"><span data-docs-copy="{language_key}">{language_label}</span> · {minutes} min</p>' +
+                   f'<div lang="{language}">{body}</div>' +
                    onward(source.as_posix(), prefix, records, group) + '</article></div>')
-        write_page(path, title + ' | ' + source.as_posix() + ' | Veyndo', description, content)
+        write_page(path, title + ' | ' + source.as_posix() + ' | Veyndo', description, content, language)
     content = chrome('../') + hub(records)
     write_page(Path('docs/index.html'), 'Documentation | Veyndo',
                'Search and read all Veyndo guides, source ownership notes and developer contracts.', content)

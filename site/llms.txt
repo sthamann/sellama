@@ -13,6 +13,9 @@
 - [Connected playground](https://www.veyndo.ai/docs/playground.html)
 
 ## Current release
+- [Shared order and inventory inputs](https://www.veyndo.ai/docs/status.html#shared-order-and-inventory-inputs): Native purchase, shared stock, empty cart and exact hosted component verification.
+- [Product Guide actions](https://www.veyndo.ai/docs/status.html#product-guide-actions-in-the-hosted-shop): Cart review in the storefront and a reviewed product proposal in Studio.
+- [German overview](https://www.veyndo.ai/docs/platform-overview.html): Architecture, apps and agents in German.
 - [Component versions in JSON](https://www.veyndo.ai/docs/components.json): Public release tags and the exact hosted pilot composition.
 - [Current status and recorded public journeys](https://www.veyndo.ai/docs/status.html): Canonical current deployment, observed acceptance and remaining work.
 - [Connected public journeys, 29 October](https://www.veyndo.ai/docs/evidence/platform-followups-hosted-2026-10-29.html): Actual model-composed native views, pinned layout, CSV intake, private design revisions, saved customer tests and localized simulated checkout with return/reload/empty basket.
@@ -53,7 +56,7 @@
 - [Measured test coverage](https://www.veyndo.ai/docs/testing.html)
 
 ## Limits
-Working prototype. The tour uses simulated/manual payments. Configured PayPal Sandbox/Live is supported; actual PSP transactions remain unverified.
+Working prototype. The tour uses simulated/manual payments. Configured PayPal Sandbox/Live is supported; dated PayPal Sandbox wallet purchases and refunds are recorded for native and original Storyfront checkout. Live settlement is outside the recorded scope.
 Not a full Shopware replacement or validated production SaaS.
 MCP/UCP are partial bindings. Hosted merchant/password enrollment and the private Experience service exist; OAuth requires explicit provider configuration. Google entry was observed publicly; the Apple account-return acceptance remains open.
 Experience mounts install the public integration package; the original renderer/editor runs in the private Experience service. The 22 October acceptance records original Storyfront embedded simulated purchase, receipt return and bag clearing after both service deployments. This does not establish complete localization or live provider acceptance.

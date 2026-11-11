@@ -6,7 +6,7 @@
     "intro": "Understand the idea. Try one complete round. Connect knowledge, agents and apps. Then operate with control.",
     "firstTour": "Start the first tour →",
     "understand": "Explore the intelligence →",
-    "sourceLanguage": "Navigation is available in four languages. Technical articles currently use the original English source.",
+    "sourceLanguage": "The navigation is available in four languages. Each guide identifies the language of its source.",
     "search": "Search the complete handbook",
     "placeholder": "Knowledge, checkout, apps, sandbox…",
     "documents": "{count} source documents · one connected system",
@@ -35,12 +35,13 @@
     "ownership": "Source available. Merchant control.",
     "contribute": "Contribute",
     "security": "Security & scope",
-    "boundary": "Experimental prototype · Provider transactions unverified · No production-readiness claim",
+    "boundary": "Working prototype · Verification and operating scope",
     "diagram": "Diagram",
     "diagramLoading": "Rendering diagram…",
     "diagramSource": "View diagram source",
     "diagramFailed": "The diagram could not be rendered. Its source is available below.",
-    "diagramFit": "Fit to width"
+    "diagramFit": "Fit to width",
+    "german": "German source"
   },
   "de": {
     "eyebrow": "DAS VEYNDO HANDBUCH",
@@ -49,7 +50,7 @@
     "intro": "Verstehe die Idee. Probiere einen vollständigen Ablauf aus. Verbinde Wissen, Agenten und Apps. Betreibe alles mit Kontrolle.",
     "firstTour": "Die erste Tour starten →",
     "understand": "Die Intelligenz verstehen →",
-    "sourceLanguage": "Die Navigation ist in vier Sprachen verfügbar. Fachartikel verwenden derzeit die englischen Originalquellen.",
+    "sourceLanguage": "Die Navigation ist in vier Sprachen verfügbar. Jeder Artikel zeigt die Sprache seiner Quelle.",
     "search": "Das gesamte Handbuch durchsuchen",
     "placeholder": "Wissen, Checkout, Apps, Sandbox …",
     "documents": "{count} Quelldokumente · ein verbundenes System",
@@ -78,12 +79,13 @@
     "ownership": "Quellcode verfügbar. Händler behalten die Kontrolle.",
     "contribute": "Mitwirken",
     "security": "Sicherheit & Umfang",
-    "boundary": "Experimenteller Prototyp · Anbietertransaktionen ungeprüft · Keine Zusage der Produktionsreife",
+    "boundary": "Funktionsfähiger Prototyp · Abnahme und Betriebsumfang",
     "diagram": "Diagramm",
     "diagramLoading": "Diagramm wird gezeichnet…",
     "diagramSource": "Diagramm-Quelltext anzeigen",
     "diagramFailed": "Das Diagramm konnte nicht gezeichnet werden. Der Quelltext steht darunter.",
-    "diagramFit": "An Breite anpassen"
+    "diagramFit": "An Breite anpassen",
+    "german": "Deutsche Quelle"
   },
   "fr": {
     "eyebrow": "LE GUIDE VEYNDO",
@@ -92,7 +94,7 @@
     "intro": "Comprenez l’idée. Essayez un parcours complet. Reliez connaissances, agents et apps. Gardez le contrôle.",
     "firstTour": "Commencer la première visite →",
     "understand": "Comprendre l’intelligence →",
-    "sourceLanguage": "Navigation en quatre langues. Les articles techniques utilisent actuellement les sources originales en anglais.",
+    "sourceLanguage": "La navigation est disponible en quatre langues. Chaque guide indique la langue de sa source.",
     "search": "Rechercher dans tout le guide",
     "placeholder": "Connaissances, paiement, apps, sandbox…",
     "documents": "{count} documents sources · un système connecté",
@@ -121,12 +123,13 @@
     "ownership": "Code disponible. Contrôle du commerçant.",
     "contribute": "Contribuer",
     "security": "Sécurité et portée",
-    "boundary": "Prototype expérimental · Transactions des fournisseurs non vérifiées · Maturité de production non garantie",
+    "boundary": "Prototype fonctionnel · Vérification et périmètre opérationnel",
     "diagram": "Diagramme",
     "diagramLoading": "Création du diagramme…",
     "diagramSource": "Voir la source du diagramme",
     "diagramFailed": "Le diagramme ne peut pas être affiché. Sa source est disponible ci-dessous.",
-    "diagramFit": "Adapter à la largeur"
+    "diagramFit": "Adapter à la largeur",
+    "german": "Source allemande"
   },
   "es": {
     "eyebrow": "EL MANUAL VEYNDO",
@@ -135,7 +138,7 @@
     "intro": "Comprende la idea. Prueba un flujo completo. Conecta conocimiento, agentes y apps. Mantén el control.",
     "firstTour": "Iniciar el primer recorrido →",
     "understand": "Comprender la inteligencia →",
-    "sourceLanguage": "Navegación en cuatro idiomas. Los artículos técnicos utilizan actualmente las fuentes originales en inglés.",
+    "sourceLanguage": "La navegación está disponible en cuatro idiomas. Cada guía indica el idioma de su fuente.",
     "search": "Buscar en todo el manual",
     "placeholder": "Conocimiento, checkout, apps, sandbox…",
     "documents": "{count} documentos fuente · un sistema conectado",
@@ -164,11 +167,12 @@
     "ownership": "Código disponible. Control del comerciante.",
     "contribute": "Contribuir",
     "security": "Seguridad y alcance",
-    "boundary": "Prototipo experimental · Transacciones de proveedores sin verificar · Madurez de producción no garantizada",
+    "boundary": "Prototipo funcional · Verificación y alcance operativo",
     "diagram": "Diagrama",
     "diagramLoading": "Dibujando el diagrama…",
     "diagramSource": "Ver el código del diagrama",
     "diagramFailed": "No se pudo dibujar el diagrama. Su código está disponible debajo.",
-    "diagramFit": "Ajustar al ancho"
+    "diagramFit": "Ajustar al ancho",
+    "german": "Fuente en alemán"
   }
 }

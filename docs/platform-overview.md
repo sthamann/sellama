@@ -1,6 +1,8 @@
 # Veyndo: Architektur, Apps und KI im Zusammenhang
 
-Stand 9. November 2026. Diese Übersicht beschreibt den Hauptstand des Projekts.
+<!-- veyndo-language: de -->
+
+Stand 11. November 2026.
 Die [Statusseite](status.md) ordnet Implementierung, öffentliche Auslieferung und
 tatsächlich durchgespielte Abläufe ein.
 
@@ -23,7 +25,15 @@ private Sortimentsnotizen durchsehen. Der Chat vermittelt den Aufruf, und die
 App prüft die Rechte mit dem aktuellen Shopkontext. MCP Apps beschreibt diese
 Verbindung. OpenUI kann eine passende Ansicht während einer Modellantwort
 zusammenbauen. Beide können dieselben Dienstaktionen verwenden.
-[Interaktive Ansichten und Dienstgrenzen](agentic-component-ui.md#one-capability-two-ways-to-present-it).
+Im öffentlichen Lumen Shop hat der Produktratgeber Preis und Lieferung für
+einen konkreten Artikel prüfen lassen. Erst der Klick legte ihn in den
+Warenkorb. In Studio las der Agent eine private Sortimentsnotiz und schlug
+einen neuen Pflegesatz vor. Nach Freigabe erschien der Satz in der Sandbox.
+
+![Freigegebener Vorschlag im privaten Studio](assets/apps/product-guide-sandbox-applied-20261111.jpg)
+
+Die [englische Abnahme](status.md#product-guide-actions-in-the-hosted-shop)
+zeigt beide Abläufe. [Interaktive Ansichten und Dienstgrenzen](agentic-component-ui.md#one-capability-two-ways-to-present-it).
 
 Ein Entwickler kann den Checkout auch mit einer eigenen Shopoberfläche
 verbinden. Der lokale Beispielshop hat den Kauf über das JavaScript SDK

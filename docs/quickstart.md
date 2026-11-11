@@ -41,8 +41,9 @@ SKUs and bundled generated photographs. [Current fashion tour](fashion-demo.md).
 The legacy `atelier`/`workshop` compatibility shops can contain synthetic B2B
 `buyer@example.test` / `demo-business` when demo seeding is enabled; this is
 separate from merchant accounts and is not a universal login for every new shop. The default tour uses simulated/manual payments.
-A separately configured native PayPal adapter supports Sandbox/Live;
-actual PSP transactions remain unverified.
+A separately configured native PayPal adapter supports Sandbox and Live. See
+[hosted PayPal acceptance](shopware-payments-acceptance.md) for the observed
+Sandbox journeys and their scope.
 
 Stop the app with Ctrl+C. Restart with `./scripts/dev.sh`; database data is
 retained. Stop the database with `docker compose -p veyndo stop`.

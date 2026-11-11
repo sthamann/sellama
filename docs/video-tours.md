@@ -1,6 +1,6 @@
 # Veyndo Commerce product films and video tours
 
-**Updated 2 November 2026.** Four refreshed Full HD films use actual current native Studio captures. English titles and subtitles, no sound. Start with the platform overview, then explore the product workflow, the shared canvas and a product advisor app.
+Four Full HD films recorded on 2 November 2026 cover the platform, product workflow, shared canvas and Product Advisor app. The films have English titles and captions, with no audio. The [latest hosted screenshots](status.md#product-guide-actions-in-the-hosted-shop) show cart review and private Studio approval from 11 November.
 
 ## AI across the working shop
 

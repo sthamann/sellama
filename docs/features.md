@@ -7,8 +7,8 @@ App Studio and the separate operator console.
 [Current status](status.md) · [Try a complete round](first-tour.md) ·
 [Watch the product films](video-tours.md) · [Build five apps](app-tutorials/README.md)
 
-**Interface media refreshed 2 November 2026.** The screenshots below show the
-current compiled Rust/Studio product in an isolated local shop with fictional
+**Local interface tour, 2 November 2026.** The screenshots below show the
+compiled Rust/Studio product in an isolated local shop with fictional
 people, products and orders. The animated examples are edited sequences of those
 actual browser screenshots, with reading holds. They are not response-time
 measurements. Purchases use simulated payments; the register sale uses fictional
@@ -18,7 +18,22 @@ cash. The design and app-agent panels are shown without making a model call.
 Public provider acceptance and dated deployment evidence remain in
 [current status](status.md). Historical reports retain their original dates.
 
-![Current Nord Atelier storefront, captured 2 November 2026](assets/product-tour-20261102/storefront.jpg)
+![Nord Atelier storefront, captured 2 November 2026](assets/product-tour-20261102/storefront.jpg)
+
+## Hosted workflow captures
+
+![Product Guide with a cart review in the hosted storefront](assets/apps/product-guide-cart-review-20261111.jpg)
+
+On 11 November, the shopper reviewed price and delivery before confirming one
+cart addition. A merchant used a separate private App view to prepare and
+approve a product description change inside a sandbox.
+[Both hosted journeys](status.md#product-guide-actions-in-the-hosted-shop).
+
+The native shop and original Storyfront share stock, pricing and orders.
+The latest hosted simulated purchases verify the cart reset and shared
+inventory. Actual PayPal Sandbox capture and refund evidence is recorded
+separately. [Checkout and stock](status.md#shared-order-and-inventory-inputs) ·
+[PayPal Sandbox acceptance](shopware-payments-acceptance.md).
 
 ## Find your feature
 

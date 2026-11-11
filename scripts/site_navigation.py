@@ -21,7 +21,7 @@ def catalogue():
 def link(record, prefix, label=None, **attributes):
     attrs = ''.join(f' {k.replace("_", "-")}="{html.escape(str(v), quote=True)}"'
                     for k, v in attributes.items())
-    return f'<a href="{prefix}{record["url"]}"{attrs}>{html.escape(label or record["title"])}</a>'
+    return f'<a href="{prefix}{record["url"]}" lang="{record["language"]}"{attrs}>{html.escape(label or record["title"])}</a>'
 
 
 def sidebar(source, prefix, records, toc):
@@ -76,8 +76,9 @@ def hub(records):
             '<h1><span data-docs-copy="titleA">Think AI.</span> <span data-docs-copy="titleB">Build commerce.</span></h1>'
             '<p class="lead" data-docs-copy="intro">Understand the idea. Try one complete round. Connect knowledge, agents and apps. Then operate with control.</p>'
             '<div class="docs-hero-actions"><a class="docs-primary" href="first-tour.html" data-docs-copy="firstTour">Start the first tour →</a>'
-            '<a href="cognitive-commerce.html" data-docs-copy="understand">Explore the intelligence →</a></div>'
-            '<p class="docs-language-note" data-docs-copy="sourceLanguage">Navigation is available in four languages. Technical articles currently use the original English source.</p></section>'
+            '<a href="cognitive-commerce.html" data-docs-copy="understand">Explore the intelligence →</a>'
+            '<a href="platform-overview.html" lang="de">Überblick auf Deutsch</a></div>'
+            '<p class="docs-language-note" data-docs-copy="sourceLanguage">The navigation is available in four languages. Each guide identifies the language of its source.</p></section>'
             '<section class="docs-discovery"><label for="docs-search" data-docs-copy="search">Search the complete handbook</label>'
             '<div class="docs-search-wrap"><span aria-hidden="true">⌕</span><input id="docs-search" type="search" '
             'placeholder="Knowledge, checkout, apps, sandbox…" autocomplete="off" aria-describedby="docs-count" /></div>'
@@ -103,7 +104,7 @@ def shell(prefix, docs):
     home = 'https://veyndo.ai/' if docs else prefix + 'index.html'
     brand = prefix + ('docs/assets/ui/brand.svg' if docs else 'docs/brand/veyndo-logo-dark.svg')
     def copy(key, text):
-        return f' data-docs-copy="{key}"' if docs else ''
+        return f' lang="en" data-docs-copy="{key}"' if docs else ''
     nav = [('navDemo', home + '#demo', 'Demos'),
            ('navTour', prefix + 'docs/first-tour.html', 'Try it'),
            ('navBenchmarks', prefix + ('docs/benchmarks.html' if docs else 'benchmarks.html'), 'Benchmarks'),
@@ -113,5 +114,5 @@ def shell(prefix, docs):
         f'<a href="{href}"{copy(key, text)}>{text}</a>' for key, href, text in nav) + '</nav></header>'
     footer = '<footer class="wrap footer"><span' + copy('ownership', '') + '>Source available. Merchant control.</span> <a href="' + prefix + 'docs/licensing.html">Sustainable Use License</a><div>' + ''.join(
         f'<a href="{prefix}docs/{file}"{copy(key,text)}>{text}</a>' for key,file,text in [
-            ('contribute','repository/CONTRIBUTING.html','Contribute'), ('security','security.html','Security & scope')]) + '</div><p' + copy('boundary','') + '>Experimental prototype · Provider transactions unverified · No production-readiness claim</p></footer>'
+            ('contribute','repository/CONTRIBUTING.html','Contribute'), ('security','security.html','Security & scope')]) + '</div><p><a href="' + prefix + 'docs/status.html"' + copy('boundary','') + '>Working prototype · Verification and operating scope</a></p></footer>'
     return header, footer

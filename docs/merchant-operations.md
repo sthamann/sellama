@@ -72,9 +72,37 @@ allowed; the buyer supplies them before the visible storefront checkout.
 The explicit synthetic `buyer@example.test` fixture now has an example address.
 This does not insert invented addresses into real registered accounts.
 
+### Manage buyer addresses with the SDK
+
+Install [SDK 0.4.9](https://github.com/veyndo/sdk/releases/tag/v0.4.9) to
+read and update the signed-in buyer's address book. In a browser on the shop
+origin, configure `credentials: 'same-origin'` to use the session cookie.
+
+```js
+import { createAccountClient } from '@veyndo/sdk/account';
+
+const account = createAccountClient({ baseUrl: shopOrigin, shop });
+const buyer = { customerToken };
+const saved = await account.addresses.create({
+  address: { name: 'Example Buyer', street: 'Example Road 4',
+    postalCode: '10115', city: 'Berlin', country: 'DE' },
+  defaultShipping: true,
+}, buyer);
+const book = await account.addresses.list(buyer);
+console.log(saved.id, book.defaultShippingAddressId);
+```
+
+Use `saved.id` as `shippingAddressId` in
+[Checkout selection](checkout-component.md#choose-shipping-and-payment-from-the-sdk).
+The address book returns up to 100 entries, their individual revisions and the
+default billing and shipping IDs. For `addresses.update` and `addresses.remove`,
+send the address revision from the list. On HTTP 409, reload the address book
+before asking the buyer to confirm the change again. The completed order keeps
+its own copy of the shipping and billing addresses.
+
 ### Read order history with the SDK
 
-Install the [SDK 0.4.8 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.8).
+Install the [SDK 0.4.9 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.9).
 The account client reads the signed-in buyer's orders. Use the same shop and
 buyer context for each page and for order details.
 

@@ -10,6 +10,16 @@ Updated 11 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Buyer profile in the SDK
+
+SDK 0.4.10 reads the signed-in buyer profile and saves editable contact
+fields. In a local purchase with separate Core and Checkout processes,
+editing the contact preserved identity and saved addresses. Core rejected an
+unavailable payment preference. The buyer completed the purchase and read the
+order and PDF invoice. A second account kept its own profile and empty order
+history. Public Lumen required a buyer session for profile reads.
+[Profile walkthrough](merchant-operations.md#edit-the-buyer-profile-with-the-sdk).
+
 ## Buyer address book in the SDK
 
 SDK 0.4.9 reads, creates, updates and deletes saved addresses. In the local

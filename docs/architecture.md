@@ -67,7 +67,7 @@ browser renders the guide and the current offer.
 The account SDK reads orders from Core after purchase. Core matches the
 current buyer to the customer ID recorded in the order snapshot and
 returns the customer-facing projection.
-[Buyer address book](merchant-operations.md#manage-buyer-addresses-with-the-sdk) ·
+[Buyer profile and address book](merchant-operations.md#edit-the-buyer-profile-with-the-sdk) ·
 [Order history and PDF downloads](merchant-operations.md#read-order-history-with-the-sdk).
 
 Storyfront can recover a purchase after its browser notification is lost. Core

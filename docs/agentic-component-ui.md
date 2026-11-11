@@ -365,6 +365,16 @@ as the native shop.
 
 ### Show the merchant's app view during the answer
 
+Read tools backed by an admitted App view tell the model that they supply an
+interactive result. The shared merchant/shopper read owner reserves a final
+answer after at most three read rounds. It retains the actual tool results and
+view references instead of failing a fourth request for more reads. The final
+model call has no tools and must identify missing evidence. Existing rights,
+source checks, durable checkpoints and approval requirements still apply.
+The local `app_surfaces` regression exercises a model that keeps asking for
+reads: three App reads produce a fourth, tool-free answer with the private
+table and unchanged product state. Public model selection is tested separately.
+
 The Studio chat polls its existing saved run. For a running conversation,
 `GET /api/agent/runs/{id}` can return up to three `appViews` references with
 their attachment ID, revision-bound resource URI and original tool arguments.

@@ -493,6 +493,11 @@ The following are implementation tasks; existing UI foundations do not complete 
     plus merchant review and approval of a saved catalogue proposal.
     The local checks cover stale quotes, replays and approval by a different
     actor. [Chat actions](agentic-component-ui.md#review-and-act-in-the-veyndo-chat).
+  - [x] Retain admitted App results when the bounded read phase ends. Local
+    HTTP/PostgreSQL tests cover three read rounds, tool-free finalization,
+    private table attachments and unchanged product data.
+  - [ ] Repeat the installed Product guide request with the hosted merchant
+    agent and exercise its interactive priority filter with the real model.
 - [ ] UI-08 Test permissions/PII/current context, missing capabilities, versions,
   unsaved work, cancellation/return, hostile output, responsive/accessibility and
   actual business effects in both standalone host and complete Veyndo.

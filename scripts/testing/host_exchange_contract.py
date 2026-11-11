@@ -14,7 +14,8 @@ order=schemas['order_import']['inputSchema']
 assert set(order['properties'])==fields('Input')
 assert set(order['properties']['lines']['items']['properties'])==fields('Line')
 assert set(order['properties']['shipping']['properties'])==fields('Amount')
-address=(ROOT/'src/commerce/types.rs').read_text()
+assert 'pub(crate) use veyndo_commerce::customer::Address;' in (ROOT/'src/commerce/types.rs').read_text()
+address=(ROOT/'crates/commerce/src/customer/address.rs').read_text()
 body=re.search(r'struct Address \{(.*?)\n}',address,re.S)[1]
 expected={re.sub(r'_([a-z])',lambda m:m[1].upper(),f) for f in re.findall(r'pub (\w+):',body)}
 assert set(order['properties']['billingAddress']['properties'])==expected

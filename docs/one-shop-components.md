@@ -70,6 +70,12 @@ flowchart LR
 
 ## Choose a starting point
 
+For Rust integrations, the [Commerce crate guide](../crates/commerce/README.md)
+shows shared product, cart, contact and address contracts. Its contact example
+runs without a server. The host still owns account identity, PII admission and
+the atomic order transaction. Independent HTTP/MCP hosting for the remaining
+Commerce domains is tracked in CORE-02..10.
+
 The four public development repositories are linked below. The other links explain the component's contract and its place in the complete shop. Some have separate builds or access-controlled source, and some are still domains in the product repository. The [implementation plan](commerce-components.md) tracks each extraction and the [current status](status.md) records what has been released and tested.
 
 The same release checker prepares a pinned update for any build-backed

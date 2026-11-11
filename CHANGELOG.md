@@ -1,5 +1,15 @@
 # Changelog
 
+## Share customer contact and address contracts
+
+- Move native Contact and Address inputs, normalization and bounded syntax
+  validation into the transport-free Commerce crate. Preserve wire defaults,
+  aliases and native validation errors.
+- Keep account sessions, immutable order ownership, PII projection, geographic
+  and payment eligibility and transactions in the original host.
+- Add a Core-free Rust example, wire and hostile-field cases, and a package
+  README. Native account, manual-order, CRM, isolation and checkout tests pass.
+
 ## Keep App presentation and agent answers connected
 
 - Supply final answers with the same server-selected view references as the

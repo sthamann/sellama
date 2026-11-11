@@ -10,11 +10,22 @@ Updated 11 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Shared customer input contracts
+
+The shared customer input extraction is locally validated: Contact and Address
+now come from the transport-free Commerce crate, including their original
+syntax checks and defaults. All 23 Commerce crate tests and seven targeted
+HTTP/PostgreSQL suites pass. These exercise accounts, manual orders, CRM history,
+tenant isolation, checkout handoff/review and international eligibility. The
+standalone Rust example runs without Core. Account identity, PII and immutable
+order ownership remain with the existing native host. This source change awaits
+its own hosted rollout. [Contract and example](source-map.md#shared-customer-input-contract).
+
 ## Pinned Lumen composition
 
-The eight services in the hosted Lumen commerce profile matched the checked
-in composition lock on 10 November. Northflank now selects the exact
-existing builds for Checkout and Knowledge, and both deployments completed.
+The eight services in the hosted Lumen commerce profile matched the accepted
+composition on 11 November. Northflank selects the exact builds for Checkout
+and Knowledge; both deployments completed on 10 November.
 Both services returned HTTP 204 from their private database readiness probes.
 Public Core health, the Lumen Storyfront page and its native product endpoint
 all returned HTTP 200.
@@ -44,13 +55,24 @@ automatic Northflank workflow had already promoted it before candidate
 preparation. This is post-deployment verification; automatic composition
 admission before promotion remains open under FND-08.
 
-The browser checks also found an App-frame colour mismatch and an answer that
-claimed an attached card was missing. The shared renderer now pairs its canvas
-and text colours, negotiates the host theme and accepts theme changes only from
-its initialized parent. Final answers receive the same server-selected view
-references as the host, separately from untrusted record text. Targeted bridge,
-HTTP/PostgreSQL and native unit checks cover these repairs. Their public visual
-and model retest follows the next Core rollout.
+Core `955bdc4d`, build `pleasant-walk-724`, repaired an App-frame colour
+mismatch and the final answer's missing presentation context. Its candidate
+passed against all eight existing artifacts before promotion. After deployment,
+all eight exact artifact identities and the unchanged Core schema inputs matched
+that candidate. The shared renderer pairs text and canvas colours and negotiates
+the current host theme. The final model receives the same server-selected view
+references as the host, separately from untrusted records.
+
+The live browser retest rendered readable content in both views. The real
+merchant agent opened two notes and the priority filter returned only the
+priority record. The public answer acknowledged the attached care card, which
+filtered to special care. Both views carried the verified selection into an
+editable draft. The model identified the records as synthetic and did not
+claim that it had operated the browser. No product or cart was changed.
+
+![The private priority record in the merchant conversation](assets/apps/product-guide-merchant-live-20261111.jpg)
+
+![The public care card and selected care type in the shopper conversation](assets/apps/product-guide-shopper-live-20261111.jpg)
 
 The Lumen email app has received the tested order events, but sending remains
 disabled in test mode and its sender and transport are unconfigured. That is the

@@ -49,7 +49,7 @@ and the merchant view both behave as intended.
 
 The hosted Lumen check exercised both filters with the real model and verified
 that a public request could not open private merchandising notes.
-[Observed result and current repair scope](status.md#product-guide-in-both-live-conversations).
+[Live result and screenshots](status.md#product-guide-in-both-live-conversations).
 
 When an initial tool call already selects a priority, the view keeps that
 restriction. Ask for all priorities first to use the selector yourself. The

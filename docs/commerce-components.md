@@ -313,6 +313,11 @@ Each component task remains open until these checks are demonstrated for it.
     [Shared contract](source-map.md#shared-product-contract).
 - [ ] CORE-04 Extract customer/account/address contracts with immutable order
   ownership and PII field admission preserved.
+  - [x] Share the native Contact and Address inputs and bounded syntax checks
+    through the transport-free Commerce crate. Preserve existing serialization,
+    identity/PII admission and native error responses. Supply a Core-free Rust
+    example and test registration, manual orders, history and checkout.
+    [Input contract](source-map.md#shared-customer-input-contract).
 - [ ] CORE-05 Extract cart and checkout orchestration through the explicit
   [independent Checkout tasks](#checkout-independent-service-and-ui); preserve CAS, legal receipt,
   stock locks, idempotency and one order/stock/outbox transaction.
@@ -502,8 +507,9 @@ The following are implementation tasks; existing UI foundations do not complete 
     agent, exercise its priority filter and carry it into an editable follow-up.
     Verify the public care card and its filter separately, and deny a public
     request for internal merchandising notes. [Live result](status.md#product-guide-in-both-live-conversations).
-  - [ ] Retest the App-frame theme repair and the final answer's presentation
-    metadata with the public model after the next Core rollout.
+  - [x] Retest the App-frame theme repair and presentation context with the
+    real model in both live conversations. Compare the rendered content, apply
+    each filter and verify the editable handoff. [Live screenshots](status.md#product-guide-in-both-live-conversations).
 - [ ] UI-08 Test permissions/PII/current context, missing capabilities, versions,
   unsaved work, cancellation/return, hostile output, responsive/accessibility and
   actual business effects in both standalone host and complete Veyndo.

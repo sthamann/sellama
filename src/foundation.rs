@@ -19,6 +19,11 @@ pub(crate) struct App {
 #[path = "failure.rs"]
 mod failure;
 pub(crate) use failure::Error;
+impl From<veyndo_commerce::customer::ValidationError> for Error {
+    fn from(error: veyndo_commerce::customer::ValidationError) -> Self {
+        bad(error.to_string())
+    }
+}
 impl From<sqlx::Error> for Error {
     fn from(e: sqlx::Error) -> Self {
         if matches!(e, sqlx::Error::PoolTimedOut) {

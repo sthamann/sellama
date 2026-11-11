@@ -8,10 +8,10 @@
       "guide": "docs/quickstart.html"
     },
     "sdk": {
-      "tag": "v0.4.3",
-      "commit": "8f2988fc7c73186dbcad36cb227f4e0c107c638b",
+      "tag": "v0.4.4",
+      "commit": "a1d5f92142459826c032f749db42bbf6098044dc",
       "prerelease": true,
-      "guide": "docs/one-shop-components.html#run-the-browser-example"
+      "guide": "docs/checkout-component.html#use-the-checkout-relay-from-the-sdk"
     },
     "apps": {
       "tag": "v0.29.1",

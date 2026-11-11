@@ -339,6 +339,51 @@ neither the grant nor the private service address.
 | `POST /store-api/checkout/independent/create` | `POST /v1/sessions` |
 | `POST /store-api/checkout/independent/confirm` | `POST /v1/sessions/confirm` |
 
+### Use the Checkout relay from the SDK
+
+Install the [SDK 0.4.4 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.4)
+to use `@veyndo/sdk/checkout`. The client uses the two relay routes above and
+Core's original receipt lookup. Start with an admitted shop, a current buyer
+and a cart whose `checkoutService.transport` is `same-origin`.
+
+```js
+import { createCheckoutClient } from '@veyndo/sdk/checkout';
+
+const checkout = createCheckoutClient({ baseUrl: shopOrigin, shop });
+const buyer = { customerToken };
+const session = await checkout.create({
+  requestKey, expiresIn: 3600,
+  context: {
+    cart: { backend: 'native', id: cart.id, revision: cart.revision },
+    salesChannel, environment: 'live', locale: cart.locale,
+    currency: cart.price.currency, country: cart.checkout.country,
+  },
+}, buyer);
+
+// Run after the buyer has reviewed the current cart and confirmed the purchase.
+const order = await checkout.confirm({
+  id: session.id, revision: session.revision, confirmed: true,
+  totalMinor: cart.price.totalMinor, country: cart.checkout.country,
+  paymentMethod: cart.checkout.paymentMethodId,
+  legalPolicyVersion: cart.checkoutService.legalPolicyVersion,
+}, { ...buyer, cartToken: cart.token });
+```
+
+If the confirmation reports an unknown outcome, check the existing order
+with `checkout.receipt({ sessionId: session.id, cartId: cart.id, customerId }, buyer)`.
+Save those references before dispatch. A receipt lookup returns the original
+order when available. A 404 means Core has no receipt for that buyer and
+session at the time of the check. The lookup never submits a purchase.
+The draft result has `commerceValidated: false`. Confirmation returns the
+session and order IDs. The lookup also returns the matching cart and buyer IDs.
+
+For a same origin browser with a buyer session cookie, set
+`credentials: 'same-origin'` and omit the explicit buyer token.
+[Connected Shop](agentic-component-ui.md#run-a-guide-and-checkout-in-an-external-host)
+shows a full review and confirmation flow in an external host.
+
+#### Capacity and deployment
+
 The relay has eight concurrent slots per Core process and at most four per
 shop across Core replicas, capped by the existing shop limit. A burst can
 wait up to 300 ms for a local slot, with at most 16 waiters per process and

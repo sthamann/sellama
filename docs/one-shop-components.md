@@ -82,6 +82,10 @@ use another public catalog.
 
 ### Connect checkout
 
+JavaScript and TypeScript clients can create a draft, submit a reviewed
+purchase and check the original receipt with the typed Checkout SDK.
+[Use the Core relay](checkout-component.md#use-the-checkout-relay-from-the-sdk).
+
 Core supplies checkout to both the native storefront and Storyfront. In the
 public Lumen test shop, both browser routes completed a PayPal Sandbox capture
 through the private Checkout service and returned to an empty cart. Both use

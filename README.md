@@ -17,11 +17,10 @@
 
 </div>
 
-Run a storefront and merchant Studio on a shared Rust commerce core. Add apps
-and agents that work with the same catalog, orders and permissions, or connect
-an existing storefront to individual Veyndo components.
+Run a shop and merchant Studio on a shared Rust core. Apps, agents and
+external storefronts use the same catalog, orders and permissions.
 
-[Current status](docs/status.md) · [Component map](docs/one-shop-components.md) · [Benchmarks](docs/benchmarks.md) · [Überblick auf Deutsch](docs/platform-overview.md)
+[Status](docs/status.md) · [Components](docs/one-shop-components.md) · [Connected Shop](docs/checkout-component.md#combine-checkout-and-an-installed-mcp-app) · [Benchmarks](docs/benchmarks.md) · [Deutsch](docs/platform-overview.md)
 
 [![The hosted Product Guide lets a shopper review price and delivery before adding an item](docs/assets/apps/product-guide-cart-review-20261111.jpg)](docs/status.md#product-guide-actions-in-the-hosted-shop)
 

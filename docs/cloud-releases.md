@@ -45,8 +45,13 @@ commits, build IDs and pushed manifests for builds managed by Northflank. For
 Automation it checks the immutable import ID and the source revision tag. The
 digest in the lock comes from that import's image metadata. A floating
 `latest` selection, mismatched image or incomplete deployment fails the check.
-The command only reads metadata. It keeps environment values and raw build
-logs out of its output.
+The verifier also reads the current instance inventory. It requires every
+configured replica to be running and checks the reported result of each
+configured readiness and liveness probe. The App Worker has no configured
+probe and must report its running instance. Exercise worker processing with
+the separate [purchase recovery tests](evidence/composed-release-rehearsal-2026-11-10.md#run-the-recovery-checks).
+The command only reads metadata. It keeps environment values, container names
+and raw logs out of its output.
 
 Checkout and Knowledge were pinned in Northflank to their already running
 builds on 10 November. Pinning uses an explicit build ID. The Northflank API

@@ -10,6 +10,15 @@ Updated 11 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Hosted component readiness
+
+The composition verifier checked all eight locked Lumen services on
+11 November. Each reported its configured running instance. The seven
+services with readiness probes reported success, as did the configured
+liveness probes. The App Worker reported a running instance. Worker execution
+is checked in the separate purchase recovery rehearsal.
+[Release procedure](cloud-releases.md#verify-the-hosted-lumen-composition).
+
 ## Website and handbook refresh
 
 The public website at [veyndo.ai](https://www.veyndo.ai/) now opens with three

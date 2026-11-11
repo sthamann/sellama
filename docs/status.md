@@ -19,7 +19,7 @@ The public handbook labels the German architecture overview and the English
 technical guides in chapter navigation and search. Older evidence retains its
 original dates. [Documentation guide](documentation-site.md).
 
-Northflank runs Experience `944943ea` (build `tranquil-sleep-9688`) and Core
+That rollout deployed Experience `944943ea` (build `tranquil-sleep-9688`) and Core
 `61f4a6c9` (build `unwavering-face-5739`) for this refresh. The release
 inventory matched all eight live artifacts after rollout. Both schema inputs
 were unchanged. Experience readiness returned HTTP 200 in
@@ -32,6 +32,11 @@ browser, preserving the article, language query and section. The four SRT
 caption files are available on both public handbook hosts. The live check
 matched 154 media responses and played the four current films in the browser.
 [Compatibility notes](documentation-site.md#historical-links-and-film-downloads).
+
+The standard Core release workflow also published build `choice-match-7220`
+from documentation commit `34fac17e`. All eight running artifacts matched
+the release inventory after deployment. The public shop, catalogue, native
+shop setup and Experience readiness returned HTTP 200.
 
 ## Shared customer input contracts
 

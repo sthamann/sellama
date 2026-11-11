@@ -339,9 +339,41 @@ neither the grant nor the private service address.
 | `POST /store-api/checkout/independent/create` | `POST /v1/sessions` |
 | `POST /store-api/checkout/independent/confirm` | `POST /v1/sessions/confirm` |
 
+### Review a cart change from the SDK
+
+Install [SDK 0.4.5](https://github.com/veyndo/sdk/releases/tag/v0.4.5) to
+use the Store API cart from `@veyndo/sdk/checkout`. Call `cart.create` once
+and use the returned token to read the same cart or add line items. To
+replace its contents, pass the complete proposed basket and the current
+revision to `cart.preview`.
+
+```js
+import { createCheckoutClient } from '@veyndo/sdk/checkout';
+
+const checkout = createCheckoutClient({
+  baseUrl: shopOrigin, shop, channel: salesChannel, locale, currency,
+});
+const buyer = { customerToken };
+const cart = await checkout.cart.create({}, buyer);
+const access = { ...buyer, cartToken: cart.token };
+const items = [{ id: productId, quantity: 1 }];
+const preview = await checkout.cart.preview({ items, revision: cart.revision }, access);
+
+// Display the returned price, shipping cost and delivery date.
+// Apply the proposal only after the buyer accepts it.
+const reviewedCart = await checkout.cart.apply({
+  items, revision: preview.revision, review: preview.review,
+}, access);
+```
+
+The preview leaves the basket as it was. Core returns HTTP 409 if the
+revision or reviewed quote changed. Read the current basket with
+`cart.read(access)`, request a new preview and show it to the buyer.
+Use the returned cart and total to start the checkout session below.
+
 ### Use the Checkout relay from the SDK
 
-Install the [SDK 0.4.4 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.4)
+Install the [SDK 0.4.5 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.5)
 to use `@veyndo/sdk/checkout`. The client uses the two relay routes above and
 Core's original receipt lookup. Start with an admitted shop, a current buyer
 and a cart whose `checkoutService.transport` is `same-origin`.

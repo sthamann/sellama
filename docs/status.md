@@ -12,6 +12,12 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## Typed Checkout SDK
 
+SDK 0.4.5 adds typed cart reads, additions and reviewed replacement. The
+installed package previewed a change without saving it. Core rejected a
+stale revision and a changed proposal, then applied the reviewed basket.
+The accepted total carried into a simulated order through independent
+Checkout. [Cart walkthrough](checkout-component.md#review-a-cart-change-from-the-sdk).
+
 SDK 0.4.4 adds draft creation, purchase confirmation and original receipt
 lookup through the Core relay. In an isolated test with separate Core and
 Checkout processes, the installed SDK completed a simulated purchase and

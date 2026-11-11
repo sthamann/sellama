@@ -54,6 +54,10 @@ The SDK uses the reviewed cart and the current buyer context. If the
 response is lost, it can read the original order by session, cart and
 buyer through Core. [Checkout SDK](checkout-component.md#use-the-checkout-relay-from-the-sdk).
 
+The same client can read and prepare a basket before confirmation.
+Core calculates the cart preview and checks its fingerprint and revision
+when applying it. [Cart preview and apply](checkout-component.md#review-a-cart-change-from-the-sdk).
+
 Storyfront can recover a purchase after its browser notification is lost. Core
 deploys the recovery route and migration first. The Experience uses the
 verified Core receipt to decide when to clear its original cart.

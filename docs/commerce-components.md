@@ -125,8 +125,10 @@ to native Veyndo through the same owner.
     products. In Studio, apply a stored catalogue proposal alongside an App
     table in a private sandbox; verify the live product stays unchanged.
     [Hosted action verification](status.md#product-guide-actions-in-the-hosted-shop).
-  - [ ] Verify selection, price and delivery for a distinct app-linked
-    variant in the public storefront. [Interaction contract](agentic-component-ui.md#review-and-act-in-the-veyndo-chat).
+  - [x] In the public storefront, switch between two app-linked variants with
+    different prices. Verify that changing the selection clears the prior
+    offer, Core recalculates price and delivery, and confirmation adds the
+    selected variant exactly once. [Hosted variant acceptance](status.md#product-guide-variant-selection).
   - [ ] Test the same operations from a compatible external host and keep the
     generated OpenUI presentation separate from action authority.
 

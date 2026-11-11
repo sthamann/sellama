@@ -38,6 +38,13 @@ next editable message. When a result references an available product, the
 Veyndo host can open its variant picker and show a cart preview with current
 price and delivery. The shopper confirms the cart change separately.
 
+To check variants, link the care record to the parent product and activate two
+variants with different prices. Review one, switch to the other and check that
+the cart button is replaced by a fresh review. Confirm the new offer and verify
+that the cart names the selected variant. With one variant out of stock, only
+the available variant appeared in the hosted picker.
+[Hosted variant acceptance](status.md#product-guide-variant-selection).
+
 In Studio, switch to a private sandbox before asking for an executable product
 proposal. The app can be present there without its private live records. Add a
 synthetic private note in the sandbox and ask the assistant to read it and

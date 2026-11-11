@@ -128,6 +128,26 @@ editor. The live product description did not change.
 [Approved sandbox change](assets/apps/product-guide-sandbox-applied-20261111.jpg) ·
 [Reproduce both actions](product-guide-mcp-app.md#try-it-in-both-conversations).
 
+### Product Guide variant selection
+
+On 11 November, the public native Lumen shop opened the Product Guide
+0.1.2 for a synthetic Meridian lamp. With Brass out of stock, the picker
+offered Graphite. With both available, the host quoted €64.90 for Brass.
+Changing to Graphite cleared that offer and required another review.
+Core then quoted €79.90 and collection at €0.00 in Germany. The cart
+stayed empty through both reviews. Confirmation added exactly one
+Graphite unit at €79.90, which also appeared in the checkout summary.
+
+The model text reported that it had received no catalogue results for
+its recommendation, although the App view supplied the product reference
+and the host resolved it successfully. The review above records the actual
+host and Core behavior. The test cart was cleared and the synthetic product
+family was deactivated afterward. The run stopped at the checkout summary.
+
+[Review with the chosen variant](assets/apps/product-guide-variant-review-20261111.jpg) ·
+[Selected variant in checkout](assets/apps/product-guide-variant-cart-20261111.jpg) ·
+[Reproduce the test](product-guide-mcp-app.md#try-it-in-both-conversations).
+
 ## Pinned Lumen composition
 
 The eight services in the hosted Lumen commerce profile matched the accepted

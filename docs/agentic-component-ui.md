@@ -373,6 +373,13 @@ variant. Switching the selection clears the displayed offer. Each fresh review
 binds the confirmation to the selected variant, total and Core cart revision.
 [Desktop and mobile acceptance](status.md#variant-purchase-from-an-external-host).
 
+The example renders Purchase and Product Guide as registered OpenUI panels.
+An optional model response selects their order from two allowed choices.
+The host passes only the requested focus and builds the admitted OpenUI
+source. The app view keeps its fixed read scope. Core prices and confirms
+the selected variant through independent Checkout.
+[OpenUI purchase test](status.md#openui-variant-checkout).
+
 ### Show the merchant's app view during the answer
 
 Read tools backed by an admitted App view tell the model that they supply an

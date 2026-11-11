@@ -674,6 +674,24 @@ checkout controls.
 [Desktop quote](assets/apps/connected-shop-variant-review-20261111.png) ·
 [Mobile receipt](assets/apps/connected-shop-variant-receipt-20261111.png).
 
+### OpenUI variant checkout
+
+The [Connected Shop example](https://github.com/veyndo/sdk/tree/92166fb50879625e3f74de119b85affbf5a26631/examples/connected-shop)
+uses OpenUI to place the purchase controls and the filterable MCP App.
+In the 11 November browser tests, desktop showed the purchase panel first
+and mobile showed the guide first. The optional provider path received a
+controlled model response. Core, independent Checkout and their separate
+PostgreSQL databases ran locally with simulated payments.
+
+The host rejected the previous Brass offer after reviewing Graphite and
+confirmed one Graphite unit at €79.90 in each browser session. The mobile
+run discarded the successful confirmation reply. The same order receipt
+returned after recovery and reload. Core recorded two orders and the
+Graphite stock fell by two units. Layout output could choose panel order
+only. The live provider call remains unverified for this example.
+
+[Mobile receipt with the guide first](assets/apps/connected-shop-openui-receipt-20261111.png).
+
 ## MCP App conversation views and independent Checkout rehearsal
 
 Core image `gorgeous-seat-2912` from

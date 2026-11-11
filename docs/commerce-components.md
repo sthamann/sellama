@@ -133,8 +133,10 @@ to native Veyndo through the same owner.
     prices and delivery, reject the previous quote, and confirm the current
     choice through independent Checkout. Recover the original receipt after
     response loss. [External variant acceptance](status.md#variant-purchase-from-an-external-host).
-  - [ ] Verify the same variant flow in an external generated OpenUI surface
-    with review and purchase authority in its host.
+  - [x] Run the variant flow in an external OpenUI surface, with the
+    generated order of the panels tested using a model response fixture.
+    The host retains review and purchase authority.
+    [OpenUI variant acceptance](status.md#openui-variant-checkout).
 
 ## App runtime milestone, 6 November 2026
 

@@ -20,7 +20,7 @@
 Run a shop and merchant Studio on a shared Rust core. Apps, agents and
 external storefronts use the same catalog, orders and permissions.
 
-[Status](docs/status.md) · [Components](docs/one-shop-components.md) · [Connected Shop](docs/checkout-component.md#combine-checkout-and-an-installed-mcp-app) · [Benchmarks](docs/benchmarks.md) · [Deutsch](docs/platform-overview.md)
+[Status](docs/status.md) · [Components](docs/one-shop-components.md) · [OpenUI example](docs/agentic-component-ui.md#run-a-guide-and-checkout-in-an-external-host) · [Benchmarks](docs/benchmarks.md) · [Deutsch](docs/platform-overview.md)
 
 [![The hosted Product Guide lets a shopper review price and delivery before adding an item](docs/assets/apps/product-guide-cart-review-20261111.jpg)](docs/status.md#product-guide-actions-in-the-hosted-shop)
 

@@ -176,6 +176,23 @@ def verify_sources(lock, sources):
         print(f"{name}: pinned source and schema inputs matched")
 
 
+def verify_instances(name, instances, health_checks, health):
+    current = health["current"]
+    containers = current["containers"]
+    require(current["hasMore"] is False, f"{name}: incomplete current instance inventory")
+    running = sum(container["status"] == "TASK_RUNNING" for container in containers)
+    require(running == len(containers) == instances,
+            f"{name}: expected {instances} running instances, observed {running} of {len(containers)}")
+    expected_probes = {"readinessProbe": "readiness", "livenessProbe": "liveness"}
+    for check in health_checks:
+        kind = expected_probes.get(check["type"])
+        if kind is None:
+            continue
+        for container in containers:
+            states = [probe["state"] for probe in container["probes"] if probe["kind"] == kind]
+            require(states == ["success"], f"{name}: missing or unsuccessful {kind} probe")
+
+
 def verify_hosted(lock, cli, project):
     def verify(item):
         name, row = item
@@ -188,7 +205,12 @@ def verify_hosted(lock, cli, project):
         service = request(cli, project, "--service", row["service"])
         require(service.get("status", {}).get("deployment", {}).get("status") == "COMPLETED",
                 f"{name}: deployment has not completed")
-        print(f"{name}: exact deployment matched ({row['commit'][:8]})")
+        health_checks = service.get("healthChecks", [])
+        health = request(cli, project, "health", "--service", row["service"])
+        verify_instances(name, deployment["instances"], health_checks, health)
+        probes = "configured readiness/liveness probes passed" if health_checks else "no probes configured"
+        print(f"{name}: exact deployment matched ({row['commit'][:8]}), "
+              f"{deployment['instances']} running; {probes}")
 
     with ThreadPoolExecutor(max_workers=4) as pool:
         list(pool.map(verify, lock["components"].items()))

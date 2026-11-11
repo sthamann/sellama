@@ -13,7 +13,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from composition_release import (
-    LOCK, compare, component_candidate, core_candidate, prepare_component, prepare_core, unique_keys, validate, verify_source, verify_sources,
+    LOCK, compare, component_candidate, core_candidate, prepare_component, prepare_core,
+    unique_keys, validate, verify_instances, verify_source, verify_sources,
 )
 
 
@@ -74,6 +75,30 @@ class CompositionReleaseTest(unittest.TestCase):
         deployment["importedImage"]["imageId"] = "other-import"
         with self.assertRaisesRegex(ValueError, "import"):
             compare("automation", row, deployment)
+
+    def test_live_instances_require_current_replicas_and_configured_probes(self):
+        running = {"status": "TASK_RUNNING", "probes": [
+            {"kind": "readiness", "state": "success"},
+            {"kind": "liveness", "state": "success"},
+        ]}
+        checks = [{"type": "readinessProbe"}, {"type": "livenessProbe"}]
+        current = {"containers": [running, running], "hasMore": False}
+        verify_instances("checkout", 2, checks, {"current": current})
+        verify_instances("app-worker", 1, [], {"current": {
+            "containers": [{"status": "TASK_RUNNING", "probes": []}], "hasMore": False,
+        }})
+        for changes, error in (
+            ({"hasMore": True}, "incomplete"),
+            ({"containers": [running]}, "expected 2 running"),
+            ({"containers": [running, {"status": "TASK_CRASHLOOP"}]}, "expected 2 running"),
+            ({"containers": [running, {**running, "probes": []}]}, "readiness"),
+            ({"containers": [running, {**running, "probes": [
+                {"kind": "readiness", "state": "success"},
+                {"kind": "liveness", "state": "failure"},
+            ]}]}, "liveness"),
+        ):
+            with self.subTest(error=error), self.assertRaisesRegex(ValueError, error):
+                verify_instances("checkout", 2, checks, {"current": {**current, **changes}})
 
 
     def test_pinned_source_checks_actual_git_objects_and_migration_boundary(self):

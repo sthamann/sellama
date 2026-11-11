@@ -114,8 +114,9 @@ running on Northflank.
 ## What we check when components work together
 
 The hosted Lumen profile records the exact builds and database inputs of the
-eight services it connects. Operators can compare the running deployment with
-that lock before a change. This gives a test run a reproducible version set
+eight services it connects. Operators can compare the deployed versions,
+running replicas and configured probe results before a change.
+This gives a test run a reproducible version set
 without adding requests to the storefront or checkout.
 [Verify the hosted profile](cloud-releases.md#verify-the-hosted-lumen-composition).
 

@@ -293,6 +293,9 @@ Each component task remains open until these checks are demonstrated for it.
     Preserve the other seven artifacts, enforce source and schema ownership,
     and reject imported-image substitution. Thirteen targeted release tests pass.
     [Component candidates](cloud-releases.md#prepare-a-core-release-candidate).
+  - [x] Check current replica counts and configured readiness and liveness
+    results for all eight hosted services during composition verification.
+    [Hosted release check](cloud-releases.md#verify-the-hosted-lumen-composition).
   - [ ] Make the lock an automatic admission check for the complete deployment
     workflow and extend it to the other release profiles.
 - [ ] FND-09 Build component CI and complete-product CI; short affected checks per

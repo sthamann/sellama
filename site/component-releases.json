@@ -8,8 +8,8 @@
       "guide": "docs/quickstart.html"
     },
     "sdk": {
-      "tag": "v0.4.7",
-      "commit": "a19ba6968de36a8a8db1c287a85b5298b9fe9822",
+      "tag": "v0.4.8",
+      "commit": "4c2d01c8d1f87466d4d63c5a0883953ff17f5e41",
       "prerelease": true,
       "guide": "docs/merchant-operations.html#read-order-history-with-the-sdk"
     },

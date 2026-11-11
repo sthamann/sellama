@@ -74,7 +74,7 @@ This does not insert invented addresses into real registered accounts.
 
 ### Read order history with the SDK
 
-Install the [SDK 0.4.7 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.7).
+Install the [SDK 0.4.8 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.8).
 The account client reads the signed-in buyer's orders. Use the same shop and
 buyer context for each page and for order details.
 
@@ -88,6 +88,11 @@ const first = page.elements[0];
 if (first) {
   const order = await account.orders.detail(first.id, buyer);
   console.log(order.orderNumber, order.cart.price?.totalMinor, order.receipts);
+  const invoice = order.receipts.find(receipt => receipt.kind === 'invoice');
+  if (invoice) {
+    const pdf = await account.orders.receiptPdf(order.id, invoice.id, buyer);
+    console.log(invoice.number, pdf.byteLength);
+  }
 }
 if (page.nextCursor) {
   const next = await account.orders.list({ after: page.nextCursor }, buyer);
@@ -97,9 +102,11 @@ if (page.nextCursor) {
 
 Core returns up to 100 orders per page. Each detail contains the stored
 addresses and cart snapshot, current payment and delivery state and
-customer-visible receipt metadata. The receipt's `pdfPath` uses the same
-buyer session on the Store API. In a browser on the shop origin, use
-`credentials: 'same-origin'` to use the existing session cookie.
+customer-visible receipts. `orders.receiptPdf` returns a `Uint8Array` that you
+can write to a file in Node or use to create a browser download. It uses
+the same buyer session and applies `maxResponseBytes` (1 MiB by default).
+In a browser on the shop origin, use `credentials: 'same-origin'` to use
+the existing session cookie.
 
 ## Merchant API and MCP
 

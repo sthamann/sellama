@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "61f4a6c9737c4dc4d26503f8d255fb994c08dff0",
-      "digest": "sha256:f49c2a48e57db7c78c4b05d71f79ffc6ef84a8110b2c8b3adb479f26d3b2c54d",
+      "commit": "34fac17e4a5e87b8035ab1ae2571bec56906360b",
+      "digest": "sha256:0d2cc812a58a703c803cba78f48cc2dcd7cbae160e1eea8987d854be094a5657",
       "build_service": "vendune-core-build",
-      "build_id": "unwavering-face-5739",
+      "build_id": "choice-match-7220",
       "schema": {
         "owner": "core",
         "inputs": {

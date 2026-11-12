@@ -12,9 +12,8 @@ import { admitNavigation } from "../../src/admin/assistant/copilot-navigation";
 import CopilotNavigation from "../../src/admin/assistant/CopilotNavigation";
 import { StudioContext } from "../../src/admin/shell/StudioContext";
 import { LocaleScope } from "../../src/shared/i18n/i18n";
-import GeneratedWorkspace, {
-  composeNativeWorkspace,
-} from "../../src/admin/workspace/GeneratedWorkspace";
+import GeneratedWorkspace from "../../src/admin/workspace/GeneratedWorkspace";
+import { composeNativeWorkspace } from "../../src/admin/workspace/workspace-presentation";
 it("retains open state across views, hides immediately across tenant/account boundaries and revocation", () => {
   const { result, rerender } = renderHook(
     ({ scope, allowed }) => useCopilotDock(scope, allowed),
@@ -71,7 +70,7 @@ it("requires a click and uses the shared native entity route", () => {
   expect(openEntity).toHaveBeenCalledWith("productData", "lamp");
   expect(selectTab).not.toHaveBeenCalled();
 });
-it("renders real host bindings through OpenUI and refuses forged data, script and rights", async () => {
+it("renders real host bindings through A2UI and refuses forged data, script and rights", () => {
   const candidate = {
     entity: "products",
     criteria: { active: true },
@@ -79,10 +78,11 @@ it("renders real host bindings through OpenUI and refuses forged data, script an
   };
   expect(
     composeNativeWorkspace(candidate, ["catalog.read", "catalog.write"]),
-  ).toBe("root = Workspace([Intake(), Directory()])");
-  expect(composeNativeWorkspace(candidate, ["catalog.read"])).toBe(
-    "root = Workspace([Directory()])",
-  );
+  ).toEqual({ protocol: "a2ui-1.0", controls: ["Intake", "Directory"] });
+  expect(composeNativeWorkspace(candidate, ["catalog.read"])).toEqual({
+    protocol: "a2ui-1.0",
+    controls: ["Directory"],
+  });
   expect(
     composeNativeWorkspace({ ...candidate, rows: [{ price: 1 }] }, [
       "catalog.read",
@@ -100,18 +100,34 @@ it("renders real host bindings through OpenUI and refuses forged data, script an
       ["orders.read"],
     ),
   ).toBeNull();
-  render(
+  const workspace = (rights: string[]) => (
     <GeneratedWorkspace
       candidate={candidate}
-      rights={["catalog.read", "catalog.write"]}
+      rights={rights}
       directory={<button>Native product editor</button>}
       intake={<button>Native CSV review</button>}
-    />,
+    />
   );
-  await screen.findByRole("button", { name: "Native product editor" });
+  const { rerender } = render(workspace(["catalog.read", "catalog.write"]));
+  const editor = screen.getByRole("button", { name: "Native product editor" });
+  expect(editor.closest("[data-layout-protocol]")).toHaveAttribute(
+    "data-layout-protocol",
+    "a2ui-1.0",
+  );
   expect(
     screen.getByRole("button", { name: "Native CSV review" }),
   ).toBeInTheDocument();
+  rerender(workspace(["catalog.read"]));
+  expect(
+    screen.queryByRole("button", { name: "Native CSV review" }),
+  ).toBeNull();
+  expect(screen.getByRole("button", { name: "Native product editor" })).toBe(
+    editor,
+  );
+  rerender(workspace([]));
+  expect(
+    screen.queryByRole("button", { name: "Native product editor" }),
+  ).toBeNull();
 });
 
 it("updates selected context with native navigation and keeps the originating app only within its account scope", async () => {

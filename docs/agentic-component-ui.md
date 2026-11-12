@@ -167,9 +167,9 @@ A context change aborts reads and discards late results. Changing shop, actor,
 environment or channel requires new clients and a new composition. A failed service
 leaves healthy independent views available, with explicit unavailable state.
 No business writes execute during automatic view loading; existing review controls
-retain their operation owners. The native Products/Orders/Customers OpenUI
-composition now uses the same layout registry, preserving its current criteria,
-domain, PII and intake admission.
+retain their operation owners. Studio uses the same layout registry and A2UI
+adapter for its Products, Orders and Customers working views. Native criteria,
+domain, personal data and intake admission still run before layout projection.
 
 [SDK contract and runnable two-service example](https://github.com/veyndo/sdk/blob/main/docs/composition.md),
 [implementation](https://github.com/veyndo/sdk/pull/3),
@@ -196,6 +196,18 @@ integration tracked under UI-06.
 [Install SDK 0.4.15](https://github.com/veyndo/sdk/releases/tag/v0.4.15) ·
 [Adapter example](https://github.com/veyndo/sdk/blob/v0.4.15/docs/composition.md#render-an-admitted-workspace-with-a2ui) ·
 [Acceptance](status.md#a2ui-workspace-adapter-in-sdk-0415).
+
+### Open an A2UI working view in Studio
+
+Ask the Studio assistant to show products, orders or customers and open its
+working view. Studio admits the current user's view and projects it to A2UI
+v1.0 using the pinned SDK. Its React renderer maps only the registered
+directory, catalogue intake and shipping policy controls. The same native
+editor owns the selected record and its unsaved changes.
+
+A client without the Studio catalog falls back to OpenUI for the admitted
+panels. Neither presentation receives credentials or grants access. The
+storefront conversation's A2UI integration remains tracked under UI-06.
 
 ## Orders, shipments and shipping policy
 

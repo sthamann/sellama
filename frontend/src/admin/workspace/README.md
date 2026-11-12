@@ -7,8 +7,8 @@ Current shell admission filters every card and linked view. Layout versions reta
 clones/releases. Goals refer to the existing assistant/proposal and Flow owners.
 No second agent scheduler, commerce store or authorization model lives here.
 
-`GeneratedWorkspace` imports shared layout admission from the exact pinned
-`@veyndo/sdk/composition` package after its native entity/criteria/PII gate.
-Only reviewed local Directory and permitted Intake controls reach OpenUI.
-External service hosts use that same layout contract with independently scoped
-clients; SDK descriptors never grant domain or data access.
+`workspace-presentation.ts` admits the entity, criteria and current rights
+before projecting the workspace with the pinned SDK. A2UI v1.0 arranges
+the native directory, permitted intake and shipping policy controls.
+OpenUI provides the fallback. Both paths mount the same local bindings.
+External hosts can use the same SDK contract with their own scoped clients.

@@ -74,20 +74,21 @@ it("never renders the previous shop rights while admission for a new request sco
   ).toBe(true);
 });
 
-it("native OpenUI composition uses the released SDK registry and preserves domain and PII rights", async () => {
+it("native A2UI composition uses the released SDK registry and preserves domain and PII rights", async () => {
   const { composeNativeWorkspace } =
-    await import("../../src/admin/workspace/GeneratedWorkspace");
+    await import("../../src/admin/workspace/workspace-presentation");
   const candidate = {
     entity: "products",
     criteria: {},
     components: ["records", "details", "intake"],
   };
-  expect(composeNativeWorkspace(candidate, ["catalog.read"])).toBe(
-    "root = Workspace([Directory()])",
-  );
+  expect(composeNativeWorkspace(candidate, ["catalog.read"])).toEqual({
+    protocol: "a2ui-1.0",
+    controls: ["Directory"],
+  });
   expect(
     composeNativeWorkspace(candidate, ["catalog.read", "catalog.write"]),
-  ).toBe("root = Workspace([Directory(), Intake()])");
+  ).toEqual({ protocol: "a2ui-1.0", controls: ["Directory", "Intake"] });
   expect(
     composeNativeWorkspace({ entity: "orders", criteria: {} }, ["orders.read"]),
   ).toBeNull();
@@ -96,7 +97,11 @@ it("native OpenUI composition uses the released SDK registry and preserves domai
       "orders.read",
       "customers.pii",
     ]),
-  ).toBe("root = Workspace([Directory()])");
+  ).toEqual({ protocol: "a2ui-1.0", controls: ["Directory"] });
+  expect(composeNativeWorkspace(candidate, ["catalog.read"], {})).toEqual({
+    protocol: "openui",
+    source: "root = Workspace([Directory()])",
+  });
   expect(
     composeNativeWorkspace(
       { ...candidate, components: ["records", "payments.refund"] },

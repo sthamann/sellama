@@ -1181,7 +1181,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/team/workspace-create-i18n.ts](../frontend/src/admin/team/workspace-create-i18n.ts) | Shop creation guidance uses the current Studio interface language. |
 | [frontend/src/admin/workspace/AgentViewDirectory.tsx](../frontend/src/admin/workspace/AgentViewDirectory.tsx) | Composition mounts existing domain directories, filters and native entity editors without a second renderer. |
 | [frontend/src/admin/workspace/AgentWorkSurface.tsx](../frontend/src/admin/workspace/AgentWorkSurface.tsx) | Reviewed composition binds real native views to the current Studio scope and private workspace preferences. |
-| [frontend/src/admin/workspace/GeneratedWorkspace.tsx](../frontend/src/admin/workspace/GeneratedWorkspace.tsx) | OpenUI presents admitted model compositions. Native bindings own every record, action and permission. |
+| [frontend/src/admin/workspace/GeneratedWorkspace.tsx](../frontend/src/admin/workspace/GeneratedWorkspace.tsx) | Render registered workspace controls with A2UI or the existing OpenUI fallback. |
 | [frontend/src/admin/workspace/OrderShippingPolicy.tsx](../frontend/src/admin/workspace/OrderShippingPolicy.tsx) | Current source passages for the order workspace. The query contains no order or customer data. |
 | [frontend/src/admin/workspace/PersonalWorkspace.tsx](../frontend/src/admin/workspace/PersonalWorkspace.tsx) | Personal entry point on the existing shell; requests and linked views retain current scope and rights. |
 | [frontend/src/admin/workspace/WorkSuggestions.tsx](../frontend/src/admin/workspace/WorkSuggestions.tsx) | Actual permission-filtered work links open native owners; late responses cannot survive a scope change. |
@@ -1193,6 +1193,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/workspace/pin-workspace-view.ts](../frontend/src/admin/workspace/pin-workspace-view.ts) | Native grids and composed views share actor-private layout CAS; records and personal criteria never persist. |
 | [frontend/src/admin/workspace/workspace-i18n.ts](../frontend/src/admin/workspace/workspace-i18n.ts) | Personal workspace vocabulary; UI language never changes saved content language. |
 | [frontend/src/admin/workspace/workspace-model.ts](../frontend/src/admin/workspace/workspace-model.ts) | Layouts are private presentation preferences, never roles or delegated permissions. |
+| [frontend/src/admin/workspace/workspace-presentation.ts](../frontend/src/admin/workspace/workspace-presentation.ts) | Project the native workspace's reviewed controls through the shared A2UI adapter. |
 | [frontend/src/admin/workspace/workspace.css](../frontend/src/admin/workspace/workspace.css) | Personal workspace: stable shell, accessible rearrangement and scoped cards. |
 | [frontend/src/application/ApplicationRouter.tsx](../frontend/src/application/ApplicationRouter.tsx) | Select independent lazy applications; contain failed imports and reset boundaries on navigation. |
 | [frontend/src/main.tsx](../frontend/src/main.tsx) | Browser bootstrap only; application selection and error recovery live in application/. |

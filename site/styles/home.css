@@ -59,10 +59,89 @@
 }
 .home-paths > h2 { margin-block: 0 24px; }
 .home-evidence-grid { margin-block-end: 24px; }
+
+.home-components {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+.home-components-intro h2 {
+  font-size: clamp(2.25rem, 4.1vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.038em;
+  margin-block: 0 18px;
+}
+.home-components-intro p {
+  max-width: 48ch;
+  color: var(--muted);
+}
+.home-components-map {
+  min-width: 0;
+  margin: 0;
+  padding: clamp(16px, 3vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+}
+.home-components-interfaces,
+.home-components-services {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.home-components-interfaces {
+  text-align: center;
+  font-size: 0.875rem;
+  gap: 8px;
+}
+.home-components-interfaces span {
+  padding: 8px 4px;
+  background: var(--soft);
+  border-radius: 6px;
+}
+.home-components-connection {
+  margin-block: 10px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.home-components-core {
+  display: grid;
+  gap: 3px;
+  padding: 13px 16px;
+  text-align: center;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--paper);
+}
+.home-components-core strong {
+  color: var(--accent);
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+}
+.home-components-core span, .home-components-map dd {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.home-components-services {
+  margin-block: 15px;
+  gap: 12px;
+}
+.home-components-map dt {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.home-components-map dd { margin: 3px 0 0; }
+.home-components-map figcaption {
+  padding-block-start: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
 @media (max-width: 800px) {
-  .home-hero { grid-template-columns: minmax(0, 1fr); }
+  .home-hero, .home-components { grid-template-columns: minmax(0, 1fr); }
   .home-route-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 550px) {
   .home-route-list, .home-feature-list, .home-evidence-grid { grid-template-columns: minmax(0, 1fr); }
+  .home-components-services { grid-template-columns: minmax(0, 1fr); }
 }

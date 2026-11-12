@@ -6,7 +6,7 @@
       <a class="button primary" href="https://start.veyndo.ai/start">Try a hosted shop</a>
       <a class="button" href="docs/first-tour.html">Run it locally</a>
     </div>
-    <p class="home-language"><a href="docs/platform-overview.html" lang="de">Überblick auf Deutsch</a> <span lang="en">·</span> <a href="docs/index.html">Developer handbook</a> · <a href="docs/status.html#platform-at-a-glance">Current platform status</a></p>
+    <p class="home-language"><a href="docs/platform-overview.html" lang="de">Überblick auf Deutsch</a> · <a href="#commerce-architecture">Architecture &amp; SDK</a> · <a href="docs/status.html#platform-at-a-glance">Current platform status</a></p>
   </div>
   <figure class="home-capture home-hero-capture">
     <a href="docs/status.html#product-guide-actions-in-the-hosted-shop">
@@ -23,6 +23,35 @@
     <article><h3>Design a Storyfront</h3><p>Build an Experience with Storyfront and use Veyndo for stock, price, checkout and orders.</p><a href="https://experience.veyndo.ai/">Open Experience Studio</a></article>
     <article><h3>Connect your own app</h3><p>Use the JavaScript SDK for buyer accounts, checkout and interactive A2UI working views in your own app.</p><a href="docs/checkout-component.html#combine-checkout-and-an-installed-mcp-app">Run Connected Shop</a> · <a href="docs/agentic-component-ui.html#compare-openui-and-a2ui">Compare OpenUI and A2UI</a> · <a href="docs/agentic-component-ui.html#open-an-a2ui-working-view-in-studio">Use A2UI in Studio</a> · <a href="docs/merchant-operations.html#use-the-signed-in-browser-with-the-sdk">Build a buyer account</a></article>
   </div>
+</section>
+
+<section class="section home-components" id="commerce-architecture" aria-labelledby="commerce-architecture-title">
+  <div class="home-components-intro">
+    <h2 id="commerce-architecture-title">Many interfaces.<br>One shop.</h2>
+    <p>Your own storefront, Storyfront, Studio and agents all work with the same catalog, stock and orders. Use the JavaScript SDK to build your interface. Connect individual services where your project needs them.</p>
+    <div class="actions">
+      <a class="button primary" href="docs/one-shop-components.html">Explore the architecture</a>
+      <a class="button" href="docs/hosted-component-api.html">Try the SDK</a>
+    </div>
+  </div>
+  <figure class="home-components-map">
+    <div class="home-components-interfaces">
+      <span>Storefront &amp; Storyfront</span>
+      <span>Studio &amp; POS</span>
+      <span>Apps &amp; agents</span>
+    </div>
+    <div class="home-components-connection">SDK over HTTP · MCP tools</div>
+    <div class="home-components-core">
+      <strong>Commerce Core</strong>
+      <span>Catalog · Pricing · Inventory · Orders</span>
+    </div>
+    <dl class="home-components-services">
+      <div><dt>Checkout &amp; Payments</dt><dd>Review, confirm and recover a purchase.</dd></div>
+      <div><dt>Apps &amp; Connectors</dt><dd>Run workflows and deliver to external systems.</dd></div>
+      <div><dt>Knowledge</dt><dd>Give interfaces and agents shop context.</dd></div>
+    </dl>
+    <figcaption>Core commits the order, stock movement and event together. That event can start a Flow for invoicing or delivery.</figcaption>
+  </figure>
 </section>
 
 <section class="section home-platform" id="platform">

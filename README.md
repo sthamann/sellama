@@ -20,7 +20,7 @@
 Shops and Studio share a Rust core. Apps and agents can use the same catalog,
 orders and permissions across services.
 
-[Status](docs/status.md#platform-at-a-glance) · [Components](docs/one-shop-components.md) · [Buyer SDK](docs/merchant-operations.md#use-the-signed-in-browser-with-the-sdk) · [Studio A2UI](docs/agentic-component-ui.md) · [Benchmarks](docs/benchmarks.md) · [Deutsch](docs/platform-overview.md)
+[Architecture & components](docs/one-shop-components.md) · [JavaScript SDK](https://github.com/veyndo/sdk) · [Status](docs/status.md#platform-at-a-glance) · [Benchmarks](docs/benchmarks.md) · [Deutsch](docs/platform-overview.md)
 
 [![The hosted Product Guide lets a shopper review price and delivery before adding an item](docs/assets/apps/product-guide-cart-review-20261111.jpg)](docs/status.md#product-guide-actions-in-the-hosted-shop)
 
@@ -28,6 +28,24 @@ The Product Guide connects chat to a reviewed cart. Studio opens product,
 order and customer working views through A2UI. Native and Storyfront share
 stock. Both Lumen purchases returned to empty carts and were refunded in
 PayPal Sandbox. [Hosted evidence](docs/status.md#platform-at-a-glance).
+
+## How the pieces fit
+
+```mermaid
+flowchart LR
+  UI["Shop · Studio · POS · Agent"] --> API["SDK / HTTP / MCP"]
+  API --> C["Commerce Core"]
+  API --> Q["Checkout"]
+  Q --> C
+  C --> E["Order, stock and event"]
+  E --> W["Flows and Apps"]
+```
+
+Use the full Veyndo shop or build your own frontend with the SDK. Checkout
+coordinates the buyer's session. Core owns the price, stock and order. Apps
+and Connectors can act on the committed result, and Knowledge gives agents
+shop context. [Illustrated walkthrough](https://www.veyndo.ai/docs/one-shop-components.html) ·
+[Read a live catalog from JavaScript](docs/hosted-component-api.md).
 
 ## What you can do
 

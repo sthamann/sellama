@@ -1,6 +1,62 @@
 # One shop, composable parts
 
-Run Veyndo as a complete shop, or start with the capability you need. A retailer can use its storefront, POS and merchant Studio together. A developer can integrate a marketplace gateway, run app logic or use the SDK with an existing commerce system.
+Run Veyndo as a complete shop, or use a component with a system you already
+run. A storefront, a register and an agent can all work with the same
+products and orders. Commerce Core owns the current price, stock and order.
+The JavaScript SDK gives your interface typed access to the shop and its
+services. HTTP and MCP are also available to other languages and tools.
+
+[Follow a purchase](#follow-a-purchase) · [Try the SDK](#read-the-catalog-from-javascript) ·
+[Find a component](#choose-a-starting-point) · [Check what is live](status.md).
+
+## Follow a purchase
+
+1. **Find the right product.** A shopper chooses a variant in a storefront
+   or an interactive Product Guide. The interface reads the catalog in the
+   shop's language and sales channel.
+2. **Review the real quote.** Checkout uses the buyer's cart, selected
+   shipping and payment method. The shopper sees the current total and
+   delivery estimate before confirming.
+3. **Commit once and follow up.** Commerce records the order, stock and event
+   together. Checkout can recover the original receipt if a response is lost.
+   A Flow can then hand work to an app or connector, for example to deliver
+   an invoice by email.
+
+![Connected Shop showing variant review and the price and delivery returned by Veyndo](assets/apps/connected-shop-variant-review-20261111.png)
+
+*Connected Shop runs outside the native storefront. Its Product Guide is an
+MCP App. The JavaScript SDK connects its catalog, cart and Checkout. The
+[runnable example](https://github.com/veyndo/sdk/tree/main/examples/connected-shop)
+uses a simulated payment.*
+
+## How the components fit together
+
+```mermaid
+flowchart TB
+  UI["Shop · Studio · POS · Agents"]
+  API["SDK / HTTP / MCP"]
+  C["Commerce Core"]
+  Q["Checkout"]
+  P["Payments"]
+  E["Order · Stock · Event"]
+  W["Flows · Apps · Connectors"]
+  K["Knowledge · Reporting"]
+  UI --> API
+  API --> C
+  API --> Q
+  Q -->|"Quote and purchase"| C
+  C <--> P
+  C --> E
+  E --> W
+  E --> K
+```
+
+The purchase commits in Core. Workers process follow-up jobs from committed
+events. Knowledge and reporting read from sources that can be rebuilt. That
+keeps the price and inventory authoritative across interfaces and lets teams
+use the same shop from a native screen, a custom frontend or an agent.
+
+### What the agent sees
 
 Studio can compose the normal Orders view with shipping policy from Shop
 Knowledge. An external host can combine the corresponding Commerce and
@@ -26,19 +82,21 @@ Commerce owns the catalogue, prices, stock and orders. Checkout coordinates the 
 
 ### Read the catalog from JavaScript
 
-Install the [SDK 0.4.15 package](https://github.com/veyndo/sdk/releases/tag/v0.4.15).
+Install the [SDK 0.4.20 package](https://github.com/veyndo/sdk/releases/tag/v0.4.20).
 An external storefront can read the same public catalog as the hosted shop.
 This example uses the German content of the public Lumen demo.
 
 ```js
-import { createCatalogClient } from '@veyndo/sdk/catalog';
+import { createHostedShop } from '@veyndo/sdk/hosted';
 
-const catalog = createCatalogClient({
-  baseUrl: 'https://app.veyndo.ai',
+const { catalog } = createHostedShop({
   shop: 'lumen-story-lab-15-o-98aa4751fa',
   locale: 'de-DE',
 });
-const first = await catalog.list({ limit: 1 });
+const [context, navigation, first] = await Promise.all([
+  catalog.context(), catalog.navigation(), catalog.list({ limit: 1 }),
+]);
+console.log(context.locale, context.currencies, navigation.elements);
 const product = first.elements[0];
 if (product) {
   const detail = await catalog.detail(product.id, { limit: 1 });
@@ -55,7 +113,7 @@ The selected SKU and visible parent can repeat, so combine pages by product
 ID. Keep the same shop, channel, language, currency and filters between pages.
 Commerce supplies the displayed price and delivery estimate. Checkout uses
 the current quote at purchase.
-[Runnable example](https://github.com/veyndo/sdk/blob/v0.4.15/examples/store-catalog.mjs).
+[Hosted SDK quickstart](hosted-component-api.md).
 
 ### Run the browser example
 
@@ -63,7 +121,7 @@ In a Node 22 or newer project, install the release archive and start the
 included host.
 
 ```sh
-npm install https://github.com/veyndo/sdk/releases/download/v0.4.15/veyndo-sdk-0.4.15.tgz
+npm install https://github.com/veyndo/sdk/releases/download/v0.4.20/veyndo-sdk-0.4.20.tgz
 node node_modules/@veyndo/sdk/examples/browser.mjs
 ```
 
@@ -78,7 +136,7 @@ configured Store API, so the browser needs no shop credentials or cross
 origin access. The host uses Node's standard library and binds to loopback.
 Set `VEYNDO_URL`, `VEYNDO_SHOP` and `VEYNDO_LOCALE` before starting it to
 use another public catalog.
-[Example source](https://github.com/veyndo/sdk/blob/v0.4.15/examples/browser.mjs).
+[Example source](https://github.com/veyndo/sdk/blob/v0.4.20/examples/browser.mjs).
 
 ### Connect checkout
 
@@ -121,20 +179,6 @@ transaction boundary and limits for checkout and its callbacks.
 [Load and recovery evidence](evidence/composed-release-rehearsal-2026-11-10.md#compare-confirmation-waits-across-separate-services).
 
 The storefront and Studio use that same shop identity and transaction boundary. Provider calls run through durable jobs. Knowledge and reporting can be rebuilt from their sources. They add context and visibility without joining the purchase transaction. Agents use the same admitted operations as the team and prepare changes for review where approval is required.
-
-```mermaid
-flowchart LR
-  UI["Storefront, POS, Studio and agents"] --> C["Commerce"]
-  UI --> Q["Checkout sessions"]
-  Q -->|"Current quote and purchase"| C
-  C --> DB[("Orders, stock and events")]
-  C -->|"Payment command"| M["Payments adapter"]
-  M -->|"Signed notification"| C
-  DB --> W["App worker"]
-  W --> D["Connectors"]
-  D --> P["Provider delivery"]
-  DB --> K["Knowledge and reporting"]
-```
 
 ## Choose a starting point
 

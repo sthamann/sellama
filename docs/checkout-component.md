@@ -401,6 +401,15 @@ from the returned cart.
 
 ### Use the Checkout relay from the SDK
 
+With SDK 0.4.17, `checkout.prepare(cart, { requestKey, customerToken })`
+builds the draft session, the confirmation fields and the original receipt
+lookup from the signed-in buyer's reviewed cart. Show the buyer the current
+cart before calling `checkout.confirm` with explicit approval. If the
+confirmation response is lost, use the returned receipt lookup.
+[SDK recipe](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#use-the-checkout-relay) ·
+[Connected Shop example](https://github.com/veyndo/sdk/tree/main/examples/connected-shop).
+
+
 Install the [SDK 0.4.6 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.6)
 to use `@veyndo/sdk/checkout`. The client uses the two relay routes above and
 Core's original receipt lookup. Start with an admitted shop, a current buyer

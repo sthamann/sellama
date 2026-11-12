@@ -43,6 +43,9 @@ Use their service origins and credentials only when operating those services
 independently. [Component map](one-shop-components.md) ·
 [Service repositories and contracts](commerce-components.md).
 
+For a custom checkout, use the [review, confirm and recover recipe](checkout-component.md#use-the-checkout-relay-from-the-sdk)
+with the SDK checkout client.
+
 ## Run your own API-only deployment
 
 Set `HTTP_PROFILE=api-only` on the Core serving process. Keep the existing

@@ -93,6 +93,10 @@ The browser sends the HttpOnly cookie. The SDK reads the current shop's
 CSRF proof cookie for each request. For server-side integrations, pass a
 buyer token explicitly. The examples below show that form.
 
+For a frontend you host yourself, [use the SDK from your backend](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#sign-in-buyers-from-your-backend).
+The backend can register and sign in buyers, replace a password and revoke the
+session. After sign-in, use the returned cart token for subsequent checkout calls.
+
 #### Register and sign in with the SDK
 
 Use the same account client to register, sign in and sign out in your shop.

@@ -559,6 +559,9 @@ The following are implementation tasks; existing UI foundations do not complete 
   through the same definitions as manual editing, with durable runs and review.
 - [ ] UI-06 Add version-negotiated OpenUI, A2UI and MCP Apps adapters to that same
   definition/runtime; declare supported subsets and structured/text fallback.
+  - [x] Compare OpenUI and A2UI v1.0 in the external Connected Shop SDK
+    example with the same installed MCP App, quote and independent Checkout.
+    [Browser acceptance](status.md#connected-shop-with-openui-and-a2ui).
   - [x] Bind installed App tools to declarative MCP App views in Studio and
     Storefront conversations. The tool call owns the result, and the frame's
     next-page action is confined to that read tool and active revision.

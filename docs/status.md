@@ -830,6 +830,25 @@ only. The live provider call remains unverified for this example.
 
 [Mobile receipt with the guide first](assets/apps/connected-shop-openui-receipt-20261111.png).
 
+### Connected Shop with OpenUI and A2UI
+
+The [SDK example](https://github.com/veyndo/sdk/tree/main/examples/connected-shop#compare-openui-and-a2ui)
+offers two renderers for one panel definition. Desktop Chromium ran OpenUI.
+Mobile Chromium ran the official A2UI Lit renderer with v1.0 JSON. Both
+filtered the installed Product Guide, changed the reviewed variant from Brass
+to Graphite and confirmed a simulated purchase for €79.90 with delivery
+shown at review. An outdated offer was rejected. Both showed an empty cart
+and the same receipt after reload.
+
+The mobile run lost its successful confirmation response and recovered the
+original receipt through independent Checkout. The two purchases produced
+two orders and deducted two Graphite units. Core and Checkout ran locally
+with separate PostgreSQL databases. The layout provider returned a controlled
+response. The example runs on loopback and the platform-wide A2UI adapter
+remains in the [component plan](commerce-components.md).
+
+[Mobile A2UI receipt](assets/apps/connected-shop-a2ui-receipt.png).
+
 ## MCP App conversation views and independent Checkout rehearsal
 
 Core image `gorgeous-seat-2912` from

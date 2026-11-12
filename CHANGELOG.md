@@ -1,5 +1,12 @@
 # Changelog
 
+## Compare layouts in Connected Shop
+
+- The external SDK example can render the same guide and reviewed checkout
+  with OpenUI or standard A2UI v1.0.
+- The documented browser test covers a variant change, a simulated order
+  and recovery of the original receipt after a lost response.
+
 ## Share the inventory write batch
 
 - Checkout, POS and Marketplace reuse one checked ID and quantity batch for

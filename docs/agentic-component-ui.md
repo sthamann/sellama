@@ -375,12 +375,19 @@ The Node host uses the typed cart preview and apply calls to prepare that
 review, and the typed receipt lookup to recover the order after a lost reply.
 [Desktop and mobile acceptance](status.md#connected-shop-with-the-typed-sdk).
 
-The example renders Purchase and Product Guide as registered OpenUI panels.
-An optional model response selects their order from two allowed choices.
-The host passes only the requested focus and builds the admitted OpenUI
-source. The app view keeps its fixed read scope. Core prices and confirms
-the selected variant through independent Checkout.
-[OpenUI purchase test](status.md#openui-variant-checkout).
+### Compare OpenUI and A2UI
+
+Choose a renderer at the top of Connected Shop. The example host converts one
+admitted panel order into OpenUI Lang or standard A2UI v1.0 JSON. The A2UI
+path uses the official Lit renderer and registers the same two panel types.
+An optional model response selects which panel comes first. It receives only
+the requested focus. The installed MCP App retains its product and filter
+scope, and Core prices and confirms the selected variant through independent
+Checkout in either layout.
+
+[Run the SDK example](https://github.com/veyndo/sdk/tree/main/examples/connected-shop#compare-openui-and-a2ui) ·
+[Browser acceptance](status.md#connected-shop-with-openui-and-a2ui) ·
+[A2UI v1.0 specification](https://a2ui.org/specification/v1.0-a2ui/).
 
 ### Show the merchant's app view during the answer
 

@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "ced2a6cbf044b50fcca18e3da9a9ac58812bf8a6",
-      "digest": "sha256:654dd5f4d2d5719a8cef46e8ac08141f87b390203483c7cbfbd05c0d9dd4195c",
+      "commit": "6af989325acf99124c2360486db22343d911c243",
+      "digest": "sha256:1bdc4a2ea278104d184d21f830ac0a47a0559b8f405c7f06f54498de042f7d64",
       "build_service": "vendune-core-build",
-      "build_id": "prime-cushion-3504",
+      "build_id": "ardent-squirrel-1012",
       "schema": {
         "owner": "core",
         "inputs": {

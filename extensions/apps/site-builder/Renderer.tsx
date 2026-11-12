@@ -77,6 +77,7 @@ export default function SiteRenderer({
 }) {
   const t = useEditorText(),
     preview = !!onSelect;
+  const commerce = !!nativeSections && layoutKind(page);
   const text = (map: Parameters<typeof contentText>[0]) =>
     contentText(map, language, mainLocale);
   const money = (p: SiteProduct) =>
@@ -89,6 +90,7 @@ export default function SiteRenderer({
       className={`site-document${preview ? " is-design-preview" : ""}`}
       style={themeStyle(theme)}
       data-site-page={page.id}
+      data-commerce-layout={commerce || undefined}
     >
       {!nativeSections &&
         pages.filter((p) => p.kind !== "article" && !layoutKind(p)).length >

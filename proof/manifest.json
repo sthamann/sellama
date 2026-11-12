@@ -5727,12 +5727,12 @@
       "review": "Reviewed international configuration, destination tax predicates and native bindings; targeted PostgreSQL international/catalog cases plus Rust tests pass. Translation fixtures verify restart, provider rejection, tenant permissions and revision conflicts. Config/product/apply share row locks. Additive schema 028 and versioned MIT geography reviewed; surrounding SQL/provider behavior remains unproved."
     },
     "frontend/package-lock.json": {
-      "sha256": "a16446cb2119a00a2a180766fe937c8a03b0356054d809e697f36673afddd157",
-      "review": "Declare the already locked Marked 17.0.6 lexer as a direct dependency. The assistant builds React elements without evaluating HTML or loading model links or images. Targeted tests, frontend production build, and desktop and mobile browser regression passed."
+      "sha256": "acb68f0c959817b22d8ee748ad1e8fdc556b1bf4cc0d06cafa1e32380f50f8ee",
+      "review": "Pin the published SDK 0.4.15 archive for the Studio A2UI presentation adapter. Targeted workspace and rights regressions, frontend build, architecture and localization checks pass. Native domain operations and the verified kernel are unchanged."
     },
     "frontend/package.json": {
-      "sha256": "530c5d9a34b39455f55ebbee90490237d4bd039ca2f8a335cb67152044c2cc77",
-      "review": "Declare the already locked Marked 17.0.6 lexer as a direct dependency. The assistant builds React elements without evaluating HTML or loading model links or images. Targeted tests, frontend production build, and desktop and mobile browser regression passed."
+      "sha256": "13d094e35914557d291c629666005f9f8f85f3f88ac005373174b710392fe041",
+      "review": "Pin the published SDK 0.4.15 archive for the Studio A2UI presentation adapter. Targeted workspace and rights regressions, frontend build, architecture and localization checks pass. Native domain operations and the verified kernel are unchanged."
     },
     "frontend/scripts/precompress.mjs": {
       "sha256": "dbe91d7985386628933dfb734bd5555ba4e8b97502d1f644b26488434cfc195c",

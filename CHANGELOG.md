@@ -1,5 +1,10 @@
 # Changelog
 
+## Render Studio working views with A2UI
+
+- Studio uses the pinned SDK adapter to arrange its native controls.
+  The same admission and reviewed controls also support the OpenUI fallback.
+
 ## Share the A2UI workspace adapter
 
 - SDK 0.4.15 projects admitted workspace views to standard A2UI v1.0.

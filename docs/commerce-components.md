@@ -566,6 +566,9 @@ The following are implementation tasks; existing UI foundations do not complete 
     catalog and returns structured panel references when the client lacks the
     catalog or an exact view binding.
     [SDK integration](agentic-component-ui.md#render-a-shared-workspace-with-a2ui).
+  - [x] Use the shared adapter for the native Studio working view while
+    keeping the existing directory, details, intake and shipping bindings.
+    [Studio entry point](agentic-component-ui.md#open-an-a2ui-working-view-in-studio).
   - [x] Bind installed App tools to declarative MCP App views in Studio and
     Storefront conversations. The tool call owns the result, and the frame's
     next-page action is confined to that read tool and active revision.

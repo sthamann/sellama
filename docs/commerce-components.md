@@ -562,6 +562,10 @@ The following are implementation tasks; existing UI foundations do not complete 
   - [x] Compare OpenUI and A2UI v1.0 in the external Connected Shop SDK
     example with the same installed MCP App, quote and independent Checkout.
     [Browser acceptance](status.md#connected-shop-with-openui-and-a2ui).
+  - [x] Publish an SDK adapter that maps admitted views to a versioned A2UI
+    catalog and returns structured panel references when the client lacks the
+    catalog or an exact view binding.
+    [SDK integration](agentic-component-ui.md#render-a-shared-workspace-with-a2ui).
   - [x] Bind installed App tools to declarative MCP App views in Studio and
     Storefront conversations. The tool call owns the result, and the frame's
     next-page action is confined to that read tool and active revision.

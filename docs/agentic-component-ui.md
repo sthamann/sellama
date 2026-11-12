@@ -143,8 +143,8 @@ cannot manufacture a purchase approval or change trusted prices/payment states.
   using a supplied component library. Map it to the registered Veyndo catalogue;
   its output remains untrusted until the shared definition/binding checks pass.
 - [A2UI](https://a2ui.org/introduction/what-is-a2ui/) describes declarative,
-  updateable agent-generated interfaces. Add a version-negotiated adapter to the
-  same definition, rather than a second set of commerce actions.
+  updateable agent-generated interfaces. The SDK adapter maps an admitted
+  workspace to the renderer catalog after version negotiation.
 - [MCP Apps](https://apps.extensions.modelcontextprotocol.io/api/documents/Overview.html)
   standardizes interactive UI resources in supporting hosts using isolated frames
   and host communication. Provide progressive fallback to structured/text tool
@@ -176,6 +176,26 @@ domain, PII and intake admission.
 [local/native acceptance](evidence/service-workspace-composition-2026-11-06.md).
 This delivers the shared host/layout connection, not all component UI exports,
 new model runs or completed OpenUI/A2UI/MCP Apps adapters.
+
+### Render a shared workspace with A2UI
+
+SDK 0.4.15 adds `@veyndo/sdk/a2ui`. The host registers component types for
+its versioned views and checks the renderer's advertised catalog. The
+adapter reuses the current workspace's admission and emits standard A2UI
+v1.0 messages for supported views. For a client without the agreed catalog
+or a matching binding, it returns structured panel references. Layout
+messages carry neither view inputs nor service data. The host reads through
+the same scoped SDK client and binds the result to its local component.
+
+Connected Shop uses this adapter with the official Lit renderer. An SDK
+integration test also assembles a two-service workspace, processes the
+messages with the official A2UI processor and reads each view from its own
+MCP endpoint. Studio and Storefront still need the platform-wide adapter
+integration tracked under UI-06.
+
+[Install SDK 0.4.15](https://github.com/veyndo/sdk/releases/tag/v0.4.15) ·
+[Adapter example](https://github.com/veyndo/sdk/blob/v0.4.15/docs/composition.md#render-an-admitted-workspace-with-a2ui) ·
+[Acceptance](status.md#a2ui-workspace-adapter-in-sdk-0415).
 
 ## Orders, shipments and shipping policy
 

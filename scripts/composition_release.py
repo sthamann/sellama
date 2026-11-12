@@ -144,25 +144,52 @@ def core_candidate(lock, build, builder, logs, commit, directory):
     return component_candidate(lock, "core", build, builder, logs, commit, directory)
 
 
-def verify_source(row, directory):
-    def git(*arguments):
-        result = subprocess.run(["git", "-C", str(directory), *arguments],
-                                capture_output=True, text=True, timeout=15, check=False)
-        require(result.returncode == 0, "Source checkout is missing the pinned commit or schema input")
-        return result.stdout.strip()
+def source_git(directory, *arguments, timeout=15):
+    result = subprocess.run(["git", "-C", str(directory), *arguments],
+                            capture_output=True, text=True, timeout=timeout, check=False)
+    require(result.returncode == 0, "Source checkout is missing the pinned commit or schema input")
+    return result.stdout.strip()
 
+
+def verify_source(row, directory):
     sha = row["commit"]
-    git("cat-file", "-e", f"{sha}^{{commit}}")
+    source_git(directory, "cat-file", "-e", f"{sha}^{{commit}}")
     schema = row["schema"]
     if schema is None:
         return
     for path, expected in schema["inputs"].items():
-        require(git("rev-parse", f"{sha}:{path}") == expected,
+        require(source_git(directory, "rev-parse", f"{sha}:{path}") == expected,
                 f"Source schema input differs from the lock: {path}")
     if "through" in schema:
         folders = [path for path in schema["inputs"] if path.rsplit("/", 1)[-1] == "migrations"]
         require(len(folders) == 1, "Migration boundary has no unique schema directory")
-        git("cat-file", "-e", f"{sha}:{folders[0]}/{schema['through']}")
+        source_git(directory, "cat-file", "-e", f"{sha}:{folders[0]}/{schema['through']}")
+
+
+def verify_shared_schema(lock, directory, fetch_pinned=False):
+    """Compare the exact Core and App Worker migration histories in their shared database."""
+    histories = {}
+    for name in ("core", "app-worker"):
+        row = lock["components"][name]
+        sha = row["commit"]
+        if fetch_pinned:
+            try:
+                source_git(directory, "cat-file", "-e", f"{sha}^{{commit}}")
+            except ValueError:
+                source_git(directory, "fetch", "--no-tags", "--depth=1", "--filter=blob:none",
+                           "https://github.com/veyndo/veyndo.git", sha, timeout=60)
+        verify_source(row, directory)
+        require("migrations" in row["schema"]["inputs"],
+                f"{name}: shared database requires the repository migrations directory")
+        entries = source_git(directory, "ls-tree", f"{sha}:migrations").splitlines()
+        files = {entry.rsplit("\t", 1)[1]: entry for entry in entries if entry.endswith(".sql")}
+        require(files and max(files) == row["schema"]["through"],
+                f"{name}: migration boundary is not the last source migration")
+        histories[name] = files
+    worker = histories["app-worker"]
+    prefix = {name: entry for name, entry in histories["core"].items() if name <= max(worker)}
+    require(prefix == worker, "App Worker migrations must be an unchanged prefix of Core migrations")
+    print("Core and App Worker: pinned shared migration history matched")
 
 
 def verify_sources(lock, sources):
@@ -253,6 +280,10 @@ def main():
     parser.add_argument("--source", action="append", default=[], metavar="COMPONENT=CHECKOUT",
                         help="check pinned commits and schema inputs in a local component repository")
     parser.add_argument("--project", default="vendune")
+    parser.add_argument("--shared-schema", action="store_true",
+                        help="check the Core/App Worker migration history in this checkout")
+    parser.add_argument("--fetch-pinned", action="store_true",
+                        help="fetch missing Core/App Worker commits by SHA for the shared schema check")
     preparation = parser.add_mutually_exclusive_group()
     preparation.add_argument("--prepare-core", metavar="BUILD", help="prepare one exact successful Core build")
     preparation.add_argument("--prepare-component", metavar="COMPONENT=BUILD",
@@ -266,6 +297,9 @@ def main():
         lock = json.loads(args.lock.read_text(), object_pairs_hook=unique_keys)
         validate(lock)
         verify_sources(lock, args.source)
+        require(not args.fetch_pinned or args.shared_schema, "Use --fetch-pinned with --shared-schema")
+        if args.shared_schema:
+            verify_shared_schema(lock, ROOT, args.fetch_pinned)
         if args.prepare_core:
             prepare_core(lock, args)
         elif args.prepare_component:

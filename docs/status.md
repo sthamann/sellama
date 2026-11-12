@@ -10,6 +10,15 @@ Updated 12 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Shared Core and App Worker schema check
+
+The required GitHub verification checks the shared migration history from
+both pinned commits. The Lumen lock passed with Core at migration 113 and
+the App Worker at migration 112. A fresh Git repository fetched the exact
+commits and passed the same check. Tests reject a rewritten migration,
+a worker ahead of Core and a boundary that omits later files in the build.
+[Shared schema check](cloud-releases.md#check-the-shared-core-and-app-worker-schema).
+
 ## Buyer password changes in the SDK
 
 SDK 0.4.14 changes the signed-in buyer's password through the existing

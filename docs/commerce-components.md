@@ -358,6 +358,10 @@ Each component task remains open until these checks are demonstrated for it.
   - [x] Check current replica counts and configured readiness and liveness
     results for all eight hosted services during composition verification.
     [Hosted release check](cloud-releases.md#verify-the-hosted-lumen-composition).
+  - [x] Check the pinned Core and App Worker migration histories in GitHub
+    admission. Accept a compatible older worker and reject rewritten
+    migrations, a worker ahead of Core or a truncated source boundary.
+    [Shared schema check](cloud-releases.md#check-the-shared-core-and-app-worker-schema).
   - [ ] Make the lock an automatic admission check for the complete deployment
     workflow and extend it to the other release profiles.
 - [ ] FND-09 Build component CI and complete-product CI; short affected checks per

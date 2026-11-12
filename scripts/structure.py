@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """Guard the documented Rust domain split and public extension examples."""
 import subprocess
+import os
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
 subprocess.run(['python3', 'scripts/component_sources.py'], cwd=root, check=True)
 subprocess.run(['python3', 'scripts/testing/host_exchange_contract.py'], cwd=root, check=True)
 subprocess.run(['python3', 'scripts/testing/component_sources_test.py'], cwd=root, check=True)
 subprocess.run(['python3', 'scripts/testing/composition_release_test.py'], cwd=root, check=True)
+if os.environ.get('GITHUB_ACTIONS') == 'true':
+    subprocess.run(['python3', 'scripts/composition_release.py', '--shared-schema', '--fetch-pinned'],
+                   cwd=root, check=True)
 files=[*(root/'src').rglob('*.rs'),*(root/'crates').rglob('*.rs'),*(root/'extensions').rglob('*.rs')]
 for path in files:
     lines=path.read_text().splitlines()

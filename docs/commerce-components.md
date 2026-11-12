@@ -333,6 +333,10 @@ Each component task remains open until these checks are demonstrated for it.
     Verify that sign-in retains the guest basket and renews its token, then
     complete a purchase and confirm that sign-out revokes account access.
     [Account lifecycle](merchant-operations.md#register-and-sign-in-with-the-sdk).
+  - [x] Change a signed-in buyer's password with SDK 0.4.14. Verify that the
+    active browser keeps its account and checkout, a second session expires,
+    and only the new password works for the next sign-in.
+    [Password change](merchant-operations.md#change-a-buyer-password-with-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

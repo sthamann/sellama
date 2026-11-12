@@ -10,6 +10,16 @@ Updated 12 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Buyer password changes in the SDK
+
+SDK 0.4.14 changes the signed-in buyer's password through the existing
+HttpOnly session. In local Chromium, Core rejected the wrong current password
+and kept the active session. A successful change replaced that session and
+revoked a second browser session. The buyer completed the simulated purchase
+through independent Checkout and downloaded the purchased file. A new sign-in
+accepted the new password and showed the original order.
+[Password change walkthrough](merchant-operations.md#change-a-buyer-password-with-the-sdk).
+
 ## Buyer registration and sign-in in the SDK
 
 SDK 0.4.13 uses the shop's HttpOnly session for registration, sign-in and

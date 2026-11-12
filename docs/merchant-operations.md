@@ -74,7 +74,7 @@ This does not insert invented addresses into real registered accounts.
 
 ### Use the signed-in browser with the SDK
 
-Install [SDK 0.4.13](https://github.com/veyndo/sdk/releases/tag/v0.4.13).
+Install [SDK 0.4.14](https://github.com/veyndo/sdk/releases/tag/v0.4.14).
 In a page served by the shop, use its origin and shop ID. The Account and
 Checkout clients reuse the buyer session established by the shop's login.
 
@@ -117,9 +117,23 @@ Use the new cart token returned from sign-in for subsequent checkout calls.
 Sign-out clears the shop session. When it also detaches an open cart, open a
 fresh cart for the next guest.
 
+#### Change a buyer password with the SDK
+
+In the signed-in shop browser, pass the current and new password from the
+account settings form.
+
+```js
+await account.session.changePassword({ oldPassword, newPassword });
+const currentBuyer = await account.profile.get();
+```
+
+Core replaces the current HttpOnly session and revokes the buyer's previous
+sessions. The SDK reads the new CSRF proof on the next request. The same
+Account and Checkout clients can continue the purchase.
+
 ### Edit the buyer profile with the SDK
 
-Install [SDK 0.4.13](https://github.com/veyndo/sdk/releases/tag/v0.4.13) to
+Install [SDK 0.4.14](https://github.com/veyndo/sdk/releases/tag/v0.4.14) to
 read the buyer's account and save editable contact fields.
 
 ```js
@@ -144,7 +158,7 @@ to use the existing session cookie.
 
 ### Manage buyer addresses with the SDK
 
-Install [SDK 0.4.13](https://github.com/veyndo/sdk/releases/tag/v0.4.13) to
+Install [SDK 0.4.14](https://github.com/veyndo/sdk/releases/tag/v0.4.14) to
 read and update the signed-in buyer's address book. In a browser on the shop
 origin, configure `credentials: 'same-origin'` to use the session cookie.
 
@@ -172,7 +186,7 @@ its own copy of the shipping and billing addresses.
 
 ### Read order history with the SDK
 
-Install the [SDK 0.4.13 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.13).
+Install the [SDK 0.4.14 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.14).
 The account client reads the signed-in buyer's orders. Use the same shop and
 buyer context for each page and for order details.
 

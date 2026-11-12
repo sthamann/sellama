@@ -35,9 +35,17 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
   promotion remain open. [Measured workloads](benchmarks.md) ·
   [Component tasks](commerce-components.md).
 
+## Resume paused shop creation
+
+Studio and the hosted setup wizard use the same limit of 50 owned shops per
+account. Reaching the limit pauses creation before product import. The wizard
+identifies the limit and keeps the saved job available to resume, including
+jobs paused under the previous limit of 20.
+[Studio and hosted setup](studio-access-and-setup.md).
+
 ## A2UI working views in Studio
 
-Northflank serves Core build `vital-arch-6042` from
+The Studio A2UI rollout used Core build `vital-arch-6042` from
 [`ad1f8bb5`](https://github.com/veyndo/veyndo/commit/ad1f8bb574c3ce0906f2548028fe0988a7e4f750).
 The release completed the PostgreSQL snapshot, migration job and Core
 readiness checks. All eight active services matched the composition lock.
@@ -349,7 +357,8 @@ family was deactivated afterward. The run stopped at the checkout summary.
 ## Pinned Lumen composition
 
 The eight services in the hosted Lumen commerce profile matched the accepted
-composition on 12 November, including Core `ad1f8bb5`. Northflank selects the exact builds for Checkout
+composition on 12 November. The shop creation fix updated Core to
+`d8535673` and Experience to `5ee20549`. Northflank selects the exact builds for Checkout
 and Knowledge; both deployments completed on 10 November.
 Both services returned HTTP 204 from their private database readiness probes.
 Public Core health, the Lumen Storyfront page and its native product endpoint

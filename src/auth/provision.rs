@@ -6,18 +6,6 @@ use crate::{
     validate_tenant,
 };
 
-const MAX_OWNED_SHOPS: i64 = 50;
-
-pub(super) fn check_owned_shop_limit(count: i64) -> Result<()> {
-    if count >= MAX_OWNED_SHOPS {
-        return Err(crate::Error::validation(
-            "/ownedShops",
-            format!("Maximum {MAX_OWNED_SHOPS} owned shops per account"),
-        ));
-    }
-    Ok(())
-}
-
 pub(super) async fn provision(
     tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,
     user: &str,
@@ -161,17 +149,6 @@ pub(crate) async fn create_workspace(
             "Personal session expired".into(),
         ));
     }
-    sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,19))")
-        .bind(user)
-        .execute(&mut *tx)
-        .await?;
-    let count: i64 = sqlx::query_scalar(
-        "SELECT count(*) FROM memberships WHERE user_id=$1 AND role='owner' AND active",
-    )
-    .bind(user)
-    .fetch_one(&mut *tx)
-    .await?;
-    check_owned_shop_limit(count)?;
     let sandbox = provision(&mut tx, user, slug, name, demo).await?;
     tx.commit().await?;
     a.sandboxes.insert(slug.into(), Arc::new(sandbox));
@@ -182,19 +159,4 @@ pub(crate) async fn create_workspace(
     Ok(Json(
         super::sessions::issue_session_with_proof(&a, user, slug, token).await?,
     ))
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn owned_shop_limit_allows_the_fiftieth_and_identifies_rejection() {
-        assert!(check_owned_shop_limit(20).is_ok());
-        assert!(check_owned_shop_limit(49).is_ok());
-        let problem = check_owned_shop_limit(50).unwrap_err().problem();
-        assert_eq!(problem["status"], 400);
-        assert_eq!(problem["pointer"], "/ownedShops");
-        assert_eq!(problem["retryable"], false);
-    }
 }

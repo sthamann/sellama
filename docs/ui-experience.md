@@ -63,8 +63,7 @@ suggests an editable identifier from the shop name, validates the native identif
 format, retains entered values on rejection and submits through the existing
 personal `/api/workspaces` owner. Successful creation shows the shop name and an
 explicit **Open shop** action through the existing workspace switch. Account details, shop switching and MFA remain
-native account controls. Duplicate identifiers and the existing account shop limit
-have explicit localized recovery guidance.
+native account controls. Duplicate identifiers have explicit localized recovery guidance.
 
 Invitation roles wait for the current role definitions and default to the active
 Viewer role. If that role is unavailable, the user must choose an allowed role;

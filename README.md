@@ -17,17 +17,29 @@
 
 </div>
 
-Shops and Studio share a Rust core. Apps and agents can use the same catalog,
-orders and permissions across services.
-
-[Status](docs/status.md#platform-at-a-glance) · [Components](docs/one-shop-components.md) · [Buyer SDK](docs/merchant-operations.md#use-the-signed-in-browser-with-the-sdk) · [Studio A2UI](docs/agentic-component-ui.md) · [Benchmarks](docs/benchmarks.md) · [Deutsch](docs/platform-overview.md)
+[Architecture & components](docs/one-shop-components.md) · [JavaScript SDK](https://github.com/veyndo/sdk) · [Status](docs/status.md#platform-at-a-glance) · [Benchmarks](docs/benchmarks.md) · [Deutsch](docs/platform-overview.md)
 
 [![The hosted Product Guide lets a shopper review price and delivery before adding an item](docs/assets/apps/product-guide-cart-review-20261111.jpg)](docs/status.md#product-guide-actions-in-the-hosted-shop)
 
-The Product Guide connects chat to a reviewed cart. Studio opens product,
-order and customer working views through A2UI. Native and Storyfront share
-stock. Both Lumen purchases returned to empty carts and were refunded in
-PayPal Sandbox. [Hosted evidence](docs/status.md#platform-at-a-glance).
+The hosted Product Guide connects chat to a reviewed cart. [See the tested workflows](docs/status.md#platform-at-a-glance).
+
+## How the pieces fit
+
+```mermaid
+flowchart LR
+  UI["Shop · Studio · POS · Agent"] --> API["SDK / HTTP / MCP"]
+  API --> C["Commerce Core"]
+  API --> Q["Checkout"]
+  Q --> C
+  C --> E["Order, stock and event"]
+  E --> W["Flows and Apps"]
+```
+
+Use the full Veyndo shop or build your own frontend with the SDK. Checkout
+coordinates the buyer's session. Core owns the price, stock and order. Apps
+and Connectors can act on the committed result, and Knowledge gives agents
+shop context. [Illustrated walkthrough](https://www.veyndo.ai/docs/one-shop-components.html) ·
+[Read a live catalog from JavaScript](docs/hosted-component-api.md).
 
 ## What you can do
 
@@ -74,7 +86,6 @@ for verification tooling. Run `./scripts/dev.sh` and open
 
 | Area | Start here |
 | --- | --- |
-| AI Commerce Components | [Component map](docs/one-shop-components.md) · [Rust contracts](crates/commerce/README.md) · [Checkout](docs/checkout-component.md#commerce-host-ports-in-core) · [Knowledge](docs/knowledge-component.md) · [Automation](docs/automation-component.md) · [Connectors](docs/connector-component.md) · [Schema check](docs/cloud-releases.md#check-the-shared-core-and-app-worker-schema) · [Update one component](docs/cloud-releases.md#prepare-a-core-release-candidate) |
 | AI shopping channels and inward shop imports | [Cart transfer, consent and shop imports](docs/agentic-commerce.md) |
 | Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |
@@ -82,8 +93,6 @@ for verification tooling. Run `./scripts/dev.sh` and open
 | Apps, settings, storage and private releases | [App platform](docs/app-platform.md) · [Build five apps](docs/app-tutorials/README.md) · [Storage and runtime](docs/app-data-storage.md) |
 | Agents | [Agentic UI](docs/agentic-component-ui.md) · [Limits](docs/agent-authority-controls.md) · [Product Guide](docs/product-guide-mcp-app.md) · [MCP](docs/agent-workshop.md) · [Hosted API and SDK](docs/hosted-component-api.md) · [UCP B2B](docs/b2b-ucp-negotiation.md) |
 | Operation and verification | [Architecture](docs/production-architecture.md) · [Integrations](docs/service-integrations.md) · [Testing](docs/testing.md) · [Proof boundaries](docs/formal-verification.md) |
-
-The [handbook](https://www.veyndo.ai/docs/) labels the language of each guide.
 
 ## Current boundaries
 

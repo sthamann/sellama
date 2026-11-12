@@ -509,10 +509,17 @@ the payment settled. Core owns payment state and Checkout retains its
 existing receipt lookup.
 [SDK recipe](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#check-the-payment-after-buyer-approval).
 
+### Place an invoice order with the SDK
+
+SDK 0.4.25 can submit a native order with
+`checkout.place(reviewedCart, { requestKey, confirmed: true }, access)`.
+After the buyer approves the review, the SDK passes the cart revision,
+exact total, currency and request key to Commerce Core. If the response is
+lost, replay the same review with the same key and original cart access.
+
 ### Show bank transfer details for invoice payments
 
-For a native invoice checkout, use the payment attempt ID in
-`order.payment.attemptId`. SDK 0.4.24 adds
+Read the resulting payment attempt ID in `order.payment.attemptId` and call
 `checkout.payment.instructions(attemptId, access)` for the buyer's original
 cart. The result distinguishes payment methods that offer no bank details,
 details that are still pending and details ready to display.
@@ -521,7 +528,7 @@ When available, show the verified recipient, bank details and payment
 reference with the amount and currency from the response. Label simulated
 details as test data. Read payment status separately to see whether the
 invoice has been settled.
-[SDK recipe](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#show-invoice-payment-instructions).
+[SDK recipe](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#place-an-invoice-order-and-show-payment-instructions).
 
 #### Capacity and deployment
 

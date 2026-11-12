@@ -8,8 +8,8 @@
       "guide": "docs/quickstart.html"
     },
     "sdk": {
-      "tag": "v0.4.23",
-      "commit": "371e4177576bb6f5e91172d971525a4a92977da2",
+      "tag": "v0.4.24",
+      "commit": "d9b89338ffa26bc3d3041740bd0a70f20a738dc4",
       "prerelease": true,
       "guide": "docs/hosted-component-api.html"
     },

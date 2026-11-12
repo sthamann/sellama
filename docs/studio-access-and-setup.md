@@ -15,6 +15,11 @@ They demonstrate UI behavior; they are not a claim of public deployment.
 
 ![Current central, revisioned company-purchasing settings](assets/product-tour-20261102/b2b-settings.jpg)
 
+A personal account can own up to 50 active shops. Studio and the hosted start
+wizard use the same limit. At capacity, the creation API identifies the
+shop limit separately from product and image validation. A paused setup can
+resume its existing draft after the account has capacity.
+
 ## Create POS and marketplace channels
 
 Open **Sales channels → Create channel**. The first step contains the name,

@@ -509,6 +509,20 @@ the payment settled. Core owns payment state and Checkout retains its
 existing receipt lookup.
 [SDK recipe](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#check-the-payment-after-buyer-approval).
 
+### Show bank transfer details for invoice payments
+
+For a native invoice checkout, use the payment attempt ID in
+`order.payment.attemptId`. SDK 0.4.24 adds
+`checkout.payment.instructions(attemptId, access)` for the buyer's original
+cart. The result distinguishes payment methods that offer no bank details,
+details that are still pending and details ready to display.
+
+When available, show the verified recipient, bank details and payment
+reference with the amount and currency from the response. Label simulated
+details as test data. Read payment status separately to see whether the
+invoice has been settled.
+[SDK recipe](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#show-invoice-payment-instructions).
+
 #### Capacity and deployment
 
 The relay has eight concurrent slots per Core process and at most four per

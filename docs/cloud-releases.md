@@ -77,6 +77,23 @@ running it. The lock verification confirms artifact identity. Purchase,
 provider callbacks and database recovery each have their own acceptance.
 [Hosted rehearsal](evidence/composed-release-rehearsal-2026-11-10.md).
 
+### Check the shared Core and App Worker schema
+
+The required GitHub check compares the migration files from the exact Core
+and App Worker commits in the Lumen lock. The worker can lag behind Core
+when its migration history is an unchanged prefix of Core's. The check
+rejects rewritten or missing worker migrations, a worker ahead of Core and
+a migration boundary that omits files present in the pinned source.
+GitHub fetches missing source objects by exact commit.
+
+```sh
+python3 scripts/composition_release.py --shared-schema --fetch-pinned
+```
+
+Run this against a proposed lock by adding `--lock /tmp/veyndo-candidate.json`.
+The check uses source history. Northflank deployment comparison, database
+migrations and checkout acceptance have their own checks.
+
 ### Prepare a Core release candidate
 
 Keep the checked-in lock as the last accepted composition. After a candidate

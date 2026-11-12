@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from composition_release import (
     LOCK, compare, component_candidate, core_candidate, prepare_component, prepare_core,
-    unique_keys, validate, verify_instances, verify_source, verify_sources,
+    unique_keys, validate, verify_instances, verify_shared_schema, verify_source, verify_sources,
 )
 
 
@@ -132,6 +132,41 @@ class CompositionReleaseTest(unittest.TestCase):
         for selection in ("missing=repo", "checkout", "checkout="):
             with self.assertRaisesRegex(ValueError, "COMPONENT=CHECKOUT"):
                 verify_sources(self.lock, [selection])
+
+    def test_shared_schema_checks_exact_pinned_migration_histories(self):
+        with tempfile.TemporaryDirectory() as directory:
+            def git(*arguments):
+                return subprocess.check_output(["git", "-C", directory, *arguments],
+                                               stderr=subprocess.DEVNULL, text=True).strip()
+
+            def snapshot(through):
+                git("add", "-A")
+                git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.test",
+                    "-c", "commit.gpgsign=false", "commit", "--quiet", "-m", through)
+                return {"commit": git("rev-parse", "HEAD"),
+                        "schema": {"inputs": {"migrations": git("rev-parse", "HEAD:migrations")},
+                                   "through": through}}
+
+            git("init", "--quiet")
+            folder = Path(directory) / "migrations"
+            folder.mkdir()
+            first = folder / "001.sql"
+            first.write_text("SELECT 1;\n")
+            worker = snapshot("001.sql")
+            (folder / "003.sql").write_text("SELECT 3;\n")
+            core = snapshot("003.sql")
+            lock = {"components": {"core": core, "app-worker": worker}}
+            verify_shared_schema(lock, directory)
+            with self.assertRaisesRegex(ValueError, "unchanged prefix"):
+                verify_shared_schema({"components": {"core": worker, "app-worker": core}}, directory)
+            wrong_boundary = copy.deepcopy(lock)
+            wrong_boundary["components"]["core"]["schema"]["through"] = "001.sql"
+            with self.assertRaisesRegex(ValueError, "last source migration"):
+                verify_shared_schema(wrong_boundary, directory)
+            first.write_text("SELECT 4;\n")
+            lock["components"]["core"] = snapshot("003.sql")
+            with self.assertRaisesRegex(ValueError, "unchanged prefix"):
+                verify_shared_schema(lock, directory)
 
     def candidate_inputs(self):
         current = self.lock["components"]["core"]

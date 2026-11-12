@@ -74,7 +74,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 
 | Area | Start here |
 | --- | --- |
-| AI Commerce Components | [Component map](docs/one-shop-components.md) · [Rust contracts](crates/commerce/README.md) · [Checkout](docs/checkout-component.md#commerce-host-ports-in-core) · [Knowledge](docs/knowledge-component.md) · [Automation](docs/automation-component.md) · [Connectors](docs/connector-component.md) · [Hosted release check](docs/cloud-releases.md#verify-the-hosted-lumen-composition) · [Update one component](docs/cloud-releases.md#prepare-a-core-release-candidate) |
+| AI Commerce Components | [Component map](docs/one-shop-components.md) · [Rust contracts](crates/commerce/README.md) · [Checkout](docs/checkout-component.md#commerce-host-ports-in-core) · [Knowledge](docs/knowledge-component.md) · [Automation](docs/automation-component.md) · [Connectors](docs/connector-component.md) · [Schema check](docs/cloud-releases.md#check-the-shared-core-and-app-worker-schema) · [Update one component](docs/cloud-releases.md#prepare-a-core-release-candidate) |
 | AI shopping channels and inward shop imports | [Cart transfer, consent and shop imports](docs/agentic-commerce.md) |
 | Catalogue, orders and payments | [Setup](docs/shop-setup.md) · [Payments](docs/shopware-payments-acceptance.md) · [Saved methods](docs/payment-saved-methods.md) · [Invoices](docs/payment-invoice-checkout.md) · [Administration](docs/admin-workflows.md) |
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |

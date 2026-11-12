@@ -12,13 +12,23 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 
 ## A2UI working views in Studio
 
+Northflank serves Core build `vital-arch-6042` from
+[`ad1f8bb5`](https://github.com/veyndo/veyndo/commit/ad1f8bb574c3ce0906f2548028fe0988a7e4f750).
+The release completed the PostgreSQL snapshot, migration job and Core
+readiness checks. All eight active services matched the composition lock.
+The public Studio served the exact workspace JavaScript tested locally.
+The public Lumen catalog and product detail responded after the rollout.
+
 Studio projects its product, order and customer working views through the
 SDK 0.4.15 A2UI adapter. The current domain rights still govern the native
 directory, details, intake and shipping controls. In Chromium, a saved
 assistant proposal from the local Core opened a real product directory with
-the permitted CSV intake panel. That run used an isolated PostgreSQL database
-and a controlled model response. Targeted checks also covered losing intake
-or directory access and falling back to OpenUI.
+the permitted CSV intake panel. An unsaved product name survived closing
+the intake panel and the native editor saved the change. A separate API read
+confirmed the saved value. The working view fit the mobile viewport. The
+browser run used an isolated PostgreSQL database and a controlled model
+response. Targeted checks covered losing intake or directory access and
+falling back to OpenUI.
 
 [Studio guide](agentic-component-ui.md#open-an-a2ui-working-view-in-studio) ·
 [Browser screenshot](assets/apps/studio-a2ui-working-view.png).

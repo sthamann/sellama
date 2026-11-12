@@ -1,5 +1,11 @@
 # Changelog
 
+## Resume shop creation after reaching the shop limit
+
+- Studio and hosted setup share a limit of 50 owned shops per account.
+- Hosted setup explains the shop limit separately from product and image
+  validation and keeps the existing creation job available to resume.
+
 ## Render Studio working views with A2UI
 
 - Studio uses the pinned SDK adapter to arrange its native controls.

@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "ad1f8bb574c3ce0906f2548028fe0988a7e4f750",
-      "digest": "sha256:5fa09d6be14e501d5beb5c2fd6edc7ca3d80c7f0bfe03da92fdc1277e10a628e",
+      "commit": "d8535673e74ac5c7e7bd4b682f4823b9cf42413c",
+      "digest": "sha256:59fda1bf771ebba2bf7a23b2c0a92f1d2dbab40a436a6aa21963808b6976a1c2",
       "build_service": "vendune-core-build",
-      "build_id": "vital-arch-6042",
+      "build_id": "vigorous-ink-8885",
       "schema": {
         "owner": "core",
         "inputs": {
@@ -92,10 +92,10 @@
     "experience": {
       "service": "vendune-experience",
       "repository": "https://github.com/veyndo/experience",
-      "commit": "5f1c2c26728c9ac173863cfac95b6c60456b13b5",
-      "digest": "sha256:c1599a3bf419de7a2712e8952511dd28ca55206ebc581c2dcee076b1b11099dc",
+      "commit": "5ee20549a39aaf177b024a697b555b97afc1c0a7",
+      "digest": "sha256:9490a8addd690916eb4083b956f727334b8223c1390691afc2cb47fdd2cdabd9",
       "build_service": "vendune-experience",
-      "build_id": "curious-scarf-8443",
+      "build_id": "rare-back-1691",
       "schema": {
         "owner": "experience",
         "inputs": {

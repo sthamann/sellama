@@ -4,7 +4,7 @@ For the developer entry point and the relationship between the product and the
 individual components, see [One shop, composable parts](one-shop-components.md).
 
 This is the authoritative task list for extracting independently usable Veyndo
-components. Updated 11 November 2026. Checkmarks record the specific result
+components. Updated 12 November 2026. Checkmarks record the specific result
 listed on each task. The complete extraction is in progress. See
 [the current status](status.md) for which parts are running and what has been
 verified in the live shop.
@@ -81,6 +81,9 @@ to native Veyndo through the same owner.
   actual native OpenUI workspace consumes the same admission boundary. SDK 0.3.0,
   [contract](agentic-component-ui.md#shared-sdk-composition) and
   [evidence](evidence/service-workspace-composition-2026-11-06.md).
+- [x] Render the admitted product, order and customer workspace in Studio through
+  the SDK A2UI adapter. The native controls keep the same permissions and actions.
+  [Release and browser scope](status.md#a2ui-working-views-in-studio).
 - [x] AUTO-01a Compose the independent evaluator with the native purchase path.
   Both previews agree on real cart inputs. Core prices a coupon and commits its
   order and invoice Flow while the separate preview process is offline.
@@ -113,8 +116,12 @@ to native Veyndo through the same owner.
     share the lock and preserve one cart and order. The browser fixture covers
     capture and cancellation with simulated payment responses.
     [Recovery contract](storyfront.md#responsibilities-and-contracts).
-  - [ ] Accept the released Core and original Storyfront builds together with
-    a configured Sandbox payment, return, empty bag and refund.
+  - [x] Accept native and original Storyfront purchases through the separate
+    Checkout in the hosted Lumen pilot, including PayPal Sandbox, return, an
+    empty bag after reload and a refund for each order.
+    [Hosted evidence](status.md#private-checkout-live-in-the-lumen-test-shop).
+  - [ ] Verify the hosted paid-order chain through invoice and delivered mail.
+    [Release acceptance order](#release-acceptance-order).
 - [ ] KNOW-01..05 Independent knowledge ingest/retrieval and source lifecycle.
 - [ ] UI-07 Compose actual domain views from those released service owners.
   - Installed App views use the same tool for the initial result and interactive

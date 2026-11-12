@@ -636,5 +636,8 @@ recovery client with that same fixture. Closing the iframe during payment
 preserved the bag and reopened the original order. After verified payment,
 the bag stayed empty across reload. Dropping both the confirmation response
 and the browser message still produced one order and one stock decrement.
-Hosted browser purchase and refund with a configured PayPal Sandbox account
-remain separate acceptance steps.
+The hosted Lumen pilot then completed both the native and original Storyfront
+browser purchases with PayPal Sandbox, including return, empty carts after
+reload and refunds. The hosted paid-order path through invoice and external mail
+delivery remains open. [Hosted evidence](status.md#private-checkout-live-in-the-lumen-test-shop) ·
+[Acceptance order](commerce-components.md#release-acceptance-order).

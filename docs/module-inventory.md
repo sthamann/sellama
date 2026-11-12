@@ -568,6 +568,7 @@ This lists every checked-in source module in these roots, including files with n
 | [src/proposal_model.rs](../src/proposal_model.rs) | Typed proposals and validation before persistence or execution. |
 | [src/proposal_routes.rs](../src/proposal_routes.rs) | HTTP proposal creation, approval and task listing. |
 | [src/request_context.rs](../src/request_context.rs) | Trusted request identity lives in extensions; HTTP headers carry transport inputs only. |
+| [src/routes/http_profile.rs](../src/routes/http_profile.rs) | Serve the same commerce operations without the native storefront or Studio shell. |
 | [src/routes.rs](../src/routes.rs) | HTTP transport registry; domain behavior lives in dedicated modules. |
 | [src/runtime_config.rs](../src/runtime_config.rs) | Immutable process configuration, validated once at startup. Mutable shop/provider settings remain in PostgreSQL. |
 | [src/sandbox_cache.rs](../src/sandbox_cache.rs) | Bounded tenant-policy compilation cache. Prepare outside commerce locks; verify the digest under the lock. |
@@ -2172,6 +2173,7 @@ This lists every checked-in source module in these roots, including files with n
 | [scripts/formal.py](../scripts/formal.py) | Run extraction, Lean proofs/axiom audit, compiled conformance and complete source-inventory checks. |
 | [scripts/github_traffic.py](../scripts/github_traffic.py) | Save one private GitHub snapshot; overlapping traffic windows are never summed. |
 | [scripts/grid_directory.py](../scripts/grid_directory.py) | Real native directories and read-only model planning in an isolated PostgreSQL database and loopback provider. |
+| [scripts/hosted_api.py](../scripts/hosted_api.py) | Check API discovery, explicit shop scope and presentation isolation on the existing HTTP server. |
 | [scripts/hosting_check.py](../scripts/hosting_check.py) | Check a deployed experimental SaaS HTTPS origin without credentials or real orders. |
 | [scripts/hosting_container.py](../scripts/hosting_container.py) | Smoke-test the built deployment image against an isolated database on the local Compose network. |
 | [scripts/identity_broker.py](../scripts/identity_broker.py) | Synthetic broker signatures, durable replay prevention, scoped frontend routing and private Studio handoff; no provider calls. |

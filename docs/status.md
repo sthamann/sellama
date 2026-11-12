@@ -10,6 +10,13 @@ Updated 12 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Hosted component API
+
+The API-only origin gives SDK clients the existing Store, merchant, MCP and
+UCP entry points. The exact API hostname returns the machine-readable profile.
+The instance-wide API-only mode also works on a dedicated deployment.
+[API profile and examples](hosted-component-api.md).
+
 ## Platform at a glance
 
 - **One shop.** Core owns prices, inventory and orders. The hosted Lumen pilot

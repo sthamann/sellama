@@ -1,5 +1,10 @@
 # Changelog
 
+## Connect to the hosted component API
+
+- Serve a JSON API profile on the API hostname and support API-only Core deployments.
+- Document scoped Store API, merchant API, MCP and UCP usage from the SDK.
+
 ## Remove the shop count limit per account
 
 - Create additional shops in Studio and the hosted setup wizard without a

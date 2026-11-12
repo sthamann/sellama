@@ -1,6 +1,7 @@
 {
   "http": [
     "studio",
+    "hosted_api",
     "merchant_reports",
     "integration",
     "protocols",

@@ -21,6 +21,13 @@ A mixed push with any runtime, build or migration change follows the full
 release workflow. The lock records the accepted composition; editing it alone
 does not deploy an image.
 
+## Hosted API origin
+
+The existing wildcard ingress serves the exact `api.veyndo.ai` host through
+Core. It shares the existing shop, permissions and service connections.
+Run an instance-wide API-only profile with `HTTP_PROFILE=api-only`.
+[Hosted and standalone setup](hosted-component-api.md).
+
 ## Verify the hosted Lumen composition
 
 The [composition lock](https://github.com/veyndo/veyndo/blob/main/deploy/composition.lock.json)

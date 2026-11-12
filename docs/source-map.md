@@ -5,6 +5,13 @@ SDK, test requirements and complete-product acceptance](commerce-components.md).
 Existing owners remain authoritative until their replacement is integrated and
 accepted. Moving a repository does not establish standalone service behavior.
 
+## HTTP profiles
+
+`src/routes/http_profile.rs` admits only protocol routes on the API-only
+origin or serving process. Shop resolution and the existing router keep
+the same operation owners, credentials and channel admission.
+[Hosted component API](hosted-component-api.md).
+
 ## Commerce domain owners
 
 These are the current extraction boundaries. The same operation consumers

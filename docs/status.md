@@ -17,6 +17,9 @@ both pinned commits. The Lumen lock passed with Core at migration 113 and
 the App Worker at migration 112. A fresh Git repository fetched the exact
 commits and passed the same check. Tests reject a rewritten migration,
 a worker ahead of Core and a boundary that omits later files in the build.
+Northflank built and deployed Core `6542950b`. After the snapshot
+and migration run, all eight live deployments matched the updated lock.
+The public Core health and Lumen product reads passed.
 [Shared schema check](cloud-releases.md#check-the-shared-core-and-app-worker-schema).
 
 ## Buyer password changes in the SDK

@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "202c182c741af7777f9232fef7a394ed9999505e",
-      "digest": "sha256:e4905f89e937810d4db9f08a51a57dacd691e0e7a7c93a0113b1cdc12913c66d",
+      "commit": "6542950bd3ee3decae3309fe8fc1573962a0a1fa",
+      "digest": "sha256:bca79de6489decc689aeb2bcebba4d384fe2d8a3b08290adfb6ea4fd007bcdea",
       "build_service": "vendune-core-build",
-      "build_id": "elevated-credit-8533",
+      "build_id": "ripe-knot-7139",
       "schema": {
         "owner": "core",
         "inputs": {

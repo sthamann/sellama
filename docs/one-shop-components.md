@@ -26,7 +26,7 @@ Commerce owns the catalogue, prices, stock and orders. Checkout coordinates the 
 
 ### Read the catalog from JavaScript
 
-Install the [SDK 0.4.3 package](https://github.com/veyndo/sdk/releases/tag/v0.4.3).
+Install the [SDK 0.4.15 package](https://github.com/veyndo/sdk/releases/tag/v0.4.15).
 An external storefront can read the same public catalog as the hosted shop.
 This example uses the German content of the public Lumen demo.
 
@@ -55,7 +55,7 @@ The selected SKU and visible parent can repeat, so combine pages by product
 ID. Keep the same shop, channel, language, currency and filters between pages.
 Commerce supplies the displayed price and delivery estimate. Checkout uses
 the current quote at purchase.
-[Runnable example](https://github.com/veyndo/sdk/blob/v0.4.3/examples/store-catalog.mjs).
+[Runnable example](https://github.com/veyndo/sdk/blob/v0.4.15/examples/store-catalog.mjs).
 
 ### Run the browser example
 
@@ -63,7 +63,7 @@ In a Node 22 or newer project, install the release archive and start the
 included host.
 
 ```sh
-npm install https://github.com/veyndo/sdk/releases/download/v0.4.3/veyndo-sdk-0.4.3.tgz
+npm install https://github.com/veyndo/sdk/releases/download/v0.4.15/veyndo-sdk-0.4.15.tgz
 node node_modules/@veyndo/sdk/examples/browser.mjs
 ```
 
@@ -78,7 +78,7 @@ configured Store API, so the browser needs no shop credentials or cross
 origin access. The host uses Node's standard library and binds to loopback.
 Set `VEYNDO_URL`, `VEYNDO_SHOP` and `VEYNDO_LOCALE` before starting it to
 use another public catalog.
-[Example source](https://github.com/veyndo/sdk/blob/v0.4.3/examples/browser.mjs).
+[Example source](https://github.com/veyndo/sdk/blob/v0.4.15/examples/browser.mjs).
 
 ### Connect checkout
 

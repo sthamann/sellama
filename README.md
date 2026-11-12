@@ -20,14 +20,14 @@
 Shops and Studio share a Rust core. Apps and agents can use the same catalog,
 orders and permissions across services.
 
-[Status](docs/status.md) · [Components](docs/one-shop-components.md) · [Buyer SDK](docs/merchant-operations.md#use-the-signed-in-browser-with-the-sdk) · [Studio A2UI](docs/agentic-component-ui.md) · [Benchmarks](docs/benchmarks.md) · [Deutsch](docs/platform-overview.md)
+[Status](docs/status.md#platform-at-a-glance) · [Components](docs/one-shop-components.md) · [Buyer SDK](docs/merchant-operations.md#use-the-signed-in-browser-with-the-sdk) · [Studio A2UI](docs/agentic-component-ui.md) · [Benchmarks](docs/benchmarks.md) · [Deutsch](docs/platform-overview.md)
 
 [![The hosted Product Guide lets a shopper review price and delivery before adding an item](docs/assets/apps/product-guide-cart-review-20261111.jpg)](docs/status.md#product-guide-actions-in-the-hosted-shop)
 
-The hosted Product Guide connects a shopper conversation to a reviewed cart.
-Studio can use a private app note to prepare a change and apply it after
-approval in a sandbox. Native and embedded Storyfront demo purchases return
-to empty carts and share the same stock. [Hosted journeys and screenshots](docs/status.md#shared-order-and-inventory-inputs).
+The Product Guide connects chat to a reviewed cart. Studio opens product,
+order and customer working views through A2UI. Native and Storyfront share
+stock. Both Lumen purchases returned to empty carts and were refunded in
+PayPal Sandbox. [Hosted evidence](docs/status.md#platform-at-a-glance).
 
 ## What you can do
 

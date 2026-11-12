@@ -10,6 +10,31 @@ Updated 12 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Platform at a glance
+
+- **One shop.** Core owns prices, inventory and orders. The hosted Lumen pilot
+  runs eight pinned services. The native shop and original Storyfront share
+  the order and inventory ledger. [Component map](one-shop-components.md) ·
+  [Hosted composition](#pinned-lumen-composition).
+- **Checkout.** Native and embedded Storyfront purchases completed through the
+  separate Checkout service with PayPal Sandbox. Both returned to empty carts
+  and were refunded. The separate simulated paid-order Flow generated an
+  invoice. The paid order through invoice and external mailbox is the next
+  hosted acceptance step. [Lumen evidence](#private-checkout-live-in-the-lumen-test-shop) ·
+  [Acceptance order](commerce-components.md#release-acceptance-order).
+- **Apps and agents.** Installed MCP Apps can surface interactive views for
+  shoppers and merchants. Studio can open an admitted working view for
+  products, orders or customers. SDK 0.4.15 gives external hosts the same A2UI
+  adapter. [Agentic UI guide](agentic-component-ui.md).
+- **Developer entry points.** The Core, SDK, Apps and Marketplaces repositories
+  are public. The component map describes the separately hosted pilots, the
+  published interfaces and how to start with one component. [Repositories and examples](one-shop-components.md).
+- **Operational evidence.** The exact hosted versions and migration boundary
+  passed the composition check. The recorded performance comparison covers an
+  isolated workload. Hosted capacity and automatic composition admission before
+  promotion remain open. [Measured workloads](benchmarks.md) ·
+  [Component tasks](commerce-components.md).
+
 ## A2UI working views in Studio
 
 Northflank serves Core build `vital-arch-6042` from
@@ -318,7 +343,7 @@ family was deactivated afterward. The run stopped at the checkout summary.
 ## Pinned Lumen composition
 
 The eight services in the hosted Lumen commerce profile matched the accepted
-composition on 11 November. Northflank selects the exact builds for Checkout
+composition on 12 November, including Core `ad1f8bb5`. Northflank selects the exact builds for Checkout
 and Knowledge; both deployments completed on 10 November.
 Both services returned HTTP 204 from their private database readiness probes.
 Public Core health, the Lumen Storyfront page and its native product endpoint
@@ -2454,8 +2479,8 @@ are included in the combined public artifact; [implementation and browser eviden
 
 ## Proposed next improvements
 
-The 22 October merchant catalogue and privacy continuation changes are online and
-accepted as described above. The connected image/translation progress view, app-reference diagnostics and
+At the 22 October checkpoint, the merchant catalogue and privacy continuation
+changes were online and accepted. The connected image/translation progress view, app-reference diagnostics and
 editable visual shopper selection are included in the current public release.
 The first measured import improvement now resolves names for a 24-line order in
 one query instead of 24. The same query uses existing indexes in a test shop with
@@ -2487,12 +2512,13 @@ are proposals, separate from this implementation.
    existing Shopify/WooCommerce/Slack routes have local fixtures. Actual provider
    activation, Nexus execution and external Vercel checkout need their own
    recorded outcomes. [Integration guide](service-integrations.md)
-5. **Measure remaining operational claims.** Real provider payment/mail/refund,
-   recovery from a hosted snapshot, large-catalogue/multi-worker throughput, complete
-   historical checkout repricing and isolated arbitrary-source builds are not
-   established by the public demo journeys. Current payment testing deliberately
-   remains simulated. The isolated local restore and local Rust SMTP/provider
-   chain are now recorded above. [Ordered follow-ups](connected-merchant-followups.md)
+5. **Complete operational acceptance.** The Lumen pilot records provider Sandbox
+   captures and refunds. External mailbox delivery in the hosted paid-order path,
+   recovery from a hosted snapshot and throughput with large catalogs and multiple
+   workers remain open. The isolated local restore and Rust SMTP/provider chain
+   are recorded above. Complete historical checkout repricing and isolated
+   arbitrary-source builds have separate acceptance criteria.
+   [Release acceptance order](commerce-components.md#release-acceptance-order)
 
 The earlier fresh-cart privacy regression is fixed and accepted in the public
 native purchase above. Same-buyer company continuation, expiry and withdrawal

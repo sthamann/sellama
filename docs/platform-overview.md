@@ -2,7 +2,7 @@
 
 <!-- veyndo-language: de -->
 
-Stand 11. November 2026.
+Stand 12. November 2026.
 Die [Statusseite](status.md) ordnet Implementierung, öffentliche Auslieferung und
 tatsächlich durchgespielte Abläufe ein.
 
@@ -24,7 +24,10 @@ Shop kann jemand zum Beispiel Pflegehinweise filtern, im Studio kann das Team
 private Sortimentsnotizen durchsehen. Der Chat vermittelt den Aufruf, und die
 App prüft die Rechte mit dem aktuellen Shopkontext. MCP Apps beschreibt diese
 Verbindung. OpenUI kann eine passende Ansicht während einer Modellantwort
-zusammenbauen. Beide können dieselben Dienstaktionen verwenden.
+zusammenbauen. A2UI zeigt in Studio die jeweils freigegebene Arbeitsansicht
+für Produkte, Bestellungen oder Kunden. Die Bearbeitung nutzt die vorhandenen
+Rechte und Aktionen des Shops. Externe Anwendungen können dieselbe A2UI
+Anbindung aus dem SDK verwenden. [Arbeitsansicht in Studio](agentic-component-ui.md#open-an-a2ui-working-view-in-studio).
 Im öffentlichen Lumen Shop hat der Produktratgeber Preis und Lieferung für
 einen konkreten Artikel prüfen lassen. Erst der Klick legte ihn in den
 Warenkorb. In Studio las der Agent eine private Sortimentsnotiz und schlug
@@ -38,8 +41,13 @@ zeigt beide Abläufe. [Interaktive Ansichten und Dienstgrenzen](agentic-componen
 Ein Entwickler kann den Checkout auch mit einer eigenen Shopoberfläche
 verbinden. Der lokale Beispielshop hat den Kauf über das JavaScript SDK
 durchgespielt und die ursprüngliche Bestellung nach einer unterbrochenen
-Antwort wiedergefunden. Preis, Bestand und Bestellung lagen dabei bei einem
-separaten Rust Dienst. [Beispielshop und Ablauf](checkout-component.md#external-reference-storefront).
+Antwort wiedergefunden. Der separate Rust Dienst führt durch die Kaufschritte.
+Core berechnet den Preis, bucht den Bestand und speichert die Bestellung.
+Im gehosteten Lumen Pilot liefen beide Kaufwege über diesen Checkout bis zur
+Rückkehr mit leerem Warenkorb und zur Erstattung in der PayPal Sandbox. Für
+die durchgehende Abnahme fehlt noch die zugestellte Bestellmail zum selben
+bezahlten Kauf. [Beispielshop](checkout-component.md#external-reference-storefront) ·
+[Stand der Abnahme](status.md#platform-at-a-glance).
 Für diesen Weg bietet das SDK typisierte Aufrufe an. Geht die Antwort
 auf eine Bestätigung verloren, kann die Oberfläche den ursprünglichen
 Beleg über Core abrufen. [Checkout im SDK](checkout-component.md#use-the-checkout-relay-from-the-sdk).

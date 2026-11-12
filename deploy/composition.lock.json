@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "6542950bd3ee3decae3309fe8fc1573962a0a1fa",
-      "digest": "sha256:bca79de6489decc689aeb2bcebba4d384fe2d8a3b08290adfb6ea4fd007bcdea",
+      "commit": "ad1f8bb574c3ce0906f2548028fe0988a7e4f750",
+      "digest": "sha256:5fa09d6be14e501d5beb5c2fd6edc7ca3d80c7f0bfe03da92fdc1277e10a628e",
       "build_service": "vendune-core-build",
-      "build_id": "ripe-knot-7139",
+      "build_id": "vital-arch-6042",
       "schema": {
         "owner": "core",
         "inputs": {

@@ -10,6 +10,12 @@ Updated 12 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Shared A2UI adapter for external workspaces
+
+SDK 0.4.15 lets external hosts render admitted workspace views with A2UI
+v1.0. Connected Shop uses the shared adapter and the official Lit renderer.
+[Browser and SDK checks](#a2ui-workspace-adapter-in-sdk-0415).
+
 ## Shared Core and App Worker schema check
 
 The required GitHub verification checks the shared migration history from
@@ -829,6 +835,23 @@ Graphite stock fell by two units. Layout output could choose panel order
 only. The live provider call remains unverified for this example.
 
 [Mobile receipt with the guide first](assets/apps/connected-shop-openui-receipt-20261111.png).
+
+### A2UI workspace adapter in SDK 0.4.15
+
+The [SDK package](https://github.com/veyndo/sdk/releases/tag/v0.4.15) exports
+a versioned A2UI adapter. The official protocol processor accepted an
+admitted layout assembled from two independent MCP HTTP fixtures. Their
+reads used separate scoped clients. Unsupported renderer capabilities
+returned panel references, and a context change rejected the previous layout
+until rediscovery.
+
+The Connected Shop browser run used the SDK adapter with the official Lit
+renderer. It confirmed the Graphite variant, recovered the original receipt
+after a lost confirmation response and kept the empty cart on reload. The
+receipt also survived switching to OpenUI and falling back after an invalid
+A2UI message. The purchase ran against local Core and Checkout with separate
+PostgreSQL databases, simulated payment and a controlled model response.
+[Mobile receipt](assets/apps/connected-shop-sdk-a2ui-receipt.png).
 
 ### Connected Shop with OpenUI and A2UI
 

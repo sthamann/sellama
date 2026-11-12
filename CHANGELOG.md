@@ -1,5 +1,11 @@
 # Changelog
 
+## Share the A2UI workspace adapter
+
+- SDK 0.4.15 projects admitted workspace views to standard A2UI v1.0.
+  Unsupported clients receive structured panel references.
+- Connected Shop uses the shared adapter for its official A2UI renderer.
+
 ## Compare layouts in Connected Shop
 
 - The external SDK example can render the same guide and reviewed checkout

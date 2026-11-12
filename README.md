@@ -17,8 +17,8 @@
 
 </div>
 
-Run a shop and merchant Studio on a shared Rust core. Apps, agents and
-external storefronts use the same catalog, orders and permissions.
+Shops and Studio share a Rust core. Apps and agents can use the same catalog,
+orders and permissions across services.
 
 [Status](docs/status.md) · [Components](docs/one-shop-components.md) · [Buyer SDK](docs/merchant-operations.md#use-the-signed-in-browser-with-the-sdk) · [Agent UI](docs/agentic-component-ui.md) · [Benchmarks](docs/benchmarks.md) · [Deutsch](docs/platform-overview.md)
 

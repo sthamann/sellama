@@ -226,6 +226,12 @@ open. [Purchase recovery procedure](evidence/composed-release-rehearsal-2026-11-
 
 ## Website and handbook refresh
 
+On 12 November the public homepage linked directly to this status overview in
+English, German, French and Spanish. Experience build `curious-scarf-8443`
+(`5f1c2c26`) changes the homepage and repository guide. The published
+component inventory records the exact Experience image alongside its peers.
+[Open the homepage handbook section](https://www.veyndo.ai/#handbook).
+
 The public website at [veyndo.ai](https://www.veyndo.ai/) now opens with three
 entry points for a native shop, Storyfront and the JavaScript SDK. The new
 Product Guide and checkout screenshots come from the 11 November tests.

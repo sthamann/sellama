@@ -92,10 +92,10 @@
     "experience": {
       "service": "vendune-experience",
       "repository": "https://github.com/veyndo/experience",
-      "commit": "944943eae266f727ce70bcbfdd5924eadd8c7651",
-      "digest": "sha256:e77e6fe920706efc21766876a80302fdb97eee1c46d64dd3216b60533ab9dec4",
+      "commit": "5f1c2c26728c9ac173863cfac95b6c60456b13b5",
+      "digest": "sha256:c1599a3bf419de7a2712e8952511dd28ca55206ebc581c2dcee076b1b11099dc",
       "build_service": "vendune-experience",
-      "build_id": "tranquil-sleep-9688",
+      "build_id": "curious-scarf-8443",
       "schema": {
         "owner": "experience",
         "inputs": {

@@ -27,14 +27,17 @@ integrations** and set it as a bearer credential in your backend.
 | Job | Entry point | Authority |
 | --- | --- | --- |
 | Catalog, availability and cart | `/store-api/…` | Explicit shop, channel policy and cart token for cart operations |
-| Buyer profile and orders | `/store-api/account/…` | Current buyer token for server-to-server calls |
+| Buyer registration, sign-in, profile and orders | `/store-api/account/…` | Explicit shop and a current buyer token for signed-in calls |
 | Merchant HTTP operations and apps | `/api/…` | The operation's required scopes on a key for that shop |
 | MCP discovery and operations | `POST /mcp` | Shop selection and the caller's current scopes |
 | UCP discovery | `/.well-known/ucp` | Explicit shop and eligible sales channel |
 
 From a custom browser frontend, call Veyndo through your own backend or
 same-origin proxy. Keep integration keys and privileged service credentials on
-the server. Existing cross-origin, buyer-session and callback rules apply.
+the server. With SDK 0.4.18, `shop.account.token` handles registration,
+sign-in, password changes and sign-out. Sign-in returns the existing cart
+with a new cart token. Store that token and the buyer token in your own
+backend session. [Backend sign-in recipe](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#sign-in-buyers-from-your-backend).
 
 The Northflank API origin uses the running Core. Core routes to connected
 services using the shop's existing configuration. Individual service

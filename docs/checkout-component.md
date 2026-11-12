@@ -493,6 +493,22 @@ For a same origin browser with a buyer session cookie, set
 [Connected Shop](agentic-component-ui.md#run-a-guide-and-checkout-in-an-external-host)
 shows a full review and confirmation flow in an external host.
 
+### Read the payment status after returning
+
+When confirmation or recovery includes a `paymentAttemptId`, SDK 0.4.23
+can read the attempt with `checkout.payment.status(attemptId, access)`.
+Keep the original cart token across the provider return. The receipt lookup
+uses the buyer and session, while the payment belongs to that specific cart.
+
+Use the returned payment state, approval link and settled amounts to show
+what the buyer can do next. After provider approval, call
+`checkout.payment.reconcile(attemptId, { requestKey }, access)`. Core checks
+the payment with the provider and can capture a verified approval. Retry an
+uncertain response with the same request key. Read status again to see whether
+the payment settled. Core owns payment state and Checkout retains its
+existing receipt lookup.
+[SDK recipe](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#check-the-payment-after-buyer-approval).
+
 #### Capacity and deployment
 
 The relay has eight concurrent slots per Core process and at most four per

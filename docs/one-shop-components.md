@@ -82,7 +82,7 @@ Commerce owns the catalogue, prices, stock and orders. Checkout coordinates the 
 
 ### Read the catalog from JavaScript
 
-Install the [SDK 0.4.20 package](https://github.com/veyndo/sdk/releases/tag/v0.4.20).
+Install the SDK using the [hosted quickstart](hosted-component-api.md).
 An external storefront can read the same public catalog as the hosted shop.
 This example uses the German content of the public Lumen demo.
 
@@ -117,11 +117,10 @@ the current quote at purchase.
 
 ### Run the browser example
 
-In a Node 22 or newer project, install the release archive and start the
-included host.
+In a Node 22 or newer project, [install the SDK](https://github.com/veyndo/sdk#use-veyndo-as-a-hosted-api)
+and start the included host.
 
 ```sh
-npm install https://github.com/veyndo/sdk/releases/download/v0.4.20/veyndo-sdk-0.4.20.tgz
 node node_modules/@veyndo/sdk/examples/browser.mjs
 ```
 
@@ -136,7 +135,7 @@ configured Store API, so the browser needs no shop credentials or cross
 origin access. The host uses Node's standard library and binds to loopback.
 Set `VEYNDO_URL`, `VEYNDO_SHOP` and `VEYNDO_LOCALE` before starting it to
 use another public catalog.
-[Example source](https://github.com/veyndo/sdk/blob/v0.4.20/examples/browser.mjs).
+[Example source](https://github.com/veyndo/sdk/blob/main/examples/browser.mjs).
 
 ### Connect checkout
 
@@ -144,6 +143,7 @@ JavaScript and TypeScript clients can create a draft, submit a reviewed
 purchase and check the original receipt with the typed Checkout SDK.
 [Prepare and review a cart](checkout-component.md#review-a-cart-change-from-the-sdk).
 [Choose shipping and payment](checkout-component.md#choose-shipping-and-payment-from-the-sdk).
+[Show the checkout terms and record acceptance](checkout-component.md#show-checkout-documents-and-record-acknowledgement).
 [Use the Core relay](checkout-component.md#use-the-checkout-relay-from-the-sdk).
 [Manage the buyer session and password](merchant-operations.md#use-the-signed-in-browser-with-the-sdk) ·
 [Manage buyer profiles and addresses](merchant-operations.md#edit-the-buyer-profile-with-the-sdk) ·

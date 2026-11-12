@@ -413,6 +413,21 @@ newer revision, reload the cart. Rebuild the checkout draft from the new
 quote and ask the buyer to confirm that amount.
 [SDK example](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#apply-coupon-codes-and-switch-currency).
 
+### Show checkout documents and record acknowledgement
+
+SDK 0.4.21 exposes `checkout.legalPolicy()` for the current sales channel's
+public documents. Show the applicable text in the buyer's language and keep
+its `policyVersion` with the displayed quote. The cart's `legal` flags show
+whether strict checkout is enabled and whether Core requires a separate
+decision for immediate digital delivery.
+
+After the buyer actively accepts, call `checkout.acceptTerms` with the
+displayed policy version, `terms: true`, the separate `digitalImmediate`
+choice and the current cart access. Then submit the reviewed purchase.
+On HTTP 409, reload the documents and quote and ask the buyer to review them
+again. Core stores the accepted version with the order.
+[SDK recipe](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#show-the-terms-and-record-the-buyers-decision).
+
 ### Use the Checkout relay from the SDK
 
 With SDK 0.4.17, `checkout.prepare(cart, { requestKey, customerToken })`

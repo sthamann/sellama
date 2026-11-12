@@ -13,8 +13,11 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
 ## Hosted component API
 
 The API-only origin gives SDK clients the existing Store, merchant, MCP and
-UCP entry points. The exact API hostname returns the machine-readable profile.
-The instance-wide API-only mode also works on a dedicated deployment.
+UCP entry points. Core build `humble-steel-3125` passed snapshot, migration and
+Northflank readiness checks. Public checks read the Lumen catalog, payment
+options, MCP tools and UCP profile on the API origin. Requests without shop
+scope, merchant authorization or for native pages were rejected as expected.
+Studio and the public Lumen storefront responded on their existing origins.
 [API profile and examples](hosted-component-api.md).
 
 ## Platform at a glance

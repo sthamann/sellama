@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "6af989325acf99124c2360486db22343d911c243",
-      "digest": "sha256:1bdc4a2ea278104d184d21f830ac0a47a0559b8f405c7f06f54498de042f7d64",
+      "commit": "881893030d3a9532cc940e47c0d1bc633d9a4230",
+      "digest": "sha256:ccc5c65053b205c71c54d59ff8fa37dde357ca3099027c10eb4cc555285bf65b",
       "build_service": "vendune-core-build",
-      "build_id": "ardent-squirrel-1012",
+      "build_id": "humble-steel-3125",
       "schema": {
         "owner": "core",
         "inputs": {

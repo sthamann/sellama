@@ -22,6 +22,7 @@ import WorkspaceCopilot from "../assistant/WorkspaceCopilot";
 import "../styles/workspace-copilot.css";
 import StudioHeader from "./StudioHeader";
 import StudioSignIn from "./StudioSignIn";
+import { useB2BNavigation } from "./useB2BNavigation";
 import StudioRoutes from "./StudioRoutes";
 import StudioSidebar from "./StudioSidebar";
 import { useStudioController } from "./useStudioController";
@@ -68,10 +69,14 @@ export default function Merchant(props: {
     busy,
     refresh,
   } = controller;
+  const b2bFeatures = useB2BNavigation(
+    request,
+    connected && controller.access.includes("b2b.read"),
+  );
   if (!controller.auth.identity)
     return <StudioSignIn auth={controller.auth} onExit={props.onExit} />;
   return (
-    <StudioContext.Provider value={controller}>
+    <StudioContext.Provider value={{ ...controller, b2bFeatures }}>
       <WorkspacePinBridge />
       <AppSurfaceProvider
         request={request}

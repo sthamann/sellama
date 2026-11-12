@@ -1376,8 +1376,8 @@
     },
     "extensions/apps/site-builder/block_validation.rs": {
       "status": "unproved",
-      "sha256": "594acd1c2b7530177428b898abcbf1a4b0f6ec2f34f6ef78eaed72e006efb84a",
-      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
+      "sha256": "a77996d49842c2ab81e9f304ba2945cd6a93cf81cd0d7d05a8e4c7c7eb3b6696",
+      "review": "Reviewed app-owned layout admission. Only named product and category templates accept native sections, and required sections appear once. Focused Rust tests cover valid reordering, wrong template and missing sections. Existing revision and publication paths are reused."
     },
     "extensions/apps/site-builder/context.rs": {
       "status": "unproved",
@@ -1396,8 +1396,8 @@
     },
     "extensions/apps/site-builder/planning.rs": {
       "status": "unproved",
-      "sha256": "a65de022b88f3617debf92a2b910042bb2034b1da8c01b63b07c2b8c33c7f707",
-      "review": "Reviewed app-owned block validation extraction: all original admission predicates retained, errors contain bounded field paths without content, planner and coding handoff share explicit format and native-validated example; workspace units and clippy plus actual collection correction regression validate the boundary."
+      "sha256": "413995059007d063348dcc1c3d259361586aca0174fdaa32fbe7349a3aaa88e4",
+      "review": "Reviewed app-owned layout admission. Only named product and category templates accept native sections, and required sections appear once. Focused Rust tests cover valid reordering, wrong template and missing sections. Existing revision and publication paths are reused."
     },
     "extensions/apps/site-builder/proposals.rs": {
       "status": "unproved",
@@ -1411,8 +1411,8 @@
     },
     "extensions/apps/site-builder/server.rs": {
       "status": "unproved",
-      "sha256": "9b646a599f4b669ef98bdc584c9d71b272b12090745a72fd49220f744a1dbc9c",
-      "review": "Reviewed caption proposal admission, owned and DNS-pinned bounded image evidence, product/page locale limits and native registry dispatch; existing HTTP/MCP, tenant denial and sandbox publication regressions passed. No new financial or kernel decision and no expanded Lean claim."
+      "sha256": "fcd8ef8ede14b574f8e8076af6cd9affe69a9c1e9cb572212e61a5ceb4f4d7b8",
+      "review": "Reviewed app-owned layout admission. Only named product and category templates accept native sections, and required sections appear once. Focused Rust tests cover valid reordering, wrong template and missing sections. Existing revision and publication paths are reused."
     },
     "extensions/apps/site-forms/server.rs": {
       "status": "unproved",

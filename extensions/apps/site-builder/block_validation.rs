@@ -19,14 +19,14 @@ pub(super) fn validate(blocks: &[Block]) -> Result<()> {
             return Err(invalid(i, "id", "must be unique within this page"));
         }
         if ![
-            "hero", "text", "products", "image", "form", "articles", "app",
+            "hero", "text", "products", "image", "form", "articles", "app", "native",
         ]
         .contains(&b.kind.as_str())
         {
             return Err(invalid(
                 i,
                 "kind",
-                "use hero, text, products, image, form, articles or app",
+                "use hero, text, products, image, form, articles, app or native",
             ));
         }
         if (b.kind == "app") != b.extension.is_some() {
@@ -127,6 +127,27 @@ pub(super) fn validate(blocks: &[Block]) -> Result<()> {
                 ));
             }
         }
+    }
+    Ok(())
+}
+
+/// Built-in commerce controls may move but cannot be removed, duplicated or injected into ordinary pages.
+pub(super) fn validate_layout(slug: &str, blocks: &[Block]) -> Result<()> {
+    let sections: Vec<_> = blocks
+        .iter()
+        .filter(|b| b.kind == "native")
+        .map(|b| b.id.as_str())
+        .collect();
+    if sections.is_empty() {
+        return Ok(());
+    }
+    let expected: &[&str] = match slug {
+        "layout-product" => &["purchase", "details", "assistance", "reviews"],
+        "layout-category" => &["filters", "listing"],
+        _ => return Err(bad("Native sections require a product or category layout")),
+    };
+    if sections.len() != expected.len() || expected.iter().any(|id| !sections.contains(id)) {
+        return Err(bad("Include each native commerce section exactly once"));
     }
     Ok(())
 }

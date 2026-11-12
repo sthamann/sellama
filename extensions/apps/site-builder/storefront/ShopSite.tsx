@@ -7,6 +7,8 @@ import { productURL } from "../../../../frontend/src/storefront/catalog/product-
 import { effectivePages, inheritedTheme, explicitTheme } from "../model";
 import SiteRenderer from "../Renderer";
 import { useEditorText } from "../studio/editor-i18n";
+import CollectionView from "../../../../frontend/src/storefront/shell/CollectionView";
+import { commercePage, layoutKind } from "../commerce-layout";
 import { usePublishedSite } from "./PublishedSite";
 import usePageProducts from "../usePageProducts";
 import {
@@ -31,7 +33,7 @@ export default function ShopSite({ fallback }: { fallback: ReactNode }) {
     slug = c.appPath.startsWith("#page/")
       ? safeSlug(c.appPath.slice(6))
       : "home";
-  const page = visible.find((p) => p.slug === slug),
+  const page = visible.find((p) => p.slug === slug && !layoutKind(p)),
     theme = {
       ...inheritedTheme(pages, c.salesChannel),
       ...explicitTheme(page?.theme),
@@ -80,6 +82,16 @@ export default function ShopSite({ fallback }: { fallback: ReactNode }) {
       <p className="site-empty" role="status">
         {c.s("loading")}
       </p>
+    );
+  if (
+    slug === "home" &&
+    c.appPath === "#collection" &&
+    commercePage(pages, c.salesChannel, "category")
+  )
+    return (
+      <main className="shop-content">
+        <CollectionView />
+      </main>
     );
   if (!page)
     return c.appPath.startsWith("#page/") ? (

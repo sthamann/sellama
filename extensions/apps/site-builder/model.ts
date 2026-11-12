@@ -4,7 +4,14 @@ import type { RichBlock } from "../../../frontend/src/shared/content/RichDescrip
 import type { FormField } from "../../../frontend/src/shared/apps/form-contract";
 export type { FormField };
 export type BlockKind =
-  "hero" | "text" | "products" | "image" | "form" | "articles" | "app";
+  | "hero"
+  | "text"
+  | "products"
+  | "image"
+  | "form"
+  | "articles"
+  | "app"
+  | "native";
 export type Block = {
   id: string;
   kind: BlockKind;

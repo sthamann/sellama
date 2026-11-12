@@ -5,14 +5,12 @@ import { lazy, useCallback } from "react";
 import { createStudioRequest } from "./requests";
 import { useLocale } from "../../shared/i18n/i18n";
 import StudioConversation from "./StudioConversation";
-import { AppSurfaceView } from "../../shared/apps/AppSurfaces";
 import "../../shared/styles/workbench.css";
 import Icon from "../../shared/ui/Icon";
 import { downloadFile } from "../../shared/api/download";
 const ShopDesigner = lazy(
   () => import("../../../../extensions/apps/site-builder/studio/ShopDesigner"),
 );
-const B2BWorkspace = lazy(() => import("../b2b/B2BWorkspace"));
 const POSWorkspace = lazy(() => import("../pos/POSWorkspace"));
 const AppsManager = lazy(() => import("../apps/AppsManager"));
 const SalesChannelsWorkspace = lazy(
@@ -50,6 +48,7 @@ const OverviewView = lazy(() =>
 );
 import { canOpenStudio } from "./permissions";
 import { usePermissionText } from "../team/permission-i18n";
+import StudioCommerceRoute from "./StudioCommerceRoute";
 import { useStudio } from "./StudioContext";
 export default function StudioRoutes() {
   const {
@@ -136,8 +135,8 @@ export default function StudioRoutes() {
         <p>{pt("noAccess")}</p>
       </div>
     );
-  return appSurface ? (
-    <AppSurfaceView selected={appSurface} />
+  return appSurface || tab === "b2b" || tab === "b2bQuotes" ? (
+    <StudioCommerceRoute />
   ) : ["setup", "workspace"].includes(tab) ? (
     <SetupEntry />
   ) : tab === "design" ? (
@@ -190,18 +189,6 @@ export default function StudioRoutes() {
         const url = new URL(location.href);
         url.searchParams.set("settings", "languages");
         url.searchParams.set("translationJob", jobId);
-        history.replaceState(null, "", url);
-        selectTab("commerce");
-      }}
-    />
-  ) : tab === "b2b" ? (
-    <B2BWorkspace
-      key={environment || workspace}
-      request={request}
-      rights={access}
-      onSettings={() => {
-        const url = new URL(location.href);
-        url.searchParams.set("settings", "b2b");
         history.replaceState(null, "", url);
         selectTab("commerce");
       }}

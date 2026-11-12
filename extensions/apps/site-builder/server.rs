@@ -90,6 +90,7 @@ pub(crate) fn validate(entity: &str, v: &Value) -> Result<()> {
         return Err(bad("Use a lowercase page slug and at most 24 blocks"));
     }
     block_validation::validate(&content.blocks)?;
+    block_validation::validate_layout(slug, &content.blocks)?;
     for c in [theme.accent, theme.background, theme.foreground]
         .into_iter()
         .flatten()

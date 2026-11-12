@@ -40,8 +40,10 @@ export default function StorefrontCanvas({
   products,
   onSnapshot,
   pageKey,
+  previewOnly = false,
 }: {
   pageKey?: string;
+  previewOnly?: boolean;
   request: RequestFn;
   workspace: string;
   shopName?: string;
@@ -110,19 +112,59 @@ export default function StorefrontCanvas({
     ))
       doc.head.append(source.cloneNode(true));
     const style = doc.createElement("style");
-    style.textContent = `body{margin:0;background:#fff}.shop{min-height:100vh}.designer-native-region{cursor:pointer;outline:2px solid transparent;outline-offset:-2px}.designer-native-region:hover,.designer-native-region:focus-visible{outline-color:#189eff}.shop-nav button:disabled{opacity:.85}.shop-content{min-height:300px}`;
+    style.textContent = `html,body{overflow:hidden}body{margin:0;background:#fff}.shop{min-height:700px}.designer-native-region{cursor:pointer;outline:2px solid transparent;outline-offset:-2px}.designer-native-region:hover,.designer-native-region:focus-visible{outline-color:#189eff}.shop-nav button:disabled{opacity:.85}.shop-content{min-height:300px}`;
     doc.head.append(style);
     doc.documentElement.lang = language;
     setMount(doc.body);
   };
   useEffect(() => {
     if (!mount) return;
-    const resize = () => setHeight(Math.max(700, mount.scrollHeight));
+    const resize = () => setHeight(Math.max(700, mount.offsetHeight));
     const observer = new ResizeObserver(resize);
     observer.observe(mount);
     resize();
-    return () => observer.disconnect();
-  }, [mount]);
+    const doc = mount.ownerDocument;
+    const wheel = (event: WheelEvent) => {
+      if (event.ctrlKey || event.metaKey || event.defaultPrevented) return;
+      // Allow controls with their own scrollable content to use the wheel first.
+      const node = event.target as Node | null;
+      const target =
+        node?.nodeType === Node.ELEMENT_NODE ? (node as Element) : null;
+      for (let el = target; el && el !== mount; el = el.parentElement) {
+        if (
+          !/auto|scroll/.test(
+            doc.defaultView?.getComputedStyle(el).overflowY ?? "",
+          )
+        )
+          continue;
+        if (
+          event.deltaY > 0
+            ? el.scrollTop + el.clientHeight < el.scrollHeight - 1
+            : el.scrollTop > 0
+        )
+          return;
+      }
+      const canvas = host.current?.closest<HTMLElement>(".designer-canvas");
+      if (!canvas) return;
+      const delta =
+        event.deltaY *
+        (event.deltaMode === 1
+          ? 16
+          : event.deltaMode === 2
+            ? canvas.clientHeight
+            : 1);
+      const previous = canvas.scrollTop;
+      canvas.scrollTop += delta;
+      if (canvas.scrollTop === previous)
+        canvas.closest<HTMLElement>(".studio-content")?.scrollBy(0, delta);
+      event.preventDefault();
+    };
+    if (!previewOnly) doc.addEventListener("wheel", wheel, { passive: false });
+    return () => {
+      observer.disconnect();
+      doc.removeEventListener("wheel", wheel);
+    };
+  }, [mount, previewOnly]);
   const snapshot = (): HomeSnapshot => {
     const doc = frame.current?.contentDocument;
     return {
@@ -162,6 +204,9 @@ export default function StorefrontCanvas({
       >
         <iframe
           ref={frame}
+          inert={previewOnly || undefined}
+          tabIndex={previewOnly ? -1 : undefined}
+          className={previewOnly ? "is-overview-preview" : undefined}
           title={t("preview")}
           sandbox="allow-same-origin"
           srcDoc="<!doctype html><html><head><meta name='viewport' content='width=device-width, initial-scale=1'></head><body></body></html>"

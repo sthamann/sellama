@@ -1,6 +1,7 @@
 /** B2B controls edit the shared revisioned settings aggregate; no separate policy store or checkout engine. */
 import "../../shared/b2b/b2b.css";
 import "../styles/b2b-settings.css";
+import { b2bChanged } from "../shell/useB2BNavigation";
 import { useEffect } from "react";
 import type { RequestFn } from "../shell/studio-types";
 import type { Config } from "../../shared/api/shop-api";
@@ -46,6 +47,9 @@ export default function B2BSettings({
       "/api/merchant/commerce",
     );
   useEffect(() => onDirty?.(state.dirty), [state.dirty, onDirty]);
+  useEffect(() => {
+    if (state.saved) window.dispatchEvent(new Event(b2bChanged));
+  }, [state.saved]);
   if (!state.value)
     return (
       <p role={state.error ? "alert" : "status"}>
@@ -70,7 +74,7 @@ export default function B2BSettings({
           <h2>{t("settings")}</h2>
           <p>{t("settingsHint")}</p>
         </div>
-        {onCompanies && (
+        {features.enabled && onCompanies && (
           <button className="studio-secondary" onClick={onCompanies}>
             {t("companies")} ↗
           </button>
@@ -123,7 +127,10 @@ export default function B2BSettings({
         id="default"
         revision={state.value.revision}
         dirty={state.dirty || state.busy}
-        onRestored={state.reload}
+        onRestored={async () => {
+          await state.reload();
+          window.dispatchEvent(new Event(b2bChanged));
+        }}
       />
     </section>
   );

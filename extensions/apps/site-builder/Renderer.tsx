@@ -10,6 +10,7 @@ import PublicFormBlock from "../../../frontend/src/shared/apps/PublicFormBlock";
 import { AppSurfaceSlot } from "../../../frontend/src/shared/apps/AppSurfaces";
 import { useEditorText } from "./studio/editor-i18n";
 import AppElement from "./AppElement";
+import { layoutKind } from "./commerce-layout";
 import "./site.css";
 export type SiteProduct = {
   id: string;
@@ -55,6 +56,7 @@ export default function SiteRenderer({
   onAdd,
   decorate,
   trailing,
+  nativeSections,
 }: {
   page: Page;
   pages?: Page[];
@@ -71,6 +73,7 @@ export default function SiteRenderer({
   onAdd?: (id: string) => void;
   decorate?: (block: Block, index: number, section: ReactElement) => ReactNode;
   trailing?: ReactNode;
+  nativeSections?: Record<string, ReactNode>;
 }) {
   const t = useEditorText(),
     preview = !!onSelect;
@@ -87,25 +90,65 @@ export default function SiteRenderer({
       style={themeStyle(theme)}
       data-site-page={page.id}
     >
-      {pages.filter((p) => p.kind !== "article").length > 1 && (
-        <nav className="site-navigation" aria-label={text(page.title)}>
-          {pages
-            .filter((p) => p.kind !== "article")
-            .map((p) => (
-              <a
-                key={p.id}
-                href={`#page/${encodeURIComponent(p.slug)}`}
-                onClick={preview ? (e) => e.preventDefault() : undefined}
-              >
-                {text(p.title)}
-              </a>
-            ))}
-        </nav>
-      )}
+      {!nativeSections &&
+        pages.filter((p) => p.kind !== "article" && !layoutKind(p)).length >
+          1 && (
+          <nav className="site-navigation" aria-label={text(page.title)}>
+            {pages
+              .filter((p) => p.kind !== "article" && !layoutKind(p))
+              .map((p) => (
+                <a
+                  key={p.id}
+                  href={`#page/${encodeURIComponent(p.slug)}`}
+                  onClick={preview ? (e) => e.preventDefault() : undefined}
+                >
+                  {text(p.title)}
+                </a>
+              ))}
+          </nav>
+        )}
       {page.content.blocks.length === 0 && (
         <p className="site-empty">{t("empty")}</p>
       )}
       {page.content.blocks.map((b, index) => {
+        if (b.kind === "native") {
+          const section = (
+            <div
+              key={b.id}
+              data-block-id={b.id}
+              className={
+                selected === b.id
+                  ? "site-native-section is-selected"
+                  : "site-native-section"
+              }
+              tabIndex={preview ? 0 : undefined}
+              aria-label={preview ? text(b.text) : undefined}
+              onClick={
+                preview
+                  ? (event) => {
+                      if ((event.target as Element).closest("a"))
+                        event.preventDefault();
+                      onSelect(b.id);
+                    }
+                  : undefined
+              }
+              onKeyDown={
+                preview
+                  ? (event) => {
+                      if (
+                        event.target === event.currentTarget &&
+                        event.key === "Enter"
+                      )
+                        onSelect(b.id);
+                    }
+                  : undefined
+              }
+            >
+              {nativeSections?.[b.id]}
+            </div>
+          );
+          return decorate ? decorate(b, index, section) : section;
+        }
         const title = text(b.text),
           rows =
             b.productMode === "selected" || b.products.length

@@ -1,6 +1,8 @@
 /** Non-sensitive editor intent survives native sandbox handoff; only a current authorized private preview can resume it. */
 import { useEffect, useState, type RefObject } from "react";
 import type { RequestFn } from "../../../../frontend/src/shared/api/types";
+import { commercePage } from "../commerce-layout";
+import { commerceDraft } from "./commerce-layout-draft";
 import { homeDraft } from "./home-draft";
 import { designIntent, type DesignIntent } from "./DesignSetup";
 import type { Designer } from "./useDesigner";
@@ -62,7 +64,13 @@ export default function useDesignResume({
     setMode(
       intent === "agent" ? "agent" : intent === "blocks" ? "blocks" : "edit",
     );
-    setResume({ intent, scope: scopeKey });
+    if (intent === "product-layout" || intent === "category-layout") {
+      const kind = intent === "product-layout" ? "product" : "category";
+      d.open(
+        commercePage(d.workingPages, d.channel, kind) ??
+          commerceDraft(kind, d.channel, mainLocale, language),
+      );
+    } else setResume({ intent, scope: scopeKey });
   }, [workspace, request, writable, missing, d.loaded]);
   useEffect(() => {
     if (

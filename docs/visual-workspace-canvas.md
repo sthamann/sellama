@@ -57,12 +57,18 @@ catalogue is never loaded just to fill the overview.
    before discarding unfinished work. Save each page explicitly before reloading.
 5. Review the existing selected sandbox publication when ready.
 
-**Edit product data** and **Edit category data** open their existing native data editors within the
-workspace, retaining the page draft behind them. Native product/category writes
-keep their normal permissions, revision checks and history. Those editors change
-product/category data; the board does not introduce arbitrary product-detail or
-category layout templates. Global shop design remains inherited from the home.
-Original Storyfront Experiences continue to use their own editor.
+Use **Design product page** or **Design category page** to edit a layout for the
+selected sales channel. Choose a sample product or category to check the layout
+with real shop data. Move built-in sections with the grip or the arrow controls,
+add content from **Elements**, or adjust the appearance in **Properties**.
+Gallery and purchase controls form one section. Category filters and the product
+listing can move independently.
+
+Save the layout in a private sandbox and choose **Review publication** when
+ready. The live product pages and collection use the approved order of sections.
+**Edit product data** and **Edit category data** are separate actions in the
+layout editor for changing the sample record. Storyfront Experiences use their
+own editor.
 
 ### Clear editing context
 

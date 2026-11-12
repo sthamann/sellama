@@ -33,6 +33,18 @@ silently satisfy a missing main-language name. Existing channels retain the shar
 translation editor and inheritance. The same backend validates creation, edits,
 MCP writes and selected publication.
 
+## Find marketplaces and B2B
+
+Open **Marketplaces** to connect seller accounts, manage their product offers
+and review incoming orders. The menu opens the marketplace workspace for the
+installed app. It appears when the current role has access to that workspace.
+
+**B2B** appears when company purchasing is enabled in **Settings → B2B** and
+the current role can read it. The menu contains **Companies**, **B2B quotes**
+when quotes are enabled and permitted, and the **EDI workspace** when EDI is
+enabled and the app is installed. Marketplace offers and order imports belong
+to the marketplace account that supplied them.
+
 ## Return from an app example
 
 **Back to overview** returns to App Studio's assistants and app library. The App

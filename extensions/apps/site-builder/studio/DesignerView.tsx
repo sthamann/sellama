@@ -3,11 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import { useAppPanelSizing } from "../../../../frontend/src/admin/developer/AppPanelSizing";
 import { useContentLanguage } from "../../../../frontend/src/shared/i18n/ContentLanguage";
 import ConfirmDialog from "../../../../frontend/src/shared/ui/ConfirmDialog";
-import type { SiteProduct } from "../Renderer";
-import DesignerPreview from "./DesignerPreview";
-import CanvasCommerceEditor from "../../../../frontend/src/admin/catalog/CanvasCommerceEditor";
-import ShopOverview from "./ShopOverview";
-import DesignerPreviewBar from "./DesignerPreviewBar";
+import type { PreviewCategory } from "./NativeCategoryPreview";
+import {
+  commercePage,
+  layoutKind,
+  type CommerceLayout,
+} from "../commerce-layout";
+import { commerceDraft } from "./commerce-layout-draft";
+import DesignerPreviewPane from "./DesignerPreviewPane";
 import { homeDraft } from "./home-draft";
 import {
   inheritedTheme,
@@ -55,10 +58,13 @@ export default function DesignerView({
   useEffect(() => {
     d.setCatalogueLanguage(language);
   }, [language]);
+  const intent = designIntent();
+  const resumeLayout =
+    intent === "product-layout" || intent === "category-layout";
   const [device, setDevice] = useState<"desktop" | "tablet" | "mobile">(() =>
       window.matchMedia("(max-width: 650px)").matches ? "mobile" : "desktop",
     ),
-    [showPages, setShowPages] = useState(false),
+    [showPages, setShowPages] = useState(resumeLayout),
     [overview, setOverview] = useState(!initialReference && !designIntent()),
     [toolsOpen, setToolsOpen] = useState(
       !!initialReference || !!designIntent(),
@@ -75,6 +81,10 @@ export default function DesignerView({
   );
   const commerce = useCommerceCanvas(request, workspace, d.channel, () =>
     setOverview(false),
+  );
+  const [previewId, setPreviewId] = useState("");
+  const [previewCategories, setPreviewCategories] = useState<PreviewCategory[]>(
+    [],
   );
   const nativeSnapshot = useRef<HomeSnapshot | undefined>(undefined);
   const [snapshotScope, setSnapshotScope] = useState("");
@@ -106,14 +116,36 @@ export default function DesignerView({
     scopeKey,
     setMode,
   });
+  const openLayout = (kind: CommerceLayout, id: string) => {
+    setPreviewId(id);
+    setOverview(false);
+    setToolsOpen(true);
+    setShowPages(true);
+    if (layoutKind(d.draft) !== kind)
+      open(
+        commercePage(d.workingPages, d.channel, kind) ??
+          commerceDraft(kind, d.channel, mainLocale, language),
+      );
+    if (!writable)
+      beginSetup(kind === "product" ? "product-layout" : "category-layout");
+    else setMode("edit");
+  };
+  const layout = layoutKind(d.draft);
+  const previewProducts = d.context!.catalogue.elements;
+  const previewOptions =
+    layout === "product" ? previewProducts : previewCategories;
+  const currentPreviewId =
+    previewOptions.find((item) => item.id === previewId)?.id ??
+    previewOptions[0]?.id ??
+    "";
   useEffect(() => {
-    if (!d.loaded || d.draft) return;
+    if (!d.loaded || d.draft || resumeLayout) return;
     const pages = effectivePages(d.pages, d.channel);
     const home = pages.find(
       (p) => p.slug === "home" && p.status !== "archived",
     );
     if (home) d.open(home);
-  }, [d.loaded, d.pages, d.channel, d.draft]);
+  }, [d.loaded, d.pages, d.channel, d.draft, resumeLayout]);
   const customizeHome = (
     snapshot: HomeSnapshot,
     section: "hero" | "products",
@@ -205,7 +237,15 @@ export default function DesignerView({
             if (d.hasUnsaved || commerce.dirty) setPendingChannel(channel);
             else d.changeChannel(channel);
           }}
-          onSandbox={() => beginSetup("edit")}
+          onSandbox={() =>
+            beginSetup(
+              layout === "product"
+                ? "product-layout"
+                : layout === "category"
+                  ? "category-layout"
+                  : "edit",
+            )
+          }
           onEnvironments={onEnvironments}
           onTest={onTest}
           onAgent={() => {
@@ -235,94 +275,48 @@ export default function DesignerView({
               }}
             />
           )}
-          <section
-            className={`designer-canvas${commerce.visible && !overview ? " is-data-editor" : ""}`}
-          >
-            {(!commerce.visible || overview) && (
-              <DesignerPreviewBar
-                d={d}
-                writable={writable}
-                overview={overview}
-                showPages={showPages}
-                device={device}
-                onDevice={setDevice}
-                onOverview={() => {
-                  setOverview(!overview);
-                  commerce.setVisible(false);
-                }}
-                toolsOpen={toolsOpen}
-                onTools={() => setToolsOpen(!toolsOpen)}
-                onPages={() => {
-                  setOverview(false);
-                  setShowPages(!showPages);
-                  commerce.setVisible(false);
-                }}
-              />
-            )}
-            {overview ? (
-              <ShopOverview
-                key={scopeKey}
-                d={d}
-                request={request}
-                workspace={workspace}
-                shopName={shopName}
-                language={language}
-                mainLocale={mainLocale}
-                device={device}
-                onCommerce={
-                  rights.includes("catalog.read") ? commerce.pick : undefined
-                }
-                onOpen={(page) => {
-                  commerce.setVisible(false);
-                  setOverview(false);
-                  if (page && page.id === d.draft?.id) return;
-                  if (page) open(page);
-                  else if (d.dirty) setPendingHome(true);
-                  else d.close();
-                }}
-              />
-            ) : !commerce.visible ? (
-              <DesignerPreview
-                d={d}
-                request={request}
-                workspace={workspace}
-                shopName={shopName}
-                language={language}
-                mainLocale={mainLocale}
-                device={device}
-                theme={theme}
-                products={selection.products as SiteProduct[]}
-                comparison={comparison}
-                writable={writable}
-                onHome={customizeHome}
-                onSnapshot={(snapshot) => {
-                  nativeSnapshot.current = snapshot;
-                  setSnapshotScope(scopeKey);
-                }}
-                onEdit={() => {
-                  setMode("edit");
-                  setToolsOpen(true);
-                }}
-              />
-            ) : null}
-            {commerce.target && (
-              <div hidden={!commerce.visible || overview}>
-                <CanvasCommerceEditor
-                  key={`${commerce.target.kind}:${commerce.target.id}`}
-                  kind={commerce.target.kind}
-                  id={commerce.target.id}
-                  onDirtyChange={commerce.setDirty}
-                  request={request}
-                  canWrite={sandbox && rights.includes("catalog.write")}
-                  onBack={() => {
-                    commerce.clear();
-                    setOverview(true);
-                  }}
-                  onSaved={() => void d.search("")}
-                />
-              </div>
-            )}
-          </section>
+          <DesignerPreviewPane
+            {...{
+              d,
+              workspace,
+              shopName,
+              request,
+              language,
+              mainLocale,
+              rights,
+              sandbox,
+              overview,
+              setOverview,
+              commerce,
+              showPages,
+              setShowPages,
+              toolsOpen,
+              setToolsOpen,
+              writable,
+              device,
+              setDevice,
+              scopeKey,
+              openLayout,
+              open,
+              setPendingHome,
+              layout,
+              previewId: currentPreviewId,
+              setPreviewId,
+              setPreviewCategories,
+              theme,
+              products: selection.products,
+              comparison,
+              onHome: customizeHome,
+              onSnapshot: (snapshot) => {
+                nativeSnapshot.current = snapshot;
+                setSnapshotScope(scopeKey);
+              },
+              onEdit: () => {
+                setMode("edit");
+                setToolsOpen(true);
+              },
+            }}
+          />
           <div
             hidden={overview || commerce.visible || !toolsOpen}
             style={{

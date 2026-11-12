@@ -1072,6 +1072,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/setup/useSetupFacts.ts](../frontend/src/admin/setup/useSetupFacts.ts) | Read only current native setup data; unavailable sources never become successful checks. |
 | [frontend/src/admin/shell/AgentRunCard.tsx](../frontend/src/admin/shell/AgentRunCard.tsx) | Saved native run progress and explicit continuation share the conversation's permission-scoped request owner. |
 | [frontend/src/admin/shell/Merchant.tsx](../frontend/src/admin/shell/Merchant.tsx) | Studio composition root: layout, scoped controller and modular workspace views. |
+| [frontend/src/admin/shell/StudioCommerceRoute.tsx](../frontend/src/admin/shell/StudioCommerceRoute.tsx) | Installed app and business entry points stay within the active Studio workspace. |
 | [frontend/src/admin/shell/StudioComposer.tsx](../frontend/src/admin/shell/StudioComposer.tsx) | StudioComposer: focused Studio view; state and commands come from the session-scoped controller. |
 | [frontend/src/admin/shell/StudioContext.ts](../frontend/src/admin/shell/StudioContext.ts) | Typed, local Studio context; never shared across a different mounted Studio. |
 | [frontend/src/admin/shell/StudioConversation.tsx](../frontend/src/admin/shell/StudioConversation.tsx) | StudioConversation: focused Studio view; state and commands come from the session-scoped controller. |
@@ -1079,12 +1080,14 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/admin/shell/StudioRoutes.tsx](../frontend/src/admin/shell/StudioRoutes.tsx) | StudioRoutes: focused Studio view; state and commands come from the session-scoped controller. |
 | [frontend/src/admin/shell/StudioSidebar.tsx](../frontend/src/admin/shell/StudioSidebar.tsx) | StudioSidebar: focused Studio view; state and commands come from the session-scoped controller. |
 | [frontend/src/admin/shell/StudioSignIn.tsx](../frontend/src/admin/shell/StudioSignIn.tsx) | Dedicated login page and blocking reauthentication dialog preserve mounted private editors. |
+| [frontend/src/admin/shell/commerce-nav-i18n.ts](../frontend/src/admin/shell/commerce-nav-i18n.ts) | Shop areas use the interface locale, independently of catalogue translations. |
 | [frontend/src/admin/shell/navigation.ts](../frontend/src/admin/shell/navigation.ts) | Typed built-in Studio navigation and locale-specific labels. |
 | [frontend/src/admin/shell/permissions.ts](../frontend/src/admin/shell/permissions.ts) | Presentation admission mirrors named server rights. API/domain checks remain authoritative. |
 | [frontend/src/admin/shell/requests.ts](../frontend/src/admin/shell/requests.ts) | Authenticated Studio transport; staging changes only the tenant, never the principal. |
 | [frontend/src/admin/shell/resume-browser-session.ts](../frontend/src/admin/shell/resume-browser-session.ts) | Explicit same-account resume reads the existing ledger, without adopting ambient identity or replaying writes. |
 | [frontend/src/admin/shell/studio-types.ts](../frontend/src/admin/shell/studio-types.ts) | studio types: Studio layout, session/workspace controller, authenticated transport and lazy workspace navigation. |
 | [frontend/src/admin/shell/useAgentWorkspaceContext.ts](../frontend/src/admin/shell/useAgentWorkspaceContext.ts) | Preserve the originating editor selection as a bounded hint, fenced to the current account/shop/stage. |
+| [frontend/src/admin/shell/useB2BNavigation.ts](../frontend/src/admin/shell/useB2BNavigation.ts) | Display business navigation only after the active workspace confirms its feature switches. |
 | [frontend/src/admin/shell/useChatTurns.ts](../frontend/src/admin/shell/useChatTurns.ts) | Durable chat commands reuse native conversations; late responses cannot cross an account/shop/stage boundary. |
 | [frontend/src/admin/shell/useDesignHandoff.ts](../frontend/src/admin/shell/useDesignHandoff.ts) | Ephemeral design navigation survives route remounts without putting reference URLs in browser storage or another identity. |
 | [frontend/src/admin/shell/useEntityNavigation.ts](../frontend/src/admin/shell/useEntityNavigation.ts) | Linked entity navigation keeps native editors, browser deep links and back paths in the same tenant scope. |
@@ -1475,6 +1478,7 @@ This lists every checked-in source module in these roots, including files with n
 | [frontend/src/storefront/catalog/ImagePlaceholder.tsx](../frontend/src/storefront/catalog/ImagePlaceholder.tsx) | Honest empty-media state for newly created products; never invent a product photograph. |
 | [frontend/src/storefront/catalog/MemoryRecommendations.tsx](../frontend/src/storefront/catalog/MemoryRecommendations.tsx) | Public consumer of merchant-approved learned associations, hydrated with current product state. |
 | [frontend/src/storefront/catalog/ProductAttachments.tsx](../frontend/src/storefront/catalog/ProductAttachments.tsx) | Public attachment list follows the active storefront tenant and channel; private downloads are never listed. |
+| [frontend/src/storefront/catalog/ProductDetails.tsx](../frontend/src/storefront/catalog/ProductDetails.tsx) | Product details render identically in Studio and the native storefront. |
 | [frontend/src/storefront/catalog/ProductGallery.tsx](../frontend/src/storefront/catalog/ProductGallery.tsx) | Shared native product gallery; selection changes only local presentation state. |
 | [frontend/src/storefront/catalog/ProductPage.tsx](../frontend/src/storefront/catalog/ProductPage.tsx) | Product family, gallery, context pricing and moderated customer reviews. |
 | [frontend/src/storefront/catalog/ProductPurchase.tsx](../frontend/src/storefront/catalog/ProductPurchase.tsx) | ProductPurchase: focused pdp-purchase view with explicit typed inputs and callbacks. |
@@ -1761,6 +1765,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/site-builder/Renderer.tsx](../extensions/apps/site-builder/Renderer.tsx) | Shared page renderer: Studio previews and published shops use exactly these registered components. |
 | [extensions/apps/site-builder/agent_handoff.rs](../extensions/apps/site-builder/agent_handoff.rs) | Coding agents edit the same page schema through credential-free tasks and explicit native review. |
 | [extensions/apps/site-builder/block_validation.rs](../extensions/apps/site-builder/block_validation.rs) | App-owned block admission with bounded field paths; never echo untrusted content in errors. |
+| [extensions/apps/site-builder/commerce-layout.ts](../extensions/apps/site-builder/commerce-layout.ts) | Native commerce sections share the channel page document and its existing publication boundary. |
 | [extensions/apps/site-builder/context.rs](../extensions/apps/site-builder/context.rs) | Designer context projects native channels, languages and calculated products; no second catalogue or price engine. |
 | [extensions/apps/site-builder/design_agent.rs](../extensions/apps/site-builder/design_agent.rs) | Scoped visual proposals reuse central inference and native revision-bound tasks; models cannot publish or execute. |
 | [extensions/apps/site-builder/elements.rs](../extensions/apps/site-builder/elements.rs) | Placed app elements resolve only active, public surfaces of this tenant; app code stays in its own package. |
@@ -1770,6 +1775,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/site-builder/references.rs](../extensions/apps/site-builder/references.rs) | Site design reuses generic bounded reference capture; page interpretation remains app-owned. |
 | [extensions/apps/site-builder/server.rs](../extensions/apps/site-builder/server.rs) | Standard-shop page contract. App-owned content and theme validation; no HTML, CSS or script evaluation. |
 | [extensions/apps/site-builder/site.css](../extensions/apps/site-builder/site.css) | Shared, responsive site renderer; merchant design data never becomes arbitrary CSS. |
+| [extensions/apps/site-builder/storefront/CommerceLayout.tsx](../extensions/apps/site-builder/storefront/CommerceLayout.tsx) | Render a published channel template around the storefront's original commerce controls. |
 | [extensions/apps/site-builder/storefront/PublishedSite.tsx](../extensions/apps/site-builder/storefront/PublishedSite.tsx) | One permission-filtered page read supplies routing and the shared theme on every native commerce route. |
 | [extensions/apps/site-builder/storefront/ShopSite.tsx](../extensions/apps/site-builder/storefront/ShopSite.tsx) | Standard-shop routing is an app mount; commerce products, cart, account and checkout keep their original owners. |
 | [extensions/apps/site-builder/studio/AppearanceControls.tsx](../extensions/apps/site-builder/studio/AppearanceControls.tsx) | Shared page/channel appearance controls; null values retain native inheritance. |
@@ -1783,6 +1789,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/site-builder/studio/DesignerInspector.tsx](../extensions/apps/site-builder/studio/DesignerInspector.tsx) | Visible edit, element, agent and history modes share the same native draft and approval path. |
 | [extensions/apps/site-builder/studio/DesignerPreview.tsx](../extensions/apps/site-builder/studio/DesignerPreview.tsx) | Preview composes the shared storefront renderer with editor-only gesture controls. |
 | [extensions/apps/site-builder/studio/DesignerPreviewBar.tsx](../extensions/apps/site-builder/studio/DesignerPreviewBar.tsx) | Stable preview navigation shares the current editor history across overview and page modes. |
+| [extensions/apps/site-builder/studio/DesignerPreviewPane.tsx](../extensions/apps/site-builder/studio/DesignerPreviewPane.tsx) | Scrollable page preview and optional native record editor share the Studio layout. |
 | [extensions/apps/site-builder/studio/DesignerView.tsx](../extensions/apps/site-builder/studio/DesignerView.tsx) | Three-panel standard-shop editor inside the native shell; Storyfront retains its separate original editor. |
 | [extensions/apps/site-builder/studio/EditableSection.tsx](../extensions/apps/site-builder/studio/EditableSection.tsx) | Preview-only controls decorate the actual storefront renderer; the published renderer has no editor UI. |
 | [extensions/apps/site-builder/studio/ImageProperties.tsx](../extensions/apps/site-builder/studio/ImageProperties.tsx) | Shared image metadata controls edit the selected page block through its normal draft owner. |
@@ -1796,6 +1803,7 @@ This lists every checked-in source module in these roots, including files with n
 | [extensions/apps/site-builder/studio/ShopOverview.tsx](../extensions/apps/site-builder/studio/ShopOverview.tsx) | Shared zoomable board mounts at most four native page/product/category previews and retains the domain draft. |
 | [extensions/apps/site-builder/studio/StorefrontCanvas.tsx](../extensions/apps/site-builder/studio/StorefrontCanvas.tsx) | Isolated viewport for native presentational components and the shared app renderer; no cart, analytics or orders run here. |
 | [extensions/apps/site-builder/studio/canvas.css](../extensions/apps/site-builder/studio/canvas.css) | Canvas sizing uses real iframe viewports; mobile tools follow the preview rather than obscure it. |
+| [extensions/apps/site-builder/studio/commerce-layout-draft.ts](../extensions/apps/site-builder/studio/commerce-layout-draft.ts) | Seed a template with the native sections and keep their original relative order. |
 | [extensions/apps/site-builder/studio/design-i18n.ts](../extensions/apps/site-builder/studio/design-i18n.ts) | Complete interface vocabulary for the standard-shop designer, independent of page translations. |
 | [extensions/apps/site-builder/studio/design-images.ts](../extensions/apps/site-builder/studio/design-images.ts) | Shop references use the same bounded raster/URL preparation as the App Studio agent. |
 | [extensions/apps/site-builder/studio/designer.css](../extensions/apps/site-builder/studio/designer.css) | Native three-panel designer; responsive canvas and independently scrollable properties. |

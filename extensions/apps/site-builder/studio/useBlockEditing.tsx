@@ -109,7 +109,11 @@ export function useBlockEditing({
   };
   const remove = (id: string) => {
     const page = d.draft;
-    if (!enabled || !page || !page.content.blocks.some((b) => b.id === id))
+    if (
+      !enabled ||
+      !page ||
+      !page.content.blocks.some((b) => b.id === id && b.kind !== "native")
+    )
       return;
     const blocks = page.content.blocks.filter((b) => b.id !== id);
     d.edit({ ...page, content: { blocks } });
@@ -117,7 +121,7 @@ export function useBlockEditing({
   };
   const duplicate = (id: string) => {
     const block = d.draft?.content.blocks.find((b) => b.id === id);
-    if (block)
+    if (block && block.kind !== "native")
       insert({
         ...structuredClone(block),
         id: "block_" + crypto.randomUUID().replaceAll("-", "").slice(0, 12),

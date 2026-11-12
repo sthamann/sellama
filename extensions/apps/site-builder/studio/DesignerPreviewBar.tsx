@@ -57,22 +57,26 @@ export default function DesignerPreviewBar({
           </button>
         ))}
       </div>
-      <button
-        type="button"
-        aria-label={t("undo")}
-        disabled={!writable || !d.canUndo}
-        onClick={d.undo}
-      >
-        ↶
-      </button>
-      <button
-        type="button"
-        aria-label={t("redo")}
-        disabled={!writable || !d.canRedo}
-        onClick={d.redo}
-      >
-        ↷
-      </button>
+      {!overview && (
+        <div>
+          <button
+            type="button"
+            aria-label={t("undo")}
+            disabled={!writable || !d.canUndo}
+            onClick={d.undo}
+          >
+            ↶
+          </button>
+          <button
+            type="button"
+            aria-label={t("redo")}
+            disabled={!writable || !d.canRedo}
+            onClick={d.redo}
+          >
+            ↷
+          </button>
+        </div>
+      )}
       {!overview && (
         <button type="button" aria-expanded={toolsOpen} onClick={onTools}>
           <Icon name="settings" size={16} />

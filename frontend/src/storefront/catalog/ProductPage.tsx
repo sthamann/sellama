@@ -1,16 +1,14 @@
 /** Product family, gallery, context pricing and moderated customer reviews. */
+import CommerceLayout from "../../../../extensions/apps/site-builder/storefront/CommerceLayout";
+import ProductDetails from "./ProductDetails";
 import CrossSelling from "./CrossSelling";
-import { productSpecifications } from "../../shared/content/product-specifications";
 import { productSeoFields } from "../../shared/content/product-seo";
 import { productURL, collectionURL } from "./product-url";
-import { BRAND } from "../../shared/ui/Brand";
-import RichDescription from "../../shared/content/RichDescription";
 import ProductGallery from "./ProductGallery";
 import {
   analyticsItems,
   commerceEvent,
 } from "../../../../extensions/apps/google-analytics/storefront/ShopAnalytics";
-import ProductAttachments from "./ProductAttachments";
 import ProductPurchase from "./ProductPurchase";
 import ProductReviews from "./ProductReviews";
 
@@ -39,7 +37,6 @@ export default function ProductPage({
   onConfigure: import("../../shared/apps/AppSlot").Props["onConfigure"];
 }) {
   const { s, money, locale } = useShopText();
-  const contentLanguage = getContentLocale().split("-")[0];
   const [data, setData] = useState<Detail>();
   const [error, setError] = useState("");
   const [image, setImage] = useState(0);
@@ -164,10 +161,6 @@ export default function ProductPage({
       </main>
     );
   const p = data.product;
-  const specs = productSpecifications(
-    p.extra?.specifications,
-    getContentLocale(),
-  );
   const effective = Math.max(
     p.min_purchase,
     Math.floor(
@@ -188,84 +181,79 @@ export default function ProductPage({
       <a className="shop-back" href={collectionURL()}>
         ← {s("back")}
       </a>
-      <div className="pdp-main">
-        <ProductGallery
-          p={p}
-          image={image}
-          setImage={setImage}
-          modelOpen={modelOpen}
-          onModelOpen={setModelOpen}
-        />
-        <ProductPurchase
-          s={s}
-          p={p}
-          data={data}
-          money={money}
-          tier={tier}
-          groups={groups}
-          variantsLoading={variantsLoading}
-          detailRequest={detailRequest}
-          setVariantsLoading={setVariantsLoading}
-          id={id}
-          cart={cart}
-          setData={setData}
-          setError={setError}
-          onConfigure={onConfigure}
-          quantity={quantity}
-          setQuantity={setQuantity}
-          effective={effective}
-          busy={busy}
-          onAdd={onAdd}
-        />
-      </div>
-      <div className="pdp-details">
-        <section>
-          <p className="shop-kicker">01 / {s("description")}</p>
-          <h2>{s("description")}</h2>
-          {Array.isArray(p.extra?.richDescription?.[contentLanguage]) ? (
-            <RichDescription
-              blocks={p.extra.richDescription[contentLanguage]}
-            />
-          ) : (
-            <p>{p.description}</p>
-          )}
-          <ProductAttachments id={p.id} />
-          <p className="product-material">
-            {s(p.properties.material ?? "")} · {BRAND.name} /
-          </p>
-        </section>
-        <section>
-          <p className="shop-kicker">02 / {s("properties")}</p>
-          <h2>{s("properties")}</h2>
-          <dl>
-            {Object.entries({ ...p.properties, ...specs }).map(
-              ([key, value]) => (
-                <div key={key}>
-                  <dt>{s(key)}</dt>
-                  <dd>{s(value)}</dd>
-                </div>
-              ),
-            )}
-          </dl>
-        </section>
-      </div>
-      <ProductSafety value={p.extra?.compliance} />
-      <ProductQuestion productId={p.id} />
-      {!!p.extra?.crossSelling?.length && (
-        <CrossSelling ids={p.extra.crossSelling} sourceId={p.id} cart={cart} />
-      )}
-      <MemoryRecommendations productId={p.id} />
-      <ProductReviews
-        s={s}
-        data={data}
-        reviewed={reviewed}
-        cart={cart}
-        setSending={setSending}
-        setError={setError}
-        id={id}
-        setReviewed={setReviewed}
-        sending={sending}
-        error={error}
+      <CommerceLayout
+        kind="product"
+        sections={{
+          purchase: (
+            <>
+              <div className="pdp-main">
+                <ProductGallery
+                  p={p}
+                  image={image}
+                  setImage={setImage}
+                  modelOpen={modelOpen}
+                  onModelOpen={setModelOpen}
+                />
+                <ProductPurchase
+                  s={s}
+                  p={p}
+                  data={data}
+                  money={money}
+                  tier={tier}
+                  groups={groups}
+                  variantsLoading={variantsLoading}
+                  detailRequest={detailRequest}
+                  setVariantsLoading={setVariantsLoading}
+                  id={id}
+                  cart={cart}
+                  setData={setData}
+                  setError={setError}
+                  onConfigure={onConfigure}
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  effective={effective}
+                  busy={busy}
+                  onAdd={onAdd}
+                />
+              </div>
+            </>
+          ),
+          details: (
+            <>
+              <ProductDetails product={p} language={getContentLocale()} />
+            </>
+          ),
+          assistance: (
+            <>
+              <ProductSafety value={p.extra?.compliance} />
+              <ProductQuestion productId={p.id} />
+              {!!p.extra?.crossSelling?.length && (
+                <CrossSelling
+                  ids={p.extra.crossSelling}
+                  sourceId={p.id}
+                  cart={cart}
+                />
+              )}
+              <MemoryRecommendations productId={p.id} />
+            </>
+          ),
+          reviews: (
+            <>
+              <ProductReviews
+                s={s}
+                data={data}
+                reviewed={reviewed}
+                cart={cart}
+                setSending={setSending}
+                setError={setError}
+                id={id}
+                setReviewed={setReviewed}
+                sending={sending}
+                error={error}
+              />
+            </>
+          ),
+        }}
       />
     </main>
   );

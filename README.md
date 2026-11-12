@@ -80,7 +80,7 @@ for verification tooling. Run `./scripts/dev.sh` and open
 | Countries, languages, currency and taxes | [International commerce](docs/international-commerce.md) · [Currencies](docs/currencies.md) |
 | POS, B2B, EDI and marketplaces | [POS](docs/pos.md) · [B2B](docs/b2b-commerce.md) · [EDI](docs/edi.md) · [Marketplaces](docs/marketplaces.md) |
 | Apps, settings, storage and private releases | [App platform](docs/app-platform.md) · [Build five apps](docs/app-tutorials/README.md) · [Storage and runtime](docs/app-data-storage.md) |
-| Agents | [Agentic UI](docs/agentic-component-ui.md) · [Limits](docs/agent-authority-controls.md) · [Product Guide](docs/product-guide-mcp-app.md) · [MCP](docs/agent-workshop.md) · [UCP B2B](docs/b2b-ucp-negotiation.md) |
+| Agents | [Agentic UI](docs/agentic-component-ui.md) · [Limits](docs/agent-authority-controls.md) · [Product Guide](docs/product-guide-mcp-app.md) · [MCP](docs/agent-workshop.md) · [Hosted API and SDK](docs/hosted-component-api.md) · [UCP B2B](docs/b2b-ucp-negotiation.md) |
 | Operation and verification | [Architecture](docs/production-architecture.md) · [Integrations](docs/service-integrations.md) · [Testing](docs/testing.md) · [Proof boundaries](docs/formal-verification.md) |
 
 The [handbook](https://www.veyndo.ai/docs/) labels the language of each guide.

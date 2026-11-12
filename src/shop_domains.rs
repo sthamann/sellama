@@ -52,13 +52,16 @@ pub(crate) fn same_origin_family(
         .is_some_and(|prefix| configured_alias(actual_host, "", legacy) == Some(prefix))
 }
 pub(crate) async fn resolve(State(a): State<App>, mut request: Request, next: Next) -> Response {
-    let domain = env::var("SHOP_DOMAIN_SUFFIX").unwrap_or_default();
+    let domain = &runtime_config::get().shop_domain_suffix;
     let legacy = env::var("LEGACY_DOMAINS").unwrap_or_default();
     let host = header(request.headers(), "host")
         .unwrap_or_default()
         .to_ascii_lowercase();
     let host = host.split(':').next().unwrap_or_default();
-    if let Some(shop) = configured_alias(host, &domain, &legacy)
+    if api_host(host, domain) {
+        return next.run(request).await;
+    }
+    if let Some(shop) = configured_alias(host, domain, &legacy)
         && !["app", "www", "admin", "experience"].contains(&shop)
     {
         if validate_tenant(shop).is_err()

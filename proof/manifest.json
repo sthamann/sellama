@@ -5254,15 +5254,20 @@
       "sha256": "f36fc44ed8edc3b6b4818ae485e91be093ced48b77670a1647b5ae29245e0bfe",
       "review": "Checkout grant entry points and tenant-bound session checks reviewed against native buyer login, live-shop admission, wrong buyer and tenant, revocation, replay and isolated two-service PostgreSQL acceptance. No additional formal claims."
     },
+    "src/routes/http_profile.rs": {
+      "status": "unproved",
+      "sha256": "76bb9bbe304f222c2a79562d5f9d77a084ddd66c8c7cced4236feb2bcc29b2c1",
+      "review": "Reviewed API-only ingress, startup profile validation, and reserved API hostname resolution. Isolated HTTP and PostgreSQL cover presentation rejection, explicit Store and MCP shop context, UCP, existing merchant authorization, and tenant isolation."
+    },
     "src/routes.rs": {
       "status": "unproved",
-      "sha256": "9f4c5baf5424bc6b3f3cb2266e55bbb1276800b062a0848001e8ac85b2406d70",
-      "review": "Reviewed chat cart preview and conditional edit reuse native quote and optimistic mutation, and app metadata derives from an admitted public product reference. Catalogue approval checks original task actor and current scopes before applying. The Rust/PostgreSQL regression covers stale quotes, wrong items, foreign cart scope, and same-shop approval denial."
+      "sha256": "2a396d9b705d6de2d09a9a505d0308141eb9b76d60d211983469e62d78c1d32e",
+      "review": "Reviewed API-only ingress, startup profile validation, and reserved API hostname resolution. Isolated HTTP and PostgreSQL cover presentation rejection, explicit Store and MCP shop context, UCP, existing merchant authorization, and tenant isolation."
     },
     "src/runtime_config.rs": {
       "status": "unproved",
-      "sha256": "3d494b7a4561dc9a1a01ae6be3eab62e05588fa1f9638e8262d12161392c666f",
-      "review": "Reviewed Checkout test-only payment profile and existing native payment transaction: final locked provider environment and replay receipt, no queued effect for switched live account, one stock/order and original capture/refund verified through local Core and separate Checkout PostgreSQL/provider fixtures; asynchronous SQL and provider behavior are not mathematical proofs."
+      "sha256": "dd44ce8be785f811013a9b64e7ac08443ebbf5dd81666fcb291face3f59f24db",
+      "review": "Reviewed API-only ingress, startup profile validation, and reserved API hostname resolution. Isolated HTTP and PostgreSQL cover presentation rejection, explicit Store and MCP shop context, UCP, existing merchant authorization, and tenant isolation."
     },
     "src/sandbox_cache.rs": {
       "status": "unproved",
@@ -5301,8 +5306,8 @@
     },
     "src/shop_domains.rs": {
       "status": "unproved",
-      "sha256": "5cf8ea5e3f7583da7fa78be7eca7f3768c77d84f45fc17aa21d72450d352ca89",
-      "review": "Reviewed domain cutover adapters: only browser GET/HEAD redirect; explicit legacy suffixes retain native tenant/channel ownership and exact HTTPS checkout origins. Scoped HTTP/PostgreSQL handoff, checkout-review and tenant-isolation suites passed. This records adapter review, not a proof of middleware correctness."
+      "sha256": "aad8d2e8791a69a0ed35a351b1a478e72c061d0397cec58c6f68d4507e36d2fa",
+      "review": "Reviewed API-only ingress, startup profile validation, and reserved API hostname resolution. Isolated HTTP and PostgreSQL cover presentation rejection, explicit Store and MCP shop context, UCP, existing merchant authorization, and tenant isolation."
     },
     "src/staging/access.rs": {
       "status": "unproved",

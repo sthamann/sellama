@@ -3,6 +3,8 @@ use serde_json::Value;
 use std::{env, sync::OnceLock};
 pub(crate) struct Config {
     pub strict: bool,
+    pub http_api_only: bool,
+    pub shop_domain_suffix: String,
     pub transaction_pooling: bool,
     pub listener_url: String,
     pub db_pool_max: u32,
@@ -30,6 +32,11 @@ pub(crate) fn get() -> &'static Config {
     static CONFIG: OnceLock<Config> = OnceLock::new();
     CONFIG.get_or_init(|| {
         let strict = flag("DB_RLS_REQUIRED", false);
+        let http_api_only = match env::var("HTTP_PROFILE").as_deref() {
+            Ok("api-only") => true,
+            Ok("combined") | Err(env::VarError::NotPresent) => false,
+            _ => panic!("HTTP_PROFILE must be combined or api-only"),
+        };
         let mode = env::var("BOOTSTRAP_MODE").unwrap_or("auto".into());
         assert!(
             !strict || mode == "serve",
@@ -133,6 +140,8 @@ pub(crate) fn get() -> &'static Config {
                 .unwrap_or_default()
         };
         Config {
+            http_api_only,
+            shop_domain_suffix: env::var("SHOP_DOMAIN_SUFFIX").unwrap_or_default(),
             transaction_pooling,
             listener_url,
             db_pool_max,

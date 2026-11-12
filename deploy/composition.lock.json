@@ -5,10 +5,10 @@
     "core": {
       "service": "vendune-core",
       "repository": "https://github.com/veyndo/veyndo",
-      "commit": "d8535673e74ac5c7e7bd4b682f4823b9cf42413c",
-      "digest": "sha256:59fda1bf771ebba2bf7a23b2c0a92f1d2dbab40a436a6aa21963808b6976a1c2",
+      "commit": "ced2a6cbf044b50fcca18e3da9a9ac58812bf8a6",
+      "digest": "sha256:654dd5f4d2d5719a8cef46e8ac08141f87b390203483c7cbfbd05c0d9dd4195c",
       "build_service": "vendune-core-build",
-      "build_id": "vigorous-ink-8885",
+      "build_id": "prime-cushion-3504",
       "schema": {
         "owner": "core",
         "inputs": {

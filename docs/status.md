@@ -35,6 +35,23 @@ journey are tracked separately. The 4 November PayPal journeys use the actual pr
   promotion remain open. [Measured workloads](benchmarks.md) ·
   [Component tasks](commerce-components.md).
 
+## Product and category layouts in Studio
+
+**Shop design** opens channel layouts for product pages and categories. Move
+native commerce sections, add content and set the appearance. Product and
+category records open through their own actions. **Marketplaces** brings seller
+accounts, offers and incoming orders together. **B2B** follows the active shop
+settings and current permissions.
+
+The isolated browser test opened a private workspace from the live view,
+scrolled both Canvas views, reordered sections and published the two selected
+layouts. The native storefront rendered the saved order and the category grid
+used the selected four columns. A customer added an item to the native cart
+from the rearranged purchase section. Changing the shop's B2B setting removed
+company, quote and EDI navigation.
+[Visual workspace](visual-workspace-canvas.md#shape-the-shop) ·
+[Studio navigation](studio-access-and-setup.md#find-marketplaces-and-b2b).
+
 ## Resume paused shop creation
 
 Studio and the hosted setup wizard use the same limit of 50 owned shops per
@@ -357,8 +374,8 @@ family was deactivated afterward. The run stopped at the checkout summary.
 ## Pinned Lumen composition
 
 The eight services in the hosted Lumen commerce profile matched the accepted
-composition on 12 November. The shop creation fix updated Core to
-`d8535673` and Experience to `5ee20549`. Northflank selects the exact builds for Checkout
+composition on 12 November, including the Studio layout build `ced2a6cb`
+and Experience `5ee20549`. Northflank selects the exact builds for Checkout
 and Knowledge; both deployments completed on 10 November.
 Both services returned HTTP 204 from their private database readiness probes.
 Public Core health, the Lumen Storyfront page and its native product endpoint

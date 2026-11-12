@@ -149,6 +149,29 @@ with (ROOT/'artifacts/identity-broker-server.log').open('w') as log:
         call(infer,signed(infer,subject,sessionToken=one['token'],system='Test',input='Test',schema={'type':'object'}),expected=400)
         created=call(path,signed(path,subject,sessionToken=one['token'],workspaceId=new_shop,workspaceName='Verified second shop'))
         assert created['workspace']==new_shop and 'token' in created
+        # Seed memberships directly so the regression exercises both entry points at the former limit.
+        owners = run(command, input=f"""
+            WITH shops AS (
+                INSERT INTO tenants(id,name)
+                SELECT 'existing-{suffix}-' || n, 'Existing test shop' FROM generate_series(1,48) AS n
+                RETURNING id
+            )
+            INSERT INTO memberships(user_id,tenant,role)
+            SELECT u.id, shops.id, 'owner' FROM merchant_users u CROSS JOIN shops
+            WHERE u.email = '{subject}@example.test';
+            SELECT count(*) FROM membership_grants
+            WHERE user_id = (SELECT id FROM merchant_users WHERE email = '{subject}@example.test')
+              AND role = 'owner' AND active;
+        """, text=True, capture_output=True, check=True)
+        assert owners.stdout.strip() == '50', owners.stdout
+        broker_shop = 'beyond-broker-' + suffix
+        studio_shop = 'beyond-studio-' + suffix
+        extra = call(path, signed(path, subject, sessionToken=one['token'],
+                                  workspaceId=broker_shop, workspaceName='Hosted shop beyond limit'))
+        assert extra['workspace'] == broker_shop
+        extra = call('/api/workspaces', {'workspaceId':studio_shop,'workspaceName':'Studio shop beyond limit'}, mh)
+        assert extra['workspace'] == studio_shop
+        check('Hosted setup and Studio both create additional shops for an owner already at the former limit')
         # Password recovery preserves MFA and revokes old proof/handoff everywhere.
         ticket=call('/api/auth/handoff',{},mh)['ticket']
         snap=call(recovery,signed(recovery,subject))

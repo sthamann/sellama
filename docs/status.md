@@ -54,10 +54,8 @@ company, quote and EDI navigation.
 
 ## Resume paused shop creation
 
-Studio and the hosted setup wizard use the same limit of 50 owned shops per
-account. Reaching the limit pauses creation before product import. The wizard
-identifies the limit and keeps the saved job available to resume, including
-jobs paused under the previous limit of 20.
+Studio and the hosted setup wizard create shops without a per-account shop
+count limit. Jobs paused under the former limit can resume from the saved draft.
 [Studio and hosted setup](studio-access-and-setup.md).
 
 ## A2UI working views in Studio

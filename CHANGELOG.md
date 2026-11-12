@@ -1,5 +1,10 @@
 # Changelog
 
+## Remove the shop count limit per account
+
+- Create additional shops in Studio and the hosted setup wizard without a
+  fixed account limit. Resume drafts paused under the former limit.
+
 ## Design product and category layouts in Studio
 
 - Scroll the Canvas overview and storefront editor with their native controls.

@@ -141,12 +141,6 @@ const messages: Record<string, readonly string[]> = {
     "Cet identifiant de boutique est déjà utilisé. Choisissez-en un autre et réessayez.",
     "Este identificador de tienda ya está en uso. Elige otro y vuelve a crear la tienda.",
   ],
-  "Maximum 20 owned shops per account": [
-    "Your account has reached its limit of 20 shops. Open an existing shop or contact your platform administrator to review the limit.",
-    "Dein Konto hat die Grenze von 20 Shops erreicht. Öffne einen bestehenden Shop oder kläre die Grenze mit deiner Plattformverwaltung.",
-    "Votre compte a atteint sa limite de 20 boutiques. Ouvrez une boutique existante ou contactez l’administrateur de la plateforme.",
-    "Tu cuenta ha alcanzado el límite de 20 tiendas. Abre una existente o consulta el límite con la administración de la plataforma.",
-  ],
   "Account already exists": [
     "An account with this email already exists. Sign in instead.",
     "Für diese E-Mail besteht bereits ein Konto. Bitte melde dich an.",

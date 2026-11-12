@@ -3186,8 +3186,8 @@
     },
     "src/auth/broker.rs": {
       "status": "unproved",
-      "sha256": "f5743a73185c0052e712c27a98157d8a1158049d3e62cea518a839cf215b9f76",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved. Both shop creation paths retain existing identity and quota transaction checks and use the shared 50-shop limit with a structured error pointer"
+      "sha256": "6257a8c7bbaed24fbda361b4227dc022ba6946a9772b6dc318cdfd081bc233f9",
+      "review": "Reviewed both shop creation routes and removed only the per-account count check and its Studio-only lock. Real HTTP and PostgreSQL regressions cover both routes above the old limit, current personal proof, existing foreign ownership and tenant isolation."
     },
     "src/auth/broker_credentials.rs": {
       "status": "unproved",
@@ -3276,8 +3276,8 @@
     },
     "src/auth/provision.rs": {
       "status": "unproved",
-      "sha256": "7f83092678b558b43f8b85c602a4ec35bdc5e8c42971b741389635844bd9afa0",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved. Both shop creation paths retain existing identity and quota transaction checks and use the shared 50-shop limit with a structured error pointer"
+      "sha256": "6c10734e6aa19a46be57c0d94667ea30d5d093bc333ee9bebc0ac8d75f207d43",
+      "review": "Reviewed both shop creation routes and removed only the per-account count check and its Studio-only lock. Real HTTP and PostgreSQL regressions cover both routes above the old limit, current personal proof, existing foreign ownership and tenant isolation."
     },
     "src/auth/recovery_entry.rs": {
       "status": "unproved",

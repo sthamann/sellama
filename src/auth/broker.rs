@@ -167,13 +167,6 @@ pub(crate) async fn exchange(State(a): State<App>, Json(v): Json<Value>) -> Resu
             return Err(conflict("Shop address already exists"));
         }
     } else {
-        let count: i64 = sqlx::query_scalar(
-            "SELECT count(*) FROM membership_grants WHERE user_id=$1 AND role='owner' AND active",
-        )
-        .bind(&user)
-        .fetch_one(&mut *tx)
-        .await?;
-        super::provision::check_owned_shop_limit(count)?;
         seeded = c["demoCatalog"] == true;
         sandbox = Some(
             provision_shop(

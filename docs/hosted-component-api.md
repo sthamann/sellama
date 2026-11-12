@@ -26,6 +26,7 @@ integrations** and set it as a bearer credential in your backend.
 
 | Job | Entry point | Authority |
 | --- | --- | --- |
+| Storefront language, currency and category navigation | `/store-api/context` and `/store-api/navigation` | Explicit shop and sales channel |
 | Catalog, availability and cart | `/store-api/…` | Explicit shop, channel policy and cart token for cart operations |
 | Buyer registration, sign-in, profile and orders | `/store-api/account/…` | Explicit shop and a current buyer token for signed-in calls |
 | Merchant HTTP operations and apps | `/api/…` | The operation's required scopes on a key for that shop |
@@ -49,6 +50,15 @@ independently. [Component map](one-shop-components.md) ·
 For a custom checkout, use the [review, confirm and recover recipe](checkout-component.md#use-the-checkout-relay-from-the-sdk)
 with the SDK checkout client. The same cart supports
 [coupons and currency changes](checkout-component.md#apply-a-coupon-or-switch-the-cart-currency).
+
+## Build your storefront navigation
+
+With SDK 0.4.20, `catalog.context()` returns the resolved locale and the
+shop's available locales and currencies. `catalog.navigation()` returns
+the localized categories visible in the selected sales channel. Pass a
+category ID to `catalog.list({ categoryId })` to load the products for that
+part of the menu. All three reads use the same shop scope.
+[JavaScript example](https://github.com/veyndo/sdk/blob/main/docs/hosted-api.md#build-your-storefront-navigation).
 
 ## Run your own API-only deployment
 

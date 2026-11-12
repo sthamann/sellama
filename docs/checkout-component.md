@@ -399,6 +399,20 @@ reload the cart before trying a selection again. Show the buyer the
 updated amount and delivery estimate, then create the checkout session
 from the returned cart.
 
+### Apply a coupon or switch the cart currency
+
+SDK 0.4.19 exposes `checkout.cart.setCoupons({ codes, revision }, access)`
+and `checkout.cart.setCurrency({ currency, revision }, access)`. Each call
+returns a new server-priced cart. Use `availableCurrencies` to populate the
+picker, `discounts` to show promotions that actually applied, and
+`price.totalMinor` and `price.currency` to show the new total. An empty
+codes array removes the current codes.
+
+Keep the returned revision for the next change. If a change conflicts with a
+newer revision, reload the cart. Rebuild the checkout draft from the new
+quote and ask the buyer to confirm that amount.
+[SDK example](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#apply-coupon-codes-and-switch-currency).
+
 ### Use the Checkout relay from the SDK
 
 With SDK 0.4.17, `checkout.prepare(cart, { requestKey, customerToken })`

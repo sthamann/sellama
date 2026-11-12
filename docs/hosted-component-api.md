@@ -47,7 +47,8 @@ independently. [Component map](one-shop-components.md) ·
 [Service repositories and contracts](commerce-components.md).
 
 For a custom checkout, use the [review, confirm and recover recipe](checkout-component.md#use-the-checkout-relay-from-the-sdk)
-with the SDK checkout client.
+with the SDK checkout client. The same cart supports
+[coupons and currency changes](checkout-component.md#apply-a-coupon-or-switch-the-cart-currency).
 
 ## Run your own API-only deployment
 

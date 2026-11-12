@@ -372,6 +372,19 @@ revision or reviewed quote changed. Read the current basket with
 `cart.read(access)`, request a new preview and show it to the buyer.
 Use the returned cart and total to start the checkout session below.
 
+### Build the checkout address form with the SDK
+
+SDK 0.4.22 adds `checkout.addressOptions(access)`. Use it to load localized
+countries and regions for the current sales channel, together with the
+shipping and payment candidates. The country and region lists include the
+shop's own geography definitions. Use the displayed label in the picker and
+submit the region code as `countryStateId`.
+
+Use the current cart and buyer context to load the candidates. If
+`requiresRegion` is true, collect a region before calling `checkout.select`.
+Core validates the address and methods and returns the current quote.
+[TypeScript example](https://github.com/veyndo/sdk/blob/main/docs/integration-recipes.md#build-the-checkout-address-form).
+
 ### Choose shipping and payment from the SDK
 
 Read the configured countries, shipping methods and payment methods with

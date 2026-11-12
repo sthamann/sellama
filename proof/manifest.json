@@ -3186,8 +3186,8 @@
     },
     "src/auth/broker.rs": {
       "status": "unproved",
-      "sha256": "f91e9875baf82b555e87839ca032d92d8d42a85f2225e32f14eadfb89fe6d3d1",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "f5743a73185c0052e712c27a98157d8a1158049d3e62cea518a839cf215b9f76",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved. Both shop creation paths retain existing identity and quota transaction checks and use the shared 50-shop limit with a structured error pointer"
     },
     "src/auth/broker_credentials.rs": {
       "status": "unproved",
@@ -3276,8 +3276,8 @@
     },
     "src/auth/provision.rs": {
       "status": "unproved",
-      "sha256": "b21fb105cd3750d9996fe128215857d56b12eb2d4777cd218e52ca721b1eef51",
-      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved"
+      "sha256": "7f83092678b558b43f8b85c602a4ec35bdc5e8c42971b741389635844bd9afa0",
+      "review": "Reviewed native factor gate, RFC6238 vectors, current personal proof, credential CAS, parent-session handoff revocation and system-only operational identity schema; own/foreign/revoked/replay real HTTP PostgreSQL cases pass; cryptography SQL provider and browser code remain unproved. Both shop creation paths retain existing identity and quota transaction checks and use the shared 50-shop limit with a structured error pointer"
     },
     "src/auth/recovery_entry.rs": {
       "status": "unproved",

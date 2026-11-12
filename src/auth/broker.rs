@@ -173,9 +173,7 @@ pub(crate) async fn exchange(State(a): State<App>, Json(v): Json<Value>) -> Resu
         .bind(&user)
         .fetch_one(&mut *tx)
         .await?;
-        if count >= 20 {
-            return Err(bad("Maximum 20 owned shops per account"));
-        }
+        super::provision::check_owned_shop_limit(count)?;
         seeded = c["demoCatalog"] == true;
         sandbox = Some(
             provision_shop(

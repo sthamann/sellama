@@ -62,7 +62,8 @@ selected sales channel. Choose a sample product or category to check the layout
 with real shop data. Move built-in sections with the grip or the arrow controls,
 add content from **Elements**, or adjust the appearance in **Properties**.
 Gallery and purchase controls form one section. Category filters and the product
-listing can move independently.
+listing can move independently. The layout appearance controls also apply to
+the native purchase buttons and to the product grid on wide category pages.
 
 Save the layout in a private sandbox and choose **Review publication** when
 ready. The live product pages and collection use the approved order of sections.

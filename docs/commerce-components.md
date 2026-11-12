@@ -325,6 +325,10 @@ Each component task remains open until these checks are demonstrated for it.
     Verify a localized title and exact file bytes after independent Checkout,
     denial for other buyers and retained access after withdrawal from sale.
     [Digital downloads](merchant-operations.md#download-purchased-files-with-the-sdk).
+  - [x] Connect the Account and Checkout SDK clients to an existing HttpOnly
+    buyer session in SDK 0.4.12. Verify saved addresses, purchase, order
+    recovery, digital download and logout in Chromium.
+    [Browser session](merchant-operations.md#use-the-signed-in-browser-with-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

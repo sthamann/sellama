@@ -10,6 +10,14 @@ Updated 12 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Account and Checkout SDK in the shop browser
+
+SDK 0.4.12 reuses the shop's HttpOnly buyer session. Chromium exercised
+registration, profile and address writes, a simulated purchase through the
+separate Checkout service, order recovery and a purchased download. After
+logout, Core denied the next profile read. The local test used the installed
+release package. [Browser session walkthrough](merchant-operations.md#use-the-signed-in-browser-with-the-sdk).
+
 ## Purchased downloads in the SDK
 
 SDK 0.4.11 lists purchased digital files and downloads their bytes. In a

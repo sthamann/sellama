@@ -3,10 +3,12 @@ import ImageProperties from "./ImageProperties";
 import { useState } from "react";
 import type { RequestFn } from "../../../../frontend/src/shared/api/types";
 import { useContentLanguage } from "../../../../frontend/src/shared/i18n/ContentLanguage";
+import { contentText } from "../../../../frontend/src/shared/i18n/content-language";
 import LocalizedField from "../../../../frontend/src/shared/i18n/LocalizedField";
 import RichEditor from "../../../../frontend/src/shared/content/editor/RichEditor";
 import type { Block, Page, Theme, FormField } from "../model";
 import type { SiteProduct } from "../Renderer";
+import { layoutKind } from "../commerce-layout";
 import AppearanceControls from "./AppearanceControls";
 import { useDesignText } from "./design-i18n";
 import { useEditorText } from "./editor-i18n";
@@ -71,6 +73,7 @@ export default function PageInspector({
             {t("slug")}
             <input
               value={page.slug}
+              readOnly={!!layoutKind(page)}
               maxLength={100}
               pattern="[a-z0-9-]+"
               onChange={(event) => patch({ slug: event.target.value })}
@@ -139,7 +142,15 @@ export default function PageInspector({
           open={!block}
           onChange={(theme) => patch({ theme })}
         />
-        {block && (
+        {block?.kind === "native" && (
+          <section className="designer-block-properties">
+            <h3>
+              {contentText(block.text, language, mainLocale) || t("native")}
+            </h3>
+            <p>{t("nativePlacement")}</p>
+          </section>
+        )}
+        {block && block.kind !== "native" && (
           <section className="designer-block-properties">
             <h3>{t(block.kind)}</h3>
             <LocalizedField

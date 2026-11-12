@@ -36,7 +36,8 @@ export default function VisualCanvas({
   const [choice, setChoice] = useState(selected ?? "");
   const viewport = useRef<HTMLDivElement>(null);
   const pan = useRef<
-    { x: number; y: number; left: number; top: number } | undefined
+    | { pointer: number; x: number; y: number; left: number; top: number }
+    | undefined
   >(undefined);
   const offset = Math.min(
     start,
@@ -62,7 +63,10 @@ export default function VisualCanvas({
     el.scrollTo?.(0, 0);
   };
   useLayoutEffect(() => {
-    fit();
+    if ((viewport.current?.clientWidth ?? 0) < 600) {
+      scale(0.85);
+      viewport.current?.scrollTo?.(0, 0);
+    } else fit();
   }, [offset, current.length]);
   useEffect(() => {
     const el = viewport.current;
@@ -184,10 +188,14 @@ export default function VisualCanvas({
         onPointerDown={(e) => {
           if (
             e.button !== 0 ||
-            (e.target as Element).closest("article,button,input,select,a")
+            e.pointerType === "touch" ||
+            e.target !==
+              e.currentTarget.querySelector(".visual-canvas-board") ||
+            pan.current
           )
             return;
           pan.current = {
+            pointer: e.pointerId,
             x: e.clientX,
             y: e.clientY,
             left: e.currentTarget.scrollLeft,
@@ -197,18 +205,22 @@ export default function VisualCanvas({
         }}
         onPointerMove={(e) => {
           const p = pan.current;
-          if (p) {
+          if (p?.pointer === e.pointerId) {
             e.currentTarget.scrollLeft = p.left - e.clientX + p.x;
             e.currentTarget.scrollTop = p.top - e.clientY + p.y;
           }
         }}
         onPointerUp={(e) => {
+          if (pan.current?.pointer !== e.pointerId) return;
           pan.current = undefined;
           if (e.currentTarget.hasPointerCapture?.(e.pointerId))
             e.currentTarget.releasePointerCapture(e.pointerId);
         }}
-        onPointerCancel={() => {
-          pan.current = undefined;
+        onPointerCancel={(e) => {
+          if (pan.current?.pointer === e.pointerId) pan.current = undefined;
+        }}
+        onLostPointerCapture={(e) => {
+          if (pan.current?.pointer === e.pointerId) pan.current = undefined;
         }}
       >
         <div className="visual-canvas-board" style={{ zoom }}>

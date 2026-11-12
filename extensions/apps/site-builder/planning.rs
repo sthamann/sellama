@@ -11,7 +11,7 @@ pub(crate) fn contract() -> Value {
                 "additionalProperties":false,
                 "properties":{
                     "id":"unique within page; ^[a-z][a-z0-9_]{0,31}$; underscores allowed, hyphens not allowed",
-                    "kind":["hero","text","products","image","form","articles","app"],
+                    "kind":["hero","text","products","image","form","articles","app","native"],
                     "text":"optional locale-to-string/null map; enabled shop locale keys (e.g. it-IT), at most 100 locales, 2000 UTF-8 bytes per value; null means inherit",
                     "rich":"optional locale-to-array map (not Tiptap root directly), at most 100 locales and 40 blocks per locale; basic blocks are {type:paragraph/heading/list,text:string} (max 4000 UTF-8 bytes); media blocks are {type:image/video,url:HTTPS}; omit when plain text suffices",
                     "image":"optional owned public product-media path or HTTPS URL; omit if unavailable",
@@ -22,6 +22,7 @@ pub(crate) fn contract() -> Value {
                 }
             }
         },
+        "nativeSections": "Only layout-product and layout-category may contain kind=native. Preserve each native section exactly once. Product IDs: purchase, details, assistance, reviews. Category IDs: filters, listing. Reorder existing sections by their block positions.",
         "theme":{"optionalProperties":{"accent":"#RRGGBB","background":"#RRGGBB","foreground":"#RRGGBB","font":["sans","serif","mono"],"radius":"integer 0..32","spacing":"integer 12..96","columns":"integer 1..4"},"additionalProperties":false},
         "example":{"content":{"blocks":[{"id":"collection_intro","kind":"hero","text":{"it-IT":"La nostra collezione"}},{"id":"selected_products","kind":"products","products":["replace_with_observed_product_id"],"productMode":"selected"}]},"theme":{}},
         "selection":"Use only observed shop/channel/product IDs and enabled locales. Examples show shape, not permission to invent IDs or translations. Preserve fields not requested. Saving a page never publishes the sandbox."
@@ -31,6 +32,23 @@ pub(crate) fn contract() -> Value {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn native_sections_move_without_removing_required_commerce_controls() {
+        let mut page = json!({"slug":"layout-product","theme":{},"content":{"blocks":[
+            {"id":"reviews","kind":"native"},
+            {"id":"details","kind":"native"},
+            {"id":"banner","kind":"text"},
+            {"id":"purchase","kind":"native"},
+            {"id":"assistance","kind":"native"}
+        ]}});
+        assert!(super::super::validate("pages", &page).is_ok());
+        page["slug"] = json!("layout-category");
+        assert!(super::super::validate("pages", &page).is_err());
+        page["slug"] = json!("layout-product");
+        page["content"]["blocks"].as_array_mut().unwrap().remove(3);
+        assert!(super::super::validate("pages", &page).is_err());
+    }
 
     #[test]
     fn contract_example_passes_native_shape_admission() {

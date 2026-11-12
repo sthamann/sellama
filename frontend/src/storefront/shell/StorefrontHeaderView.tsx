@@ -6,6 +6,7 @@ import { useShopText } from "../../shared/i18n/shop-i18n";
 import { useWorkbenchText } from "../../shared/i18n/workbench-i18n";
 export default function StorefrontHeaderView({
   displayName,
+  collectionLayout = false,
   company = {},
   children,
   navigation,
@@ -21,6 +22,7 @@ export default function StorefrontHeaderView({
   onBag,
 }: {
   displayName: string;
+  collectionLayout?: boolean;
   company?: Record<string, string>;
   children?: ReactNode;
   navigation?: ReactNode;
@@ -51,7 +53,9 @@ export default function StorefrontHeaderView({
         <span> / </span>
       </a>
       <nav>
-        <a href={collectionURL()}>{s("collection")}</a>
+        <a href={collectionURL() + (collectionLayout ? "collection" : "")}>
+          {s("collection")}
+        </a>
         {navigation}
         <button
           disabled={busy || businessDisabled || !onBusiness}

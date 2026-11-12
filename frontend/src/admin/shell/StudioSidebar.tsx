@@ -8,12 +8,15 @@ import "../styles/studio.css";
 
 import { canOpenStudio } from "./permissions";
 import { useStudio } from "./StudioContext";
+import { useAppSurfaces } from "../../shared/apps/AppSurfaces";
+import { useCommerceNavText } from "./commerce-nav-i18n";
 import type { Tab } from "./navigation";
 import { useStudioText } from "../../shared/i18n/studio-ui-i18n";
 
 export default function StudioSidebar() {
   const {
     menu,
+    b2bFeatures,
     t,
     selectTab,
     workspaceName,
@@ -34,7 +37,25 @@ export default function StudioSidebar() {
     load,
     onExit,
   } = useStudio();
-  const { u } = useStudioText();
+  const { u } = useStudioText(),
+    n = useCommerceNavText();
+  const surfaces = useAppSurfaces();
+  const marketplace = surfaces.find(
+    (surface) =>
+      surface.app === "marketplaces" &&
+      surface.surface.id === "connections" &&
+      surface.surface.location === "admin.navigation",
+  );
+  const go = (id: Tab) => {
+    selectTab(id);
+    setMenu(false);
+  };
+  const selectSurface: Parameters<typeof AdminAppNavigation>[0]["onSelect"] = (
+    surface,
+  ) => {
+    setAppSurface(surface);
+    setMenu(false);
+  };
   const groups: { label: string; tabs: Tab[] }[] = [
     {
       label: u("intelligence"),
@@ -49,7 +70,7 @@ export default function StudioSidebar() {
     },
     {
       label: u("commerce"),
-      tabs: ["productData", "orders", "customers", "b2b", "pos"],
+      tabs: ["productData", "orders", "customers", "pos"],
     },
     {
       label: u("experiences"),
@@ -117,12 +138,64 @@ export default function StudioSidebar() {
                 ))}
             </div>
           ))}
+        {b2bFeatures?.enabled && (
+          <details
+            className="sidebar-nav-group sidebar-commerce-group"
+            open={
+              tab === "b2b" ||
+              tab === "b2bQuotes" ||
+              appSurface?.app === "edi" ||
+              undefined
+            }
+          >
+            <summary>
+              <Icon name="people" />
+              {n("b2b")}
+            </summary>
+            <button
+              onClick={() => go("b2b")}
+              aria-current={!appSurface && tab === "b2b" ? "page" : undefined}
+            >
+              <Icon name="people" />
+              {n("companies")}
+            </button>
+            {b2bFeatures.quotes && canOpenStudio("b2bQuotes", access) && (
+              <button
+                onClick={() => go("b2bQuotes")}
+                aria-current={
+                  !appSurface && tab === "b2bQuotes" ? "page" : undefined
+                }
+              >
+                <Icon name="chat" />
+                {n("quotes")}
+              </button>
+            )}
+            {b2bFeatures.edi && (
+              <AdminAppNavigation
+                selected={appSurface}
+                onSelect={selectSurface}
+                include={(s) => s.app === "edi"}
+              />
+            )}
+          </details>
+        )}
+        {marketplace && (
+          <button
+            type="button"
+            aria-current={
+              appSurface?.app === "marketplaces" ? "page" : undefined
+            }
+            className={appSurface?.app === "marketplaces" ? "active" : ""}
+            onClick={() => selectSurface(marketplace)}
+          >
+            <Icon name="layers" />
+            <span>{n("marketplaces")}</span>
+          </button>
+        )}
         <AdminAppNavigation
           selected={appSurface}
-          onSelect={(s) => {
-            setAppSurface(s);
-            setMenu(false);
-          }}
+          onSelect={selectSurface}
+          include={(s) => s.app !== "edi" && s.app !== "marketplaces"}
         />
       </nav>
       {access.includes("assistant.use") && (

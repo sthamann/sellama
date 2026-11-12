@@ -263,3 +263,32 @@
   max-width: 740px;
   margin: clamp(16px, 5vh, 60px) auto 24px;
 }
+
+.sidebar-commerce-group > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding-inline: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.sidebar-commerce-group > summary::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border: solid currentColor;
+  border-width: 0 1px 1px 0;
+  transform: rotate(45deg);
+  margin-inline-start: auto;
+}
+.sidebar-commerce-group[open] > summary::after {
+  transform: rotate(225deg);
+}
+.sidebar-commerce-group > button {
+  padding-inline-start: 24px;
+}
+.studio-sidebar .sidebar-commerce-group > button[aria-current="page"] {
+  background: var(--studio-hover, #e5f3ff);
+  color: var(--accent, #0869bd);
+}

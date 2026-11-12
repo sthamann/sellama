@@ -1,6 +1,18 @@
 /** Complete interface vocabulary for the standard-shop designer, independent of page translations. */
 import { useLocale } from "../../../../frontend/src/shared/i18n/i18n";
 const words = {
+  native: [
+    "Shop section",
+    "Shopbereich",
+    "Section de boutique",
+    "Sección de tienda",
+  ],
+  nativePlacement: [
+    "Move this section to change where it appears. Its content comes from the shop.",
+    "Verschiebe den Bereich an die gewünschte Stelle. Die Inhalte kommen aus dem Shop.",
+    "Déplacez cette section pour changer sa position. Son contenu vient de la boutique.",
+    "Mueve esta sección para cambiar su posición. Su contenido viene de la tienda.",
+  ],
   testCustomers: [
     "Test with customers",
     "Mit Kunden testen",

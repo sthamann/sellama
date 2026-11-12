@@ -1,4 +1,5 @@
 /** CollectionView: storefront view composed from the scoped cart/controller. */
+import CommerceLayout from "../../../../extensions/apps/site-builder/storefront/CommerceLayout";
 import { useBuildingText } from "../../shared/i18n/app-building-i18n";
 import { BRAND } from "../../shared/ui/Brand";
 import ProductTile from "./ProductTile";
@@ -52,53 +53,64 @@ export default function CollectionView() {
           <p>{b("personalizationExplanation")}</p>
         </details>
       )}
-      <div className="shop-filters">
-        <CatalogNavigation />
-        <input
-          aria-label={s("search")}
-          placeholder={s("search")}
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-      </div>
-      <div
-        aria-busy={catalogLoading}
-        className={`shop-grid ${experience?.variant === "comparison" || query.length > 3 ? "comparison" : ""}`}
-      >
-        {list.map((p) => (
-          <ProductTile
-            key={p.id}
-            product={p}
-            money={money}
-            business={cart?.customerGroup === "business"}
-            onViewed={() =>
-              setViewed((v) => ({
-                ...v,
-                [p.category]: (v[p.category] ?? 0) + 1,
-              }))
-            }
-          />
-        ))}
-      </div>
-      <div className="shop-filters">
-        {catalogLoading && <p role="status">{s("loading")}</p>}
-        {pageCursor && (
-          <button
-            disabled={catalogLoading || busy}
-            onClick={() => run(() => catalog(cart?.token))}
-          >
-            {s("firstPage")}
-          </button>
-        )}
-        {nextCursor && (
-          <button
-            disabled={catalogLoading || busy}
-            onClick={() => run(() => catalog(cart?.token, nextCursor))}
-          >
-            {s("nextPage")} →
-          </button>
-        )}
-      </div>
+      <CommerceLayout
+        kind="category"
+        sections={{
+          filters: (
+            <div className="shop-filters">
+              <CatalogNavigation />
+              <input
+                aria-label={s("search")}
+                placeholder={s("search")}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </div>
+          ),
+          listing: (
+            <>
+              <div
+                aria-busy={catalogLoading}
+                className={`shop-grid ${experience?.variant === "comparison" || query.length > 3 ? "comparison" : ""}`}
+              >
+                {list.map((p) => (
+                  <ProductTile
+                    key={p.id}
+                    product={p}
+                    money={money}
+                    business={cart?.customerGroup === "business"}
+                    onViewed={() =>
+                      setViewed((v) => ({
+                        ...v,
+                        [p.category]: (v[p.category] ?? 0) + 1,
+                      }))
+                    }
+                  />
+                ))}
+              </div>
+              <div className="shop-filters">
+                {catalogLoading && <p role="status">{s("loading")}</p>}
+                {pageCursor && (
+                  <button
+                    disabled={catalogLoading || busy}
+                    onClick={() => run(() => catalog(cart?.token))}
+                  >
+                    {s("firstPage")}
+                  </button>
+                )}
+                {nextCursor && (
+                  <button
+                    disabled={catalogLoading || busy}
+                    onClick={() => run(() => catalog(cart?.token, nextCursor))}
+                  >
+                    {s("nextPage")} →
+                  </button>
+                )}
+              </div>
+            </>
+          ),
+        }}
+      />
     </section>
   );
 }

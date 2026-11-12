@@ -1,5 +1,6 @@
 /** Typed built-in Studio navigation and locale-specific labels. */
 import { useSetupText } from "../setup/setup-i18n";
+import { useB2BExperienceText } from "../b2b/experience-i18n";
 import { useB2BText } from "../../shared/i18n/b2b-i18n";
 import { usePosText } from "../pos/pos-i18n";
 import { useLocale } from "../../shared/i18n/i18n";
@@ -27,14 +28,16 @@ export type Tab =
   | "customers"
   | "channels"
   | "pos"
-  | "b2b";
+  | "b2b"
+  | "b2bQuotes";
 
 export function useStudioNavigation() {
   const { t } = useLocale();
   const setup = useSetupText();
   const personal = useWorkspaceText();
   const p = usePosText();
-  const b = useB2BText();
+  const b = useB2BText(),
+    bx = useB2BExperienceText();
   const { w } = useWorkbenchText();
   const { o } = useOperationsText();
   const tabLabel = (id: Tab): string => {
@@ -42,6 +45,7 @@ export function useStudioNavigation() {
     if (id === "workspace") return personal("title");
     if (id === "design") return personal("design");
     if (id === "b2b") return b("title");
+    if (id === "b2bQuotes") return bx("quotes");
     if (id === "pos") return p("title");
     if (id === "channels") return w("channels");
     if (id === "commerce") return t("settings");
@@ -64,6 +68,7 @@ export function useStudioNavigation() {
     { id: "assistant", icon: "chat" },
     { id: "overview", icon: "pulse" },
     { id: "b2b", icon: "people" },
+    { id: "b2bQuotes", icon: "chat" },
     { id: "pos", icon: "register" },
     { id: "orders", icon: "box" },
     { id: "customers", icon: "people" },

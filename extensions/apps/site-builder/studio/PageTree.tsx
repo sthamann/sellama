@@ -25,6 +25,7 @@ const blockIcon = {
   form: "form",
   articles: "layers",
   app: "agents",
+  native: "layers",
 } as const;
 export default function PageTree({
   d,
@@ -159,7 +160,7 @@ export default function PageTree({
                 type="button"
                 disabled={!writable || !i}
                 title={t("up")}
-                aria-label={`${t("up")}: ${t(b.kind)}`}
+                aria-label={`${t("up")}: ${contentText(b.text, language, mainLocale) || t(b.kind)}`}
                 onClick={() => editing?.move(b.id, -1)}
               >
                 ↑
@@ -168,7 +169,7 @@ export default function PageTree({
                 type="button"
                 disabled={!writable || i === d.draft!.content.blocks.length - 1}
                 title={t("down")}
-                aria-label={`${t("down")}: ${t(b.kind)}`}
+                aria-label={`${t("down")}: ${contentText(b.text, language, mainLocale) || t(b.kind)}`}
                 onClick={() => editing?.move(b.id, 1)}
               >
                 ↓

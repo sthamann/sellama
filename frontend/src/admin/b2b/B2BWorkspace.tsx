@@ -21,17 +21,25 @@ export default function B2BWorkspace({
   request,
   rights,
   onSettings,
+  quotes = false,
+  onQuotes,
+  onCompanies,
 }: {
   request: RequestFn;
   rights?: string[];
   onSettings?: () => void;
+  quotes?: boolean;
+  onQuotes?: () => void;
+  onCompanies?: () => void;
 }) {
   const x = useB2BExperienceText();
   const [feature, setFeature] = useState<
       Parameters<ReturnType<typeof useB2BExperienceText>>[0] | ""
     >(""),
     [creating, setCreating] = useState(false),
-    [tab, setTab] = useState<"companies" | "quotes">("companies"),
+    [tab, setTab] = useState<"companies" | "quotes">(
+      quotes ? "quotes" : "companies",
+    ),
     [query, setQuery] = useState("");
   const t = useB2BText(),
     { locale } = useLocale();
@@ -42,6 +50,9 @@ export default function B2BWorkspace({
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
     [saved, setSaved] = useState("");
+  const openQuotes = () => (onQuotes ? onQuotes() : setTab("quotes"));
+  const openCompanies = () =>
+    onCompanies ? onCompanies() : setTab("companies");
   const canManage = !rights || rights.includes("b2b.manage"),
     canPII = !rights || rights.includes("customers.pii");
   const command = (op: string, v: unknown = {}) => request("/api/b2b/" + op, v);
@@ -93,7 +104,7 @@ export default function B2BWorkspace({
             <Icon name="people" />
             {t("shortTitle")}
           </span>
-          <h1>{t("title")}</h1>
+          <h1>{quotes ? x("quotes") : t("title")}</h1>
           <p>{t("hint")}</p>
         </div>
         <button
@@ -149,36 +160,43 @@ export default function B2BWorkspace({
                 "edi",
                 "catalogs",
               ] as const
-            ).map((key) => (
-              <button
-                className="b2b-feature-card"
-                key={key}
-                onClick={() => {
-                  setFeature(key);
-                  setTab(key === "quotes" ? "quotes" : "companies");
-                }}
-              >
-                <Icon
-                  name={
-                    key === "quotes"
-                      ? "chat"
-                      : key === "members"
-                        ? "people"
-                        : key === "budgets"
-                          ? "card"
-                          : key === "edi"
-                            ? "code"
-                            : key === "catalogs"
-                              ? "lock"
-                              : "layers"
-                  }
-                />
-                <strong>{x(key)}</strong>
-                <small>
-                  {key === "companies" ? t("hint") : x(`${key}Hint`)}
-                </small>
-              </button>
-            ))}
+            )
+              .filter((key) =>
+                key === "quotes"
+                  ? canManage && canPII && config?.features?.quotes === true
+                  : config?.features?.[key] !== false,
+              )
+              .map((key) => (
+                <button
+                  className="b2b-feature-card"
+                  key={key}
+                  onClick={() => {
+                    setFeature(key);
+                    if (key === "quotes") openQuotes();
+                    else openCompanies();
+                  }}
+                >
+                  <Icon
+                    name={
+                      key === "quotes"
+                        ? "chat"
+                        : key === "members"
+                          ? "people"
+                          : key === "budgets"
+                            ? "card"
+                            : key === "edi"
+                              ? "code"
+                              : key === "catalogs"
+                                ? "lock"
+                                : "layers"
+                    }
+                  />
+                  <strong>{x(key)}</strong>
+                  <small>
+                    {key === "companies" ? t("hint") : x(`${key}Hint`)}
+                  </small>
+                </button>
+              ))}
           </div>
           {feature && feature !== "quotes" && (
             <aside className="studio-card b2b-feature-guide" role="status">
@@ -187,17 +205,11 @@ export default function B2BWorkspace({
             </aside>
           )}
           <nav className="workbench-row">
-            <button
-              aria-pressed={tab === "companies"}
-              onClick={() => setTab("companies")}
-            >
+            <button aria-pressed={tab === "companies"} onClick={openCompanies}>
               {x("companies")} ({companies.length})
             </button>
-            {canManage && canPII && config?.features?.quotes !== false && (
-              <button
-                aria-pressed={tab === "quotes"}
-                onClick={() => setTab("quotes")}
-              >
+            {canManage && canPII && config?.features?.quotes === true && (
+              <button aria-pressed={tab === "quotes"} onClick={openQuotes}>
                 {x("quotes")}
               </button>
             )}
@@ -207,9 +219,13 @@ export default function B2BWorkspace({
           </nav>
         </>
       )}
-      {tab === "quotes" && canManage && canPII && (
-        <Quotes request={request} busy={busy} run={run} />
-      )}
+      {tab === "quotes" &&
+        canManage &&
+        canPII &&
+        config?.features?.enabled &&
+        config?.features?.quotes && (
+          <Quotes request={request} busy={busy} run={run} />
+        )}
       {tab === "companies" &&
         (!draft ? (
           <div className="b2b-company-grid">

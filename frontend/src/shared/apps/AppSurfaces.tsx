@@ -108,16 +108,22 @@ export function surfaceLabel(s: AppSurface, locale: string) {
 export function AdminAppNavigation({
   selected,
   onSelect,
+  include,
 }: {
   selected: AppSurface | null;
   onSelect: (s: AppSurface) => void;
+  include?: (s: AppSurface) => boolean;
 }) {
   const { surfaces } = useContext(Registry);
   const { locale } = useLocale();
   return (
     <>
       {surfaces
-        .filter((s) => s.surface.location === "admin.navigation")
+        .filter(
+          (s) =>
+            s.surface.location === "admin.navigation" &&
+            (!include || include(s)),
+        )
         .map((s) => (
           <button
             key={`${s.app}:${s.surface.id}`}

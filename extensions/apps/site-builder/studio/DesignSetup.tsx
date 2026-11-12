@@ -5,8 +5,23 @@ import AppConsent from "../../../../frontend/src/admin/apps/AppConsent";
 import Icon from "../../../../frontend/src/shared/ui/Icon";
 import { useSetupText } from "./setup-i18n";
 import "./setup.css";
-export type DesignIntent = "edit" | "agent" | "blocks" | "hero" | "products";
-const intents = ["edit", "agent", "blocks", "hero", "products"];
+export type DesignIntent =
+  | "edit"
+  | "agent"
+  | "blocks"
+  | "hero"
+  | "products"
+  | "product-layout"
+  | "category-layout";
+const intents = [
+  "edit",
+  "agent",
+  "blocks",
+  "hero",
+  "products",
+  "product-layout",
+  "category-layout",
+];
 export function designIntent(): DesignIntent | undefined {
   const value = new URLSearchParams(location.search).get("designIntent");
   return intents.includes(value ?? "") ? (value as DesignIntent) : undefined;

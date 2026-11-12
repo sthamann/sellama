@@ -37,6 +37,7 @@ export default function EditableSection({
   children: ReactNode;
 }) {
   const c = useCanvasText();
+  const { language, mainLocale } = useContentLanguage();
   const editing = useBlocks(),
     t = useDesignText(),
     i = useInteractionText();
@@ -46,6 +47,7 @@ export default function EditableSection({
       tools.current?.scrollIntoView?.({ block: "nearest", inline: "nearest" });
   }, [selected, editing?.dragging]);
   if (!editing?.enabled) return children;
+  const label = contentText(block.text, language, mainLocale) || t(block.kind);
   const boundary = (e: DragEvent) =>
     index +
     (e.clientY >
@@ -63,7 +65,7 @@ export default function EditableSection({
         ref={tools}
         className="designer-section-tools"
         role="group"
-        aria-label={`${i("controls")}: ${t(block.kind)}`}
+        aria-label={`${i("controls")}: ${label}`}
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.stopPropagation()}
       >
@@ -87,7 +89,7 @@ export default function EditableSection({
             <path d="M5 3h2v2H5zm6 0h2v2h-2zM5 8h2v2H5zm6 0h2v2h-2zM5 13h2v2H5zm6 0h2v2h-2z" />
           </svg>
         </button>
-        <span>{t(block.kind)}</span>
+        <span>{label}</span>
         <button
           type="button"
           disabled={index === 0}
@@ -108,7 +110,7 @@ export default function EditableSection({
         </button>
         <button
           type="button"
-          disabled={count >= 24}
+          disabled={count >= 24 || block.kind === "native"}
           aria-label={c("duplicate")}
           title={c("duplicate")}
           onClick={() => editing.duplicate(block.id)}
@@ -118,6 +120,7 @@ export default function EditableSection({
         <button
           type="button"
           className="designer-remove-element"
+          disabled={block.kind === "native"}
           aria-label={i("removeElement")}
           title={i("removeElement")}
           onClick={() => editing.remove(block.id)}

@@ -24,6 +24,7 @@ const moduleRights: Record<Tab, string[]> = {
   orders: ["orders.read"],
   customers: ["customers.read"],
   b2b: ["b2b.read"],
+  b2bQuotes: ["b2b.read"],
   pos: ["pos.use"],
   channels: ["channels.read"],
   automation: ["automation.read"],
@@ -35,6 +36,11 @@ const moduleRights: Record<Tab, string[]> = {
   commerce: ["settings.read"],
 };
 export function canOpenStudio(tab: Tab, rights: string[]) {
+  if (
+    tab === "b2bQuotes" &&
+    !["b2b.manage", "customers.pii"].every((right) => rights.includes(right))
+  )
+    return false;
   if (tab === "setup" && !rights.includes("settings.read")) return false;
   if (tab === "design" && !rights.includes("catalog.read")) return false;
   if (

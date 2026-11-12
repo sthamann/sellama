@@ -67,7 +67,7 @@
   flex: 1;
   min-height: 0;
   overflow: auto;
-  overscroll-behavior: contain;
+  overscroll-behavior-inline: contain;
   cursor: grab;
   scrollbar-color: var(--border, #c8d8e8) transparent;
 }

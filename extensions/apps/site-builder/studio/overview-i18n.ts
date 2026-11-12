@@ -1,6 +1,48 @@
 /** Page overview controls use the same interface locales as the surrounding editor. */
 import { useLocale } from "../../../../frontend/src/shared/i18n/i18n";
 const words = {
+  editProductRecord: [
+    "Edit product data",
+    "Produktdaten bearbeiten",
+    "Modifier les données du produit",
+    "Editar datos del producto",
+  ],
+  editCategoryRecord: [
+    "Edit category data",
+    "Kategoriedaten bearbeiten",
+    "Modifier les données de la catégorie",
+    "Editar datos de la categoría",
+  ],
+  editProductLayout: [
+    "Design product page",
+    "Produktseite gestalten",
+    "Concevoir la fiche produit",
+    "Diseñar la ficha de producto",
+  ],
+  editCategoryLayout: [
+    "Design category page",
+    "Kategorieseite gestalten",
+    "Concevoir la page de catégorie",
+    "Diseñar la página de categoría",
+  ],
+  productLayoutHint: [
+    "Arrange the gallery, details and reviews for products in this sales channel.",
+    "Ordne Galerie, Details und Bewertungen für die Produkte dieses Verkaufskanals an.",
+    "Organisez la galerie, les détails et les avis des produits de ce canal.",
+    "Organiza la galería, los detalles y las reseñas de los productos de este canal.",
+  ],
+  categoryLayoutHint: [
+    "Arrange category filters, product listings and your own sections.",
+    "Ordne Kategoriefilter, Produktliste und eigene Bereiche an.",
+    "Organisez les filtres, la liste de produits et vos propres sections.",
+    "Organiza los filtros, la lista de productos y tus propias secciones.",
+  ],
+  chooseCategory: [
+    "Preview category",
+    "Kategorie für die Vorschau",
+    "Catégorie de l’aperçu",
+    "Categoría para la vista previa",
+  ],
   product: [
     "Product detail",
     "Produktdetail",

@@ -142,10 +142,12 @@
   outline: 1px dashed transparent;
   outline-offset: -2px;
 }
-.is-design-preview .site-section:hover {
+.is-design-preview .site-section:hover,
+.is-design-preview .site-native-section:hover {
   outline-color: #63b8ff;
 }
-.is-design-preview .site-section.is-selected {
+.is-design-preview .site-section.is-selected,
+.is-design-preview .site-native-section.is-selected {
   outline: 3px solid #0877e8;
   outline-offset: -3px;
 }

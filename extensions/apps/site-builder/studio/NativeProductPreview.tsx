@@ -1,10 +1,14 @@
 /** Native gallery and purchase presentation use a scoped read without shopper sessions, analytics or app actions. */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { RequestFn } from "../../../../frontend/src/shared/api/types";
 import type { Detail } from "../../../../frontend/src/shared/api/shop-api";
 import { useShopText } from "../../../../frontend/src/shared/i18n/shop-i18n";
 import ProductGallery from "../../../../frontend/src/storefront/catalog/ProductGallery";
 import ProductPurchase from "../../../../frontend/src/storefront/catalog/ProductPurchase";
+import ProductDetails from "../../../../frontend/src/storefront/catalog/ProductDetails";
+import ProductSafety from "../../../../frontend/src/storefront/legal/ProductSafety";
+import ProductQuestion from "../../../../frontend/src/storefront/catalog/ProductQuestion";
+import ProductReviews from "../../../../frontend/src/storefront/catalog/ProductReviews";
 import { useOverviewText } from "./overview-i18n";
 
 type Props = {
@@ -13,6 +17,7 @@ type Props = {
   workspace: string;
   channel: string;
   language: string;
+  renderLayout?: (sections: Record<string, ReactNode>) => ReactNode;
 };
 export default function NativeProductPreview(props: Props) {
   const t = useOverviewText();
@@ -68,42 +73,70 @@ export default function NativeProductPreview(props: Props) {
   const p = data.product;
   const tier = data.calculatedPrices[0];
   if (!tier) return <p role="alert">{t("productUnavailable")}</p>;
+  const render = props.renderLayout ?? ((sections) => sections.purchase);
   return (
     <main className="shop-content pdp is-design-preview">
-      <div className="pdp-main">
-        <ProductGallery p={p} image={image} setImage={setImage} />
-        <ProductPurchase
-          preview
-          s={s}
-          p={p}
-          data={data}
-          money={(value) =>
-            new Intl.NumberFormat(locale, {
-              style: "currency",
-              currency: p.currency ?? "EUR",
-            }).format(value)
-          }
-          tier={tier}
-          groups={[
-            ...new Set(
-              data.variants.flatMap((variant) => Object.keys(variant.options)),
-            ),
-          ]}
-          variantsLoading={false}
-          detailRequest={detailRequest}
-          setVariantsLoading={() => {}}
-          id={p.id}
-          cart={undefined}
-          setData={() => {}}
-          setError={() => {}}
-          onConfigure={async () => undefined}
-          quantity={quantity}
-          setQuantity={setQuantity}
-          effective={p.min_purchase}
-          busy
-          onAdd={() => {}}
-        />
-      </div>
+      {render({
+        purchase: (
+          <div className="pdp-main">
+            <ProductGallery p={p} image={image} setImage={setImage} />
+            <ProductPurchase
+              preview
+              s={s}
+              p={p}
+              data={data}
+              money={(value) =>
+                new Intl.NumberFormat(locale, {
+                  style: "currency",
+                  currency: p.currency ?? "EUR",
+                }).format(value)
+              }
+              tier={tier}
+              groups={[
+                ...new Set(
+                  data.variants.flatMap((variant) =>
+                    Object.keys(variant.options),
+                  ),
+                ),
+              ]}
+              variantsLoading={false}
+              detailRequest={detailRequest}
+              setVariantsLoading={() => {}}
+              id={p.id}
+              cart={undefined}
+              setData={() => {}}
+              setError={() => {}}
+              onConfigure={async () => undefined}
+              quantity={quantity}
+              setQuantity={setQuantity}
+              effective={p.min_purchase}
+              busy
+              onAdd={() => {}}
+            />
+          </div>
+        ),
+        details: <ProductDetails product={p} language={language} preview />,
+        assistance: (
+          <>
+            <ProductSafety value={p.extra?.compliance} />
+            <ProductQuestion productId={p.id} />
+          </>
+        ),
+        reviews: (
+          <ProductReviews
+            s={s}
+            data={data}
+            reviewed={false}
+            cart={undefined}
+            setSending={() => {}}
+            setError={() => {}}
+            id={p.id}
+            setReviewed={() => {}}
+            sending={false}
+            error=""
+          />
+        ),
+      })}
     </main>
   );
 }

@@ -1,4 +1,6 @@
 /** StorefrontHeader: storefront view composed from the scoped cart/controller. */
+import { commercePage } from "../../../../extensions/apps/site-builder/commerce-layout";
+import { usePublishedSite } from "../../../../extensions/apps/site-builder/storefront/PublishedSite";
 import { mediaImage } from "../../shared/media/product-media";
 import { openConsent } from "../../shared/legal/consent-store";
 import { StorefrontAppNavigation } from "../../shared/apps/AppSurfaces";
@@ -14,6 +16,7 @@ import { useStorefront } from "./StorefrontContext";
 export default function StorefrontHeader() {
   const {
     company,
+    salesChannel,
     s,
     busy,
     cart,
@@ -24,6 +27,7 @@ export default function StorefrontHeader() {
     products,
     openBag,
   } = useStorefront();
+  const { pages } = usePublishedSite();
   const displayName =
     company.brandName ||
     company.name ||
@@ -46,6 +50,7 @@ export default function StorefrontHeader() {
           ? 0
           : (cart?.lineItems.reduce((n, i) => n + i.quantity, 0) ?? 0)
       }
+      collectionLayout={!!commercePage(pages, salesChannel, "category")}
       navigation={<StorefrontAppNavigation />}
       onAccount={() => setAccount("overview")}
       onMerchant={onMerchant}

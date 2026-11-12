@@ -208,6 +208,13 @@ it("opens native data editing without page tools or page navigation and returns 
     screen.getByRole("button", { name: "Open editor: Product page" }),
   );
   expect(
+    await screen.findByRole("heading", { name: "Design product page" }),
+  ).toBeVisible();
+  expect(
+    screen.queryByRole("heading", { name: "Native data editor" }),
+  ).toBeNull();
+  fireEvent.click(screen.getByRole("button", { name: "Edit product data" }));
+  expect(
     await screen.findByRole("heading", { name: "Native data editor" }),
   ).toBeVisible();
   expect(document.querySelector(".designer-preview-bar")).toBeNull();

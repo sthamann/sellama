@@ -1,5 +1,13 @@
 # Changelog
 
+## Design product and category layouts in Studio
+
+- Scroll the Canvas overview and storefront editor with their native controls.
+- Arrange native commerce sections and add content to product and category
+  layouts. Save and publish them through the existing sandbox review.
+- Group seller accounts, product offers and incoming orders under Marketplaces.
+  Show B2B areas when enabled and permitted.
+
 ## Resume shop creation after reaching the shop limit
 
 - Studio and hosted setup share a limit of 50 owned shops per account.

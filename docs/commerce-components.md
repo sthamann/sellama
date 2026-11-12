@@ -329,6 +329,10 @@ Each component task remains open until these checks are demonstrated for it.
     buyer session in SDK 0.4.12. Verify saved addresses, purchase, order
     recovery, digital download and logout in Chromium.
     [Browser session](merchant-operations.md#use-the-signed-in-browser-with-the-sdk).
+  - [x] Register, sign in and sign out with the buyer Account SDK in 0.4.13.
+    Verify that sign-in retains the guest basket and renews its token, then
+    complete a purchase and confirm that sign-out revokes account access.
+    [Account lifecycle](merchant-operations.md#register-and-sign-in-with-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;

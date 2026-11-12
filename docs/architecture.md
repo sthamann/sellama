@@ -67,7 +67,7 @@ browser renders the guide and the current offer.
 The account SDK reads orders from Core after purchase. Core matches the
 current buyer to the customer ID recorded in the order snapshot and
 returns the customer-facing projection.
-[Browser buyer session](merchant-operations.md#use-the-signed-in-browser-with-the-sdk) ·
+[Browser buyer session and cart rotation](merchant-operations.md#register-and-sign-in-with-the-sdk) ·
 [Buyer profile and address book](merchant-operations.md#edit-the-buyer-profile-with-the-sdk) ·
 [Order history and PDF downloads](merchant-operations.md#read-order-history-with-the-sdk) ·
 [Purchased files](merchant-operations.md#download-purchased-files-with-the-sdk).

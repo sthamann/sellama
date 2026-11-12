@@ -10,6 +10,16 @@ Updated 12 November 2026. Start here for the public product, observed journeys a
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
 
+## Buyer registration and sign-in in the SDK
+
+SDK 0.4.13 uses the shop's HttpOnly session for registration, sign-in and
+sign-out. In local Chromium, sign-in retained the guest basket and replaced
+its token. Core rejected an invalid password and the old cart token. The
+buyer completed a simulated purchase through independent Checkout, saw the
+order and downloaded the purchased file. After sign-out, Core denied both
+the profile read and use of the signed-in open cart token.
+[Buyer session walkthrough](merchant-operations.md#register-and-sign-in-with-the-sdk).
+
 ## Account and Checkout SDK in the shop browser
 
 SDK 0.4.12 reuses the shop's HttpOnly buyer session. Chromium exercised

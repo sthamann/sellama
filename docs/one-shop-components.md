@@ -87,7 +87,7 @@ purchase and check the original receipt with the typed Checkout SDK.
 [Prepare and review a cart](checkout-component.md#review-a-cart-change-from-the-sdk).
 [Choose shipping and payment](checkout-component.md#choose-shipping-and-payment-from-the-sdk).
 [Use the Core relay](checkout-component.md#use-the-checkout-relay-from-the-sdk).
-[Register and sign in with the SDK](merchant-operations.md#register-and-sign-in-with-the-sdk) ·
+[Manage the buyer session and password](merchant-operations.md#use-the-signed-in-browser-with-the-sdk) ·
 [Manage buyer profiles and addresses](merchant-operations.md#edit-the-buyer-profile-with-the-sdk) ·
 [Read orders and download a receipt](merchant-operations.md#read-order-history-with-the-sdk) ·
 [Download purchased files](merchant-operations.md#download-purchased-files-with-the-sdk).

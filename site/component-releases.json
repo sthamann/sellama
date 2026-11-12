@@ -8,10 +8,10 @@
       "guide": "docs/quickstart.html"
     },
     "sdk": {
-      "tag": "v0.4.13",
-      "commit": "608d7b467db39e0a604b36494ae050a56555ca76",
+      "tag": "v0.4.14",
+      "commit": "d83bb9462dca83bf9b555f5efb948d1dd2b83229",
       "prerelease": true,
-      "guide": "docs/merchant-operations.html#register-and-sign-in-with-the-sdk"
+      "guide": "docs/merchant-operations.html#change-a-buyer-password-with-the-sdk"
     },
     "apps": {
       "tag": "v0.29.1",

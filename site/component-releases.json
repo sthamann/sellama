@@ -8,10 +8,10 @@
       "guide": "docs/quickstart.html"
     },
     "sdk": {
-      "tag": "v0.4.15",
-      "commit": "fe4d9193f97439c6f2bb9846eea914d8028b491a",
+      "tag": "v0.4.20",
+      "commit": "66d8e30bd593a9c67e5c83efd3e67b9225b51741",
       "prerelease": true,
-      "guide": "docs/agentic-component-ui.html#render-a-shared-workspace-with-a2ui"
+      "guide": "docs/hosted-component-api.html"
     },
     "apps": {
       "tag": "v0.29.1",

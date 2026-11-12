@@ -8,10 +8,10 @@
       "guide": "docs/quickstart.html"
     },
     "sdk": {
-      "tag": "v0.4.11",
-      "commit": "67cec48c6045dbf4da6a112464795a3e414c1ae2",
+      "tag": "v0.4.12",
+      "commit": "2c814a1c8cbdbdcc83c8beb10f9889629841347e",
       "prerelease": true,
-      "guide": "docs/merchant-operations.html#download-purchased-files-with-the-sdk"
+      "guide": "docs/merchant-operations.html#use-the-signed-in-browser-with-the-sdk"
     },
     "apps": {
       "tag": "v0.29.1",

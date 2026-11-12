@@ -6,9 +6,19 @@ The local Checkout comparison records equivalent quote results and catalog
 availability across a Checkout restart. Hosted capacity remains a separate
 test. [Measurement](evidence/checkout-composition-performance-2026-11-08.md).
 
-Updated 11 November 2026. Start here for the public product, observed journeys and
+Updated 12 November 2026. Start here for the public product, observed journeys and
 remaining delivery work. Source code, passing tests and a successful public
 journey are tracked separately. The 4 November PayPal journeys use the actual provider Sandbox; earlier purchases retain their stated simulation scope.
+
+## Purchased downloads in the SDK
+
+SDK 0.4.11 lists purchased digital files and downloads their bytes. In a
+local test with separate Core and Checkout services, a buyer purchased a
+digital item alongside a physical item. The buyer saw the German title
+and downloaded the original bytes, including after the merchant withdrew
+the file from sale. Core denied the file to a different buyer and an
+anonymous caller. Public Lumen required a buyer session for the file list.
+[Download walkthrough](merchant-operations.md#download-purchased-files-with-the-sdk).
 
 ## Buyer profile in the SDK
 

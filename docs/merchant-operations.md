@@ -74,7 +74,7 @@ This does not insert invented addresses into real registered accounts.
 
 ### Edit the buyer profile with the SDK
 
-Install [SDK 0.4.10](https://github.com/veyndo/sdk/releases/tag/v0.4.10) to
+Install [SDK 0.4.11](https://github.com/veyndo/sdk/releases/tag/v0.4.11) to
 read the buyer's account and save editable contact fields.
 
 ```js
@@ -99,7 +99,7 @@ to use the existing session cookie.
 
 ### Manage buyer addresses with the SDK
 
-Install [SDK 0.4.10](https://github.com/veyndo/sdk/releases/tag/v0.4.10) to
+Install [SDK 0.4.11](https://github.com/veyndo/sdk/releases/tag/v0.4.11) to
 read and update the signed-in buyer's address book. In a browser on the shop
 origin, configure `credentials: 'same-origin'` to use the session cookie.
 
@@ -127,7 +127,7 @@ its own copy of the shipping and billing addresses.
 
 ### Read order history with the SDK
 
-Install the [SDK 0.4.10 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.10).
+Install the [SDK 0.4.11 archive](https://github.com/veyndo/sdk/releases/tag/v0.4.11).
 The account client reads the signed-in buyer's orders. Use the same shop and
 buyer context for each page and for order details.
 
@@ -160,6 +160,33 @@ can write to a file in Node or use to create a browser download. It uses
 the same buyer session and applies `maxResponseBytes` (1 MiB by default).
 In a browser on the shop origin, use `credentials: 'same-origin'` to use
 the existing session cookie.
+
+### Download purchased files with the SDK
+
+The same account client lists files from the buyer's eligible orders. Use the
+shop content locale to resolve the display title.
+
+```js
+import { createAccountClient } from '@veyndo/sdk/account';
+
+const account = createAccountClient({
+  baseUrl: shopOrigin, shop, locale: 'de-DE', maxResponseBytes: 8 * 1024 * 1024,
+});
+const buyer = { customerToken };
+const { elements } = await account.downloads.list(buyer);
+// Fetch the selected file when the buyer clicks Download.
+const selected = elements[0];
+if (selected) {
+  const { bytes, mime } = await account.downloads.file(selected.orderId, selected.id, buyer);
+  console.log(selected.name, selected.filename, mime, bytes.byteLength);
+}
+```
+
+Core checks the purchase and payment again on each download. The order pins
+the purchased file, so existing buyers keep access when it is withdrawn from
+sale. A full refund revokes access. The SDK returns bytes and MIME type for
+a download and uses a 1 MiB response limit by default. Configure the account
+client for files up to 20 MiB.
 
 ## Merchant API and MCP
 

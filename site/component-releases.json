@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-11",
+  "checked_at": "2026-11-12",
   "public_releases": {
     "veyndo": {
       "tag": "v0.5.0",
@@ -8,10 +8,10 @@
       "guide": "docs/quickstart.html"
     },
     "sdk": {
-      "tag": "v0.4.10",
-      "commit": "b607dfb2f8180c7d3365040fad08cf48a3fff62f",
+      "tag": "v0.4.11",
+      "commit": "67cec48c6045dbf4da6a112464795a3e414c1ae2",
       "prerelease": true,
-      "guide": "docs/merchant-operations.html#edit-the-buyer-profile-with-the-sdk"
+      "guide": "docs/merchant-operations.html#download-purchased-files-with-the-sdk"
     },
     "apps": {
       "tag": "v0.29.1",

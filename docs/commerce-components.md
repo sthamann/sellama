@@ -321,6 +321,10 @@ Each component task remains open until these checks are demonstrated for it.
     Verify that a contact change preserves buyer identity and the address
     book, and that the same buyer can complete Checkout and read the invoice.
     [Buyer profile](merchant-operations.md#edit-the-buyer-profile-with-the-sdk).
+  - [x] Type purchased digital files and bounded downloads in SDK 0.4.11.
+    Verify a localized title and exact file bytes after independent Checkout,
+    denial for other buyers and retained access after withdrawal from sale.
+    [Digital downloads](merchant-operations.md#download-purchased-files-with-the-sdk).
 - [ ] FND-06 Define authenticated service grants, identity adapters, short-lived
   delegated scopes, resource budgets and secret ownership across repositories.
 - [ ] FND-07 Define event ID, source revision, causation, trace context and replay;
